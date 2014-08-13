@@ -22,7 +22,7 @@ http://aka.ms/netfeatures
 
 ![Shaun Arora](ShaunArora.png)
 
-TBD: Url for the video
+***TBD: Url for the video***
 
 ## Ian Hays: Building a MultiDictionary Collection for .NET
 
@@ -64,11 +64,11 @@ http://channel9.msdn.com/Blogs/funkyonex/Fun-with-the-Interns-Charles-Lowell-on-
 
 ## Santiago Fernandez Madero: An LLVM based optimizer for MSIL
 
-TBD
+***TBD: Picture***
 
 ## Zach Montoya: Visual Studio designer for .NET Native
 
-TBD 
+***TBD***
 
 ## Christian Salgado Pacheco: Cataloging .NET APIs
 
@@ -77,6 +77,6 @@ challenging. At Microsoft, we often build internal engineering tools
 to make our lives easier. Christian worked on a tool that enables us
 to catalog the APIs and record comments and design notes.
 
-TBD: URL
+***TBD: URL***
 
 ![Christian Salgado Pacheco](ChristianSalgadoPacheco.png)
