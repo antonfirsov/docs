@@ -18,11 +18,23 @@ Now let's dive right in and see what cool stuff they helped us building.
 
 ## Shaun Arora: Designing .NET for NuGet
 
-http://aka.ms/netfeatures
+[We're releasing more and more .NET framework functionality via NuGet][dotnetisnuget].
+Moving forward, we intend to bring the two even closer together. Shaun
+spend a lot of time thinking about this problem space and helped us
+shape our thoughs and design some ideas.
+
+Shaun is also a very talented developer and designer and helped us
+to build a [catalog of all the .NET features][dotnetfeatures] we shipped
+since .NET 4. Check it out!
+
+To learn more about our thinking on the NuGet integration, watch this interview:
+
+***TBD: URL***
 
 ![Shaun Arora](ShaunArora.png)
 
-***TBD: Url for the video***
+[dotnetfeatures]: http://microsoft.github.io/dotnetfeatures
+[dotnetisnuget]: http://blogs.msdn.com/b/dotnet/archive/2013/10/16/nuget-is-a-net-framework-release-vehicle.aspx
 
 ## Ian Hays: Building a MultiDictionary Collection for .NET
 
