@@ -7,14 +7,14 @@ components to designing forward looking aspects:
 * **Shaun Arora** (program manager intern): Designing .NET for NuGet
 * **Ian Hays** (developer intern): Building a MultiDictionary Collection for .NET
 * **Charles Lowell** (developer intern): .NET Portability Analyzer
-* **Santiago Fernandez Madero** (developer intern): An LLVM based optimizer for MSIL 
-* **Zach Montoya** (developer intern): Visual Studio designer for .NET Native 
+* **Santiago Fernandez Madero** (developer intern): An LLVM based optimizer for MSIL
+* **Zach Montoya** (developer intern): Visual Studio designer for .NET Native
 * **Christian Salgado Pacheco** (developer intern): Cataloging .NET APIs
 
 If you're interested in interning with Microsoft, visit
 [our recruiting web site](http://careers.microsoft.com/careers/en/us/collegehome.aspx).
 
-Now let's dive right in and see what cool stuff they helped us building. 
+Now let's dive right in and see what cool stuff they helped us building.
 
 ## Shaun Arora: Designing .NET for NuGet
 
@@ -56,7 +56,7 @@ platform.
 More about information about the .NET Portability Analyzer:
 
 * [Leveraging existing code across .NET platforms](http://blogs.msdn.com/b/dotnet/archive/2014/08/06/leveraging-existing-code-across-net-platforms.aspx)
-* [.NET Portability Analyzer: Visual Studio Extension](http://go.microsoft.com/fwlink/?LinkID=507467&clcid=0x409) 
+* [.NET Portability Analyzer: Visual Studio Extension](http://go.microsoft.com/fwlink/?LinkID=507467&clcid=0x409)
 
 http://channel9.msdn.com/Blogs/funkyonex/Fun-with-the-Interns-Charles-Lowell-on-the-NET-API-Portability-Analyzer
 
