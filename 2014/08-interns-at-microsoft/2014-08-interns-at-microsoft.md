@@ -76,7 +76,19 @@ http://channel9.msdn.com/Blogs/funkyonex/Fun-with-the-Interns-Charles-Lowell-on-
 
 ## Santiago Fernandez Madero: An LLVM based optimizer for MSIL
 
-***TBD: Picture***
+Santiago really likes being close to the metal. So he investigated what it
+would take to use [LLVM] in the .NET native code generator. [LLVM] is a cross
+platform, open source collection of modular and reusable compiler and toolchain
+technologies.
+
+If you like compilers and low level stuff, watch this interview where Beth
+and Santiago geek out:
+
+[LLVM]: http://llvm.org/
+
+***TBD: URL***
+
+![Santiago Fernandez Madero](SantiagoFernandezMadero.png)
 
 ## Zach Montoya: Visual Studio designer for .NET Native
 
