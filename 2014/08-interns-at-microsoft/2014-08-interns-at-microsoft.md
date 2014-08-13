@@ -74,8 +74,8 @@ TBD
 
 Keeping track of all the .NET APIs across all the platforms can be
 challenging. At Microsoft, we often build internal engineering tools
-to make our lives easier. Christian worked on a tool that allows us to
-catalog our APIs and record comments and design notes.
+to make our lives easier. Christian worked on a tool that enables us
+to catalog the APIs and record comments and design notes.
 
 TBD: URL
 
