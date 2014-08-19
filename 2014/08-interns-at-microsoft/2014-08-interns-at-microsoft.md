@@ -91,7 +91,22 @@ and Santiago geek out:
 
 ## Zach Montoya: Visual Studio designer for .NET Native
 
-***TBD***
+Speaking about [.NET Native]: how does .NET Native do dynamic things when it's
+compiling your code statically? The answer is something called
+[Runtime Directives]. Runtime directives are basically additional information
+provided to the .NET Native tool chain that tell the compiler what APIs you
+intend to call dynamically.
+
+Zach built a Visual Studio extension that allows maintaining and configuring the
+[runtime directives] right from Visual Studio. Check out the interview to learn
+more about this extension (and on how Beth can tell developers and program
+managers apart).
+
+***TBD: URL***
+
+[Runtime Directives]: http://blogs.msdn.com/b/dotnet/archive/2014/05/20/net-native-deep-dive-dynamic-features-in-static-code.aspx
+
+![Zach Montoya](ZachMontoya.png)
 
 ## Christian Salgado Pacheco: Cataloging .NET APIs
 
