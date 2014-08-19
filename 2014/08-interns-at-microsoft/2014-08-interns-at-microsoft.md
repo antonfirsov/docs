@@ -115,6 +115,6 @@ At Microsoft, we often build internal engineering tools to make our lives
 easier. Christian worked on a tool that enables us to catalog the APIs and
 record comments and design notes.
 
-***TBD: URL***
+<http://channel9.msdn.com/Blogs/funkyonex/Fun-with-the-Interns-Christian-Salgado-Catalogs-NET-APIs>
 
 ![Christian Salgado Pacheco](ChristianSalgadoPacheco.png)
