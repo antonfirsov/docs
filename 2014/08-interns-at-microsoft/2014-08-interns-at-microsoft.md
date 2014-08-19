@@ -51,7 +51,7 @@ look the blog posts he wrote over the summer:
 * [Would you like a MultiDictionary?](http://blogs.msdn.com/b/dotnet/archive/2014/06/20/would-you-like-a-multidictionary.aspx)
 * [MultiDictionary becomes MultiValueDictionary](http://blogs.msdn.com/b/dotnet/archive/2014/08/05/multidictionary-becomes-multivaluedictionary.aspx)
 
-http://channel9.msdn.com/Blogs/Charles/Ian-Hays-Building-a-MultiDictionary-Collection-for-NET
+<http://channel9.msdn.com/Blogs/Charles/Ian-Hays-Building-a-MultiDictionary-Collection-for-NET>
 
 ![Ian Hays](IanHays.png)
 
@@ -68,7 +68,7 @@ More information about the .NET Portability Analyzer:
 * [Leveraging existing code across .NET platforms](http://blogs.msdn.com/b/dotnet/archive/2014/08/06/leveraging-existing-code-across-net-platforms.aspx)
 * [.NET Portability Analyzer: Visual Studio Extension](http://go.microsoft.com/fwlink/?LinkID=507467&clcid=0x409)
 
-http://channel9.msdn.com/Blogs/funkyonex/Fun-with-the-Interns-Charles-Lowell-on-the-NET-API-Portability-Analyzer
+<http://channel9.msdn.com/Blogs/funkyonex/Fun-with-the-Interns-Charles-Lowell-on-the-NET-API-Portability-Analyzer>
 
 ![Charles Lovell](CharlesLovell.png)
 
