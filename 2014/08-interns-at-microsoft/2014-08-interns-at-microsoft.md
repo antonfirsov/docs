@@ -28,7 +28,7 @@ Check it out!
 
 To learn more about our thinking on the NuGet integration, watch this interview:
 
-***TBD: URL***
+<http://channel9.msdn.com/Blogs/funkyonex/Fun-with-the-Interns-Shaurya-Arora-on-Designing-NET-for-NuGet>
 
 ![Shaun Arora](ShaunArora.png)
 
