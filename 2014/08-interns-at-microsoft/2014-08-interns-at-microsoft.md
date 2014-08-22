@@ -85,7 +85,7 @@ and Santiago geek out:
 [LLVM]: http://llvm.org/
 [.NET Native]: http://blogs.msdn.com/b/dotnet/archive/tags/dotnetnative/
 
-***TBD: URL***
+<http://channel9.msdn.com/Blogs/funkyonex/Fun-with-the-Interns-Santiago-Fernandez-on-LLVM-Based-Optimizer-for-MSIL>
 
 ![Santiago Fernandez Madero](SantiagoFernandezMadero.png)
 
