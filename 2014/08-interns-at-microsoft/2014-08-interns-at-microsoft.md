@@ -102,7 +102,7 @@ Zach built a Visual Studio extension that allows maintaining and configuring the
 more about this extension (and on how Beth can tell developers and program
 managers apart).
 
-***TBD: URL***
+<http://channel9.msdn.com/Blogs/funkyonex/Fun-with-the-Interns-Zach-Montoya-Builds-a-Visual-Studio-Designer-for-NET-Native>
 
 [Runtime Directives]: http://blogs.msdn.com/b/dotnet/archive/2014/05/20/net-native-deep-dive-dynamic-features-in-static-code.aspx
 
