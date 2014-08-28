@@ -43,3 +43,9 @@ Here is the workflow:
 4. [Create a pull request][submit-pull-request]
 
 [submit-pull-request]: https://clr.visualstudio.com/DefaultCollection/Collateral/_git/Blog/pullrequests#targetRef=master&_a=createnew
+
+## Posts
+
+* 2014
+    - [08 - Interns at Microsoft](08-interns-at-microsoft/2014-08-interns-at-microsoft.md)
+    - [08 - WCF and .NET Native](08-wcf-and-dotnetnative/2014-08-wcf-and-dotnetnative.md)
