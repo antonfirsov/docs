@@ -1,7 +1,8 @@
 # .NET Sample Code on GitHub
 
 Today, we're happy to announce that we've started to move some of our sample
-assets over to GitHub. So I can directly answer Ben's question
+assets over to GitHub, using the MIT license. So I can directly answer Ben's
+question
 
 ![](Tweet.png)
 
@@ -13,20 +14,20 @@ with this tweet:
 
 The reasons we decided to move the samples to GitHub is as follows:
 
-1. Be where the community is
-2. Offers an awesome browsing experience
-3. Provides a home for conceptual documentation
-4. Enables contributions
+1. We want to be where our community is
+2. GitHub offers an awesome browsing experience
+3. GitHub enables conceptual documentation to be located with sample code
+4. We want to be able to accept contributions
 
 Let me take them one by one.
 
-## Be where the community is
+## We want to be where our community is
 
 It's where the majority of the .NET community is these days. Our principle is,
 and has been, to go where our customers are, rather than asking them to move to,
 say, MSDN Code Gallery.
 
-## Offers an awesome browsing experience
+## GitHub offers an awesome browsing experience
 
 The nice thing with GitHub is that it allows us to link to parts of the samples.
 For example, in SIMD [we can point][simd-pointer] you to a specific line of code
@@ -36,27 +37,25 @@ that shows how you can use the SIMD types to vectorize Mandelbrot:
 
 ![](SIMDSample.png)
 
-## Provides a home for conceptual documentation
+## GitHub enables conceptual documentation to be located with sample code
 
 Sample code usually comes with at least a `README` file that explains how to get
 started. However, depending on the component the sample is for we may want to
 include a more comprehensive documentation. While sample code and documentation
-isn't a replacement for MSDN we believe it can often be the starting point for
-which will eventually become the official documentation.
+aren't a replacement for MSDN, but we think they can provide a starting point
+for what will eventually become the official documentation.
 
 Take, for example, the [CLR Memory Diagnostics (CLRMD)][clrmd] library. The
 [README.md][clrmd-readme] file links to a more comprehensive documentation in
 the [docs folder][clrmd-docs].
 
-## Enables contributions
+## We want to be able to accept contributions
 
-Being on GitHub allows us to update our samples in a more streamlined fashion.
-First of all, members on the team can very easily fix typos or clarify parts of
-the documentation or the code by simply using the web front-end.
+Publishing our samples to GitHub streamlines any updates. Team members can
+easily fix typos or clarify parts of the documentation using the web front-end.
 
-But more importantly, it also enables you to provide sample code or propose
-changes. Many of you have asked you about this for years -- it's finally a
-reality!
+But more importantly, **it also enables you** to provide sample code or propose
+changes. Many of you have asked about this for years -- it's finally a reality!
 
 # Summary
 
