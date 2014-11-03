@@ -40,6 +40,4 @@ Here is the workflow:
 
         git push origin 2014/08-interns-at-microsoft
 
-4. [Create a pull request][submit-pull-request]
-
-[submit-pull-request]: https://clr.visualstudio.com/DefaultCollection/Collateral/_git/Blog/pullrequests#targetRef=master&_a=createnew
+4. Create a pull request
