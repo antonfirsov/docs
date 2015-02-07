@@ -15,13 +15,13 @@ Luckily the Roslyn project presented us with the tools to fix this problem.  Its
 
 The tool itself is very simple to use; point it at a project or solution and it will systematically convert all of the code involved into the prescribed coding style.  The process is very fast, taking only a few seconds for most projects and up to a couple of minutes for very large ones.  It can even be run repeatedly on them to ensure that a consistent style is maintained over the course of time.
 
-Take for example how easy it was to fix up the Regex code base which has been around since 1.0:
+Take for example how easy it was to fix up the `Regex` code base which has been around since 1.0:
 
 ``` 
 codeformatter.exe System.Text.RegularExpressions.csproj
 ```
 
-That took code with old stanards and documentation like the folowing from Regex.cs:
+That took code with old standards and documentation like the following from `Regex.cs`:
 
 ``` csharp
 /// <devdoc>
