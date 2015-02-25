@@ -1,9 +1,9 @@
 .NET Core Open Source Update
 ============================
 
-It has been a couple weeks since we last reported on the .NET Core open source project. It's been a very fun time, watching more people get involved in the project and to see progress on a daily basis. It's amazing watching my GitHub _News Feed_. I have to scroll through several page views just to get through the last hour (on a weekday) of [corefx](https://github.com/dotnet/corefx), [coreclr](https://github.com/dotnet/coreclr) and [roslyn](https://github.com/dotnet/roslyn) repo activity. Today, we're going to focus on the CoreCLR repo.
+It has been a couple weeks since we last reported on the .NET Core open source project. It's been a very fun time, watching more people get involved in the project and to see progress on a daily basis. It's amazing watching my GitHub news feed. I have to scroll through several page views just to get through the last hour (on a weekday) of [corefx](https://github.com/dotnet/corefx), [coreclr](https://github.com/dotnet/coreclr) and [roslyn](https://github.com/dotnet/roslyn) repo activity. Today, we're going to focus on the CoreCLR repo.
 
-In addition to the growing community activity, there have also been some important product improvements that have been committed. Some of the key changes are coming from the community. That's very impressive. Wow and Thanks.
+In addition to the growing community activity, there have been important product improvements that have been committed. Some of the key changes are coming from the community. That's very impressive. Wow and Thanks.
 
 Work-in-progress
 ================
@@ -15,7 +15,7 @@ There are two parts to that:
 - Publish issues, as both self-assign and _up-for-grabs_.
 - Do work on a publicly visible branch (either coreclr or a fork).
 
-Here are a few issues that we published that employ both the self-assign and up-for-grabs patterns. The act of publishing issues enables transparent ownership of issues, which is beneficial for everyone. 
+Here are a few of the issues that we published using both the self-assign and up-for-grabs patterns. The act of publishing issues enables transparent ownership of issues, which is beneficial for everyone. 
 
 - [Port assembly code for JIT_MemSet and JIT_MemCpy to Linux and Mac](https://github.com/dotnet/coreclr/issues/199)
 - [Ensure that the libcoreclr.so exports only the necessary functions.](https://github.com/dotnet/coreclr/issues/247)
@@ -23,8 +23,8 @@ Here are a few issues that we published that employ both the self-assign and up-
 
 Doing feature work in the open means that anyone can:
 
-- Watch changes as they are made, to understand and give feedback on the approach for a given feature, before it is submitted as a PR.
-- Collaborate with .NET Core team members on the actual feature work.
+- Watch changes as they are made, to understand and give feedback on the approach for a given feature, _before_ it is submitted as a PR.
+- Collaborate as a group on the actual feature work.
 
 Here's a [good example](https://github.com/dotnet/coreclr/pull/282) of one of the first features that was developed in the open. 
 
@@ -35,9 +35,9 @@ You can see that this feature was developed in a central branch on the coreclr r
 Mac OS X Support
 ================
 
-One of the biggest additions since we published the CoreCLR repo is the initial implementation of Mac OS X support. The internal Microsoft team has been focussed on Linux support, making Mac OS X support a great community project, in order to bring it up in parallel with Linux. 
+One of the biggest additions since we published the CoreCLR repo is the initial implementation of Mac OS X support. The internal Microsoft team has been focussed on Linux support, making Mac OS X support a great community-led project, in order to bring it up in parallel with Linux. 
 
-[@kangaroo](https://github.com/kangaroo) has been leading the charge on Mac OS X. His [64-bit OS X tweet](https://twitter.com/geoffnorton/status/563911442261213185) establishes his creds for his work. He's referring to [Mono](http://mono-project.com/) and [.NET Core](https://github.com/dotnet/coreclr).
+[@kangaroo](https://github.com/kangaroo) has been leading the charge on Mac OS X. His [64-bit OS X tweet](https://twitter.com/geoffnorton/status/563911442261213185) establishes his creds for this work. He's referring to [Mono](http://mono-project.com/) and [.NET Core](https://github.com/dotnet/coreclr).
 
 ![@kangaroo initial Mac support](kangaroo-init-mac-support.png)
 
@@ -77,8 +77,8 @@ Gitter is an impressive product. I like using it. It's the integration with GitH
 Community Thanks!
 =================
 
-We were impressed to see the Roslyn team [recognize recent committers](https://twitter.com/khyperia/status/569992447708819456) to the Roslyn project. That's quite classy.
+We were impressed to see the Roslyn team [recognize recent committers](https://twitter.com/khyperia/status/569992447708819456) to the Roslyn repo. We like to refer to these as sha-cups. That's quite classy.
 
 ![Roslyn sha-cup](roslyn-sha-cup.png)
 
-We haven't gotten to that level of awesome community appreciation just yet. That said, we're equally appreciative for the level of support that we're seeing on a daily basis, almost 24 hours a day. Thanks to everyone who has contributed to the .NET Core project.
+We haven't gotten to that level of awesome community appreciation just yet. That said, we're equally appreciative for the level of support that we're seeing on a daily basis, almost 24 hours a day. Thanks to everyone who has contributed to the .NET Core project. If you haven't yet, I encourage you to get involved.
