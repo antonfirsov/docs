@@ -8,12 +8,14 @@ In addition to the growing community activity, there have been important product
 Work-in-progress
 ================
 
-We published the CoreCLR source earlier this month, but did not immediately transition our work-in-progress feature work to be open and viewable. We received community encouragement to adopt a more transparent approach, and are following through on that.
+We published the CoreCLR source earlier this month, but did not immediately transition our work-in-progress feature work to be open and viewable. We received community encouragement to adopt a more transparent approach. We are following through on that.
 
-There are two parts to that:
+People want to approach building a significant feature with the knowledge that Microsoft is not building the same thing. It would be very frustrating to see a PR closed (not merged) after putting several hours (or more) into it, due to inadequate coordination upfront. That's the anti-pattern.
+
+There are two parts to that. The .NET Core team will:
 
 - Publish issues, as both self-assign and _up-for-grabs_.
-- Do work on a publicly visible branch (either coreclr or a fork).
+- Do work on a publicly visible branch (either coreclr/corefx or a fork).
 
 Here are a few of the issues that we published using both the self-assign and up-for-grabs patterns. The act of publishing issues enables transparent ownership of issues, which is beneficial for everyone. 
 
@@ -26,11 +28,15 @@ Doing feature work in the open means that anyone can:
 - Watch changes as they are made, to understand and give feedback on the approach for a given feature, _before_ it is submitted as a PR.
 - Collaborate as a group on the actual feature work.
 
-Here's a [good example](https://github.com/dotnet/coreclr/pull/282) of one of the first features that was developed in the open. 
+Here's a [good example](https://github.com/dotnet/coreclr/pull/282) of one of the first features that was developed in the open. If you read the PR, you'll see an in-depth publicly-visible conversation, with both community and Microsoft folks. I cannot show you the actual branch anymore, since it has been (naturally) deleted. 
 
 ![Implement native stack unwinding for Linux](unix-issue177-branch.png)
 
 You can see that this feature was developed in a central branch on the coreclr repo. We will make use of both central branches and personal forks for feature work. We choose the branch location based on the level of discoverability and engagement that makes sense for a given feature. 
+
+You might be wondering how to find out about these feature branches before they show up as PRs. Watch the [Issues](https://github.com/dotnet/coreclr/issues) queue. Feature branches should be advertised within the issues they 'implement'.
+
+Most of you are are not paying attention at quite this level of detail. There are a set of folks who are making a significant set of contributions and for whom transparency matters a lot, for both product direction and code changes. We are making a real effort to cater to that need. Keep the feedback coming, so that we can continue to improve the transparency and communication.
 
 Mac OS X Support
 ================
