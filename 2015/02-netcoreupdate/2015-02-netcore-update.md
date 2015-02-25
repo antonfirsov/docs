@@ -18,7 +18,7 @@ There are two parts to that:
 Here are a few of the issues that we published using both the self-assign and up-for-grabs patterns. The act of publishing issues enables transparent ownership of issues, which is beneficial for everyone. 
 
 - [Implement calling convention for structs passing in JIT for Linux and Mac](https://github.com/dotnet/coreclr/issues/200)
-- [https://github.com/dotnet/coreclr/issues/202](https://github.com/dotnet/coreclr/issues/202)
+- [Implement a plugin for loading CoreCLR debugger extensions into LLDB](https://github.com/dotnet/coreclr/issues/202)
 - [Port assembly code for JIT_MemSet and JIT_MemCpy to Linux and Mac](https://github.com/dotnet/coreclr/issues/199)
 
 Doing feature work in the open means that anyone can:
