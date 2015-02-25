@@ -37,13 +37,13 @@ Mac OS X Support
 
 One of the biggest additions since we published the CoreCLR repo is the initial implementation of Mac OS X support. The internal Microsoft team has been focussed on Linux support, making Mac OS X support a great community-led project, in order to bring it up in parallel with Linux. 
 
-[@kangaroo](https://github.com/kangaroo) has been leading the charge on Mac OS X. His [64-bit OS X tweet](https://twitter.com/geoffnorton/status/563911442261213185) establishes his creds for this work. He's referring to [Mono](http://mono-project.com/) and [.NET Core](https://github.com/dotnet/coreclr).
-
-![@kangaroo initial Mac support](kangaroo-init-mac-support.png)
-
-These two PRs started the Mac OS X bringup: [Mac OS X Support](https://github.com/dotnet/coreclr/pull/105) and [Initial Mac OS X Support](https://github.com/dotnet/coreclr/pull/117). There have been lots of changes since then.
+[@kangaroo](https://github.com/kangaroo) has been leading the charge on Mac OS X. Thanks! Check out these two PRs if you want to look at the changes: [Mac OS X Support](https://github.com/dotnet/coreclr/pull/105) and [Initial Mac OS X Support](https://github.com/dotnet/coreclr/pull/117). There have been lots of changes since then.
 
 ![@kangaroo PR #117](kangaroo-pull-117.png)
+
+You can see from the community response to the initial support announcement that there are a lot of folks that would like to see .NET Core on Mac OS X. Me, too!
+
+![@kangaroo initial Mac support](kangaroo-init-mac-support.png)
 
 [@praeclarum](https://twitter.com/praeclarum/status/564846894837272576) wrote a great set of instructions, [Building and Running .NET’s CoreCLR on OS X](http://praeclarum.org/post/110552954728/building-and-running-nets-coreclr-on-os-x), to help you follow along at home. Check it out.
 
@@ -73,6 +73,15 @@ We have two Gitter rooms now. Please drop in and join the crowd.
 - [CoreCLR](https://gitter.im/dotnet/coreclr)
 
 Gitter is an impressive product. I like using it. It's the integration with GitHub (obviously) that makes it a pleasure to use. That said, if someone likes a different chat room service, we're happy to publicize it, provided you can create an active community around it.
+
+dotnet.github.io
+================
+
+Microsoft created the [.NET Foundation](http://www.dotnetfoundation.org) last year. We contributed .NET Core and other .NET components, like Roslyn, ASP.NET and Orleans, to it. Several other companies and individuals have contributed components. 
+
+We've been spending a lot of time on GitHub, since most of the Microsoft projects are now there. There is a trend of hosting org.github.io pages to make it easier to discover repos. The [Netflix](http://netflix.github.io) and [Twitter](http://twitter.github.io) are great examples. We shamelessly borrowed some of their ideas.
+
+Check out the [dotnet.github.io](http://dotnet.github.io) page we built for the .NET Foundation. It helps you discover [.NET Foundation project](http://www.dotnetfoundation.org/projects) repos. Repos are ordered in terms of  [_OSS Awesomeness_](http://dotnet.github.io/about.html), which is a concept we borrowed from Twitter.
 
 Community Thanks!
 =================
