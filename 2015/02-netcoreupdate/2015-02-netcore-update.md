@@ -68,32 +68,55 @@ Like Mac OS X support, it is still "early days" in the project. That said, we ha
 
 ![.NET Core on Linux](netcore-on-linux.png)
 
+Tracking progress on library work for .NET Core
+===============================================
+
+The previous [.NET Core Open Source Update](http://blogs.msdn.com/b/dotnet/archive/2015/01/28/net-core-open-source-update.aspx) attached a spreadsheet that allowed you to get a sense for which APIs we foresee .NET Core will have. To make tracking easier, we've create a new repository on GitHub, called
+[dotnet/corefx-progress](https://github.com/dotnet/corefx-progress).
+
+This repository is designed to allow you to track our progress towards publishing all of .NET Core library source. It's only provided as a temporary mechanism to allow you track the difference between what we've already open sourced and what is yet to come. As a result, we
+don't intend you to contribute to this repository.
+
+This repository contains the following folders:
+
+* **lib-full**. These are the reference assemblies (i.e. assemblies without IL) that represent the entire surface area of all .NET Core libraries.
+* **src-full**. This is the C# representation of the assemblies in `lib-full`.
+* **src-oss**. This is the C# representation of the assemblies that are already open sourced, i.e. are available on GitHub.
+* **src-diff**. For each assembly, this folder has a Markdown file that contains the unified diff between `src-full` and `src-oss`.
+
+In order to understand what hasn't been open sourced what is coming, you should take a look at the [.NET Core: Library Open Source Progress][progress].
+
+Alternatively you can clone this repository and use your favorite tool to diff the directories `src-full` and `src-oss`.
+
+[progress]: https://github.com/dotnet/corefx-progress/tree/master/src-diff/README.m
+
 Gitter Chat
 ===========
 
-We received a PR - [Add a Gitter chat badge to README.md](https://github.com/dotnet/coreclr/pull/153/files) - to publicize a Gitter room created by [@migueldeicaza](https://github.com/migueldeicaza). We've seen a lot of people using it. 
+We received three PRs recently - [Add a Gitter chat badge to README.md](https://github.com/dotnet/coreclr/pull/153/files), [Add a Gitter chat badge to README.md](https://github.com/dotnet/corefx/pull/685) and [Add a Gitter chat badge to README.md](https://github.com/dotnet/roslyn/pull/525) - to publicize Gitter chat rooms created by [@migueldeicaza](https://github.com/migueldeicaza). This guy must like to talk about .NET!
 
-We have two Gitter rooms now. Please drop in and join the crowd.
+Please drop into the Gitter rooms and join the crowd.
 
 - [CoreFX](https://gitter.im/dotnet/corefx)
 - [CoreCLR](https://gitter.im/dotnet/coreclr)
+- [Roslyn](https://gitter.im/dotnet/roslyn)
 
-Gitter is an impressive product. I like using it. It's the integration with GitHub (obviously) that makes it a pleasure to use. That said, if someone likes a different chat room service, we're happy to publicize it, provided you can create an active community around it.
+Gitter is an impressive product. I like using it. It's the integration with GitHub (obviously!) that makes it a pleasure to use. That said, if someone likes a different chat room service, we're happy to publicize it, provided you can create an active community around it.
 
 dotnet.github.io
 ================
 
 Microsoft created the [.NET Foundation](http://www.dotnetfoundation.org) last year. We contributed .NET Core and other .NET components, like Roslyn, ASP.NET and Orleans, to it. Several other companies and individuals have contributed components. 
 
-We've been spending a lot of time on GitHub, since most of the Microsoft projects are now there. There is a trend of hosting org.github.io pages to make it easier to discover repos. The [Netflix](http://netflix.github.io) and [Twitter](http://twitter.github.io) are great examples. We shamelessly borrowed some of their ideas.
+We've been spending a lot of time on GitHub, since most of the Microsoft projects are now there. There is a trend of hosting org.github.io pages to make it easier to discover repos. The [Netflix](http://netflix.github.io) and [Twitter](http://twitter.github.io) sites are great examples. We shamelessly borrowed their ideas.
 
 Check out the [dotnet.github.io](http://dotnet.github.io) page we built for the .NET Foundation. It helps you discover [.NET Foundation project](http://www.dotnetfoundation.org/projects) repos. Repos are ordered in terms of  [_OSS Awesomeness_](http://dotnet.github.io/about.html), which is a concept we borrowed from Twitter.
 
 Community Thanks!
 =================
 
-We were impressed to see the Roslyn team [recognize recent committers](https://twitter.com/khyperia/status/569992447708819456) to the Roslyn repo. We like to refer to these as sha-cups. That's quite classy.
+I was impressed to see the Roslyn team [recognize recent committers](https://twitter.com/khyperia/status/569992447708819456) to the Roslyn repo. I've heard folks on the team refer to these as sha-cups. That's quite classy.
 
 ![Roslyn sha-cup](roslyn-sha-cup.png)
 
-We haven't gotten to that level of awesome community appreciation just yet. That said, we're equally appreciative for the level of support that we're seeing on a daily basis, almost 24 hours a day. Thanks to everyone who has contributed to the .NET Core project. If you haven't yet, I encourage you to get involved.
+We haven't sent out any cups for corefx and coreclr just yet (should we?). That said, we're equally appreciative for the level of support that we're seeing on a daily basis, almost 24 hours a day. Thanks to everyone who has contributed to the .NET Core project. If you haven't yet, I encourage you to get involved.
