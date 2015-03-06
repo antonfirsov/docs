@@ -1,43 +1,48 @@
-### .NET Portability Analyzer
+.NET Portability Analyzer
+=========================
 
-In following Microsoft’s OSS initiative, the .NET Framework team has capitalized on that idea by open-sourcing their [.NET Portability website](https://github.com/Microsoft/dotnet-apiweb) on GitHub. This collects and displays the top used APIs, allows users to search for supported APIs on each platform and displays porting recommendations.
+Today, we are releasing the source for the [.NET Portability website](https://github.com/Microsoft/dotnet-apiweb) on GitHub. The site is an MVC app built with [ASP.NET 5](https://github.com/aspnet/home). It's a good example of ASP.NET 5 code that you can look at, to see how the new web stack works. By virtue of using ASP.NET 5, this site can run on Windows, Linux and Mac.
 
-Open sourcing this software shows users a real-world example the ease to migrate code from classic ASP.NET to the new ASP.NET vNext. It’s nice to have a real example, the ones in [ASP.NET Sample](https://github.com/aspnet/home#samples) seem sort of contrived, so with this OSS push, we’ll show them how to make an MVC app and a library.  They’ll be able to see how the new .kproj format can be used to create a library that easily works on multiple platforms (ASP.NET, .NET 4.5, ASP.NET Core 5.0).
+![apiweb repo](apiweb-repo.png)
 
-In addition, we've also open-sourced [Microsoft.Fx.Portability](https://github.com/Microsoft/dotnet-apiport), a vital component used by all the .NET Portability analyzers to communicate with our back-end services. We've begun to publish nightly builds of our dotnet-apiport repository to [myget](https://www.myget.org/gallery/dotnet-apiport) for external users to consume.  This will allow developers to call the service using the Microsoft.Fx.Portability library and do things like search through the FX catalog for APIs.
+The [.NET Portability site](http://dotnetstatus.azurewebsites.net) provides access to the [.NET Portabilty Analyzer](http://blogs.msdn.com/b/dotnet/archive/2014/08/06/leveraging-existing-code-across-net-platforms.aspx) tool and [.NET API Usage](http://dotnetstatus.azurewebsites.net/usage) information. The API usage section displays the top used .NET APIs, allows you to search for supported APIs on each platform and displays porting recommendations. This aggregate information is collected from people who run the [.NET Portabilty Analyzer](http://dotnetstatus.azurewebsites.net) tool. 
 
-Just add a reference to our MyGet feed, https://www.myget.org/F/dotnet-apiport then add a reference to the package: `Install-Package Microsoft.Fx.Portability -IncludePrerelease`.  The code sample below shows how to find matching APIs using our Portability Service.
+We've also released [Microsoft.Fx.Portability](https://github.com/Microsoft/dotnet-apiport) on GitHub. It's a component used by the .NET Portability analyzers to communicate with our back-end Azure services. We are now publishing nightly builds of our dotnet-apiport repository to [myget](https://www.myget.org/gallery/dotnet-apiport) for anyone to consume.  This will allow developers to call the service using the Microsoft.Fx.Portability library and do things like search through the FX catalog for APIs.
+
+To use this library, add a reference to our MyGet feed, [https://www.myget.org/F/dotnet-apiport](https://www.myget.org/F/dotnet-apiport) in NuGet settings, then search for the package (enable searching for prerelease pacakges). You can also add a reference via the Package Manager Console: `Install-Package Microsoft.Fx.Portability -IncludePrerelease`.  
+
+The code sample below shows how to find matching APIs using our Portability Service.
 
 	public static void Main(string[] args)
 	{
-    var analysisService = new ApiPortService("https://portability.cloudapp.net", new ProductInformation("MyAPIQueryProgram"));
+        var analysisService = new ApiPortService("https://portability.cloudapp.net", new ProductInformation("MyAPIQueryProgram"));
 
-    Console.WriteLine("Enter API you want to search for:");
-    var api = Console.ReadLine();
+        Console.WriteLine("Enter API you want to search for:");
+        var api = Console.ReadLine();
 
-    var matchingApis = FindMatchingApis(analysisService, api).Result;
+        var matchingApis = FindMatchingApis(analysisService, api).Result;
 
-    Console.WriteLine("Enter the number of the API you want to get more information about.");
+        Console.WriteLine("Enter the number of the API you want to get more information about.");
 
-    for (int i = 0; i < matchingApis.Count; i++)
-    {
-        Console.WriteLine("[" + i + "] " + matchingApis[i].FullName);
-    }
+        for (int i = 0; i < matchingApis.Count; i++)
+        {
+            Console.WriteLine("[" + i + "] " + matchingApis[i].FullName);
+        }
 
-    var index = int.Parse(Console.ReadLine());
+        var index = int.Parse(Console.ReadLine());
 
-    var apiToSearchFor = matchingApis[index];
-    var apiInformation = GetApi(analysisService, apiToSearchFor.DocId).Result;
+        var apiToSearchFor = matchingApis[index];
+        var apiInformation = GetApi(analysisService, apiToSearchFor.DocId).Result;
 
-    Console.WriteLine("These are the platforms this API is supported on: ");
+        Console.WriteLine("These are the platforms this API is supported on: ");
 
-    foreach (var platform in apiInformation.Supported.Select(x => x.FullName))
-    {
-        Console.WriteLine(platform);
-    }
+        foreach (var platform in apiInformation.Supported.Select(x => x.FullName))
+        {
+            Console.WriteLine(platform);
+        }
 
-    Console.WriteLine("Enter any key to quit...");
-    Console.ReadKey();
+        Console.WriteLine("Enter any key to quit...");
+        Console.ReadKey();
 	}
 	
 	private static async Task<IReadOnlyList<ApiDefinition>> FindMatchingApis(IApiPortService service, string api)
@@ -53,8 +58,10 @@ Just add a reference to our MyGet feed, https://www.myget.org/F/dotnet-apiport t
 	}
 
 
-The .NET Framework team is currently working on making more components/projects available in the dotnet-apiport repository. Watch dotnet-apiport for updates and when we open-source [.NET Portability console tool](https://www.microsoft.com/en-us/download/details.aspx?id=42678) and [VSIX Extension](https://visualstudiogallery.msdn.microsoft.com/1177943e-cfb7-4822-a8a6-e56c7905292b).
+You can watch the [dotnet-apiport](https://github.com/Microsoft/dotnet-apiport) repo for updates. We intend to open-source the [.NET Portability console tool](https://www.microsoft.com/en-us/download/details.aspx?id=42678) and [VSIX Extension](https://visualstudiogallery.msdn.microsoft.com/1177943e-cfb7-4822-a8a6-e56c7905292b). It would be great to know if these projects are valuable to you as open source. If you intend to use this code for your project, we'd appreciate talking with you to better align plans.
 
-#### Sources
+For more information, check out these more in-depth blog posts on the Portability Analyzer.
+
+* [.NET Team Blog: Leveraging existing code across .NET platforms](http://blogs.msdn.com/b/dotnet/archive/2014/08/06/leveraging-existing-code-across-net-platforms.aspx)
 * [Scott Hanselman: Getting ready for the future with the Microsoft .NET Portability Analyzer](http://www.hanselman.com/blog/GettingReadyForTheFutureWithTheMicrosoftNETPortabilityAnalyzer.aspx)
-* [.NET Framework Blog: Leveraging existing code across .NET platforms](http://blogs.msdn.com/b/dotnet/archive/2014/08/06/leveraging-existing-code-across-net-platforms.aspx)
+
