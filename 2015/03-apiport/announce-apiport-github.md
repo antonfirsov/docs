@@ -5,7 +5,7 @@ Today, we are releasing the source for the [.NET Portability website](https://gi
 
 ![apiweb repo](apiweb-repo.png)
 
-The [.NET Portability site](http://dotnetstatus.azurewebsites.net) provides access to the [.NET Portabilty Analyzer](http://blogs.msdn.com/b/dotnet/archive/2014/08/06/leveraging-existing-code-across-net-platforms.aspx) tool and [.NET API Usage](http://dotnetstatus.azurewebsites.net/usage) information. The API usage section displays the top used .NET APIs, allows you to search for supported APIs on each platform and displays porting recommendations. This aggregate information is collected from people who run the [.NET Portabilty Analyzer](http://dotnetstatus.azurewebsites.net) tool. 
+The .NET Portability site provides access to the [.NET Portabilty Analyzer](http://dotnetstatus.azurewebsites.net) tools and [.NET API Usage](http://dotnetstatus.azurewebsites.net/usage) information. The API usage section displays the top used .NET APIs, allows you to search for supported APIs on each platform and displays porting recommendations. This aggregate information is collected from people who run the [.NET Portabilty Analyzer](http://dotnetstatus.azurewebsites.net) tool. 
 
 We've also released [Microsoft.Fx.Portability](https://github.com/Microsoft/dotnet-apiport) on GitHub. It's a component used by the .NET Portability analyzers to communicate with our back-end Azure services. We are now publishing nightly builds of our dotnet-apiport repository to [myget](https://www.myget.org/gallery/dotnet-apiport) for anyone to consume.  This will allow developers to call the service using the Microsoft.Fx.Portability library and do things like search through the FX catalog for APIs.
 
@@ -44,19 +44,6 @@ The code sample below shows how to find matching APIs using our Portability Serv
         Console.WriteLine("Enter any key to quit...");
         Console.ReadKey();
 	}
-	
-	private static async Task<IReadOnlyList<ApiDefinition>> FindMatchingApis(IApiPortService service, string api)
-	{
-	    var response = await service.SearchFxApiAsync(api, top: 20);
-	    return response.Response.ToList();
-	}
-	
-	private static async Task<ApiInformation> GetApi(IApiPortService service, string apiDocId)
-	{
-	    var response = await service.GetApiInformationAsync(apiDocId);
-	    return response.Response;
-	}
-
 
 You can watch the [dotnet-apiport](https://github.com/Microsoft/dotnet-apiport) repo for updates. We intend to open-source the [.NET Portability console tool](https://www.microsoft.com/en-us/download/details.aspx?id=42678) and [VSIX Extension](https://visualstudiogallery.msdn.microsoft.com/1177943e-cfb7-4822-a8a6-e56c7905292b). It would be great to know if these projects are valuable to you as open source. If you intend to use this code for your project, we'd appreciate talking with you to better align plans.
 
