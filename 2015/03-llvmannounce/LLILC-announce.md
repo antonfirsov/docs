@@ -3,8 +3,8 @@
 The LLILC project (we pronouce it "lilac") was started at Microsoft as an effort to produce 
 MSIL code generators based on LLVM and targeting the open source dotnet
 [CoreCLR](https://github.com/dotnet/coreclr) for a number of different scenarios.  Our first 
-tool is a JIT for CoreCLR. Following on after the JIT we expect to produce an AOT compiler 
-that will generate stand alone binaries.  
+tool is a Just in Time(JIT) compiler for CoreCLR. Following on after the JIT we expect to produce 
+an Ahead of Time(AOT) compiler that will generate stand alone binaries.  
 
 ####Why a new JIT for CoreCLR?
 
@@ -31,12 +31,12 @@ interoperate with the CoreCLR runtime.
 
 ####Why LLVM?
 
-For us LLVM is about cross-platform, community, and time to market. The active community of 
-LLVM - just trying to stay current with the dev alias was a revelation! - and its ability to 
-operate as both a JIT and as an Ahead-Of-Time (AOT) compiler was especially attractive.  By 
-bringing MSIL semantics to LLVM we plan to construct a number of tools that can work against 
-CoreCLR or some sub set of its components. We also hope the community will produce tools what 
-we haven't thought of yet. 
+Basically we think LLVM is awesome. It's already got great support across many platforms and 
+chipsets and the community is amazingly active. When we started getting involved, just trying 
+to stay current with the developer mailing list was a revelation! The ability for LLVM to operate 
+as both a JIT and as an AOT compiler was especially attractive.  By bringing MSIL semantics to 
+LLVM we plan to construct a number of tools that can work against CoreCLR or some sub set of 
+its components. We also hope the community will produce tools what we haven't thought of yet. 
 
 ####Tool roadmap
 - CoreCLR JIT
@@ -68,7 +68,7 @@ for roots - rather than precise mode.  We don't yet support Exception Handling.
 ##Architecture
 
 Philosophically LLILC is intended to provide a lean interface between CoreCLR and 
-LLVM.  Where posible we rely on preexisting technology from one side or the other.
+LLVM.  Where posible we rely on preexisting technology.
 
 ![JitArch](.\JITArch.png)
 
