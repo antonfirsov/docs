@@ -11,7 +11,7 @@ We've also released [Microsoft.Fx.Portability](https://github.com/Microsoft/dotn
 
 To use this library, add a reference to our MyGet feed, [https://www.myget.org/F/dotnet-apiport](https://www.myget.org/F/dotnet-apiport) in NuGet settings, then search for the package (enable searching for prerelease pacakges). You can also add a reference via the Package Manager Console: `Install-Package Microsoft.Fx.Portability -IncludePrerelease`.  
 
-The code sample below shows how to find matching APIs using our Portability Service.
+The [code sample](https://github.com/Microsoft/dotnet-apiport/blob/master/samples/SearchFxApi/Program.cs) below shows how to find matching APIs using our Portability Service.
 
 	public static void Main(string[] args)
 	{
