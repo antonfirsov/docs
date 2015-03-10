@@ -1,10 +1,10 @@
 ##[LLILC](https://github.com/dotnet/llilc) : An LLVM based compiler for dotnet CoreCLR.
 
-The LLILC project (we pronouce it "lilac") intends to produce MSIL code generators based 
-on LLVM and targeting the open source [CoreCLR](https://github.com/dotnet/coreclr) for a 
-number of different scenarios.  Our first tool is a JIT for CoreCLR that operates directly 
-against the common JIT interface utilized by RyuJIT, the CoreCLR production JIT. Following 
-on after the JIT we expect to produce an AOT compiler that will generate stand alone binaries.  
+The LLILC project (we pronouce it "lilac") was started at Microsoft as an effort to produce 
+MSIL code generators based on LLVM and targeting the open source dotnet
+[CoreCLR](https://github.com/dotnet/coreclr) for a number of different scenarios.  Our first 
+tool is a JIT for CoreCLR. Following on after the JIT we expect to produce an AOT compiler 
+that will generate stand alone binaries.  
 
 ####Why a new JIT for CoreCLR?
 
@@ -15,14 +15,19 @@ JIT interface as the production RyuJIT. This new JIT will allow any C# program w
 .NET Core class libraries to run on any platform that CoreCLR can be ported to and that LLVM 
 will target.
 
-####There are several ongoing efforts to complie MSIL in the LLVM community, SharpLang springs to mind. Why build another one?
+####There are several ongoing efforts to complie MSIL in the LLVM community, SharpLang springs to mind. Why build another one? 
 
-We think a new effort is useful mostly because of the CoreCLR.  The CoreCLr source base 
-reflects years of development and includes a number of building-block components that we 
-think the community can take advantage of. This fast bootstrap for C# across multiple platforms 
-was the idea that was the genesis of this project and the compelling reason to start a new effort. 
-That being said we think there are lots of areas where we can collaborate with current MSIL compliation 
-efforts. 
+When we started thinking about the fastest way to get a LLVM based code generation working we 
+looked around at the current open source projects as well as the code we had internally.  
+While a number of the OSS projects already targeted LLVM BitCode, no one had anything that 
+was a close match for the CoreCLR interface.  Looking at our options it was simplest for us 
+to refactor a working MSIL reader to target BitCode then teach a existing project to support 
+the contracts and APIs the CoreCLR uses for JITing MSIL. Using a existing MSIL reader let us quickly 
+start using a number of building-block components that we think the community can take advantage of. 
+This fast bootstrap for C# across multiple platforms was the idea that was the genesis of this 
+project and the compelling reason to start a new effort.  We hope LLILC will provide a useful 
+example - and reusable components - for the community and make it easier for other projects to 
+interoperate with the CoreCLR runtime. 
 
 ####Why LLVM?
 
@@ -41,8 +46,8 @@ we haven't thought of yet.
 	- Install-time JIT - What .NET calls NGen. 
 	 This will be suitable for install-time JITing (LLVM is still slow in a runtime 
 	 configuration)
-- Ahead of Time compiler.  A build lab compiler that utilizes some shared components from 
-CoreCLR but will produce a stand alone executable.
+- Ahead of Time compiler.  A build lab compiler that produces stand alown executables, using some 
+shared components from CoreCLR.
 
 ## What's Actually Working
 
@@ -51,25 +56,25 @@ compile a significant number of methods in the JIT bringup tests included in
 CoreCLR. In these tests we compile about half the methods and then fall back 
 to RyuJIT for cases we can't handle yet.  The testing experience is pretty 
 decent for developers.  The tests we run can be seen in the CoreCLR 
-[test repo](https://github.com/dotnet/coreclr/tree/master/tests/src/JIT/CodeGenBringUpTests)
+[test repo](https://github.com/dotnet/coreclr/tree/master/tests/src/JIT/CodeGenBringUpTests).
 
-On Linux and Mac OSX we've established a build and are putting together the 
-mscorlib and test asset dependencies to get testing off-the-ground 
-for those platforms.
+We've establish builds on Linux and Mac OSX and are pulling together 
+mscorlib, the base .NET Core library from [CoreFx](https://github.com/dotnet/corefx),  
+and test asset dependencies to get testing off-the-ground for those platforms.
 
-All tests run against the CoreCLR GC in conservative mode - scans the frame 
-for roots - rather than precise mode.  But we don't yet support Exception Handling cases.
+All tests run against the CoreCLR GC in conservative mode - which scans the frame 
+for roots - rather than precise mode.  We don't yet support Exception Handling.
 
 ##Architecture
 
-Philosophically LLILC is to provide a lean interface between CoreCLR and 
+Philosophically LLILC is intended to provide a lean interface between CoreCLR and 
 LLVM.  Where posible we rely on preexisting technology from one side or the other.
 
 ![JitArch](.\JITArch.png)
 
-For the JIT, when we are compiling on demand, we map the runtime types into
-LLVM and then translate MSIL into bitcode.  From there compliation uses LLVM 
-infrastructure.
+For the JIT, when we are compiling on demand, we map the runtime types and MSIL into 
+LLVM BitCode.  From there compliation uses LLVM MCJIT infrastructure to produce compiled 
+code that is output to buffers provided by CoreCLR. 
 
 ![AOTArch](.\AOTArch.png)
 
@@ -81,15 +86,15 @@ then produces the target executable.  There are still a number of open questions
 around issues like generics that need resolution but this is our first stake in 
 the ground.
 
-##Using LLVM
+##Experience with LLVM
 
-In the few months we've been using LLVM we've had a really good experience but with a few caveats.
- Getting started with translating to BitCode has been a very straight forward experience 
-and ramp-up time for someone with compiler experience has been very quick.  The MCJIT, which 
-we started with for our JIT, was easy to configure and get code compiled and returned 
-to the runtime. Outside of the COFF issue discussed below, we only had to make adjustments in 
-configuration or straightforward overrides of classes, like EEMemoryManager, to 
-enable working code.  Of the caveats, the first was simple, but the other two are 
+In the few months we've been using LLVM, we've had a really good experience but with a 
+few caveats. Getting started with translating to BitCode has been a very straightforward 
+experience and ramp-up time for someone with compiler experience has been very quick. 
+The MCJIT, which we started with for our JIT, was easy to configure and get code compiled 
+and returned to the runtime. Outside of the COFF issue discussed below, we only had to 
+make adjustments in configuration or straightforward overrides of classes, like EEMemoryManager, 
+to enable working code.  Of the caveats, the first was simple, but the other two are 
 going to require sustained work to bring up to the level we'd like.  The 
 first issue was a problem with Windows support in the DynamicRuntime of the MCJIT 
 infrastructure.  The last two, Precise Garbage Collection, and Exception 
@@ -114,7 +119,7 @@ To support this we're beginning to use the
 [StatePoint](http://llvm.org/docs/Statepoints.html) approach, with 
 additions to convert the standard output format to the custom format 
 expected by CoreCLR.
-We share some of the same concerns that Philip Reames echoed in the initial 
+We share some of the same concerns that Philip Reames wrote about in the initial 
 design of StatePoints.  E.g. preservation of "GCness" through the optimizer 
 is critical, but must not block optimizer transformations.  Given this concern 
 one of our open questions is how to enable testing to find GC holes that creep 
@@ -129,7 +134,7 @@ The MSIL EH model is specific to the CLR as you'd expect, but it descends
 in part conceptually from Windows Structured Exception Handling (SEH).  In 
 particular, the implicit exception flow from memory accesses to implement null 
 checks, and the use of filters and funclets in the handling of exceptions, 
-mirrors SEH. ([here](https://msdn.microsoft.com/en-us/library/ms173162.aspx) 
+mirrors SEH ([here](https://msdn.microsoft.com/en-us/library/ms173162.aspx). 
 is an outline of C# EH) Our plans at this point are to add all checks required 
 by MSIL as explicit compare/branch/throw sequences to better match C++ EH as well 
 as building on the SEH support currently being put into Clang. Then, once we have 
@@ -144,7 +149,7 @@ repo
 
 * More platforms.  Today we're running on Windows and starting to build for
 Linux and Mac OSX.  We'd like more.
-* Complet JIT implementation
+* Complete JIT implementation
     * More MSIL opcodes supported
 	* Precise GC support
 	* EH support
@@ -156,8 +161,10 @@ allocator that is used for all compilation.
 
 #### Links
 
-[LLILC Wiki](https://github.com/dotnet/llilc/wiki)
-
-[LLILC Issues](https://github.com/dotnet/llilc/issues)
+[LLILC](https://github.com/dotnet/llilc)
 
 [CoreCLR](https://github.com/dotnet/coreclr)
+
+[CoreFx](https://github.com/dotnet/corefx)
+
+[.NET Foundation](http://www.dotnetfoundation.org/)
