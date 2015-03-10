@@ -6,8 +6,7 @@ MSIL code generators based on LLVM and targeting the open source dotnet
 for a number of senarious, but our first tool is a Just in Time(JIT) compiler for CoreCLR. 
 This new project is being developed on GitHub and you can check it out 
 [here](https://github.com/dotnet/llilc). The rest of this post outlines the rational and goals 
-for the project as well as our experience using LLVM as well as the rational and goals for the 
-project.
+for the project as well as our experience using LLVM.
 
 ####Why a new JIT for CoreCLR?
 
