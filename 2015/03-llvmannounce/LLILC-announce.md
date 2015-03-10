@@ -1,16 +1,19 @@
 ##[LLILC](https://github.com/dotnet/llilc) : An LLVM based compiler for dotnet CoreCLR.
 
-The LLILC project (we pronouce it "lilac") was started at Microsoft as an effort to produce 
-MSIL code generators based on LLVM and targeting the open source dotnet
-[CoreCLR](https://github.com/dotnet/coreclr) for a number of different scenarios.  Our first 
-tool is a Just in Time(JIT) compiler for CoreCLR. Following on after the JIT we expect to produce 
-an Ahead of Time(AOT) compiler that will generate stand alone binaries.  
+The LLILC project (we pronouce it "lilac") is a new effort started at Microsoft to produce 
+MSIL code generators based on LLVM and targeting the open source dotnet 
+[CoreCLR](https://github.com/dotnet/coreclr).  We are envisioning using the LLVM infrastructure 
+for a number of senarious, but our first tool is a Just in Time(JIT) compiler for CoreCLR. 
+This new project is being developed on GitHub and you can check it out 
+[here](https://github.com/dotnet/llilc). The rest of this post outlines the rational and goals 
+for the project as well as our experience using LLVM as well as the rational and goals for the 
+project.
 
 ####Why a new JIT for CoreCLR?
 
 While the CoreCLR already has JIT, we saw an opportunity to provide a new code generator that 
 has the potential to run across all the targets and platforms supported by LLVM. To enable this, 
-as part of our project we're providing an MSIL reader that operates directly against the same 
+as part of our project we're opening an MSIL reader that operates directly against the same 
 common JIT interface as the production JIT (RyuJIT). This new JIT will allow any C# program 
 written for the .NET Core class libraries to run on any platform that CoreCLR can be ported to 
 and that LLVM will target.
@@ -18,7 +21,7 @@ and that LLVM will target.
 ####There are several ongoing efforts to complie MSIL in the LLVM community, SharpLang springs to mind. Why build another one? 
 
 When we started thinking about the fastest way to get a LLVM based code generation working we 
-looked around at the current open source projects as well as the code we had internally.  
+looked around at the current open source projects as well as the code we had internally. 
 While a number of the OSS projects already targeted LLVM BitCode, no one had anything that 
 was a close match for the CoreCLR interface.  Looking at our options it was simplest for us 
 to refactor a working MSIL reader to target BitCode then teach a existing project to support 
@@ -59,7 +62,7 @@ decent for developers.  The tests we run can be seen in the CoreCLR
 [test repo](https://github.com/dotnet/coreclr/tree/master/tests/src/JIT/CodeGenBringUpTests).
 
 We've establish builds on Linux and Mac OSX and are pulling together 
-mscorlib, the base .NET Core library from [CoreFx](https://github.com/dotnet/corefx),  
+mscorlib, the base .NET Core library from [CoreFx](https://github.com/dotnet/corefx), 
 and test asset dependencies to get testing off-the-ground for those platforms.
 
 All tests run against the CoreCLR GC in conservative mode - which scans the frame 
