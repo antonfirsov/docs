@@ -8,12 +8,12 @@ that will generate stand alone binaries.
 
 ####Why a new JIT for CoreCLR?
 
-While the CoreCLR already has RyuJIT, we saw an opportunity to provide a new code generator 
-that has the potential to run across all the targets and platforms supported by LLVM. As part 
-of our project we're providing an MSIL reader that operates directly against the same common 
-JIT interface as the production RyuJIT. This new JIT will allow any C# program written for the 
-.NET Core class libraries to run on any platform that CoreCLR can be ported to and that LLVM 
-will target.
+While the CoreCLR already has JIT, we saw an opportunity to provide a new code generator that 
+has the potential to run across all the targets and platforms supported by LLVM. To enable this, 
+as part of our project we're providing an MSIL reader that operates directly against the same 
+common JIT interface as the production JIT (RyuJIT). This new JIT will allow any C# program 
+written for the .NET Core class libraries to run on any platform that CoreCLR can be ported to 
+and that LLVM will target.
 
 ####There are several ongoing efforts to complie MSIL in the LLVM community, SharpLang springs to mind. Why build another one? 
 
