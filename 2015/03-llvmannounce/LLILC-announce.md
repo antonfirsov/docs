@@ -3,7 +3,7 @@
 The LLILC project (we pronouce it "lilac") is a new effort started at Microsoft to produce 
 MSIL code generators based on LLVM and targeting the open source dotnet 
 [CoreCLR](https://github.com/dotnet/coreclr).  We are envisioning using the LLVM infrastructure 
-for a number of senarious, but our first tool is a Just in Time(JIT) compiler for CoreCLR. 
+for a number of senarios, but our first tool is a Just in Time(JIT) compiler for CoreCLR. 
 This new project is being developed on GitHub and you can check it out 
 [here](https://github.com/dotnet/llilc). The rest of this post outlines the rational and goals 
 for the project as well as our experience using LLVM.
@@ -41,15 +41,16 @@ LLVM we plan to construct a number of tools that can work against CoreCLR or som
 its components. We also hope the community will produce tools what we haven't thought of yet. 
 
 ####Tool roadmap
-- CoreCLR JIT
-    - Just In Time - A classic JIT. 
-	This is expected to be throughput-challenged but will be correct and usable for 
-	bringup.  Also possible to use with more optimization enabled as a higher tier JIT
-	- Install-time JIT - What .NET calls NGen. 
-	 This will be suitable for install-time JITing (LLVM is still slow in a runtime 
-	 configuration)
+- CoreCLR JIT: 
+    - Just In Time - A classic JIT, operating at runtime.
+	- Install-time JIT - What .NET calls NGen. This will be suitable for install-time JITing 
 - Ahead of Time compiler.  A build lab compiler that produces stand alown executables, using some 
 shared components from CoreCLR.
+
+The LLIC JIT will be a functionally correct and complete JIT for the CoreCLR runtime. It may not have 
+sufficient throughput to be a first-tier jit, but is expected to produce high-quality code 
+and so might make a very interesting second-tier or later JIT, or a good vehicle for prototyping 
+codegen changes to feed back into RyuJit.
 
 ## What's Actually Working
 
