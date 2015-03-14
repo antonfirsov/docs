@@ -25,7 +25,7 @@ Note: This will create a folder `bin\MSBuild` in your source tree which you can 
 
 **Build a Console App**
 
-To build a console app, you'll first want to run the BuildAndCopy.cmd script we included in the root folder of the source. This will build the sources and create a copy of your build output with everything you need to do a manage project build. Again from a Developer Command Prompt, run this command from your MSBuild source location:
+To build a console app, you'll first want to run the BuildAndCopy.cmd script we included in the root folder of the source. This will build the sources and create a copy of your build output with everything you need. Again from a Developer Command Prompt, run this command from your MSBuild source location:
 ```
 BuildAndCopy.cmd bin\MSBuild true
 ```
