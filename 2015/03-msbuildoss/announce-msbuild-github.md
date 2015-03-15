@@ -12,20 +12,17 @@ We will be adding Linux and Mac support soon (perhaps with your help!) so you ca
 
 **Build the Source Tree**
 
-The first scenario you might want to try is building the source tree and then using those binaries to build the sources again. To do this, you will need to have Visual Studio 2015 installed on your machine. From a Developer Command Prompt, run the following:
+The first scenario you might want to try is building the source tree. To do this, you will need to have Visual Studio 2015 installed on your machine. From a Developer Command Prompt, run the following:
 
 ```
 git clone https://github.com/Microsoft/msbuild.git
 cd msbuild
 build.cmd
-RebuildWithLocalMSBuild.cmd
 ```
-
-Note: This will create a folder `bin\MSBuild` in your source tree which you can use to build other managed projects, including MSBuild.
 
 **Build a Console App**
 
-To build a console app, you'll first want to run the BuildAndCopy.cmd script we included in the root folder of the source. This will build the sources and create a copy of your build output with everything you need. Again from a Developer Command Prompt, run this command from your MSBuild source location:
+To build an app, you'll first want to run the BuildAndCopy.cmd script we included in the root folder of the source. This will build the sources and create a copy of your build output with everything you need. Again from a Developer Command Prompt, run this command from your MSBuild source location:
 ```
 BuildAndCopy.cmd bin\MSBuild true
 ```
@@ -37,6 +34,8 @@ git clone https://github.com/dotnet/corefxlab
 .\msbuild\bin\MSBuild\MSBuild.exe .\corefxlab\demos\CoreClrConsoleApplications\HelloWorld\HelloWorld.csproj
 .\corefxlab\demos\CoreClrConsoleApplications\HelloWorld\bin\Debug\HelloWorld.exe
 ```
+
+![](helloworld.png)
 
 # Summary
 
