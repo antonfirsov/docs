@@ -43,8 +43,8 @@ its components. We also hope the community will produce tools what we haven't th
 ####Tool roadmap
 - CoreCLR JIT
     - Just In Time - A classic JIT. 
-	This is expected to be throughput-challenged but will be correct and usable for 
-	bringup.  Also possible to use with more optimization enabled as a higher tier JIT
+	 This is expected to be throughput-challenged but will be correct and usable for 
+	 bringup.  Also possible to use with more optimization enabled as a higher tier JIT
 	- Install-time JIT - What .NET calls NGen. 
 	 This will be suitable for install-time JITing (LLVM is still slow in a runtime 
 	 configuration)
