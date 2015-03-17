@@ -1,9 +1,9 @@
 ##[LLILC](https://github.com/dotnet/llilc) : An LLVM based compiler for dotnet CoreCLR.
 
-The LLILC project (we pronouce it "lilac") is a new effort started at Microsoft to produce 
+The LLILC project (we pronounce it "lilac") is a new effort started at Microsoft to produce 
 MSIL code generators based on LLVM and targeting the open source dotnet 
 [CoreCLR](https://github.com/dotnet/coreclr).  We are envisioning using the LLVM infrastructure 
-for a number of senarious, but our first tool is a Just in Time(JIT) compiler for CoreCLR. 
+for a number of scenarios, but our first tool is a Just in Time(JIT) compiler for CoreCLR. 
 This new project is being developed on GitHub and you can check it out 
 [here](https://github.com/dotnet/llilc). The rest of this post outlines the rational and goals 
 for the project as well as our experience using LLVM.
@@ -17,7 +17,7 @@ common JIT interface as the production JIT (RyuJIT). This new JIT will allow any
 written for the .NET Core class libraries to run on any platform that CoreCLR can be ported to 
 and that LLVM will target.
 
-####There are several ongoing efforts to complie MSIL in the LLVM community, SharpLang springs to mind. Why build another one? 
+####There are several ongoing efforts to compile MSIL in the LLVM community, SharpLang springs to mind. Why build another one? 
 
 When we started thinking about the fastest way to get a LLVM based code generation working we 
 looked around at the current open source projects as well as the code we had internally. 
@@ -48,13 +48,14 @@ its components. We also hope the community will produce tools what we haven't th
 	- Install-time JIT - What .NET calls NGen. 
 	 This will be suitable for install-time JITing (LLVM is still slow in a runtime 
 	 configuration)
-- Ahead of Time compiler.  A build lab compiler that produces stand alown executables, using some 
-shared components from CoreCLR.
+- Ahead of Time compiler.  A build lab compiler that produces standalone executables, using some 
+shared components from CoreCLR.  The AOT compiler will be used to improve startup time for important 
+command line applications like the [Roslyn C# compiler](https://github.com/dotnet/roslyn).
 
 ## What's Actually Working
 
 Today on Windows we have the MSIL reader & LLVM JIT implemented well enough to 
-compile a significant number of methods in the JIT bringup tests included in 
+compile a significant number of methods in the JIT bring up tests included in 
 CoreCLR. In these tests we compile about half the methods and then fall back 
 to RyuJIT for cases we can't handle yet.  The testing experience is pretty 
 decent for developers.  The tests we run can be seen in the CoreCLR 
@@ -70,12 +71,12 @@ for roots - rather than precise mode.  We don't yet support Exception Handling.
 ##Architecture
 
 Philosophically LLILC is intended to provide a lean interface between CoreCLR and 
-LLVM.  Where posible we rely on preexisting technology.
+LLVM.  Where possible we rely on preexisting technology.
 
 ![JitArch](.\JITArch.png)
 
 For the JIT, when we are compiling on demand, we map the runtime types and MSIL into 
-LLVM BitCode.  From there compliation uses LLVM MCJIT infrastructure to produce compiled 
+LLVM BitCode.  From there compilation uses LLVM MCJIT infrastructure to produce compiled 
 code that is output to buffers provided by CoreCLR. 
 
 ![AOTArch](.\AOTArch.png)
