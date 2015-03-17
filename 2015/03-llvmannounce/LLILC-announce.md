@@ -52,6 +52,11 @@ its components. We also hope the community will produce tools what we haven't th
 shared components from CoreCLR.  The AOT compiler will be used to improve startup time for important 
 command line applications like the [Roslyn C# compiler](https://github.com/dotnet/roslyn).
 
+The LLIC JIT will be a functionally correct and complete JIT for the CoreCLR runtime. It may not have 
+sufficient throughput to be a first-tier jit, but is expected to produce high-quality code 
+and so might make a very interesting second-tier or later JIT, or a good vehicle for prototyping 
+codegen changes to feed back into RyuJit.
+
 ## What's Actually Working
 
 Today on Windows we have the MSIL reader & LLVM JIT implemented well enough to 
