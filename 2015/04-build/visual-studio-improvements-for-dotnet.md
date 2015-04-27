@@ -20,3 +20,18 @@ The following scenarios are now supported:
 - Functions with yield return expressions
 
 In some cases, the combination of these features are not yet supported with EnC (e.g. async lamdas).
+
+WPF - Live Visual Tree 
+======================
+
+Visual Studio includes a new viewer and editor for the XAML Visual Tree - Live! - while debugging a WPF app. It enables you to navigate the visual tree as it exists at any point in the life cycle of your app. You can edit properties on the tree, for example button text, which are then displayed in the running app. You cannot change the composition of the tree.
+
+You can also select visual components in the running app. These selections will update the Live Visual Tree in Visual Studio, enabling you to focus in on the parts of your app that might need investigation or updates.
+
+The Live Visual Tree is also connected to the XAML source editing experience. As you select XAML nodes in the Live Visual Tree, the selected textual XAML in the IDE changes to match. You always know which text matches, making it easy to find the line of XAML to look at or change.
+
+The following screenshot demonstrates the Live Visual Tree and an app that has a button selected with the new feature. 
+
+![Visual Studio 2015 - Live Visual Tree](vs2015-live-visual-tree.png)
+
+TODO: Get a better screenshot.
