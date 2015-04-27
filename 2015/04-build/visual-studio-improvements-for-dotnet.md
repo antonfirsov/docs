@@ -35,3 +35,10 @@ The following screenshot demonstrates the Live Visual Tree and an app that has a
 ![Visual Studio 2015 - Live Visual Tree](vs2015-live-visual-tree.png)
 
 TODO: Get a better screenshot.
+
+Perf Tips - Accuracy
+====================
+
+Perf Tips were introduced in one of the earlier Visual Studio 2015 CTPs. They provide performance information directly within Visual Studio, providing you with the performance cost of methods. It removes guessing and breaks assumptions.  The team found that the perf tips were not accurate enough. Internal measurement infrastructure in the .NET Framework was updated to measure operations in a different way. Perf Tips in the RC update are now taking adantage of the new infrastructure and are significantly more accurate.
+
+TODO: Add screen shot of perf tips
