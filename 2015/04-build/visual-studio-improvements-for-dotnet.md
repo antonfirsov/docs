@@ -19,7 +19,10 @@ The following scenarios are now supported:
 - LINQ queries
 - Functions with yield return expressions
 
-In some cases, the combination of these features are not yet supported with EnC (e.g. async lamdas).
+In some cases, the combination of these features are not yet supported with EnC (e.g. async lamdas). EnC improvements are still in progress so please [file any issues you come across on our GitHub](https://github.com/dotnet/roslyn/issues).
+> **Note:** If you don't understand why an edit fails, try checking the Error List. We've put explanations for errors there that should help clarify issues. Please file an issue if you find these messages confusing or if they do not exist for your error.
+
+Read more about earlier EnC improvements from Visual Studio 2015 CTP 6--modifying iterators, async/await, methods--[here](http://blogs.msdn.com/b/csharpfaq/archive/2015/02/23/edit-and-continue-and-make-object-id-improvements-in-ctp-6.aspx).
 
 WPF - Live Visual Tree 
 ======================
