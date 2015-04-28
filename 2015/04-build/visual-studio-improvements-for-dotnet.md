@@ -8,7 +8,9 @@ Moar EnC - Lambda and Async Task support
 
 Edit and Continue (EnC) is a great productivity feature that everyone (wants to) use every day. It enables you to edit your code while you are debugging it. This is useful for a lot of reasons, particularly if your code needs to interact with state that isn't directly part of an API (e.g. processing JSON files) and can be most easily discovered at runtime.
 
-You can now use EnC with lambdas, async methods, LINQ and a few other situations. Given today's coding patterns, that's a huge jump forward for EnC usability. The following screenshot demonstrates the new support. There are two separate lines that were typed using this new support, one in an async method and the other in a lamda.
+You can now use EnC with lambdas, async methods, LINQ and a few other situations. Given today's coding patterns, that's a huge jump forward for EnC usability. You can check out the set of [EnC improvements the team already released](http://blogs.msdn.com/b/csharpfaq/archive/2015/02/23/edit-and-continue-and-make-object-id-improvements-in-ctp-6.aspx) in Visual Studio CTP 6.
+
+The following screenshot demonstrates the new support. There are two separate lines that were typed using this new support, one in an async method and the other in a lamda.
 
 ![Visual Studio 2015 - EnC Support](vs2015-enc.png)
 
@@ -17,12 +19,13 @@ The following scenarios are now supported:
 - Async functions
 - Lambda expressions
 - LINQ queries
-- Functions with yield return expressions
+- Iterator functions
 
 In some cases, the combination of these features are not yet supported with EnC (e.g. async lamdas). EnC improvements are still in progress so please [file any issues you come across on our GitHub](https://github.com/dotnet/roslyn/issues).
-> **Note:** If you don't understand why an edit fails, try checking the Error List. We've put explanations for errors there that should help clarify issues. Please file an issue if you find these messages confusing or if they do not exist for your error.
 
-Read more about earlier EnC improvements from Visual Studio 2015 CTP 6--modifying iterators, async/await, methods--[here](http://blogs.msdn.com/b/csharpfaq/archive/2015/02/23/edit-and-continue-and-make-object-id-improvements-in-ctp-6.aspx).
+> **Note:** If you don't understand why an edit fails, try checking the Error List. There are explanations for errors there that should help clarify issues. Please file an issue if you find these messages confusing or if they do not exist for your error.
+
+Read more about [earlier EnC improvements](http://blogs.msdn.com/b/csharpfaq/archive/2015/02/23/edit-and-continue-and-make-object-id-improvements-in-ctp-6.aspx) from Visual Studio 2015 CTP 6, such as modifying iterators, async/await, methods.
 
 WPF - Live Visual Tree 
 ======================
