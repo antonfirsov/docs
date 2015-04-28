@@ -37,7 +37,7 @@ The library must check if a consumer has declared the value of the switch and th
 	if (!AppContext.TryGetSwitch(“Switch.AmazingLib.ThrowOnException”, out shouldThrow))
 	{
 	   	// This is the case where the switch value was not set by the application. 
-	   	// The library can choose to get the value of shouldThrow by other means. 
+	   	// The library can choose to get the value of shouldThrow by other means (ex: default value for a particular TFM). 
 		// If no overrides nor default values are specified, the value should be 'false'. A false value implies the latest behavior.
 	}
 	
