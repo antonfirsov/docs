@@ -21,7 +21,7 @@ The following scenarios are now supported:
 - LINQ queries
 - Iterator functions
 
-In some cases, the combination of these features are not yet supported with EnC (e.g. async lamdas). EnC improvements are still in progress so please [file any issues you come across on our GitHub](https://github.com/dotnet/roslyn/issues).
+EnC improvements are still in progress and we are working to support more scenarios (and providing more documentation). Please [file any issues](https://github.com/dotnet/roslyn/issues) you come across on our GitHub.
 
 > **Note:** If you don't understand why an edit fails, try checking the Error List. There are explanations for errors there that should help clarify issues. Please file an issue if you find these messages confusing or if they do not exist for your error.
 
