@@ -13,32 +13,40 @@ This update is the first step towards broader support for the Windows CNG API an
 Compatibility Switches
 ----------------------
 
-AppContext is a new compatibility feature that allows you to define and/or check for the existence of switches and to make decisions based on them. Libraries define and expose switches, while code that depends on them can set those switches, to affect the library behavior. This same infrastructure is used by the .NET Framework internally, to enable developers to opt in or out of certain behaviors.
+AppContext is a new compatibility feature that enables library writers to provide a uniform opt-out mechanism for new functionality for their users. It established a loosley-coupled contract between components in order to communicate an opt-out request. This capability is typically important when a change is made to existing functionality. Conversely, there is already an implicit opt-in for new functionality.
 
-An application (or a library) can declare the value (always boolean) of a switch that a dependent library defines:
+With AppContext, libraries define and expose compatibility switches, while code that depends on them can set those switches, to affect the library behavior. By default libraries provide the new functionality and only alter it (e.g. provide the old behavior) if the switch is set.
 
-	AppContext.SetSwitch(“Switch.MyLib.ThrowOnException”, true)
+An application (or a library) can declare the value (always boolean) of a switch that a dependent library defines. The switch is always implicity `false`. Setting the switch to `true` enables the switch. Explicity the switch to `false` provides the new behavior.
 
-The library must check if a consumer has delcared the value of the switch and then appropraitely act on it.
+	AppContext.SetSwitch("Switch.AmazingLib.ThrowOnException”, true)
+
+The library must check if a consumer has declared the value of the switch and then appropraitely act on it.
 
 	bool shouldThrow;
 
-	if (!AppContext.TryGetSwitch(“MyLib.ThrowOnException”, out shouldThrow))
+	if (!AppContext.TryGetSwitch(“Switch.AmazingLib.ThrowOnException”, out shouldThrow))
 	{
 	   	// This is the case where the switch value was not set by the application. 
 	   	// The library can choose to get the value of shouldThrow by other means. 
-		// The value for shouldThrow in this case would be ‘false’
+		// If no overrides nor default values are specified, the value should be 'false'. A false value implies the latest behavior.
 	}
 	
 	// The library can use the value of shouldThrow to throw exceptions or not.
 	if (shouldThrow)
 	{
-	 	// Library logic
+		// old code
+	}
+	else
+	{
+		//new code
 	}
 
-It's beneficial to use a consistent format for switches, since they are a formal contract exposed by libraries. The following are two obvious formats. The first one is used by the .NET Team, but both are good. 
+It's beneficial to use a consistent format for switches, since they are a formal contract exposed by libraries. The following are two obvious formats.  
 
 - Switch.namespace.switchname
 - Switch.library.switchname
+
+This same infrastructure is used by the .NET Framework internally, to enable developers to opt out of updates to existing functionality.
 
 
