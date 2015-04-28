@@ -25,7 +25,7 @@ In some cases, the combination of these features are not yet supported with EnC 
 
 > **Note:** If you don't understand why an edit fails, try checking the Error List. There are explanations for errors there that should help clarify issues. Please file an issue if you find these messages confusing or if they do not exist for your error.
 
-Read more about [earlier EnC improvements](http://blogs.msdn.com/b/csharpfaq/archive/2015/02/23/edit-and-continue-and-make-object-id-improvements-in-ctp-6.aspx) from Visual Studio 2015 CTP 6, such as modifying iterators, async/await, methods.
+Read more about [earlier EnC improvements](http://blogs.msdn.com/b/csharpfaq/archive/2015/02/23/edit-and-continue-and-make-object-id-improvements-in-ctp-6.aspx) from Visual Studio 2015 CTP 6, such as modifying iterators, async/await, methods, etc.
 
 WPF - Live Visual Tree 
 ======================
