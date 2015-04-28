@@ -1,5 +1,5 @@
-.NET Updates at Build 2015 for Desktop, Device and Cloud
-========================================================
+.NET Announcements at Build 2015
+================================
 
 At the Build conference today, Scott Guthrie announced the .NET Framework 4.6 RC and Visual Studio 2015 RC. He also announced important updates for Windows 10 .NET UAP apps, ASP.NET 5 and .NET Core. You can download and try out the releases now:
 
