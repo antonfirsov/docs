@@ -1,6 +1,15 @@
 .NET Framework 4.6
 ==================
 
+Garbage Collector Update
+------------------------
+
+The Garbage Collector has a new mode that attempts to avoid garbage collection while certain memory-related conditions are met. This new mode is important for workloads that require either uninterupted computation or that cannot tolerate significant GC pause times.
+
+The new mode enables you to [specify a certain amount of memory be available](https://msdn.microsoft.com/library/system.gc.trystartnogcregion.aspx) as a pre-requisite to enter a _No GC Region_. While in the region the GC attempts to avoid any collections. It will start collecting if a collection is  explicitly requested (e.g. [GC.Collect](https://msdn.microsoft.com/library/system.gc.collect.aspx)) or if the initially specified memory size is exhausted.
+
+The new mode exposes multiple points of configuration, including allowing you to specify the memory available for the small and large object heaps separately, for use within the No GC Region. 
+
 Cryptography Updates
 --------------------
 
