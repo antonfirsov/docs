@@ -15,3 +15,5 @@ As a team, we're really excited to share everything we've been working on:
 - ASP.NET
 - .NET Framework 4.6
 - Visual Studio Improvements for .NET
+
+We've been working on these releases for a couple years now. Please do check out the earlier [.NET Preview releases](http://blogs.msdn.com/b/dotnet/archive/2014/11/12/announcing-net-2015-preview-a-new-era-for-net.aspx) that we announced at Preview in November.
