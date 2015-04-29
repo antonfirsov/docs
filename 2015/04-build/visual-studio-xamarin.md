@@ -7,7 +7,7 @@ To install Xamarin with Visual Studio 2015, select the _Custom_ installation opt
 
 ![VS Xamarin Install](vs-xamarin-install.png)
 
-There are several additional application templates that are available for you to use after installing Xamarin Starter edition, for iOS (displayd below) and Android.
+There are several additional application templates that are available for you to use after installing Xamarin Starter edition, for iOS (displayed below) and Android.
 
 ![VS Xamarin Experience](vs-xamarin-projects.png)
 
