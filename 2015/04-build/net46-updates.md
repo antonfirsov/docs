@@ -38,10 +38,9 @@ The library must check if a consumer has declared the value of the switch and th
 	{
 	   	// The switch value was not set by the application. 
 	   	// As a result, the value is 'false'. A false value implies the latest behavior.
-	   	// The library can declare the switch 
-		// If no overrides nor default values are specified, 
 
-		https://github.com/dotnet/coreclr/blob/master/src/mscorlib/src/System/AppContext/AppContextDefaultValues.Defaults.cs
+	   	// The library can declare a default value for a switch based on a condition
+	   	// Example: https://github.com/dotnet/coreclr/blob/master/src/mscorlib/src/System/AppContext/AppContextDefaultValues.Defaults.cs
 	}
 	
 	// The library can use the value of shouldThrow to throw exceptions or not.
