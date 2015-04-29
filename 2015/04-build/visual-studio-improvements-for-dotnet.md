@@ -3,6 +3,22 @@ Visual Studio Improvements for .NET
 
 The Visual Studio Team has added some key improvements for .NET in the RC release. There were many additional [Visual Studio improvements for .NET in the Preview release](http://blogs.msdn.com/b/dotnet/archive/2014/11/12/announcing-net-2015-preview-a-new-era-for-net.aspx#_Visual_Studio_Improvements) that you can also try out. 
 
+Xamarin Starter now Included in Visual Studio
+---------------------------------------------
+
+Visual Studio 2015 includes [Xamarin Starter Edition](http://xamarin.com/starter) as an optional feature. Xamarin is a great way to start building iOS and Android apps in C# or F# within Visual Studio. Many .NET developers are using Xamarin to increase the reach of their apps and development effort to iOS and Android. According to a recent blog post, Xamarin has been downloaded by [1 Million unique developers](http://blog.xamarin.com/xamarin-passes-1-million-developer-milestone/). That's a lot.
+
+There are several additional application templates that are available for you to use after installing Xamarin Starter edition, for iOS (displayd below) and Android.
+
+![VS Xamarin Experience](vs-xamarin-projects.png)
+
+You can use Xamarin Starter editon as long as you want, build apps, test on devices and publish to app stores. You can start a [Xamarin Business trial](http://developer.xamarin.com/guides/cross-platform/getting_started/beginning_a_xamarin_trial/#Activating_a_Trial_in_Visual_Studio) to try out the richer experience. You can always return to Xamarin Starter Edition after that.
+
+Debugger Improvements 
+=====================
+
+Visual Studio 2015 addresses many requests that you have made for improving your debugging life, such as lambda debugging, Edit and Continue (EnC) improvements, child-process debugging, as well revamp core experiences such as powerful breakpoint configuration and introduce a new Exceptions Settings toolwindow. We also pushed the state of the art by integrating performance tooling into the debugger with PerfTips and the all new Diagnostic Tools window which includes the redesigned IntelliTrace for historical debugging and the Memory Usage tool.
+
 Moar EnC - Lambda and Async Task support
 ========================================
 
@@ -41,10 +57,3 @@ The following screenshot demonstrates the Live Visual Tree and an app that has a
 ![Visual Studio 2015 - Live Visual Tree](vs2015-live-visual-tree.png)
 
 TODO: Get a better screenshot.
-
-Perf Tips - Accuracy
-====================
-
-Perf Tips were introduced in one of the earlier Visual Studio 2015 CTPs. They provide performance information directly within Visual Studio, providing you with the performance cost of methods. It removes guessing and breaks assumptions.  The team found that the perf tips were not accurate enough. Internal measurement infrastructure in the .NET Framework was updated to measure operations in a different way. Perf Tips in the RC update are now taking adantage of the new infrastructure and are significantly more accurate.
-
-TODO: Add screen shot of perf tips
