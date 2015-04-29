@@ -1,6 +1,8 @@
 .NET Framework 4.6
 ==================
 
+Today's release is .NET Framework 4.6 RC. It's the first "Go Live" release for the 4.6 release. Please install it and start trying it out. You can read about the [.NET Framework Preview release](http://blogs.msdn.com/b/dotnet/archive/2014/11/12/announcing-net-2015-preview-a-new-era-for-net.aspx#_.NET_Framework_4.6), which we shipped in November.
+
 Garbage Collector Update
 ------------------------
 
