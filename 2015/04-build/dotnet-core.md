@@ -11,11 +11,11 @@ All of the .NET Core libraries are distributed as NuGet packages. You can acquir
 Self-contained and Efficient
 ----------------------------
 
-Another major benefit of .NET Core is that it can ship as part of your app. It's a self-contained .NET runtime and framework implementation. This means that your app is composed of a set of fixed binaries, unaffected by other apps that might be updating on the same machine. Conversely, your app can be updated without affecting any other apps.
+Another major benefit of .NET Core is that it can ship as part of your app. It's a self-contained .NET runtime and framework implementation. This means that your app is composed of a set of fixed binaries, unaffected by other apps that might be updating on the same machine. Conversely, your app can be updated without affecting any other apps. This is especially important for Windows 10 Universal Apps --where you build and publish a single application that can run consistently on all devices (Tablet, Phone, etc.). This approach also ensures that new features in .NET Core and C# language improvements are consistently available for the App to pick and choose to use across all these environments. 
 
-Apps often rely on many .NET Core libraries, such that a lot of self-contained apps might seem like too much of a good thing. This is particularly important for device scenarios. .NET Native solves this problem by optimizing apps to include only the code that a given app relies on. If you only rely on one type within an assembly, that's the only type that will be retained in your final app. .NET Native has other optimization that further slim down your overall app.
+Apps often rely on many .NET Core libraries, such that a lot of self-contained apps might seem like too much of a good thing. This is particularly important for constrained device environments. .NET Native solves this problem by optimizing apps to include only the code that a given app relies on. If you only rely on one type within an assembly, that's the only type that will be retained in your final app. .NET Native has other optimization that further slim down your overall app.
 
-.NET Native currently supports only Windows 10 UAP apps, however, it is intended to fit in as a deployment option for .NET Core apps generally.
+.NET Native currently scoped to Windows 10 UAP apps, however, it is intended to fit in as a deployment option for .NET Core apps generally.
 
 Cross-Platform
 --------------
