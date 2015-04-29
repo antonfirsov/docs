@@ -4,9 +4,9 @@
 Garbage Collector Update
 ------------------------
 
-The Garbage Collector has a new mode that attempts to avoid garbage collection while certain memory-related conditions are met. This new mode is important for workloads that require either uninterupted computation or that cannot tolerate significant GC pause times.
+The Garbage Collector has a new mode that attempts to avoid garbage collection while certain memory-related conditions are met. This new mode is important for workloads that require uninterupted computation (at least as it relates to GC CPU use).
 
-The new mode enables you to [specify a certain amount of memory be available](https://msdn.microsoft.com/library/system.gc.trystartnogcregion.aspx) as a pre-requisite to enter a _No GC Region_. While in the region the GC attempts to avoid any collections. It will start collecting if a collection is  explicitly requested (e.g. [GC.Collect](https://msdn.microsoft.com/library/system.gc.collect.aspx)) or if the initially specified memory size is exhausted.
+The new mode enables you to [specify a certain amount of memory be available](https://msdn.microsoft.com/library/system.gc.trystartnogcregion.aspx) as a pre-requisite to enter a _No GC Region_. While in the region the GC will not collect. It will start collecting if a collection is  explicitly requested (e.g. [GC.Collect](https://msdn.microsoft.com/library/system.gc.collect.aspx)) or if the initially specified memory size is exhausted.
 
 The new mode exposes multiple points of configuration, including allowing you to specify the memory available for the small and large object heaps separately, for use within the No GC Region. 
 
@@ -36,9 +36,12 @@ The library must check if a consumer has declared the value of the switch and th
 
 	if (!AppContext.TryGetSwitch(“Switch.AmazingLib.ThrowOnException”, out shouldThrow))
 	{
-	   	// This is the case where the switch value was not set by the application. 
-	   	// The library can choose to get the value of shouldThrow by other means (ex: default value for a particular TFM). 
-		// If no overrides nor default values are specified, the value should be 'false'. A false value implies the latest behavior.
+	   	// The switch value was not set by the application. 
+	   	// As a result, the value is 'false'. A false value implies the latest behavior.
+	   	// The library can declare the switch 
+		// If no overrides nor default values are specified, 
+
+		https://github.com/dotnet/coreclr/blob/master/src/mscorlib/src/System/AppContext/AppContextDefaultValues.Defaults.cs
 	}
 	
 	// The library can use the value of shouldThrow to throw exceptions or not.
