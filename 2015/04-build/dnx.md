@@ -1,18 +1,20 @@
 .NET Execution Environment (DNX)
 ================================
 
-The [.NET Execution Environment (DNX)](https://github.com/aspnet/dnx) is a new development and execution environment across multiple platforms (Windows, OS X, Linux, ...), multiple CPUs (x86, x64, ...) and across different .NET flavors (.NET Framework, .NET Core and Mono). It provides a consistent experience across that breadth of options, making your job significantly easier.
+The [.NET Execution Environment (DNX)](https://github.com/aspnet/dnx) is a new .NET SDK that provides a consistent development and execution environment across multiple platforms (Windows, OS X, Linux, ...), multiple CPUs (x86, x64, ...) and across different .NET flavors (.NET Framework, .NET Core and Mono). It enables you to build a single app that can work across that breadth of options and is also easy to build with either text editors or full IDEs.
 
 DNX provides the following benefits:
 
-- Straightforward acquisition and management of DNX versions.
-- Compile and launch apps from source or as NuGet packages.
-- Simple and effective dependency management and acquisition.
-- Support for multiple .NET runtimes, OSes and CPUs.
+- Create single application that can work on multiple operating without cross compiling (Windows, Mac, Linux)
+- Create applications that can run from source without a build step enabling development with just simple text editors (Sublime, Emacs, VIM, Visual Studio Code).
+- Enables debugging from source for referenced NuGet packages.
+- Straightforward acquisition of .NET runtimes (e.g. .NET Core).
+- Manage multiple .NET runtimes on a single machine both globally or app centric including security updates.
 - Supports ASP.NET 5 and .NET Core console app workloads.
-- Enables debugging from source for referenced packages.
 
 DNX is a general .NET Core concept and facility. It's the easiest way to acquire and use the new open source and cross-platform version of .NET. It started life in the ASP.NET 5 project and has gone through several renames over the past few months (was called 'KRE' before), but that's purely historical.
+
+Note: DNX is not the only SDK for .NET Core. .NET Native, for example, is another one.
 
 DNX Tools and Concepts
 ----------------------
