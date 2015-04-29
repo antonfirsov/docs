@@ -11,9 +11,9 @@ At the Build conference today, Scott Guthrie announced the .NET Framework 4.6 RC
 As a team, we're really excited to share everything we've been working on:
 
 - .NET Core - for device and cloud
-- Windows 10 .NET UAP Apps
-- ASP.NET
 - .NET Framework 4.6
+- ASP.NET
+- Windows 10 Univeral Windows apps
 - Visual Studio Improvements for .NET
 
 We've been working on these releases for a couple years now. Please do check out the earlier [.NET Preview releases](http://blogs.msdn.com/b/dotnet/archive/2014/11/12/announcing-net-2015-preview-a-new-era-for-net.aspx) that we announced at Preview in November.
