@@ -28,6 +28,18 @@ In the example below, the XDocument type (just the text `XDocument`) is resolved
 
 We wanted to make it easy to copy some code from [StackOverflow](http://stackoverflow.com/questions/tagged/asp.net), for example, and resolve type and package references quickly and easily. Please tell us if we've achieved that goal.
 
+Enabling the .NET Compiler Platform (“Roslyn”) in ASP.NET applications
+----------------------------------------------------------------------
+
+You can use the new language features of C# and VB in any ASP.NET 4.6 project. The Web Forms templates in VS 2015 have the [Microsoft.CodeDom.Providers.DotNetCompilerPlatform package](https://www.nuget.org/packages/Microsoft.CodeDom.Providers.DotNetCompilerPlatform) pre-installed. For VS 2015 RTM, it will be installed in all templates. Read [Enabling the .NET Compiler Platform (“Roslyn”) in ASP.NET applications](http://blogs.msdn.com/b/webdev/archive/2014/05/12/enabling-the-net-compiler-platform-roslyn-in-asp-net-applications.aspx) post for more details.
+
+Async Model Binding for Web Forms
+---------------------------------
+
+In the .NET Framework 4.5, Model Binding support was added to Web Forms. In the .NET Framework 4.6, we are adding support for Async Model Binding which allow you write Asynchronous Model Binding actions. The following code snippet shows a Web Forms page using Async Model Binding actions.
+
+<script src="https://gist.github.com/rustd/f3ccd70472c9f06c3f47.js"></script>
+
 HTTP/2 Support (Windows 10)
 ---------------------------
 
