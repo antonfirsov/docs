@@ -10,7 +10,7 @@ RyuJIT is the next generation Just-In-Time (JIT) compiler for .NET. It uses a hi
 
 The project was initially targeted to improve high-scale 64-bit cloud workloads, although it has much broader applicabilty. We also do expect to add 32-bit support in a later release.
 
-RyuJIT is on by default for 64-bit processes running on top of the .NET Framework 4.6. Your app will run in a 64-bit bit process if it is compiled as 64-bit or AnyCPU, and run on a 64-bit operating system. RyuJIT is similarly integrated into .NET Core, as the 64-bit JIT.
+RyuJIT is on by default for 64-bit processes running on top of the .NET Framework 4.6. Your app will run in a 64-bit process if it is compiled as 64-bit or AnyCPU, and run on a 64-bit operating system. RyuJIT is similarly integrated into .NET Core, as the 64-bit JIT.
 
 We've used a transparent process over the last two years with RyuJIT. You've been able to read [many blog posts on RyuJIT](http://blogs.msdn.com/b/dotnet/archive/tags/ryujit/), try out several RyuJIT CTPs and (suprise!) you can now even read and contribute to the [RyuJIT source code](https://github.com/dotnet/coreclr/tree/master/src/jit). Thanks to everyone who helped improve RyuJIT along the way to RC. It's very close to going into use and improving the performance of many production workloads.
 
