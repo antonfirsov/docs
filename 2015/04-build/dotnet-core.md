@@ -32,3 +32,20 @@ The [.NET Core](http://github.com/dotnet/core) is open source on GitHub. You can
 The [.NET Core Framework](https://github.com/dotnet/corefx) team are in the process of publishing all of their code on GitHub and are now over half-way done. You can check out their progress, maintained at the [CoreFX Progress](https://github.com/dotnet/corefx-progress) repo. You can also see their progress in the image below.
 
 ![CoreFX Progress](https://raw.githubusercontent.com/dotnet/corefx-progress/master/progress.png) 
+
+PartsUnlimited
+--------------
+
+The team built and released a demo of a .NET Core app, using ASP.NET 5. The demo is called [PartsUnlimited](https://github.com/Microsoft/PartsUnlimited) and is open source on GitHub. It runs on Linux, OS X and Windows.
+
+Parts Unlimited is an ecommerce app for a ficticious company, based on a website of the same name in [The Phoenix Project](http://www.amazon.com/The-Phoenix-Project-Helping-Business/dp/0988262592). The website includes product listings by category, product details, shopping cart, order history, product recommendations, search, and more.
+
+Both the demo and .NET Core are under development. The [master branch](https://github.com/microsoft/partsunlimited) of the repo supports .NET Core and ASP.NET 5 beta 4, and runs on Windows. The [beta 5 branch](https://github.com/microsoft/partsunlimited/tree/dev/beta5) supports .NET Core and ASP.NET 5 beta 5 and runs on Windows, OS X and Linux. You can try out both branches, although you may encounter a beta 5 build that doesn't work as expected.
+
+Key Features:
+
+- Works with Visual Studio 2015 RC
+- ASP.NET 5 support for Linux and Mono
+- Includes a Dockerfile and sample publishing profile to publish to a Docker container
+- Entity Framework code-first using SQL Azure or an in-memory database (Mono)
+- Includes Azure RM JSON templates and PowerShell automation scripts to easily build and provision your environment
