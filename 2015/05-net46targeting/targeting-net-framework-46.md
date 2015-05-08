@@ -6,11 +6,11 @@ The .NET Framework 4.6 is the latest version of the .NET Framework. The .NET Fra
 Using Visual Studio 2015
 ========================
 
-You can target the .NET Framework 4.6 using Visual Studio 2015. Visual Studio 2015 targets the .NET Framework 4.5.2 by default, since the .NET Framework 4.5.2 has been deployed broadly (globally). Targeting the .NET Framework 4.5.2 is the best choice, unless you specifically need the new APIs in the .NET Framework 4.5.6.
+You can target the .NET Framework 4.6 using Visual Studio 2015. Visual Studio 2015 targets the .NET Framework 4.5.2 by default, since the .NET Framework 4.5.2 has been deployed broadly (globally). Targeting the .NET Framework 4.5.2 is the best choice, unless you specifically need the new APIs in the .NET Framework 4.6.
 
 You can target the .NET Framework 4.6 by changing the _Target Framework_ for your app or library, under Project Properties. See how to do that in the image below.
 
-![Target Framework](target-framework.png)
+![Target Framework](vs-target-framework.png)
 
 Using Visual Studio 2012 or 2013
 ================================
