@@ -15,23 +15,19 @@ You can target the .NET Framework 4.6 by changing the _Target Framework_ for you
 Using Visual Studio 2012 or 2013
 ================================
 
-You can target the .NET Framework 4.6 in Visual Studio 2012 and Visual Studio 2013. You can do that by installing the .NET Framework 4.6 Targeting Pack or installing Visual Studio 2015 on the same machine. 
+You can target the .NET Framework 4.6 in Visual Studio 2012 and Visual Studio 2013. You can do that by installing the [.NET Framework 4.6 RC Targeting Pack](http://go.microsoft.com/fwlink/?LinkId=524669) or installing Visual Studio 2015 on the same machine. 
 
-You also need to install the .NET Framework 4.6 to run your app. It does not contain the targeting pack. The targeting pack and the framework are separate components.
-
-Note: The targeting pack was released concurrently with the .NET Framework 4.6 but had an issue that is being addressed. It will be re-released shortly. 
+You also need to install the [.NET Framework 4.6 RC](http://go.microsoft.com/fwlink/?LinkId=524667) to run your app. It does not contain the targeting pack. The targeting pack and the framework are separate components.
 
 On a Build Machine
 ==================
 
-You can target the .NET Framework 4.6 as part of your build, to build 4.6 apps and libraries. You can do that by installing the .NET Framework 4.6 Targeting Pack.
-
-Note: The .NET Framework 4.6 Targeting Pack was released concurrently with the .NET Framework 4.6 but had an issue that is being addressed. It will be re-released shortly. 
+You can target the .NET Framework 4.6 as part of your build, to build 4.6 apps and libraries. You can do that by installing the [.NET Framework 4.6 RC Targeting Pack](http://go.microsoft.com/fwlink/?LinkId=524669).
 
 Using the .NET Framework 4.6
 ============================
 
-By targeting the .NET Framework 4.6, your app will require the .NET Framework 4.6 (or later) to run. You will need to deploy the .NET Framework 4.6 or rely on your users to do that. See the Deploying the .NET Framework 4.6 section below for more information on deployment.
+By targeting the .NET Framework 4.6, your app will require the .NET Framework 4.6 (or later) to run. You will need to deploy the [.NET Framework 4.6 RC](http://go.microsoft.com/fwlink/?LinkId=524667) or rely on your users to do that. See the Deploying the .NET Framework 4.6 section below for more information on deployment.
 
 You can run existing apps built for the .NET Framework 4.0 and 4.5.x on the newer framework without making any changes to your apps. These existing apps will start using the .NET Framework 4.6 after it has been installed on a given machine. They will benefit from performance and reliability updates that are part of the .NET Framework 4.6
 
