@@ -3,6 +3,17 @@
 
 Today's release is .NET Framework 4.6 RC. It's the first "Go Live" release for the 4.6 release. Please install it and start trying it out. You can read about the [.NET Framework Preview release](http://blogs.msdn.com/b/dotnet/archive/2014/11/12/announcing-net-2015-preview-a-new-era-for-net.aspx#_.NET_Framework_4.6), which we shipped in November.
 
+RyuJIT
+------
+
+RyuJIT is the next generation Just-In-Time (JIT) compiler for .NET. It uses a high-performance JIT architecture, focussed on high throughput JIT compilation. It is much faster than the existing _JIT64_ 64-bit JIT that has been used for the last 10 years (introduced in .NET 2.0 release). 
+
+The project was initially targeted to improve high-scale 64-bit cloud workloads, although it has much broader applicabilty. We also do expect to add 32-bit support in a later release.
+
+RyuJIT is on by default for 64-bit processes running on top of the .NET Framework 4.6. Your app will run in a 64-bit process if it is compiled as 64-bit or AnyCPU, and run on a 64-bit operating system. RyuJIT is similarly integrated into .NET Core, as the 64-bit JIT.
+
+We've used a transparent process over the last two years with RyuJIT. You've been able to read [many blog posts on RyuJIT](http://blogs.msdn.com/b/dotnet/archive/tags/ryujit/), try out several RyuJIT CTPs and (suprise!) you can now even read and contribute to the [RyuJIT source code](https://github.com/dotnet/coreclr/tree/master/src/jit). Thanks to everyone who helped improve RyuJIT along the way to RC. It's very close to going into use and improving the performance of many production workloads.
+
 Garbage Collector Update
 ------------------------
 
