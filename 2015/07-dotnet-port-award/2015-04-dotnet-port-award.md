@@ -4,11 +4,7 @@ Recently, we shared quite a bit how we make progress on our open source journey 
 
 However, unless you're an active contributor on any of our OSS projects, you probably didn't have the opportunity to experience this first hand.
 
-Fortunately, you don't have to take our word for it. [Geoff Norton][geoff-twitter], whom some of you probably know as [kangaroo][geoff-github], did a [talk at .NET Fringe][coreclr-hacking] about his experience on porting CoreCLR to OS X (the recording isn't live yet but we'll make sure to link to it when it's available).
-
-***TBD: Decide whether we block the post on the availability. I propose we do. Unfortunately, they said this week isn't likely.***
-
-Make sure you watch it -- you don't want to miss out on which aspects of our contribution process are working well and which ones still require some homework from our side.
+Fortunately, you don't have to take our word for it. [Geoff Norton][geoff-twitter], whom some of you probably know as [kangaroo][geoff-github], did a [talk at .NET Fringe][coreclr-hacking] about his experience on porting CoreCLR to OS X.
 
 ## Community Thanks!
 
@@ -22,9 +18,7 @@ Since we knew that Geoff would attend .NET Fringe we decided that we'll take thi
 
 Sad to have missed out on the fun? You can watch the recording of the award ceremony on [Channel 9][c9-video]:
 
-***TBD: Embed the C9 video***
-
-![](placeholder.png)
+<iframe src="https://channel9.msdn.com/Blogs/dotnet/First-NET-Port-Award/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
 ## Wait -- OS X isn't the only port!
 
