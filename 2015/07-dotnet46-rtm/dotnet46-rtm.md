@@ -36,12 +36,12 @@ RyuJIT is enabled for 64-bit processes running on top of the .NET Framework 4.6.
 
 We've used a transparent process over the last two years with RyuJIT. You've been able to read [RyuJIT blog posts](http://blogs.msdn.com/b/dotnet/archive/tags/ryujit/), try out several RyuJIT CTPs and (suprise!) can now even read and contribute to the [RyuJIT source code](https://github.com/dotnet/coreclr/tree/master/src/jit). Thanks to everyone who helped improve RyuJIT along the way to RTM. We fixed a lot of publicly-reported bugs and performance issues based on those CTP releases. It's been a pleasure for Microsoft engineers to adopt a more public development process with RyuJIT.
 
-The project was initially targeted to improve high-scale 64-bit cloud workloads, although it has much broader applicability. We do expect to add 32-bit support in a later release.
+The project was initially targeted to improve high-scale 64-bit cloud workloads, although it has much broader applicability. We do expect to add 32-bit support in a future release.
 
 Garbage Collector Updates
 -------------------------
 
-The garbage collector has a few important improvements that reduce latency and improve memory utilization. The GC update have already been deployed to large Microsoft cloud workloads, such as Office 365 and Bing. We've seen impressive improvements in the performance of those services. They've simply deployed the update, without any code changes.
+The garbage collector has a few important improvements that reduce latency and improve memory utilization. The GC update has already been deployed to large Microsoft cloud workloads, such as Office 365 and Bing. We've seen impressive improvements in the performance of those services. They've simply deployed the update, without any code changes.
 
 The GC now handles pinned objects in a more optimized way. It is now possible for the GC to compact more memory around pinned objects. This change can provide a suprisingly impactful improvement for large-scale workloads with significant use of pinning.
 
@@ -112,7 +112,7 @@ Support for automatically loading the right cursor based on DPI setting has been
 
 ### Touch is better
 
-The double tap threshold for Windows Store applications and WPF applications are now the same in Windows 8.1 and above. This 
+The double tap threshold for Windows Store applications and WPF applications are now the same in Windows 8.1 and above. 
 
 https://connect.microsoft.com/VisualStudio/feedback/details/903760/wpf-touch-services-are-badly-broken
 
