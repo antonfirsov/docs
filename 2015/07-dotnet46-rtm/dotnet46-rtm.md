@@ -93,6 +93,35 @@ The team has made key improvements to WPF in this release:
 - New set of Visual Diagnostics tools
 - Timeline tool in the Performance and Diagnostics hub
 
+
+### HDPI Improvements
+
+HDPI support in WPF is now better in the .NET Framework 4.6. Changes have been made to Layout rounding to reduce instances of clipping in controls with borders. By default, this feature is enabled if your Target Framework is .NET Framework 4.6 (".NETFramework,Version=v4.6") or higher. Applications that target earlier versions of the framework can opt in into the new behavior by adding the following line to the <runtime> section of the app.config file. The setting only takes effect when the application is running on the .NET Framework 4.6.
+
+	<runtime>
+		<AppContextSwitchOverrides value="Switch.MS.Internal.DoNotApplyLayoutRoundingToMarginsAndBorderThickness=false" />
+	</runtime>
+
+WPF windows straddling multiple monitors with different DPI settings (Multi-DPI setup) are now rendered without blacked out regions. You can opt out of this behavior by adding the following line to the <appSettings> section to disable this new Behavior:
+
+	<appSettings>
+		<add key="EnableMultiMonitorDisplayClipping" value="true"/>
+	</appSettings>
+
+Support for automatically loading the right cursor based on DPI setting has been added to System.Windows.Input.Cursor.
+
+### Touch is better
+
+The double tap threshold for Windows Store applications and WPF applications are now the same in Windows 8.1 and above. This 
+
+https://connect.microsoft.com/VisualStudio/feedback/details/903760/wpf-touch-services-are-badly-broken
+
+### Transparent Child Window support
+
+WPF in .NET 4.6 supports transparent child windows in Windows 8.1 and above. You can enable this by setting the UsesPerPixelTransparency property to true in HwndSourceParameters
+
+
+
 Windows Forms Updates for High DPI
 ----------------------------------
 
