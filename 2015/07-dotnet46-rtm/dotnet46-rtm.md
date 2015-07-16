@@ -111,6 +111,23 @@ Windows Communication Foundation
 
 WCF now supports SSL version TLS 1.1 and TLS 1.2, in addition to SSL 3.0 and TLS 1.0, when using NetTcp with transport security and client authentication. It is now possible to select which protocol to use, or to disable old less secure protocols. This can be done either by setting the System.ServiceModel.TcpTransportSecurity.SslProtocols property or by adding a line to a configuration file.
 
+Windows Workflow
+----------------
+ 
+The workflow team added a new setting that specifies the number of seconds a workflow service will hold on to an out-of-order operation request when there is an outstanding “non-protocol” bookmark before timing out the request. A “non-protocol” bookmark is a bookmark that is not related to outstanding Receive activities. Some activities create non-protocol bookmarks within their implementation, so it may not be obvious that a non-protocol bookmark exists. These include State and Pick. So if you have a workflow service implemented with a state machine or containing a Pick activity, you will most likely have non-protocol bookmarks. 
+
+You can add the setting in the abc section of an app.config file.
+
+	<add key="microsoft:WorkflowServices:FilterResumeTimeoutInSeconds" value="60"/>
+
+The default value is 60 seconds. If the value is set to 0, then the out-of-order requests are immediately rejected with a fault with text that looks like this:
+ 
+	Operation 'Request3|{http://tempuri.org/}IService' on service instance with identifier '2b0667b6-09c8-4093-9d02-f6c67d534292' cannot be performed at this time. Please ensure that the operations are performed in the correct order and that the binding in use provides ordered delivery guarantees.
+ 
+This is the same message that is received if an out-of-order operation message is received and there are no non-protocol bookmarks.
+ 
+If the value of FilterResumeTimeoutInSeconds is non-zero and there are non-protocol bookmarks and the timeout expires, the operation fails with a timeout message.
+
 ADO.NET improvements
 --------------------
 
@@ -447,4 +464,11 @@ Today, the [.NET Core Framework](https://github.com/dotnet/corefx) can be used i
 
 All of the .NET Core libraries are distributed as NuGet packages. You can acquire the packages easily within Visual Studio or with one of the NuGet clients directly.
 
+Open Source
+-----------
 
+The [.NET Core](http://github.com/dotnet/core) is open source on GitHub. You can look at the code and even make contributions. We have received many great contributions over the last number of months. Thanks!
+
+The [.NET Core Framework](https://github.com/dotnet/corefx) team are in the process of publishing all of their code on GitHub and are now over half-way done. You can check out their progress, maintained at the [CoreFX Progress](https://github.com/dotnet/corefx-progress) repo. You can also see their progress in the image below.
+
+![CoreFX Progress](https://raw.githubusercontent.com/dotnet/corefx-progress/master/progress.png) 
