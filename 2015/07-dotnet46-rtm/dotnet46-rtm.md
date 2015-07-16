@@ -143,6 +143,21 @@ The team is updating the [System.Security.Cryptography APIs](https://msdn.micros
   
 This update is the first step towards broader support for the Windows CNG API and for more modern cryptography algorithms generally. Note that team is still in the middle of building this new support, so expect the API to change for RTM.
 
+Unix Time
+---------
+
+You can now more easily convert date and time values to or from .NET Framework types and Unix time. This can be necessary, for example, when converting time values between a JavaScript client and .NET server. The following APIs have been added to the DateTimeOffset structure:
+
+- static DateTimeOffset FromUnixTimeSeconds(long seconds)
+- static DateTimeOffset FromUnixTimeMilliseconds(long milliseconds)
+- long DateTimeOffset.ToUnixTimeSeconds()
+- long DateTimeOffset.ToUnixTimeMilliseconds()
+
+Channel support for EventSource
+-------------------------------
+
+You now can use .NET EventSource instrumentation to log significant administrative or operational messages to the event log, in addition to any existing ETW sessions created on the machine.
+
 Compatibility Switches
 ----------------------
 
@@ -164,6 +179,115 @@ It's beneficial to use a consistent format for switches, since they are a formal
 - Switch.library.switchname
 
 This same infrastructure is used by the .NET Framework internally, to enable developers to opt out of updates to existing functionality.
+
+Other Base Class Library changes
+--------------------------------
+
+- A number of collection objects, such as System.Collections.Generic.Queue and System.Collections.Generic.Stack, now implement System.Collections.Generic.IReadOnlyCollection.
+- The System.Globalization.CultureInfo.CurrentCulture and System.Globalization.CultureInfo.CurrentUICulture properties are now read-write rather than read-only. If you assign a new System.Globalization.CultureInfo object to these properties, the current thread culture defined by the Thread.CurrentThread.CurrentCulture property and the current UI thread culture defined by the Thread.CurrentThread,CurrentUICulture properties also change.
+- The System.Numerics namespace now includes a number of SIMD-enabled types for scientific computing, such as System.Numerics.Matrix3x2, System.Numerics.Matrix4x4, System.Numerics.Plane, System.Numerics.Quaternion, System.Numerics.Vector2, System.Numerics.Vector3, and Vector4T:System.Numerics.Vector4.
+
+Entity Framework
+================
+
+There are two versions of Entity Framework currently under development.
+
+- [EF 6.1.3](http://blogs.msdn.com/b/adonet/archive/2015/03/10/ef6-1-3-rtm-available.aspx) is recommended for production workloads. It contains fixes for high priority issues that were reported on EF 6.1.2.
+- [EF 7](http://blogs.msdn.com/b/adonet) introduces some significant changes and improvements over EF6.x. In particular, it provides an implementation for .NET Core, including support for Linux, OS X and Windows. You can use it in ASP.NET 5 and UWP apps. Like EF 6.x, it is also supported on the .NET Framework. It is not yet supported in production workloads.
+
+EF 7 currently supports the following databases, with the beta 5 release:
+
+- SQL Server
+- PostgreSql (via the npgsql provider)
+- SQL Compact
+- SQLite
+- InMemory (intended for testing purposes only)
+
+.NET Languages
+==============
+
+The .NET languages team is releasing final updates to C# 6, F# 4 and VB 14 today. This includes final language specs and compiler implementations. The language specs were actually [complete at RC](http://blogs.msdn.com/b/dotnet/archive/2015/04/29/net-announcements-at-build-2015.aspx#dotnetlang).
+
+C# 6 and VB 14
+--------------
+
+C# and VB are both part of the [Roslyn compiler](https://github.com/dotnet/roslyn). You can see the language specs for the new versions in the [Roslyn GitHub wiki](https://github.com/dotnet/roslyn/wiki/Languages-features-in-C%23-6-and-VB-14).
+
+The following language features are a subset of the new capabilities you can use starting today in either language. Some of the other [new language features](https://github.com/dotnet/roslyn/wiki/Languages-features-in-C%23-6-and-VB-14) are unique to one language or the other. 
+
+**String interpolation:** An intuitive String.Format-like syntax for composing strings from templates with inline expressions.
+
+C#
+
+``` c#
+var s = $"{p.Name} is {p.Age} year{{s}} old";
+```
+
+VB
+
+The **Null-Conditional operator (?.):** A streamlined syntax for conditionally accessing a member or invoking a method on a value if it's non-null and returning null if the object is null instead of throwing a NullReferenceException.
+
+C#
+
+``` c#
+int length = customers?.Length ?? 0; // 0 if customers is null
+```
+
+VB
+
+
+The **NameOf operator:** A rename-safe way to refer to the name of a code element such as in PropertyChanged events and ArgumentExceptions.
+
+C#
+
+``` c#
+(if x == null) throw new ArgumentNullException(nameof(x));
+```
+
+VB
+
+
+**Read-only Auto-Properties:** A concise syntax for declaring properties which may only be assigned in their initializers or inside of a constructor.
+
+C#
+
+``` c#
+public class Customer
+{
+    public string First { get; } = "Jane";
+    public string Last { get; } = "Doe";
+}
+```
+
+VB
+
+
+**Using static members:** Enables a concise syntax for calling static methods without type qualification.
+
+C#
+
+``` c#
+using static System.Console;
+using static System.Math;
+using static System.DayOfWeek;
+class Program
+{
+    static void Main()
+    {
+        WriteLine(Sqrt(3*3 + 4*4)); 
+        WriteLine(Friday - Monday); 
+    }
+}
+```
+
+VB
+
+
+F# 4
+----
+
+Content here.
+
 
 Visual Studio Improvements for .NET
 ===================================
@@ -263,3 +387,4 @@ Support for Token Binding Protocol
 Microsoft and Google have been collaborating on a new approach to authentication, called the [Token Binding Protocol](https://github.com/TokenBinding/Internet-Drafts). The premise is that  authentication tokens (in your browser cache) can be stolen and used by criminals to access otherwise secure resources (e.g. your bank account) without the requirement of your password or any other priviliged knowledge. The new protocol aims to mitigate this problem.
 
 The Token Binding Protocol will be implemented in Windows 10, as a browser feature. ASP.NET apps will participate in the protocol, such that authentication tokens are validated to be legitimate. The client and the server implementations establish the end-to-end protection specified by the protocol.
+
