@@ -323,19 +323,15 @@ Windows Forms
 Visual Studio
 -------------
 
-* Images and check marks on the left of MenuItem are not truncated in form designer in high DPI mode. [973647]
-* Touching send-a-smile from Visual Studio doesn't cause a crash. [1077237]
-* High contrast is improved in Visual Studio. [1066929], [1071895], [1088412], [1095148]
 * Fixed a debug session termination condition while stepping in VS mixed debugging. [1101062]
-* Fixed partial drawing failures in Visual Studio when straddling on a second monitor in high DPI. [1111370]
 * Fixed VS crash due to user not having access rights to the IE registry. [808025]
 * Fixed a VS crash when editing a context menu on the design surface when the parent form is too small. [838834]
 * SetCursors doesn't crash VS, but instead uses default cursors. [848368]
 * Fixed crash in PropertyBrowser during debugging sessions. [852201]
-* Fixed icon sizes in Visual Studio high DPI. [876802], [974417]
 * Return values more consistent in Visual Studio Autos window. [919225]
 * Debugger breaks on correct line when managed debugging uncaught exception within branch statement. [921962]
-* Items in Visual Studio status strip don't overlap in high DPI. [931779]
 * Fixed an error and hang after Visual Studio form designer is closed. [938755]
 * Debugger can resolve source line for stowed exceptions. [955763]
 * Fixed TargetInvokeException in Visual Studio WinForms designer. [958587]
+* High DPI mode is improved. [973647], [1111370], [876802], [974417], [931779]
+* High contrast is improved. [1066929], [1071895], [1088412], [1095148]
