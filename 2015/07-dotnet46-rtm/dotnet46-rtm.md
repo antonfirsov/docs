@@ -17,7 +17,7 @@ As a team, we're really excited to share everything we've been working on:
 - .NET Framework 4.6
 - Visual Studio Improvements for .NET Developers
 - ASP.NET
-- .NET Core - for device and cloud
+- .NET Core
 - .NET Universal Windows Apps (including .NET Native)
 
 You can check out the earlier [RC](http://blogs.msdn.com/b/dotnet/archive/2015/04/29/net-announcements-at-build-2015.aspx) and [Preview](http://blogs.msdn.com/b/dotnet/archive/2014/11/12/announcing-net-2015-preview-a-new-era-for-net.aspx) releases to see how the release has developed over the last year. In fact, it's only been 14 months since we released the [.NET Framework 4.5.2](http://blogs.msdn.com/b/dotnet/archive/2014/05/05/announcing-the-net-framework-4-5-2-release.aspx). 
@@ -31,6 +31,14 @@ Windows Presentation Foundation
 -------------------------------
 
 The team has made key improvements to WPF in this release:
+
+### Transparent Child Window support
+
+WPF in .NET 4.6 supports transparent child windows in Windows 8.1 and above. This enables you to create and compose non rectangular and transparent child windows in your top level Windows. You can enable this by setting the [UsesPerPixelTransparency property](https://msdn.microsoft.com/library/system.windows.interop.hwndsourceparameters.usesperpixeltransparency.aspx) to true in [HwndSourceParameters](https://msdn.microsoft.com/library/system.windows.interop.hwndsourceparameters.aspx).
+
+See an example of an application that includes a heads-up-display, improved with a transparent child window.
+
+![WPF Transparent Child Window](wpf-transparent-hud.png)
 
 ### HDPI Improvements
 
@@ -52,15 +60,7 @@ Support for automatically loading the right cursor based on DPI setting has been
 
 The team adopted the double-tap threshold used by UWP applications, which is considered to be an industry-quality implementation. WPF now uses this same implementation on Windows 8.1 and above. 
 
-Touch events are now more reliable. The [Connect issue](https://connect.microsoft.com/VisualStudio/feedback/details/903760/wpf-touch-services-are-badly-broken) requesting this change has been marked fixed.
-
-### Transparent Child Window support
-
-WPF in .NET 4.6 supports transparent child windows in Windows 8.1 and above. This enables you to create and compose non rectangular and transparent child windows in your top level Windows. You can enable this by setting the [UsesPerPixelTransparency property](https://msdn.microsoft.com/library/system.windows.interop.hwndsourceparameters.usesperpixeltransparency.aspx) to true in [HwndSourceParameters](https://msdn.microsoft.com/library/system.windows.interop.hwndsourceparameters.aspx).
-
-See an example of an application that includes a heads-up-display, improved with a transparent child window.
-
-![WPF Transparent Child Window](wpf-transparent-hud.png)
+Touch events are now more reliable. The [Connect issue](https://connect.microsoft.com/VisualStudio/feedback/details/903760/wpf-touch-services-are-badly-broken) requesting touch event improvements has been fixed in this release.
 
 Windows Forms Updates for High DPI
 ----------------------------------
@@ -74,25 +74,6 @@ This is an opt-in feature. To enable it, set the EnableWindowsFormsHighDpiAutoRe
 	<appSettings>
 		<add key="EnableWindowsFormsHighDpiAutoResizing" value="true" />
 	</appSettings>
-
-Windows Communication Foundation
---------------------------------
-
-WCF now supports SSL version TLS 1.1 and TLS 1.2, in addition to SSL 3.0 and TLS 1.0, when using NetTcp with transport security and client authentication. It is now possible to select which protocol to use, or to disable old lesser secure protocols. This can be done either by setting the System.ServiceModel.TcpTransportSecurity.SslProtocols property or by adding a line to a configuration file.
-
-ADO.NET improvements
---------------------
-
-ADO .NET now supports the [Always Encrypted](https://msdn.microsoft.com/library/mt147923.aspx) feature available in SQL Server 2016. With Always Encrypted, SQL Server can perform operations on encrypted data, and best of all the encryption key resides with the application inside the customer’s trusted environment and not on the server. Always Encrypted secures customer data so DBAs do not have access to plain text data. Encryption and decryption of data happens transparently at the driver level, minimizing changes that have to be made to existing applications. You can learn more about this feature on the [SQL Securtity Blog](http://blogs.msdn.com/b/sqlsecurity/).
-
-Async
------
-
-For apps that target the .NET Framework 4.6, System.Threading.Tasks.Task and System.Threading.Tasks.Task objects inherit the culture and UI culture of the calling thread. The behavior of apps that target previous versions of the .NET Framework, or that do not target a specific version of the .NET Framework, is unaffected. For more information, see the "Culture and task-based asynchronous operations” section of the System.Globalization.CultureInfo class topic.
-
-The System.Threading.AsyncLocal class allows you to represent ambient data that is local to a given asynchronous control flow, such as an async method. It can be used to persist data across threads. You can also define a callback method that is notified whenever the ambient data changes either because the AsyncLocal.Value property was explicitly changed, or because the thread encountered a context transition.
-
-Some additional members support the task-based asynchronouspattern (TAP), such as System.Threading.Tasks.Task.CompletedTask, System.Threading.Tasks.Task.FromCanceled, System.Threading.Tasks.Task.FromException, and System.IO.Pipes.NamedPipeClientStream.ConnectAsync.
 
 RyuJIT
 ------
@@ -108,7 +89,7 @@ The project was initially targeted to improve high-scale 64-bit cloud workloads,
 SIMD
 ----
 
-
+Content here.
 
 Garbage Collector Updates
 -------------------------
@@ -125,6 +106,25 @@ The new mode enables you to [specify a certain amount of memory be available](ht
 
 The new mode exposes multiple points of configuration, including allowing you to specify the memory available for the small and large object heaps separately, for use within the No GC region. 
 
+Windows Communication Foundation
+--------------------------------
+
+WCF now supports SSL version TLS 1.1 and TLS 1.2, in addition to SSL 3.0 and TLS 1.0, when using NetTcp with transport security and client authentication. It is now possible to select which protocol to use, or to disable old less secure protocols. This can be done either by setting the System.ServiceModel.TcpTransportSecurity.SslProtocols property or by adding a line to a configuration file.
+
+ADO.NET improvements
+--------------------
+
+ADO .NET now supports the [Always Encrypted](https://msdn.microsoft.com/library/mt147923.aspx) feature available in SQL Server 2016. With Always Encrypted, SQL Server can perform operations on encrypted data, and best of all the encryption key resides with the application inside the customer’s trusted environment and not on the server. Always Encrypted secures customer data so DBAs do not have access to plain text data. Encryption and decryption of data happens transparently at the driver level, minimizing changes that have to be made to existing applications. You can learn more about this feature on the [SQL Securtity Blog](http://blogs.msdn.com/b/sqlsecurity/).
+
+Async
+-----
+
+The new System.Threading.AsyncLocal class allows you to represent ambient data that is local to a given asynchronous control flow, such as an async method. It can be used to persist data across threads. You can also define a callback method that is notified whenever the ambient data changes either because the AsyncLocal.Value property was explicitly changed, or because the thread encountered a context transition.
+
+System.Threading.Tasks.Task and System.Threading.Tasks.Task objects now inherit the culture and UI culture of the calling thread, for apps that target the .NET Framework 4.6. The behavior of apps that target previous versions of the .NET Framework is unaffected. For more information, see the "Culture and task-based asynchronous operations” section of the [System.Globalization.CultureInfo](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx) class topic.
+
+Some additional members support the task-based asynchronous pattern (TAP), such as System.Threading.Tasks.Task.CompletedTask, System.Threading.Tasks.Task.FromCanceled, System.Threading.Tasks.Task.FromException, and System.IO.Pipes.NamedPipeClientStream.ConnectAsync.
+
 Networking Enhancements
 -----------------------
 
@@ -135,6 +135,11 @@ By default, the System.Net.ServicePointManager.ReusePort property is false unles
 Developers writing a sockets-only application can specify the System.Net.Sockets.SocketOptionName.ReuseUnicastPort option when calling a method such as System.Net.Sockets.Socket.SetSocketOption so that outbound sockets reuse local ports during binding.
 
 A new property, System.Uri.IdnHost, has been added to the System.Uri class to better support international domain names and PunyCode.
+
+CLR Assembly Loader Performance
+-------------------------------
+
+The assembly loader now uses memory more efficiency by unloading IL assemblies after a corresponding NGEN image is loaded. This change is a major benefit for virtual memory for large 32-bit apps (such as Visual Studio) and also saves physical memory.
 
 Cryptography Updates
 --------------------
@@ -361,7 +366,7 @@ Visual Studio 2015 addresses many requests that you have made for improving your
 We also pushed the state of the art by integrating performance tooling into the debugger with [PerfTips](http://blogs.msdn.com/b/visualstudioalm/archive/2014/08/18/perftips-performance-information-at-a-glance-while-debugging-with-visual-studio.aspx) and the [all new Diagnostic Tools window](http://blogs.msdn.com/b/visualstudioalm/archive/2015/01/16/diagnostic-tools-debugger-window-in-visual-studio-2015.aspx) which includes the [redesigned IntelliTrace](http://blogs.msdn.com/b/visualstudioalm/archive/2015/01/16/intellitrace-in-visual-studio-ultimate-2015.aspx) for historical debugging and the [Memory Usage tool](http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/13/memory-usage-tool-while-debugging-in-visual-studio-2015.aspx).
 
 Xamarin Starter Included in Visual Studio 2015
-==============================================
+----------------------------------------------
 
 Xamarin is a great way to start building iOS and Android apps in C# or F# within Visual Studio. [Xamarin Starter Edition](http://xamarin.com/starter) is now included as a free optional feature within Visual Studio 2015.  Many .NET developers are using Xamarin to increase the reach of their apps and development effort to iOS and Android. 
 
@@ -374,6 +379,11 @@ There are several additional application templates that are available for you to
 ![VS Xamarin Experience](vs-xamarin-projects.png)
 
 You can use Xamarin Starter editon as long as you want, build apps, test on devices and publish to app stores. It is limited to apps that are [128k of byte code or less](http://xamarin.com/faq#q18), but does enable you to deploy to a simulator, a device or an app store. You can start a [Xamarin Business trial](http://developer.xamarin.com/guides/cross-platform/getting_started/beginning_a_xamarin_trial/#Activating_a_Trial_in_Visual_Studio) to try out the richer experience. You can always return to Xamarin Starter Edition after that.
+
+Visual Studio Community
+-----------------------
+
+You can use the free Visual Studio 2015 Community edition. It is very similar to Visual Studio Pro and free for students, open source developers and many individual developers. It supports Visual Studio plugins like Xamarin or Resharper.
 
 ASP.NET
 =======
@@ -427,4 +437,14 @@ Support for Token Binding Protocol
 Microsoft and Google have been collaborating on a new approach to authentication, called the [Token Binding Protocol](https://github.com/TokenBinding/Internet-Drafts). The premise is that  authentication tokens (in your browser cache) can be stolen and used by criminals to access otherwise secure resources (e.g. your bank account) without the requirement of your password or any other priviliged knowledge. The new protocol aims to mitigate this problem.
 
 The Token Binding Protocol will be implemented in Windows 10, as a browser feature. ASP.NET apps will participate in the protocol, such that authentication tokens are validated to be legitimate. The client and the server implementations establish the end-to-end protection specified by the protocol.
+
+.NET Core - for Device and Cloud
+================================
+
+.NET Core is a new version of .NET for modern device and cloud workloads. It provides a single set of APIs for you to use for your apps. You can write and share the same code for device and cloud apps without needing to use portable libraries, shared projects or other code sharing techniques. .NET has always offered low-level code portability as a fundamental tenet, and now has a uniform API that can be used in multiple app types.
+
+Today, the [.NET Core Framework](https://github.com/dotnet/corefx) can be used in ASP.NET 5, Windows 10 UAP and .NET Core console apps. The .NET Core API started as the API for Windows 8 Store Apps. It has since grown, both in terms of APIs exposed and to also include other scenarios such as ASP.NET 5 apps. Now, when we add new APIs to .NET Core, they are available for multiple app types at once. This approach makes better use of our engineering time and provides you with a consistent API right away.
+
+All of the .NET Core libraries are distributed as NuGet packages. You can acquire the packages easily within Visual Studio or with one of the NuGet clients directly.
+
 
