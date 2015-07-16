@@ -190,7 +190,7 @@ CLR & BCL
 * EventSource doesn't aggressively fail when using reserved keywords. [955350]
 * Eliminated a leak when calling IReflect.InvokeMemberon a native IDispatchEX implementation through IReflect or IExpando. [957933]
 * Updated the XmlQualifiedName GetHashCode function to use the randomized hash function for string instead of the default one. [958935]
-* IsolatedStorage feature works when configured to plave storage on roaming profiles. [961127]
+* IsolatedStorage feature works when configured to place storage on roaming profiles. [961127]
 * Text encoding is extensible. [963034]
 * Fixed the performance for enums based on primitive integral types other than int while maintaining the roundtrip between 4.0 and 4.5. [965865]
 * .NET Setup UI correctly scales controls in high DPI. [968115]
@@ -208,7 +208,7 @@ ASP.NET
 -------
 
 * State Service startup type is correctly persisted. [1038077]
-* registry settings preserved during upgrade. [1038147]
+* Registry settings preserved during upgrade. [1038147]
 * Medium trust in ASP.NET 4.5 application doesn't cause execution permission exception. [1038337]
 * WebForm_DoCallback XHR doesn't break IDN support. [1040710]
 * .NET quirks and compatibility switches can be specified in ASP.NET configuration file. [1041102]
@@ -271,7 +271,7 @@ WPF
 * Fixed overflow exception in WPF System.ServiceModel.Channels.TransmissionStrategy.AddToWindow. [811734]
 * Fixed InvalidOperationException in multithread application by synchronizing access to the static Stack<> that holds SerializationContext for recycling. [834091]
 * Snapping and unsnapping the keyboard on a Surface Pro doesn't cause null reference exception in WPF touch input stack. [839668]
-* TreeView doesn't vanish after node collpase and expand. [888530]
+* TreeView doesn't vanish after node collapse and expand. [888530]
 * Selected items in a WPF ListBox or ListView control are correct when items.refresh is called from code behind. [945407]
 * Fixed performance regression in WPF applications caused by the loading of three additional assemblies. [946388]
 * XamlBuildTask doesn't sporadically report error "Object '<generated-name>' has been disconnected or does not exist at the server" on TFS builds. [955825]
@@ -323,7 +323,7 @@ Windows Forms
 * Adding large image to resource file doesn't cause error in 300% high DPI mode. [1096726]
 * System.Windows.Input.Cursor supports multi-image cursor files. [673619]
 * Closing a parent form in MDI applications doesn't throw System.ComponentModel.Win32Exception (Error creating window handle) [847648]
-* Fixed a null reference exception when messages continue arriving aftera native tooltip window has been disposed. [933930]
+* Fixed a null reference exception when messages continue arriving after a native tooltip window has been disposed. [933930]
 
 Visual Studio
 -------------
