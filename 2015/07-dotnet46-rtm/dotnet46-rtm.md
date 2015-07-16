@@ -301,7 +301,7 @@ Edit and Continue (EnC) is a popular productivity feature. It enables you to edi
 
 You can now use EnC with lambdas, async methods, Linq and other language features. Given today's coding patterns, that's a huge jump forward for EnC usability. 
 
-Here's an example of some code that didn't support async before. It is an async lambda that includes a Linq statement. You can see how it was fixed up in the debugger to work correctly (bad Linq query) and print out a more specific message.
+Here's an example of some code that didn't support async before. It is an async lambda that includes a Linq statement. You can see how it was fixed up in the debugger, in the image below, to correctly query the string[] and print out a more specific message.
 
 ``` c#
 public MainWindow()
@@ -341,7 +341,7 @@ The following types of edits are not supported:
 - Modifying await expressions wrapped inside other expressions (e.g., G(await F());)
 
 WPF - Live Visual Tree 
-======================
+----------------------
 
 Visual Studio includes a new viewer and editor for the XAML Visual Tree - Live! - while debugging a WPF app. It enables you to navigate the visual tree as it exists at any point in the life cycle of your app. You can edit properties on the tree, for example button text, which are then displayed in the running app. You cannot change the composition of the tree.
 
@@ -359,6 +359,21 @@ Debugger Improvements
 Visual Studio 2015 addresses many requests that you have made for improving your debugging life, such as [lambda debugging](http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/12/support-for-debugging-lambda-expressions-with-visual-studio-2015.aspx), [Edit and Continue (EnC) improvements](http://blogs.msdn.com/b/visualstudioalm/archive/2015/02/23/enc-improvements-for-net-debugging-in-visual-studio-2015.aspx), [child-process debugging](http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/24/introducing-the-child-process-debugging-power-tool.aspx), as well revamp core experiences such as [powerful breakpoint configuration](http://blogs.msdn.com/b/visualstudioalm/archive/2014/10/06/new-breakpoint-configuration-experience.aspx) and introduce a [new Exceptions Settings tool window](http://blogs.msdn.com/b/visualstudioalm/archive/2015/02/23/the-new-exception-settings-window-in-visual-studio-2015.aspx). 
 
 We also pushed the state of the art by integrating performance tooling into the debugger with [PerfTips](http://blogs.msdn.com/b/visualstudioalm/archive/2014/08/18/perftips-performance-information-at-a-glance-while-debugging-with-visual-studio.aspx) and the [all new Diagnostic Tools window](http://blogs.msdn.com/b/visualstudioalm/archive/2015/01/16/diagnostic-tools-debugger-window-in-visual-studio-2015.aspx) which includes the [redesigned IntelliTrace](http://blogs.msdn.com/b/visualstudioalm/archive/2015/01/16/intellitrace-in-visual-studio-ultimate-2015.aspx) for historical debugging and the [Memory Usage tool](http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/13/memory-usage-tool-while-debugging-in-visual-studio-2015.aspx).
+
+Xamarin Starter Included in Visual Studio 2015
+==============================================
+
+Xamarin is a great way to start building iOS and Android apps in C# or F# within Visual Studio. [Xamarin Starter Edition](http://xamarin.com/starter) is now included as a free optional feature within Visual Studio 2015.  Many .NET developers are using Xamarin to increase the reach of their apps and development effort to iOS and Android. 
+
+To install Xamarin with Visual Studio 2015, select the _Custom_ installation option. Select the displayed checkbox below.
+
+![VS Xamarin Install](vs-xamarin-install.png)
+
+There are several additional application templates that are available for you to use after installing Xamarin Starter edition, for iOS (displayed below) and Android.
+
+![VS Xamarin Experience](vs-xamarin-projects.png)
+
+You can use Xamarin Starter editon as long as you want, build apps, test on devices and publish to app stores. It is limited to apps that are [128k of byte code or less](http://xamarin.com/faq#q18), but does enable you to deploy to a simulator, a device or an app store. You can start a [Xamarin Business trial](http://developer.xamarin.com/guides/cross-platform/getting_started/beginning_a_xamarin_trial/#Activating_a_Trial_in_Visual_Studio) to try out the richer experience. You can always return to Xamarin Starter Edition after that.
 
 ASP.NET
 =======
