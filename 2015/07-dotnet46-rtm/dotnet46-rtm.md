@@ -297,31 +297,48 @@ Visual Studio 2015 includes major improvements for .NET.
 EnC - Lambda and Async Task support
 -----------------------------------
 
-Edit and Continue (EnC) is a great productivity feature that everyone (wants to) use every day. It enables you to edit your code while you are debugging it. This is useful for a lot of reasons, particularly if your code needs to interact with state that isn't directly part of an API (e.g. processing JSON files) and can be most easily discovered at runtime.
+Edit and Continue (EnC) is a popular productivity feature. It enables you to edit your code while you are debugging it. This is useful for a lot of reasons, particularly if your code needs to interact with state that isn't directly part of an API (e.g. processing JSON files) and can be most easily explored at runtime.
 
-You can now use EnC with lambdas, async methods, LINQ and a few other situations. Given today's coding patterns, that's a huge jump forward for EnC usability. You can check out the set of [EnC improvements the team already released](http://blogs.msdn.com/b/csharpfaq/archive/2015/02/23/edit-and-continue-and-make-object-id-improvements-in-ctp-6.aspx) in Visual Studio CTP 6.
+You can now use EnC with lambdas, async methods, Linq and other language features. Given today's coding patterns, that's a huge jump forward for EnC usability. 
 
-The following screenshot demonstrates the new support. There are two separate lines that were typed using this new support, one in an async method and the other in a lamda.
+Here's an example of some code that didn't support async before. It is an async lambda that includes a Linq statement. You can see how it was fixed up in the debugger to work correctly (bad Linq query) and print out a more specific message.
+
+``` c#
+public MainWindow()
+{
+    InitializeComponent();
+    
+    Loaded += async (o, e) => {
+        await Task.Delay(1000);
+        _strings = new string[] { "EnC now supports more features!", "Thanks to Roslyn!"};
+        label.Content = (from str in _strings
+                 where str.StartsWith("Enc")
+                select str).FirstOrDefault();
+    };
+}
+```
 
 ![Visual Studio 2015 - EnC Support](vs2015-enc.png)
 
-The following scenarios are now supported:
+Language features supported by EnC in Visual Studio 2015:
 
-- Async functions
-- Lambda expressions
-- LINQ queries
-- Iterator functions
+- Adding methods, fields, constructors, properties, events, indexers, field and property initializers, and nested and top-level types (including delegates, enums, interfaces, abstract and generic types)
+- Modifying bodies of constructors (including constructor initializers), expression-bodied members, and field and property initializers
+- Adding and modifying methods that use:
+	- Async/await
+	- Operations with dynamic objects
+	- Iterators
+	- C# 6.0 language features: string interpolation, null-conditional operators, etc.
+- Reordering type members and type parameter constraints
+- Refactoring code (extract method and inline temporary variable) using Ctrl + .
 
-EnC improvements are still in progress and we are working to support more scenarios (and providing more documentation). Please [file any issues](https://github.com/dotnet/roslyn/issues) you come across on our GitHub.
+The following types of edits are not supported:
 
-> **Note:** If you don't understand why an edit fails, try checking the Error List. There are explanations for errors there that should help clarify issues. Please file an issue if you find these messages confusing or if they do not exist for your error.
-
-Read more about [earlier EnC improvements](http://blogs.msdn.com/b/csharpfaq/archive/2015/02/23/edit-and-continue-and-make-object-id-improvements-in-ctp-6.aspx) from Visual Studio 2015 CTP 6, such as modifying iterators, async/await, methods, etc.
-
-Debugger Improvements 
----------------------
-
-Visual Studio 2015 addresses many requests that you have made for improving your debugging life, such as [lambda debugging](http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/12/support-for-debugging-lambda-expressions-with-visual-studio-2015.aspx), [Edit and Continue (EnC) improvements](http://blogs.msdn.com/b/visualstudioalm/archive/2015/02/23/enc-improvements-for-net-debugging-in-visual-studio-2015.aspx), [child-process debugging](http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/24/introducing-the-child-process-debugging-power-tool.aspx), as well revamp core experiences such as [powerful breakpoint configuration](http://blogs.msdn.com/b/visualstudioalm/archive/2014/10/06/new-breakpoint-configuration-experience.aspx) and introduce a [new Exceptions Settings tool window](http://blogs.msdn.com/b/visualstudioalm/archive/2015/02/23/the-new-exception-settings-window-in-visual-studio-2015.aspx). We also pushed the state of the art by integrating performance tooling into the debugger with [PerfTips](http://blogs.msdn.com/b/visualstudioalm/archive/2014/08/18/perftips-performance-information-at-a-glance-while-debugging-with-visual-studio.aspx) and the [all new Diagnostic Tools window](http://blogs.msdn.com/b/visualstudioalm/archive/2015/01/16/diagnostic-tools-debugger-window-in-visual-studio-2015.aspx) which includes the [redesigned IntelliTrace](http://blogs.msdn.com/b/visualstudioalm/archive/2015/01/16/intellitrace-in-visual-studio-ultimate-2015.aspx) for historical debugging and the [Memory Usage tool](http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/13/memory-usage-tool-while-debugging-in-visual-studio-2015.aspx).
+- Deletion of members, types, or entire method bodies
+- Modifying method signatures and renaming
+- Modifying generics, interfaces, and abstract types
+- Adding or modifying enum members to an existing enum
+- Modifying await expressions wrapped inside other expressions (e.g., G(await F());)
 
 WPF - Live Visual Tree 
 ======================
@@ -336,7 +353,15 @@ The following screenshot demonstrates the Live Visual Tree and an app that has a
 
 ![Visual Studio 2015 - Live Visual Tree](vs2015-live-visual-tree.png)
 
-TODO: Get a better screenshot.
+Debugger Improvements 
+---------------------
+
+Visual Studio 2015 addresses many requests that you have made for improving your debugging life, such as [lambda debugging](http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/12/support-for-debugging-lambda-expressions-with-visual-studio-2015.aspx), [Edit and Continue (EnC) improvements](http://blogs.msdn.com/b/visualstudioalm/archive/2015/02/23/enc-improvements-for-net-debugging-in-visual-studio-2015.aspx), [child-process debugging](http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/24/introducing-the-child-process-debugging-power-tool.aspx), as well revamp core experiences such as [powerful breakpoint configuration](http://blogs.msdn.com/b/visualstudioalm/archive/2014/10/06/new-breakpoint-configuration-experience.aspx) and introduce a [new Exceptions Settings tool window](http://blogs.msdn.com/b/visualstudioalm/archive/2015/02/23/the-new-exception-settings-window-in-visual-studio-2015.aspx). 
+
+We also pushed the state of the art by integrating performance tooling into the debugger with [PerfTips](http://blogs.msdn.com/b/visualstudioalm/archive/2014/08/18/perftips-performance-information-at-a-glance-while-debugging-with-visual-studio.aspx) and the [all new Diagnostic Tools window](http://blogs.msdn.com/b/visualstudioalm/archive/2015/01/16/diagnostic-tools-debugger-window-in-visual-studio-2015.aspx) which includes the [redesigned IntelliTrace](http://blogs.msdn.com/b/visualstudioalm/archive/2015/01/16/intellitrace-in-visual-studio-ultimate-2015.aspx) for historical debugging and the [Memory Usage tool](http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/13/memory-usage-tool-while-debugging-in-visual-studio-2015.aspx).
+
+ASP.NET
+=======
 
 Updated New Project Dialog
 --------------------------
