@@ -228,7 +228,7 @@ EF 7 currently supports the following databases, with the beta 5 release:
 .NET Languages
 ==============
 
-The .NET languages team is releasing final updates to C# 6, F# 4 and VB 14 today. This includes final language specs and compiler implementations. The language specs were actually [complete at RC](http://blogs.msdn.com/b/dotnet/archive/2015/04/29/net-announcements-at-build-2015.aspx#dotnetlang).
+The .NET languages team is releasing final updates to C# 6, F# 4.0 and VB 14 today. This includes final compiler implementations, and, for C# and VB, final language specs. The language specs were actually [complete at RC](http://blogs.msdn.com/b/dotnet/archive/2015/04/29/net-announcements-at-build-2015.aspx#dotnetlang).
 
 C# 6 and VB 14
 --------------
@@ -305,10 +305,69 @@ class Program
 VB
 
 
-F# 4
+F# 4.0
 ----
 
-Content here.
+F# 4.0 introduces a number of new language and runtime capabilities.  Just a few are described below; see the team blog posts from the [Preview](http://blogs.msdn.com/b/fsharpteam/archive/2014/11/12/announcing-a-preview-of-f-4-0-and-the-visual-f-tools-in-vs-2015.aspx) and [RC](http://blogs.msdn.com/b/dotnet/archive/2015/04/29/rounding-out-visual-f-4-0-in-vs-2015-rc.aspx) releases for a more complete list, or review the VS 2015 [release notes](https://www.visualstudio.com/en-us/news/vs2015-vs#fsharp).
+
+**Constructors as first-class function values** Constructors can now be treated as first-class function values, similar to curried functions or other .NET methods. This eliminates the need to create small lambdas for the sole purpose of calling a constructor.
+
+
+``` fsharp
+// old approach
+let makeStrings chars lens =
+    List.zip chars lens
+    |> List.map (fun (char, len) -> new System.String(char, len))
+
+// new approach
+let makeStrings' chars lens =
+    List.zip chars lens
+    |> List.map System.String // use ctor as function
+
+makeStrings' ['a';'b';'c'] [1;2;3] // ["a"; "bb"; "ccc"]
+
+```
+
+**Simplified mutable values** The `mutable` keyword can now be used in all cases to create a mutable value. Scenarios where `ref` values were previously required will be handled automatically by the compiler.
+
+
+``` fsharp
+// old approach - need a `ref` value
+let sumSquares n =
+    let total = ref 0
+    { 1 .. n } |> Seq.iter (fun i ->
+        total := !total + i*i
+    )
+    !total
+
+// new approach - `mutable` just works
+let sumSquares' n =
+    let mutable total = 0
+    { 1 .. n } |> Seq.iter (fun i ->
+        total <- total + i*i
+    )
+    total
+
+```
+
+**Implicit quotation of method arguments** Method arguments now support the `[<ReflectedDefinition>]` attribute, which enables access to both the passed argument value and a quotation of its callsite expression.
+
+
+``` fsharp
+type Test =
+	static member EchoExpression([<ReflectedDefinition(true)>] x : Expr<_>) =
+		let expression, value = (* decompose AST of x *)
+        printfn "%s evaluates to %O" expression value
+
+let x, y, z = 42, 89.0, 92.5
+Test.EchoExpression(x)             // "x evaluates to 42" 
+Test.EchExpression(Math.Max(y, z)) // "Math.Max(y, z) evaluates to 92.5"
+
+```
+
+**Normalized collections API** The `List`, `Array`, and `Seq` modules have been expanded and fully normalized, with dedicated implementations of every API across all collection types. This represents the addition of 104 new APIs.
+
+![F# collections API](fsharp-collections.png)
 
 
 Visual Studio Improvements for .NET
@@ -361,6 +420,15 @@ The following types of edits are not supported:
 - Modifying generics, interfaces, and abstract types
 - Adding or modifying enum members to an existing enum
 - Modifying await expressions wrapped inside other expressions (e.g., G(await F());)
+
+F# Script Debugging
+-------------------
+
+F# scripts and F# Interactive are now integrated with the Visual Studio debugger.  You can now take advantage of the rich Visual Studio debugging tools while working interactively.
+
+
+![Visual Studio 2015 - F# script debugging](vs2015-fsxdebug.png)
+
 
 WPF - Live Visual Tree 
 ----------------------
