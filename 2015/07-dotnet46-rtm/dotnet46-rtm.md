@@ -1,7 +1,7 @@
 Announcing .NET Framework 4.6 RTM
 =================================
 
-We're excited to announce [.NET Framework 4.6](http://go.microsoft.com/fwlink/?LinkId=528259) and [Visual Studio 2015](http://go.microsoft.com/fwlink/?LinkId=517106), both as RTM releases, today. You can read about the new features or leave that for that and install these new versions now to try them out. The quickest way to get started is to install the free Visual Studio 2015 Community version.
+We're excited to announce the RTM releases of [.NET Framework 4.6](http://go.microsoft.com/fwlink/?LinkId=528259) and [Visual Studio 2015](http://go.microsoft.com/fwlink/?LinkId=517106) today. You can read about the new features or leave that for later and install and try them out now. The quickest way to get started is to install the free Visual Studio 2015 Community version.
 
 With the .NET Framework 4.6, you'll enjoy better performance with the new 64-bit "RyuJIT" JIT and high DPI support for WPF and Windows Forms. ASP.NET provides HTTP/2 support when running on Windows 10 and has more async task-returning APIs. There are also major updates in Visual Studio 2015 for .NET developers, many of which are built on top of the new Roslyn compiler framework. The .NET languages -- C# 6, F# 4, VB 15 -- have been updated, too. 
 
@@ -26,6 +26,8 @@ You can check out the earlier [RC](http://blogs.msdn.com/b/dotnet/archive/2015/0
 ==================
 
 There are many great features in the [.NET Framework 4.6](http://go.microsoft.com/fwlink/?LinkId=528259). Some of these features, like RyuJIT and the latest GC updates, can provide improvements by just installing the .NET Framework 4.6. Give it at try!
+
+You learn more about the release by looking at [What's New in the .NET Framework](https://msdn.microsoft.com/library/ms171868.aspx), the [release changelist](https://github.com/microsoft/dotnet) and an [API diff](https://github.com/microsoft/dotnet) between the .NET Framework 4.6 and 4.5.2 releases.
 
 Windows Presentation Foundation
 -------------------------------
@@ -109,16 +111,29 @@ The new mode exposes multiple points of configuration, including allowing you to
 Windows Communication Foundation
 --------------------------------
 
-WCF now supports SSL version TLS 1.1 and TLS 1.2, in addition to SSL 3.0 and TLS 1.0, when using NetTcp with transport security and client authentication. It is now possible to select which protocol to use, or to disable old less secure protocols. This can be done either by setting the System.ServiceModel.TcpTransportSecurity.SslProtocols property or by adding a line to a configuration file.
+WCF now supports SSL version TLS 1.1 and TLS 1.2, in addition to SSL 3.0 and TLS 1.0, when using NetTcp with transport security and client authentication. It is now possible to select which protocol to use, or to disable old less secure protocols. This can be done either by setting the System.ServiceModel.TcpTransportSecurity.SslProtocols property or by updating a configuration file, as shown below.
+
+	<netTcpBinding>
+	   <binding>
+	      <security mode= "None|Transport|Message|TransportWithMessageCredential" >
+	         <transport clientCredentialType="None|Windows|Certificate"
+	                    protectionLevel="None|Sign|EncryptAndSign"
+	                    sslProtocols="Ssl3|Tls1|Tls11|Tls12">
+	            </transport>
+	      </security>
+	   </binding>
+	</netTcpBinding>
 
 Windows Workflow
 ----------------
  
 The workflow team added a new setting that specifies the number of seconds a workflow service will hold on to an out-of-order operation request when there is an outstanding “non-protocol” bookmark before timing out the request. A “non-protocol” bookmark is a bookmark that is not related to outstanding Receive activities. Some activities create non-protocol bookmarks within their implementation, so it may not be obvious that a non-protocol bookmark exists. These include State and Pick. So if you have a workflow service implemented with a state machine or containing a Pick activity, you will most likely have non-protocol bookmarks. 
 
-You can add the setting in the abc section of an app.config file.
+You can add the setting in the appSettings section of an app.config file.
 
-	<add key="microsoft:WorkflowServices:FilterResumeTimeoutInSeconds" value="60"/>
+	<appSettings>
+		<add key="microsoft:WorkflowServices:FilterResumeTimeoutInSeconds" value="60"/>
+	</appSettings>
 
 The default value is 60 seconds. If the value is set to 0, then the out-of-order requests are immediately rejected with a fault with text that looks like this:
  
@@ -208,6 +223,47 @@ Other Base Class Library changes
 - A number of collection objects, such as System.Collections.Generic.Queue and System.Collections.Generic.Stack, now implement System.Collections.Generic.IReadOnlyCollection.
 - The System.Globalization.CultureInfo.CurrentCulture and System.Globalization.CultureInfo.CurrentUICulture properties are now read-write rather than read-only. If you assign a new System.Globalization.CultureInfo object to these properties, the current thread culture defined by the Thread.CurrentThread.CurrentCulture property and the current UI thread culture defined by the Thread.CurrentThread,CurrentUICulture properties also change.
 - The System.Numerics namespace now includes a number of SIMD-enabled types for scientific computing, such as System.Numerics.Matrix3x2, System.Numerics.Matrix4x4, System.Numerics.Plane, System.Numerics.Quaternion, System.Numerics.Vector2, System.Numerics.Vector3, and Vector4T:System.Numerics.Vector4.
+
+ASP.NET 4.6
+===========
+
+The ASP.NET team has made many updates to ASP.NET 4.6. You can learn more by reading the [ASP.NET 4.6 RTM blog post](http://blogs.msdn.com/webdev) or watch [ASP.NET team member Pranav Rastogi describe the update](https://channel9.msdn.com/Events/Visual-Studio/Connect-event-2014/812). The release includes updates for the following components.
+
+- ASP.NET Web Forms 4.6
+- ASP.NET MVC 5.2.3
+- ASP.NET Web Pages 3.2.3
+- ASP.NET Web API 5.2.3
+- ASP.NET SignalR 2.1.2
+
+Async Model Binding for Web Forms
+---------------------------------
+
+In the .NET Framework 4.5, Model Binding support was added to Web Forms. In the .NET Framework 4.6, we are adding support for Async Model Binding which allow you write Asynchronous Model Binding actions. The following code snippet shows a Web Forms page using Async Model Binding actions.
+
+<script src="https://gist.github.com/rustd/f3ccd70472c9f06c3f47.js"></script>
+
+Identity and Authentication Updates
+-----------------------------------
+
+The ASP.NET 4.6 templates now use Open Id Connect middleware to authenticate to Azure Active Directory (Azure AD) which makes the programming model to authenticate with Azure AD much easier. Additionally, when starting a new project and you choose the ‘Individual User Accounts’ option then the templates will provide sample code for two-factor authentication and social logins with ASP.NET Identity 2.2.1.
+
+HTTP/2 Support (Windows 10)
+---------------------------
+
+[HTTP/2](http://en.wikipedia.org/wiki/HTTP/2) support has been added to ASP.NET in the .NET Framework 4.6. New features were required in Windows, in IIS and in ASP.NET to enable HTTP/2 given that networking functionality exists at multiple layers. You must be running on Windows 10 to use HTTP/2 with ASP.NET. HTTP/2 has not yet been added to ASP.NET 5.
+
+HTTP/2 is a new version of the HTTP protocol that provides much better connection utilization (fewer round-trips between client and server), resulting in lower latency web page loading for users.  Web pages (as opposed to services) benefit the most from HTTP/2, since the protocol optimizes for multiple artifacts being requested as part of a single experience. 
+
+The browser and the webserver (IIS on Windows) do all the work. You don't have to do any heavy-lifting for your users. 
+
+Most of the [major browsers](http://en.wikipedia.org/wiki/HTTP/2#Browser_support) support HTTP/2, so it's likely that your users will benefit from HTTP/2 support if your server supports it. Give it a try with the RC update.
+
+Support for Token Binding Protocol
+----------------------------------
+
+Microsoft and Google have been collaborating on a new approach to authentication, called the [Token Binding Protocol](https://github.com/TokenBinding/Internet-Drafts). The premise is that  authentication tokens (in your browser cache) can be stolen and used by criminals to access otherwise secure resources (e.g. your bank account) without the requirement of your password or any other priviliged knowledge. The new protocol aims to mitigate this problem.
+
+The Token Binding Protocol will be implemented in Windows 10, as a browser feature. ASP.NET apps will participate in the protocol, such that authentication tokens are validated to be legitimate. The client and the server implementations establish the end-to-end protection specified by the protocol.
 
 Entity Framework
 ================
@@ -369,7 +425,6 @@ Test.EchExpression(Math.Max(y, z)) // "Math.Max(y, z) evaluates to 92.5"
 
 ![F# collections API](fsharp-collections.png)
 
-
 Visual Studio Improvements for .NET
 ===================================
 
@@ -380,9 +435,9 @@ EnC - Lambda and Async Task support
 
 Edit and Continue (EnC) is a popular productivity feature. It enables you to edit your code while you are debugging it. This is useful for a lot of reasons, particularly if your code needs to interact with state that isn't directly part of an API (e.g. processing JSON files) and can be most easily explored at runtime.
 
-You can now use EnC with lambdas, async methods, Linq and other language features. Given today's coding patterns, that's a huge jump forward for EnC usability. 
+You can now use EnC with lambdas, async methods, Linq and other language features. Given today's coding patterns, that's a huge jump forward for EnC usability. Check out [Supported Edits in Edit & Continue (EnC)](https://github.com/dotnet/roslyn/wiki/EnC-Supported-Edits) to see the complete set of EnC operations supported by EnC in Visual Studio 2015.
 
-Here's an example of some code that didn't support async before. It is an async lambda that includes a Linq statement. You can see how it was fixed up in the debugger, in the image below, to correctly query the string[] and print out a more specific message.
+Here's an example of some code that didn't support async before. It is an async lambda that includes a Linq statement. You can see how it was fixed up in the debugger, in the image below, to correctly query the string[] with "EnC" instead of "Enc" and change the message in the string[].
 
 ``` c#
 public MainWindow()
@@ -401,26 +456,6 @@ public MainWindow()
 
 ![Visual Studio 2015 - EnC Support](vs2015-enc.png)
 
-Language features supported by EnC in Visual Studio 2015:
-
-- Adding methods, fields, constructors, properties, events, indexers, field and property initializers, and nested and top-level types (including delegates, enums, interfaces, abstract and generic types)
-- Modifying bodies of constructors (including constructor initializers), expression-bodied members, and field and property initializers
-- Adding and modifying methods that use:
-	- Async/await
-	- Operations with dynamic objects
-	- Iterators
-	- C# 6.0 language features: string interpolation, null-conditional operators, etc.
-- Reordering type members and type parameter constraints
-- Refactoring code (extract method and inline temporary variable) using Ctrl + .
-
-The following types of edits are not supported:
-
-- Deletion of members, types, or entire method bodies
-- Modifying method signatures and renaming
-- Modifying generics, interfaces, and abstract types
-- Adding or modifying enum members to an existing enum
-- Modifying await expressions wrapped inside other expressions (e.g., G(await F());)
-
 F# Script Debugging
 -------------------
 
@@ -428,7 +463,6 @@ F# scripts and F# Interactive are now integrated with the Visual Studio debugger
 
 
 ![Visual Studio 2015 - F# script debugging](vs2015-fsxdebug.png)
-
 
 WPF - Live Visual Tree 
 ----------------------
@@ -442,6 +476,13 @@ The Live Visual Tree is also connected to the XAML source editing experience. As
 The following screenshot demonstrates the Live Visual Tree and an app that has a button selected with the new feature. 
 
 ![Visual Studio 2015 - Live Visual Tree](vs2015-live-visual-tree.png)
+
+Application Timeline Tool
+-------------------------
+
+The Application Timeline tool, which is in "Start Diagnostic Tools Without Debugging…", shows you how much time your application spends in preparing UI frames and in servicing network and disk requests, and it does so in the context of scenarios such as Application Load. This scenario centric view of system resource consumption, enables you to inspect, diagnose, and improve the performance of your WPF applications. In addition, this tool along with the CPU Usage and Memory Usage tools are now available on Windows 7 as well.
+
+![Application Timeline Tool](vs2015-wpf-timeline.jpg)
 
 Debugger Improvements 
 ---------------------
@@ -459,69 +500,29 @@ To install Xamarin with Visual Studio 2015, select the _Custom_ installation opt
 
 ![VS Xamarin Install](vs-xamarin-install.png)
 
-There are several additional application templates that are available for you to use after installing Xamarin Starter edition, for iOS (displayed below) and Android.
-
-![VS Xamarin Experience](vs-xamarin-projects.png)
-
 You can use Xamarin Starter editon as long as you want, build apps, test on devices and publish to app stores. It is limited to apps that are [128k of byte code or less](http://xamarin.com/faq#q18), but does enable you to deploy to a simulator, a device or an app store. You can start a [Xamarin Business trial](http://developer.xamarin.com/guides/cross-platform/getting_started/beginning_a_xamarin_trial/#Activating_a_Trial_in_Visual_Studio) to try out the richer experience. You can always return to Xamarin Starter Edition after that.
+
+Xamarin.Forms for Windows
+-------------------------
+
+Xamarin.Forms support for the Windows platform has been updated to support Windows 8.1, and Windows Phone 8.1 apps. This means that you can build and ship Xamarin.Forms apps that target all of the major mobile platforms from a single code base.
+
+Code Completion for Xamarin.Forms XAML
+--------------------------------------
+
+Declarative UI development in Visual Studio gets even more powerful with code completion for Xamarin.Forms. You can easily explore Xamarin.Forms user interface APIs, quickly build complex screens, and avoid typos and other common mistakes while creating UIs in XAML.
+
+![Xaml Code Completion](vs2015-xamarin-xaml.png)
+
+Xamarin + Visual C++ Debugger Integration
+-----------------------------------------
+
+You can reference and debug native C++ libraries in a Xamarin.Android app. Just choose the Microsoft debugger in the project's property pages. Then, you can step through those libraries by using all of the debug features you know and love, including expression evaluation, watch window, and auto window.
 
 Visual Studio Community
 -----------------------
 
 You can use the free Visual Studio 2015 Community edition. It is very similar to Visual Studio Pro and free for students, open source developers and many individual developers. It supports Visual Studio plugins like Xamarin or Resharper.
-
-ASP.NET
-=======
-
-Updated New Project Dialog
---------------------------
-
-The addition of ASP.NET 5 as new separate version of ASP.NET motivated the team to re-work the ASP.NET _New ASP.NET Project_ dialog in Visual Studio. ASP.NET 4.6 and ASP.NET 5 are clearly divided, making it easy to choose which type of app you want to build. The ASP.NET 5 section has fewer choices since more of the scenarios are integrated now. For examoke, you can opt to make your Web API a Mobile service at any time. 
-
-![New ASP.NET Project Dialog](aspnet-project-dialog.png)
-
-Missing NuGet Packages - No Longer
-----------------------------------
-
-The transition from the monolithic .NET Framework to distributing all of .NET as NuGet packages has a lot of advantages, but has come with some challenges, including package discovery. You can now resolve NuGet package references in a similar way as you can resolve missing namespace references for types. 
-
-In the example below, the XDocument type (just the text `XDocument`) is resolved to its type definition with a simple `CTRL .`. The using statement is added to the file and the System.Xml.XmlDocument NuGet package. 
-
-![Resolve missing NuGet references](aspnet-missing-nuget.png)
-
-We wanted to make it easy to copy some code from [StackOverflow](http://stackoverflow.com/questions/tagged/asp.net), for example, and resolve type and package references quickly and easily. Please tell us if we've achieved that goal.
-
-Enabling the .NET Compiler Platform (“Roslyn”) in ASP.NET applications
-----------------------------------------------------------------------
-
-You can use the new language features of C# and VB in any ASP.NET 4.6 project. The Web Forms templates in VS 2015 have the [Microsoft.CodeDom.Providers.DotNetCompilerPlatform package](https://www.nuget.org/packages/Microsoft.CodeDom.Providers.DotNetCompilerPlatform) pre-installed. For VS 2015 RTM, it will be installed in all templates. Read [Enabling the .NET Compiler Platform (“Roslyn”) in ASP.NET applications](http://blogs.msdn.com/b/webdev/archive/2014/05/12/enabling-the-net-compiler-platform-roslyn-in-asp-net-applications.aspx) post for more details.
-
-Async Model Binding for Web Forms
----------------------------------
-
-In the .NET Framework 4.5, Model Binding support was added to Web Forms. In the .NET Framework 4.6, we are adding support for Async Model Binding which allow you write Asynchronous Model Binding actions. The following code snippet shows a Web Forms page using Async Model Binding actions.
-
-<script src="https://gist.github.com/rustd/f3ccd70472c9f06c3f47.js"></script>
-
-HTTP/2 Support (Windows 10)
----------------------------
-
-[HTTP/2](http://en.wikipedia.org/wiki/HTTP/2) support has been added to ASP.NET in the .NET Framework 4.6. New features were required in Windows, in IIS and in ASP.NET to enable HTTP/2 given that networking functionality exists at multiple layers. You must be running on Windows 10 to use HTTP/2 with ASP.NET. HTTP/2 has not yet been added to ASP.NET 5.
-
-HTTP/2 is a new version of the HTTP protocol that provides much better connection utilization (fewer round-trips between client and server), resulting in lower latency web page loading for users.  Web pages (as opposed to services) benefit the most from HTTP/2, since the protocol optimizes for multiple artifacts being requested as part of a single experience. 
-
-The browser and the webserver (IIS on Windows) do all the work. You don't have to do any heavy-lifting for your users. You can opt-in to HTTP/2 by doing A, B and C. You can see ASP.NET serving HTTP/2 traffic in the Fiddler screenshot below. 
-
-Screen-shot of HTTP/2 traffic with fiddler.
-
-Most of the [major browsers](http://en.wikipedia.org/wiki/HTTP/2#Browser_support) support HTTP/2, so it's likely that your users will benefit from HTTP/2 support if your server supports it. Give it a try with the RC update.
-
-Support for Token Binding Protocol
-----------------------------------
-
-Microsoft and Google have been collaborating on a new approach to authentication, called the [Token Binding Protocol](https://github.com/TokenBinding/Internet-Drafts). The premise is that  authentication tokens (in your browser cache) can be stolen and used by criminals to access otherwise secure resources (e.g. your bank account) without the requirement of your password or any other priviliged knowledge. The new protocol aims to mitigate this problem.
-
-The Token Binding Protocol will be implemented in Windows 10, as a browser feature. ASP.NET apps will participate in the protocol, such that authentication tokens are validated to be legitimate. The client and the server implementations establish the end-to-end protection specified by the protocol.
 
 .NET Core - for Device and Cloud
 ================================
