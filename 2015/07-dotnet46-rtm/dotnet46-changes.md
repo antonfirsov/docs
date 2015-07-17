@@ -161,6 +161,7 @@ BCL
 * IsolatedStorage feature works when configured to place storage on roaming profiles. [961127]
 * Text encoding is extensible. [963034]
 * Fixed the size of Vector<T>. [1020874]
+* System.Drawing.Icon.ToBitmap() supports PNG framed icons. [1084802]
 
 ASP.NET
 -------
@@ -240,6 +241,10 @@ WPF
 * Improved UI scrolling when using a virtualized ListView with a pixel scroll unit. [965665]
 * Fixed null reference exceptions in WPF System.Windows.Controls.ItemContainerGenerator.ContainerFromIndex. [966623]
 * Improved touch services. [971187]
+* Fixed RichTextBox spell checking issue with possessives. [1170165]
+* Window chrome doesn't turn black on maximize with GlassFrameThickness -1. [1176703]
+* Improved RichTextBox typing performance on low-end GPUs. [1177602]
+* Applications continue to promote touch events to click after digitizer is removed and reconnected while touching the digitizer. [1186170]
 
 WCF
 ---
@@ -257,6 +262,7 @@ WCF
 * WebResponseInputStream doesn't swallow the exception stating that the stream doesn't support read timeouts. [288814]
 * Auto-generated help produces correct links. [852865]
 * Added a keep-alive timeout on WCF ServiceHost. [948289]
+* Fixed a null reference exception in System.Runtime.Serialization when ETW is enabled. [1137758]
 
 Entity Framework
 ----------------
@@ -271,6 +277,7 @@ Workflow
 * Improvements to out-of-sequence calls in WF State Machine [1018947]
 * Added synchronization to DynamicModuleManager to prevent debugger from crashing the debugged application. [1112002]
 * Default TransactionException extended to include the distributed transaction ID in error message. [954268]
+* Workflow Foundation implementation for SQL better handles transient database errors. [1152472]
 
 Windows Forms
 -------------
@@ -280,3 +287,6 @@ Windows Forms
 * System.Windows.Input.Cursor supports multi-image cursor files. [673619]
 * Closing a parent form in MDI applications doesn't throw System.ComponentModel.Win32Exception (Error creating window handle) [847648]
 * Fixed a null reference exception when messages continue arriving after a native tooltip window has been disposed. [933930]
+* Using custom MessageFilter doesn't cause sporadic IndexOutOfRangeException in ThreadContext. [1072924]
+* WIT grid's sorting arrows scale for high DPI. [745286]
+* NumericUpDown scroll buttons scale for high DPI. [906184]
