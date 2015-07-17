@@ -162,6 +162,7 @@ BCL
 * Text encoding is extensible. [963034]
 * Fixed the size of Vector<T>. [1020874]
 * System.Drawing.Icon.ToBitmap() supports PNG framed icons. [1084802]
+* Uri constructor doesn't throw ArgumentOutOfRangeException when parsing certain URIs with escaped international characters. [1173958]
 
 ASP.NET
 -------
