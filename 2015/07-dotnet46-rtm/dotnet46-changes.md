@@ -246,7 +246,6 @@ WPF
 * Margins set in sections in FlowDocuments are respected. [1104560]
 * Scaling doesn't suffer from rounding errors on odd DPI. [1104807]
 * Improved thread safety when loading the same XAML resource for the first time in multiple UI threads. [12520]
-* Reverted change in WPF GroupItem that could cause null to be passed into custom implementations of IValueConverter. [658365]
 * Touch and stylus events don't stop firing after disconnecting then reconnecting to a remote desktop session. [659672]
 * Fixed a bouncing scrollbar with custom WPF DataTemplate. [759702]
 * GetFixedDocumentSequence doesn't throw with error message "UnicodeString property does not contain enough characters to correspond to the contents of Indices property." [796882]
