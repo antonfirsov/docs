@@ -20,7 +20,7 @@ CLR & BCL
 * GetProviderSpecificValue returns proper data type for encrypted columns when underlying data is null. [1159595]
 * AAD has integrated check for the pooled connection. [1118488]
 * French and Norwegian culture display name includes proper Unicode characters. [1147042]
-* Cryptography support updated. [1158068]
+* X509Certificate2 supports Cng key pairs. [1158068]
 * GDI+ reentrant paint operations fixed. [1075715]
 * AppContext values can be overridden by registry settings. [1076165]
 * Corrected EHRoots for methods with multiple funclets when GC occurs between a funclet rethrow and an outer catch in the same method. [1076626]
