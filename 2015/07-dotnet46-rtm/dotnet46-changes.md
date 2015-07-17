@@ -3,7 +3,7 @@
 
 .NET Framework 4.6 contains hundreds of bug fixes and improvements.
 This list details those changes, grouped by feature area.
-Each change includes our internal ticket numbers at the end of the line.
+Each change includes our TFS bug numbers at the end of the line.
 Please include those numbers in your communication if you wish to contact us to obtain more information.
 
 CLR & BCL
