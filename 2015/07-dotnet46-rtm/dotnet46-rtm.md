@@ -5,7 +5,7 @@ We're excited to announce the RTM releases of [.NET Framework 4.6](http://go.mic
 
 With the .NET Framework 4.6, you'll enjoy better performance with the new 64-bit "RyuJIT" JIT and high DPI support for WPF and Windows Forms. ASP.NET provides HTTP/2 support when running on Windows 10 and has more async task-returning APIs. There are also major updates in Visual Studio 2015 for .NET developers, many of which are built on top of the new Roslyn compiler framework. The .NET languages -- C# 6, F# 4, VB 15 -- have been updated, too. 
 
-We're also announcing updates to .NET Core and ASP.NET 5, both releasing as beta 5 today. We've also got news to share on .NET Universal Windows Platform tools, including .NET Native.
+We're also announcing updates to .NET Core and ASP.NET 5, both recently released as beta 5 and included in Visual Studio 2015. The .NET tools for Windows 10 UWP app development, including .NET Native, will be shipping shortly. We will have a lot to share about .NET UWP apps and the .NET Native technology at that time.
 
 You can download and try out the releases now:
 
@@ -14,13 +14,12 @@ You can download and try out the releases now:
 
 As a team, we're really excited to share everything we've been working on:
 
-- .NET Framework 4.6
-- ASP.NET 4.6
-- Entity Framework
-- .NET Languages
-- Visual Studio Improvements for .NET Developers
-- .NET Core and ASP.NET 5
-- .NET Universal Windows Apps (including .NET Native)
+- [.NET Framework 4.6](#net-framework-46)
+- [ASP.NET 4.6](#aspnet-46)
+- [Entity Framework](#entity-framework)
+- [.NET Languages](#net-languages)
+- [Visual Studio Improvements for .NET Developers](#visual-studio-improvements-for-net)
+- [.NET Core and ASP.NET 5]()
 
 You can check out the earlier [RC](http://blogs.msdn.com/b/dotnet/archive/2015/04/29/net-announcements-at-build-2015.aspx) and [Preview](http://blogs.msdn.com/b/dotnet/archive/2014/11/12/announcing-net-2015-preview-a-new-era-for-net.aspx) releases to see how the release has developed over the last year. In fact, it's only been 14 months since we released the [.NET Framework 4.5.2](http://blogs.msdn.com/b/dotnet/archive/2014/05/05/announcing-the-net-framework-4-5-2-release.aspx). 
 
@@ -191,6 +190,8 @@ Async
 
 The new System.Threading.AsyncLocal class allows you to represent ambient data that is local to a given asynchronous control flow, such as an async method. It can be used to persist data across threads. You can also define a callback method that is notified whenever the ambient data changes either because the AsyncLocal.Value property was explicitly changed, or because the thread encountered a context transition. You can see an example of this new type in use.
 
+[Gist](https://gist.github.com/richlander/2a3e3338b7b170735c57)
+
 <script src="https://gist.github.com/richlander/2a3e3338b7b170735c57.js"></script>
 
 System.Threading.Tasks.Task and System.Threading.Tasks.Task objects now inherit the culture and UI culture of the calling thread, for apps that target the .NET Framework 4.6. The behavior of apps that target previous versions of the .NET Framework is unaffected. For more information, see the "Culture and task-based asynchronous operations” section of the [System.Globalization.CultureInfo](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx) class topic.
@@ -202,13 +203,20 @@ The NamedPipeClientStream class now supports asynchronous communication with its
 Networking Enhancements
 -----------------------
 
-Windows 10 includes a new high-scalability networking algorithm that makes better use of machine resources by reusing ports. The .NET Framework 4.6 supports the new algorithm, enabling .NET apps to take advantage of the new behavior. In previous versions of Windows, there was an artificial concurrent connection limit of 64K, which could limit the scalability of a service by causing port exhaustion when under load. 
+Networking Enhancements
+-----------------------
+ 
+### System.Net.Sockets
 
+Windows 10 includes a new high-scalability networking algorithm that makes better use of machine resources by reusing local ports for outbound TCP connections. The .NET Framework 4.6 supports the new algorithm, enabling .NET apps to take advantage of the new behavior. In previous versions of Windows, there was an artificial concurrent connection limit (typically 16384), which could limit the scalability of a service by causing port exhaustion when under load. 
+ 
 In the .NET Framework 4.6, the System.Net.Sockets.SocketOptionName.ReuseUnicastPort enumeration value and the System.Net.ServicePointManager.ReusePort property, have been added to enable port reuse.
-
+ 
 By default, the System.Net.ServicePointManager.ReusePort property is false unless the HWRPortResueOnSocketBind value of the HKLM\SOFTWARE\Microsoft.NETFramework\v4.0.30319 registry key is set to 0x1. To enable local port reuse on HTTP connections, set the System.Net.ServicePointManager.ReusePort property to true. This causes all outgoing TCP socket connections from System.Net.Http.HttpClient and System.Net.HttpWebRequest to use a new Windows 10 socket option, SO_REUSE_UNICASTPORT, that enables local port reuse.
-
+ 
 Developers writing a sockets-only application can specify the System.Net.Sockets.SocketOptionName.ReuseUnicastPort option when calling a method such as System.Net.Sockets.Socket.SetSocketOption so that outbound sockets reuse local ports during binding.
+ 
+### System.Uri
 
 A new property, System.Uri.IdnHost, has been added to the System.Uri class to better support international domain names and PunyCode.
 
@@ -256,6 +264,8 @@ An application (or a library) can declare the value (always boolean) of a switch
 
 The library must check if a consumer has declared the value of the switch and then appropraitely act on it.
 
+[Gist](https://gist.github.com/richlander/7ab29fe9ffa71eabe9be)
+
 <script src="https://gist.github.com/richlander/7ab29fe9ffa71eabe9be.js"></script>
 
 It's beneficial to use a consistent format for switches, since they are a formal contract exposed by libraries. The following are two obvious formats.  
@@ -287,6 +297,8 @@ Async Model Binding for Web Forms
 ---------------------------------
 
 In the .NET Framework 4.5, Model Binding support was added to Web Forms. In the .NET Framework 4.6, we are adding support for Async Model Binding which allow you write Asynchronous Model Binding actions. The following code snippet shows a Web Forms page using Async Model Binding actions.
+
+[Gist](https://gist.github.com/rustd/f3ccd70472c9f06c3f47)
 
 <script src="https://gist.github.com/rustd/f3ccd70472c9f06c3f47.js"></script>
 
@@ -572,8 +584,8 @@ Xamarin + Visual C++ Debugger Integration
 
 You can reference and debug native C++ libraries in a Xamarin.Android app. Just choose the Microsoft debugger in the project's property pages. Then, you can step through those libraries by using all of the debug features you know and love, including expression evaluation, watch window, and auto window.
 
-.NET Core - for Device and Cloud
-================================
+.NET Core and ASP.NET 5
+=======================
 
 .NET Core is a new version of .NET for modern device and cloud workloads. It provides a single set of APIs for you to use for your apps. You can write and share the same code for device and cloud apps without needing to use portable libraries, shared projects or other code sharing techniques. .NET has always offered low-level code portability as a fundamental tenet, and now has a uniform API that can be used in multiple app types.
 
@@ -589,3 +601,8 @@ The [.NET Core](http://github.com/dotnet/core) is open source on GitHub. You can
 The [.NET Core Framework](https://github.com/dotnet/corefx) team are in the process of publishing all of their code on GitHub and are now over half-way done. You can check out their progress, maintained at the [CoreFX Progress](https://github.com/dotnet/corefx-progress) repo. You can also see their progress in the image below.
 
 ![CoreFX Progress](https://raw.githubusercontent.com/dotnet/corefx-progress/master/progress.png) 
+
+Summary
+=======
+
+
