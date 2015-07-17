@@ -75,13 +75,19 @@ Windows Forms High DPI support has been updated to include more controls. The [.
 
 The following controls have High DPI support in the .NET Framework 4.6: ComboBox, Cursor, DataGridView, DataGridViewColumn, DataGridViewComboBoxColumn, DomainUpDown, NumericUpDown, ToolStripComboBox, ToolStripMenuItem and ToolStripSplitButton.
 
+You can see a few examples of Windows Forms High DPI improvements.
+
+![DataGridView Sort Icon](dotnet46-windows-forms-hdpi-datagridview-sort.png)
+
+![Font Properties Dialog](dotnet46-windows-forms-hdpi-font-props.png)
+
+![Numeric up/down Control](dotnet46-windows-forms-hdpi-updown-control.png)
+
 This is an opt-in feature. To enable it, set the EnableWindowsFormsHighDpiAutoResizing element to true in the application configuration (app.config) file:
 
 	<appSettings>
 		<add key="EnableWindowsFormsHighDpiAutoResizing" value="true" />
 	</appSettings>
-
-
 
 RyuJIT
 ------
