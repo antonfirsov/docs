@@ -11,17 +11,14 @@ CLR
 
 * AppContext values can be overridden by registry settings. [1076165]
 * Asmx service references can be added to store apps. [1078198]
-* Contained classvar address yields correct codegen. [1033552]
 * CrossGen and NGen create identical System.Core native images. [1033601]
 * ICorProfilerCallback6 doesn't leak reference count. [1038285]
 * Loading design-time metadata at debug time for universal Windows apps is supported. [1038300]
 * Multi-core JIT doesn't deadlock from loop of structs and hang Visual Studio. [1043199]
 * ICorDebug heap enumeration doesn't skip objects. [1063297]
 * WinMDExp/CCI allow reading record kind 0x5/0x6. [1073349]
-* JIT64 correctly generates code for an OPCONDCALL with an indirect target as used for HELP_STOP_FOR_GC. [1127805]
 * ETW tracing for WebRequest works reliably when garbage collection happens. [1136690]
 * Fixed a deadlock in case of StackOverflow. [1138065]
-* Addr-exposed struct field with unsafe code and pointer arithmetic marks the whole struct addr-exposed. [1139174]
 * Improved performance reading from the redirected output stream. [997190]
 * Product version is correct in binaries' properties. [997577]
 * RyuJIT is on by default. [10175592], [1020209]
@@ -60,8 +57,6 @@ CLR
 * Fixed the performance for enums based on primitive integral types other than int while maintaining the roundtrip between 4.0 and 4.5. [965865]
 * .NET Framework Setup UI correctly scales controls in high DPI. [968115]
 * SIMD types in System.Numerics.dll are recognized by the JIT. [1168471]
-* RyuJIT Fixed copy from Vector2 to arg or return register. [1129385]
-* Encoding of Vector Multiply on AVX2 was fixed. [1132751]
 
 BCL
 ---
@@ -87,7 +82,6 @@ BCL
 * EventSource.DecodeObject doesn't cause a crash on application launch. [1070394]
 * GetCurrentProcess() doesn't throw a SecurityException in a partial trust component. [1071695]
 * TimeZoneInfo correctly handles start and end of year transitions. [1072355]
-* System.IO.MemoryMappedFile with DelayAllocatePages for whole file view doesn't throw AccessViolationException. [1120213]
 * Connections made using SPN in managed code don't fail with index out of range exception. [1120248]
 * XSD schema validation detects violation of unique constraint if compound key is used and one is empty. [1122756]
 * SqlSessionStateStore logs exception details when partition resolver is used. [1123428]
