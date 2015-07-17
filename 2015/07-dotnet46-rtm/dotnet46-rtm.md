@@ -1,5 +1,5 @@
-Announcing .NET Framework 4.6 RTM
-=================================
+Announcing .NET Framework 4.6
+=============================
 
 We're excited to announce the RTM releases of [.NET Framework 4.6](http://go.microsoft.com/fwlink/?LinkId=528259) and [Visual Studio 2015](http://go.microsoft.com/fwlink/?LinkId=517106) today. You can read about the new features or leave that for later and try them out now. The quickest way to get started is to install the free Visual Studio 2015 Community version.
 
@@ -17,6 +17,7 @@ As a team, we're really excited to share everything we've been working on:
 - .NET Framework 4.6
 - ASP.NET 4.6
 - Entity Framework
+- .NET Languages
 - Visual Studio Improvements for .NET Developers
 - .NET Core and ASP.NET 5
 - .NET Universal Windows Apps (including .NET Native)
@@ -28,7 +29,7 @@ You can check out the earlier [RC](http://blogs.msdn.com/b/dotnet/archive/2015/0
 
 There are many great features in the [.NET Framework 4.6](http://go.microsoft.com/fwlink/?LinkId=528259). Some of these features, like RyuJIT and the latest GC updates, can provide improvements by just installing the .NET Framework 4.6. Give it at try!
 
-You learn more about the release by looking at [What's New in the .NET Framework](https://msdn.microsoft.com/library/ms171868.aspx#v46), the [.NET Framework 4.6 release changelist](https://github.com/microsoft/dotnet) and an [framework library API diff](https://github.com/microsoft/dotnet) between the .NET Framework 4.6 and 4.5.2 releases.
+You learn more about the release by looking at [What's New in the .NET Framework](https://msdn.microsoft.com/library/ms171868.aspx#v46), the [.NET Framework 4.6 release changelist](https://github.com/microsoft/dotnet) and an [framework library API diff](https://github.com/microsoft/dotnet) between the .NET Framework 4.6 and 4.5.2 releases. Check out the [ASP.NET Team post](http://blogs.msdn.com/b/webdev/archive/2015/07/20/announcing-asp-net-4-6-and-asp-net-5-beta-5-in-visual-studio-2015-release.aspx) to learn more about ASP.NET updates.
 
 Reference Source
 ----------------
@@ -121,12 +122,14 @@ With Vector&lt;int&gt; you can instead do this:
 ``` c#
 for (int i = 0; i < size; i += Vector<int>.Count)
 {
-    Vector<int> v = new Vector<int>(A,i) + new Vector<int>(B[i],i);
+    Vector<int> v = new Vector<int>(A,i) + new Vector<int>(B,i);
     v.CopyTo(C,i);
 }
 ```
 
 This will perform 4 adds in parallel on SSE2, or 8 on AVX2.  (Of course, details about ensuring that the arrays are all the same size, and a multiple of Vector<int>.Count have been omitted.)
+
+The Vector&lt;T&gt; constructor takes an array, and a starting index within the array. It does a single load of Vector&lt;int&gt;.Count values from the starting offset. The CopyTo (which is sort of an analog for the constructor that takes an array) does a single store of Count values into the starting offset of the target array.
  
 These new types are available via the [System.Numerics.Vectors NuGet package](http://www.nuget.org/packages/System.Numerics.Vectors), and will automatically be accelerated when run on the 64-bit .NET Framework runtime. SIMD is also supported on the 64-bit .NET Core.
 
@@ -190,12 +193,16 @@ The new System.Threading.AsyncLocal class allows you to represent ambient data t
 
 System.Threading.Tasks.Task and System.Threading.Tasks.Task objects now inherit the culture and UI culture of the calling thread, for apps that target the .NET Framework 4.6. The behavior of apps that target previous versions of the .NET Framework is unaffected. For more information, see the "Culture and task-based asynchronous operations” section of the [System.Globalization.CultureInfo](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx) class topic.
 
-Some additional members support the task-based asynchronous pattern (TAP), such as System.Threading.Tasks.Task.CompletedTask, System.Threading.Tasks.Task.FromCanceled, System.Threading.Tasks.Task.FromException, and System.IO.Pipes.NamedPipeClientStream.ConnectAsync.
+Three convenience methods, CompletedTask, FromCancelled, and FromException, have been added to Task to return completed tasks in a particular state.
+ 
+The NamedPipeClientStream class now supports asynchronous communication with its new ConnectAsync method.
 
 Networking Enhancements
 -----------------------
 
-Networking in the .NET Framework 4.6 supports socket reuse. Ordinarily, there is an artificial concurrent connection limit of 64K in Windows, which can limit the scalability of a service and cause local port exhaustion as the number of clients of high-scale online services grows. In the .NET Framework 4.6, the System.Net.Sockets.SocketOptionName.ReuseUnicastPort enumeration value and the System.Net.ServicePointManager.ReusePort property, have been added to enable port reuse, which effectively removes the 64K limit on concurrent connections. 
+Windows 10 includes a new high-scalability networking algorithm that makes better use of machine resources by reusing ports. The .NET Framework 4.6 supports the new algorithm, enabling .NET apps to take advantage of the new behavior. In previous versions of Windows, there was an artificial concurrent connection limit of 64K, which could limit the scalability of a service by causing port exhaustion when under load. 
+
+In the .NET Framework 4.6, the System.Net.Sockets.SocketOptionName.ReuseUnicastPort enumeration value and the System.Net.ServicePointManager.ReusePort property, have been added to enable port reuse.
 
 By default, the System.Net.ServicePointManager.ReusePort property is false unless the HWRPortResueOnSocketBind value of the HKLM\SOFTWARE\Microsoft.NETFramework\v4.0.30319 registry key is set to 0x1. To enable local port reuse on HTTP connections, set the System.Net.ServicePointManager.ReusePort property to true. This causes all outgoing TCP socket connections from System.Net.Http.HttpClient and System.Net.HttpWebRequest to use a new Windows 10 socket option, SO_REUSE_UNICASTPORT, that enables local port reuse.
 
@@ -223,10 +230,16 @@ You can now more easily convert date and time values to or from .NET Framework t
 - long DateTimeOffset.ToUnixTimeSeconds()
 - long DateTimeOffset.ToUnixTimeMilliseconds()
 
-Channel support for EventSource
--------------------------------
+EventSource now supports the Event Log
+--------------------------------------
 
-You now can use .NET EventSource instrumentation to log significant administrative or operational messages to the event log, in addition to any existing ETW sessions created on the machine.
+You now can use System.Diagnostics.Tracing.EventSource to log administrative or operational messages to the event log, in addition to any existing ETW sessions created on the machine. This is also called "ETW Channel support". In the past, you had to use the [Microsoft.Diagnostics.Tracing.EventSource NuGet package](https://www.nuget.org/packages/Microsoft.Diagnostics.Tracing.EventSource) for this functionality. The functionality is now built into the .NET Framework 4.6.
+ 
+Both the NuGet package and the .NET Framework 4.6 have been updated with the following features:
+
+- DynamicEvents - Allows events defined 'on the fly' by without creating a event method.
+- RichPayloads - Allows specially attributed classes and arrays as well as primitive types to be passed as a payload.
+- ActivityTracking - Causes Start and Stop events to tag events between them with ID that represents all currently active activities.
 
 Compatibility Switches
 ----------------------
@@ -260,7 +273,7 @@ Other Base Class Library changes
 ASP.NET 4.6
 ===========
 
-The ASP.NET team has made many updates to ASP.NET 4.6. You can learn more by reading the [ASP.NET 4.6 RTM blog post](http://blogs.msdn.com/webdev) or watch [ASP.NET team member Pranav Rastogi describe the update](https://channel9.msdn.com/Events/Visual-Studio/Connect-event-2014/812). The release includes updates for the following components.
+The ASP.NET team has made many updates to ASP.NET 4.6. You can learn more by reading the [ASP.NET 4.6 RTM blog post](http://blogs.msdn.com/b/webdev/archive/2015/07/20/announcing-asp-net-4-6-and-asp-net-5-beta-5-in-visual-studio-2015-release.aspx) or watch [ASP.NET team member Pranav Rastogi describe the update](https://channel9.msdn.com/Events/Visual-Studio/Connect-event-2014/812). The release includes updates for the following components.
 
 - ASP.NET Web Forms 4.6
 - ASP.NET MVC 5.2.3
@@ -463,6 +476,11 @@ Visual Studio Improvements for .NET
 
 Visual Studio 2015 includes major improvements for .NET. 
 
+Visual Studio Community
+-----------------------
+
+You can use the free Visual Studio 2015 Community edition. It is very similar to Visual Studio Pro and free for students, open source developers and many individual developers. It supports Visual Studio plugins like Xamarin or Resharper.
+
 EnC - Lambda and Async Task support
 -----------------------------------
 
@@ -551,11 +569,6 @@ Xamarin + Visual C++ Debugger Integration
 -----------------------------------------
 
 You can reference and debug native C++ libraries in a Xamarin.Android app. Just choose the Microsoft debugger in the project's property pages. Then, you can step through those libraries by using all of the debug features you know and love, including expression evaluation, watch window, and auto window.
-
-Visual Studio Community
------------------------
-
-You can use the free Visual Studio 2015 Community edition. It is very similar to Visual Studio Pro and free for students, open source developers and many individual developers. It supports Visual Studio plugins like Xamarin or Resharper.
 
 .NET Core - for Device and Cloud
 ================================
