@@ -1,7 +1,7 @@
 Announcing .NET Framework 4.6 RTM
 =================================
 
-We're excited to announce the RTM releases of [.NET Framework 4.6](http://go.microsoft.com/fwlink/?LinkId=528259) and [Visual Studio 2015](http://go.microsoft.com/fwlink/?LinkId=517106) today. You can read about the new features or leave that for later and install and try them out now. The quickest way to get started is to install the free Visual Studio 2015 Community version.
+We're excited to announce the RTM releases of [.NET Framework 4.6](http://go.microsoft.com/fwlink/?LinkId=528259) and [Visual Studio 2015](http://go.microsoft.com/fwlink/?LinkId=517106) today. You can read about the new features or leave that for later and try them out now. The quickest way to get started is to install the free Visual Studio 2015 Community version.
 
 With the .NET Framework 4.6, you'll enjoy better performance with the new 64-bit "RyuJIT" JIT and high DPI support for WPF and Windows Forms. ASP.NET provides HTTP/2 support when running on Windows 10 and has more async task-returning APIs. There are also major updates in Visual Studio 2015 for .NET developers, many of which are built on top of the new Roslyn compiler framework. The .NET languages -- C# 6, F# 4, VB 15 -- have been updated, too. 
 
@@ -15,9 +15,10 @@ You can download and try out the releases now:
 As a team, we're really excited to share everything we've been working on:
 
 - .NET Framework 4.6
+- ASP.NET 4.6
+- Entity Framework
 - Visual Studio Improvements for .NET Developers
-- ASP.NET
-- .NET Core
+- .NET Core and ASP.NET 5
 - .NET Universal Windows Apps (including .NET Native)
 
 You can check out the earlier [RC](http://blogs.msdn.com/b/dotnet/archive/2015/04/29/net-announcements-at-build-2015.aspx) and [Preview](http://blogs.msdn.com/b/dotnet/archive/2014/11/12/announcing-net-2015-preview-a-new-era-for-net.aspx) releases to see how the release has developed over the last year. In fact, it's only been 14 months since we released the [.NET Framework 4.5.2](http://blogs.msdn.com/b/dotnet/archive/2014/05/05/announcing-the-net-framework-4-5-2-release.aspx). 
@@ -27,7 +28,14 @@ You can check out the earlier [RC](http://blogs.msdn.com/b/dotnet/archive/2015/0
 
 There are many great features in the [.NET Framework 4.6](http://go.microsoft.com/fwlink/?LinkId=528259). Some of these features, like RyuJIT and the latest GC updates, can provide improvements by just installing the .NET Framework 4.6. Give it at try!
 
-You learn more about the release by looking at [What's New in the .NET Framework](https://msdn.microsoft.com/library/ms171868.aspx), the [release changelist](https://github.com/microsoft/dotnet) and an [API diff](https://github.com/microsoft/dotnet) between the .NET Framework 4.6 and 4.5.2 releases.
+You learn more about the release by looking at [What's New in the .NET Framework](https://msdn.microsoft.com/library/ms171868.aspx), the [.NET Framework 4.6 release changelist](https://github.com/microsoft/dotnet) and an [API diff](https://github.com/microsoft/dotnet) between the .NET Framework 4.6 and 4.5.2 releases.
+
+Reference Source
+----------------
+
+The .NET Framework reference source has been updated for the .NET Framework 4.6. You can see the latest source at the [.NET Framework Reference Source Website](http://referencesource.microsoft.com/), which is also used for [.NET Framework source debugging](http://blogs.msdn.com/b/dotnet/archive/2014/02/24/a-new-look-for-net-reference-source.aspx). 
+
+The [.NET Framework referencesource repo on GitHub](https://github.com/microsoft/referencesource) has also been updated with the [latest update](https://github.com/Microsoft/referencesource/commit/74706335e3b8c806f44fa0683dc1e18d3ed747c2). This repo is primarily in place so that the [Mono Project](http://www.mono-project.com/) can adopt .NET Framework source in Mono.
 
 Windows Presentation Foundation
 -------------------------------
@@ -37,10 +45,6 @@ The team has made key improvements to WPF in this release:
 ### Transparent Child Window support
 
 WPF in .NET 4.6 supports transparent child windows in Windows 8.1 and above. This enables you to create and compose non rectangular and transparent child windows in your top level Windows. You can enable this by setting the [UsesPerPixelTransparency property](https://msdn.microsoft.com/library/system.windows.interop.hwndsourceparameters.usesperpixeltransparency.aspx) to true in [HwndSourceParameters](https://msdn.microsoft.com/library/system.windows.interop.hwndsourceparameters.aspx).
-
-See an example of an application that includes a heads-up-display, improved with a transparent child window.
-
-![WPF Transparent Child Window](wpf-transparent-hud.png)
 
 ### HDPI Improvements
 
@@ -62,7 +66,7 @@ Support for automatically loading the right cursor based on DPI setting has been
 
 The team adopted the double-tap threshold used by UWP applications, which is considered to be an industry-quality implementation. WPF now uses this same implementation on Windows 8.1 and above. 
 
-Touch events are now more reliable. The [Connect issue](https://connect.microsoft.com/VisualStudio/feedback/details/903760/wpf-touch-services-are-badly-broken) requesting touch event improvements has been fixed in this release.
+Touch events are now more reliable. This [Connect issue](https://connect.microsoft.com/VisualStudio/feedback/details/903760/wpf-touch-services-are-badly-broken) requesting touch event improvements has been fixed in this release.
 
 Windows Forms Updates for High DPI
 ----------------------------------
@@ -76,6 +80,8 @@ This is an opt-in feature. To enable it, set the EnableWindowsFormsHighDpiAutoRe
 	<appSettings>
 		<add key="EnableWindowsFormsHighDpiAutoResizing" value="true" />
 	</appSettings>
+
+
 
 RyuJIT
 ------
