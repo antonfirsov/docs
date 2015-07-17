@@ -1,7 +1,7 @@
-.NET 4.6 list of changes
-========================
+.NET Framework 4.6 list of changes
+==================================
 
-.NET 4.6 contains hundreds of bug fixes and improvements.
+.NET Framework 4.6 contains hundreds of bug fixes and improvements.
 This list details those changes, grouped by feature area.
 Each change includes our internal ticket numbers at the end of the line.
 Please include those numbers in your communication if you wish to contact us to obtain more information.
@@ -15,7 +15,7 @@ CLR & BCL
 * DateTime Parse and TryParse behave the same on en-CA culture. [1117950]
 * AAD has integrated check for the pooled connection. [1118488]
 * French and Norwegian culture display name includes proper Unicode characters. [1147042]
-* ConcurrentDictionary serialization format changed, but is upwards compatible from 4.5 to 4.6. [1167398]
+* ConcurrentDictionary serialization format changed, but is upwards compatible from .NET Framework 4.5 to .NET Framework 4.6. [1167398]
 * SqlBulkCopy truncates data before encrypting. [1159595]
 * GetProviderSpecificValue returns proper data type for encrypted columns when underlying data is null. [1159595]
 * AAD has integrated check for the pooled connection. [1118488]
@@ -193,7 +193,7 @@ CLR & BCL
 * IsolatedStorage feature works when configured to place storage on roaming profiles. [961127]
 * Text encoding is extensible. [963034]
 * Fixed the performance for enums based on primitive integral types other than int while maintaining the roundtrip between 4.0 and 4.5. [965865]
-* .NET Setup UI correctly scales controls in high DPI. [968115]
+* .NET Framework Setup UI correctly scales controls in high DPI. [968115]
 * Fixed a case where TransportContext.GetChannelBinding can call into SCHANNEL with invalid arguments and get back corrupted data. [973011]
 * SIMD types in System.Numerics.dll are recognized by the JIT. [1168471]
 * SIMD Indexed get with constant doesn't fail for upper half of AVX register. [1157317]
