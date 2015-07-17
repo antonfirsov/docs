@@ -103,9 +103,9 @@ The project was initially targeted to improve high-scale 64-bit cloud workloads,
 SIMD
 ----
 
-The 64-bit CLR introduces support for [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/SIMD) Vectors. These new types are in the System.Numerics namespace, and are recognized as intrinsics by the JIT, which generates code utilizing the capabilities of SSE2 and AVX2 hardware, depending on the machine.
+The 64-bit CLR introduces support for [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/SIMD) Vectors. These new types are in the [System.Numerics namespace](https://msdn.microsoft.com/library/system.numerics.aspx), and are recognized as intrinsics by the JIT, which generates code utilizing the capabilities of SSE2 and AVX2 hardware, depending on the machine.
  
-The new types include fixed-size Vectors with 2 to 4 single precision floating point elements that are suitable for use in applications with explicit N-dimensional algorithms and data types (e.g. points and colors), as well as Vector<T> whose size is target-dependent (e.g. 4 floats on SSE2, 8 on AVX2), allowing applications with larger degrees of available data parallelism to scale to the target hardware without rebuilding.
+The new types include fixed-size Vectors with 2 to 4 single precision floating point elements that are suitable for use in applications with explicit N-dimensional algorithms and data types (e.g. points and colors), as well as Vector&lt;T&gt; whose size is target-dependent (e.g. 4 floats on SSE2, 8 on AVX2), allowing applications with larger degrees of available data parallelism to scale to the target hardware without rebuilding.
  
 For example, if you wanted to compute the sums of the values in two arrays of integers, A and B, you might start with this:
 
@@ -116,7 +116,7 @@ for (int i = 0; i < size; i++)
 }
 ```
 
-With Vector<int> you can instead do this:
+With Vector&lt;int&gt; you can instead do this:
 
 ``` c#
 for (int i = 0; i < size; i += Vector<int>.Count)
@@ -133,15 +133,13 @@ These new types are available via the [System.Numerics.Vectors NuGet package](ht
 Garbage Collector Updates
 -------------------------
 
-The garbage collector has a few important improvements that reduce latency and improve memory utilization. The GC update has already been deployed to large Microsoft cloud workloads, such as Office 365 and Bing. We've seen impressive improvements in the performance of those services. They've simply deployed the update, without any code changes.
+The garbage collector has important improvements that reduce latency and improve memory utilization. The GC update has already been deployed to large Microsoft cloud workloads, such as Office 365 and Bing. We've seen impressive improvements in the performance of those services. They've simply deployed the update, without needing any code changes.
 
 The GC now handles pinned objects in a more optimized way. It is now possible for the GC to compact more memory around pinned objects. This change can provide a suprisingly impactful improvement for large-scale workloads with significant use of pinning.
 
 Promotion of generation 1 objects to generation 2 has been updated to use memory more efficiently. The GC attempts to use free space in a given generation before allocating a new memory segment. A new algorithm has been adopted that uses a free space region to allocate an object that more closely matches the object size.
 
-The Garbage Collector has a new mode that avoids garbage collection while certain memory-related conditions are met. This new mode is important for low-latency workloads that cannot afford interuptions.
-
-The new mode enables you to [specify a certain amount of memory be available](https://msdn.microsoft.com/library/system.gc.trystartnogcregion.aspx) as a pre-requisite to enter a _No GC Region_. While in the region the GC will not collect. It will start collecting if a collection is explicitly requested (e.g. [GC.Collect](https://msdn.microsoft.com/library/system.gc.collect.aspx)) or if the initially specified memory size is exhausted.
+The Garbage Collector has a new mode that avoids garbage collection while certain memory-related conditions are met. This new mode is important for low-latency workloads that cannot afford interuptions. It enables you to [specify a certain amount of memory that must be available](https://msdn.microsoft.com/library/system.gc.trystartnogcregion.aspx) before entering a _No GC Region_. While in the region the GC will not collect, which means that it will not interupt your workload during that time. It will start collecting if a collection is explicitly requested (e.g. [GC.Collect](https://msdn.microsoft.com/library/system.gc.collect.aspx)) or if the initially specified memory size is exhausted.
 
 The new mode exposes multiple points of configuration, including allowing you to specify the memory available for the small and large object heaps separately, for use within the No GC region. 
 
@@ -213,9 +211,7 @@ The assembly loader now uses memory more efficiency by unloading IL assemblies a
 Cryptography Updates
 --------------------
 
-The team is updating the [System.Security.Cryptography APIs](https://msdn.microsoft.com/library/system.security.cryptography.aspx) to support the [Windows CNG cryptography APIs](https://msdn.microsoft.com/library/windows/desktop/aa376214.aspx). To date, the .NET Framework has use an earlier version of [Windows Cryptography APIs](https://msdn.microsoft.com/library/windows/desktop/aa380255.aspx) as the basis of the System.Security.Cryptography implementation. We have had requests to support the CNG API, since it supports [modern cryptography algorithms](https://msdn.microsoft.com/library/windows/desktop/bb204775.aspx#suite_b_support), which are important for certain categories of apps. In this update, the team has added support to use CNG certificate keys with the [X509Certificate class](https://msdn.microsoft.com/library/system.security.cryptography.x509certificates.x509certificate.aspx).
-  
-This update is the first step towards broader support for the Windows CNG API and for more modern cryptography algorithms generally. Note that team is still in the middle of building this new support, so expect the API to change for RTM.
+The team is updating the [System.Security.Cryptography APIs](https://msdn.microsoft.com/library/system.security.cryptography.aspx) to support the [Windows CNG cryptography APIs](https://msdn.microsoft.com/library/windows/desktop/aa376214.aspx). To date, the .NET Framework has use an earlier version of [Windows Cryptography APIs](https://msdn.microsoft.com/library/windows/desktop/aa380255.aspx) as the basis of the System.Security.Cryptography implementation. We have had requests to support the CNG API, since it supports [modern cryptography algorithms](https://msdn.microsoft.com/library/windows/desktop/bb204775.aspx#suite_b_support), which are important for certain categories of apps. In this update, the team has added support to use CNG certificate keys with the [X509Certificate2 class](https://msdn.microsoft.com/library/system.security.cryptography.x509certificates.x509certificate2.aspx).
 
 Unix Time
 ---------
