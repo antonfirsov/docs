@@ -28,7 +28,7 @@ You can check out the earlier [RC](http://blogs.msdn.com/b/dotnet/archive/2015/0
 
 There are many great features in the [.NET Framework 4.6](http://go.microsoft.com/fwlink/?LinkId=528259). Some of these features, like RyuJIT and the latest GC updates, can provide improvements by just installing the .NET Framework 4.6. Give it at try!
 
-You learn more about the release by looking at [What's New in the .NET Framework](https://msdn.microsoft.com/library/ms171868.aspx), the [.NET Framework 4.6 release changelist](https://github.com/microsoft/dotnet) and an [API diff](https://github.com/microsoft/dotnet) between the .NET Framework 4.6 and 4.5.2 releases.
+You learn more about the release by looking at [What's New in the .NET Framework](https://msdn.microsoft.com/library/ms171868.aspx#v46), the [.NET Framework 4.6 release changelist](https://github.com/microsoft/dotnet) and an [framework library API diff](https://github.com/microsoft/dotnet) between the .NET Framework 4.6 and 4.5.2 releases.
 
 Reference Source
 ----------------
@@ -44,17 +44,17 @@ The team has made key improvements to WPF in this release:
 
 ### Transparent Child Window support
 
-WPF in .NET 4.6 supports transparent child windows in Windows 8.1 and above. This enables you to create and compose non rectangular and transparent child windows in your top level Windows. You can enable this by setting the [UsesPerPixelTransparency property](https://msdn.microsoft.com/library/system.windows.interop.hwndsourceparameters.usesperpixeltransparency.aspx) to true in [HwndSourceParameters](https://msdn.microsoft.com/library/system.windows.interop.hwndsourceparameters.aspx).
+WPF in now supports transparent child windows in Windows 8.1 and above. This enables you to create and compose non rectangular and transparent child windows in your top level Windows. You can enable this by setting the [UsesPerPixelTransparency property](https://msdn.microsoft.com/library/system.windows.interop.hwndsourceparameters.usesperpixeltransparency.aspx) to true in [HwndSourceParameters](https://msdn.microsoft.com/library/system.windows.interop.hwndsourceparameters.aspx).
 
-### HDPI Improvements
+### High DPI Improvements
 
-HDPI support in WPF is now better in the .NET Framework 4.6. Changes have been made to Layout rounding to reduce instances of clipping in controls with borders. By default, this feature is enabled if your Target Framework is .NET Framework 4.6 (".NETFramework,Version=v4.6") or higher. Applications that target earlier versions of the framework can opt in into the new behavior by adding the following setting to an app.config file. The setting only takes effect when the application is running on the .NET Framework 4.6.
+High DPI support in WPF is now better. Changes have been made to layout rounding to reduce instances of clipping in controls with borders. By default, this feature is enabled if your Target Framework is .NET Framework 4.6 (".NETFramework,Version=v4.6") or higher. Applications that target earlier versions of the framework can opt in into the new behavior by adding the following setting to an app.config file. The setting only takes effect when the application is running on the .NET Framework 4.6.
 
 	<runtime>
 		<AppContextSwitchOverrides value="Switch.MS.Internal.DoNotApplyLayoutRoundingToMarginsAndBorderThickness=false" />
 	</runtime>
 
-WPF windows straddling multiple monitors with different DPI settings (Multi-DPI setup) are now rendered without blacked out regions. You can opt out of this behavior by adding the following line to the <appSettings> section to disable this new Behavior:
+WPF windows straddling multiple monitors with different DPI settings (Multi-DPI setup) are now rendered without blacked out regions. You can opt out of this behavior by adding the following line to the <appSettings> section in the app.config file:
 
 	<appSettings>
 		<add key="EnableMultiMonitorDisplayClipping" value="true"/>
@@ -71,7 +71,7 @@ Touch events are now more reliable. This [Connect issue](https://connect.microso
 Windows Forms Updates for High DPI
 ----------------------------------
 
-Windows Forms High DPI support has been updated to include more controls. The [.NET Framework 4.5.2(http://blogs.msdn.com/b/dotnet/archive/2014/05/05/announcing-the-net-framework-4-5-2-release.aspx) included high DPI support for an initial set of Windows Forms controls.
+Windows Forms High DPI support has been updated to include more controls, which is a project that started in the [.NET Framework 4.5.2](http://blogs.msdn.com/b/dotnet/archive/2014/05/05/announcing-the-net-framework-4-5-2-release.aspx).
 
 The following controls have High DPI support in the .NET Framework 4.6: ComboBox, Cursor, DataGridView, DataGridViewColumn, DataGridViewComboBoxColumn, DomainUpDown, NumericUpDown, ToolStripComboBox, ToolStripMenuItem and ToolStripSplitButton.
 
@@ -83,7 +83,7 @@ You can see a few examples of Windows Forms High DPI improvements.
 
 ![Numeric up/down Control](dotnet46-windows-forms-hdpi-updown-control.png)
 
-This is an opt-in feature. To enable it, set the EnableWindowsFormsHighDpiAutoResizing element to true in the application configuration (app.config) file:
+This is an opt-in feature. To enable it, set the EnableWindowsFormsHighDpiAutoResizing element to true in the app.config file:
 
 	<appSettings>
 		<add key="EnableWindowsFormsHighDpiAutoResizing" value="true" />
@@ -103,7 +103,32 @@ The project was initially targeted to improve high-scale 64-bit cloud workloads,
 SIMD
 ----
 
-Content here.
+The 64-bit CLR introduces support for [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/SIMD) Vectors. These new types are in the System.Numerics namespace, and are recognized as intrinsics by the JIT, which generates code utilizing the capabilities of SSE2 and AVX2 hardware, depending on the machine.
+ 
+The new types include fixed-size Vectors with 2 to 4 single precision floating point elements that are suitable for use in applications with explicit N-dimensional algorithms and data types (e.g. points and colors), as well as Vector<T> whose size is target-dependent (e.g. 4 floats on SSE2, 8 on AVX2), allowing applications with larger degrees of available data parallelism to scale to the target hardware without rebuilding.
+ 
+For example, if you wanted to compute the sums of the values in two arrays of integers, A and B, you might start with this:
+
+``` c#
+for (int i = 0; i < size; i++)
+{
+    C[i] = A[i] + B[i];
+}
+```
+
+With Vector<int> you can instead do this:
+
+``` c#
+for (int i = 0; i < size; i += Vector<int>.Count)
+{
+    Vector<int> v = new Vector<int>(A,i) + new Vector<int>(B[i],i);
+    v.CopyTo(C,i);
+}
+```
+
+This will perform 4 adds in parallel on SSE2, or 8 on AVX2.  (Of course, details about ensuring that the arrays are all the same size, and a multiple of Vector<int>.Count have been omitted.)
+ 
+These new types are available via the [System.Numerics.Vectors NuGet package](http://www.nuget.org/packages/System.Numerics.Vectors), and will automatically be accelerated when run on the 64-bit .NET Framework runtime. SIMD is also supported on the 64-bit .NET Core.
 
 Garbage Collector Updates
 -------------------------
