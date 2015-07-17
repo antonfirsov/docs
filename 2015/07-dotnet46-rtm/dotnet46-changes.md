@@ -187,7 +187,7 @@ CLR & BCL
 * SIMD Indexed get with constant doesn't fail for upper half of AVX register. [1157317]
 * Fixed a SIMD issue where inlining a method caused bad codegen. [1157559]
 * RyuJIT Fixed copy from Vector2 to arg or return register. [1129385]
-* VectorMul works on AVX2. [1132751]
+* Encoding of Vector Multiply on AVX2 was fixed. [1132751]
 * Fixed the size of Vector<T>. [1020874]
 
 ASP.NET
