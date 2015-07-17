@@ -189,7 +189,9 @@ ADO .NET now supports the [Always Encrypted](https://msdn.microsoft.com/library/
 Async
 -----
 
-The new System.Threading.AsyncLocal class allows you to represent ambient data that is local to a given asynchronous control flow, such as an async method. It can be used to persist data across threads. You can also define a callback method that is notified whenever the ambient data changes either because the AsyncLocal.Value property was explicitly changed, or because the thread encountered a context transition.
+The new System.Threading.AsyncLocal class allows you to represent ambient data that is local to a given asynchronous control flow, such as an async method. It can be used to persist data across threads. You can also define a callback method that is notified whenever the ambient data changes either because the AsyncLocal.Value property was explicitly changed, or because the thread encountered a context transition. You can see an example of this new type in use.
+
+<script src="https://gist.github.com/richlander/2a3e3338b7b170735c57.js"></script>
 
 System.Threading.Tasks.Task and System.Threading.Tasks.Task objects now inherit the culture and UI culture of the calling thread, for apps that target the .NET Framework 4.6. The behavior of apps that target previous versions of the .NET Framework is unaffected. For more information, see the "Culture and task-based asynchronous operations” section of the [System.Globalization.CultureInfo](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx) class topic.
 
