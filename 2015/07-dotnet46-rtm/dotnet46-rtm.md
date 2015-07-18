@@ -30,6 +30,8 @@ There are many great features in the [.NET Framework 4.6](http://go.microsoft.co
 
 You can learn more about the release by looking at [What's New in the .NET Framework](https://msdn.microsoft.com/library/ms171868.aspx#v46), the [.NET Framework 4.6 release changelist](https://github.com/microsoft/dotnet) and an [framework library API diff](https://github.com/microsoft/dotnet) between the .NET Framework 4.6 and 4.5.2 releases. Check out the [ASP.NET Team post](http://blogs.msdn.com/b/webdev/archive/2015/07/20/announcing-asp-net-4-6-and-asp-net-5-beta-5-in-visual-studio-2015-release.aspx) to learn more about ASP.NET updates.
 
+The .NET Framework 4.6 is part of Windows 10 and can be installed on Windows 7 and Windows 8. You can target the .NET Framework 4.6 in Visual Studio 2012 or later, by installing the the [.NET Framework 4.6 Targeting Pack](http://fwlink). It comes with Visual Studio 2015.
+
 Reference Source
 ----------------
 
@@ -199,9 +201,6 @@ System.Threading.Tasks.Task and System.Threading.Tasks.Task objects now inherit 
 Three convenience methods, CompletedTask, FromCancelled, and FromException, have been added to Task to return completed tasks in a particular state.
  
 The NamedPipeClientStream class now supports asynchronous communication with its new ConnectAsync method.
-
-Networking Enhancements
------------------------
 
 Networking Enhancements
 -----------------------
@@ -589,20 +588,34 @@ You can reference and debug native C++ libraries in a Xamarin.Android app. Just 
 
 .NET Core is a new version of .NET for modern device and cloud workloads. It provides a single set of APIs for you to use for your apps. You can write and share the same code for device and cloud apps without needing to use portable libraries, shared projects or other code sharing techniques. .NET has always offered low-level code portability as a fundamental tenet, and now has a uniform API that can be used in multiple app types.
 
-Today, the [.NET Core Framework](https://github.com/dotnet/corefx) can be used in ASP.NET 5, Windows 10 UAP and .NET Core console apps. The .NET Core API started as the API for Windows 8 Store Apps. It has since grown, both in terms of APIs exposed and to also include other scenarios such as ASP.NET 5 apps. Now, when we add new APIs to .NET Core, they are available for multiple app types at once. This approach makes better use of our engineering time and provides you with a consistent API right away.
+The [.NET Core](http://github.com/dotnet/core) project is open source on GitHub. You can look at the code and even make contributions. We have received many great contributions over the last number of months. Thanks!
+
+Today, the [.NET Core Framework](https://github.com/dotnet/corefx) can be used in ASP.NET 5, Windows 10 UWP and .NET Core console apps. The .NET Core API started as the API for Windows 8 Store Apps. It has since grown, both in terms of APIs exposed and to also include other scenarios such as ASP.NET 5 apps. Now, when we add new APIs to .NET Core, they are available for multiple app types. This approach makes better use of our engineering time and provides you with a consistent API right away.
 
 All of the .NET Core libraries are distributed as NuGet packages. You can acquire the packages easily within Visual Studio or with one of the NuGet clients directly.
 
-Open Source
------------
+.NET Open Source
+================
 
-The [.NET Core](http://github.com/dotnet/core) is open source on GitHub. You can look at the code and even make contributions. We have received many great contributions over the last number of months. Thanks!
+We've had several customers ask us about our process for accepting product changes from community members. The .NET Framework and .NET Core now contain community-provided changes, from the [coreclr](https://github.com/dotnet/coreclr) and [corefx](https://github.com/dotnet/coreclr) repos. [Roslyn](https://github.com/dotnet/coreclr) is similar. Thanks! Each company, including Microsoft, has a policy on using open source software within their applications. These customers want to understand if they should apply there open source policies to the .NET Framework and .NET Core.
 
-The [.NET Core Framework](https://github.com/dotnet/corefx) team are in the process of publishing all of their code on GitHub and are now over half-way done. You can check out their progress, maintained at the [CoreFX Progress](https://github.com/dotnet/corefx-progress) repo. You can also see their progress in the image below.
+The quick answer is that Microsoft continues to approach .NET Framework and .NET Core, as commercial products and applies the same rigorous engineering approach to those products as before. You should also approach .NET Core and .NET Framework, as distributed by Microsoft, in the same way.
 
-![CoreFX Progress](https://raw.githubusercontent.com/dotnet/corefx-progress/master/progress.png) 
+The longer answer is that .NET engineers, and some highly skilled community members (thanks!), employee a critical code review process on the .NET Core GitHub repos. Each code reviewer has to be satisfied before they sign off, usually with a "LGTM" (looks good to me). A Microsoft employee has to be satisfied with the final state of the code and of the code review process, before merging it into the 'master'
+branch of the repo. Here is an example of one of those code reviews, so that you can see how the process actually works. We also employ automated scans over the entire codebase to find changes that visual code reviews have missed. We have found issues this way and fixed them.
+
+All of the changes to .NET Core, from both Microsoft and community members, are governed by the .NET Foundation Contributor License Agreement, which provides Microsoft (or any other party) the right to use the code. When Microsoft ships this code, it is Microsoft commercial software, based on our traditional rigorous engineering process. If you build .NET Core from source, from the GitHub repo, and include it in your application, it is an open source component.
 
 Summary
 =======
 
+Today's releases of the [.NET Framework 4.6](http://go.microsoft.com/fwlink/?LinkId=528259) and [Visual Studio 2015](http://go.microsoft.com/fwlink/?LinkId=517106), and all the associated languages and components, provide major improvements to your development experience and reliability and performance of your .NET apps. Please try out the new releases and tell us what you think.
 
+A few of us on the team were reflecting on the release. There are some big milestones that are worth calling out, beyond having shipped a new version of the .NET Framework. They do a good job of demonstrating Microsoft's investment in and commitment to .NET. Note that .NET Native is absent, since it isn't shipping today, but shortly.
+
+- Roslyn shipped! It was an ~ 5 year language compiler project. It's fully integrated into Visual Studio and is open source. It runs on .NET Framework, .NET Core and Mono.
+- RyuJIT has shipped! It was a 3-4 year JIT compiler project. It's fully integrated into the .NET Framework and .NET Core and is also open source.
+
+We've been talking publicly about these two releases for a long time, and have shared many updates along the way. Please join us in celebrating the v1.0 of these two projects. Don't think for a minute, however, that we are done our work on either project. The teams have already started work on their next updates.
+
+Thanks to everyone who gave us feedback on our various milestone releases. We very much appreciate it. 
