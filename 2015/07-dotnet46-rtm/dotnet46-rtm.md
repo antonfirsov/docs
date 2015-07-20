@@ -3,7 +3,7 @@ Announcing .NET Framework 4.6
 
 We're excited to announce the RTM releases of [.NET Framework 4.6](http://go.microsoft.com/fwlink/?LinkId=528259) and [Visual Studio 2015](http://go.microsoft.com/fwlink/?LinkId=517106) today. You can read about the new features or leave that for later and try them out now. The quickest way to get started is to install the free Visual Studio 2015 Community version.
 
-With the .NET Framework 4.6, you'll enjoy better performance with the new 64-bit "RyuJIT" JIT and high DPI support for WPF and Windows Forms. ASP.NET provides HTTP/2 support when running on Windows 10 and has more async task-returning APIs. There are also major updates in Visual Studio 2015 for .NET developers, many of which are built on top of the new Roslyn compiler framework. The .NET languages -- C# 6, F# 4, VB 15 -- have been updated, too. 
+With the .NET Framework 4.6, you'll enjoy better performance with the new 64-bit "RyuJIT" JIT and high DPI support for WPF and Windows Forms. ASP.NET provides HTTP/2 support when running on Windows 10 and has more async task-returning APIs. There are also major updates in Visual Studio 2015 for .NET developers, many of which are built on top of the new Roslyn compiler framework. The .NET languages -- C# 6, F# 4, VB 14 -- have been updated, too. 
 
 We're also announcing updates to .NET Core and ASP.NET 5, both recently released as beta 5 and included in Visual Studio 2015. The .NET tools for Windows 10 UWP app development, including .NET Native, will be shipping shortly, on 7/29. We will have a lot to share about .NET UWP apps and the .NET Native technology at that time.
 
@@ -341,7 +341,7 @@ There are two versions of Entity Framework currently under development.
 .NET Languages
 ==============
 
-The .NET languages team is releasing final updates to C# 6, F# 4.0 and VB 14 today. This includes final compiler implementations, and, for C# and VB, final language specs. The language specs were actually [complete at RC](http://blogs.msdn.com/b/dotnet/archive/2015/04/29/net-announcements-at-build-2015.aspx#dotnetlang).
+The .NET languages team is releasing final updates to C# 6, F# 4.0 and VB 14 today. This includes final compiler implementations, and, for C# and VB, final language feature sets. The latest versions of the languages were actually [feature complete at RC](http://blogs.msdn.com/b/dotnet/archive/2015/04/29/net-announcements-at-build-2015.aspx#dotnetlang).
 
 Roslyn v1
 ---------
@@ -355,9 +355,9 @@ To learn more about Roslyn, check out the [Roslyn repo](https://github.com/dotne
 C# 6 and VB 14
 --------------
 
-C# and VB are both part of the [Roslyn compiler](https://github.com/dotnet/roslyn). You can see the language specs for the new versions in the [Roslyn GitHub wiki](https://github.com/dotnet/roslyn/wiki/Languages-features-in-C%23-6-and-VB-14).
+C# and VB are both part of the [Roslyn compiler](https://github.com/dotnet/roslyn). You can see the language features for the new versions in the [Roslyn GitHub wiki](https://github.com/dotnet/roslyn/wiki/Languages-features-in-C%23-6-and-VB-14).
 
-The following language features are a subset of the new capabilities you can use starting today in either language. Some of the other [new language features](https://github.com/dotnet/roslyn/wiki/Languages-features-in-C%23-6-and-VB-14) are unique to one language or the other. 
+The following language features are a subset of the new capabilities you can use starting today in either language. Some of the other [new language features](https://github.com/dotnet/roslyn/wiki/Languages-features-in-C%23-6-and-VB-14) are unique to one language or the other or existed already in one and were added to the other this release. 
 
 **String interpolation:** An intuitive String.Format-like syntax for composing strings from templates with inline expressions.
 
