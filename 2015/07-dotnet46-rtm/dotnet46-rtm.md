@@ -143,6 +143,8 @@ The new mode exposes multiple points of configuration, including allowing you to
 Windows Communication Foundation
 --------------------------------
 
+### SSL
+
 WCF now supports SSL version TLS 1.1 and TLS 1.2, in addition to SSL 3.0 and TLS 1.0, when using NetTcp with transport security and client authentication. It is now possible to select which protocol to use, or to disable old less secure protocols. This can be done either by setting the System.ServiceModel.TcpTransportSecurity.SslProtocols property or by updating a configuration file, as shown below.
 
 	<netTcpBinding>
@@ -155,6 +157,18 @@ WCF now supports SSL version TLS 1.1 and TLS 1.2, in addition to SSL 3.0 and TLS
 	      </security>
 	   </binding>
 	</netTcpBinding>
+
+
+### Send messages using different HTTP connections 
+
+WCF now allows users to ensure certain messages are sent using different underlying HTTP connections. There are two ways to achieve this. 
+
+1. Connection Group name prefix: Users can specify a string that WCF will use as a prefix for the connection group name. Two messages with different prefixes are sent using different underlying HTTP connections. You set the prefix by adding a key/value pair message's System.ServiceModel.Channels.Message.Properties property. The key is "HttpTransportConnectionGroupNamePrefix"; the value is the desired prefix.
+2. Using different channel factories: Users can also enable a feature that will ensure messages sent using channels created by different channel factories will use different underlying HTTP connections. To enable this feature users must set the following appSetting to true:
+
+	<appSettings>
+	   <add key="wcf:httpTransportBinding:useUniqueConnectionPoolPerFactory" value="true" />
+	</appSettings>
 
 Windows Workflow
 ----------------
@@ -220,7 +234,14 @@ The assembly loader now uses memory more efficiency by unloading IL assemblies a
 Cryptography Updates
 --------------------
 
-The team is updating the [System.Security.Cryptography APIs](https://msdn.microsoft.com/library/system.security.cryptography.aspx) to support the [Windows CNG cryptography APIs](https://msdn.microsoft.com/library/windows/desktop/aa376214.aspx). To date, the .NET Framework has use an earlier version of [Windows Cryptography APIs](https://msdn.microsoft.com/library/windows/desktop/aa380255.aspx) as the basis of the System.Security.Cryptography implementation. We have had requests to support the CNG API, since it supports [modern cryptography algorithms](https://msdn.microsoft.com/library/windows/desktop/bb204775.aspx#suite_b_support), which are important for certain categories of apps. In this update, the team has added support to use CNG certificate keys with the [X509Certificate2 class](https://msdn.microsoft.com/library/system.security.cryptography.x509certificates.x509certificate2.aspx).
+The team is updating the [System.Security.Cryptography APIs](https://msdn.microsoft.com/library/system.security.cryptography.aspx) to support the [Windows CNG cryptography APIs](https://msdn.microsoft.com/library/windows/desktop/aa376214.aspx). To date, the .NET Framework has use an earlier version of [Windows Cryptography APIs](https://msdn.microsoft.com/library/windows/desktop/aa380255.aspx) as the basis of the System.Security.Cryptography implementation. We have had requests to support the CNG API, since it supports [modern cryptography algorithms](https://msdn.microsoft.com/library/windows/desktop/bb204775.aspx#suite_b_support), which are important for certain categories of apps. 
+
+The team made the following improvements:
+
+- RSA Encryption: Added support for OAEP padding using the SHA-2 hash family.
+- RSA Signing: Added support for PSS padding
+- RSA usability: Improved API surface area.
+- RSA usability: Added X509Certificate2.GetRSAPublicKey() and X509Certificate2.GetRSAPrivateKey(), they return null for non-RSA certificates, use a CNG based implementation when possible (which can use the new encryption and signing padding modes), or a CAPI based implementation when required (certain hardware RSA implementations (like smartcards)).
 
 Unix Time
 ---------
@@ -331,14 +352,6 @@ There are two versions of Entity Framework currently under development.
 
 - [EF 6.1.3](http://blogs.msdn.com/b/adonet/archive/2015/03/10/ef6-1-3-rtm-available.aspx) is recommended for production workloads. It contains fixes for high priority issues that were reported on EF 6.1.2.
 - [EF 7](http://blogs.msdn.com/b/adonet) introduces some significant changes and improvements over EF6.x. In particular, it provides an implementation for .NET Core, including support for Linux, OS X and Windows. You can use it in ASP.NET 5 and UWP apps. Like EF 6.x, it is also supported on the .NET Framework. It is not yet supported in production workloads.
-
-EF 7 currently supports the following databases, with the beta 5 release:
-
-- SQL Server
-- PostgreSql (via the npgsql provider)
-- SQL Compact
-- SQLite
-- InMemory (intended for testing purposes only)
 
 .NET Languages
 ==============
