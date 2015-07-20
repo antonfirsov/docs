@@ -5,7 +5,7 @@ We're excited to announce the RTM releases of [.NET Framework 4.6](http://go.mic
 
 With the .NET Framework 4.6, you'll enjoy better performance with the new 64-bit "RyuJIT" JIT and high DPI support for WPF and Windows Forms. ASP.NET provides HTTP/2 support when running on Windows 10 and has more async task-returning APIs. There are also major updates in Visual Studio 2015 for .NET developers, many of which are built on top of the new Roslyn compiler framework. The .NET languages -- C# 6, F# 4, VB 15 -- have been updated, too. 
 
-We're also announcing updates to .NET Core and ASP.NET 5, both recently released as beta 5 and included in Visual Studio 2015. The .NET tools for Windows 10 UWP app development, including .NET Native, will be shipping shortly. We will have a lot to share about .NET UWP apps and the .NET Native technology at that time.
+We're also announcing updates to .NET Core and ASP.NET 5, both recently released as beta 5 and included in Visual Studio 2015. The .NET tools for Windows 10 UWP app development, including .NET Native, will be shipping shortly, on 7/29. We will have a lot to share about .NET UWP apps and the .NET Native technology at that time.
 
 You can download and try out the releases now:
 
@@ -19,7 +19,7 @@ As a team, we're really excited to share everything we've been working on:
 - [Entity Framework](#entity-framework)
 - [.NET Languages](#net-languages)
 - [Visual Studio Improvements for .NET Developers](#visual-studio-improvements-for-net)
-- [.NET Core and ASP.NET 5]()
+- [.NET Core and ASP.NET 5](#net-core)
 
 You can check out the earlier [RC](http://blogs.msdn.com/b/dotnet/archive/2015/04/29/net-announcements-at-build-2015.aspx) and [Preview](http://blogs.msdn.com/b/dotnet/archive/2014/11/12/announcing-net-2015-preview-a-new-era-for-net.aspx) releases to see how the release has developed over the last year. In fact, it's only been 14 months since we released the [.NET Framework 4.5.2](http://blogs.msdn.com/b/dotnet/archive/2014/05/05/announcing-the-net-framework-4-5-2-release.aspx). 
 
@@ -30,7 +30,7 @@ There are many great features in the [.NET Framework 4.6](http://go.microsoft.co
 
 You can learn more about the release by looking at [What's New in the .NET Framework](https://msdn.microsoft.com/library/ms171868.aspx#v46), the [.NET Framework 4.6 release changelist](https://github.com/microsoft/dotnet) and an [framework library API diff](https://github.com/microsoft/dotnet) between the .NET Framework 4.6 and 4.5.2 releases. Check out the [ASP.NET Team post](http://blogs.msdn.com/b/webdev/archive/2015/07/20/announcing-asp-net-4-6-and-asp-net-5-beta-5-in-visual-studio-2015-release.aspx) to learn more about ASP.NET updates.
 
-The .NET Framework 4.6 is part of Windows 10 and can be installed on Windows 7 and Windows 8. You can target the .NET Framework 4.6 in Visual Studio 2012 or later, by installing the the [.NET Framework 4.6 Targeting Pack](http://fwlink). It comes with Visual Studio 2015.
+The .NET Framework 4.6 is part of Windows 10 and can be installed on Windows 7 and Windows 8. You can target the .NET Framework 4.6 in Visual Studio 2012 or later, by installing the the [.NET Framework 4.6 Targeting Pack](http://go.microsoft.com/fwlink/?LinkId=528261). It comes with Visual Studio 2015.
 
 Windows Presentation Foundation
 -------------------------------
@@ -49,7 +49,7 @@ High DPI support in WPF is now better. Changes have been made to layout rounding
 		<AppContextSwitchOverrides value="Switch.MS.Internal.DoNotApplyLayoutRoundingToMarginsAndBorderThickness=false" />
 	</runtime>
 
-WPF windows straddling multiple monitors with different DPI settings (Multi-DPI setup) are now rendered without blacked out regions. You can opt out of this behavior by adding the following line to the <appSettings> section in the app.config file:
+WPF windows straddling multiple monitors with different DPI settings (Multi-DPI setup) are now rendered correctly, without blacked out regions. You can opt out of this behavior by adding the following line to the <appSettings> section in the app.config file:
 
 	<appSettings>
 		<add key="EnableMultiMonitorDisplayClipping" value="true"/>
@@ -91,7 +91,7 @@ RyuJIT is the next generation Just-In-Time (JIT) compiler for .NET. It uses a hi
 
 RyuJIT is enabled for 64-bit processes running on top of the .NET Framework 4.6. Your app will run in a 64-bit process if it is compiled as 64-bit or AnyCPU, and run on a 64-bit operating system. RyuJIT is similarly integrated into .NET Core, as the 64-bit JIT.
 
-We've used a transparent process over the last two years with RyuJIT. You've been able to read [RyuJIT blog posts](http://blogs.msdn.com/b/dotnet/archive/tags/ryujit/), try out several RyuJIT CTPs and (suprise!) can now even read and contribute to the [RyuJIT source code](https://github.com/dotnet/coreclr/tree/master/src/jit). Thanks to everyone who helped improve RyuJIT along the way to RTM. We fixed a lot of publicly-reported bugs and performance issues based on those CTP releases. It's been a pleasure for Microsoft engineers to adopt a more public development process with RyuJIT.
+We've used a transparent process over the last two years with RyuJIT. You've been able to read [RyuJIT blog posts](http://blogs.msdn.com/b/dotnet/archive/tags/ryujit/), try out several RyuJIT CTPs and (suprise!) can now read and contribute to the [RyuJIT source code](https://github.com/dotnet/coreclr/tree/master/src/jit). Thanks to everyone who helped improve RyuJIT along the way to RTM. We fixed a lot of publicly-reported bugs and performance issues based on those CTP releases. It's been a pleasure for Microsoft engineers to adopt a more public development process with RyuJIT.
 
 The project was initially targeted to improve high-scale 64-bit cloud workloads, although it has much broader applicability. We do expect to add 32-bit support in a future release.
 
@@ -102,24 +102,9 @@ The 64-bit CLR introduces support for [Single Instruction Multiple Data (SIMD)](
  
 The new types include fixed-size Vectors with 2 to 4 single precision floating point elements that are suitable for use in applications with explicit N-dimensional algorithms and data types (e.g. points and colors), as well as Vector&lt;T&gt; whose size is target-dependent (e.g. 4 floats on SSE2, 8 on AVX2), allowing applications with larger degrees of available data parallelism to scale to the target hardware without rebuilding.
  
-For example, if you wanted to compute the sums of the values in two arrays of integers, A and B, you might start with this:
+[Gist](https://gist.github.com/richlander/73475dd0b14555c156c2)
 
-``` c#
-for (int i = 0; i < size; i++)
-{
-    C[i] = A[i] + B[i];
-}
-```
-
-With Vector&lt;int&gt; you can instead do this:
-
-``` c#
-for (int i = 0; i < size; i += Vector<int>.Count)
-{
-    Vector<int> v = new Vector<int>(A,i) + new Vector<int>(B,i);
-    v.CopyTo(C,i);
-}
-```
+<script src="https://gist.github.com/richlander/73475dd0b14555c156c2.js"></script>
 
 This will perform 4 adds in parallel on SSE2, or 8 on AVX2.  (Of course, details about ensuring that the arrays are all the same size, and a multiple of Vector<int>.Count have been omitted.)
 
@@ -136,7 +121,7 @@ The GC now handles pinned objects in a more optimized way. It is now possible fo
 
 Promotion of generation 1 objects to generation 2 has been updated to use memory more efficiently. The GC attempts to use free space in a given generation before allocating a new memory segment. A new algorithm has been adopted that uses a free space region to allocate an object that more closely matches the object size.
 
-The Garbage Collector has a new mode that avoids garbage collection while certain memory-related conditions are met. This new mode is important for low-latency workloads that cannot afford interuptions. It enables you to [specify a certain amount of memory that must be available](https://msdn.microsoft.com/library/system.gc.trystartnogcregion.aspx) before entering a _No GC Region_. While in the region the GC will not collect, which means that it will not interupt your workload during that time. It will start collecting if a collection is explicitly requested (e.g. [GC.Collect](https://msdn.microsoft.com/library/system.gc.collect.aspx)) or if the initially specified memory size is exhausted.
+The Garbage Collector has a new mode that avoids garbage collection while certain memory-related conditions are met. This new mode is important for low-latency workloads that cannot afford interuptions. It enables you to [specify that a certain amount of memory must be available](https://msdn.microsoft.com/library/system.gc.trystartnogcregion.aspx) before entering a _No GC Region_. While in the region the GC will not collect, which means that it will not interupt your workload during that time. The GC will start collecting if a collection is explicitly requested (e.g. [GC.Collect](https://msdn.microsoft.com/library/system.gc.collect.aspx)) or if the initially specified memory size is exhausted.
 
 The new mode exposes multiple points of configuration, including allowing you to specify the memory available for the small and large object heaps separately, for use within the No GC region. 
 
@@ -192,7 +177,7 @@ If the value of FilterResumeTimeoutInSeconds is non-zero and there are non-proto
 ADO.NET improvements
 --------------------
 
-ADO .NET now supports the [Always Encrypted](https://msdn.microsoft.com/library/mt147923.aspx) feature available in SQL Server 2016. With Always Encrypted, SQL Server can perform operations on encrypted data, and best of all the encryption key resides with the application inside the customer’s trusted environment and not on the server. Always Encrypted secures customer data so DBAs do not have access to plain text data. Encryption and decryption of data happens transparently at the driver level, minimizing changes that have to be made to existing applications. You can learn more about this feature on the [SQL Securtity Blog](http://blogs.msdn.com/b/sqlsecurity/).
+ADO .NET now supports the [Always Encrypted](https://msdn.microsoft.com/library/mt147923.aspx) feature available in SQL Server 2016. With Always Encrypted, SQL Server can perform operations on encrypted data, and best of all the encryption key resides with the application inside the customer’s trusted environment and not on the server. Always Encrypted secures customer data so DBAs do not have access to plain text data. Encryption and decryption of data happens transparently at the driver level, minimizing changes that have to be made to existing applications. You can learn more about this feature on the [SQL Security Blog](http://blogs.msdn.com/b/sqlsecurity/).
 
 Async
 -----
@@ -246,7 +231,7 @@ The team made the following improvements:
 Unix Time
 ---------
 
-You can now more easily convert date and time values to or from .NET Framework types and Unix time. This can be necessary, for example, when converting time values between a JavaScript client and .NET server. The following APIs have been added to the DateTimeOffset structure:
+You can now more easily convert date and time values to or from .NET Framework types and Unix time. This can be necessary, for example, when converting time values between a JavaScript client and .NET server. The following APIs have been added to the [DateTimeOffset structure](https://msdn.microsoft.com/library/system.datetimeoffset.aspx):
 
 - static DateTimeOffset FromUnixTimeSeconds(long seconds)
 - static DateTimeOffset FromUnixTimeMilliseconds(long milliseconds)
@@ -271,11 +256,11 @@ AppContext is a new compatibility feature that enables library writers to provid
 
 With AppContext, libraries define and expose compatibility switches, while code that depends on them can set those switches, to affect the library behavior. By default libraries provide the new functionality and only alter it (e.g. provide the old behavior) if the switch is set.
 
-An application (or a library) can declare the value (always boolean) of a switch that a dependent library defines. The switch is always implicity `false`. Setting the switch to `true` enables the switch. Explicity the switch to `false` provides the new behavior.
+An application (or a library) can declare the value (always boolean) of a switch that a dependent library defines. The switch is always implicity `false`. Setting the switch to `true` enables the switch. Explicity setting the switch to `false` provides the new behavior.
 
 	AppContext.SetSwitch("Switch.AmazingLib.ThrowOnException”, true)
 
-The library must check if a consumer has declared the value of the switch and then appropraitely act on it.
+The library must check if a consumer has declared the value of the switch and then appropriately act on it.
 
 [Gist](https://gist.github.com/richlander/7ab29fe9ffa71eabe9be)
 
@@ -325,23 +310,23 @@ In the .NET Framework 4.5, Model Binding support was added to Web Forms. In the 
 Identity and Authentication Updates
 -----------------------------------
 
-The ASP.NET 4.6 templates now use Open Id Connect middleware to authenticate to Azure Active Directory (Azure AD) which makes the programming model to authenticate with Azure AD much easier. Additionally, when starting a new project and you choose the ‘Individual User Accounts’ option then the templates will provide sample code for two-factor authentication and social logins with ASP.NET Identity 2.2.1.
+The ASP.NET 4.6 templates now use Open Id Connect middleware to authenticate to Azure Active Directory (Azure AD) which makes the programming model to authenticate with Azure AD much easier. Additionally, the templates will provide sample code for two-factor authentication and social logins with ASP.NET Identity 2.2.1 if you choose the ‘Individual User Accounts’ option when starting a new project.
 
 HTTP/2 Support (Windows 10)
 ---------------------------
 
 [HTTP/2](http://en.wikipedia.org/wiki/HTTP/2) support has been added to ASP.NET in the .NET Framework 4.6. New features were required in Windows, in IIS and in ASP.NET to enable HTTP/2 given that networking functionality exists at multiple layers. You must be running on Windows 10 to use HTTP/2 with ASP.NET. HTTP/2 has not yet been added to ASP.NET 5.
 
-HTTP/2 is a new version of the HTTP protocol that provides much better connection utilization (fewer round-trips between client and server), resulting in lower latency web page loading for users.  Web pages (as opposed to services) benefit the most from HTTP/2, since the protocol optimizes for multiple artifacts being requested as part of a single experience. 
+HTTP/2 is a new version of the HTTP protocol that provides much better connection utilization (fewer round-trips between client and server), resulting in lower latency web page loading for users.  Web pages (as opposed to services) benefit the most from HTTP/2, since the protocol optimizes for multiple artifacts being requested as part of a single request. 
 
 The browser and the webserver (IIS on Windows) do all the work. You don't have to do any heavy-lifting for your users. 
 
-Most of the [major browsers](http://en.wikipedia.org/wiki/HTTP/2#Browser_support) support HTTP/2, so it's likely that your users will benefit from HTTP/2 support if your server supports it. Give it a try with the RC update.
+Most of the [major browsers](http://en.wikipedia.org/wiki/HTTP/2#Browser_support) support HTTP/2, so it's likely that your users will benefit from HTTP/2 support.
 
 Support for Token Binding Protocol
 ----------------------------------
 
-Microsoft and Google have been collaborating on a new approach to authentication, called the [Token Binding Protocol](https://github.com/TokenBinding/Internet-Drafts). The premise is that  authentication tokens (in your browser cache) can be stolen and used by criminals to access otherwise secure resources (e.g. your bank account) without the requirement of your password or any other priviliged knowledge. The new protocol aims to mitigate this problem.
+Microsoft and Google have been collaborating on a new approach to authentication, called the [Token Binding Protocol](https://github.com/TokenBinding/Internet-Drafts). The premise of the protocol is that authentication tokens (in your browser cache) can be stolen and used by criminals to access otherwise secure resources (e.g. your bank account) without the requirement of your password or any other priviliged knowledge. The new protocol aims to mitigate this problem.
 
 The Token Binding Protocol will be implemented in Windows 10, as a browser feature. ASP.NET apps will participate in the protocol, such that authentication tokens are validated to be legitimate. The client and the server implementations establish the end-to-end protection specified by the protocol.
 
@@ -351,12 +336,21 @@ Entity Framework
 There are two versions of Entity Framework currently under development.
 
 - [EF 6.1.3](http://blogs.msdn.com/b/adonet/archive/2015/03/10/ef6-1-3-rtm-available.aspx) is recommended for production workloads. It contains fixes for high priority issues that were reported on EF 6.1.2.
-- [EF 7](http://blogs.msdn.com/b/adonet) introduces some significant changes and improvements over EF6.x. In particular, it provides an implementation for .NET Core, including support for Linux, OS X and Windows. You can use it in ASP.NET 5 and UWP apps. Like EF 6.x, it is also supported on the .NET Framework. It is not yet supported in production workloads.
+- [EF 7](http://blogs.msdn.com/b/adonet) introduces some significant changes and improvements over EF 6.x. In particular, it provides an implementation for .NET Core, including support for Linux, OS X and Windows. You can use it in ASP.NET 5 and UWP apps. Like EF 6.x, it is also supported on the .NET Framework. It is not yet supported in production workloads.
 
 .NET Languages
 ==============
 
 The .NET languages team is releasing final updates to C# 6, F# 4.0 and VB 14 today. This includes final compiler implementations, and, for C# and VB, final language specs. The language specs were actually [complete at RC](http://blogs.msdn.com/b/dotnet/archive/2015/04/29/net-announcements-at-build-2015.aspx#dotnetlang).
+
+Roslyn v1
+---------
+
+The team is also releasing the v1 version of Roslyn, after working on it for ~ 6 years. Roslyn was considered an ambitious project from the beginning. It aimed to replace the black box native C++ based C# and VB compilers with .NET implementations (written in both C# and VB) that exposed a rich set of language, compiler and other APIs. The Roslyn v1 product that you can use today in Visual Studio 2015 delivers on that vision and has enabled great new development experiences in Visual Studio.
+
+For a historical grin, you can check out the earlier blog post, [Introducing the Microsoft “Roslyn” CTP](http://blogs.msdn.com/b/csharpfaq/archive/2011/10/19/introducing-the-microsoft-roslyn-ctp.aspx). It's fun to look back at more humble beginnings.
+
+To learn more about Roslyn, check out the [Roslyn repo](https://github.com/dotnet/roslyn) and the [Roslyn Overview](https://github.com/dotnet/roslyn/wiki/Roslyn-Overview).
 
 C# 6 and VB 14
 --------------
@@ -456,7 +450,7 @@ WriteLine($"Pluto discovered {(Now - #1930/02/18#).Days \ 365} years ago")
 F# 4.0
 ----
 
-F# 4.0 introduces a number of new language and runtime capabilities.  Just a few are described below; see the team blog posts from the [Preview](http://blogs.msdn.com/b/fsharpteam/archive/2014/11/12/announcing-a-preview-of-f-4-0-and-the-visual-f-tools-in-vs-2015.aspx) and [RC](http://blogs.msdn.com/b/dotnet/archive/2015/04/29/rounding-out-visual-f-4-0-in-vs-2015-rc.aspx) releases for a more complete list, or review the VS 2015 [release notes](https://www.visualstudio.com/en-us/news/vs2015-vs#fsharp).
+F# 4.0 introduces a number of new language and runtime capabilities.  Just a few are described below; see the F# team blog posts from the [Preview](http://blogs.msdn.com/b/fsharpteam/archive/2014/11/12/announcing-a-preview-of-f-4-0-and-the-visual-f-tools-in-vs-2015.aspx) and [RC](http://blogs.msdn.com/b/dotnet/archive/2015/04/29/rounding-out-visual-f-4-0-in-vs-2015-rc.aspx) releases for a more complete list, or review the VS 2015 [release notes](https://www.visualstudio.com/en-us/news/vs2015-vs#fsharp).
 
 **Constructors as first-class function values** Constructors can now be treated as first-class function values, similar to curried functions or other .NET methods. This eliminates the need to create small lambdas for the sole purpose of calling a constructor.
 
@@ -532,9 +526,9 @@ EnC - Lambda and Async Task support
 
 Edit and Continue (EnC) is a popular productivity feature. It enables you to edit your code while you are debugging it. This is useful for a lot of reasons, particularly if your code needs to interact with state that isn't directly part of an API (e.g. processing JSON files) and can be most easily explored at runtime.
 
-You can now use EnC with lambdas, async methods, Linq and other language features. Given today's coding patterns, that's a huge jump forward for EnC usability. Check out [Supported Edits in Edit & Continue (EnC)](https://github.com/dotnet/roslyn/wiki/EnC-Supported-Edits) to see the complete set of EnC operations supported by EnC in Visual Studio 2015.
+You can now use EnC with lambdas, async methods, LINQ and other language features. Given today's coding patterns, that's a huge jump forward for EnC usability. Check out [Supported Edits in Edit & Continue (EnC)](https://github.com/dotnet/roslyn/wiki/EnC-Supported-Edits) to see the complete set of EnC operations supported by EnC in Visual Studio 2015.
 
-Here’s an example of some code that EnC didn’t support before. It is an async lambda that includes a Linq statement. You can see how it was fixed up in the debugger, in the image below, to correctly query the string[] with "EnC" instead of "Enc" and change the message in the string[].
+Here’s an example of some code that EnC didn’t support before. It is an async lambda that includes a LINQ statement. You can see how it was fixed up in the debugger, in the image below, to correctly query the string[] with "EnC" instead of "Enc" and change the message in the string[].
 
 ``` c#
 public MainWindow()
@@ -597,7 +591,7 @@ To install Xamarin with Visual Studio 2015, select the _Custom_ installation opt
 
 ![VS Xamarin Install](vs-xamarin-install.png)
 
-You can use Xamarin Starter editon as long as you want, build apps, test on devices and publish to app stores. It is limited to apps that are [128k of byte code or less](http://xamarin.com/faq#q18), but does enable you to deploy to a simulator, a device or an app store. You can start a [Xamarin Business trial](http://developer.xamarin.com/guides/cross-platform/getting_started/beginning_a_xamarin_trial/#Activating_a_Trial_in_Visual_Studio) to try out the richer experience. You can always return to Xamarin Starter Edition after that.
+You can use Xamarin Starter edition as long as you want, build apps, test on devices and simulators and publish to app stores. It is limited to apps that are [128k of byte code or less](http://xamarin.com/faq#q18). You can start a [Xamarin Business trial](http://developer.xamarin.com/guides/cross-platform/getting_started/beginning_a_xamarin_trial/#Activating_a_Trial_in_Visual_Studio) to try out the richer experience. You can always return to Xamarin Starter Edition after that.
 
 Xamarin.Forms for Windows
 -------------------------
@@ -623,36 +617,29 @@ You can reference and debug native C++ libraries in a Xamarin.Android app. Just 
 
 The community is busy porting .NET Core to Free BSD and has recently started an ARM Linux port as well. The community is also quite active in the Linux x64 and OS X ports as well. The community engagement on the .NET Core project has been simply amazing, beyond our most dramatic expectations. Awesome work folks!
 
-The supported workloads for .NET Core are ASP.NET 5, Windows 10 UWP and Console apps. We expect that other .NET Core workloads will appear in the future, from Microsoft and the community. We'd also love to see other companies build on top of .NET Core.
+.NET Core supports the following workloads: ASP.NET 5, Windows 10 UWP and Console apps. We expect that other .NET Core workloads will appear in the future, from Microsoft and the community. We'd also love to see other companies build on top of .NET Core.
 
-.NET Core is really three things: a cross-platform runtime implementation, a cross-platform framework library implementation and a standardized API shape that can be satisfied by multiple .NET implementations (e.g. .NET Framework, .NET Core, Xamarin, Unity).
+.NET Core is really three things: a cross-platform runtime implementation, a cross-platform framework library implementation and a standard API shape that can be satisfied by multiple .NET implementations (e.g. .NET Framework, .NET Core, Xamarin, Unity).
 
-The [.NET Core site](https://dotnet.github.io/core) is a great place to learn more about the product and to find out how to use it.
+Today, you can use .NET Core within Visual Studio 2015, by using ASP.NET 5. The .NET tools for UWP, which also use .NET Core, ship on 7/29.
+
+The [.NET Core site](https://dotnet.github.io/core) is a great place to learn more about the product and to find out how to use it. 
 
 .NET Core FX
 ------------
 
-You can write and share the same code for device and cloud apps without needing to use portable libraries, shared projects or other code sharing techniques. .NET has always offered low-level code portability as a fundamental tenet, and now has a uniform API that can be used in multiple app types.
+Today, the [.NET Core Framework](https://github.com/dotnet/corefx) can be used in ASP.NET 5, Windows 10 UWP and .NET Core console apps. The .NET Core API started as the API for Windows 8 Store Apps. It has since grown, both in terms of APIs exposed and to also include other scenarios such as ASP.NET 5. Now, when we add new APIs to .NET Core, they are available for multiple app types. This approach makes better use of our engineering time and provides you with a consistent API right away.
 
-Today, the [.NET Core Framework](https://github.com/dotnet/corefx) can be used in ASP.NET 5, Windows 10 UWP and .NET Core console apps. The .NET Core API started as the API for Windows 8 Store Apps. It has since grown, both in terms of APIs exposed and to also include other scenarios such as ASP.NET 5 apps. Now, when we add new APIs to .NET Core, they are available for multiple app types. This approach makes better use of our engineering time and provides you with a consistent API right away.
+The .NET Core Framework API, as a standard API shape, is also supported on the .NET Framework 4.5+. This means that you can write and share the same code for device, cloud and desktop apps without needing to use portable libraries, shared projects or other code sharing techniques. .NET has always offered low-level code portability as a fundamental tenet, and now has a uniform API that can be used in multiple app types. 
 
 All of the .NET Core libraries are distributed as NuGet packages. You can acquire the packages easily within Visual Studio or with one of the NuGet clients directly.
-
-Rosyln
-------
-
-asdasd
 
 ASP.NET 5
 ---------
 
-ASP.NET 5 is the latest version of several ASP.NET technologies, include MVC and Web API. It supports running on both the .NET Framework and .NET Core, so by extension, supports running on Windows, Linux and OS X. The [ASP.NET Home](https://github.com/aspnet/home) repo is a great place to start learning about ASP.NET 5. You'll also find samples and getting started instructions in the same place.
+ASP.NET 5 is the latest version of several ASP.NET technologies, include MVC and Web API. It supports running on both the .NET Framework and .NET Core, so by extension, supports running on Windows, Linux, OS X and any other .NET Core plaforms. The [ASP.NET Home](https://github.com/aspnet/home) repo is a great place to start learning about ASP.NET 5. You'll also find samples and getting started instructions in the same place.
 
-The team recently shipped [ASP.NET 5 beta 5](http://link), including a beta 5 of .NET Core. This is the version that is included in Visual Studio 2015. The team is shipping a beta 6 version soon. You'll be able to install updated versions of ASP.NET 5 for use within Visual Studio 2015, as well as in other environments, such as [VS Code](http://link) and other [OmniSharp-enabled text editors](http://link).
-
-Universal Windows Apps
-----------------------
-
+The team recently shipped [ASP.NET 5 beta 5](http://blogs.msdn.com/b/webdev/archive/2015/07/20/announcing-asp-net-4-6-and-asp-net-5-beta-5-in-visual-studio-2015-release.aspx), including a beta 5 of .NET Core. This is the version that is included in Visual Studio 2015. The team is shipping a beta 6 version later this month. You'll be able to install updated versions of ASP.NET 5 for use within Visual Studio 2015, as well as in other environments, such as [VS Code](https://code.visualstudio.com/) and other [OmniSharp-enabled text editors](http://www.omnisharp.net/).
 
 .NET Open Source
 ================
@@ -661,20 +648,20 @@ We've had several customers ask us about our process for accepting product chang
 
 The quick answer is that Microsoft continues to approach .NET Framework, .NET Core and Roslyn as high-quality commercial products and applies the same rigorous engineering practices to these products as we have traditionally used. We like to say that we've moved the location of our source control (to GitHub) and nothing else. As a result, you should continue to treat the .NET Framework, .NET Core and Roslyn, as distributed by Microsoft, as commercial products.
 
-The longer answer is that .NET engineers, and some highly skilled community members (thanks!), employee a critical code review process to Microsoft and community contributes alike on the .NET Core and Roslyn GitHub repos. Each code reviewer has to be satisfied before they sign off, usually with a "LGTM" (looks good to me) or "LGTM, modulo my feedback" (I'll be happy after you've applied my feedback). A Microsoft employee has to be satisfied with the final state of the code and of the code review process, before merging it into the repo. The code review process can take a few hours or weeks, dependent on the change. Here are a few code reviews examples, so that you can see how the process works in practice: [1234](https://github.com/dotnet/coreclr/pulls/1234), [12345](https://github.com/dotnet/corefx/pulls/12345), [1235](https://github.com/dotnet/roslyn/pulls/1235). We also employ automated scans over the changes to find problems that visual code reviews have missed. We have found a small set of issues this way and fixed them.
+The longer answer is that .NET engineers, and some highly skilled community members (thanks!), employee a critical code review process to Microsoft and community contributions alike on the .NET Core and Roslyn GitHub repos. Each code reviewer has to be satisfied before they sign off, usually with a "LGTM" (looks good to me) or "LGTM, modulo my feedback" (I'll be happy after you've applied my feedback). A Microsoft employee has to be satisfied with the final state of the code and of the code review process, before merging it into the repo. The code review process can take a few hours or weeks, dependent on the change. Here are a few code reviews examples, so that you can see how the process works in practice: [1210](https://github.com/dotnet/coreclr/pull/1210), [2344](https://github.com/dotnet/corefx/pull/2344), [3974](https://github.com/dotnet/roslyn/pull/3974). We also employ automated scans over the changes to find problems that visual code reviews have missed. We have found a small set of issues this way and fixed them.
 
-All of the contributions to .NET Core, from both Microsoft and community members, are governed by the [.NET Foundation Contributor License Agreement](http://link), which provides Microsoft (or any other party) the right to use them. When Microsoft distributes the .NET Framework, .NET Core and Roslyn, it is Microsoft commercial software, based on our traditional rigorous engineering process. It has a Microsoft EULA and is supported, per Microsoft support agreements. If you build .NET Core or Roslyn from source, it is an open source component, not supported by Microsoft and your open source policies would apply.
+All of the contributions to .NET Core, from both Microsoft and community members, are governed by the [.NET Foundation Contributor License Agreement](https://cla2.dotnetfoundation.org/), which provides Microsoft (or any other party) the right to use them. When Microsoft distributes the .NET Framework, .NET Core and Roslyn, it is Microsoft commercial software, based on our traditional rigorous engineering process. It has a Microsoft EULA and is supported, per Microsoft support agreements. If you build .NET Core or Roslyn from source, it is an open source component, not supported by Microsoft and your open source policies would apply.
 
 Summary
 =======
 
-Today's releases of the [.NET Framework 4.6](http://go.microsoft.com/fwlink/?LinkId=528259) and [Visual Studio 2015](http://go.microsoft.com/fwlink/?LinkId=517106), and all the associated languages and components, provide major improvements to your development experience and reliability and performance of your .NET apps. Please try out the new releases and tell us what you think.
+Today's releases of the [.NET Framework 4.6](http://go.microsoft.com/fwlink/?LinkId=528259) and [Visual Studio 2015](http://go.microsoft.com/fwlink/?LinkId=517106), and all the associated languages and components, provide major improvements to your development experience and the reliability and performance of your .NET apps. Please try out the new releases and tell us what you think.
 
-A few of us on the team were reflecting on the release. There are some big milestones that are worth calling out, beyond having shipped a new version of the .NET Framework. These milestones do a good job of demonstrating Microsoft's investment in and commitment to .NET. Note that the .NET Native project is absent, since it isn't shipping today, but shortly.
+A few of us on the team were reflecting on the release. There are some big milestones that are worth calling out, beyond having shipped a new version of the .NET Framework. These milestones do a good job of demonstrating Microsoft's investment in and commitment to .NET. Note that the .NET Native project is absent, since it isn't shipping today, but later this month.
 
-- Roslyn shipped! Roslyn v1 was a 5 year language compiler project. It's now fully integrated into Visual Studio and is open source. It runs on the .NET Framework, .NET Core and Mono.
+- Roslyn shipped! Roslyn v1 was a 6 year language compiler project. It's now fully integrated into Visual Studio and is open source. It runs on the .NET Framework, .NET Core and Mono.
 - RyuJIT shipped! RyuJIT v1 was a 5 year JIT compiler project. It's fully integrated into the .NET Framework and .NET Core and is also open source.
 
 We've been talking publicly about these two releases for a long time, and have shared many updates along the way. Please join us in celebrating the v1 of these two projects. Don't think for a minute, however, that we are done our work on either project. The teams are already working on their next updates.
 
-Thanks to everyone who gave us feedback on our various milestone releases. We very much appreciate it. 
+Thanks to everyone who gave us feedback on our various milestone releases for the .NET Framework, .NET Core, Roslyn, ASP.NET 5, Visual Studio and other releases. We very much appreciate it. 
