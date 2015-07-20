@@ -26,9 +26,9 @@ You can check out the earlier [RC](http://blogs.msdn.com/b/dotnet/archive/2015/0
 .NET Framework 4.6
 ==================
 
-There are many great features in the [.NET Framework 4.6](http://go.microsoft.com/fwlink/?LinkId=528259). Some of these features, like RyuJIT and the latest GC updates, can provide improvements by just installing the .NET Framework 4.6. Give it at try!
+There are many great features in the [.NET Framework 4.6](http://go.microsoft.com/fwlink/?LinkId=528259). Some of these features, like RyuJIT and the latest GC updates, can provide improvements by just installing the .NET Framework 4.6. Give it a try!
 
-You learn more about the release by looking at [What's New in the .NET Framework](https://msdn.microsoft.com/library/ms171868.aspx#v46), the [.NET Framework 4.6 release changelist](https://github.com/microsoft/dotnet) and an [framework library API diff](https://github.com/microsoft/dotnet) between the .NET Framework 4.6 and 4.5.2 releases. Check out the [ASP.NET Team post](http://blogs.msdn.com/b/webdev/archive/2015/07/20/announcing-asp-net-4-6-and-asp-net-5-beta-5-in-visual-studio-2015-release.aspx) to learn more about ASP.NET updates.
+You can learn more about the release by looking at [What's New in the .NET Framework](https://msdn.microsoft.com/library/ms171868.aspx#v46), the [.NET Framework 4.6 release changelist](https://github.com/microsoft/dotnet) and an [framework library API diff](https://github.com/microsoft/dotnet) between the .NET Framework 4.6 and 4.5.2 releases. Check out the [ASP.NET Team post](http://blogs.msdn.com/b/webdev/archive/2015/07/20/announcing-asp-net-4-6-and-asp-net-5-beta-5-in-visual-studio-2015-release.aspx) to learn more about ASP.NET updates.
 
 Reference Source
 ----------------
@@ -44,7 +44,7 @@ The team has made key improvements to WPF in this release:
 
 ### Transparent Child Window support
 
-WPF in now supports transparent child windows in Windows 8.1 and above. This enables you to create and compose non rectangular and transparent child windows in your top level Windows. You can enable this by setting the [UsesPerPixelTransparency property](https://msdn.microsoft.com/library/system.windows.interop.hwndsourceparameters.usesperpixeltransparency.aspx) to true in [HwndSourceParameters](https://msdn.microsoft.com/library/system.windows.interop.hwndsourceparameters.aspx).
+WPF now supports transparent child windows in Windows 8.1 and above. This enables you to create and compose non rectangular and transparent child windows in your top level Windows. You can enable this by setting the [UsesPerPixelTransparency property](https://msdn.microsoft.com/library/system.windows.interop.hwndsourceparameters.usesperpixeltransparency.aspx) to true in [HwndSourceParameters](https://msdn.microsoft.com/library/system.windows.interop.hwndsourceparameters.aspx).
 
 ### High DPI Improvements
 
@@ -92,7 +92,7 @@ This is an opt-in feature. To enable it, set the EnableWindowsFormsHighDpiAutoRe
 RyuJIT
 ------
 
-RyuJIT is the next generation Just-In-Time (JIT) compiler for .NET. It uses a high-performance JIT architecture, focussed on high throughput JIT compilation. It is much faster than the existing _JIT64_ 64-bit JIT that has been used for the last 10 years (introduced in 2005 .NET 2.0 release). There was always a big gap in throughput between the 32- and 64-bit JITs. That gap has been closed, making it easier to exclusively target 64-bit architectures or migrate workloads from 32- to 64-bit.
+RyuJIT is the next generation Just-In-Time (JIT) compiler for .NET. It uses a high-performance JIT architecture, focused on high throughput JIT compilation. It is much faster than the existing _JIT64_ 64-bit JIT that has been used for the last 10 years (introduced in 2005 .NET 2.0 release). There was always a big gap in throughput between the 32- and 64-bit JITs. That gap has been closed, making it easier to exclusively target 64-bit architectures or migrate workloads from 32- to 64-bit.
 
 RyuJIT is enabled for 64-bit processes running on top of the .NET Framework 4.6. Your app will run in a 64-bit process if it is compiled as 64-bit or AnyCPU, and run on a 64-bit operating system. RyuJIT is similarly integrated into .NET Core, as the 64-bit JIT.
 
