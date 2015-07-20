@@ -362,6 +362,10 @@ var s = $"{p.Name} is {p.Age} year{{s}} old";
 
 VB
 
+``` vb
+Dim fileName = $"{Path}\{fn}.json"
+```
+
 The **Null-Conditional operator (?.):** A streamlined syntax for conditionally accessing a member or invoking a method on a value if it's non-null and returning null if the object is null instead of throwing a NullReferenceException.
 
 C#
@@ -372,6 +376,10 @@ int length = customers?.Length ?? 0; // 0 if customers is null
 
 VB
 
+``` vb
+Dim trees = From tree In xml.<ResourceSubTree>
+            Where tree.@name ?.ToLowerInvariant = key
+```
 
 The **NameOf operator:** A rename-safe way to refer to the name of a code element such as in PropertyChanged events and ArgumentExceptions.
 
@@ -383,6 +391,9 @@ C#
 
 VB
 
+``` vb
+RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(NameOf(Name)))
+```
 
 **Read-only Auto-Properties:** A concise syntax for declaring properties which may only be assigned in their initializers or inside of a constructor.
 
@@ -398,6 +409,9 @@ public class Customer
 
 VB
 
+``` vb
+Public Readonly Property Cache As New Dictionary(Of String, Customer)
+```
 
 **Using static members:** Enables a concise syntax for calling static methods without type qualification.
 
@@ -419,6 +433,12 @@ class Program
 
 VB
 
+``` vb
+Imports System.Console
+Imports System.DateTime
+ 
+WriteLine($"Pluto discovered {(Now - #1930/02/18#).Days \ 365} years ago")
+```
 
 F# 4.0
 ----
@@ -501,7 +521,7 @@ Edit and Continue (EnC) is a popular productivity feature. It enables you to edi
 
 You can now use EnC with lambdas, async methods, Linq and other language features. Given today's coding patterns, that's a huge jump forward for EnC usability. Check out [Supported Edits in Edit & Continue (EnC)](https://github.com/dotnet/roslyn/wiki/EnC-Supported-Edits) to see the complete set of EnC operations supported by EnC in Visual Studio 2015.
 
-Here's an example of some code that didn't support async before. It is an async lambda that includes a Linq statement. You can see how it was fixed up in the debugger, in the image below, to correctly query the string[] with "EnC" instead of "Enc" and change the message in the string[].
+Here’s an example of some code that EnC didn’t support before. It is an async lambda that includes a Linq statement. You can see how it was fixed up in the debugger, in the image below, to correctly query the string[] with "EnC" instead of "Enc" and change the message in the string[].
 
 ``` c#
 public MainWindow()
@@ -551,7 +571,7 @@ The Application Timeline tool, which is in "Start Diagnostic Tools Without Debug
 Debugger Improvements 
 ---------------------
 
-Visual Studio 2015 addresses many requests that you have made for improving your debugging life, such as [lambda debugging](http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/12/support-for-debugging-lambda-expressions-with-visual-studio-2015.aspx), [Edit and Continue (EnC) improvements](http://blogs.msdn.com/b/visualstudioalm/archive/2015/02/23/enc-improvements-for-net-debugging-in-visual-studio-2015.aspx), [child-process debugging](http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/24/introducing-the-child-process-debugging-power-tool.aspx), as well revamp core experiences such as [powerful breakpoint configuration](http://blogs.msdn.com/b/visualstudioalm/archive/2014/10/06/new-breakpoint-configuration-experience.aspx) and introduce a [new Exceptions Settings tool window](http://blogs.msdn.com/b/visualstudioalm/archive/2015/02/23/the-new-exception-settings-window-in-visual-studio-2015.aspx). 
+Visual Studio 2015 addresses many requests that you have made for improving your debugging life, such as [lambda debugging](http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/12/support-for-debugging-lambda-expressions-with-visual-studio-2015.aspx), [Edit and Continue (EnC) improvements](http://blogs.msdn.com/b/visualstudioalm/archive/2015/02/23/enc-improvements-for-net-debugging-in-visual-studio-2015.aspx), [child-process debugging](http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/24/introducing-the-child-process-debugging-power-tool.aspx), as well as revamping core experiences such as [powerful breakpoint configuration](http://blogs.msdn.com/b/visualstudioalm/archive/2014/10/06/new-breakpoint-configuration-experience.aspx) and introduces a [new Exceptions Settings tool window](http://blogs.msdn.com/b/visualstudioalm/archive/2015/02/23/the-new-exception-settings-window-in-visual-studio-2015.aspx). 
 
 We also pushed the state of the art by integrating performance tooling into the debugger with [PerfTips](http://blogs.msdn.com/b/visualstudioalm/archive/2014/08/18/perftips-performance-information-at-a-glance-while-debugging-with-visual-studio.aspx) and the [all new Diagnostic Tools window](http://blogs.msdn.com/b/visualstudioalm/archive/2015/01/16/diagnostic-tools-debugger-window-in-visual-studio-2015.aspx) which includes the [redesigned IntelliTrace](http://blogs.msdn.com/b/visualstudioalm/archive/2015/01/16/intellitrace-in-visual-studio-ultimate-2015.aspx) for historical debugging and the [Memory Usage tool](http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/13/memory-usage-tool-while-debugging-in-visual-studio-2015.aspx).
 
