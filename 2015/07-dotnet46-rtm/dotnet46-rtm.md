@@ -32,13 +32,6 @@ You can learn more about the release by looking at [What's New in the .NET Frame
 
 The .NET Framework 4.6 is part of Windows 10 and can be installed on Windows 7 and Windows 8. You can target the .NET Framework 4.6 in Visual Studio 2012 or later, by installing the the [.NET Framework 4.6 Targeting Pack](http://fwlink). It comes with Visual Studio 2015.
 
-Reference Source
-----------------
-
-The .NET Framework reference source has been updated for the .NET Framework 4.6. You can see the latest source at the [.NET Framework Reference Source Website](http://referencesource.microsoft.com/), which is also used for [.NET Framework source debugging](http://blogs.msdn.com/b/dotnet/archive/2014/02/24/a-new-look-for-net-reference-source.aspx). 
-
-The [.NET Framework referencesource repo on GitHub](https://github.com/microsoft/referencesource) has also been updated with the [latest update](https://github.com/Microsoft/referencesource/commit/74706335e3b8c806f44fa0683dc1e18d3ed747c2). This repo is primarily in place so that the [Mono Project](http://www.mono-project.com/) can adopt .NET Framework source in Mono.
-
 Windows Presentation Foundation
 -------------------------------
 
@@ -280,6 +273,13 @@ Other Base Class Library changes
 - A number of collection objects, such as System.Collections.Generic.Queue and System.Collections.Generic.Stack, now implement System.Collections.Generic.IReadOnlyCollection.
 - The System.Globalization.CultureInfo.CurrentCulture and System.Globalization.CultureInfo.CurrentUICulture properties are now read-write rather than read-only. If you assign a new System.Globalization.CultureInfo object to these properties, the current thread culture defined by the Thread.CurrentThread.CurrentCulture property and the current UI thread culture defined by the Thread.CurrentThread,CurrentUICulture properties also change.
 - The System.Numerics namespace now includes a number of SIMD-enabled types for scientific computing, such as System.Numerics.Matrix3x2, System.Numerics.Matrix4x4, System.Numerics.Plane, System.Numerics.Quaternion, System.Numerics.Vector2, System.Numerics.Vector3, and Vector4T:System.Numerics.Vector4.
+
+Reference Source
+----------------
+
+The .NET Framework reference source has been updated for the .NET Framework 4.6. You can see the latest source at the [.NET Framework Reference Source Website](http://referencesource.microsoft.com/), which is also used for [.NET Framework source debugging](http://blogs.msdn.com/b/dotnet/archive/2014/02/24/a-new-look-for-net-reference-source.aspx). 
+
+The [.NET Framework referencesource repo on GitHub](https://github.com/microsoft/referencesource) has also been updated with the [latest update](https://github.com/Microsoft/referencesource/commit/74706335e3b8c806f44fa0683dc1e18d3ed747c2). This repo is primarily in place so that the [Mono Project](http://www.mono-project.com/) can adopt .NET Framework source in Mono.
 
 ASP.NET 4.6
 ===========
@@ -583,39 +583,65 @@ Xamarin + Visual C++ Debugger Integration
 
 You can reference and debug native C++ libraries in a Xamarin.Android app. Just choose the Microsoft debugger in the project's property pages. Then, you can step through those libraries by using all of the debug features you know and love, including expression evaluation, watch window, and auto window.
 
-.NET Core and ASP.NET 5
-=======================
+.NET Core
+=========
 
-.NET Core is a new version of .NET for modern device and cloud workloads. It provides a single set of APIs for you to use for your apps. You can write and share the same code for device and cloud apps without needing to use portable libraries, shared projects or other code sharing techniques. .NET has always offered low-level code portability as a fundamental tenet, and now has a uniform API that can be used in multiple app types.
+[.NET Core](http://github.com/dotnet/core) is a new version of .NET for modern device and cloud workloads. It is a general purpose and modular implemention that can be ported and used in many different environments for a variety of workloads. Microsoft is in the process of porting .NET Core to Linux and OS X. 
 
-The [.NET Core](http://github.com/dotnet/core) project is open source on GitHub. You can look at the code and even make contributions. We have received many great contributions over the last number of months. Thanks!
+The community is busy porting .NET Core to Free BSD and has recently started an ARM Linux port as well. The community is also quite active in the Linux x64 and OS X ports as well. The community engagement on the .NET Core project has been simply amazing, beyond our most dramatic expectations. Awesome work folks!
+
+The supported workloads for .NET Core are ASP.NET 5, Windows 10 UWP and Console apps. We expect that other .NET Core workloads will appear in the future, from Microsoft and the community. We'd also love to see other companies build on top of .NET Core.
+
+.NET Core is really three things: a cross-platform runtime implementation, a cross-platform framework library implementation and a standardized API shape that can be satisfied by multiple .NET implementations (e.g. .NET Framework, .NET Core, Xamarin, Unity).
+
+The [.NET Core site](https://dotnet.github.io/core) is a great place to learn more about the product and to find out how to use it.
+
+.NET Core FX
+------------
+
+You can write and share the same code for device and cloud apps without needing to use portable libraries, shared projects or other code sharing techniques. .NET has always offered low-level code portability as a fundamental tenet, and now has a uniform API that can be used in multiple app types.
 
 Today, the [.NET Core Framework](https://github.com/dotnet/corefx) can be used in ASP.NET 5, Windows 10 UWP and .NET Core console apps. The .NET Core API started as the API for Windows 8 Store Apps. It has since grown, both in terms of APIs exposed and to also include other scenarios such as ASP.NET 5 apps. Now, when we add new APIs to .NET Core, they are available for multiple app types. This approach makes better use of our engineering time and provides you with a consistent API right away.
 
 All of the .NET Core libraries are distributed as NuGet packages. You can acquire the packages easily within Visual Studio or with one of the NuGet clients directly.
 
+Rosyln
+------
+
+asdasd
+
+ASP.NET 5
+---------
+
+ASP.NET 5 is the latest version of several ASP.NET technologies, include MVC and Web API. It supports running on both the .NET Framework and .NET Core, so by extension, supports running on Windows, Linux and OS X. The [ASP.NET Home](https://github.com/aspnet/home) repo is a great place to start learning about ASP.NET 5. You'll also find samples and getting started instructions in the same place.
+
+The team recently shipped [ASP.NET 5 beta 5](http://link), including a beta 5 of .NET Core. This is the version that is included in Visual Studio 2015. The team is shipping a beta 6 version soon. You'll be able to install updated versions of ASP.NET 5 for use within Visual Studio 2015, as well as in other environments, such as [VS Code](http://link) and other [OmniSharp-enabled text editors](http://link).
+
+Universal Windows Apps
+----------------------
+
+
 .NET Open Source
 ================
 
-We've had several customers ask us about our process for accepting product changes from community members. The .NET Framework and .NET Core now contain community-provided changes, from the [coreclr](https://github.com/dotnet/coreclr) and [corefx](https://github.com/dotnet/coreclr) repos. [Roslyn](https://github.com/dotnet/coreclr) is similar. Thanks! Each company, including Microsoft, has a policy on using open source software within their applications. These customers want to understand if they should apply there open source policies to the .NET Framework and .NET Core.
+We've had several customers ask us about our process for accepting product changes from community members. The .NET Framework and .NET Core now contain community-provided changes, from the [coreclr](https://github.com/dotnet/coreclr) and [corefx](https://github.com/dotnet/coreclr) repos. The Roslyn compiler is the same, with the [roslyn](https://github.com/dotnet/coreclr) repo. Thanks for those contributions! Each company, including Microsoft, has a policy on using open source software within their applications. These customers want to understand if they should apply their open source policies to the .NET Framework, .NET Core and Roslyn.
 
-The quick answer is that Microsoft continues to approach .NET Framework and .NET Core, as commercial products and applies the same rigorous engineering approach to those products as before. You should also approach .NET Core and .NET Framework, as distributed by Microsoft, in the same way.
+The quick answer is that Microsoft continues to approach .NET Framework, .NET Core and Roslyn as high-quality commercial products and applies the same rigorous engineering practices to these products as we have traditionally used. We like to say that we've moved the location of our source control (to GitHub) and nothing else. As a result, you should continue to treat the .NET Framework, .NET Core and Roslyn, as distributed by Microsoft, as commercial products.
 
-The longer answer is that .NET engineers, and some highly skilled community members (thanks!), employee a critical code review process on the .NET Core GitHub repos. Each code reviewer has to be satisfied before they sign off, usually with a "LGTM" (looks good to me). A Microsoft employee has to be satisfied with the final state of the code and of the code review process, before merging it into the 'master'
-branch of the repo. Here is an example of one of those code reviews, so that you can see how the process actually works. We also employ automated scans over the entire codebase to find changes that visual code reviews have missed. We have found issues this way and fixed them.
+The longer answer is that .NET engineers, and some highly skilled community members (thanks!), employee a critical code review process to Microsoft and community contributes alike on the .NET Core and Roslyn GitHub repos. Each code reviewer has to be satisfied before they sign off, usually with a "LGTM" (looks good to me) or "LGTM, modulo my feedback" (I'll be happy after you've applied my feedback). A Microsoft employee has to be satisfied with the final state of the code and of the code review process, before merging it into the repo. The code review process can take a few hours or weeks, dependent on the change. Here are a few code reviews examples, so that you can see how the process works in practice: [1234](https://github.com/dotnet/coreclr/pulls/1234), [12345](https://github.com/dotnet/corefx/pulls/12345), [1235](https://github.com/dotnet/roslyn/pulls/1235). We also employ automated scans over the changes to find problems that visual code reviews have missed. We have found a small set of issues this way and fixed them.
 
-All of the changes to .NET Core, from both Microsoft and community members, are governed by the .NET Foundation Contributor License Agreement, which provides Microsoft (or any other party) the right to use the code. When Microsoft ships this code, it is Microsoft commercial software, based on our traditional rigorous engineering process. If you build .NET Core from source, from the GitHub repo, and include it in your application, it is an open source component.
+All of the contributions to .NET Core, from both Microsoft and community members, are governed by the [.NET Foundation Contributor License Agreement](http://link), which provides Microsoft (or any other party) the right to use them. When Microsoft distributes the .NET Framework, .NET Core and Roslyn, it is Microsoft commercial software, based on our traditional rigorous engineering process. It has a Microsoft EULA and is supported, per Microsoft support agreements. If you build .NET Core or Roslyn from source, it is an open source component, not supported by Microsoft and your open source policies would apply.
 
 Summary
 =======
 
 Today's releases of the [.NET Framework 4.6](http://go.microsoft.com/fwlink/?LinkId=528259) and [Visual Studio 2015](http://go.microsoft.com/fwlink/?LinkId=517106), and all the associated languages and components, provide major improvements to your development experience and reliability and performance of your .NET apps. Please try out the new releases and tell us what you think.
 
-A few of us on the team were reflecting on the release. There are some big milestones that are worth calling out, beyond having shipped a new version of the .NET Framework. They do a good job of demonstrating Microsoft's investment in and commitment to .NET. Note that .NET Native is absent, since it isn't shipping today, but shortly.
+A few of us on the team were reflecting on the release. There are some big milestones that are worth calling out, beyond having shipped a new version of the .NET Framework. These milestones do a good job of demonstrating Microsoft's investment in and commitment to .NET. Note that the .NET Native project is absent, since it isn't shipping today, but shortly.
 
-- Roslyn shipped! It was an ~ 5 year language compiler project. It's fully integrated into Visual Studio and is open source. It runs on .NET Framework, .NET Core and Mono.
-- RyuJIT has shipped! It was a 3-4 year JIT compiler project. It's fully integrated into the .NET Framework and .NET Core and is also open source.
+- Roslyn shipped! Roslyn v1 was a 5 year language compiler project. It's now fully integrated into Visual Studio and is open source. It runs on the .NET Framework, .NET Core and Mono.
+- RyuJIT shipped! RyuJIT v1 was a 5 year JIT compiler project. It's fully integrated into the .NET Framework and .NET Core and is also open source.
 
-We've been talking publicly about these two releases for a long time, and have shared many updates along the way. Please join us in celebrating the v1.0 of these two projects. Don't think for a minute, however, that we are done our work on either project. The teams have already started work on their next updates.
+We've been talking publicly about these two releases for a long time, and have shared many updates along the way. Please join us in celebrating the v1 of these two projects. Don't think for a minute, however, that we are done our work on either project. The teams are already working on their next updates.
 
 Thanks to everyone who gave us feedback on our various milestone releases. We very much appreciate it. 
