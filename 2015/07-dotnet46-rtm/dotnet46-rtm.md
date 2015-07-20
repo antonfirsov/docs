@@ -355,9 +355,9 @@ To learn more about Roslyn, check out the [Roslyn repo](https://github.com/dotne
 C# 6 and VB 14
 --------------
 
-C# and VB are both part of the [Roslyn compiler](https://github.com/dotnet/roslyn). You can see the language features for the new versions in the [Roslyn GitHub wiki](https://github.com/dotnet/roslyn/wiki/Languages-features-in-C%23-6-and-VB-14).
+[C#](https://github.com/dotnet/roslyn/wiki/New-Language-Features-in-C%23-6) and [VB](https://github.com/dotnet/roslyn/wiki/New-Language-Features-in-VB-14) are both part of the [Roslyn compiler](https://github.com/dotnet/roslyn). You can see a comparison of [Languages features in C# 6 and VB 14](https://github.com/dotnet/roslyn/wiki/Languages-features-in-C%23-6-and-VB-14) to learn which feature is supported by which language.
 
-The following language features are a subset of the new capabilities you can use starting today in either language. Some of the other [new language features](https://github.com/dotnet/roslyn/wiki/Languages-features-in-C%23-6-and-VB-14) are unique to one language or the other or existed already in one and were added to the other this release. 
+The following language features are a subset of the new capabilities you can use in either language. Some of the other [new language features](https://github.com/dotnet/roslyn/wiki/Languages-features-in-C%23-6-and-VB-14) are unique to one language or the other or existed already in one and were added to the other this release. 
 
 **String interpolation:** An intuitive String.Format-like syntax for composing strings from templates with inline expressions.
 
