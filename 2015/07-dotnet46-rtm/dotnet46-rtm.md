@@ -369,8 +369,8 @@ var s = $"{p.Name} is {p.Age} year{{s}} old";
 
 VB
 
-``` vb
-Dim fileName = $"{Path}\{fn}.json"
+``` vb.net
+Dim s = $"{p.Name} is {p.Age} year{{s}} old"
 ```
 
 The **Null-Conditional operator (?.):** A streamlined syntax for conditionally accessing a member or invoking a method on a value if it's non-null and returning null if the object is null instead of throwing a NullReferenceException.
@@ -383,9 +383,8 @@ int length = customers?.Length ?? 0; // 0 if customers is null
 
 VB
 
-``` vb
-Dim trees = From tree In xml.<ResourceSubTree>
-            Where tree.@name ?.ToLowerInvariant = key
+``` vb.net
+Dim length As Integer = If(customers?.Length, 0) ' 0 if customers is null
 ```
 
 The **NameOf operator:** A rename-safe way to refer to the name of a code element such as in PropertyChanged events and ArgumentExceptions.
@@ -393,13 +392,13 @@ The **NameOf operator:** A rename-safe way to refer to the name of a code elemen
 C#
 
 ``` c#
-(if x == null) throw new ArgumentNullException(nameof(x));
+if (x == null) throw new ArgumentNullException(nameof(x));
 ```
 
 VB
 
-``` vb
-RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(NameOf(Name)))
+``` vb.net
+If x Is Nothing Then Throw New ArgumentNullException(NameOf(x))
 ```
 
 **Read-only Auto-Properties:** A concise syntax for declaring properties which may only be assigned in their initializers or inside of a constructor.
@@ -416,11 +415,14 @@ public class Customer
 
 VB
 
-``` vb
-Public Readonly Property Cache As New Dictionary(Of String, Customer)
+``` vb.net
+Public Class Customer
+    Public ReadOnly Property First As String = "Jane"
+    Public ReadOnly Property Last As String = "Doe"
+End Class
 ```
 
-**Using static members:** Enables a concise syntax for calling static methods without type qualification.
+**Static imports:** New in C# 6! Enables a concise syntax for calling static methods without type qualification. This is handy for frequent calls to members of utility classes like `System.Console` and `System.Math`.
 
 C#
 
@@ -428,23 +430,48 @@ C#
 using static System.Console;
 using static System.Math;
 using static System.DayOfWeek;
+
 class Program
 {
     static void Main()
     {
-        WriteLine(Sqrt(3*3 + 4*4)); 
+        WriteLine(Sqrt(3 * 3 + 4 * 4)); 
         WriteLine(Friday - Monday); 
     }
 }
 ```
 
+This feature is new in C# 6 but already existed in previous versions of VB.
+
+``` vb.net
+Imports System.Console
+Imports System.Math
+Imports System.DateOfWeek
+
+Module Program
+    Sub Main()
+        WriteLine(Sqrt(3 * 3 + 4 * 4))
+        WriteLine(Friday - Monday)
+    End Sub
+End Module
+```
+
+**Multiline string literals:** New in VB 14! You can now include newline characters in string literals. This makes it easier than ever to include multiline content in your VB programs without having to manually concatenate `vbCrLf` into strings.
+
 VB
 
-``` vb
-Imports System.Console
-Imports System.DateTime
- 
-WriteLine($"Pluto discovered {(Now - #1930/02/18#).Days \ 365} years ago")
+``` vb.net
+Dim s = "Write your haiku with
+No vbCrLf
+In VB14"
+```
+
+This feature is new in VB 14 but already existed in previous versions of C#.
+
+``` c#
+var s = @"Write your haiku with
+No \r\n escapes
+In C# v1";
 ```
 
 F# 4.0
