@@ -32,7 +32,7 @@ CLR
 * CLR emits all versions of the ModuleLoad/ModuleUnload ETW events. [1029164]
 * Future DFL and FFL handled. [1030154]
 * Unresolvable SID in SDSAM handled. [1030161]
-* Triton 1.5 images are treated as IL by CLR. [1084749]
+* Crossgen / ReadyToRun images are treated as IL by CLR. [1084749]
 * Fixed a RyuJIT regression causing System.Web.HttpApplication.ExecuteStep to incorrectly handle exceptions associated with redirections. [1088278]
 * Setup doesn't disable CAPI2 event logs. [1090378]
 * WindowsBase uses C# exception filters. [1090886]
