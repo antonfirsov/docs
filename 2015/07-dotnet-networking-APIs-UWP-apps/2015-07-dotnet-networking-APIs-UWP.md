@@ -29,7 +29,9 @@ Debug.WriteLine(response.Version.ToString());// this tells if you if the client-
 ```
 
 **Notes:**
+
 1. Setting the Request.Version property to 2.0 is not supported on other .NET platforms and will throw a System.ArgumentException when trying to send such a request. The default version on .NET platforms other than UWP is 1.1.
+
 2. The Request.Version property represents the client API preference to use HTTP/2. The actual HTTP version used will depend on the client OS, server and intermediate proxies. HTTP/2 is a negotiated protocol that will automatically fall back to HTTP 1.1 if the server or intermediaries do not support HTTP/2.
 
 ##What’s Changed
@@ -46,10 +48,10 @@ This library contains types related to System.Net.HttpWebRequest and System.Net.
 This library is provided purely for backward compatibility and to unblock usage of .NET libraries that use these older APIs. For .NET Core, the implementation of HttpWebRequest is actually based on HttpClient (reversing the dependency order from .NET Framework). As mentioned above, the reason for this is to avoid usage of the managed .NET HTTP stack in a UWP app context and move towards HttpClient as a single HTTP client role API for .NET developers.
 
 ##What’s the same
-Other types from System.Net and System.Net.NetworkInformation namespaces that were supported for Windows 8.1 Store apps will continue to be supported in Windows 10 UWP. There have been some minor additions to this API surface, but no major changes in implementation.
+Other types from System.Net and System.Net.NetworkInformation namespaces that were supported for Windows 8.1 Store apps will continue to be supported for UWP apps. There have been some minor additions to this API surface, but no major changes in implementation.
 
 ##Looking Ahead
-In this post, we discussed the initial version of the set of .NET networking APIs that will be available to Windows 10 UWP developers. We will continue to build on this set and add more API surface to ensure that developers can write rich, full-featured UWP apps using .NET.
+In this post, we discussed the initial version of the set of .NET networking APIs that will be available to Windows 10 UWP app developers. We will continue to build on this set and add more API surface to ensure that developers can write rich, full-featured UWP apps using .NET.
 
 To ensure that we prioritize and focus on the right APIs, we need feedback from you – please send us feedback on which APIs are missing in .NET Core and are blocking you from delivering the best possible experience to your users in a UWP app. Please create or vote on an idea on [Windows platform missing APIs uservoice][windows-uservoice] or file an issue in [GitHub][github-corefx]. We look forward to working with you to deliver awesome apps to the entire breadth of Windows devices.
 
