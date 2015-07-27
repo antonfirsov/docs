@@ -11,7 +11,7 @@ These are the new APIs and features that we have added into .NET Core 5 for UWP 
 
 ###System.Net.Sockets
 With Windows 10 and .NET Core 5, **System.Net.Sockets has been added into the API surface for UWP app developers**. This was a [highly requested API][uservoice-sockets] for Windows Store apps (it was already available for Windows Phone Silverlight apps) and includes types such as System.Net.Sockets.Socket and System.Net.Sockets.SocketAsyncEventArgs, which are used by developers for asynchronous socket communication.
-The current API surface of System.Net.Sockets in .NET Core is based on that of Phone 8.1 Silverlight and continues to support most of the types, properties and methods (some APIs that are considered obsolete have been removed). Moving forward, we plan to expand this surface to support more types from System.Net.Sockets namespace – please see the “Looking ahead” section below.
+The current API surface of System.Net.Sockets in .NET Core is based on that of Phone 8.1 Silverlight and continues to support most of the types, properties and methods (some APIs that are considered obsolete have been removed). Moving forward, we plan to expand this surface to support more types from System.Net.Sockets namespace – please see the [Looking ahead](#looking-ahead) section below.
 
 The implementation underneath the System.Net.Sockets API has been significantly rewritten due to the move from the full .NET Framework to .NET Core. Our goal is to ensure functional parity between the previous implementation and the new .NET Core version. Please send us your feedback on [GitHub][github-corefx] if you see any differences in behavior or performance as you port your Sockets code to UWP.
 
@@ -55,7 +55,7 @@ To ensure that we prioritize and focus on the right APIs, we need feedback from 
 
 
 
-[msdn-dotnet-store-profile]: https://msdn.microsoft.com/en-us/library/br230232.aspx
+[msdn-dotnet-store-profile]: https://msdn.microsoft.com/en-us/library/mt185486.aspx
 [uservoice-sockets]: https://wpdev.uservoice.com/forums/253374-missing-platform-apis/suggestions/6092670-system-net-sockets-and-system-threading-thread-for
 [github-corefx]: https://github.com/dotnet/corefx/issues
 [channel9-build-talk]: https://channel9.msdn.com/Events/Build/2015/2-83
