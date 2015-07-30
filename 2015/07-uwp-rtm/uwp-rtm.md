@@ -54,58 +54,46 @@ Here are some useful overviews and tutorials for UWP development:
 In this blog post I want to tell you more about the improvements you'll notice as a .NET developer – things that the other tutorials don't go into. But first, to set the stage, here is an overview in ten short pictures of everything that Microsoft is delivering right now for .NET UWP development:
 
 
-
-|
 ![New UWP Project](vs2015-uwp-new-project.png)
 
- | **File > New > C#/VB > Windows > Universal** Get started with a new blank UWP app. It's faster than VS2015 RC thanks to improvements in NuGet. You can also create Portable Class Libraries (PCLs) that span UWP, ASP.NET 5 and .NET4.6. |
-| --- | --- |
-|
+**File > New > C#/VB > Windows > Universal** Get started with a new blank UWP app. It's faster than VS2015 RC thanks to improvements in NuGet. You can also create Portable Class Libraries (PCLs) that span UWP, ASP.NET 5 and .NET4.6.
+
 ![UWP Solution Explorer](vs2015-uwp-solution-explorer.png)
 
- | **Solution Explorer > References**
-The References node shows NuGet packages with their own distinctive icon. One important package here is ```Microsoft.NETCore.UniversalWindowsPlatform```
-; it contains the .NET Core runtime and framework. The project.json file drives the new NuGet 3.0, replacing packages.config. NuGet 3.0 is faster and more flexible than NuGet 2.0.
+**Solution Explorer > References**
+The References node shows NuGet packages with their own distinctive icon. One important package here is ```Microsoft.NETCore.UniversalWindowsPlatform```; it contains the .NET Core runtime and framework. The project.json file drives the new NuGet 3.0, replacing packages.config. NuGet 3.0 is faster and more flexible than NuGet 2.0.
 
- |
-|
 ![Adaptive Xaml](vs2015-uwp-adaptive-xaml.png)
 
- | **Adaptive XAML** Developers could always design "adaptive UIs" that scale to any device, any form-factor. It's easier now thanks to many XAML improvements, including ViewState triggers, more device previews, and live Visual XAML Tree debugging. Also, use the new _x:Bind_ for higher performance data-binding. |
-|
+**Adaptive XAML** Developers could always design "adaptive UIs" that scale to any device, any form-factor. It's easier now thanks to many XAML improvements, including ViewState triggers, more device previews, and live Visual XAML Tree debugging. Also, use the new _x:Bind_ for higher performance data-binding.
 
 ![Adaptive Code](dotnet-uwp-adaptive-code.png)
 
- | **Adaptive code** One key to a great universal app is sharing as much code as you can between devices, while still lighting up the best experience on each device. You can now write adaptive code in .NET, calling platform-specific WinRT APIs. This is much better than using reflection, a prior technique for adaptive code.  |
-|
+**Adaptive code** One key to a great universal app is sharing as much code as you can between devices, while still lighting up the best experience on each device. You can now write adaptive code in .NET, calling platform-specific WinRT APIs. This is much better than using reflection, a prior technique for adaptive code.
 
 ![Fast Graphics](uwp-fast-graphics.png)
- | **Fast graphics: [Win2d](https://github.com/microsoft/win2d) and [System.Numerics.Vectors](https://github.com/dotnet/corefx/tree/master/src/System.Numerics.Vectors/src/System/Numerics)** For fast graphics, use the [Win2d library](http://microsoft.github.io/Win2D/html/Introduction.htm) – an elegant .NET-friendly wrapper around DirectX. Of course, you can still use [SharpDX](http://sharpdx.org/) or [MonoGame](http://www.monogame.net/) too. And [System.Numerics.Vectors](https://msdn.microsoft.com/en-us/library/dn858218(v=vs.111).aspx) leverages the CPU's [SIMD](https://en.wikipedia.org/wiki/SIMD) instructions for faster vector and matrix arithmetic. All this let me compute the Mandelbrot fractal in just 70 milliseconds on my mid-range Nokia 635. |
-|
 
-[WCF for UWP](dotnet-uwp-wcf.png)
- | **WCF, HTTP/2 and Sockets** The .NET Core libraries now include [WCF](https://github.com/dotnet/wcf) and AddServiceReference, previously unavailable for Phone apps. [HttpClient](http://blogs.msdn.com/b/dotnet/archive/2015/07/28/net-networking-apis-for-uwp-apps.aspx) has been rewritten from scratch: it performs better and supports [HTTP/2](https://en.wikipedia.org/wiki/HTTP/2). We've also included System.Networking.Sockets, a long-requested .NET feature for Windows Store apps. |
-|
+**Fast graphics: [Win2d](https://github.com/microsoft/win2d) and [System.Numerics.Vectors](https://github.com/dotnet/corefx/tree/master/src/System.Numerics.Vectors/src/System/Numerics)** For fast graphics, use the [Win2d library](http://microsoft.github.io/Win2D/html/Introduction.htm) – an elegant .NET-friendly wrapper around DirectX. Of course, you can still use [SharpDX](http://sharpdx.org/) or [MonoGame](http://www.monogame.net/) too. And [System.Numerics.Vectors](https://msdn.microsoft.com/en-us/library/dn858218(v=vs.111).aspx) leverages the CPU's [SIMD](https://en.wikipedia.org/wiki/SIMD) instructions for faster vector and matrix arithmetic. All this let me compute the Mandelbrot fractal in just 70 milliseconds on my mid-range Nokia 635.
+
+![WCF for UWP](dotnet-uwp-wcf.png)
+
+**WCF, HTTP/2 and Sockets** The .NET Core libraries now include [WCF](https://github.com/dotnet/wcf) and AddServiceReference, previously unavailable for Phone apps. [HttpClient](http://blogs.msdn.com/b/dotnet/archive/2015/07/28/net-networking-apis-for-uwp-apps.aspx) has been rewritten from scratch: it performs better and supports [HTTP/2](https://en.wikipedia.org/wiki/HTTP/2). We've also included System.Networking.Sockets, a long-requested .NET feature for Windows Store apps.
 
 ![VS 2015 EnC](vs2015-enc.png)
- | **Improved debugging and EnC** You can now use "Edit and Continue" (EnC) when debugging on the emulator. The whole debugger engine has been overhauled – to [support lambdas and LINQ expressions in the immediate and watch windows](http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/12/support-for-debugging-lambda-expressions-with-visual-studio-2015.aspx), and [to support EnC in many more places than ever before](http://blogs.msdn.com/b/visualstudioalm/archive/2015/04/29/net-enc-support-for-lambdas-and-other-improvements-in-visual-studio-2015.aspx). Some developers code their entire app while in EnC. Try it! |
-|
+
+**Improved debugging and EnC** You can now use "Edit and Continue" (EnC) when debugging on the emulator. The whole debugger engine has been overhauled – to [support lambdas and LINQ expressions in the immediate and watch windows](http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/12/support-for-debugging-lambda-expressions-with-visual-studio-2015.aspx), and [to support EnC in many more places than ever before](http://blogs.msdn.com/b/visualstudioalm/archive/2015/04/29/net-enc-support-for-lambdas-and-other-improvements-in-visual-studio-2015.aspx). Some developers code their entire app while in EnC. Try it!
+
 ![vs2015-dotnet-native.png]
 
- | **.NET Native**
-
-When you build in Release mode, your app gets built with the new ".NET Native" compiler. This turns it into heavily optimized native machine code – for much faster app startup time, lower battery consumption, and faster overall performance.
- |
-|
+**.NET Native** When you build in Release mode, your app gets built with the new ".NET Native" compiler. This turns it into heavily optimized native machine code – for much faster app startup time, lower battery consumption, and faster overall performance.
 
 ![uwp-store-submission.png]
- | **Store submission** You'll appreciate the new unified Developer Center. When you submit an app, the wizard submits your app's MSIL. The store compiles it with .NET Native, optimizing your app into native machine code (that is difficult to reverse-engineer, just like C++ code), for deployment to your users. |
-|
+ 
+**Store submission** You'll appreciate the new unified Developer Center. When you submit an app, the wizard submits your app's MSIL. The store compiles it with .NET Native, optimizing your app into native machine code (that is difficult to reverse-engineer, just like C++ code), for deployment to your users.
 
 ![uwp-application-insights.png]
- | **Application Insights and Diagnostics** Application Insights is included by default in every new project. It provides detailed analytics about your app – like crashes and usage. All the top apps in the Store already know that obtaining and responding to analytics is what makes them top. There are also [richer tracing features](http://blogs.msdn.com/b/vancem/archive/2015/05/11/version-1-1-24-of-the-eventsource-nuget-package-marked-as-stable.aspx) available in ETW. |
 
-
+**Application Insights and Diagnostics** Application Insights is included by default in every new project. It provides detailed analytics about your app – like crashes and usage. All the top apps in the Store already know that obtaining and responding to analytics is what makes them top. There are also [richer tracing features](http://blogs.msdn.com/b/vancem/archive/2015/05/11/version-1-1-24-of-the-eventsource-nuget-package-marked-as-stable.aspx) available in ETW.
 
 .NET Native
 ===========
