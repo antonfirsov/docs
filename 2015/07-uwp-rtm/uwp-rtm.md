@@ -8,12 +8,13 @@ We just released the [Universal Windows app development tools](http://go.microso
 Installing the UWP Tools
 ========================
 
-The tools integrate into Visual Studio 2015. Here's a few ways to get them:
+You can [install the free Community Edition](http://go.microsoft.com/fwlink/?LinkID=619615), which install the UWP tools by default. If you need the Professional or Enterprise edition, you can download them from [VisualStudio.com](http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200662091). During setup, choose 'Custom' to install the Tools for Universal Windows Apps.
+
+If you already have Visual Studio 2015, here's two ways to get the new tools:
 
 - Download and run the [Windows Tools installer](http://go.microsoft.com/fwlink/?LinkID=619615).
 - Open up Programs and Features from the Control Panel, select Visual Studio 2015 and click Change. Then in setup, click Modify and select the Tools for Universal Windows Apps.
 
-If you don't already have Visual Studio 2015 RTM, you can [install the free Community Edition](http://go.microsoft.com/fwlink/?LinkID=619615). If you need the Professional or Enterprise edition, you can download them from [VisualStudio.com](http://www.microsoft.com/click/services/Redirect2.ashx?CR_CC=200662091). During setup, choose 'Custom' to install the Tools for Universal Windows Apps.
 
 ![VS 2015 UWP Install](vs2015-uwp-install.png)
 
@@ -52,13 +53,14 @@ Here are some useful overviews and tutorials for UWP development:
 
 In this blog post I want to tell you more about the improvements you'll notice as a .NET developer – things that the other tutorials don't go into. But first, to set the stage, here is an overview in ten short pictures of everything that Microsoft is delivering right now for .NET UWP development:
 
-|
-
-
- | **File > New > C#/VB > Windows > Universal** Get started with a new blank UWP app. It's faster than VS2015 RC thanks to improvements in NuGet. You can also create Portable Class Libraries (PCLs) that span UWP, ASP.NET 5 and .NET4.6. |
+| | |
 | --- | --- |
 |
+![New UWP Project](vs2015-new-project-uwp.png)
 
+ | **File > New > C#/VB > Windows > Universal** Get started with a new blank UWP app. It's faster than VS2015 RC thanks to improvements in NuGet. You can also create Portable Class Libraries (PCLs) that span UWP, ASP.NET 5 and .NET4.6. |
+|
+![UWP Solution Explorer](vs2015-uwp-solution-explorer.png)
 
  | **Solution Explorer > References**
 The References node shows NuGet packages with their own distinctive icon. One important package here is ```Microsoft.NETCore.UniversalWindowsPlatform```
@@ -66,27 +68,28 @@ The References node shows NuGet packages with their own distinctive icon. One im
 
  |
 |
-
+![Adaptive Xaml](vs2015-uwp-solution-explorer.png)
 
  | **Adaptive XAML** Developers could always design "adaptive UIs" that scale to any device, any form-factor. It's easier now thanks to many XAML improvements, including ViewState triggers, more device previews, and live Visual XAML Tree debugging. Also, use the new _x:Bind_ for higher performance data-binding. |
 |
 
+![Adaptive Code](dotnet-uwp-adaptive-code.png)
 
  | **Adaptive code** One key to a great universal app is sharing as much code as you can between devices, while still lighting up the best experience on each device. You can now write adaptive code in .NET, calling platform-specific WinRT APIs. This is much better than using reflection, a prior technique for adaptive code.  |
 |
 
-
+![Fast Graphics](uwp-fast-graphics.png)
  | **Fast graphics: [Win2d](https://github.com/microsoft/win2d) and [System.Numerics.Vectors](https://github.com/dotnet/corefx/tree/master/src/System.Numerics.Vectors/src/System/Numerics)** For fast graphics, use the [Win2d library](http://microsoft.github.io/Win2D/html/Introduction.htm) – an elegant .NET-friendly wrapper around DirectX. Of course, you can still use [SharpDX](http://sharpdx.org/) or [MonoGame](http://www.monogame.net/) too. And [System.Numerics.Vectors](https://msdn.microsoft.com/en-us/library/dn858218(v=vs.111).aspx) leverages the CPU's [SIMD](https://en.wikipedia.org/wiki/SIMD) instructions for faster vector and matrix arithmetic. All this let me compute the Mandelbrot fractal in just 70 milliseconds on my mid-range Nokia 635. |
 |
 
-
+[WCF for UWP](dotnet-uwp-wcf.png)
  | **WCF, HTTP/2 and Sockets** The .NET Core libraries now include [WCF](https://github.com/dotnet/wcf) and AddServiceReference, previously unavailable for Phone apps. [HttpClient](http://blogs.msdn.com/b/dotnet/archive/2015/07/28/net-networking-apis-for-uwp-apps.aspx) has been rewritten from scratch: it performs better and supports [HTTP/2](https://en.wikipedia.org/wiki/HTTP/2). We've also included System.Networking.Sockets, a long-requested .NET feature for Windows Store apps. |
 |
 
-
+![VS 2015 EnC](vs2015-enc.png)
  | **Improved debugging and EnC** You can now use "Edit and Continue" (EnC) when debugging on the emulator. The whole debugger engine has been overhauled – to [support lambdas and LINQ expressions in the immediate and watch windows](http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/12/support-for-debugging-lambda-expressions-with-visual-studio-2015.aspx), and [to support EnC in many more places than ever before](http://blogs.msdn.com/b/visualstudioalm/archive/2015/04/29/net-enc-support-for-lambdas-and-other-improvements-in-visual-studio-2015.aspx). Some developers code their entire app while in EnC. Try it! |
 |
-
+![vs2015-dotnet-native.png]
 
  | **.NET Native**
 
@@ -94,11 +97,11 @@ When you build in Release mode, your app gets built with the new ".NET Native" c
  |
 |
 
-
+![uwp-store-submission.png]
  | **Store submission** You'll appreciate the new unified Developer Center. When you submit an app, the wizard submits your app's MSIL. The store compiles it with .NET Native, optimizing your app into native machine code (that is difficult to reverse-engineer, just like C++ code), for deployment to your users. |
 |
 
-
+![uwp-application-insights.png]
  | **Application Insights and Diagnostics** Application Insights is included by default in every new project. It provides detailed analytics about your app – like crashes and usage. All the top apps in the Store already know that obtaining and responding to analytics is what makes them top. There are also [richer tracing features](http://blogs.msdn.com/b/vancem/archive/2015/05/11/version-1-1-24-of-the-eventsource-nuget-package-marked-as-stable.aspx) available in ETW. |
 
 
@@ -145,17 +148,12 @@ There's a good explanation on the MSDN " [Guide to UWP apps](https://msdn.micros
 
 From the .NET side, the technically most interesting aspect is _adaptive code_. Here's an example:
 
-|
-
-
- |
+![UWP Adaptive App](uwp-adaptive-app.png)
 
 <script src="https://gist.github.com/richlander/d7ef561db43df938f549.js"></script>
 
 [gist](https://gist.github.com/richlander/d7ef561db43df938f549)
 
- |
-| --- | --- |
 
 My app looked great on Windows 10 Desktop, but on Windows 10 Mobile it was showing the Status Bar. I thought it would look better if I called ```StatusBar.HideAsync```. However ```StatusBar``` is a type (and concept) that doesn't even exist on Desktop. The code to deal with this absence looks simple – the WinRT API ```Windows.Foundation.Metadata.ApiInformation.IsTypePresent``` is used to determine whether a named WinRT type is present on the machine an app happens to be running on, and it will only invoke the platform-specific methods in that case.
 
@@ -202,6 +200,7 @@ UWP apps use CoreCLR for Debug and .NET Native for Release
 
 The following diagram shows what happens when you build your UWP app, debug it, and submit it to the store. The VB and C# compilers continue to emit DLLs in MSIL format as before. It's what happens next that's different…
 
+![.NET Native workflow](dotnet-native-flow-diagram.png)
 
 **Debug build: CoreCLR**. When you build your UWP app in Debug mode, it uses the ".NET Core CLR" runtime, the same as used in ASP.NET 5. This provides a great edit+run+debug experience – fast deploy, rich debugging, Edit and Continue. It also means 
 
@@ -224,7 +223,11 @@ If you're developing a class library or PCL, however, you should generally devel
 
 The easiest approach I've found is with the Build > ConfigurationManager dialog. I can set it so that even if my toolbar shows "AnyCPU" for the benefit of the libraries, it still builds+deploys my UWP application as x86.
 
+![Configuration Manager](vs2015-configuration-manager.png)
+
 **Debugging .NET Native**. Sometimes you want to set breakpoints and debug code in .NET Native. It would be better not to have to do this in Release builds, since they are always harder to debug, and the aggressive optimizations by .NET Native make that harder. The answer is to use Debug mode (thereby turning off optimizations), and then temporarily tweak your project's configuration to use .NET Native even in Debug build. In C# the setting is under _Project > Properties > Compile with the .NET Native tool chain_. In VB it's under _MyProject > Build > Advanced_.
+
+![.NET Native Compilation Properties](vs2015-dotnet-native-compilation-properties.png)
 
 **Customizing the .NET Native optimizations**. Sometimes, especially in apps that make subtle use of reflection, .NET Native can remove too much in its optimizations. You can control this. These blog posts explain it well:
 
