@@ -53,12 +53,13 @@ Here are some useful overviews and tutorials for UWP development:
 
 In this blog post I want to tell you more about the improvements you'll notice as a .NET developer – things that the other tutorials don't go into. But first, to set the stage, here is an overview in ten short pictures of everything that Microsoft is delivering right now for .NET UWP development:
 
-| | |
-| --- | --- |
+
+
 |
-![New UWP Project](vs2015-new-project-uwp.png)
+![New UWP Project](vs2015-uwp-new-project.png)
 
  | **File > New > C#/VB > Windows > Universal** Get started with a new blank UWP app. It's faster than VS2015 RC thanks to improvements in NuGet. You can also create Portable Class Libraries (PCLs) that span UWP, ASP.NET 5 and .NET4.6. |
+| --- | --- |
 |
 ![UWP Solution Explorer](vs2015-uwp-solution-explorer.png)
 
@@ -68,7 +69,7 @@ The References node shows NuGet packages with their own distinctive icon. One im
 
  |
 |
-![Adaptive Xaml](vs2015-uwp-solution-explorer.png)
+![Adaptive Xaml](vs2015-uwp-adaptive-xaml.png)
 
  | **Adaptive XAML** Developers could always design "adaptive UIs" that scale to any device, any form-factor. It's easier now thanks to many XAML improvements, including ViewState triggers, more device previews, and live Visual XAML Tree debugging. Also, use the new _x:Bind_ for higher performance data-binding. |
 |
@@ -206,7 +207,7 @@ The following diagram shows what happens when you build your UWP app, debug it, 
 
 **Release build: .NET Native.** When you build in Release mode, it takes an additional 30+ seconds to turn your MSIL and your references into optimized native machine code. We're working on improving that time. It does "tree-shaking" to remove all code that will never be called. It does " [Marshalling Code Generation](http://blogs.msdn.com/b/dotnet/archive/2014/06/13/net-native-deep-dive-debugging-into-interop-code.aspx)" to pre-compile serialization code so it doesn't have to use reflection at runtime. It does whole-program optimization. This work and compilation to native code results in a single native DLL. You can explore this in bin\x86\Release\ilc.
 
-**.NET Core: Both CoreCLR and .NET Native are ".NET Core Runtimes". They can both use and run the same .NET Core libraries (CoreFX), so that you get the same experience between Debug and Release. In Windows 8/8.1, the .NET Framework was used as the underlying .NET implementation for Windows Store apps. We had to move to .NET Core completely to provide the debug and release experience that we wanted for Windows 10.
+**.NET Core: Both CoreCLR and .NET Native are ".NET Core Runtimes". They can both use and run the same .NET Core libraries (CoreFX), so that you get the same experience between Debug and Release. In Windows 8/8.1, the .NET Framework was used as the underlying .NET implementation for Windows Store apps. We moved to using .NET Core completely to provide the debug and release experience that we wanted for Windows 10, while providing access to  the new CoreFX libraries.
 
 **Store submission.** When you create an Appx package for submission to the Windows Store, the appx bundle contains MSIL. Then the Windows Store does a .NET Native compilation for you. This mitigates the worries that some people have about "app-local deployment" of .NET Core FX. They worry what will happen if a security flaw is discovered in .NET. In the past, this was solved by shipping out a Windows Update to fix the OS-wide version of .NET. Now, it can be done by identifying the appx packages that are vulnerable, and working with the authors to fix them.
 
