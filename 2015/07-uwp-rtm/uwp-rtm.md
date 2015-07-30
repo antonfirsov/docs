@@ -34,7 +34,7 @@ As a .NET developer you'll appreciate what UWP offers --
 
 The new things you can do with this release --
 
-- Write UWP apps.
+- Write Windows 10 UWP apps with .NET.
 - Write Portable Class Libraries that target .NET Core.
 - Use more .NET surface area in UWP apps than was previously available to Windows Store or Phone apps, including [System.Net.Sockets](http://blogs.msdn.com/b/dotnet/archive/2015/07/28/net-networking-apis-for-uwp-apps.aspx), [WCF Client](https://github.com/dotnet/wcf), [System.Numerics.Vectors](https://github.com/dotnet/corefx/tree/master/src/System.Numerics.Vectors), and new [Diagnostics APIs](http://blogs.msdn.com/b/vancem/archive/2015/05/11/version-1-1-24-of-the-eventsource-nuget-package-marked-as-stable.aspx).
 - You can choose to use [NuGet 3.1](http://blog.nuget.org/20150729/Introducing-nuget-uwp.html) (recognizable by the file "project.json") for NuGet consumption in all project types.
