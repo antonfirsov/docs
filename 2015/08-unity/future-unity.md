@@ -16,7 +16,7 @@ Our motivation
 
 _Why are we transitioning to new owners?_ That's a natural question to ask.
 
-Since Unity was started, dependency injection containers for .NET have matured and evolved significantly. In addition, open source components are now more accepted. The need for having an "official" container from Microsoft is no longer as widespread as it once was. We did spend a few months in 2014 thoughtfully experimenting for a "Unity 4". However, we began to recognize that the p&p team was not equipped to carry the project forward.
+The .NET community has a rich history of dependency injection containers, dating back before the introduction of Unity. Dependency injection containers for .NET have continued to mature and evolve significantly. In addition, open source components are now more accepted. The need for having an "official" container from Microsoft is no longer as widespread as it once was. We did spend a few months in 2014 thoughtfully experimenting for a "Unity 4". However, we began to recognize that the p&p team was not equipped to carry the project forward.
 
 At the same time, we believe that it would have been a poor choice to simply call the project "done". We wanted to support all those who had invested in the library. After consulting with internal teams and p&p alumni, we asked Pablo and Pedro to assume the mantle.
 
