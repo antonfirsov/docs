@@ -107,22 +107,17 @@ What's important with UWP is that *you don't have to depend on your users instal
 You can't combine out-of-band .NET fixes with Shared Framework
 ================================================================
 
-This blog post has described two technologies:
-
-- How to use a shared version of the .NET framework delivered on-demand, the same version as other apps do, in order to reduce app size and often also build-time;
-- How to get the latest out-of-band fixes to .NET, so your app compiles with a slightly different version of the .NET framework from what everyone else does.
-
-Obviously the two are incompatible! This is what you'll see if you try to combine a pre-release version of System.Linq.Expressions and the Shared Framework flag:
+You can't combine out-of-band updates to .NET with the Shared Framework flag. This is what you'll see if you try it with a pre-release version of System.Linq.Expressions:
  
-![Incomptabitble shared assembly](incompatible-sharedfx.png)
+![Incompatible shared assembly](incompatible-sharedfx.png)
 *"ILC1308: SharedAssembly is not applicable to you project configuration. Project dependencies don't match the assemblies that the shared assembly is built against. You may need to adjust your project dependencies to ensure they match the versions that the shared assembly is built against."*
 
 
 Conclusions
 =============
 
-.NET Native is an important technology for the future of .NET. In this release we've improved it significantly.
+.NET Native is an important technology for the future of UWP. In this release we've improved it significantly.
 
-We are eager for people to try the new feature. Please turn the flag on during development. Many of you will observe faster build-times. What we're hoping to get are reports from you of any problems you encounter -- either by email to [dotnetnative@microsoft.com](mailto:dotnetnative@microsoft.com) or via the *send-a-smile/frown* icon at the top of the Visual Studio 2015 titlebar (below). Thank you!
+We are eager for feedback on the new Shared Framework feature. Please turn the flag on during development. Many of you will observe faster build-times. What we're hoping to get are reports from you of any problems you encounter -- either by email to [dotnetnative@microsoft.com](mailto:dotnetnative@microsoft.com) or via the *send-a-smile/frown* icon at the top of the Visual Studio 2015 titlebar (below). Thank you!
  
 ![Send-a-smile](send-a-smile.png)
