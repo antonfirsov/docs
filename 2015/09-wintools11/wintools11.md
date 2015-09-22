@@ -6,16 +6,16 @@ What's new for .NET and UWP in Win10 Tools 1.1
 Last week we updated the [Visual Studio tools for Universal Windows Apps](http://blogs.msdn.com/b/visualstudio/archive/2015/09/16/wintools-1-1-typescript-1-6-rtm-and-tools-for-apache-cordova-updates.aspx). The easiest way to get the update is within Visual Studio, under *Tools > Extensions > Updates*. (Also read the [release notes](https://social.msdn.microsoft.com/Forums/en-US/e9df01f6-1474-4a4e-98fc-2567591c764f/update-11-release-notes-and-installation-instructions?forum=Win10SDKToolsIssues)).
 
 
-As part of this update, we're including a new opt-in pre-release feature that will shrink the size of your app -- by removing the grey part below:
+As part of this update, we're including a new opt-in pre-release feature that will shrink the size of your app:
 
 ![AppSize](appsize2.png) 
 
 In this article I'll tell you the what and why and how of this new feature. Then I'll tell you how it fits into the wider context -- about how improvements in .NET make their way into your UWP apps.
 
-UWP apps include .NET app-locally
+UWP apps have included .NET app-locally
 ===================================
 
-When you build a UWP app, it includes all the .NET APIs that it actually uses, app-locally.
+Until now, when you build a UWP app, it has included all the .NET APIs that it actually uses, app-locally.
 
 *"... But doesn't this get a bit big?"*
 
@@ -23,11 +23,11 @@ Here's a concrete example. I wrote a [Game of Life](https://en.wikipedia.org/wik
  
 ![Game of life](game-of-life.gif)
 
-And this is what I get when I build my app in Release mode: 
+And this is what I get when I build my app in Release mode. I've shown the "before" and "after" of the new feature:
  
 ![AppSize](appsize.png) 
 
-*What we're delivering with Win10 Tools 1.1 is the ability to shave off that extra grey segment.*
+*What we're delivering with Win10 Tools 1.1 is the ability to shave off that extra grey segment that comes from the .NET libraries.*
 
 How the feature works
 ===========================================================
