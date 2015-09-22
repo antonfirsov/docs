@@ -72,7 +72,7 @@ Tip: you can also avoid unloading+reloading by editing the proj file outside VS,
 **Guidance.** Here are our recommendations for how to use this flag for now:
 
 - **During development:** turn flag on if you observe that doing so improves build times for your particular app.
-- **For store submission:** leave flag off, to reduce the churn of having to manually upgrade your project after VS Update 1.
+- **For store submission:** leave flag off, to reduce the churn risk of maybe having to manually upgrade your project after VS Update 1.
 - **For size-critical store submission:** turn flag on only if you concretely need to make your app smaller, e.g. to keep it under the 50mb threshold of what's readily downloadable over cellular.
 - **For sample code:** leave flag off, so that in the future you and others have an easier time building your sample.
 - **If you're using out-of-band updates to .NET:** leave flag off. Read the next section for an explanation.
@@ -112,6 +112,7 @@ You can't combine out-of-band .NET fixes with Shared Framework
 You can't combine out-of-band updates to .NET with the Shared Framework flag. This is what you'll see if you try it with a pre-release version of System.Linq.Expressions:
  
 ![Incompatible shared assembly](incompatible-sharedfx.png)
+
 *"ILC1308: SharedAssembly is not applicable to you project configuration. Project dependencies don't match the assemblies that the shared assembly is built against. You may need to adjust your project dependencies to ensure they match the versions that the shared assembly is built against."*
 
 
