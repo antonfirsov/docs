@@ -35,7 +35,7 @@ How to reduce size of app package
 The ability to reduce app-size is still in pre-release. We hope to make it the default experience soon, but for now in the Win10 Tools 1.1 release the feature is opt-in...
 
 - This is the first public release of the feature, and we want to give it some time and testing before switching everyone over.
-- *For most apps, the feature delivers faster build times for Release builds.* We observe build times ranging from 35% faster to 20% slower with this new feature, but the typical improvement is ~20% faster. We are working on making the flag deliver a more consistent improvement to build times. 
+- *For most apps, the feature delivers faster build times for Release builds.* We observe build times are generally faster, up to about 30% -- but there are a few apps actually take longer to build. We are working on making the flag deliver a more consistent improvement to build times. 
 - When you upgrade to VS2015 Update 1, if your project is using this flag, then you might need to upgrade your project in some way in order to open it. We haven't closed on this.
 - Any apps you submit to the store right now, using this flag, will continue to work.
 
