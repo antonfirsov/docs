@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EB99B8F-01FF-4E41-ABCB-F0B2F93FF277}"
 	ProjectSection(SolutionItems) = preProject
 		appsize.png = appsize.png
+		appsize2.png = appsize2.png
 		corefx-github.png = corefx-github.png
 		game-of-life.gif = game-of-life.gif
 		incompatible-sharedfx.png = incompatible-sharedfx.png

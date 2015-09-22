@@ -6,9 +6,9 @@ What's new for .NET and UWP in Win10 Tools 1.1
 Last week we updated the [Visual Studio tools for Universal Windows Apps](http://blogs.msdn.com/b/visualstudio/archive/2015/09/16/wintools-1-1-typescript-1-6-rtm-and-tools-for-apache-cordova-updates.aspx). The easiest way to get the update is within Visual Studio, under *Tools > Extensions > Updates*. (Also read the [release notes](https://social.msdn.microsoft.com/Forums/en-US/e9df01f6-1474-4a4e-98fc-2567591c764f/update-11-release-notes-and-installation-instructions?forum=Win10SDKToolsIssues)).
 
 
-As part of this update, we're including a new opt-in pre-release feature that will shrink the size of your app:
+As part of this update, we're including a new opt-in pre-release feature that will shrink the size of your app -- by removing the grey part below:
 
-![AppSize](appsize.png) 
+![AppSize](appsize2.png) 
 
 In this article I'll tell you the what and why and how of this new feature. Then I'll tell you how it fits into the wider context -- about how improvements in .NET make their way into your UWP apps.
 
@@ -29,7 +29,7 @@ And this is what I get when I build my app in Release mode:
 
 *What we're delivering with Win10 Tools 1.1 is the ability to shave off that extra grey segment.*
 
-How to reduce size of app package
+How the feature works
 ===========================================================
 
 The ability to reduce app-size is still in pre-release. We hope to make it the default experience soon, but for now in the Win10 Tools 1.1 release the feature is opt-in...
@@ -40,7 +40,7 @@ The ability to reduce app-size is still in pre-release. We hope to make it the d
 - Any apps you submit to the store right now, using this flag, will continue to work.
 
 
-**How the feature works.** The feature causes your .NET Native release builds to *not* include the bulk of .NET locally within the app. Instead .NET is delivered through a *"Shared AppX Framework Package"*. That means:
+**How the feature works.** When the feature is enabled, .NET Native release builds *no longer* include the bulk of .NET locally within the app. Instead .NET is delivered through a *"Shared AppX Framework Package"*. That means:
 
 1. When customers download your app from the Store, this download doesn't contain the bulk of .NET
 2. Instead, the right version of .NET gets automatically downloaded on-demand from the Store, and is shared between all apps that use it.
@@ -54,7 +54,9 @@ You can see how it's accomplished inside your app's `bin\Release\x86\ilc\AppxMan
 
 
 
-**Instructions to opt-in.** As mentioned, we plan make this feature the default so it will happen automatically. Until then, you must opt-in by a configuration flag as follows. Within Visual Studio, right-click on your UWP project and *unload project*. Right-click once again and *Edit the .vbproj/.csproj*. Within this proj file, look for all three occurrences of `<UseDotNetNativeToolchain>` and add a new directive under them as follows. By default, the three places that use the .NET Native toolchain are Release|x86, Release|x64 and Release|Arm.
+Instructions to opt-in to using the SharedFramework
+=====================================================
+As mentioned, we plan make this feature the default so it will happen automatically. Until then, you must opt-in by a configuration flag as follows. Within Visual Studio, right-click on your UWP project and *unload project*. Right-click once again and *Edit the .vbproj/.csproj*. Within this proj file, look for all three occurrences of `<UseDotNetNativeToolchain>` and add a new directive under them as follows. By default, the three places that use the .NET Native toolchain are Release|x86, Release|x64 and Release|Arm.
 ```xml
 <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
 <UseDotNetNativeSharedAssemblyFrameworkPackage>true</UseDotNetNativeSharedAssemblyFrameworkPackage>
@@ -116,7 +118,7 @@ You can't combine out-of-band updates to .NET with the Shared Framework flag. Th
 Conclusions
 =============
 
-.NET Native is an important technology for the future of UWP. In this release we've improved it significantly.
+.NET Native is an important technology for building UWP apps. In this release we've improved it significantly.
 
 We are eager for feedback on the new Shared Framework feature. Please turn the flag on during development. Many of you will observe faster build-times. What we're hoping to get are reports from you of any problems you encounter -- either by email to [dotnetnative@microsoft.com](mailto:dotnetnative@microsoft.com) or via the *send-a-smile/frown* icon at the top of the Visual Studio 2015 titlebar (below). Thank you!
  
