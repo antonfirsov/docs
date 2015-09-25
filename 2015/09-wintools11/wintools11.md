@@ -71,9 +71,9 @@ Tip: you can also avoid unloading+reloading by editing the proj file outside VS,
 
 **Guidance.** Here are our recommendations for how to use this flag for now:
 
-- **During development:** turn flag on if you observe that doing so improves build times for your particular app.
-- **For store submission:** leave flag off, to reduce the churn risk of maybe having to manually upgrade your project after VS Update 1.
-- **For size-critical store submission:** turn flag on only if you concretely need to make your app smaller, e.g. to keep it under the 50mb threshold of what's readily downloadable over cellular.
+- **Try it at least once:** try turning on the flag at least once -- see whether it improves your Release mode buildtimes, and whether you encounter any issues.
+- **Develop how you wish to submit:** in the daily rhythm of development and testing, use the flag in the same way as you intend to submit.
+- **For store submission:** it's your call whether the benefits of smaller app-size and potentially faster build-times outweigh the risks of using a pre-release feature for you.
 - **For sample code:** leave flag off, so that in the future you and others have an easier time building your sample.
 - **If you're using out-of-band updates to .NET:** leave flag off. Read the next section for an explanation.
 
