@@ -57,6 +57,6 @@ from Beta 8 to RC1](http://mjomaa.com/computer-science/frameworks/asp-net-mvc/15
 
 [Armen Shimoon](http://dotnetliberty.com/) [annotated the diff between ASP.NET 5 Beta 8 and RC1](http://dotnetliberty.com/index.php/2015/11/23/asp-net-5-beta-8-to-rc1-annotated-diff/)
 
-[Shane Boyer](http://tattoocoder.com/) explains [how to prepare for the dotnet.exe CLI](http://wildermuth.com/2015/11/18/Upgrading_ASP_NET_5_Beta_8_to_RC1).
+[Shane Boyer](http://tattoocoder.com/) explains [how to prepare for the dotnet.exe CLI](http://tattoocoder.com/preparing-for-dotnet-cli/).
 
 And this is it for this week!
