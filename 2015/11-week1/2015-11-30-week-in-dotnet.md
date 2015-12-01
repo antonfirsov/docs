@@ -9,7 +9,7 @@ Of course, if you wrote a great blog post, or just read one, if you want to show
 new contribution, if you've written a useful library, we'd love to hear from you, and
 feature it on future posts.
 We have an email address that you can use to send us such tips: weekindotnet at Microsoft,
-or you can [edit this gist](https://gist.github.com/bleroy/e3263de7a4be4a6a1195/edit) with new
+or you can [comment on this gist](https://gist.github.com/bleroy/e3263de7a4be4a6a1195) with new
 links, or you can simply leave us a pointer in the comment section below.
 
 .NET Core and ASP.NET 5 RC are here!
@@ -44,6 +44,15 @@ Here's some code that uses `HtmlAgilityPack` to extract the URL of each image on
 home page:
 
 <script src="https://gist.github.com/bleroy/c5e8f2ebdbd694e0913f.js"></script>
+
+User group of the week: TRINUG
+------------------------------
+
+TRINUG is a user group in Raleigh, NC, USA that meets on the second Wednesday of each month.
+They are holding a hands-on lab tonight December 1st at 6PM to install Windows 10 on your
+Raspberry Pi 2.
+
+[F#/Analytics + IoT + Azure](http://www.meetup.com/TRINUG/events/225097782/)
 
 Blog posts of the week
 ----------------------
