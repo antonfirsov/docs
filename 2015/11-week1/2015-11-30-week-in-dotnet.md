@@ -12,8 +12,8 @@ We have an email address that you can use to send us such tips: weekindotnet at 
 or you can [comment on this gist](https://gist.github.com/bleroy/e3263de7a4be4a6a1195) with new
 links, or you can simply leave us a pointer in the comment section below.
 
-.NET Core and ASP.NET 5 RC are here!
-------------------------------------
+.NET Core, .NET Framework 4.6.1, ASP.NET 5 RC, and Visual Studio Update 1 for .NET Managed Languages are here!
+--------------------------------------------------------------------------------------------------------------
 
 On November 18th, the team shipped .NET Core and ASP.NET 5 Release Candidates, supported
 on Windows, OS X, and Linux.
@@ -28,6 +28,15 @@ ASP.NET has its own post that you can find here:
 
 The announcement happened at the [Connect(); // 2015 conference](https://channel9.msdn.com/Events/Visual-Studio/Connect-event-2015/).
 Follow the link for videos.
+
+Yesterday, November 30th, .NET Framework 4.6.1 shipped with significant improvements to
+the development experience as well as greater reliability and performance of apps:
+[.NET Framework 4.6.1 is now available!](http://blogs.msdn.com/b/dotnet/archive/2015/11/30/net-framework-4-6-1-is-now-available.aspx)
+
+On the same day, Visual Studio Update 1 for .NET Managed Languages arrived with new IDE
+features, interactive C#, new code analysis management, Visual F# improvements, and the
+new F5 experience for Roslyn open source development.
+[What's New in Visual Studio Update 1 for .NET Managed Languages](http://blogs.msdn.com/b/dotnet/archive/2015/11/30/what-s-new-in-visual-studio-update-1-for-net-managed-languages.aspx).
 
 Package of the week: HTML Agility Pack
 --------------------------------------
