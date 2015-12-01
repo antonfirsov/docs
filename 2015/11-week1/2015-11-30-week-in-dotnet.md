@@ -8,7 +8,9 @@ of a list of interesting links.
 Of course, if you wrote a great blog post, or just read one, if you want to show a great
 new contribution, if you've written a useful library, we'd love to hear from you, and
 feature it on future posts.
-We have an email address that you can use to send us such tips: weekindotnet at Microsoft.
+We have an email address that you can use to send us such tips: weekindotnet at Microsoft,
+or you can [edit this gist](https://gist.github.com/bleroy/e3263de7a4be4a6a1195/edit) with new
+links, or you can simply leave us a pointer in the comment section below.
 
 .NET Core and ASP.NET 5 RC are here!
 ------------------------------------
@@ -27,8 +29,8 @@ ASP.NET has its own post that you can find here:
 The announcement happened at the [Connect(); // 2015 conference](https://channel9.msdn.com/Events/Visual-Studio/Connect-event-2015/).
 Follow the link for videos.
 
-Package of the week
--------------------
+Package of the week: HTML Agility Pack
+--------------------------------------
 
 If you ever have to extract information from an HTML document, you could build a quick and
 dirty parser, or you could use regular expressions, but the saner option is to use a proper
@@ -37,6 +39,11 @@ HTML parser, and then query the resulting DOM.
 provides such a parser and DOM for .NET.
 
 [HtmlAgilityPack](https://www.nuget.org/packages/HtmlAgilityPack/)
+
+Here's some code that uses `HtmlAgilityPack` to extract the URL of each image on this blog's
+home page:
+
+<script src="https://gist.github.com/bleroy/c5e8f2ebdbd694e0913f.js"></script>
 
 Blog posts of the week
 ----------------------
