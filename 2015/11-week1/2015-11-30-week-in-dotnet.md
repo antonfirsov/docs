@@ -35,7 +35,7 @@ the development experience as well as greater reliability and performance of app
 
 On the same day, Visual Studio Update 1 for .NET Managed Languages arrived with new IDE
 features, interactive C#, new code analysis management, Visual F# improvements, and the
-new F5 experience for Roslyn open source development.
+new F5 experience for Roslyn open source development:
 [What's New in Visual Studio Update 1 for .NET Managed Languages](http://blogs.msdn.com/b/dotnet/archive/2015/11/30/what-s-new-in-visual-studio-update-1-for-net-managed-languages.aspx).
 
 Package of the week: HTML Agility Pack
