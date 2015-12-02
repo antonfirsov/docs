@@ -1,17 +1,19 @@
 Support Ending for Multiple Versions of the .NET Framework
 ==========================================================
 
-As [previously announced][1], on January 12, 2016 Microsoft will no longer provide security updates, technical support or hotfixes for .NET 4, 4.0.1, 4.0.2, 4.0.3 4.5, and 4.5.1 frameworks. All other framework versions, including 4.5.2, 4.6 and 4.6.1, will be supported for the duration of their [established lifecycle][2], as there are no other changes to the support timeline. The decision to end support for these versions will allow us to invest more resources towards improvements of the .NET Framework. 
+As [previously announced][1], on January 12, 2016 Microsoft will no longer provide security updates, technical support or hotfixes for .NET 4, 4.5, and 4.5.1 frameworks. All other framework versions, including 4.5.2, 4.6 and 4.6.1, will be supported for the duration of their [established lifecycle][2], as there are no other changes to the support timeline. The decision to end support for these versions will allow us to invest more resources towards improvements of the .NET Framework. 
 
 ##What Does This Mean?
-This means that you should take action to ensure that the latest distributed version of the .NET Framework is installed.
+This means that you should take action to ensure that the latest supported distributed version of the .NET Framework is installed on the machine.
 
-Applications that are targeting one of the frameworks ending support will not need to immediately recompile to target a newer framework as it will continue to have high compatibility due to quirking. Quirking was introduced in .NET Framework 4.5 and allows an application that targets a lower version of the framework to use those APIs even when a newer version of the framework is distributed.
+Applications that are targeting one of the frameworks ending support do not need to recompile to target a newer framework as it will continue to have high compatibility due to quirking. Quirking was introduced in .NET Framework 4.5 and allows an application that targets a lower version of the framework to use those APIs even when a newer version of the framework is distributed. This allows applications that would normally run into behavior or compatiability issues to continue to behave the same. More information can be found on the  [.NET Application Compatibility page][3].
+
+In order to support apps deployed in Azure the Azure team announced they will be making available updated images with .NET Framework 4.5.2 for guest OS families 2.x, 3.x and 4.x. These updated images were available for manual deployment in November and are available for automatic deployment in January. The Additional Information section below has more information. 
 
 ##Validate the .NET Framework Version(s) Currently Installed
-Multiple versions of the .NET framework can be installed a machine. The registry can be used to determine if the .NET Framework version 4.5.2 or later has been installed. You will need administrative credentials to read the registry with regedit.
+Multiple versions of the .NET framework can be installed on a machine. The registry can be used to determine if the .NET Framework version 4.5.2 or later has been installed. You will need administrative credentials to read the registry with regedit.
 
-1. On the **Start** menu, choose **Run**
+1. From the **Start** menu, choose **Run**
 2. In the **Open** box, enter **regedit**
 3. In the Registry Editor, open the following subkey: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full
    ⋅⋅⋅_**Note:** If the **Full** subkey is not present, then you do not have the .NET Framework 4.5 or later installed._
@@ -42,7 +44,7 @@ More information, including links to download the development packs, can be foun
 
 ##Additional Support Information
 
-We have outlined a few Q&A below to help address any questions you may have. For more details on the .NET Framework support lifecycle, visit the [Microsoft .NET Framework Support Lifecycle Policy FAQ][2]. Additionally, compatibility of the .NET framework can be viewed on the [.NET Application Compatibility page][3]. Should you have any unanswered questions please reach out to [Microsoft Support][4] or write us directly at [netfxcompat@microsoft.com][5]. 
+We have addressed common questions in the Q&A below. For more details on the .NET Framework support lifecycle, visit the [Microsoft .NET Framework Support Lifecycle Policy FAQ][2]. Additionally, compatibility of the .NET framework can be viewed on the [.NET Application Compatibility page][3]. Should you have any unanswered questions please reach out to [Microsoft Support][4] or write us directly at [netfxcompat@microsoft.com][5]. 
 
 **_Will I need to recompile/rebuild my applications to make use of .NET 4.5.2?_**
 
