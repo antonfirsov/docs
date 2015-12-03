@@ -1,4 +1,6 @@
-# Announcing F# Support in Visual Studio Code with Ionide
+# [Guest Post] Announcing F# Support in Visual Studio Code with Ionide
+* This is a guest post by [Krzysztof Cieślak](https://twitter.com/k_cieslak), an F# community developer and contributor to the Ionide project including its Visual Studio Code extension. To learn more about F# and engage with the community, head to [fsharp.org](fsharp.org). To learn more about the Ionide project, head to [ionide.io](ionide.io). *
+
 
 [Ionide](http://ionide.io) is a suite of packages for the [Atom](https://atom.io/) editor that aims to provide a fully-featured, modern, cross-platform, open-source IDE for F# development. It's available via download using the Atom Package Manager.
 
