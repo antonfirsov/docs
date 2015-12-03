@@ -67,7 +67,7 @@ Newer versions of products such as Exchange, SQL Server, Dynamics CRM, Sharepoin
 
 **_What about .NET 3.5 SP1? Is that no longer available?_**
 
-No, this announcement does not affect versions prior to .NET 4. You can continue to use .NET 3.5 SP1 beyond January 12, 2016.
+This announcement does not affect versions prior to .NET 4. You can continue to use .NET 3.5 SP1 beyond January 12, 2016.
 
 [1]: http://blogs.msdn.com/b/dotnet/archive/2014/08/07/moving-to-the-net-framework-4-5-2.aspx
 [2]: http://go.microsoft.com/fwlink/?LinkID=507568
