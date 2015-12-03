@@ -1,5 +1,5 @@
 # [Guest Post] Announcing F# Support in Visual Studio Code with Ionide
-* This is a guest post by [Krzysztof Cieślak](https://twitter.com/k_cieslak), an F# community developer and contributor to the Ionide project including its Visual Studio Code extension. To learn more about F# and engage with the community, head to [fsharp.org](fsharp.org). To learn more about the Ionide project, head to [ionide.io](ionide.io). *
+*This is a guest post by [Krzysztof Cieślak](https://twitter.com/k_cieslak), an F# community developer and contributor to the Ionide project including its Visual Studio Code extension. To learn more about F# and engage with the community, head to [fsharp.org](fsharp.org). To learn more about the Ionide project, head to [ionide.io](ionide.io).*
 
 
 [Ionide](http://ionide.io) is a suite of packages for the [Atom](https://atom.io/) editor that aims to provide a fully-featured, modern, cross-platform, open-source IDE for F# development. It's available via download using the Atom Package Manager.
@@ -49,8 +49,8 @@ FAKE (F# Make) is a build automation system with similar capabilities to make an
 
 ### What's next?
 
-In the near future, we hope to add integration with [F# yeoman generator](https://www.npmjs.com/package/generator-fsharp) to Visual Studio code to provide scaffolding for different types of F# projects. We will also work to offer integrations with other popular tools created by community such as [FSharpLint](http://fsprojects.github.io/FSharpLint/) and [Fantomas](https://github.com/dungpa/fantomas). There are also many possible expansions of the core language services - finding references and symbols across an eniter project, or adding support for CodeLens feature of VS Code. Together, we will build and grow a more vibrant and powerful F# cross-platform ecosystem.
+In the near future, we hope to add integration with [F# yeoman generator](https://www.npmjs.com/package/generator-fsharp) to Visual Studio code to provide scaffolding for different types of F# projects. We will also work to offer integrations with other popular tools created by community such as [FSharpLint](http://fsprojects.github.io/FSharpLint/) and [Fantomas](https://github.com/dungpa/fantomas). There are also many possible expansions of the core language services - finding references and symbols across an entire project, or adding support for CodeLens feature of Visual Studio Code. Together, we will build and grow a more vibrant and powerful F# cross-platform ecosystem.
 
 ## Contributing to Ionide
 
-Ionide is open source project hosted on [GitHub](https://github.com/ionide) under an MIT license. We accept pull qequests, new feature proposals, and any suggestions on how we can make Ionide better!
+Ionide is open source project hosted on [GitHub](https://github.com/ionide) under an MIT license. We accept pull requests, new feature proposals, and any suggestions on how we can make Ionide better!
