@@ -8,9 +8,9 @@ At Connect, we announced the release of a set of Ionide extensions for [Visual S
 
 ## What is Ionide?
 
-Ionide provides the option of a lightweight cross-platform editor for programmers who don’t want to rely on Visual Studio or Xamarin Studio for every project. While both are full-featured IDEs with very good F# support - much better in terms of plain language support features - there are many programmers, especially those coming from a functional programming background, who prefer a different style of tools.
+Ionide provides the option of a lightweight cross-platform editor for programmers who don’t want to rely on Visual Studio or Xamarin Studio for every project. While both are full-featured IDEs with great F# support - much better in terms of plain language support features - there are many programmers, especially those coming from a functional programming background, who prefer a different style of tools.
 
-Another important feature of the Ionide project is its integration with popular tools used by the F# community - such as [Paket](http://fsprojects.github.io/Paket/) (alternative NuGet client), [FAKE](http://fsharp.github.io/FAKE/) (F# Make), and the F# yeoman generator. Ionide enables developers to use this unique, integrated, open source tooling workflow from the comfort of their editor.
+Another important feature of the Ionide project is its integration with popular tools used by the F# community - such as [Paket](http://fsprojects.github.io/Paket/) (alternative NuGet client), [FAKE](http://fsharp.github.io/FAKE/) (F# Make), and the F# Yeoman generator. Ionide enables developers to use this unique, integrated, open source tooling workflow from the comfort of their editor.
 
 Ionide is an eight month-old project with almost 500 commits, 120 versioned releases, and 13 contributors for the core Atom F# support plugin. And now, we're excited to start a new pillar of the Ionide project - Ionide for Visual Studio Code.
 
@@ -49,7 +49,7 @@ FAKE (F# Make) is a build automation system with similar capabilities to make an
 
 ### What's next?
 
-In the near future, we hope to add integration with [F# yeoman generator](https://www.npmjs.com/package/generator-fsharp) to Visual Studio code to provide scaffolding for different types of F# projects. We will also work to offer integrations with other popular tools created by community such as [FSharpLint](http://fsprojects.github.io/FSharpLint/) and [Fantomas](https://github.com/dungpa/fantomas). There are also many possible expansions of the core language services - finding references and symbols across an entire project, or adding support for CodeLens feature of Visual Studio Code. Together, we will build and grow a more vibrant and powerful F# cross-platform ecosystem.
+In the near future, we hope to add integration with [F# Yeoman generator](https://www.npmjs.com/package/generator-fsharp) to Visual Studio code to provide scaffolding for different types of F# projects. We will also work to offer integrations with other popular tools created by community such as [FSharpLint](http://fsprojects.github.io/FSharpLint/) and [Fantomas](https://github.com/dungpa/fantomas). There are also many possible expansions of the core language services - finding references and symbols across an entire project, or adding support for CodeLens feature of Visual Studio Code. Together, we will build and grow a more vibrant and powerful F# cross-platform ecosystem.
 
 ## Contributing to Ionide
 
