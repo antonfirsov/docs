@@ -1,15 +1,14 @@
 Support Ending for the .NET Framework 4, 4.5 and 4.5.1
 ==========================================================
 
-As [previously announced][1], on January 12, 2016 Microsoft will no longer provide security updates, technical support or hotfixes for .NET 4, 4.5, and 4.5.1 frameworks. All other framework versions, including 3.5, 4.5.2, 4.6 and 4.6.1, will be supported for the duration of their [established lifecycle][2]. The decision to end support for these versions will allow us to invest more resources towards improvements of the .NET Framework. 
+As [previously announced][1], starting January 12, 2016 Microsoft will no longer provide security updates, technical support or hotfixes for .NET 4, 4.5, and 4.5.1 frameworks. All other framework versions, including 3.5, 4.5.2, 4.6 and 4.6.1, will be supported for the duration of their [established lifecycle][2]. The decision to end support for these versions will allow us to invest more resources towards improvements of the .NET Framework. 
 
 ##What Does This Mean?
 This means that you should take action to ensure that a supported version of the .NET Framework is installed on the machine.
 
-You may have one or more applications that are currently targeting a .NET Framework version that will no longer be supported. You can run those applications on a later .NET Framework version without targeting a new version. More recent .NET Framework versions have high compatibility due to quirking, which was introduced in .NET Framework 4.5. Quirking allows an application that targets a lower version of the framework to use those APIs, even when a newer version of the framework is installed. More information can be found on the  [.NET Application Compatibility page][3].
+You may have one or more applications that are currently targeting a .NET Framework version that will no longer be supported. You can run those applications on a later .NET Framework version without targeting a new version. More recent .NET Framework versions have high compatibility due to quirking, which was introduced in .NET Framework 4.5. Quirking allows an application that targets a lower version of the framework to use those APIs, even when a newer version of the framework is installed. More information on migrating an application can be found on the  [Migration Guide to the .NET Framework][16].
 
 The Azure team announced they will be making updated images available with the .NET Framework 4.5.2 for guest OS families 2.x, 3.x and 4.x, in order to support apps deployed to Azure. These updated images were available for manual deployment in November and are available for automatic deployment in January. The Additional Information section below has more information. 
-
 
 ##Validate the .NET Framework Version(s) Currently Installed
 Multiple versions of the .NET framework can be installed on a machine. The registry can be used to determine if the .NET Framework version 4.5.2 or later has been installed. You will need administrative credentials to read the registry with regedit.
@@ -84,3 +83,4 @@ This announcement does not affect versions prior to .NET 4. You can continue to 
 [13]: http://go.microsoft.com/fwlink/?LinkId=397674
 [14]: http://go.microsoft.com/fwlink/?LinkId=328856
 [15]: https://msdn.microsoft.com/en-us/vstudio/aa496123
+[16]: https://msdn.microsoft.com/en-us/library/ff657133(v=vs.110).aspx
