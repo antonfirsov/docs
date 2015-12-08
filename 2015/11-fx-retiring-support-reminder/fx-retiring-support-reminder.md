@@ -4,9 +4,9 @@ Support Ending for the .NET Framework 4, 4.5 and 4.5.1
 As [previously announced][1], starting January 12, 2016 Microsoft will no longer provide security updates, technical support or hotfixes for .NET 4, 4.5, and 4.5.1 frameworks. All other framework versions, including 3.5, 4.5.2, 4.6 and 4.6.1, will be supported for the duration of their [established lifecycle][2]. The decision to end support for these versions will allow us to invest more resources towards improvements of the .NET Framework. 
 
 ##What Does This Mean?
-This means that you should take action to ensure that a supported version of the .NET Framework is installed on the machine.
+You should ensure that a supported version of the .NET Framework is installed in your environment, on Windows desktops and servers. This includes Azure and other cloud service deployments. See more information on Azure deployments below.
 
-You may have one or more applications that are currently targeting a .NET Framework version that will no longer be supported. You can run those applications on a later .NET Framework version without targeting a new version. More recent .NET Framework versions have high compatibility due to quirking, which was introduced in .NET Framework 4.5. Quirking allows an application that targets a lower version of the framework to use those APIs, even when a newer version of the framework is installed. More information on migrating an application can be found on the [Migration Guide to the .NET Framework][16] MSDN article.
+You may have one or more applications that are currently targeting a .NET Framework version that will no longer be supported. You can run those applications on a later .NET Framework version without targeting a new version. .NET Framework 4.5.2 and higher versions have higher compatibility, provided by a newer feature called "quirking". Quirking is a pattern in which a .NET Framework version maintains the semantics of earlier versions, while including updated implementations. The .NET runtime knows which of these semantics or quirks to execute depending on the .NET Framework version that the application targets. More information on migrating an application can be found on the [Migration Guide to the .NET Framework][16] MSDN article.
 
 The Azure team announced they will be making updated images available with the .NET Framework 4.5.2 for guest OS families 2.x, 3.x and 4.x, in order to support apps deployed to Azure. These updated images were available for manual deployment in November and are available for automatic deployment in January. The Additional Information section below has more information. 
 
@@ -58,7 +58,7 @@ More information about application compatibility across the various versions in 
 
 **_Microsoft products such as Exchange Server, SQL Server, Dynamics CRM, SharePoint, and Lync are built on top of .NET. Do I need to make any updates to these products if they are using .NET 4, 4.5 or 4.5.1?_**
 
-Newer versions of products such as Exchange, SQL Server, Dynamics CRM, Sharepoint, and Lync are based on the .NET 4 or .NET 4.5. Since .NET 4.5.2 is a compatible, in-place update on top of the .NET 4, 4.5, and 4.5.1 even a large software application such as Exchange that was built using .NET 4 will continue to run without any changes when the .NET is updated from .NET 4 or .NET 4.5 to .NET 4.5.2. That said we recommend you validate your deployment by updating .NET to .NET 4.5.2 in a QA/pre-production environment first before rolling this out to a production environment.
+Newer versions of products such as Exchange, SQL Server, Dynamics CRM, Sharepoint, and Lync are based on the .NET 4 or .NET 4.5. Even a large software application such as Exchange that was built using .NET 4 will continue to run without any changes when it runs on .NET 4.5.2 or later. That said, we recommend you validate your deployment by updating .NET to .NET 4.5.2 in a QA/pre-production environment first before rolling this out to a production environment.
 
 **_How will I get this update in Windows Azure Guest operation system (Guest OS)?_**
 
@@ -74,7 +74,7 @@ This announcement does not affect versions prior to .NET 4. You can continue to 
 [4]: https://support.microsoft.com/
 [5]: mailto:netfxcompat@microsoft.com
 [6]: http://msdn.microsoft.com/en-us/library/dn458358(v=vs.110).aspx
-[7]: https://azure.microsoft.com/en-us/support/options/?WT.mc_id=azurebg_email_Trans_963_RevisedNET_Update
+[7]: https://azure.microsoft.com/en-us/support/options
 [8]: https://msdn.microsoft.com/en-us/library/hh925568(v=vs.110).aspx
 [9]: http://go.microsoft.com/fwlink/?LinkId=671729
 [10]: http://go.microsoft.com/fwlink/?LinkId=671744
