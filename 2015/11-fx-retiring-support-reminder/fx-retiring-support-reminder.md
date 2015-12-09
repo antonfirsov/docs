@@ -56,9 +56,9 @@ There are a very small number of changes in .NET 4.5.2 that are not fully compat
 
 More information about application compatibility across the various versions in the .NET 4.x family can be found [here][6].
 
-**_Microsoft products such as Exchange Server, SQL Server, Dynamics CRM, SharePoint, and Lync are built on top of .NET. Do I need to make any updates to these products if they are using .NET 4, 4.5 or 4.5.1?_**
+**_Microsoft products such as Exchange Server, Dynamics CRM, SharePoint, and Lync are built on top of .NET. Do I need to make any updates to these products if they are using .NET 4, 4.5 or 4.5.1?_**
 
-Newer versions of products such as Exchange, SQL Server, Dynamics CRM, Sharepoint, and Lync are based on the .NET 4 or .NET 4.5. Even a large software application such as Exchange that was built using .NET 4 will continue to run without any changes when it runs on .NET 4.5.2 or later. That said, we recommend you validate your deployment by updating .NET to .NET 4.5.2 in a QA/pre-production environment first before rolling this out to a production environment.
+Newer versions of products such as Exchange, Dynamics CRM, Sharepoint, and Lync are based on the .NET 4 or .NET 4.5. Even a large software application such as Exchange that was built using .NET 4 will continue to run without any changes when it runs on .NET 4.5.2 or later. That said, we recommend you validate your deployment by updating .NET to .NET 4.5.2 in a QA/pre-production environment first before rolling this out to a production environment.
 
 **_How will I get this update in Windows Azure Guest operation system (Guest OS)?_**
 
