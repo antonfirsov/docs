@@ -22,10 +22,11 @@ creator of Gnome, Mono, founder of [Xamarin](https://xamarin.com),
 recipient of the FSF Award for the Advancement of Free Software, MIT Innovator of the Year 1999,
 and one of Time magazine's top 100 innovators of the 21st century. Wow.
 
-You can join the live stream on Thursday, December 17, at 10AM Pacific Time, 1PM Eastern Time at
-this address: <https://www.youtube.com/watch?v=6p6-FMZRiAc>
+You can [join the live stream](https://www.youtube.com/watch?v=6p6-FMZRiAc) on
+Thursday, December 17, at 10AM Pacific Time, 1PM Eastern Time.
 
-You can also subscribe to the channel here: <https://www.youtube.com/channel/UCvtT19MZW8dq5Wwfu6B0oxw>
+You can also subscribe to [the On.NET channel](https://www.youtube.com/channel/UCvtT19MZW8dq5Wwfu6B0oxw)
+on YouTube to receive updates whenever a new video is uploaded.
 
 If you have questions for Miguel, you'll be able to ask them during the event, or you can
 send them to me in advance at beleroy at microsoft.
@@ -33,10 +34,11 @@ send them to me in advance at beleroy at microsoft.
 As always, huge thank yous to all who sent messages of encouragement and contributions.
 You can participate too. Did you write a great blog post, or just read one?
 Do you want everyone to know about an amazing new contribution or a useful library?
-We'd love to hear from you, and feature your contributions on future posts.
-You can send me an email to beleroy at Microsoft,
-or you can [comment on this gist](https://gist.github.com/bleroy/5360f02aaad026eb0b7e) with new
-links, or you can simply leave us a pointer in the comment section below.
+We'd love to hear from you, and feature your contributions on future posts:
+
+* Send an email to beleroy at Microsoft,
+* [comment on this gist](https://gist.github.com/bleroy/5360f02aaad026eb0b7e)
+* Leave us a pointer in the comments section below.
 
 This week's post (and future posts) also contains news I first read on
 [ASP.NET's community spotlight](http://www.asp.net/),
@@ -46,8 +48,8 @@ two other great sources for .NET news.
 Package of the week #1: {m}brace the cloud
 ------------------------------------------
 
-[MBrace](http://mbrace.io/) is a little more than a library: it's a DSL for F# that integrates
-cloud programming into the language.
+[MBrace](http://mbrace.io/) is a little more than a library: it's a DSL (domain-specific language)
+for F# that integrates cloud programming into the language.
 I like to think about it as async/await for the cloud.
 
 Here's a small sample that reads from a queue in the cloud:
@@ -55,7 +57,7 @@ Here's a small sample that reads from a queue in the cloud:
 <script src="https://gist.github.com/bleroy/926452c406d2fcff327a.js"></script>
 
 You can see this and other samples in context in this tutorial:
-[Using Cloud Queues](http://mbrace.io/starterkit/HandsOnTutorial/8-using-cloud-queues.html)
+[Using Cloud Queues](http://mbrace.io/starterkit/HandsOnTutorial/8-using-cloud-queues.html).
 
 Package of the week #2: Humanizer
 ---------------------------------
