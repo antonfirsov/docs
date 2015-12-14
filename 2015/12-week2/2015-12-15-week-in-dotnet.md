@@ -1,7 +1,7 @@
 The week in .NET - 12/15/2015
 =============================
 
-We have some great contents and news for you this week.
+We have some great content and news for you this week.
 I can't emphasize enough that this weekly post couldn't exist without community contributions,
 and I'd like to thank all those who sent links and tips.
 Keep them coming!
@@ -31,9 +31,9 @@ If you have questions for Miguel, you'll be able to ask them during the event, o
 send them to me in advance at beleroy at microsoft.
 
 As always, huge thank yous to all who sent messages of encouragement and contributions.
-If you would like to participate too, if you wrote a great blog post, or just read one,
-if you want to show an amazing new contribution, if you've written a useful library,
-we'd love to hear from you, and feature it on future posts.
+You can participate too. Did you write a great blog post, or just read one?
+Do you want everyone to know about an amazing new contribution or a useful library?
+We'd love to hear from you, and feature your contributions on future posts.
 You can send me an email to beleroy at Microsoft,
 or you can [comment on this gist](https://gist.github.com/bleroy/5360f02aaad026eb0b7e) with new
 links, or you can simply leave us a pointer in the comment section below.
@@ -97,6 +97,8 @@ If you want to see what user group meetings are happening in your area, try clic
   [making .NET open source](http://blogs.msdn.com/b/visualstudio/archive/2015/12/10/the-net-journey-recapping-the-last-year.aspx),
   and so does Matt Warren from an external perspective in
   [Open Source .NET – 1 year later](http://mattwarren.org/2015/12/08/open-source-net-1-year-later/).
+* Stacey Haffner tells us [everything we need to know about the end of support for .NET Framework versions 4, 4.5 and 4.5.1](http://blogs.msdn.com/b/dotnet/archive/2015/12/09/support-ending-for-the-net-framework-4-4-5-and-4-5-1.aspx).
+  Hint: 3.5, 4.5.2, 4.6, and 4.6.1 are still supported.
 * David Ebbo shows how to
   [call the Azure ARM API using plain REST](http://blog.davidebbo.com/2015/12/calling-arm-using-plain-rest.html).
 * The ever-interesting Eric Lippert has a great series about arbitrary precision mathematical
