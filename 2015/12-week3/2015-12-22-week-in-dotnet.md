@@ -75,7 +75,11 @@ please leave us a note.
 
 * [Getting started with .NET and Docker](https://blogs.msdn.microsoft.com/mvpawardprogram/2015/12/15/getting-started-with-net-and-docker/)
   by Elton Stoneman.
-* [Raw .NET Data Access / ORM Fetch benchmarks](https://weblogs.asp.net/fbouma/raw-net-data-access-orm-fetch-benchmarks-of-16-dec-2015) by Frans Bouma
+* [The era of portable .NET](http://developer.telerik.com/featured/the-era-of-portable-net/) by Sam Basu.
+* [Raw .NET Data Access / ORM Fetch benchmarks](https://weblogs.asp.net/fbouma/raw-net-data-access-orm-fetch-benchmarks-of-16-dec-2015)
+  by Frans Bouma.
+* [Learn the machine!](https://lenadroid.github.io/posts/machine-learning-fsharp-accorddotnet.html)
+  by Lena Droid.
 
 .NET Games
 ----------
@@ -96,9 +100,9 @@ C#
 --
 
 * [New C# REPL and scripting capabilities](http://bretstateham.com/new-c-repl-and-scripting-capabilities/)
-  by Bret Stateham
+  by Bret Stateham.
 * [Async Linq to objects over MongoDB](http://blog.i3arnon.com/2015/12/16/async-linq-to-objects-over-mongodb/)
-  by Bar Arnon
+  by Bar Arnon.
 * Phil Haack asks the super-important question of [to String or to string](http://haacked.com/archive/2015/12/16/to-string-or-not/),
   and boy, did that generate a lot of comments.
 
@@ -106,31 +110,31 @@ F#
 --
 
 The F# community is writing a new blog post daily for this year’s [F# Advent Calendar in English](https://sergeytihon.wordpress.com/2015/10/25/f-advent-calendar-in-english-2015/). Lots of great new posts to check out this week!
-* [F#, Event Sourcing, and CQRS Tutorial...and Agents](http://blog.2mas.xyz/fsharp-event-sourcing-and-cqrs-tutorial-and-agents/), by Tomas Jansson
-* [Building a Hypermedia REST API with F# and Suave.io](http://www.casquete.es/building-an-hypermedia-rest-api-with-fsharp-and-suave-io/), by Alex Casquete
-* [The Star Wars Social Network](http://evelinag.com/blog/2015/12-15-star-wars-social-network/index.html#.Vm_sTfl96wU), by Evelina Gabasova
-* [Pseudocode-Driven Development with F#](http://stachu.net/blog/post?postId=6), by Stachu Korick
-* [Advent of Code F# - Day 16](http://theburningmonk.com/2015/12/advent-of-code-f-day-16/), by Yan Cui
-* [A Mixed-Paradigm Recipe for Exposing Native Code](https://pblasucci.wordpress.com/2015/12/15/advent-drm-adt/), by Paulmichael Blasucci
-* [1729](http://kunjan.in/2015/12/1729/), by Kunjan Dalal
-* [Ukulele Fun for Xmas!](http://thinkbeforecoding.com/post/2015/12/17/Ukulele-Fun-for-XMas-%21), by Jérémie Chassaing
-* [Using F# for Scientific Instrument Control](https://medium.com/@ant_pt/using-f-for-scientific-instrument-control-b1ef04d20da0#.pmmatrcuk), by Anton Tcholakov
-* [REST vs CQRS: The Trigger Problem](http://hawkins6423.github.io/), by Matt Hawkins
-* [Angels from the Realms of Glory](http://blog.mavnn.co.uk/angels-from-the-realms-of-glory/), by Michael Newton
-* [Let it Snow! A Basic Particle System in F# and WPF](http://stevenpemberton.net/blog/2015/12/19/Let-it-snow-FSharp-Advent-2015/), by Steven Pemberton
-* [Developing Mobile Apps at the Speed of Light](http://jmgomez.me/advent-calendar-developing-mobile-apps-at-the-spee/), by Juan Gómez
-* [Reactive Messaging Patterns with F# and Akka.NET](http://jorgef.github.io/fsharpreactivepatterns/), by Jorge Fioranelli
- 
+* [F#, Event Sourcing, and CQRS Tutorial...and Agents](http://blog.2mas.xyz/fsharp-event-sourcing-and-cqrs-tutorial-and-agents/), by Tomas Jansson.
+* [Building a Hypermedia REST API with F# and Suave.io](http://www.casquete.es/building-an-hypermedia-rest-api-with-fsharp-and-suave-io/), by Alex Casquete.
+* [The Star Wars Social Network](http://evelinag.com/blog/2015/12-15-star-wars-social-network/index.html#.Vm_sTfl96wU), by Evelina Gabasova.
+* [Pseudocode-Driven Development with F#](http://stachu.net/blog/post?postId=6), by Stachu Korick.
+* [Advent of Code F# - Day 16](http://theburningmonk.com/2015/12/advent-of-code-f-day-16/), by Yan Cui.
+* [A Mixed-Paradigm Recipe for Exposing Native Code](https://pblasucci.wordpress.com/2015/12/15/advent-drm-adt/), by Paulmichael Blasucci.
+* [1729](http://kunjan.in/2015/12/1729/), by Kunjan Dalal.
+* [Ukulele Fun for Xmas!](http://thinkbeforecoding.com/post/2015/12/17/Ukulele-Fun-for-XMas-%21), by Jérémie Chassaing.
+* [Using F# for Scientific Instrument Control](https://medium.com/@ant_pt/using-f-for-scientific-instrument-control-b1ef04d20da0#.pmmatrcuk), by Anton Tcholakov.
+* [REST vs CQRS: The Trigger Problem](http://hawkins6423.github.io/), by Matt Hawkins.
+* [Angels from the Realms of Glory](http://blog.mavnn.co.uk/angels-from-the-realms-of-glory/), by Michael Newton.
+* [Let it Snow! A Basic Particle System in F# and WPF](http://stevenpemberton.net/blog/2015/12/19/Let-it-snow-FSharp-Advent-2015/), by Steven Pemberton.
+* [Developing Mobile Apps at the Speed of Light](http://jmgomez.me/advent-calendar-developing-mobile-apps-at-the-spee/), by Juan Gómez.
+* [Reactive Messaging Patterns with F# and Akka.NET](http://jorgef.github.io/fsharpreactivepatterns/), by Jorge Fioranelli.
+
 Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
 
 ASP.NET
 -------
 
-* [Tag Helpers in ASP.NET MVC 6](https://blog.mariusschulz.com/2015/12/14/tag-helpers-in-asp-net-mvc-6), by Marius Schulz
-* [ASP.NET 5 MVC 6 API Documentation using Swashbuckle Swagger](http://damienbod.com/2015/12/13/asp-net-5-mvc-6-api-documentation-using-swagger/), by damienbod
-* [What I Learned After A Week of Visual Studio Code and ASP.NET](http://www.khalidabuhakmeh.com/what-i-learned-after-a-week-of-visual-studio-code-and-asp-net-5), by Khalid Abuhakmeh
+* [Tag Helpers in ASP.NET MVC 6](https://blog.mariusschulz.com/2015/12/14/tag-helpers-in-asp-net-mvc-6), by Marius Schulz.
+* [ASP.NET 5 MVC 6 API Documentation using Swashbuckle Swagger](http://damienbod.com/2015/12/13/asp-net-5-mvc-6-api-documentation-using-swagger/), by damienbod.
+* [What I Learned After A Week of Visual Studio Code and ASP.NET](http://www.khalidabuhakmeh.com/what-i-learned-after-a-week-of-visual-studio-code-and-asp-net-5), by Khalid Abuhakmeh.
 * [Disabling cryptographic protocols for PCI compliance](http://johnlouros.com/blog/disabling-cryptographic-protocols-for-pci-compliance)
-  by John Louros
+  by John Louros.
 * Many ASP.NET web sites are using Bootstrap, so now is probably a great time to start learning about
   [Bootstrap 4](http://www.developerdrive.com/2015/12/what-you-need-to-know-about-bootstrap-4/).
 
