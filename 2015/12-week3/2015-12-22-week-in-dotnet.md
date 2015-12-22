@@ -11,7 +11,7 @@ The Week in .NET post series continues uninterrupted.
 
 This week, we're adding a new gaming section to the post.
 .NET is increasingly present in the game development community, thanks in no small part to [Unity](http://unity3d.com/).
-The new section will showcase games built with .NET, demonstrating one of the coolest area of application
+The new section will showcase games built with .NET, demonstrating one of the coolest development areas
 for our favorite platform.
 
 As always, this weekly post couldn't exist without community contributions,
@@ -30,13 +30,15 @@ on [F# weekly](https://sergeytihon.wordpress.com/category/f-weekly/),
 on [ASP.NET Weekly](http://www.aspnetweekly.com/),
 and on [Chris Alcock's The Morning Brew](http://themorningbrew.net/).
 
+To read last week's post, click [here](http://blogs.msdn.com/b/dotnet/archive/2015/12/15/the-week-in-net-12-15-2015.aspx).
+
 Package of the week: Dapper-dot-net
 -----------------------------------
 
 You've got a lot of options if you're in the market for a .NET object-relational mapper.
 [Dapper](http://stackexchange.github.io/dapper-dot-net/), maintained by the Stack Overflow team,
-is one of a few mappers that take the approach of remaining as simple as possible, which enables
-it to remain very close to a hand-coded `SqlDataReader` in terms of performance,
+is one of a few mappers that take the approach of remaining as simple as possible.
+This approach enables it to remain very close to a hand-coded `SqlDataReader` in terms of performance,
 while keeping a strongly-typed API.
 
 ```csharp
@@ -64,8 +66,8 @@ User group of the week: Seattle Web App Dev Meetup
 Paul Litwin will speak at the [Seattle Web App Developers Group](http://www.meetup.com/Seattle-Web-App-Developers-Group/)
 about [ASP.NET 5 on Thursday, January 14](http://www.meetup.com/Seattle-Web-App-Developers-Group/events/226280408/).
 
-If you want to see what user group meetings are happening in your area, try clicking
-[here](http://blogs.msdn.com/b/dotnet/p/dotnetusergroups.aspx)...
+If you want to see what [user group meetings](http://blogs.msdn.com/b/dotnet/p/dotnetusergroups.aspx)
+are happening in your area, try clicking [here](http://blogs.msdn.com/b/dotnet/p/dotnetusergroups.aspx)...
 
 If you are a member of a user group, and would like your next event to appear here,
 please leave us a note.
@@ -135,6 +137,7 @@ ASP.NET
 * [What I Learned After A Week of Visual Studio Code and ASP.NET](http://www.khalidabuhakmeh.com/what-i-learned-after-a-week-of-visual-studio-code-and-asp-net-5), by Khalid Abuhakmeh.
 * [Disabling cryptographic protocols for PCI compliance](http://johnlouros.com/blog/disabling-cryptographic-protocols-for-pci-compliance)
   by John Louros.
+* [Secure ASP.NET Web API using token-based authentication and using it in an Angular application](http://www.dotnetcurry.com/aspnet/1223/secure-aspnet-web-api-using-tokens-owin-angularjs) by Mahesh Sabnis.
 * Many ASP.NET web sites are using Bootstrap, so now is probably a great time to start learning about
   [Bootstrap 4](http://www.developerdrive.com/2015/12/what-you-need-to-know-about-bootstrap-4/).
 
