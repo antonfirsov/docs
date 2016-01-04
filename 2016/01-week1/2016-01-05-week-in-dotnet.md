@@ -5,22 +5,6 @@ We're back for a new year of .NET!
 For this first week of 2016, we're off to a great start with two packages and lots
 of interesting posts.
 
-As always, this weekly post couldn't exist without community contributions,
-and I'd like to thank all those who sent links and tips.
-You can participate too. Did you write a great blog post, or just read one?
-Do you want everyone to know about an amazing new contribution or a useful library?
-We'd love to hear from you, and feature your contributions on future posts:
-
-* Send an email to beleroy at Microsoft,
-* [comment on this gist](https://gist.github.com/bleroy/b509d5071434ae58c9e2)
-* Leave us a pointer in the comments section below.
-
-This week's post (and future posts) also contains news I first read on
-[ASP.NET's community spotlight](http://www.asp.net/),
-on [F# weekly](https://sergeytihon.wordpress.com/category/f-weekly/),
-on [ASP.NET Weekly](http://www.aspnetweekly.com/),
-and on [Chris Alcock's The Morning Brew](http://themorningbrew.net/).
-
 To read last week's post, see [The week in .NET - 12/29/2015](http://blogs.msdn.com/b/dotnet/archive/2015/12/29/the-week-in-net-12-29-2015.aspx).
 
 Package of the week #1: ReactiveUI
@@ -107,3 +91,22 @@ Start your New Year off right with the epic conclusion of the 2015 [F# Advent Ca
 Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
 
 And this is it for this week!
+
+Contribute to the week in .NET
+------------------------------
+
+As always, this weekly post couldn't exist without community contributions,
+and I'd like to thank all those who sent links and tips.
+You can participate too. Did you write a great blog post, or just read one?
+Do you want everyone to know about an amazing new contribution or a useful library?
+We'd love to hear from you, and feature your contributions on future posts:
+
+* Send an email to beleroy at Microsoft,
+* [comment on this gist](https://gist.github.com/bleroy/b509d5071434ae58c9e2)
+* Leave us a pointer in the comments section below.
+
+This week's post (and future posts) also contains news I first read on
+[ASP.NET's community spotlight](http://www.asp.net/),
+on [F# weekly](https://sergeytihon.wordpress.com/category/f-weekly/),
+on [ASP.NET Weekly](http://www.aspnetweekly.com/),
+and on [Chris Alcock's The Morning Brew](http://themorningbrew.net/).
