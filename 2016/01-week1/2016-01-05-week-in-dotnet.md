@@ -69,8 +69,16 @@ For example, you can get a link using the route defined above:
 urlHelper.Action<HomeController>(c => c.Index(1));
 ```
 
-.NET News
----------
+User group of the week: New England Microsoft Developers
+--------------------------------------------------------
+
+This week, the [New England Microsoft Developers group](http://www.meetup.com/NE-MSFT-Devs/)
+has John Pelak talking about
+[Azure ML - machine learning for all of us](http://www.meetup.com/NE-MSFT-Devs/events/227682400/),
+on Thursday, January 7, from 6:30PM to 8:30PM, in Burlington, MA.
+
+.NET
+----
 
 * [Fast shared array, buffer, and ring buffer for .NET IPC with memory mapped files](http://spazzarama.com/2015/12/31/fast-shared-array-buffer-and-circular-buffer-ring-buffer-for-dotnet-ipc-with-memory-mapped-files/)
   by Justin Stenning.
