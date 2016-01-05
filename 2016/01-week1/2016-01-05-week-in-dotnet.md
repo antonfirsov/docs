@@ -66,6 +66,8 @@ on Thursday, January 7, from 6:30PM to 8:30PM, in Burlington, MA.
 
 * [Fast shared array, buffer, and ring buffer for .NET IPC with memory mapped files](http://spazzarama.com/2015/12/31/fast-shared-array-buffer-and-circular-buffer-ring-buffer-for-dotnet-ipc-with-memory-mapped-files/)
   by Justin Stenning.
+* [Having a look at the dotnet CLI tool and .NET Native compilation in Linux](http://www.tugberkugurlu.com/archive/having-a-look-at-dotnet-cli-tool-and--net-native-compilation-in-linux)
+  by Tugberk Ugurlu.
 * [Introducing NBench - an automated performance testing framework](https://petabridge.com/blog/introduction-to-nbench/)
   by Petabridge.
 * [Do one thing and do it well](https://blog.rendle.io/do-one-thing-and-do-it-well/) by Mark Rendle.
