@@ -100,6 +100,25 @@ ASP.NET
 * [Experiments with Entity Framework 7 and ASp.NET MVC 6](http://damienbod.com/2016/01/07/experiments-with-entity-framework-7-and-asp-net-5-mvc-6/)
   by Damien Bod.
 
+F#
+--
+
+Great progress has been made to add .NET Core support to the Visual F# compiler.
+The compiler and F# Interactive now run on CoreCLR on Windows, OS X, and Linux, but there's still plenty of work left.
+To track the progress of the project and find ways to contribute, check out
+[the status page on Github](https://github.com/Microsoft/visualfsharp/wiki/F%23-for-CoreCLR---Status).
+
+* [Lean and Functional Programming](https://vimeo.com/album/3452190/video/131189623#t=2m04s),
+  by Bryan Hunter.
+* [Visualizing F# Advent Calendar Contributors](http://www.pirrmann.net/visualizing-f-advent-calendar-contributors/),
+  by Pierre Irrmann.
+* [Reconciling Stack Traces with Computation Expressions](https://eiriktsarpalis.wordpress.com/2015/12/27/reconciling-stacktraces-with-computation-expressions/),
+  by Eirik Tsarpalis
+* [F# Presentations from CodeMash 2016](http://blogs.teamb.com/craigstuntz/2015/11/09/38883/),
+  by Craig Stuntz
+
+Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
+
 And this is it for this week!
 
 Contribute to the week in .NET
