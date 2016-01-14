@@ -1,9 +1,8 @@
 # MSBuild .NET Core Porting Experience
 
-## Overview
-MSBuild is the build engine for .NET and Visual Studio.  It is used to build many of our Open Source .NET projects, including the [.NET Core Runtime](https://github.com/dotnet/coreclr), [.NET Core Libraries](https://github.com/dotnet/corefx), and [.NET Compiler Platform](https://github.com/dotnet/Roslyn).  As open source, cross platform projects, we want to enable people to modify, build, and contribute to these projects without requiring them to use Windows to do so.  To support this, we [open sourced MSBuild](http://blogs.msdn.com/b/dotnet/archive/2015/03/18/msbuild-engine-is-now-open-source-on-github.aspx), and recently [announced](http://blogs.msdn.com/b/dotnet/archive/2015/09/03/msbuild-is-going-cross-platform-with-net-core.aspx) that we are working on porting it to run cross platform on top of .NET Core.
+MSBuild is the build engine for .NET and Visual Studio.  It is used to build many of our Open Source .NET projects, including the [.NET Core Runtime](https://github.com/dotnet/coreclr), [.NET Core Libraries](https://github.com/dotnet/corefx), and [.NET Compiler Platform](https://github.com/dotnet/Roslyn).  As open source, cross platform projects, we want to enable people to modify, build, and contribute to these projects without requiring them to use Windows to do so.  To support this, we [open sourced MSBuild](http://blogs.msdn.com/b/dotnet/archive/2015/03/18/msbuild-engine-is-now-open-source-on-github.aspx), and recently [announced](http://blogs.msdn.com/b/dotnet/archive/2015/09/03/msbuild-is-going-cross-platform-with-net-core.aspx) that we are working on porting it to run cross platform on top of [.NET Core](http://dotnet.github.io/).
 
-This blog post summarizes the experience of porting MSBuild to .NET Core, and suggests some ways we could improve the experience for others doing similar ports.
+We've now largely completed the work of porting MSBuild to .NET Core, and are now working on [integrating it into the infrastructure of our OSS repositories](https://github.com/dotnet/buildtools/pull/396).  This blog post summarizes our experience porting MSBuild to .NET Core, and suggests some ways we could improve the experience for other developers porting their code.
 
 ## Strategy
 MSBuild was originally open sourced on GitHub in May 2015.  Initially it was ported to run on Linux using the Mono runtime.  This Linux/Mono port was our starting point for the .NET Core port.  The plan is to eventually merge these changes back into the main codebase used for the full .NET Framework version of MSBuild.
@@ -78,3 +77,8 @@ There also wasn't a version of NuGet that ran on .NET Core, which led to plenty 
 Building for .NET Core also requires an MSBuild task (ResolveNuGetPackageAssets) that selects the right assets to use from NuGet packages.  This was not available for Linux or .NET Core.  Val found two packages that implemented this Task for Linux and Mono, but they did not entirely match the behavior of the "real" task and each of them failed in a different way for different projects.
 
 The Managed Languages team owns several tasks and targets that we depend on, so we wanted them to publish these as NuGet packages that we could consume.  Some of these items needed to be deployed in subfolders under the target directory, which was something that NuGet didn't support.  We discussed our scenario with the NuGet team and they came up with a design for a [feature](https://github.com/NuGet/Home/wiki/Bringing-back-content-support,-September-24th,-2015) that they were already planning for the next release which will address it.
+
+## Summary
+If you find yourself porting code to .NET Core, I hope that this blog post helps give you an idea of what you can expect as well as some techniques you may find useful as you port code.  We will continue to add more APIs from the full .NET Framework to .NET Core, based on your feedback, [reports submitted via the APIPort tool](http://dotnetstatus.azurewebsites.net/usage), and other sources.  We'll also keep improving the tools that help you port code to .NET Core.
+
+Happy porting!
