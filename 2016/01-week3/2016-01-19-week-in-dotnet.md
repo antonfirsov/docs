@@ -88,6 +88,8 @@ The second talk of the night will be Camilio Sanchez on stress-free API integrat
 .NET
 ----
 
+* [Introducing ASP.NET Core 1.0 and .NET Core 1.0](http://www.hanselman.com/blog/ASPNET5IsDeadIntroducingASPNETCore10AndNETCore10.aspx)
+  by Scott Hanselman.
 * [Learn Roslyn now: the Emit API](https://joshvarty.wordpress.com/2016/01/16/learn-roslyn-now-part-16-the-emit-api/)
   by Josh Varty.
 * [NBench performance testing code throughput](http://www.dotnetalgorithms.com/2016/01/nbench-performance-testing-code-throughput/)
