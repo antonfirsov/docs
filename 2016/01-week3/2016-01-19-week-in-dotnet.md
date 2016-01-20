@@ -51,7 +51,8 @@ Package of the week #2: VerbalExpressions
 -----------------------------------------
 
 Regular expressions are hard to write, read, and debug: they're a terse, but powerful DSL.
-VerbalExpressions is a library that makes it possible to write regular expressions using
+[VerbalExpressions](https://github.com/VerbalExpressions/CSharpVerbalExpressions)
+is a library that makes it possible to write regular expressions using
 a more expressive syntax:
 
 ```csharp
