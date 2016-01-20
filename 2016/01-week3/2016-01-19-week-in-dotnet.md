@@ -34,11 +34,15 @@ using (var cnx = new ConnectionFactory().CreateEncodedConnection())
 Other actors can asynchronously subscribe to the same subject and process objects:
 
 ```csharp
-using (var cnx = new ConnectionFactory().CreateEncodedConnection()) {
-    using (cnx.SubscribeAsync("foo", (sender, args) => {
-        var company = (Company)args.ReceivedObject;
-        Console.WriteLine($"Name: {company.Name}, Address: {company.Address}");
-    })) {
+using (var cnx = new ConnectionFactory().CreateEncodedConnection())
+{
+    using (cnx.SubscribeAsync(
+        "foo",
+        (sender, args) => {
+            var company = (Company)args.ReceivedObject;
+            Console.WriteLine($"Name: {company.Name}, Address: {company.Address}");
+        }))
+    {
         System.Console.WriteLine("Waiting for a message...");
         Thread.Sleep(5000);
     }
