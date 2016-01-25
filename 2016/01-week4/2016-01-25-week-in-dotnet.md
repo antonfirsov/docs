@@ -27,7 +27,7 @@ Diffing and merging become a lot more difficult when a refactoring starts moving
 [SemanticMerge](https://www.semanticmerge.com/) solves that problem by building diffs based on a real
 understanding of the code.
 Instead of comparing text, it compares the parsed structure of the code.
-It already supports .NET, with JavaScript in the plans.
+It already supports .NET, and JavaScript support is planned.
 
 User group of the week: New York ALT.NET Software Development Group
 -------------------------------------------------------------------
