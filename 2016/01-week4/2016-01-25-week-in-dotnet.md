@@ -25,8 +25,8 @@ list of options.
 Tool of the week: SemanticMerge
 -------------------------------
 
-Diffing and merging become a lot more difficult when a refactoring starts moving code across files.
-[SemanticMerge](https://www.semanticmerge.com/) solves that problem by building diffs based on a real
+Diffing and merging become a lot more difficult with complex refactorings.
+[SemanticMerge](https://www.semanticmerge.com/) improves on that experience by building diffs based on a real
 understanding of the code.
 Instead of comparing text, it compares the parsed structure of the code.
 It already supports .NET, and JavaScript support is planned.
