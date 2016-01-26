@@ -6,7 +6,7 @@ To read last week's post, see [The week in .NET - 1/19/2016](http://blogs.msdn.c
 On.NET
 ------
 
-Last week, we chatted with [Don Syme about F#](https://www.youtube.com/watch?v=aWnmzrCvTbg).
+Last week, we chatted with [Don Syme about the future of F#, and the community behind it](https://www.youtube.com/watch?v=aWnmzrCvTbg).
 This week, our guests are Brian Flannery and Colin Sullivan from [Apcera](https://www.apcera.com/).
 We're going to talk about [NATS](http://nats.io/), a high performance messaging system with
 [a great .NET client](https://github.com/nats-io/csnats).
