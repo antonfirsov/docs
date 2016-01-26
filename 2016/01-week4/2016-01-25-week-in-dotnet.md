@@ -87,6 +87,13 @@ F#
 
 Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
 
+.NET Games
+----------
+
+<img alt="Global Game Jam 29-31 January 2016" src="http://globalgamejam.org/sites/default/files/styles/responsive_large__wide/public/facebookheaderlarge.png?itok=BqqeEOxN" width="500"/>
+
+We want to wish everyone participating in the Global Game Jam this coming weekend good luck and have fun! We'd love to play and show off some of the games created with .NET so send them our way once they're finished. You can either tweet them to Stacey Haffner ([@yecats131](http://twitter.com/yecats131)) or [leave a comment on the gist](https://gist.github.com/bleroy/cb15b20d89f5730120d5) with the link.
+
 And this is it for this week!
 
 Contribute to the week in .NET
