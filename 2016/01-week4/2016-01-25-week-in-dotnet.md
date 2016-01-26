@@ -20,6 +20,8 @@ that are expected today.
 A feature selection wizard lets you select which features you want on your web site from a huge
 list of options.
 
+<img alt="ASP.NET MVC Boilerplate feature selection wizard" src="https://github.com/RehanSaeed/ASP.NET-MVC-Boilerplate/raw/master/Images/ASP.NET%20MVC%20Boilerplate%20Feature%20Selection%20Wizard%201.png" style="width:500px"/>
+
 Tool of the week: SemanticMerge
 -------------------------------
 
