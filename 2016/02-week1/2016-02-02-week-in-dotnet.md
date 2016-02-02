@@ -116,7 +116,7 @@ Games
 ### Global Game Jam 2016 Submission
 
 In [Oh God, it's Monday](http://globalgamejam.org/2016/games/oh-god-its-monday), players must find the most efficient routes for the employees to complete their tasks before time runs out for the day. If any employees run into each other during the day they will stop and talk - causing their tasks to not be completed and the round to fail. 
-![02_4x3_0](https://cloud.githubusercontent.com/assets/4108756/12756896/9cfa9178-c98a-11e5-99f7-b8bf0b885eb0.jpg)
+<img alt="Og Ogd, it's Monday" src="https://cloud.githubusercontent.com/assets/4108756/12756896/9cfa9178-c98a-11e5-99f7-b8bf0b885eb0.jpg" style="width:500px;max-width:100%"/>
 
 And this is it for this week!
 
