@@ -7,7 +7,7 @@ As part of our validation, we're working with first party and third party custom
 
 ## We'd like to talk to you!
 
-If you already started taking advantage of existing assets on .NET Core, we'd like to talk to you about your experience to understand what we can do to help. If you're interested, please contact me at immol at microsoft dot com and I'll arrange a phone call.
+If you already started taking advantage of existing assets on .NET Core, I'd like to talk to you about your experience to understand what we can do to help. If you're interested, please contact me at immol at microsoft dot com and I'll arrange a phone call.
 
 ***Embedded Tweet***
 
@@ -30,7 +30,7 @@ Let's take a quick look at each of them to see what porting would mean in their 
 
 ### ASP.NET Core applications and services
 
-**Reasons to port?** The primary reason to migrate your existing ASP.NET app is for cross-platform. For instance, this enables developing  your web site on a Mac running OS X while you deploy your web site to a production Linux machine (we'd love this to be Azure, but it's really your choice). But even if you stay on Windows you may want to take a look at ASP.NET Core because it offers new features and doesn't require a machine wide framework installation. The latter avoids tensions between your development teams and your IT department whose job it is to maintain the entire IT, not just your developers.
+**Reasons to port?** The primary reason to migrate your existing ASP.NET app to run cross-platform. For instance, this enables developing  your web site on a Mac running OS X while you deploy your web site to a production Linux machine (we'd love this to be Azure, but it's really your choice). But even if you stay on Windows you may want to take a look at ASP.NET Core because it offers new features and doesn't require a machine wide framework installation, which avoids issues such as requiring machine changes, administrative privileges during deployment, and GAC policies.
 
 **Good porting candidates?** The best foundation for ASP.NET Core are web sites using MVC and/or WebAPI.
 
@@ -96,13 +96,13 @@ using System.Reflection;
 var members = obj.GetType().GetTypeInfo().GetMembers();
 ```
 
-As we'll see later, we've some tooling to help you with migrating your code.
+As you'll see later, there is tooling to help you with migrating your code.
 
-### Discontinued technologies
+### Technologies discontinued for .NET Core
 
 The .NET platform is a very mature stack that is almost 15 years old. We've built a large set of technologies into the platform. Over the years, we've learned a lot about them, how they are used, what architectures they create and what limitations they have. As a result, we've identified a set of technologies we no longer promote for authoring modern .NET applications and thus do not bring to .NET Core.
 
-Of course, we haven't removed any technologies from .NET Framework. If you're currently using them, you don't have to change anything. We'll continue to support those in the context of .NET Framework. However, we encourage you to avoid taking dependencies on those for new applications, as this will make it harder for you to port these assets to .NET Core. Also, in those areass we'll generally not add new features, so you're better off using the preferred alternatives.
+Of course, we haven't removed any technologies from .NET Framework. If you're currently using them, you don't have to change anything. We'll continue to support those in the context of .NET Framework. However, we encourage you to avoid taking dependencies on those for new applications, as this will make it harder for you to port these assets to .NET Core. Also, in those areas we'll generally not add new features, so you're better off using the preferred alternatives.
 
 Let's take a look at some of those. I'll explain why they are problematic and what you should use instead. For more details and the full list of discontinued technologies, read [our porting guide](https://github.com/dotnet/corefx/blob/master/Documentation/project-docs/porting.md#unsupported-technologies).
 
@@ -166,6 +166,8 @@ Before you even attempt to port, you should run [API Port](http://dotnetstatus.a
 
 * **List of non-portable APIs**. It provides a table that lists all the usages of APIs that aren't portable. It also includes a list of recommended changes, calling out the replacements.
 
+Sometimes, the high-level summary can be misleading. Make sure to take a look at the list of non-portable APIs -- sometimes many issues can have the same, fix. For instance, many reflection APIs have moved but the fix is pretty simple by inserting a call to `GetTypeInfo()`.
+
 We highly encourage you to use API Port. Not only is this tool super useful to you, it also helps us to prioritize APIs because it sends us telemetry back. The data we receive is basically just the list of framework APIs you called. This way, we know which APIs are often used by customers that wish to target .NET Core. Our goal is to prioritize those. Don't worry -- we will not collect any information about your code. You don't have to take my word for it: API Port is open source and is [hosted on GitHub](https://github.com/microsoft/dotnet-apiport).
 
 If you want to learn how API Port works you should take a look at this [interview with the API Port team [on Channel 9](https://channel9.msdn.com/Blogs/Seth-Juarez/A-Brief-Look-at-the-NET-Portability-Analyzer):
@@ -178,15 +180,15 @@ If you want to learn how API Port works you should take a look at this [intervie
 
 ##  Porting to .NET Core
 
-Now that you've a good understanding of the features .NET Core offers and  how it differs from the .NET Framework, let's talk about porting.
+Now that you've got a good understanding of the features .NET Core offers and how it differs from the .NET Framework, let's talk about porting.
 
 Before you start porting, you should understand your application architecture and which parts you want to port. There are roughly three approaches you can take:
 
-1. **Co-evolution**. In this case you want to keep your existing .NET Framework assets (such as a desktop application) but you also want to take advantage of the .NET Core app models, such as a UWP for targeting mobile devices. The goal is to share some functionality between .NET Core and .NET Framework.
+1. **Co-evolution**. In this case you want to keep your existing .NET Framework assets (such as a desktop application) but you also want to take advantage of the .NET Core app models, such as a UWP for targeting mobile devices. Another common approach is a .NET Framework based desktop application that communicates with an ASP.NET Core based service. In both cases, the goal is to share some functionality between .NET Core and .NET Framework.
 
 2. **Migration**. In this case you've an existing application, for instance an ASP.NET 4 MVC app that you want to move holistically to ASP.NET Core. Thus the goal isn't continuing to target both, .NET Framework and .NET Core but being able to quickly adapt your code so that it can be compiled for .NET Core.
 
-3. **Start from scratch**. In this case you don't really care about existing assets as you're starting an application from scratch for .NET Core. But you're likely ending up copy & pasting fragments from some of your existing assets or sample code you find on the internet. So you still want to understand how you can tweak code to make it work for .NET Core.
+3. **Start from scratch**. In this case you don't really care about existing assets as you're starting an application from scratch for .NET Core. But eventually you most likely have to use samples or incorporate snippets of code that we were meant for the .NET Framework. So you still want to understand how you can tweak code to make it work for .NET Core.
 
 I'll focus on the first and second approach as the third is merely a microscopic combination of the techniques discussed by the others.
 
@@ -200,9 +202,9 @@ Here is a rough approach for porting:
 
 2. Understand the external dependencies these projects have and ensure they are either compatible with .NET Core, have equivalent alternatives, or can be factored out.
 
-3. Change those projects to target .NET Framework 4.6.1. This ensures that you can use API alternatives we've introduced for cases where .NET Core couldn't support existing APIs.
+3. Change those projects to target .NET Framework 4.6.1. This ensures that you can use API alternatives we've introduced for cases where .NET Core couldn't support existing APIs. Make sure to also upgrade any consuming projects, otherwise you'll get compilation errors due to inconsistent .NET Framework versions.
 
-4. Recompile (you should have no errors)
+4. Recompile
 
 5. Run API Port
 
@@ -218,17 +220,21 @@ In this scenario you want to share code between an existing .NET Framework appli
 
 * **Share binaries**. You can also factor the code you want to share into a portable class library that can then be referenced from both, .NET Framework as well as the .NET Core application.
 
-The first approach is much easier in case you want to adapt your code by using `#if`. However, you want to make sure that you don't create spaghetti code by littering the source with `#if` conditions. Try to centralize code that handles differences as much as possible. Another neat trick is to use partial class sides where one part of the class is in the shared project while the other side is provided by the platform specific project.
+Sharing source code is much easier in case you want to adapt your code by using `#if`. However, you want to make sure that you don't create spaghetti code by littering the source with `#if` conditions. Try to centralize code that handles differences as much as possible. Another neat trick is to use partial classes where one part of the class is in the shared project while another part is provided by the platform specific project.
 
-Depending on the size of your team and the application, it might be a better and more sustainable solution to use the second approach. In that case, you create libraries that are fully portable between .NET Framework and .NET Core. To do this, you need to identify the components you want to share. I recommend that you first make sure that components you want to share are not in the same project as components you don't want to share. In other words, a project is either shared entirely or not shared at all. Once that's done, create the portable class libraries and move the code there.
+Depending on the size of your team and the application, it might be a better and more sustainable solution to use shared binaries. The reason being that libraries are real building blocks that can be deployed and tested as individual artifacts. Enforcing layering in source is obviously also possible but requires more discipline because it's based on conventions.
 
-As a rule of thumb I'd say that the sharing binaries is ideal for your business logical and your core layers, while sharing sources is more suitable for components that highly depend on the target platform, i.e. you need to interact with UI components or call operating system specific APIs. It's worth pointing out that the intersection of .NET Core and .NET Framework is pretty large; in fact it's almost identical to .NET Core, so the second approach isn't as limiting as it may sound.
+To share binaries, you'll create libraries that are fully portable between .NET Framework and .NET Core. To do this, you need to identify the components you want to share. I recommend that you first make sure that components you want to share are not in the same project as components you don't want to share. In other words, a project is either shared entirely or not shared at all. Once that's done, create the portable class libraries and move the code there.
+
+As a rule of thumb I'd say that the sharing binaries is ideal for your business logic and your core layers, while sharing sources is more suitable for components that highly depend on the target platform, i.e. you need to interact with UI components or call operating system specific APIs. It's worth pointing out that the intersection of .NET Core and .NET Framework is pretty large. In fact, almost all of the APIs .NET Core provides are also available in .NET Framework so the second approach isn't as limiting as it may sound.
 
 For more details on how these two approaches compare, take a look at this [blog post](https://blogs.msdn.microsoft.com/dotnet/2014/04/21/sharing-code-across-platforms/).
 
 ### Migrating code to .NET Core
 
-To make migration easier, I suggest you target the .NET Framework as long as possible during your migration, use API Port to identify porting issues, and only make the big switch when most are addressed. This way, you don't have the problem of having to deal with a code base that doesn't build for a long time. And if you have tests -- even better. This way, you can verify that you didn't introduce bugs along the way.
+To make migration easier, I suggest you target the .NET Framework as long as possible during your migration, use API Port to identify porting issues, and only make the big switch when most are addressed. This way, you don't have the problem of having to deal with a code base that doesn't build for a long time. 
+
+When planning your migration you should also think about your tests and treat them as a part of your product when porting. Migration often result in huge code churns so you want to make sure hat you didn't introduce bugs along the way.
 
 The area that needs the most work is probably going to be application model, be that a desktop application or ASP.NET:
 
