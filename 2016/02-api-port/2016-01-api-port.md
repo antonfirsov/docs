@@ -7,7 +7,7 @@ As part of our validation, we're working with first party and third party custom
 
 ## We'd like to talk to you!
 
-If you already started taking advantage of existing assets on .NET Core, I'd like to talk to you about your experience to understand what we can do to help. If you're interested, please contact me at immol at microsoft dot com and I'll arrange a phone call.
+Did you already migrate an application or class library to .NET Core? Have you tried to share code between .NET Core and another platform, for instance .NET Framework? If so, I'd like to talk to you about your experiences and whether there is anything we could do to make things even smoother. If you're interested, please contact me at immol at microsoft dot com and I'll arrange a phone call.
 
 ***Embedded Tweet***
 
@@ -18,7 +18,7 @@ If you already started taking advantage of existing assets on .NET Core, I'd lik
 
 ## What do you want to port?
 
-Before porting assets to .NET Core you should understand your current assets, their architecture as well as your external dependencies. Think about the value props that .NET Core has to offer and how you want to leverage them. Then you can reverse engineer which assets make sense to port, which assets shouldn't be ported, and which new assets you need to create specifically for .NET Core.
+Before porting any source to .NET Core you should understand your current code base, its architecture as well as its external dependencies. Think about the capabilities that .NET Core has to offer and how you want to leverage them. Then you can reverse engineer which sources make sense to port, what shouldn't be ported, and what new code you need to write specifically for .NET Core.
 
 Let's start by looking at what .NET Core has to offer. The RTM version of [.NET Core will have](https://github.com/dotnet/corefx/blob/master/Documentation/project-docs/porting.md#prioritization) the following application models: 
 
@@ -40,15 +40,15 @@ Let's take a quick look at each of them to see what porting would mean in their 
 
 **Reasons to port?** UWP unifies the Windows device family, ranging from PCs to tablets, phablets, phones, and the Xbox. It now also includes headless internet of things (IoT) devices. UWP provides many great facilities, such as an app store that allows monetizing your apps more easily. And the Windows Runtime (WinRT) offers much more usable yet fully native and powerful operating system APIs, such as XAML and DirectX composition.
 
-**Good porting candidates?** If you're targeting Windows 8 or Windows Phone 8.1, you're already done: these are .NET Core applications. If you maintain Windows Phone Silverlight apps, you're pretty close, so are most Silverlight apps in general.
+**Good porting candidates?** If you're targeting Windows 8 or Windows Phone 8.1, you're already done: these are .NET Core applications. If you maintain Windows Phone Silverlight apps, you're pretty close. In fact, any Silverlight app should be a good candidate because the API set is heavily based on what was available in Silverlight: most APIs are either available in .NET Core or became WinRT APIs, in which case you often get way with minor touch-ups, such as changing the namespace.
 
 **Less ideal for porting?** Rich desktop applications that take advantage of Windows Forms or WPF are less ideal because neither technology is supported on .NET Core. However, WinRT offers a native XAML-based UI technology that is very similar to Silverlight and WPF. So if you were planning to redesign your application to be usable across various form factors, this shouldn't be a blocker for you.
 
 ### Console Applications
 
-**Reasons to port?** One of the biggest reasons you should look into using .NET Core for console applications is because it allows targeting multiple operating systems (Windows, OS X, and Linux). Another strong reason is .NET Native for console apps as this enables producing self-contained, single file executables with minimal dependencies.
+**Reasons to port?** One of the biggest reasons you should look into using .NET Core for console applications is because it allows targeting multiple operating systems (Windows, OS X, and Linux). Another strong reason is .NET Native for console apps will eventually support producing self-contained, single file executables with minimal dependencies.
 
-**Good porting candidates?** Pretty much any console application is fair game, depending on your dependencies. For example, if your console application automates Windows or Office using COM, it might be harder to port than, say, an application that parses a CSV file and calls a WCF service. As a data point, the C# and VB compilers are .NET Core console applications.
+**Good porting candidates?** Pretty much any console application is fair game, depending on your dependencies. For example, if your console application automates Windows or Office using COM, it might be harder to port than, say, an application that parses a CSV file and calls a WCF service. As a data point, the C# and VB compilers are .NET Core console applications, so is the [dotnet command line toolset](https://github.com/dotnet/cli).
 
 **Less ideal for porting?** There isn't a canonical example of a less ideal candidate; it's a function of your dependencies.
 
@@ -70,9 +70,9 @@ The differences between the two can be summarized in these three points:
 
 2. **Well layered** .NET Core was specifically designed to be layered. [The goal](http://blogs.msdn.com/b/dotnet/archive/2014/12/04/introducing-net-core.aspx) was to create a .NET stack that can accommodate a wide variety of capabilities and system constraints without forcing customers to recompile their binaries and/or produce new assets. This means that we had to remove certain APIs because they tied lower level components to higher level components. In those cases, we provide alternatives, often in the form of extension methods.
 
-3. **Free of problematic tech**. .NET Core doesn't include certain technologies we decided to discontinue because we found them to be problematic. If the scenario still makes sense for .NET Core, our plan is to have replacements.
+3. **Free of problematic tech**. .NET Core doesn't include certain technologies we decided to discontinue because we found them to be problematic, for instance AppDomain and sandboxing. If the scenario still makes sense for .NET Core, our plan is to have replacements. For example, `AssemblyLoadContext` replaces AppDomains for loading and isolating assemblies.
 
-The first point means that we now fully embrace NuGet as a first class concept for the core development experience. We believe this to be a natural progression as many of you already use NuGet to acquire third party dependencies. Of course, there are differences when authoring NuGet packages but that's a topic for another day. 
+The first point means that we now fully embrace NuGet as a first class concept for the core development experience. We believe this to be a natural progression as many of you already use NuGet to acquire third party dependencies. 
 
 The second and third point mean that there are certain APIs that aren't available when targeting .NET Core. Let's look at some areas you should be aware of.
 
@@ -122,7 +122,7 @@ Let's take a look at some of those. I'll explain why they are problematic and wh
 
 **Why was it discontinued?** After a decade of servicing we've learned that serialization is incredibly complicated and a huge compatibility burden for the types supporting it. Thus, we made the decision that serialization should be a protocol implemented on top of the available public APIs. However, binary serialization requires intimate knowledge of the types as it allows to serialize object graphs, which includes private state.
 
-**What should I use instead?** Choose the serialization technology that fits your goals for formatting and footprint. Popular choices include data contract serialization, XML serialization, JSON.NET, and protobuf-net.
+**What should I use instead?** Choose the serialization technology that fits your goals for formatting and footprint. Popular choices include [data contract serialization](https://msdn.microsoft.com/en-us/library/ms731072.aspx), [XML serialization](https://msdn.microsoft.com/en-us/library/182eeyhh.aspx), [JSON.NET](http://www.newtonsoft.com/json), and [protobuf-net](https://github.com/mgravell/protobuf-net).
 
 #### Sandboxing
 
@@ -132,7 +132,9 @@ Let's take a look at some of those. I'll explain why they are problematic and wh
 
 ### Considered for porting
 
-Of course, just because something isn't available in .NET Core today doesn't mean we discontinued it. In most cases, it simply means we haven't had the time investigating whether porting would make sense or didn't think it was relevant to the application models .NET Core currently offers. Thus, this is an area we're highly interested in getting your feedback.
+Of course, just because something isn't available in .NET Core today doesn't mean we discontinued it. In most cases, it simply means we haven't had the time to investigate whether porting would make sense or didn't think it was relevant to the application models .NET Core currently offers. Thus, this is an area we're highly interested in getting your feedback.
+
+Some of these APIs will likely have replacements from the community. Please let us know in the comments which ones you use and whether you're happy with them. This allows us to reach out to the authors to make sure that these libraries work well on .NET Core.
 
 Many of you already [filed issues on GitHub](https://github.com/dotnet/corefx/issues?q=is%3Aopen+is%3Aissue+label%3Aport-to-core), asking for specific components to be ported. We're currently aware of these items:
 
@@ -140,13 +142,13 @@ Many of you already [filed issues on GitHub](https://github.com/dotnet/corefx/is
 
 * **System.DirectoryServices**. There is currently no support in .NET Core to communicate with LDAP or ActiveDirectory.
 
-* **System.Drawing**. While strictly speaking a client API, many developers use the drawing API on servers to provide thumbnail generation or watermarking. We currently don't have support for this in .NET Core.
+* **System.Drawing**. While strictly speaking a client API, many developers use the drawing API on servers to provide thumbnail generation or watermarking. We currently don't have support for these APIs in .NET Core.
 
 * **System.Transactions**. While ADO.NET supports transactions there is no support for distributed transactions, which includes the notion of ambient transactions and enlistment.
 
 * **System.Xml.Xsl and System.Xml.Schema**. .NET Core has support for `XmlDocument` as well as Linq's `XDocument`, including XPath. However, currently there is no support for XSD (`XmlSchema`) or XSLT (`XslTransform`).
 
-* **System.Net.Mail**. There is currently no support for sending emails from .NET Core.
+* **System.Net.Mail**. There is currently no support for sending emails from .NET Core using these APIs.
 
 * **System.IO.Ports**. .NET Core currently doesn't include the ability to communicate with a serial port.
 
@@ -155,6 +157,8 @@ Many of you already [filed issues on GitHub](https://github.com/dotnet/corefx/is
 * **System.Xaml**. When creating UWP applications, developers will use the WinRT XAML APIs. Hence, .NET Core currently doesn't include the managed XAML framework, which includes the ability to parse XAML documents and instantiate the described object graph.
 
 For a full list, take a look at [CoreFX issues marked as port-to-core](https://github.com/dotnet/corefx/issues?q=is%3Aopen+is%3Aissue+label%3Aport-to-core). Please note that this list doesn't represent a commitment from us to open source all these components or even bring them to .NET Core -- they are simply capturing the desire from the community to do so. That being said, if you care about any of the components listed above, consider participating in the discussions on GitHub so that your voice can be heard. And if you think something is missing, [file a new issue](http://github.com/dotnet/corefx/issues/new).
+
+Would you be interested in helping us to port a component? In some cases, the source code of the .NET Framework implementation has been made available under MIT, as part of [reference source](github.com/microsoft/referencesource). We're looking into ways to enable the community to support our porting efforts. If you're willing to participate, shoot me an email at immol at microsoft dot com.
 
 Also, we're actively looking into areas that customers find particularly challenging to port. For instance, we recently had several design meetings on minimizing the [differences in reflection](https://github.com/dotnet/apireviews/tree/master/2016-01-19-reflection).
 
@@ -192,7 +196,7 @@ Before you start porting, you should understand your application architecture an
 
 I'll focus on the first and second approach as the third is merely a microscopic combination of the techniques discussed by the others.
 
-Please keep in mind that every code base is different. Thus, porting is different and will highly depend on the state of your code base. So I can't provide you with a recipe that will work for all cases. The approaches and techniques I list below will probably not always work as described. You'll likely have to adapt them to fit your case.
+Please keep in mind that every code base is different. Thus, porting is different and will highly depend on the state of your code base and therefore I cannot provide you with a silver bullet that will cover all of the potential cases. The approaches and techniques I list below will probably not always work as described. You'll likely have to adapt them to fit your case.
 
 ### General approach
 
