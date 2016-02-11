@@ -15,7 +15,6 @@ On.NET
 
 Last week on On .NET, [we had Scott Hunter](https://www.youtube.com/watch?v=g2a4W6Q7aRw),
 who is the new director of Program Management for .NET, in other words my grand-boss.
-Apparently I didn't say anything deserving firing, so we'll be back this week with another show.
 
 We'll be live on [Friday 10AM Pacific Time](https://www.youtube.com/watch?v=BEvn9aI6rd0),
 instead of our usual Thursday time.
@@ -130,11 +129,13 @@ As always, this weekly post couldn't exist without community contributions,
 and I'd like to thank all those who sent links and tips.
 You can participate too. Did you write a great blog post, or just read one?
 Do you want everyone to know about an amazing new contribution or a useful library?
+Did you make or play a great game built on .NET?
 We'd love to hear from you, and feature your contributions on future posts:
 
 * Send an email to beleroy at Microsoft,
 * [comment on this gist](https://gist.github.com/bleroy/bb2852c686befec4f35a)
 * Leave us a pointer in the comments section below.
+* [Send Stacey (@yecats131) tips on Twitter about .NET games](https://twitter.com/yecats131).
 
 This week's post (and future posts) also contains news I first read on
 [ASP.NET's community spotlight](http://www.asp.net/),
