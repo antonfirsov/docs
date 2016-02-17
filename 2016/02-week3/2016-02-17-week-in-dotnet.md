@@ -12,7 +12,7 @@ This week, I'm looking forward to [a chat with Joe Duffy about Midori](https://w
 Packages of the week: Scientist ports
 -------------------------------------
 
-No matter how carefully you are testing a refactoring, you can't be 100% sure your changes work against real data and workloads until you put them in production.
+No matter how carefully you are testing a refactoring, it's hard to be 100% sure your changes will work against real data and workloads until you put them in production.
 [Scientist](https://github.com/github/scientist) is a very neat Ruby library built by GitHub that makes it possible to deploy refactored code alongside existing logic for the same task, run both, then log and compare the results.
 This reduces the risk of deploying new code, because the old code is still running, and you can decide exactly what to do if results are inconsistent.
 You also gather real-world production data about the new code without the risk of fully deploying it.
@@ -49,11 +49,14 @@ Tonight Wednesday, February 17 at 6:45PM in Barcelona, join the new Barcelona .N
 ASP.NET
 -------
 
+* [Our Major Minor - introducing Umbraco 7.4](http://umbraco.com/follow-us/blog-archive/2016/2/11/our-major-minor-introducing-umbraco-74/) by Niels Hartvig.
 * [RESTful Web API Help Documentation using Swagger UI and Swashbuckle](http://www.codeproject.com/Articles/1078249/RESTful-Web-API-Help-Documentation-using-Swagger-U) by Sreekanth Mothukuru.
 * [ASP.NET WebHooks and Slack Slash Commands](https://blogs.msdn.microsoft.com/webdev/2016/02/14/asp-net-webhooks-and-slack-slash-commands/) by Henrik F Nielsen. 
 * [Authoring ASP.NET Core MVC Tag Helper](http://www.hossambarakat.net/2016/02/15/authoring-asp-net-core-mvc-tag-helper/) by Hossam Barakat.
 * [Authorization policies and data protection with Identity Server 4 in ASP.NET Core](http://damienbod.com/2016/02/14/authorization-policies-and-data-protection-with-identityserver4-in-asp-net-core/) by Damien Bod.
 * [ServiceStack and Razor Forms](https://visualstudiomagazine.com/articles/2016/02/01/servicestack-and-razor-forms.aspx) by Patrick Steele.
+* [ASP.NET Core Identity Token Providers – Under the Hood](http://stevejgordon.co.uk/asp-net-core-identity-token-providers) by Steve Gordon.
+* [AppVeyor and ASP.NET Core](http://shazwazza.com/post/appveyor-and-aspnet-core/) by Shazwazza.
 
 And this is it for this week!
 
@@ -68,7 +71,7 @@ Did you make or play a great game built on .NET?
 We'd love to hear from you, and feature your contributions on future posts:
 
 * Send an email to beleroy at Microsoft,
-* [comment on this gist](xx)
+* [comment on this gist](https://gist.github.com/bleroy/f240aa68c8489b5352e2)
 * Leave us a pointer in the comments section below.
 * [Send Stacey (@yecats131) tips on Twitter about .NET games](https://twitter.com/yecats131).
 
