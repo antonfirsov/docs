@@ -33,6 +33,7 @@ On [Wednesday, February 24 at 6:00, our own Stacey Haffner will give an introduc
 ----
 
 * [An update on ASP.NET Core and .NET Core](https://blogs.msdn.microsoft.com/webdev/2016/02/01/an-update-on-asp-net-core-and-net-core/) by Jeffrey T. Fritz.
+* [The evolution of interactive C#](http://tirania.org/blog/archive/2016/Feb-17.html) by Miguel de Icaza.
 * [SQLite Code First (GitHub) by Marc Sallin](https://github.com/msallin/SQLiteCodeFirst) is a library that enables EF code first to work with SQLite databases.
 * [Async-Friendly Stack Trace (GitHub)](https://github.com/aelij/AsyncFriendlyStackTrace) by Eli Arbel.
 * [Moq on .NET Core](http://dotnetliberty.com/index.php/2016/02/22/moq-on-net-core/) by Armen Shimoon.
@@ -47,6 +48,9 @@ ASP.NET
   by Steve Gordon.
 * [Writing custom middleware in ASP.NET Core](http://www.exceptionnotfound.net/writing-custom-middleware-in-asp-net-core-1-0/) by Matthew P Jones.
 * [View Components in ASP.NET Core](http://www.mikesdotnetting.com/article/294/view-components-in-asp-net-core-mvc) by Mike Brind.
+* [Developing ASP.NET apps in Docker containers](http://blogs.msdn.com/b/stevelasker/archive/2016/02/19/developing-asp-net-apps-in-docker-containers.aspx) by Steve Lasker.
+* [The cost of routing](https://ayende.com/blog/173282/the-cost-of-routing?Key=5236b9ce-234e-4255-b25b-98de4068dc93) by Ayende Rahien.
+* [Two Razor view errors you might be doing too](http://codeclimber.net.nz/archive/2016/02/19/Two-Razor-view-errors-you-might-be-doing-too.aspx) by Simone Chiaretta.
 
 F#
 --
@@ -83,5 +87,4 @@ This week's post (and future posts) also contains news I first read on
 [ASP.NET's community spotlight](http://www.asp.net/),
 on [F# weekly](https://sergeytihon.wordpress.com/category/f-weekly/),
 on [ASP.NET Weekly](http://www.aspnetweekly.com/),
-on [Dirk Strauss' The Daily Six Pack](http://www.dirkstrauss.com/the-daily-six-pack/),
 and on [Chris Alcock's The Morning Brew](http://themorningbrew.net/).
