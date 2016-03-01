@@ -6,8 +6,8 @@ To read last week's post, see [The week in .NET – 2/23/2016](https://blogs.msd
 On.NET
 ------
 
-Last week, we had a [fun, chaotic discussion with Scott Hanselman](https://www.youtube.com/watch?v=5ZpDBr9MOos).
-This week, our guest is Rachel Reese, and we'll talk about Jet.com and F#.
+Last week, we had a [fun, slightly chaotic discussion with Scott Hanselman](https://www.youtube.com/watch?v=5ZpDBr9MOos).
+This week, our guest is [Rachel Reese, and we'll talk about Jet.com and F#](https://www.youtube.com/watch?v=4DJWQP2Uxps).
 
 Package of the week: SkiaSharp
 ------------------------------
@@ -88,7 +88,7 @@ Did you make or play a great game built on .NET?
 We'd love to hear from you, and feature your contributions on future posts:
 
 * Send an email to beleroy at Microsoft,
-* [comment on this gist](xx)
+* [comment on this gist](https://gist.github.com/bleroy/fca744564212904f5be7)
 * Leave us a pointer in the comments section below.
 * [Send Stacey (@yecats131) tips on Twitter about .NET games](https://twitter.com/yecats131).
 
