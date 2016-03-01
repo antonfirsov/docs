@@ -50,7 +50,11 @@ User group of the week: TRINUG
 ----
 
 * You've heard the news: [Scott Guthrie welcomes the Xamarin team to Microsoft](https://weblogs.asp.net/scottgu/welcoming-the-xamarin-team-to-microsoft), and [Nat Friedman gives the Xamarin point of view](https://blog.xamarin.com/a-xamarin-microsoft-future).
+* [StackOverflow, the architecture 2016 edition](http://nickcraver.com/blog/2016/02/17/stack-overflow-the-architecture-2016-edition/) by Nick Craver.
+* [Saying "Goodbye" to DNX and "Hello!" to the .NET Core CLI (video)](https://vimeo.com/153212604) by Damian Edwards & David Fowler.
+* [Introduction to Microsoft.Data.Sqlite](http://www.c-sharpcorner.com/UploadFile/ranjancse/net-co-introduction-to-microsoft-data-sqlite/) by Ranjan Dailata.
 * [New Toolchain For .NET – Dotnet CLI](http://bleedingnedge.com/2016/02/04/new-toolchain-dotnet-cli/) by Paweł Grudzień.
+* [Plugging the CoreCLR's JIT into CPython](https://github.com/Microsoft/Pyjion).
 * Vance Morrison's legendary multithreading papers [What Every Dev Must Know About Multithreaded Apps](http://blogs.msdn.com/b/vancem/archive/2016/02/27/encode-presentation-what-every-dev-must-know-about-multithreaded-apps.aspx) and [Understand the Impact of Low-Lock Techniques in Multithreaded Apps](http://blogs.msdn.com/b/vancem/archive/2016/02/27/encore-presentation-understand-the-impact-of-low-lock-techniques-in-multithreaded-apps.aspx) are available again as PDF from his blog.
 * [NBench testing garbage collection](http://www.dotnetalgorithms.com/2016/02/nbench-testing-garbage-collection/) by Andrea Angella.
 * [ConditionalWeakTable and dynamic properties in .NET 4+](https://www.simple-talk.com/blogs/2016/02/26/conditionalweaktable-and-dynamic-properties-in-net-4/) by Chris Whitworth.
