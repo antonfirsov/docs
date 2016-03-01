@@ -12,15 +12,14 @@ This week, our guest is [Rachel Reese, and we'll talk about Jet.com and F#](http
 Package of the week: SkiaSharp
 ------------------------------
 
-Xamarin released a new 2D drawing API based on [Google's powerful Skia library](http://skia.org/) that powers Chrome, Firefox, and Android's graphic stack. [SkiaSharp](https://developer.xamarin.com/guides/cross-platform/drawing/) is a portable library with support for OSX, Android, iOS, Mono, and .NET Framework.
+Xamarin released a new 2D drawing API based on [Google's powerful Skia library](http://skia.org/) that powers Chrome, Firefox, and Android's graphic stack. [SkiaSharp](https://developer.xamarin.com/guides/cross-platform/drawing/) is a portable library with support for OS X, Android, iOS, Mono, and .NET Framework.
 
 ```csharp
-Stream fileStream = File.OpenRead ("MyImage.png");
-
 // clear the canvas / fill with white
 canvas.DrawColor (SKColors.White);
 
 // decode the bitmap from the stream
+using (var fileStream = File.OpenRead ("MyImage.png"))
 using (var stream = new SKManagedStream(fileStream))
 using (var bitmap = SKBitmap.Decode(stream))
 using (var paint = new SKPaint()) {
@@ -40,6 +39,8 @@ Tool of the week: Docfx
 Since its inception, .NET has included the ability for developers to include documentation in the form of XML doc comments. Going from those comments to a great web site serving readable documentation with a good table of contents was often a clunky experience however. [Docfx](http://dotnet.github.io/docfx/) brings a modern solution to this problem, that leverages the power of [Markdown](http://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html) and [YAML](http://dotnet.github.io/docfx/spec/metadata_format_spec.html#3-work-with-metadata-in-markdown-), and enables both conceptual and reference documentation in the same place, with [a simple cross-reference system](http://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html#cross-reference) between them. It's also possible to [include code samples as partial views of code files on disk](http://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html#code-snippet). This is extremely useful if you believe that the code samples in your documentation should be part of your test suites, in order to maintain their accuracy.
 
 <img src="docfx.png" alt="Docfx" style="width: 500px; max-width: 100%;"/>
+
+For more information, [Seth Juarez recorded a video about Docfx](https://channel9.msdn.com/Blogs/Seth-Juarez/An-Introduction-to-DocFX).
 
 User group of the week: TRINUG
 ------------------------------
