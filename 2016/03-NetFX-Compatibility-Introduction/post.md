@@ -35,7 +35,7 @@ The target version is determined by consulting the [TargetFramework attribute](h
 * The target framework can be specified by [directly applying a TargetFramework attribute](https://msdn.microsoft.com/en-us/library/system.runtime.versioning.targetframeworkattribute%28v=vs.110%29.aspx) in the project’s source code.
   * Note that MSBuild automatically adds a TargetFramework attribute based on the project’s target framework moniker, so this attribute should only be applied directly in non-MSBuild scenarios. If MSBuild is used, adjust the target framework by using the project file settings linked previously.
 
-For executables (such as WPF or console apps), the exe’s target Framework is used for quirking decisions.Libraries (dll’s) do not have control of the target Framework.
+Quirking settings are [AppDomain](https://msdn.microsoft.com/en-us/library/2bh4z9hs%28v=vs.110%29.aspx)-wide. In most cases, libraries (dll's) will be quirked (or not quirked) according to the executable that is depending on them. Because of this, authors of shared libraries may need to make sure that their code works even without quirks applied.
 
 ### Compatibility Switches ###
 In addition to automatic quirking based on target .NET Framework, developers can enable or disable individual compatibility quirks (as well as some behaviors which are not automatically quirked) by setting compatibility switches to explicitly opt in or out of compatibility-affecting changes. These ‘compatibility switches’ can be useful for allowing a developer to target a newer .NET Framework version (in order to use new .NET functionality) while still opting out of some changes that are known to affect the app. Compatibility switches can be set in a variety of ways:
