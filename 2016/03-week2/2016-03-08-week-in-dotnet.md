@@ -46,6 +46,7 @@ F#
 * Try F# on .NET Core! [Check out this guide on Github.](https://github.com/enricosada/fsharp-dotnet-cli-samples/wiki/Getting-Started)
 
 A huge thank you to everyone who presented at fsharpConf 2016! All of the sessions are available on [Channel 9](https://channel9.msdn.com/Events/FSharp-Events/fsharpConf-2016/):
+
 * [Welcome to fsharpConf](https://channel9.msdn.com/Events/FSharp-Events/fsharpConf-2016/Welcome-to-fsharpConf), by Don Syme and Tomas Petricek.
 * [The F#orce Awakens](https://channel9.msdn.com/Events/FSharp-Events/fsharpConf-2016/The-Force-Awakens), by Evelina Gabasova.
 * [Patterns and Practices for Real-World Event-Driven Microservices](https://channel9.msdn.com/Events/FSharp-Events/fsharpConf-2016/Real-World-Microservices), by Rachel Reese.
