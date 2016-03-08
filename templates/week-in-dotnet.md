@@ -8,16 +8,8 @@ On.NET
 
 
 
-Package of the week #1: xx
+Package of the week: xx
 ----------------------------------
-
-
-
-```csharp
-```
-
-Package of the week #2: xx
-----------------------------------------
 
 
 
@@ -67,5 +59,4 @@ This week's post (and future posts) also contains news I first read on
 [ASP.NET's community spotlight](http://www.asp.net/),
 on [F# weekly](https://sergeytihon.wordpress.com/category/f-weekly/),
 on [ASP.NET Weekly](http://www.aspnetweekly.com/),
-on [Dirk Strauss' The Daily Six Pack](http://www.dirkstrauss.com/the-daily-six-pack/),
 and on [Chris Alcock's The Morning Brew](http://themorningbrew.net/).
