@@ -59,6 +59,14 @@ F#
 
 Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
 
+Games
+---
+
+- [Crytek Unveils All-New CRYENGINE V and Community-Centered “Pay What You Want” Model (Now Includes C# Support)](http://www.crytek.com/news/crytek-unveils-all-new-cryengine-v-and-community-centered--pay-what-you-want--model)
+- [Enhanced Visuals, Better Performance, And More: THe Unity 5.4 Public Beta is Ready For You to Download](http://blogs.unity3d.com/2016/03/15/enhanced-visuals-better-performance-and-more-the-unity-5-4-public-beta-is-ready/) by Alex Lian
+- [MonoGame 3.5](http://www.monogame.net/2016/03/17/monogame-3-5/) - Dean Ellis
+- [Unity Special Event at GDC (Video)]( https://www.youtube.com/watch?v=eN3PsU_iA80)
+
 And this is it for this week!
 
 Contribute to the week in .NET
