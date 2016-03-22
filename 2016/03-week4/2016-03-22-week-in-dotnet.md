@@ -3,6 +3,11 @@ The week in .NET - 3/22/2016
 
 To read last week's post, see [The week in .NET – 3/15/2016](https://blogs.msdn.microsoft.com/dotnet/2016/03/15/the-week-in-net-3152016/).
 
+Build
+-----
+
+Next week, many of us will be in San Francisco for [the Build conference](https://build.microsoft.com/). This is a very exciting opportunity for us to present our latest work on .NET, and we hope to meet lots of you there. If you can't be there with us, don't worry, as the keynotes will be broadcasted live, and breakout sessions will be recorded.
+
 On.NET
 ------
 
