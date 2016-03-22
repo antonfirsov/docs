@@ -6,15 +6,14 @@ To read last week's post, see [The week in .NET – 3/15/2016](https://blogs.msd
 On.NET
 ------
 
-We had to re-schedule last week's show, but [we're back this week with Richard Kiene from Joyent, to talk about running .NET Core in the Joyent cloud](https://www.youtube.com/watch?v=v5YUoeFCoe8).
+We had to re-schedule the show we had planned for last week, but [we're back this week with Richard Kiene from Joyent, to talk about running .NET Core in the Joyent cloud](https://www.youtube.com/watch?v=v5YUoeFCoe8).
 
-Package of the week: xx
-----------------------------------
+Tool of the week: Octopus Deploy
+--------------------------------
 
+[Octopus Deploy](https://octopus.com/) is a fantastic tool that works with your continuous integration server to deploy applications through test, staging, and production environments. Because it's so easy, you can deploy smaller units of change, more easily, and more often, and as a result move faster. [Octopus Deploy](https://octopus.com/) is a commercial product that is free for small teams that handle 5 projects or less and deploy them to up to ten target machines.
 
-
-```csharp
-```
+<img src="https://i.octopus.com/site/why/howOctopusFitsIn_vrrp8s.png" alt="Octopus Deploy" style="width:500px;max-width:100%"/>
 
 User group of the week: New York ALT.NET
 ----------------------------------------
@@ -24,17 +23,24 @@ On [Wednesday, March 23, the New York ALT.NET group is holding an IoT for Window
 .NET
 ----
 
+* [The Sound of .NET, a aggregation of .NET podcasts](http://thesoundof.net/).
 * [High speed applications – parallelism in .NET part 1](http://www.erikbergman.net/2016/03/10/high-speed-applications-parallelism-in-net-part-1/) and [part 2](http://www.erikbergman.net/2016/03/17/high-speed-applications-parallelism-in-net-part-2/) by Erik Bergman.
-* [Introducing Peachpie – the PHP Compiler for .NET](http://blog.peachpie.io/2016/03/intro.html?m=1) by Benjamin Fistein.
-* [Introducing LINQPad.QueryPlanVisualizer](http://www.aboutmycode.com/miscellaneous/introducing-linqpad-queryplanvisualizer/) by Giorgi Dalakishvili.
+* [Peachpie – the PHP Compiler for .NET](http://blog.peachpie.io/2016/03/intro.html?m=1) by Benjamin Fistein.
+* [LINQPad.QueryPlanVisualizer](http://www.aboutmycode.com/miscellaneous/introducing-linqpad-queryplanvisualizer/) by Giorgi Dalakishvili.
 * [NBench Performance Testing – NUnit and ReSharper Integration](http://www.dotnetalgorithms.com/2016/03/nbench-performance-testing-nunit-resharper-integration/) by Andrea Angella.
 
 ASP.NET
 -------
 
+* [Joe Audette built a simple blog engine that runs on ASP.NET Core](https://github.com/joeaudette/cloudscribe.SimpleContent).
 * [First Look: Authentication in ASP.NET Core (video)](https://blogs.msdn.microsoft.com/webdev/2016/03/11/first-look-authentication-in-asp-net-core/) by Seth Juarez and Pranav Rastogi.
 * [Extending the ASP.NET Core 1.0 Identity SignInManager](http://stevejgordon.co.uk/extending-the-asp-net-core-identity-signinmanager) by Steve Gordon.
+* [ASP.NET Two Factor Auth with Google's Authenticator App part 1](http://lachlanbarclay.net/2016/02/asp-dot-net-two-factor-auth-with-google-authenticator-app) and [part 2](http://lachlanbarclay.net/2016/02/asp-dot-net-two-factor-auth-with-google-authenticator-app-part-2) by Lachlan Barclay.
 * [ASP.NET Web API / OWIN authenticated integration tests without authorization server](http://blogs.taiga.nl/martijn/2016/03/10/asp-net-web-api-owin-authenticated-integration-tests-without-authorization-server/) by Martijn Boland.
+* [Integrating ASP.NET Core Configuration in MVC 4](http://geekswithblogs.net/sdorman/archive/2016/03/19/integrating-asp.net-core-configuration-in-mvc-4.aspx) and [Integrating ASP.NET Core Dependency Injection in MVC 4](http://geekswithblogs.net/sdorman/archive/2016/03/17/integrating-asp.net-core-dependency-injection-in-mvc-4.aspx) by Scott Dorman.
+* [Using Specflow to test Web API](http://www.codeproject.com/Articles/1086520/Using-Specflow-to-test-Web-API-PART) by Veronica S. Zotali.
+* [Logging basics in ASP.NET Core (video)](http://aspnetmonsters.com/2016/03/monsters-weekly%5Cep16/) by the ASP.NET Monsters.
+* [Content Negotiation in ASP.NET Core](http://wildermuth.com/2016/03/16/Content_Negotiation_in_ASP_NET_Core) by Shawn Wildermuth.
 
 F#
 --
