@@ -11,15 +11,24 @@ We hope to hear your feedback as you try the new releases. Feedback can be direc
 
 | Technology     | Bugs     |    Suggestions |
 | ---------------|-------------------|----------------|
-| .NET Framework 4.6.2 | [VS Feedback](http://link) | [User Voice](http://link) |
-| .NET Core      | [GitHub](http://link) | [GitHub](http://link) |
-| ASP.NET Core   | [GitHub](http://link) | [GitHub](http://link)
+| .NET Framework 4.6.2 | [VS Feedback](https://connect.microsoft.com/VisualStudio/Feedback) | [User Voice](https://visualstudio.uservoice.com/forums/121579-visual-studio-2015) |
+| .NET Core      | [GitHub](https://github.com/Microsoft/dotnet) | [GitHub](https://github.com/Microsoft/dotnet) |
 
-.NET Framework 4.6.2
-=====================
+# .NET Framework 4.6.2 
 
-Cryptography
--------------------------------
+## ClickOnce
+
+### Transport Layer Security (TLS) 1.1 and 1.2 Support
+ClickOnce has been updated to support TLS 1.1 and 1.2 in addition to the already supported 1.0 protocol. ClickOnce will automatically detect which TLS protocol is required. There are no extra steps that are needed within the ClickOnce application to enable this
+
+## Converting Your Desktop App to UWP (Project Centennial)
+
+Previously known as “Project Centennial”, Windows now offers capabilities to bring existing Windows desktop apps (including WPF/Windows Forms) to the Universal Windows Platform (UWP). The goal of this technology is to act as a bridge by enabling developers to gradually migrate their existing code base to UWP, bringing their app to all Windows 10 devices. 
+
+Converted desktop apps will gain an app identity, similar to the app identity of UWP apps, resulting in UWP APIs becoming accessible to enable features such as Live Tiles and notifications. The app will continue to behave as before, running as a full trust app. Once converted, an app container process can be added to the existing full trust process to add an adaptive user interface. When all functionality is moved to the app container process, the full trust process can be removed and the now UWP app can be made available to all Windows 10 devices.
+
+## Cryptography
+
 
 ### Support for X509 certificates containing FIPS 186-3 DSA
 
@@ -29,7 +38,7 @@ In addition to supporting the larger key sizes of FIPS 186-3, the .NET Framework
 
 Keeping in line with recent changes to RSA (.NET Framework 4.6) and ECDsa (.NET Framework 4.6.1), the DSA abstract base class has additional methods to allow callers to make use of this functionality without casting.
 
-```
+```csharp
 public static byte[] SignDataDsaSha384(byte[] data, X509Certificate2 cert)
 {
     using (DSA dsa = cert.GetDSAPrivateKey())
@@ -49,11 +58,11 @@ public static void VerifyDataDsaSha384(byte[] data, byte[] signature, X509Certif
 
 ### Increased clarity for Inputs to ECDiffieHellman Key Derivation Routines
 
-The .NET Framework added support for Ellptic Curve Diffie-Hellman Key Agreement in version 3.5 with support for three different KDF (Key Derivation Function) routines.  The inputs to the routines, and the routine itself, were configured via properties on the ECDiffieHellmanCng object; but since not every routine read every input property there was ample room for confusion on the part of a user.
+Support has now been added for Ellptic Curve Diffie-Hellman Key Agreement in version 3.5 with support for three different KDF (Key Derivation Function) routines. The inputs to the routines, and the routine itself, were configured via properties on the ECDiffieHellmanCng object; but since not every routine read every input property there was ample room for confusion on the part of a user.
 
 To this end, the ECDiffieHellman base class has been updated to more clearly represent these KDF routines and their inputs:
 
-```
+```csharp
 /// <summary>
 /// Derive key material using the formula HASH(secretPrepend || x || secretAppend) where x is the computed
 /// result of the EC Diffie-Hellman algorithm.
@@ -77,7 +86,8 @@ public virtual byte[] DeriveKeyTls(ECDiffieHellmanPublicKey otherPartyPublicKey,
 The Windows Cryptography Library (CNG) added support for storing persisted symmetric keys and using hardware-stored symmetric keys; and the .NET Framework 4.6.2 has made it possible for users to make use of this feature.  Since the notion of key names and key providers is implementation-specific, using this feature requires utilizing the constructor of the concrete implementation types instead of the preferred factory approach (e.g. Aes.Create()).
 
 Persisted-key symmetric encryption support exists for the AES (AesCng) and 3DES (TripleDESCng) algorithms.
-```
+
+```csharp
 public static byte[] EncryptDataWithPersistedKey(byte[] data, byte[] iv)
 {
     using (Aes aes = new AesCng("AesDemoKey", CngProvider.MicrosoftSoftwareKeyStorageProvider))
@@ -102,7 +112,8 @@ public static byte[] EncryptDataWithPersistedKey(byte[] data, byte[] iv)
 The .NET Framework 4.6.2 has added support to SignedXml which permits RSA-SHA256, RSA-SHA384, and RSA-SHA512 PKCS#1 signature methods, and SHA256, SHA384, and SHA512 reference digest algorithms.
 
 The URI constants are all exposed on SignedXml:
-```
+
+```csharp
 public const string XmlDsigSHA256Url = "http://www.w3.org/2001/04/xmlenc#sha256";
 public const string XmlDsigRSASHA256Url = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256";
 public const string XmlDsigSHA384Url = "http://www.w3.org/2001/04/xmldsig-more#sha384";
@@ -126,12 +137,6 @@ WPF applications are [system-DPI aware](https://msdn.microsoft.com/en-us/library
 Given the recent proliferation of high-DPI and hybrid-DPI environments in the ecosystem, we have now enabled per-monitor DPI awareness in WPF applications. See the [samples and developer guide](https://github.com/rohit21agrawal/WPF-Samples/tree/master/PerMonitorDPI) for more information around how to enable you WPF application to become per-monitor DPI aware. 
 
 
-ClickOnce
-------------
-### Transport Layer Security (TLS) 1.1 and 1.2 Support
-ClickOnce has been updated to support TLS 1.1 and 1.2 in addition to 1.0. ClickOnce will automatically detect which which TLS version is required and fall back on the applicable one. There are no extra steps that are needed within the ClickOnce application to enable this. 
 
-Project Centennial
-----------------------------
-Project Centennial is a Windows provided capability that enables existing .NET Framework applications (WPF / Windows Forms) to be published to the Windows Store as well as any 3rd party store that supports UWP installation. The purpose of Centennial is to act as a bridge to UWP by allowing developers to gradually migrate their existing code base. To support this initiative, the .NET Framework has updated {WHAT IS END CUSTOMER FACING?}
+
 
