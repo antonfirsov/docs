@@ -50,7 +50,7 @@ The ECDiffieHellman base class has been updated to more clearly represent these 
 
 ### Support for Persisted-Key Symmetric Encryption
 
-The Windows Cryptography Library (CNG) has support for storing persisted symmetric keys on software and hardware devices; and the .NET Framework 4.6.2 has made it possible for users to make use of this feature. Since the notion of key names and key providers is implementation-specific, using this feature requires utilizing the constructor of the concrete implementation types instead of the preferred factory approach (e.g. [Aes.Create()](https://msdn.microsoft.com/en-us/library/bb337875.aspx)).
+The Windows Cryptography Library (CNG) has support for storing persisted symmetric keys on software and hardware devices and the .NET Framework 4.6.2 has made it possible for users to make use of this feature. Since key names and key providers is implementation-specific, using this feature requires calling the constructor of the concrete implementation type instead of the more common factory approach (e.g. [Aes.Create()](https://msdn.microsoft.com/en-us/library/bb337875.aspx)).
 
 Persisted-key symmetric encryption support exists for the AES ([AesCng](https://msdn.microsoft.com/en-us/library/system.security.cryptography.aescng.aspx)) and 3DES ([TripleDESCng](https://msdn.microsoft.com/en-us/library/system.security.cryptography.tripledescng.aspx)) algorithms.
 
@@ -77,4 +77,4 @@ Soft Keyboard support enables automatic invocation and dismissal of the touch ke
 ###  Per-Monitor DPI Support
 WPF applications are [system-DPI aware](https://msdn.microsoft.com/en-us/library/windows/desktop/dn280512%28v=vs.85%29.aspx), which means that applications are scaled by Windows depending on the DPI of the monitor on which the application is being rendered. This can result in loss of sharpness, blurry text etc. Prior to 4.6.2, [additional native code](https://msdn.microsoft.com/en-us/library/windows/desktop/ee308410%28v=vs.85%29.aspx) was required to enable per-monitor DPI awareness in WPF applications.
 
-Given the recent proliferation of high-DPI and hybrid-DPI environments in the ecosystem, we have now enabled per-monitor DPI awareness in WPF applications. See the [samples and developer guide](https://github.com/rohit21agrawal/WPF-Samples/tree/master/PerMonitorDPI) for more information around how to enable you WPF application to become per-monitor DPI aware. 
+Given the recent proliferation of high-DPI and hybrid-DPI environments in the ecosystem, we have now enabled per-monitor DPI awareness in WPF applications. See the [samples and developer guide](https://github.com/rohit21agrawal/WPF-Samples/tree/master/PerMonitorDPI) for more information about how to enable you WPF application to become per-monitor DPI aware. 
