@@ -83,38 +83,46 @@ Launch your test app (using Kestrel so that you can easily see Console output) a
 Specifying a Service Type
 -------------------------
 
-Now that we have a simple custom middleware component working, let's have it start actually processing SOAP requests! The middleware should listen for SOAP requests to come in to a particular endpoint (URL) and then dispatch the calls to the appropriate service API based on the SOAP action specified. For this to work, our custom middleware will need a few more things specified when it is created:
+Now that we have a simple custom middleware component working, let's have it start actually processing SOAP requests! The middleware should listen for SOAP requests to come in to a particular endpoint (URL) and then dispatch the calls to the appropriate service API based on the SOAP action specified. For this to work, our custom middleware will need a few more pieces of information:
 
 1. The path it should listen on for requests
 2. The type of the service to invoke methods from
-3. The [MessageVersion](https://msdn.microsoft.com/en-us/library/system.servicemodel.channels.messageversion%28v=vs.110%29.aspx) or [MessageEncoder](https://msdn.microsoft.com/en-us/library/system.servicemodel.channels.messageencoder%28v=vs.110%29.aspx) used to encode the incoming SOAP payloads
-	1. Ideally, a `MessageEncoder` implementation (similar to the [TextMessageEncoder](http://referencesource.microsoft.com/#System.ServiceModel/System/ServiceModel/Channels/TextMessageEncoder.cs) used by the .NET Framework's `BasicHttpBinding`) would be provided to our middleware, but implementing a whole `MessageEncoder` is outside the scope of this blog post. For demonstration purposes, we will create a simpler SOAP-processing middleware component that just takes the `MessageVersion` used in incoming messages.
+3. The [MessageEncoder](https://msdn.microsoft.com/en-us/library/system.servicemodel.channels.messageencoder%28v=vs.110%29.aspx) used to encode the incoming SOAP payloads
 
-These arguments will all need to be provided when an app registers our middleware as part of its processing pipeline, so let's add them to the constructor like this (note that `MessageVersion` and `MessageEncoder` classes are in the `System.ServiceModel.Primitives` contract in .NET Core, and in the `System.ServiceModel` framework assembly on desktop):
+These arguments will all need to be provided when an app registers our middleware as part of its processing pipeline, so let's add them to the constructor like this (note that `MessageEncoder` class is in the `System.ServiceModel.Primitives` contract in .NET Core, and in the `System.ServiceModel` framework assembly on desktop):
 
 ```C#
 // The middleware delegate to call after this one finishes processing
 private readonly RequestDelegate _next;
 private readonly Type _serviceType;
 private readonly string _endpointPath;
-private readonly MessageVersion _messageVersion;
-// private readonly MessageEncoder _messageEncoder; // This could be used instead of _messageVersion
+private readonly MessageEncoder _messageEncoder; 
 
 public SOAPEndpointMiddleware(RequestDelegate next, Type serviceType, string path, MessageVersion version)
 {
     _next = next;
     _serviceType = serviceType;
     _endpointPath = path;
-    _messageVersion = version;
+    _messageEncoder = encoder;
 }
 ```
 
 The `UseSOAPEndpoint` extension method will also need updated (and can be made generic to capture the service type parameter):
 
 ```C#
-public static IApplicationBuilder UseSOAPEndpoint<T>(this IApplicationBuilder builder, string path, MessageVersion messageVersion)
+public static IApplicationBuilder UseSOAPEndpoint<T>(this IApplicationBuilder builder, string path, MessageEncoder encoder)
 {
-    return builder.UseMiddleware<SOAPEndpointMiddleware>(typeof(T), path, messageVersion);
+    return builder.UseMiddleware<SOAPEndpointMiddleware>(typeof(T), path, encoder);
+}
+```
+
+Because `MessageEncoder` is an abstract class without any implementations publicly exposed, users of this library will have to either implement their own encoders or (more likely) extract an encoder from a WCF binding. To make that easier, let's also add a `UseSOAPEndpoint` extension method that takes a binding (and extracts the encoder on the user's behalf):
+
+```C#
+public static IApplicationBuilder UseSOAPEndpoint<T>(this IApplicationBuilder builder, string path, Binding binding)
+{
+    var encoder = binding.CreateBindingElements().Find<MessageEncodingBindingElement>()?.CreateMessageEncoderFactory().Encoder;
+    return builder.UseMiddleware<SOAPEndpointMiddleware>(typeof(T), path, encoder);
 }
 ```
 
@@ -218,11 +226,11 @@ Once these types exist, the middleware's constructor can be updated to store a `
 ```C#
 private readonly ServiceDescription _service;
 
-public SOAPEndpointMiddleware(RequestDelegate next, Type serviceType, string path, MessageVersion version)
+public SOAPEndpointMiddleware(RequestDelegate next, Type serviceType, string path, MessageEncoder encoder)
 {
     _next = next;
     _endpointPath = path;
-    _messageVersion = version;
+    _messageEncoder = encoder;
     _service = new ServiceDescription(serviceType);
 }
 ```
@@ -250,18 +258,15 @@ public async Task Invoke(HttpContext httpContext)
     }
 }
 ```
-If the the request's path *does* equal the expected path for our service endpoint, we need to read the message and compose a response. If the caller had provided a `MessageEncoder`, you would just call `MessageEncoder.ReadMessage`. With a `MessageVersion` instead, we will just create the message directly from an `XmlReader`. Note that `XmlReader` exists in the `System.Xml.ReaderWriter` contract in .NET Core and in the `System.Xml` framework assembly in the desktop .NET Framework.
+If the the request's path *does* equal the expected path for our service endpoint, we need to read the message and compose a response. 
 
 ```C#
 Message responseMessage;
 
 // Read request message
-using (var reader = XmlReader.Create(httpContext.Request.Body))
-{
-    var requestMessage = Message.CreateMessage(reader, 0x10000, _messageVersion);
+var requestMessage = _messageEncoder.ReadMessage(httpContext.Request.Body, 0x10000, httpContext.Request.ContentType);
 
-	// TODO : Get requested action and invoke
-}
+// TODO : Get requested action and invoke
 ```
 
 To get the requested action, we need to look for a 'SOAPAction' header (which is how SOAP actions are usually communicated).
@@ -288,7 +293,9 @@ if (operation == null)
 // TODO : Invoking the operation goes here
 ```
 
-Now that we have a `MethodInfo` to invoke, we need to extract the arguments to pass to the operation from the request's body. This can be done in a helper method with an `XmlReader` and `DataContractSerializer`.
+Now that we have a `MethodInfo` to invoke, we need to extract the arguments to pass to the operation from the request's body. This can be done in a helper method with an `XmlReader` and `DataContractSerializer`. 
+
+Note that `XmlReader` exists in the `System.Xml.ReaderWriter` contract in .NET Core and in the `System.Xml` framework assembly in the desktop .NET Framework. `DataContractSerializer` exists in `System.Runtime.Serialization.Xml` in .NET Core and in `System.Runtime.Serialization` in the desktop .NET Framework.
 
 ```C#
 private object[] GetRequestArguments(Message requestMessage, OperationDescription operation)
@@ -320,7 +327,7 @@ private object[] GetRequestArguments(Message requestMessage, OperationDescriptio
 
 Note that this argument reading helper assumes the arguments are provided in order in the message body. This is true for messages coming from .NET WCF clients, but may not be true for all SOAP clients. If needed, this method could be replaced with a slightly more complex variant that allows for re-ordered arguments and fuzzier parameter name matching.
 
-With the operation and arguments are known, all that remains is to retrieve an instance of the service type to call the operation method on. This can be done with ASP.NET Core's built-in dependency injection.
+With the operation and arguments known, all that remains is to retrieve an instance of the service type to call the operation method on. This can be done with ASP.NET Core's built-in dependency injection.
 
 Change the middleware's `Invoke` method signature to take an `IServiceProvider` parameter (`IServiceProvider serviceProvider`). Then, we can use the `IServiceProver.GetService` API to retrieve service types that the user has registered in the `ConfigureServices` method of their Startup.cs file.
 
@@ -342,7 +349,7 @@ var responseObject = operation.DispatchMethod.Invoke(serviceInstance, arguments.
 Encoding the Response
 ---------------------
 
-Finally, with a response in hand, we can use either the `MessageEncoder` or `MessageVersion` specified by the user to send the object back to the caller in the HTTP response. [Message.CreateMessage](https://msdn.microsoft.com/en-us/library/ms195450%28v=vs.110%29.aspx) requires an implementation of `BodyWriter` to output the body of the message with correct element names. So, add a class like the one below that implements `BodyWriter`.
+Finally, with a response in hand, we can use the `MessageEncoder` specified by the user to send the object back to the caller in the HTTP response. [Message.CreateMessage](https://msdn.microsoft.com/en-us/library/ms195450%28v=vs.110%29.aspx) requires an implementation of `BodyWriter` to output the body of the message with correct element names. So, add a class like the one below that implements `BodyWriter`.
 
 ```C#
 public class ServiceBodyWriter : BodyWriter
@@ -376,16 +383,12 @@ Then we can update the middleware's `Invoke` method to create a response message
 // Create response message
 var resultName = operation.DispatchMethod.ReturnParameter.GetCustomAttribute<MessageParameterAttribute>()?.Name ?? operation.Name + "Result";
 var bodyWriter = new ServiceBodyWriter(operation.Contract.Namespace, operation.Name + "Response", resultName, responseObject);
-responseMessage = Message.CreateMessage(requestMessage.Version, operation.ReplyAction, bodyWriter);
+responseMessage = Message.CreateMessage(_messageEncoder.MessageVersion, operation.ReplyAction, bodyWriter);
 
 httpContext.Response.ContentType = httpContext.Request.ContentType; // _messageEncoder.ContentType;
 httpContext.Response.Headers["SOAPAction"] = responseMessage.Headers.Action;
 
-// Use _messageEncoder.WriteMessage if a MessageEncoder is available, otherwise use XmlWriter
-using (var writer = XmlWriter.Create(httpContext.Response.Body))
-{
-    responseMessage.WriteMessage(writer);
-}
+_messageEncoder.WriteMessage(responseMessage, httpContext.Response.Body);
 ```
 
 And that's it! You have written custom ASP.NET Core middleware for handling SOAP requests.
@@ -393,7 +396,7 @@ And that's it! You have written custom ASP.NET Core middleware for handling SOAP
 Testing it Out
 --------------
 
-Now that our custom middleware actually works with service types, the simple test app we created before will need updated. We'll need a simple WCF-style service type to call into. If you don't have one on-hand to test with, you can use this sample:
+Now that our custom middleware actually works with service types, the simple test app we created before will need updated. We'll need a simple service type to call into. If you don't have one on-hand to test with, you can use this sample:
 
 ```C#
 using System.ServiceModel;
@@ -419,11 +422,11 @@ namespace TestApp
 }
 ```
 
-The `UseSOAPEndpoint` call we added to the `Configure` method in our test host's Startup.cs file will need updated to point to this new type: `app.UseSOAPEndpoint<CalculatorService>("/CalculatorService.svc", MessageVersion.Soap11);`.
+The `UseSOAPEndpoint` call we added to the `Configure` method in our test host's Startup.cs file will need updated to point to this new type: `app.UseSOAPEndpoint<CalculatorService>("/CalculatorService.svc", new BasicHttpBinding());`. Note that we've also created an HttpBinding (to get a message encoder from). To use `BasicHttpBinding`, we will need to add .NET Core references to `System.ServiceModel.Http` and `System.Net.Security` in the `project.json` file.
 
 Also, since the instance of our service is created with dependency injection, the following line will need added to the `ConfigureServices` method in our host's startup.cs file: `services.AddSingleton<CalculatorService>();` 
 
-If you have a WSDL for your test service, you can create a client directly from that using WCF tools. Otherwise, create a client directly using `ClientBase<T>`.
+If you have a WSDL for your test service, you can create a client from that using WCF tools. Otherwise, create a client directly using `ClientBase<T>`.
 
 Here is a simple client I created (as an ASP.NET Core console application) to test the middleware and host:
 
@@ -533,3 +536,10 @@ Conclusion
 ----------
 
 I hope that this article has been helpful in demonstrating a real-world case of custom middleware expanding ASP.NET Core's request processing capabilities. By creating a constructor that took the middleware's dependencies as parameters and creating an `Invoke` method with the logic of deserializing and dispatching SOAP requests, we were able to serve responses to a WCF client from ASP.NET Core! SOAP handling middleware is just one example of how custom middleware can be used. More details on middleware are available in the [ASP.NET Core documentation](https://docs.asp.net/en/latest/fundamentals/middleware.html).
+
+References
+----------
+
+* [About ASP.NET Core](https://docs.asp.net/en/latest/)
+* [About ASP.NET Core middleware](https://docs.asp.net/en/latest/fundamentals/middleware.html)
+* [Explicit dependencies principle (used by middleware types)](http://deviq.com/explicit-dependencies-principle/)
