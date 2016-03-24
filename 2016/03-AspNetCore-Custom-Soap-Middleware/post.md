@@ -98,7 +98,7 @@ private readonly Type _serviceType;
 private readonly string _endpointPath;
 private readonly MessageEncoder _messageEncoder; 
 
-public SOAPEndpointMiddleware(RequestDelegate next, Type serviceType, string path, MessageVersion version)
+public SOAPEndpointMiddleware(RequestDelegate next, Type serviceType, string path, MessageEncoder encoder)
 {
     _next = next;
     _serviceType = serviceType;
