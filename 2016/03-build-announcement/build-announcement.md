@@ -2,12 +2,12 @@
 # .NET Framework 4.6.2 Preview
 We are pleased to announce the preview release for the .NET Framework version 4.6.2. The preview release can be downloaded now at one of the following links:
 
-- [.NET Framework 4.6.2 Preview - Standalone](http://go.microsoft.com/fwlink/?LinkID=708749)
-- [.NET Framework 4.6.2 Preview - Web Bootstrapper](http://go.microsoft.com/fwlink/?LinkID=708734)
-- [.NET Framework 4.6.2 Preview - Developer Pack](http://go.microsoft.com/fwlink/?LinkID=708773)
+- [.NET Framework 4.6.2 Preview - Standalone](http://go.microsoft.com/fwlink/?LinkID=708750)
+- [.NET Framework 4.6.2 Preview - Web Bootstrapper](http://go.microsoft.com/fwlink/?LinkID=708735)
+- [.NET Framework 4.6.2 Preview - Developer Pack](http://go.microsoft.com/fwlink/?LinkID=708774)
 
-Providing Feedback
---------------------
+# Providing Feedback
+
 We hope to hear your feedback as you try the preview release which can be directed to:
 
 - [Bugs - VS Feedback](https://connect.microsoft.com/VisualStudio/Feedback)
