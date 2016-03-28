@@ -16,7 +16,7 @@ Package of the week: xx
 ```csharp
 ```
 
-User group of the week: xx
+User group meeting of the week: xx
 ------------------------------------------------
 
 
