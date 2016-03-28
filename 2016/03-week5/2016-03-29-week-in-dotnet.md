@@ -29,7 +29,7 @@ public class DoerOfThings {
     }
     
     public async Task EnqueueForLaterWork(SimpleWorkItem item) {
-        await _queue.EnqueAsync(item);
+        await _queue.EnqueueAsync(item);
     }
     
     public async Task DoSomeWork() {
