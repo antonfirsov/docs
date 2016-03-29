@@ -69,6 +69,14 @@ public static void Main(string[] args)
     Console.WriteLine("---------- ConnectionStrings ----------");
     foreach (var kvp in configurationManager.ConnectionStrings)
         Console.WriteLine($"{kvp.Key}: [{kvp.Value}]");
+
+    Console.WriteLine("---------- configNode:nestedNode ---------- ");
+    foreach (var kvp in configurationManager.GetSection("configNode", "nestedNode"))
+        Console.WriteLine($"{kvp.Key}: [{kvp.Value.Value}]");
+
+    Console.WriteLine("---------- Specific Key ---------- ");
+    var value = configurationManager.GetValue("sampleSection", "setting2");
+    Console.WriteLine($"KEY: sampleSection:setting2, VALUE: {value}");
 }
 ```
 
