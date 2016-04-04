@@ -6,19 +6,19 @@ We will ship the new .NET Core command-line tools experience (AKA ".NET CLI") wi
 Improving Software with Data
 ----------------------------
 
-Microsoft teams have used usage data for a long time. This is very common practice for commercial software products. It's amazing how different usage can be than your intuition. You can build a great product for carpenters but it ends up being primary used by dress makers. Usage data gives you a view into the reality of how a product is used, enabling you to make it even better for the dress makers and then drill into why the carpenters were not well-served by the product.
+Microsoft teams have used product usage data for a long time. This is very common practice for commercial software products. It's amazing how different usage can be than your intuition. You can build a great product for carpenters but it ends up being primary used by dress makers. Usage data gives you a view into the reality of how a product is used, enabling you to make it even better for the dress makers and then drill into why the carpenters were not well-served by the product.
 
-With commercial software, there is a single relationship that needs to be defined: the one between the software vendor and the user. Microsoft's commercial distribution of .NET Core has an End User License Agreement (EULA), defining that relationship. We use the [MICROSOFT .NET LIBRARY EULA](http://go.microsoft.com/fwlink/?LinkId=329770) for the .NET Core Tools, which we also use for all .NET NuGet packages. We recently added a "DATA" section re-printed below, to enable us to collect telemetry from the tools. We only intend to collect data from the tools, not the runtime or libraries.
+With commercial software, there is a single relationship that needs to be defined: the one between the software vendor and the user. Microsoft's commercial distribution of .NET Core has an End User License Agreement (EULA), defining that relationship. We use the [MICROSOFT .NET LIBRARY EULA](http://go.microsoft.com/fwlink/?LinkId=329770) for the .NET Core Tools, which we also use for all .NET NuGet packages. We recently added a "DATA" section re-printed below, to enable us to collect telemetry from the tools. We want to stay with one EULA for .NET Core and only intend to collect data from the tools, not the runtime or libraries.
 
 
-> 2. DATA. The software may collect information about you and your use of the software, and send that to Microsoft. Microsoft may use this information to improve our products and services. You can learn more about data collection and use in the help documentation and the privacy statement at http://go.microsoft.com/fwlink/?LinkId=528096.Your use of the software operates as your consent to these practices.
+> 2. DATA. The software may collect information about you and your use of the software, and send that to Microsoft. Microsoft may use this information to improve our products and services. You can learn more about data collection and use in the help documentation and the privacy statement at http://go.microsoft.com/fwlink/?LinkId=528096. Your use of the software operates as your consent to these practices.
 
 Sharing the Data
 ----------------
 
 .NET Core is open source, so adding a telemetry feature and collecting data has a different dynamic than closed source commercial software. That's because there is a second relationship that exists with open source software, between the maintainers and the community. To make good on that relationship, we will share the data we collect in an aggegated form. It's important to share the data for two reasons: as an open source project, you deserve to see the data too, and; the data will give everyone the same insight for project decision making.
 
-We will store the data with Azure Storage. We have not yet built infastructure for sharing the data. That's our next step. We'll make that software open source so that you can see what it is doing.
+We have not yet built infastructure for sharing the data. That's our next step. We'll make that software open source so that you can see how the data is extracted. You can also look at the [initial PR](https://github.com/dotnet/cli/pull/2145) that added the telemetry feature to see how the data is collected and uploaded to Azure storage.
 
 Scoping the Data Collected
 --------------------------
@@ -47,8 +47,11 @@ We collect the following pieces of data:
 - If RIDs are present in the "runtimes" node
 - The CLI version being used
 
-Questions, feedback, comments
------------------------------
+Transparency and Telemetry, FTW
+-------------------------------
 
-Text here
+In the long run, .NET Core has the potential to to be a great development platform choice for any developer writing any app. We're very lucky to have the resources of Microsoft behind the project, but need to know how best to use our engineering team and also the awesome community that's building around the project to get there. Product telemetry is that missing link.
 
+As I said, telemetry has a different dynamic with open source projects. We believe that complete transparency on all aspects of data collection and of the collected data should align nicely with that dynamic. We'd love to hear what you think about that.
+
+With most features, we rely on the general feedback of the community to determine how we should build a feature. This time, I'd like to go a step further. If you've got insight on this feature, I'd love to talk. Mail me @ rlander@msft. We can chat over mail or set up a call. I want to know what you think about this direction.
