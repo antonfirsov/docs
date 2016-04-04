@@ -17,9 +17,9 @@ Getting Started
 To start, create a .NET Core library (the project type is under web templates and is called `Class Library (package)`). Throughout this article I will be using the RC1 Update 1 version of the [ASP.NET web tools](https://docs.asp.net/en/latest/getting-started/installing-on-windows.html).
 ![Creating a new .NET Core library project](NewClassLibrary.png)
 
-ASP.NET Core middleware uses the [explicit dependencies principle](http://deviq.com/explicit-dependencies-principle/), so all dependencies should be provided through dependency injection via arguments to the middleware's constructor. The one dependency common to most middleware is a `RequestDelegate` object representing the next delegate in the HTTP request processing pipeline. If our middleware does not completely handle a request, the request's context should be passed along to this next delegate. Later, we'll specify more dependencies in our constructor but, for now, let's add a basic constructor to our middleware class.
+ASP.NET Core middleware uses the <a href="http://deviq.com/explicit-dependencies-principle/" target="_blank">explicit dependencies principle</a>, so all dependencies should be provided through dependency injection via arguments to the middleware's constructor. The one dependency common to most middleware is a `RequestDelegate` object representing the next delegate in the HTTP request processing pipeline. If our middleware does not completely handle a request, the request's context should be passed along to this next delegate. Later, we'll specify more dependencies in our constructor but, for now, let's add a basic constructor to our middleware class.
 
-Add a dependency to `Microsoft.AspNet.Http.Abstractions` to your project.json (since that's the contract containing `RequestDelegate`) and create a constructor for the middleware class like this:
+Add a dependency to `Microsoft.AspNet.Http.Abstractions` to your project.json (since that's the contract containing `RequestDelegate`), give your class a descriptive name (I'm using `SOAPEndpointMiddleware`), and create a constructor for the middleware class like this:
 
 ```C#
 // The middleware delegate to call after this one finishes processing
@@ -89,7 +89,9 @@ Now that we have a simple custom middleware component working, let's have it sta
 2. The type of the service to invoke methods from
 3. The [MessageEncoder](https://msdn.microsoft.com/en-us/library/system.servicemodel.channels.messageencoder%28v=vs.110%29.aspx) used to encode the incoming SOAP payloads
 
-These arguments will all need to be provided when an app registers our middleware as part of its processing pipeline, so let's add them to the constructor like this (note that `MessageEncoder` class is in the `System.ServiceModel.Primitives` contract in .NET Core, and in the `System.ServiceModel` framework assembly on desktop):
+These arguments will all need to be provided when an app registers our middleware as part of its processing pipeline, so let's add them to the constructor. Note that the `MessageEncoder` class is in the `System.ServiceModel.Primitives` contract in .NET Core, and in the `System.ServiceModel` framework assembly on desktop. Since `System.ServiceModel` is a built-in Framework assembly for the desktop .NET Framework, the reference will belong in the `frameworkAssemblies` element under `net451` in your project.json file. `System.ServiceModel.Primitives` can be added to `dotnet5.4` dependencies as usual (since it is a NuGet package).
+
+After updating the constructor it should look like this:
 
 ```C#
 // The middleware delegate to call after this one finishes processing
@@ -258,7 +260,7 @@ public async Task Invoke(HttpContext httpContext)
     }
 }
 ```
-If the the request's path *does* equal the expected path for our service endpoint, we need to read the message and compose a response. 
+If the the request's path *does* equal the expected path for our service endpoint, we need to read the message and compose a response (this code replaces the 'todo' in the previous snippet). 
 
 ```C#
 Message responseMessage;
@@ -269,7 +271,7 @@ var requestMessage = _messageEncoder.ReadMessage(httpContext.Request.Body, 0x100
 // TODO : Get requested action and invoke
 ```
 
-To get the requested action, we need to look for a 'SOAPAction' header (which is how SOAP actions are usually communicated).
+After that, we need to get the requested action by looking for a 'SOAPAction' header (which is how SOAP actions are usually communicated).
 
 ```C#
 var soapAction = httpContext.Request.Headers["SOAPAction"].ToString().Trim('\"');
@@ -281,7 +283,7 @@ if (!string.IsNullOrEmpty(soapAction))
 // TODO : Lookup operation and invoke
 ```
 
-Knowing the requested action, we can find the correct `OperationDescription` to invoke.
+Knowing the requested action, we can build on the previous snippet by finding the correct `OperationDescription` to invoke.
 
 ```C#
 var operation = _service.Operations.Where(o => o.SoapAction.Equals(requestMessage.Headers.Action, StringComparison.Ordinal)).FirstOrDefault();
@@ -329,9 +331,9 @@ Note that this argument reading helper assumes the arguments are provided in ord
 
 With the operation and arguments known, all that remains is to retrieve an instance of the service type to call the operation method on. This can be done with ASP.NET Core's built-in dependency injection.
 
-Change the middleware's `Invoke` method signature to take an `IServiceProvider` parameter (`IServiceProvider serviceProvider`). Then, we can use the `IServiceProver.GetService` API to retrieve service types that the user has registered in the `ConfigureServices` method of their Startup.cs file.
+Change the middleware's `Invoke` method signature to add an `IServiceProvider` parameter (`IServiceProvider serviceProvider`). Then, we can use the `IServiceProver.GetService` API to retrieve service types that the user has registered in the `ConfigureServices` method of their Startup.cs file.
 
-All together, the call to invoke the operation should look something like this:
+All together, the call to invoke the operation (back in our `Invoke` method) should look something like this:
 
 ```C#
 // Get service type
@@ -396,7 +398,7 @@ And that's it! You have written custom ASP.NET Core middleware for handling SOAP
 Testing it Out
 --------------
 
-Now that our custom middleware actually works with service types, the simple test app we created before will need updated. We'll need a simple service type to call into. If you don't have one on-hand to test with, you can use this sample:
+Now that our custom middleware actually works with service types, the simple test app we created before will need to be updated. We'll need a simple service type to call into. If you don't have one on-hand to test with, you can use this sample:
 
 ```C#
 using System.ServiceModel;
@@ -422,7 +424,7 @@ namespace TestApp
 }
 ```
 
-The `UseSOAPEndpoint` call we added to the `Configure` method in our test host's Startup.cs file will need updated to point to this new type: `app.UseSOAPEndpoint<CalculatorService>("/CalculatorService.svc", new BasicHttpBinding());`. Note that we've also created an HttpBinding (to get a message encoder from). To use `BasicHttpBinding`, we will need to add .NET Core references to `System.ServiceModel.Http` and `System.Net.Security` in the `project.json` file.
+The `UseSOAPEndpoint` call we added to the `Configure` method in our test host's Startup.cs file will need updated to point to this new type: `app.UseSOAPEndpoint<CalculatorService>("/CalculatorService.svc", new BasicHttpBinding());`. Note that we've also created an HttpBinding (to get a message encoder from). To use `BasicHttpBinding`, we will need to add .NET Core references to `System.ServiceModel.Http` and `System.Net.Security` in the  test app's `project.json` file.
 
 Also, since the instance of our service is created with dependency injection, the following line will need added to the `ConfigureServices` method in our host's startup.cs file: `services.AddSingleton<CalculatorService>();` 
 
