@@ -96,6 +96,11 @@ F#
 * [Microservices Chaos Testing at Jet](http://www.infoq.com/presentations/jet-microservices-testing), by Rachel Reese.
 
 Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
+Games
+---
+
+* [Unity Joins the .NET Foundation](http://blogs.unity3d.com/2016/04/01/unity-joins-the-net-foundation/) - by Jonathan Chambers.
+* [Visual Studio Tools for Unity (Video)](https://channel9.msdn.com/Shows/Visual-Studio-Toolbox/Visual-Studio-Tools-for-Unity) - Jb Evain and Robert Green.
 
 And this is it for this week!
 
