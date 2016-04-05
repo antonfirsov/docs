@@ -68,6 +68,7 @@ On Saturday April 9th 2016 come and join with some of New Zealand's top technica
 * [What’s New for C# and VB in Visual Studio](https://blogs.msdn.microsoft.com/dotnet/2016/04/02/whats-new-for-c-and-vb-in-visual-studio/) by Kasey Uhlenhuth.
 * [Mobile App Development made easy with Visual Studio and Xamarin](https://blogs.msdn.microsoft.com/visualstudio/2016/03/31/mobile-app-development-made-easy-with-visual-studio-and-xamarin/) by John Montgomery.
 * [Mono Relicensed MIT](http://www.mono-project.com/news/2016/03/31/mono-relicensed-mit/) by Miguel de Icaza.
+* [.NET Overview (Build session Video)](https://channel9.msdn.com/events/Build/2016/B891) by Scott Hanselman and Scott Hunter.
 * [A Vision For Visual Studio 2015: Take on Dependencies; stay Productive](https://blogs.msdn.microsoft.com/visualstudio/2016/04/01/visual-studio-2015-take-on-dependencies-stay-productive/) by Michael C. Fanning and Joe Morris.
 * [Faster, Leaner, Focused on Your Development Needs: The New Visual Studio Installer](https://blogs.msdn.microsoft.com/visualstudio/2016/04/01/faster-leaner-visual-studio-installer/) by Tim Sneath.
 * [IConfiguration in .NetCore](http://www.ryansouthgate.com/2016/03/23/iconfiguration-in-netcore/) by Ryan Southgate.
