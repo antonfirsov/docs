@@ -40,7 +40,6 @@ We collect the following pieces of data:
 - ExitCode of the command
 - For test projects, the test runner being used
 - Timestamp of invocation
-- Details about the project commands are invoked on
 - Framework used
 - If RIDs are present in the "runtimes" node
 - The CLI version being used
