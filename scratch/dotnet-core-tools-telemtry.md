@@ -10,7 +10,7 @@ Behavior
 
 The telemetry feature is on by default for the .NET Core Tools for RC2. We will re-assess if that's the right behavior for RTM, based on your feedback.
 
-You can opt-out of the telemetry feature by setting an environment variable DOTNET_CLI_TELEMETRY_OPTOUT. Doing this will stop the collection process from running. In order to set the environment variable, please use the existing operating system mechanisms for this (e.g. `export` on OS X/Linux, `set` on Windows). We may also add a different opt-out for RTM, again based on your feedback.
+You can opt-out of the telemetry feature by setting an environment variable DOTNET_CLI_TELEMETRY_OPTOUT to true (e.g. "true", 1). Doing this will stop the collection process from running. In order to set the environment variable, please use the existing operating system mechanisms for this (e.g. `export` on OS X/Linux, `set` on Windows). We may also add a different opt-out for RTM, again based on your feedback.
 
 Data Points
 -----------
@@ -25,7 +25,7 @@ The feature collects the following pieces of data:
 - If RIDs are present in the "runtimes" node
 - The CLI version being used
 
-The feature will not collect any personal data, such as usernames or emails or anything that can be used to identify the actual user. It will not scan your code and  not extract any project-level data that can be considered sensitive, such as name, repo or author (if you set those in your project.json). We want to now how the tools are used, not what you are using the tools to build. If you find sensitive data being collected, that's a bug. Please file an issue and it will be fixed.
+The feature will not collect any personal data, such as usernames or emails or anything that can be used to identify the actual user. It will not scan your code and  not extract any project-level data that can be considered sensitive, such as name, repo or author (if you set those in your project.json). We want to know how the tools are used, not what you are using the tools to build. If you find sensitive data being collected, that's a bug. Please file an issue and it will be fixed.
 
 EULA
 ----
