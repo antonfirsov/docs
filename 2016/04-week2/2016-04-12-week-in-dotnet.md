@@ -37,6 +37,13 @@ User group meeting of the week: Building a Robot Army & Encryption with .NET and
 
 The [Adelaide .NET User Group](http://www.meetup.com/Adelaide-dotNET/) has [a double feature on Wednesday, April 13 at 5:30 PM](http://www.meetup.com/Adelaide-dotNET/events/229525766/) where you'll learn both how to build a robot army, and about data encryption using .NET and SQL Server.
 
+Xamarin App of the week: Storyo
+-------------------------------
+
+[Storyo](http://www.storyoapp.com) creates beautiful, shareable video-stories automatically from the metadata in your photos (such as time and location) as well as other contextual information. With Xamarin, the team reduced engineering complexity by using a single, shared solution for video rendering on both [iOS](https://itunes.apple.com/pt/app/storyo/id891398402?l=en&mt=8) and [Android](https://play.google.com/store/apps/details?id=com.StoryMatik.Storyo&hl=en), bringing their app to users in 170 countries faster.
+
+![Storyo on iOS & Android](http://www.storyoapp.com/images/2-iphone-right-2.png)
+
 Control of the week: SideDrawer for UWP and Xamarin
 ---------------------------------------------------
 
