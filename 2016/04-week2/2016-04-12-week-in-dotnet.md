@@ -91,6 +91,12 @@ F#
 
 Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
 
+Games
+-----
+
+* [Developing The New Input System Together With You](http://blogs.unity3d.com/2016/04/12/developing-the-new-input-system-together-with-you/), by Rune Skovbo Johansen.
+* [Basic Unity Tutorial for Steam VR & Vive (Setting up HMD and controllers) - Video](https://www.youtube.com/watch?v=LZTctk19sx8), by Sean Lee.
+
 And this is it for this week!
 
 Contribute to the week in .NET
