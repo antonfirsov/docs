@@ -56,7 +56,7 @@ We'd love to hear from you, and feature your contributions on future posts:
 * [Send Stacey (@yecats131) tips on Twitter about .NET games](https://twitter.com/yecats131).
 
 This week's post (and future posts) also contains news I first read on
-[ASP.NET's community spotlight](http://www.asp.net/),
+[The ASP.NET Community Standup](https://blogs.msdn.microsoft.com/webdev/tag/communitystandup/),
 on [F# weekly](https://sergeytihon.wordpress.com/category/f-weekly/),
 on [ASP.NET Weekly](http://www.aspnetweekly.com/),
 and on [Chris Alcock's The Morning Brew](http://themorningbrew.net/).
