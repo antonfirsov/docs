@@ -15,7 +15,7 @@ Installing the UWP Tools version 1.3.1 will automatically change your existing p
 4. Ensure that the Version is listed as Latest Stable 5.1.0.
 5. Select Install.
 
-![Image of VS Setup Update](UWP_NetCore_NuGet_Update.png)
+![Image of VS Setup Update](UWP_NetCore_NuGet_Update.PNG)
 
 ##What's New in the .NET Native Toolchain
 
