@@ -48,9 +48,9 @@ We've made WinRT interop faster and have seen speedups as high as 8x in our lab 
 
 ###Faster Native Code 
 A number of incremental and feature-level improvements to code quality are included in this release. Targeted improvements include, but aren’t limited to:
-* improved [auto-vectorization](https://blogs.msdn.microsoft.com/nativeconcurrency/2012/04/12/what-is-vectorization/)
-* reduced overhead of enumeration of `IEnumerable<T>` collections
-* whole program inlining analysis
+* Improved [auto-vectorization](https://blogs.msdn.microsoft.com/nativeconcurrency/2012/04/12/what-is-vectorization/)
+* Reduced overhead of enumeration of `IEnumerable<T>` collections
+* Whole program inlining analysis
 * [Profile Guided Optimization](https://msdn.microsoft.com/en-us/library/e7k32f4k.aspx) (PGO) of the [SharedFramework](https://blogs.msdn.microsoft.com/dotnet/2015/09/28/whats-new-for-net-and-uwp-in-win10-tools-1-1/)
 Together, these features lead to reduced working set, smaller code size, and better generated code quality for .NET UWP applications.
 
@@ -60,7 +60,7 @@ Previous releases of the .NET Native compiler utilized the same inlining optimiz
 
 Sharing the same optimizing backend as the C++ compiler allows .NET Native to use the advanced optimizing technologies that have been developed for high performance C++ code. We will continue to light up features that this integration allows. 
 
-###Development time compiler improvements
+###Development Time Compiler Improvements
 Many of the internal data structures and algorithms of the .NET Native compiler are now much more efficient. Most apps will see a reduction in the memory used by the compiler and a small reduction in compile time. For a subset of applications and libraries, these improvements are the difference between compiling successfully and taking [hours and hours to build](https://github.com/mathnet/mathnet-numerics/issues/361). We'll continue to make optimizations and improvements to accommodate the wide variety and scale of code in the growing UWP ecosystem.
 
 ##Provide Feedback
