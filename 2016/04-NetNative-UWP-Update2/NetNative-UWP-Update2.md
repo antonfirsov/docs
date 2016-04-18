@@ -1,9 +1,9 @@
 #What’s new for the .NET Native Compiler in Visual Studio 2015 Update 2
 
-Earlier this week we released an [update to the Visual Studio 2015 Tools for Universal Windows Apps (UWA)](https://blogs.msdn.microsoft.com/visualstudio/2016/04/11/whats-new-in-vs-2015-update-2-for-universal-windows-developers/). The release includes improvements across the libraries, runtime, and compiler. This means that development is faster and applications will more responsive and easier to maintain. Applications such as [NCAA March Madness Live](https://www.microsoft.com/en-us/store/apps/ncaa-march-madness-live/9wzdncrfjcmh) and [TuneIn Radio](https://www.microsoft.com/en-us/store/apps/tunein-radio/9wzdncrfj3sf) are already available in the Store using these tools!
+Earlier this week we released an update to the [Visual Studio 2015 Tools for Universal Windows Apps (UWA)](https://blogs.msdn.microsoft.com/visualstudio/2016/04/11/whats-new-in-vs-2015-update-2-for-universal-windows-developers/). The release includes improvements across the libraries, runtime, and compiler. This means that development is faster and applications will more responsive and easier to maintain. Applications such as [NCAA March Madness Live](https://www.microsoft.com/en-us/store/apps/ncaa-march-madness-live/9wzdncrfjcmh) and [TuneIn Radio](https://www.microsoft.com/en-us/store/apps/tunein-radio/9wzdncrfj3sf) are already available in the Store built using our new .NET Native tools!
 
 ##Get the Universal Windows Platform Tools
-The latest version for Visual Studio 2015 Tools for Universal Windows Apps has been released as an update for Visual Studio 2015 Update 2. It can be obtained by [installing](http://go.microsoft.com/fwlink/?LinkId=691129) or modifying Visual Studio 2015 Update 2. When prompted with the list of features to install, validate that **Tools (1.3.1) and Windows 10 SDK (10.0.10586)** has been checked, which is located under the **Universal Windows App Development Tools** section. Once the Visual Studio 2015 Tools for UWA update has been installed, existing projects will use the latest compiler and runtime after they have been recompiled.
+The latest version for Visual Studio 2015 Tools for Universal Windows Apps has been released as an update for Visual Studio 2015 Update 2. It can be obtained by installing [Visual Studio 2015 Update 2](http://go.microsoft.com/fwlink/?LinkId=691129) or modifying Visual Studio 2015 Update 2. When prompted with the list of features to install, validate that **Tools (1.3.1) and Windows 10 SDK (10.0.10586)** has been checked, which is located under the **Universal Windows App Development Tools** section. Once the Visual Studio 2015 Tools for UWA update has been installed, existing projects will use the latest compiler and runtime after they have been recompiled.
 
 The following steps can be taken to modify Visual Studio 2015 Update 2 and install the latest UWA tools:
 
@@ -16,17 +16,17 @@ The following steps can be taken to modify Visual Studio 2015 Update 2 and insta
 4. Select Next and validate the Selected Features are correct.
 5. Select Update.
 
-The .NET Core libraries are a NuGet meta-package, which means that they are updated just like any other NuGet package. Here's how to get the latest fixes and feature work from the .NET Core libraries: 
+The .NET Core libraries are distributed as NuGet packages at NuGet.org. Here's how you can get the latest .NET Core packages:
 
 1. Navigate to the NuGet Package Manager which can be found by going to Tools\NuGet Package Manager\Manage NuGet Packages for Solution.
 2. Select the Updates tab.
-3. Select the Microsoft.NETCore.UniversalWindowsPlatform NuGet Package on the left and check the projects that are being upgraded.
+3. Select the Microsoft.NETCore.UniversalWindowsPlatform NuGet package (the UWP metapackage for .NET Core) on the left and check the projects that are being upgraded.
 4. Ensure that the Version is listed as Latest Stable 5.1.0.
 5. Select Install.
 
 ![Image of VS Setup Update](UWP_NetCore_NuGet_Update.PNG)
 
-##What's New in the .NET Native Compiler
+##What's New in the .NET Native Compiler and Runtime
 
 ###Better Reflection Support - Universal Shared Generics
 
@@ -41,10 +41,10 @@ Generic types are a combination of shape (members) and behavior (method bodies).
 This challenge led us to adopt a new path for native compiling generics. We came to the conclusion that we needed a more general purpose way to compose generics at runtime. We call this new feature Universal Shared Generics (USG). Most generics will still have highly optimized code that is specific to their composition. However, in the case where type specific code has not been generated, a USG version will be available.
 
 ###Better Stack Traces with HockeyApp
-With this release and [HockeyApp](http://hockeyapp.net/features/), developers can now get high fidelity, actionable stack traces from their applications in production. We've done work to ensure client side collection is more robust and that the HockeyApp back end can properly generate human readable stacks. This functionality was announced at [//build](https://channel9.msdn.com/Events/Build/2016/P463) and is now available. It's fast and easy to get started with [HockeyApp for UWP](http://support.hockeyapp.net/kb/client-integration-windows-and-windows-phone/crash-reporting-for-uwp). 
+With this release and [HockeyApp](http://hockeyapp.net/features/), you can now get high fidelity, actionable stack traces from their applications in production. We've done work to ensure client side collection is more robust and that the HockeyApp back end can properly generate human readable stacks. This functionality was announced at [//build](https://channel9.msdn.com/Events/Build/2016/P463) and is now available. It's fast and easy to get started with [HockeyApp for UWP](http://support.hockeyapp.net/kb/client-integration-windows-and-windows-phone/crash-reporting-for-uwp). 
 
 ###Faster WinRT Interop
-We've made WinRT interop faster and have seen speedups as high as 8x in our lab compared to the UWP 1.2 tools. This will be particularly useful for applications that have pages with a high number of XAML elements as well as IoT stream processing scenarios. The overhead necessary for WinRT calls has been greatly reduced. Fewer garbage collections means more time for applications to process data and keep GUIs moving fluidly.
+We've made WinRT interop faster and have seen speedups as high as 8x in our lab compared to the UWP 1.2 tools. This will be particularly useful for applications that have pages with a high number of XAML elements as well as IoT stream processing scenarios.
 
 ###Faster Native Code 
 A number of incremental and feature-level improvements to code quality are included in this release. Targeted improvements include, but aren’t limited to:
@@ -56,7 +56,7 @@ Together, these features lead to reduced working set, smaller code size, and bet
 
 Previous releases of the .NET Native compiler utilized the same inlining optimizer as the CLR JIT compiler. Because the JIT compiler is tuned to generate code quickly, it makes local decisions about which methods to inline. Ahead-of-time compilation allows the .NET Native compiler to evaluate inlining decisions while considering the full scope of your application. With 1.3.1 this is now done using the same whole program inlining engine used for high performance C++ applications, enabling significant improvement for many scenarios.
 
-[Profile-Guided Optimizations](https://msdn.microsoft.com/en-us/library/e7k32f4k.aspx) allows the compiler make better code generation decisions by giving it information about what happens in an application at runtime. Using data we've collected from a variety of UWP applications in the store we have applied PGO optimizations to the SharedLibrary component. We're excited to enable this class of optimizations for general usage in a future version of the UWP tools.
+[Profile-Guided Optimizations](https://msdn.microsoft.com/en-us/library/e7k32f4k.aspx) allows the compiler make better code generation decisions by giving it information about what happens in an application at runtime. We have applied PGO optimizations to the SharedLibrary component using data we've collected from a variety of UWP applications. We're excited to enable this class of optimizations for general usage in a future version of the UWP tools.
 
 Sharing the same optimizing backend as the C++ compiler allows .NET Native to use the advanced optimizing technologies that have been developed for high performance C++ code. We will continue to light up features that this integration allows. 
 
@@ -65,3 +65,5 @@ Many of the internal data structures and algorithms of the .NET Native compiler 
 
 ##Provide Feedback
 We want to thank you for your feedback as it has been instrumental in guiding our work! Please continue to send questions and suggestions to [dotnetnative@microsoft.com](mailto:dotnetnative@microsoft.com). We look forward to hearing from you and seeing what great things you will build.
+
+*This post was written by Matthew Whilden, Software Engineer and Stacey Haffner, Program Manager on the .NET team.*
