@@ -6,7 +6,7 @@ To read last week's post, see [The week in .NET – 4/12/2016](https://blogs.msd
 On.NET
 ------
 
-Last week on the show, [we looked at what PlayFab is doing to help game developers take advantage of the cloud](https://www.youtube.com/watch?v=hDDd_Pjtbx8). This week, [we'll be talking](https://www.youtube.com/watch?v=7E7JyvBIGKs) with [Telerik](http://www.telerik.com/).
+Last week on the show, [we looked at what PlayFab is doing to help game developers take advantage of the cloud](https://www.youtube.com/watch?v=hDDd_Pjtbx8). This week, [we'll be speaking](https://www.youtube.com/watch?v=7E7JyvBIGKs) with [Telerik](http://www.telerik.com/).
 
 Package of the week: NUglify
 ----------------------------
@@ -32,6 +32,14 @@ Since October 2015, the [WPF designer](https://github.com/icsharpcode/WpfDesigne
 
 <img slt="The XAML editor" src="https://github.com/icsharpcode/WpfDesigner/raw/master/screenshot.png?raw=true" style="widht:500px;max-width:100%"/>
 
+Game of the week: Dungeon of the Endless
+----------------------------------------
+
+[Dungeon of the Endless](http://madewith.unity.com/games/dungeon-endless) is a [roguelike](https://en.wikipedia.org/wiki/Roguelike) dungeon defense style game created by [Amplitude Studios](http://madewith.unity.com/profiles/amplitude-studios) using [Unity](http://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). The gameplay is unique and blends together tower defense, squad control, RPG and roguelike elements beautifully. You'll take on the role of controlling a team of heroes who must explore a way out of their ship, which has crash landed on the planet of Auriga. Behind every door in Dungeon of the Endless lies a chance to be swarmed by condemned criminals who have no desire to work for their place back in society. Their sole purpose is to kill your heroes and/or the crystal that powers your ship. Should they succeed (and they often will), you'll be left cleaning up the pieces by creating a new team and traversing a different procedurally generated dungeon.
+
+Dungeon of the Endless is available on Steam and iTunes. More information can be found on their [Made With Unity](http://madewith.unity.com/games/dungeon-endless) page.
+
+<img src="https://cloud.githubusercontent.com/assets/4108756/14642984/8adbaffa-0601-11e6-9d49-723d5b9a3fa7.png" alt="Dungeon of the Endless" style="width:500px; max-width: 100%"/>
 
 User group meeting of the week: Behaviour Driven Development with SpecFlow / What'­s new in C# with the Ottawa IT Community
 ----------------------------------------------------------------------------------------------------------------
@@ -41,7 +49,8 @@ User group meeting of the week: Behaviour Driven Development with SpecFlow / Wha
 .NET
 ----
 
-* [What’s new for the .NET Native Compiler and Runtime in Visual Studio 2015 Update 2](https://blogs.msdn.microsoft.com/dotnet/2016/04/18/whats-new-for-the-net-native-compiler-and-runtime-in-visual-studio-2015-update-2/) by Stacey Haffner.
+* [What’s new for the .NET Native Compiler and Runtime in Visual Studio 2015 Update 2](https://blogs.msdn.microsoft.com/dotnet/2016/04/18/whats-new-for-the-net-native-compiler-and-runtime-in-visual-studio-2015-update-2/) by Stacey Haffner and Matthew Whilden.
+* [Introducing the Microsoft .NET Framework Repair Tool Version 1.3](https://blogs.msdn.microsoft.com/dotnet/2016/04/19/introducing-the-microsoft-net-framework-repair-tool-version-1-3/) by Rakesh Ranjan Singh.
 * [How to host your own NuGet server and package feed](http://www.hanselman.com/blog/HowToHostYourOwnNuGetServerAndPackageFeed.aspx) by Scott Hanselman.
 * [Moq on .NET Core](http://dotnetliberty.com/index.php/2016/02/22/moq-on-net-core/) by Armen Shimoon.
 * [Visual Studio Code 1.0 has been released!](http://code.visualstudio.com/blogs/2016/04/14/vscode-1.0)
