@@ -95,7 +95,7 @@ Did you make or play a great game built on .NET?
 We'd love to hear from you, and feature your contributions on future posts:
 
 * Send an email to beleroy at Microsoft,
-* [comment on this gist](xx)
+* [comment on this gist](https://gist.github.com/bleroy/012508dde3b87b883ab1cf40314c993b)
 * Leave us a pointer in the comments section below.
 * [Send Stacey (@yecats131) tips on Twitter about .NET games](https://twitter.com/yecats131).
 
