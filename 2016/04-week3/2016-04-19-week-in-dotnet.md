@@ -6,7 +6,7 @@ To read last week's post, see [The week in .NET – 4/12/2016](https://blogs.msd
 On.NET
 ------
 
-Last week on the show, [we looked at what PlayFab is doing to help game developers take advantage of the cloud](https://www.youtube.com/watch?v=hDDd_Pjtbx8).
+Last week on the show, [we looked at what PlayFab is doing to help game developers take advantage of the cloud](https://www.youtube.com/watch?v=hDDd_Pjtbx8). This week, [we'll be talking](https://www.youtube.com/watch?v=7E7JyvBIGKs) with [Telerik](http://www.telerik.com/).
 
 Package of the week: NUglify
 ----------------------------
