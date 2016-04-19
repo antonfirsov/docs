@@ -18,6 +18,13 @@ var miniJs = Uglify.Js("var x = 5; var y = 6;"); // var x=5,y=6
 var miniCss = Uglify.Css("div { color: #FFFFFF; }"); // div{color:#fff}
 ```
 
+Xamarin app of the week: Cinemark
+---------------------------------
+
+Cinemark is a leading theater chain in North America, with $2.7 billion in revenue and 5,600 screens. Disappointed by the hybrid app development frameworks Appcelerator and Sencha Touch, Cinemark chose a native path with Xamarin. The result is a ticketing and loyalty app worthy of one the nation's largest movie theater companies.
+
+![Cinemark](cinemark.png)
+
 Component of the week: SharpDevelop's WPF Designer
 --------------------------------------------------
 
