@@ -6,7 +6,7 @@ To read last week's post, see [The week in .NET – 4/19/2016](https://blogs.msd
 On.NET
 ------
 
-Last week on the show, [we had Burke Holland and Sam Basu](https://www.youtube.com/watch?v=7E7JyvBIGKs) from [Telerik](http://www.telerik.com/). This week, [we'll speak with Benjamin Fistein and Jakub Míšek](https://www.youtube.com/watch?v=ZjN9kREzPMs) about [Peachpie](http://www.peachpie.io/), a PHP compiler built with Roslyn to target .NET..
+Last week on the show, [we had Burke Holland and Sam Basu](https://www.youtube.com/watch?v=7E7JyvBIGKs) from [Telerik](http://www.telerik.com/). This week, [we'll speak with Benjamin Fistein and Jakub Míšek](https://www.youtube.com/watch?v=ZjN9kREzPMs) about [Peachpie](http://www.peachpie.io/), a PHP compiler built with Roslyn to target .NET.
 
 Package of the week: Live-Charts for WinForms and WPF
 -----------------------------------------------------
@@ -97,6 +97,19 @@ ASP.NET
 * [Implementing an ASP.NET Core RC1 Logging Provider](http://wildermuth.com/2016/04/22/Implementing-an-ASP-NET-Core-RC1-Logging-Provider) by Shawn Wildermuth.
 * [How we did authorization in FubuMVC, and what I’d do differently today](https://jeremydmiller.com/2016/04/19/how-we-did-authorization-in-fubumvc-and-what-id-do-differently-today/) by Jeremy D. Miller.
 
+Games
+---
+
+* [Particle System Modules - FAQ](http://blogs.unity3d.com/2016/04/20/particle-system-modules-faq/), by Karl Jones.
+* [Game From Scratch C# tutorial in CRYENGINE V (Video)](https://www.youtube.com/watch?v=4u-_a41trHY), by James Brady. 
+
+### Game of the Week: Shiftlings
+
+[Shiftlings](https://madewith.unity.com/games/shiftlings) is a puzzle/platformer style game created by Rock Pocket Games using [Unity](http://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). Shiftlings starts out showing two adorable alien space janitors, one of whom wanders off and drinks "the fizziest drink in the universe". As a result, he promptly blows up and up like Violet in Willy Wonka. Players navigate both of the conjoined janitors, avoiding traps and fixing problems which get progressively more difficult with each level.  
+
+Shiftlings is available on Xbox One, Playstation 4, Wii U and Steam. More information can be found on their [Made With Unity](https://madewith.unity.com/games/shiftlings) page.
+
+![image](https://cloud.githubusercontent.com/assets/4108756/14821745/bdc014f4-0b80-11e6-8e02-31e0cc8b220b.png)
 
 And this is it for this week!
 
