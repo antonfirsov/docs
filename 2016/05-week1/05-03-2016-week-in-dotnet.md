@@ -25,6 +25,13 @@ dynamic data = await "http://someapi.com/api"
     .ReceiveJson();
 ```
 
+Xamarin app of the week: Sqor Sports
+------------------------------------
+
+[Sqor Sports](https://sqor.com/) is a social network where athletes can engage directly with their fans and monetize their own brands. The Sqor team is able to innovate more, release faster, and provide a white glove experience to their celebrity athletes thanks to Xamarin.
+
+![Sqor Sports](https://lh3.googleusercontent.com/6trmIm8H1s-WNUKxVZHdApgGR4yPAgCP3NrsRoXZ7UHeXBRiBX2h9mBY804yJHHRHA9G=h900-rw)
+
 User group meeting of the week: Seattle - Xamarin Evolve 2016 Redux!
 --------------------------------------------------------------------
 
@@ -69,6 +76,19 @@ F#
 * [Starting Xamarin Android Application Development with F#](http://marisks.net/2016/04/19/starting-xamarin-android-application-development-with-fsharp/), by Māris Krivtežs.
 
 Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
+
+Games
+---
+
+* [Using Singletons in Unity for Sound Management](http://huntingtongames.xyz/2016-05-01-unity-using-singletons-for-sound-management/), by Huntington Games
+
+### Game of the Week: JumpJet Rex
+
+[JumpJet Rex](http://madewith.unity.com/games/jumpjet-rex) is an action/platformer that incorporates elements of racing. Players are immediately dropped into a tutorial level that teaches them very quickly how to use their rocket boots to fly, jump, dash and attack enemies while avoiding deadly traps. Upon completing the level, players have the opportunity to try to beat their best time by competing against a ghost version of themselves running the level. JumpJet Rex has several game modes including story, multiplayer arena, co-op and speed run. 
+
+JumpJet Rex was created by [Treefortress Games](http://madewith.unity.com/profiles/treefortress-games) using [Unity](http://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is available on Mac and Windows via Steam. More information can be found on their [Made With Unity](http://madewith.unity.com/games/jumpjet-rex) page.
+
+![jumpjetrex](https://cloud.githubusercontent.com/assets/4108756/14989154/5fee52b0-110b-11e6-9a66-d50e6c1ef982.png)
 
 And this is it for this week!
 
