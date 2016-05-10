@@ -6,7 +6,7 @@ To read last week's post, see [The week in .NET – 5/3/2016](https://blogs.msdn
 On.NET
 ------
 
-This week in On .NET, [we had the pleasure to speak with Andy De George about SadConsole](https://www.youtube.com/watch?v=IvJAwKW28-w), his text-based gaming engine. This week's guest is still TBD.
+Last week in On .NET, [we had the pleasure to speak with Andy De George about SadConsole](https://www.youtube.com/watch?v=IvJAwKW28-w), his text-based gaming engine. This week's guest is still TBD.
 
 Post of the week: Stack Overflow - How we do deployment
 -------------------------------------------------------
