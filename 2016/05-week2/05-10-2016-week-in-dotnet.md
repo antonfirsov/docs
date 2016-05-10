@@ -8,12 +8,24 @@ On.NET
 
 This week in On .NET, [we had the pleasure to speak with Andy De George about SadConsole](https://www.youtube.com/watch?v=IvJAwKW28-w), his text-based gaming engine. This week's guest is still TBD.
 
-Tool of the week: Web Accessibility Checker
--------------------------------------------
+Post of the week: Stack Overflow - How we do deployment
+-------------------------------------------------------
 
-It's not always easy to keep track of the accessibility of our web sites. Wouldn't it be nice if our code could be automatically checked against accessibility standards, and if we could get error messages for violations in Visual Studio, in the error list window? Mads Kristensen's [Web Accessibility Checker](https://visualstudiogallery.msdn.microsoft.com/3aabefab-1681-4fea-8f95-6a62e2f0f1ec) does exactly that.
+This week, I want to do something exceptional for an exceptional post: extract it from the list to make sure that nobody misses it. [Nick Craver](https://nickcraver.com/), from Stack Overflow, wrote [a very detailed post on how they do deployments](https://nickcraver.com/blog/2016/05/03/stack-overflow-how-we-do-deployment-2016-edition/). There's something to learn for everyone in there, and I highly recommend you check it out and take the time to read the whole thing. It's really worth it, and absolutely outstanding.
 
-![Web Accessibility Checker](https://github.com/madskristensen/WebAccessibilityChecker/raw/master/art/error-list.png)
+[Nick was on the On .NET show about a month ago](https://www.youtube.com/watch?v=DJn8-Psznsw) to talk about performance.
+
+Tool of the week: Git Diff Margin
+---------------------------------
+
+[Git Diff Margin](https://visualstudiogallery.msdn.microsoft.com/cf49cf30-2ca6-4ea0-b7cc-6a8e0dadc1a8) displays live Git changes of the currently edited file on Visual Studio's margin and scroll bar. It also facilitates navigation between pending changes, and makes them easy to undo.
+
+![Git Diff Margin](http://i1.visualstudiogallery.msdn.s-msft.com/cf49cf30-2ca6-4ea0-b7cc-6a8e0dadc1a8/image/file/142621/1/gitdiffmargin-preview.png)
+
+Project of the Week: Intercom-dotnet
+------------------------------------
+
+[Intercom](https://www.intercom.io/) is a suite of services that web sites can use to chat with their visitors, gather feedback, and provide support. [Intercom-dotnet](https://github.com/intercom/intercom-dotnet) is a client library that gives .NET applications access to Intercom user data.
 
 Xamarin app of the week: JetBlue
 --------------------------------
@@ -30,13 +42,28 @@ Today [Tuesday, May 10, at 6:30PM](http://www.meetup.com/BayNET/events/230555378
 .NET
 ----
 
-* [xx](xx)
-  by xx.
+* [.NET Core RC2 – Improvements, Schedule, and Roadmap](https://blogs.msdn.microsoft.com/dotnet/2016/05/06/net-core-rc2-improvements-schedule-and-roadmap/) by Scott Hunter.
+* [Introducing docs.microsoft.com](http://docsmsftblog.azurewebsites.net/teamblog/introducing-docs-microsoft-com/) by Jeff Sandquist.
+* [Infographic: Who is the .NET Developer of 2016?](http://www.telerik.com/blogs/infographic-the-dotnet-developer-of-2016) by Nora Georgieva.
+* [Welcoming WiX Toolset to the .NET Foundation](http://www.dotnetfoundation.org/blog/wix-toolset-welcome) by Martin Woodward.
+* [Introduction to .NET Framework Compatibility](https://blogs.msdn.microsoft.com/dotnet/2016/05/02/introduction-to-net-framework-compatibility/) and [Tooling to Facilitate Framework Migrations](https://blogs.msdn.microsoft.com/dotnet/2016/05/05/tooling-to-facilitate-framework-migrations/) by Mike Rousos.
+* [Using Mocks or Stubs, Revisited](https://jeremydmiller.com/2016/05/05/using-mocks-or-stubs-revisited/) by Jeremy D. Miller.
+* [Diving into Visual Studio 2015: Code Analyzers](http://www.codeproject.com/Articles/1098380/Diving-into-Visual-Studio-Day-sharp-Code-Analyzers) by Akhil Mittal.
+* [Continuing with C# and Nats, now looking at NatsObservable](http://danielwertheim.se/continuing-with-c-and-nats-now-looking-at-natsobservable/) by Daniel Wertheim.
+* [Arithmetic Overflow in .NET - Some Nitty Gritties](http://www.codeproject.com/Articles/1097872/Arithmetic-Overflow-and-Underflow-in-Net-Some-knit) by Rasik Bihari Tiwari.
+* [Versioning NuGet packages in a continuous delivery world: part 1](https://blogs.msdn.microsoft.com/visualstudioalm/2016/05/03/versioning-nuget-packages-cd-1/) by Matt Cooper.
 
 ASP.NET
 -------
 
+* [Notes from the ASP.NET Community Standup – May 3, 2016 (video + transcript)](https://blogs.msdn.microsoft.com/webdev/2016/05/09/notes-from-the-asp-net-community-standup-may-3-2016/) by Jeffrey T. Fritz. In the video, Sébastien Ros makes a demo of Orchard 2 running on Ubuntu, and shows some really cool stuff with tag helpers.
+* [Deploying ASP.NET Core with Docker Swarm to Azure Container Service](http://anthonychu.ca/post/aspnet-core-azure-container-service/) by Anthony Chu.
+* [Working with Developer Pages (video)](https://channel9.msdn.com/Series/aspnetmonsters/Episode-29-Working-with-Developer-Pages) by the ASP.NET Monsters.
 * [ASP.NET Core: Factory Pattern Dependency Injection](http://dotnetliberty.com/index.php/2016/05/09/asp-net-core-factory-pattern-dependency-injection/) by Armen Shimoon.
+* [Build an ASP.NET Core Application With User Authentication](https://stormpath.com/blog/asp-net-core-authentication) by Nate Barbettini.
+* [How to Web with ASP.NET](http://developer.telerik.com/featured/how-to-web-asp-net/) by Jeremy Likness.
+* [Tag Helpers in ASP.Net Core (video)](https://channel9.msdn.com/Shows/Web-Hack-Wednesday/Tag-Helpers-in-ASPNet-Core) by Martin Beeby and Martin Kearn.
+* [WebForms can Gulp too](https://blogs.msdn.microsoft.com/webdev/2016/04/29/webforms-can-gulp-too-using-node-tools-with-asp-net-webforms/), [Where did my bundles go in ASP.NET Core? (video)](http://www.jeffreyfritz.com/2016/04/fritzs-10-minute-tips-where-did-my-bundles-go-in-asp-net-core/), and [npm and Gulp part 2 (video)](http://www.jeffreyfritz.com/2016/05/fritzs-10-minute-tips-npm-and-gulp-part-2/) by Jeffrey T. Fritz.
 
 F#
 --
@@ -61,7 +88,7 @@ Did you make or play a great game built on .NET?
 We'd love to hear from you, and feature your contributions on future posts:
 
 * Send an email to beleroy at Microsoft,
-* [comment on this gist](xx)
+* [comment on this gist](https://gist.github.com/bleroy/576de95be0b59cc722652b38ca356edd)
 * Leave us a pointer in the comments section below.
 * [Send Stacey (@yecats131) tips on Twitter about .NET games](https://twitter.com/yecats131).
 
