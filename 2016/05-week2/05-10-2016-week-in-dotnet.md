@@ -34,6 +34,15 @@ JetBlue turned to eGate Solutions and Xamarin to move to iOS and Android from sp
 
 ![JetBlue](http://www.jetblue.com/img/mobile/iPhone_6_Vert.png)
 
+Game of the Week: Endless Legend
+--------------------------------
+
+[Endless Legend](http://madewith.unity.com/games/endless-legend) is a beautiful [4X](https://en.wikipedia.org/wiki/4X) turn-based strategy/RPG style game where players control one of eight factions (eleven with DLC). Each of the factions brings unique gameplay style and storyline. Additionally, each time a game is started the world and quests are randomly generated, giving players the feel of always conquring a new world. When loading the map for Endless Legend, the first thing that you'll notice is how beautiful the world is. (I admit, I zoomed in and out several times to watch the map changing effect). Expand, explore, exploit and exterminate to ensure your survival while at the same time juggling the seasonal influence to your civilization. Endless Legend can be a bit trying to learn at first, but once you get the hang of it the game is an absolute blast to play! 
+
+Endless Legend was created by [Amplitude Studios](http://madewith.unity.com/profiles/amplitude-studios) using [Unity](http://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is available on Mac and Windows via Steam. More information can be found on their [Made With Unity](http://madewith.unity.com/games/endless-legend) page.
+
+![endlesslegend](https://cloud.githubusercontent.com/assets/4108756/15151120/bd2efd5c-1684-11e6-8b44-95f4d4a809f0.jpg)
+
 User group meeting of the week: Building Microservices Based Apps on Azure
 --------------------------------------------------------------------------
 
@@ -74,6 +83,12 @@ F#
 * [Let's Make a Bayesian Deal](http://jackfoxy.com/lets-make-a-bayesian-deal/), by Jack Fox
 
 Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
+
+Games
+---
+
+* [C# tutorial in CRYENGINE V - adding Collectables (video)](https://www.youtube.com/watch?v=UATgHGheacA), [Game From Scratch C# tutorial in CRYENGINE V (video)](https://www.youtube.com/watch?v=4u-_a41trHY), and [A 3D maze using C# in CRYENGINE V (video)](https://www.youtube.com/watch?v=Cf1FPbAhcPE), by James Brady.
+* [Build A Unity Game Part 1 (video)](https://channel9.msdn.com/Shows/Visual-Studio-Toolbox/Build-A-Unity-Game-Part-1), by Stacey Haffner.
 
 And this is it for this week!
 
