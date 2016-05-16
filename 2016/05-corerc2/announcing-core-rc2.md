@@ -14,7 +14,7 @@ You can use .NET Core RC2 with a variety of editors and IDEs:
 Coming soon:
 
 - Deploy .NET Core RC2 apps to Azure Websites
-- Acquire .NET Core RC2 with RedHat Enterprise Linux Software Collections
+- Acquire .NET Core RC2 with RedHat Enterprise Linux yum installer
 
 We've been working directly with a number of customers who are hosting RC1 in production today, on Windows and Linux. Thanks for taking a bet on RC1! Some of those customers have already moved to RC2, also in production. We appreciate all the feedback we've received since we released RC1. Please continue that feedback with the RC2 release.
 
@@ -44,7 +44,7 @@ We've been adding support for a growing number of operating systems. We started 
 - Windows 7+ / Server 2012 R2+
 - Windows Nano Server TP5
 
-.NET Core RC2 will soon be showing up in the Red Hat Enterprise Linux software collection. You can install it with yum, following these instructions.
+.NET Core RC2 will soon be showing up in the Red Hat Enterprise Linux software collection. You will be able to install it with yum, following instructions which will soon be posted to the [redhatloves.net](http://redhatloves.net) site.
 
 Ubuntu was the first distro that we supported. We heard feedback that it made more sense to start with Debian, given that it is the parent of Ubuntu and many more distros. More recently, we added support for Debian, enabling .NET Core to be used in a larger set of Debian-based distros. 
 
@@ -97,6 +97,8 @@ dotnet run bin/Debug/netcoreapp1.0/test-app.dll
 ```
 
 The tools also enable producing NuGet packages, Unit testing and other scenarios. You can learn more in the [.NET Core docs](http://dotnet.github.io/docs/core-concepts/core-sdk/index.html).
+
+For Unit testing with xUnit, see the [Getting started with xUnit (.NET Core / ASP.NET Core)](http://xunit.github.io/docs/getting-started-dotnet-core.html) page.
 
 Comparison to DNX
 -----------------
@@ -208,4 +210,47 @@ Runtime Configuration
 .NET Core supports a new way of specifying [runtime configuration](https://github.com/dotnet/cli/blob/rel/1.0.0/Documentation/specs/runtime-configuration-file.md). This is conceptually similar to the app.config files that are used with .NET Framework apps.
 
 The runtime configuration files store the dependencies of an application (formerly stored in the .deps file). They also include runtime configuration options, such as the Garbage Collector mode. Optionally they can also include data for runtime compilation (compilation settings used to compile the original application, and reference assemblies used by the application).
+
+NuGet Package References
+========================
+
+.NET Core is a platform of packages. You can see how these packages are referenced in a set of simple [.NET Core samples](https://github.com/dotnet/core/tree/master/samples) that we have published.
+
+Most of the time, you will reference the `Microsoft.NETCore.App` package. This package represents the same set of libraries that are shipped with with the various .NET Core installers. The .NET Core tools understand this reference and can use the locally installed copy of .NET Core instead of relying on the versions from NuGet. The NuGet packages are used for compilation, however.
+
+You will also add references to other NuGet packages, for example to ASP.NET Core packages.
+
+.NET Core Tools Telemetry
+=========================
+
+The .NET Core tools include a new [telemetry feature](https://github.com/dotnet/cli/pull/2145) so that we can collect usage information about the .NET Core Tools. It's important that we understand how the tools are being used so that we can improve them. Part of the reason the tools are in Preview is that we don't have enough information on the way that they will be used. The telemetry is only in the tools and does not affect your app.
+
+Behavior
+--------
+
+The telemetry feature is on by default. The data collected will be anonymous in nature and published in an aggregated form for use by both Microsoft and community engineers under a Creative Commons license. 
+
+You can opt-out of the telemetry feature by setting an environment variable DOTNET_CLI_TELEMETRY_OPTOUT (e.g. `export` on OS X/Linux, `set` on Windows) to true (e.g. "true", 1). Doing this will stop the collection process from running.
+
+Data Points
+-----------
+
+The feature collects the following pieces of data:
+
+- The command being used (e.g. "build", "restore")
+- ExitCode of the command
+- For test projects, the test runner being used
+- Timestamp of invocation
+- Framework used
+- If RIDs are present in the "runtimes" node
+- The CLI version being used
+
+The feature will not collect any personal data, such as usernames or emails or anything that can be used to identify the actual user. It will not scan your code and not extract any project-level data that can be considered sensitive, such as name, repo or author (if you set those in your project.json). We want to know how the tools are used, not what you are using the tools to build. If you find sensitive data being collected, that's a bug. Please [file an issue](https://github.com/dotnet/cli/issues) and it will be fixed.
+
+EULA
+----
+
+We use the [MICROSOFT .NET LIBRARY EULA](http://go.microsoft.com/fwlink/?LinkId=329770) for the .NET Core Tools, which we also use for all .NET NuGet packages. We recently added a "DATA" section re-printed below, to enable telemetry from the tools. We want to stay with one EULA for .NET Core and only intend to collect data from the tools, not the runtime or libraries.
+
+> DATA. The software may collect information about you and your use of the software, and send that to Microsoft. Microsoft may use this information to improve our products and services. You can learn more about data collection and use in the help documentation and the privacy statement at http://go.microsoft.com/fwlink/?LinkId=528096. Your use of the software operates as your consent to these practices.
 
