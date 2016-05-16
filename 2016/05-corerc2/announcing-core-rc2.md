@@ -8,7 +8,7 @@ You can [install .NET Core 1.0 RC2](http://dot.net/core) now, on Windows, OS X a
 You can use .NET Core RC2 with a variety of editors and IDEs:
 
 - In [Visual Studio 2015 Update 2](https://www.visualstudio.com/products/visual-studio-community-vs)
-- In [Visual Studio Code](https://www.visualstudio.com/products/code-vs) with the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
+- In [Visual Studio Code](https://www.visualstudio.com/products/code-vs) with the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp), now with debugging!
 - Eventually, in your favorite [Omnisharp-enabled editor](http://www.omnisharp.net/)
 
 Coming soon:
