@@ -1,7 +1,7 @@
 Announcing .NET Core RC2
 ========================
 
-Today, we are announcing the release of .NET Core RC2. You can use it to build ASP.NET Core and console apps for Windows, OS X and Linux. RC2 is a major update from the November [RC1 release](https://blogs.msdn.microsoft.com/dotnet/2015/11/18/announcing-net-core-and-asp-net-5-rc/), including new APIs, performance and reliability improvements and a new set of tools.
+Today, we are announcing the release of .NET Core RC2. You can use it to build ASP.NET Core, console apps and class libraries for Windows, OS X and Linux. RC2 is a major update from the November [RC1 release](https://blogs.msdn.microsoft.com/dotnet/2015/11/18/announcing-net-core-and-asp-net-5-rc/), including new APIs, performance and reliability improvements and a new set of tools.
 
 You can [install .NET Core 1.0 RC2](http://dot.net/core) now, on Windows, OS X and Linux. You can also use it with [Docker](https://hub.docker.com/r/microsoft/dotnet/). 
 
@@ -27,7 +27,7 @@ There are multiple releases today:
 - [ASP.NET Core RC2](https://blogs.msdn.microsoft.com/webdev/)
 - .NET Core SDK Preview 1
 
-We made major changes to the .NET Core SDK, formally called DNX, since RC1. The change was significant enough and not complete at RC2 that we opted to call that part of the release "Preview". That may sound like a concern, however, the SDK is typically only used at development time, not in production. 
+We made major changes to the .NET Core SDK, formerly called DNX, since RC1. The change was significant enough and not complete at RC2 that we opted to call that part of the release "Preview". That may sound like a concern, however, the SDK is typically only used at development time, not in production. 
 
 .NET Core and ASP.NET Core have improved significantly since RC1. We've added features and improved performance and reliability. RC1 was "Go Live" and so is RC2. "Go Live" means you can call Microsoft Support for help with issues.
 
