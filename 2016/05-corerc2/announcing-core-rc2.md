@@ -1,5 +1,5 @@
-Announcing .NET Core RC2
-========================
+Announcing .NET Core RC2 and .NET Core SDK Preview 1
+====================================================
 
 Today, we are announcing the release of .NET Core RC2. You can use it to build ASP.NET Core, console apps and class libraries for Windows, OS X and Linux. RC2 is a major update from the November [RC1 release](https://blogs.msdn.microsoft.com/dotnet/2015/11/18/announcing-net-core-and-asp-net-5-rc/), including new APIs, performance and reliability improvements and a new set of tools.
 
@@ -31,6 +31,8 @@ We made major changes to the .NET Core SDK, formerly called DNX, since RC1. The 
 
 .NET Core and ASP.NET Core have improved significantly since RC1. We've added features and improved performance and reliability. RC1 was "Go Live" and so is RC2. "Go Live" means you can call Microsoft Support for help with issues.
 
+Note that the .NET Core SDK includes a new telemetry feature. See the end of the post for more information on .NET Core Tools data collection.
+
 Platform Support
 ================
 
@@ -55,7 +57,7 @@ We intend .NET Core to be an open and flexible development platform. We'll publi
 
 You typically start .NET Core development by installing the .NET Core SDK. The SDK includes enough software to build an app. The SDK gives you both the .NET Core Tools and a copy of .NET Core. As new versions of .NET Core are made available, you can download and install them, without needing to get a new version of the tools. 
 
-Apps specify their dependence on a particular .NET Core version via the project.json project file. The tools help you acquire and use that .NET Core version. You can switch between multiple apps on your machine in Visual Studio, Visual Studio Code or at a command prompt and the .NET Core tools will always pick the right version of .NET Core to use.
+Apps specify their dependence on a particular .NET Core version via the project.json project file. The tools help you acquire and use that .NET Core version. You can switch between multiple apps on your machine in Visual Studio, Visual Studio Code or at a command prompt and the .NET Core tools will always pick the right version of .NET Core to use within the context of each app.
 
 You can also have multiple versions of the .NET Core tools on your machine, too, which can be important for continuous integration and other scenarios. Most of the time, you will just have one copy of the tools, since doing so provides a simpler experience.
 
@@ -64,7 +66,7 @@ The `dotnet` Tool
 
 Your .NET Core experience will start with the `dotnet` tool. It exposes a set of commands for  common operations, including restoring packages, building your project and unit testing. It also includes a command to create an empty new project to make it easy to get started.
 
-There are many tools that come with the .NET Core Tools, to enable important development scenarios. You won't see most of them since they all expose themselves through the `dotnet` tool. `dotnet` has a very simple extension model, so it's also easy to add more commands as needed.
+There are many tools that come with the .NET Core Tools, to enable important development scenarios. You won't see most of them since they all expose themselves through the `dotnet` tool. `dotnet` has a very [simple extensibilty model](http://dotnet.github.io/docs/core-concepts/core-sdk/cli/extensibility.html), so it's also easy to add more commands as needed.
 
 The following list provides a partial list of the [commands](http://dotnet.github.io/docs/core-concepts/core-sdk/index.html).
 
@@ -75,6 +77,8 @@ The following list provides a partial list of the [commands](http://dotnet.githu
 - `dotnet run` - Runs the application from source.
 - `dotnet test` - Runs tests using a test runner specified in the project.json.
 - `dotnet pack` - Create a NuGet package of your code.
+
+`dotnet new` also supports F#. You can type `dotnet new --lang F#` to create a new F# app. The .NET Core Tools will download F# tools as part of `dotnet restore`. VB is not yet supported.
 
 Development Workflow
 --------------------
@@ -111,7 +115,7 @@ We learned a lot from our experience building [DNX](https://blogs.msdn.microsoft
 
 The tools part of DNX lines up best with the .NET Core Tools that are part of today's release.
 
-DNX was great if you wanted all three of those things, but could be a problem if you only wanted one or two of them. This problem become obvious to us as we experimented with the [corert](https://github.com/dotnet/corert) native compilation project, which required a different set of tools than DNX provided.
+DNX was great if you wanted all three of those things, but could be a problem if you only wanted one or two of them. This problem became obvious to us as we experimented with the [corert](https://github.com/dotnet/corert) native compilation project, which required a different set of tools than DNX provided.
 
 DNX also relied on environment variables to set an "in use" version. That made it hard to use multiple .NET Core apps from the same command prompt.
 
@@ -119,8 +123,8 @@ Those challenges provided us with a set of issues to resolve as we started our .
 
 The `dotnet` tool replaces the `dnx` and `dnu` tools that came with RC1. The `dnvm` tool doesn't have a replacement yet. That's something that might come in a later release.
 
-.NET Core Apps 
-==============
+.NET Core App Types
+===================
 
 We've talked to many customers about how they want to deploy apps. We heard two main models:
 
@@ -132,14 +136,14 @@ Both of these [app deployment models](http://dotnet.github.io/docs/core-concepts
 Portable Apps
 -------------
 
-Portable applications are the default type in .NET Core. They require .NET Core to be installed on the targeted machine in order for them to run. This means that your application is portable between installations of .NET Core, including on multiple OSes.
+Portable applications are the default application type in .NET Core. They require .NET Core to be installed on the targeted machine in order for them to run. This means that your application is portable between installations of .NET Core, including on multiple OSes.
 
 This type of application will only carry its own code and dependencies that are outside of .NET Core libraries. As long as .NET Core is installed on a given machine, the app will typically work. You do not need to decide upfront which OSes your app will run on.
 
 Self-contained Apps
 -------------------
 
-Self-contained applications contain all of their app dependencies, including the .NET Core runtime, as the application. This makes the app larger, but also makes it capable of running on any .NET Core supported platforms with the correct native dependencies, whether it has .NET Core installed or not. This makes it that much easier to deploy to the target machine, since you only deploy your application.
+Self-contained applications contain all of their app dependencies, including the .NET Core runtime, as part of the application. This makes the app larger, but also makes it capable of running on any .NET Core supported platforms with the correct native dependencies, whether it has .NET Core installed or not. This makes it that much easier to deploy to the target machine, since you only deploy your application.
 
 Since the application carries the runtime, you need to make an explicit choice which platforms your application needs to run on. For instance, if you publish a self-contained application for Windows 10, that same application will not work on OS X or Linux and vice versa. Of course, you can add or remove platforms during development at any given time.
 
@@ -160,7 +164,7 @@ We added APIs to the following existing clases:
 - System.Runtime.InteropServices
 - System.Runtime.InteropServices.RuntimeInformation
 - System.Security.Cryptography
-	- Aes, HMACMD5, HMACSHA1, HMACSHA256, HMACSHA384, HMACSHA512, RSA, RSACryptoServiceProvider
+	- Includes: Aes, HMACMD5, HMACSHA1, HMACSHA256, HMACSHA384, HMACSHA512, RSA, RSACryptoServiceProvider
 - System.Security.Principal
 - System.Security.WindowsPrincipal
 - System.ServiceModel (related to HTTPS)
@@ -216,9 +220,24 @@ NuGet Package References
 
 .NET Core is a platform of packages. You can see how these packages are referenced in a set of simple [.NET Core samples](https://github.com/dotnet/core/tree/master/samples) that we have published.
 
+Microsoft .NET Core
+-------------------
+
 Most of the time, you will reference the `Microsoft.NETCore.App` package. This package represents the same set of libraries that are shipped with with the various .NET Core installers. The .NET Core tools understand this reference and can use the locally installed copy of .NET Core instead of relying on the versions from NuGet. The NuGet packages are used for compilation, however.
 
 You will also add references to other NuGet packages, for example to ASP.NET Core packages.
+
+.NET Standard Library
+---------------------
+
+The .NET Standard Library represents the APIs available in all .NET implementations, at least those that support it. The .NET Framework, .NET Core and Mono/Xamarin will or already do support the .NET Standard Library. The .NET Standard Library can be thought of as the next version of Portable Class Libraries, but that the set of APIs available and the way you create the libraries is much different.
+
+The set of APIs exposed by the .NET Standard Library is currently smaller than we intend. In the next few releases, we intend the expand this set of libraries considerably, to provide much more compatibility with the .NET Framework. We'll publish more on this plan soon.
+
+The .NET Standard versions. Each new version includes more APIs and provides support for later .NET platform versions, such as .NET Framework 4.6. As a library implementor, you target a particular .NET Standard version, to get the right combination of APIs and platform support.
+
+You can create .NET Standard libraries of your own by referencing the `NETStandard.Library` package. It references all of the packages that are part of the .NET Standard Library. You also specify a .NET Standard target framework version so that you compile your library against the right .NET Standard version. You can package up your library with `dotnet pack` and deploy the NuGet package to NuGet.org or another NuGet server.
+
 
 .NET Core Tools Telemetry
 =========================
@@ -254,3 +273,11 @@ We use the [MICROSOFT .NET LIBRARY EULA](http://go.microsoft.com/fwlink/?LinkId=
 
 > DATA. The software may collect information about you and your use of the software, and send that to Microsoft. Microsoft may use this information to improve our products and services. You can learn more about data collection and use in the help documentation and the privacy statement at http://go.microsoft.com/fwlink/?LinkId=528096. Your use of the software operates as your consent to these practices.
 
+Closing
+=======
+
+We're excited to be releasing .NET Core 1.0 RC2, .NET Core SDK 1.0 Preview 1 and [ASP.NET Core 1.0 RC2](https://blogs.msdn.microsoft.com/webdev/). We hope that you enjoy using these releases.
+
+Please give us feedback on the releases. We'll be watching for feedback through GitHub issues and other feedback forums. The best place to start is the [Core repo](https://github.com/dotnet/core). You can file an issue there. Do file an issue on one of the more specific .NET Core repos if you are familiar with them: [coreclr](https://github.com/dotnet/coreclr), [corefx](https://github.com/dotnet/corefx) and [cli](https://github.com/dotnet/cli).
+
+Thanks for your trying out .NET Core RC2!
