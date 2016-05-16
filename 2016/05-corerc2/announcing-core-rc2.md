@@ -34,7 +34,7 @@ We made major changes to the .NET Core SDK, formerly called DNX, since RC1. The 
 Platform Support
 ================
 
-We've been adding support for a growing number of operating systems. We started out the project with a plan to support .NET Core on Windows, OS X and a vague definition of "Linux". Close watchers of the [coreclr](https://github.com/dotnet/coreclr#build-status) and [corefx](https://github.com/dotnet/corefx#build--test-status) projects will have noticed that the platform support has been growing steadily. .NET Core RC2 is supported on the following platforms.
+We've been adding support for a growing number of operating systems. We started out the project with a plan to support .NET Core on Windows, OS X and Linux. Close watchers of the [coreclr](https://github.com/dotnet/coreclr#build-status) and [corefx](https://github.com/dotnet/corefx#build--test-status) projects will have noticed that the platform support has been growing steadily. .NET Core RC2 is supported on the following platforms.
 
 - Red Hat Enterprise Linux 7.2
 - Centos 7.1
