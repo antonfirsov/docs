@@ -5,7 +5,7 @@ Continuing our efforts to make our documentation more flexible and open, we are 
 ##What changed?
 Here is a list of things that changed that you should be aware of. While we are still working on improving and adding features, these are live today.
 ###Friendly URLs
-Forget about the ugly MSDN shortlinks. Instead you are now able to see friendly URLs that clearly indicate what page you are linking to. This is something that we will be transitioning to long-term for all MSDN docs. Wotrh mentioning that none of the old links to F# documents are borken - we worked on setting up graceful redirection, so any references you might have to the old doc pages will automatically point to the new pages with zero effort on your side.
+Forget about the ugly MSDN shortlinks. Instead you are now able to see friendly URLs that clearly indicate what page you are linking to. This is something that we will be transitioning to long-term for all MSDN docs. Worth mentioning that none of the old links to F# documents are broken - we worked on setting up graceful redirection, so any references you might have to the old doc pages will automatically point to the new pages with zero effort on your side.
 
 ![MSDN Friendly URLs](friendly-urls.png)
 
