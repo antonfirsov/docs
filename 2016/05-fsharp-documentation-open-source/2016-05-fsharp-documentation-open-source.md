@@ -5,7 +5,7 @@ Continuing our efforts to make our documentation more flexible and open, we are 
 ##What changed?
 Here is a list of things that changed that you should be aware of. While we are still working on improving and adding features, these are live today.
 ###Friendly URLs
-Forget about the ugly MSDN shortlinks. Instead you are now able to see friendly URLs that clearly indicate what page you are linking to.
+Forget about the ugly MSDN shortlinks. Instead you are now able to see friendly URLs that clearly indicate what page you are linking to. This is something that we will be transitioning to long-term for all MSDN docs.
 
 ![MSDN Friendly URLs](friendly-urls.png)
 
