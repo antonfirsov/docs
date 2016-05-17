@@ -132,7 +132,7 @@ We'd love to hear from you, and feature your contributions on future posts:
 
 This week's post (and future posts) also contains news I first read on
 [The ASP.NET Community Standup](https://blogs.msdn.microsoft.com/webdev/tag/communitystandup/),
-on [WeeklyXamarin](http://weeklyxamarin.com/),
+on [Weekly Xamarin](http://weeklyxamarin.com/),
 on [F# weekly](https://sergeytihon.wordpress.com/category/f-weekly/),
 on [ASP.NET Weekly](http://www.aspnetweekly.com/),
 and on [Chris Alcock's The Morning Brew](http://themorningbrew.net/).
