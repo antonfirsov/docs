@@ -6,15 +6,19 @@ To read last week's post, see [The week in .NET – 5/10/2016](https://blogs.msd
 We shipped!
 -----------
 
-Yesterday, [we released .NET Core RC2 and the preview 1 of the associated SDK](https://blogs.msdn.microsoft.com/dotnet/2016/05/16/announcing-net-core-rc2/). [We also released Entity Framework Core RC2](https://blogs.msdn.microsoft.com/dotnet/2016/05/16/announcing-entity-framework-core-rc2/).
+Yesterday, we released [ASP.NET Core RC2](https://blogs.msdn.microsoft.com/webdev/2016/05/16/announcing-asp-net-core-rc2/), [.NET Core RC2, and the preview 1 of the associated SDK](https://blogs.msdn.microsoft.com/dotnet/2016/05/16/announcing-net-core-rc2/). [We also released Entity Framework Core RC2](https://blogs.msdn.microsoft.com/dotnet/2016/05/16/announcing-entity-framework-core-rc2/).
 * [.NET Core RC2 SDK Preview 1 download](https://www.microsoft.com/net/core)
 * [.NET Core RC2 Announcement](https://blogs.msdn.microsoft.com/dotnet/2016/05/16/announcing-net-core-rc2/)
+* [ASP.NET Core RC2 Announcement](https://blogs.msdn.microsoft.com/webdev/2016/05/16/announcing-asp-net-core-rc2/) 
 * [Release notes](https://github.com/dotnet/core/blob/master/release-notes/Release-Notes-RC2.md)
 
 On.NET
 ------
 
+Last week on the show, we talked about what we are shipping today:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/N9MteJH-HsQ" frameborder="0" allowfullscreen></iframe>
 
+This week, our very first guest on the show, [Miguel de Icaza, is coming back](https://www.youtube.com/watch?v=dz-O3vcSq_U).
 
 Package of the week: xx
 ----------------------------------
