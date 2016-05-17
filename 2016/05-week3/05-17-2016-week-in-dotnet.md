@@ -7,6 +7,7 @@ We shipped!
 -----------
 
 Yesterday, we released [ASP.NET Core RC2](https://blogs.msdn.microsoft.com/webdev/2016/05/16/announcing-asp-net-core-rc2/), [.NET Core RC2, and the preview 1 of the associated SDK](https://blogs.msdn.microsoft.com/dotnet/2016/05/16/announcing-net-core-rc2/). [We also released Entity Framework Core RC2](https://blogs.msdn.microsoft.com/dotnet/2016/05/16/announcing-entity-framework-core-rc2/).
+
 * [.NET Core RC2 SDK Preview 1 download](https://www.microsoft.com/net/core)
 * [.NET Core RC2 Announcement](https://blogs.msdn.microsoft.com/dotnet/2016/05/16/announcing-net-core-rc2/)
 * [ASP.NET Core RC2 Announcement](https://blogs.msdn.microsoft.com/webdev/2016/05/16/announcing-asp-net-core-rc2/) 
@@ -44,6 +45,8 @@ Game of the Week: Dex
 *Disclaimer: Dex has a Mature 17+ ESRB rating.*
 
 [Dex](http://madewith.unity.com/games/dex-1) is a tip of the hat towards 2D pixelated style graphics, but with a modern feel. It is a side scrolling action/RPG game with beautiful graphics and engaging dialog. In fact, the style of the cut scenes reminded me of reading a comic book and fit perfectly with the overall game!
+
+![Dex](dex.PNG)
 
 Players are dropped into the cyberpunk city of Harbor Prime and allowed to roam around exploring and completing missions. As players level, they are given the opportunity to align their character with the play style that suits them. For example, when encountering an enemy you have the choice of silently taking them out or going in guns blazing (literally). Dex also incorporates the ability to hack the world by transferring your consciousness to defensive electronics such as turrets and enemies with implants.
 
