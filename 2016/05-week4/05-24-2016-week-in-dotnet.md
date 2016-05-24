@@ -46,6 +46,15 @@ Delivery drivers for [Spain’s leading international transport company MRW](htt
 
 ![MRW](MRW.png)
 
+Game of the Week: Crashing Season
+---------------------------------
+
+[Crashing Season](http://madewith.unity.com/games/crashing-season) is an action/arcade mobile game that blends cartoony low-poly graphics with fun and engaging game play. In Crashing Season, players will control up to 15 different silly animals and use their unique skill as well as the environment to fight waves of enemies. The goal of each level is to complete a series of challenges in order to progress. Players will also be able to earn extra rewards by challenging their friends in multiplayer game play.
+
+Crashing Season was created by [Koukoi Games](http://madewith.unity.com/profiles/koukoi-games) using [Unity](http://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It will be available on May 26th on iOS and Android! More information can be found on their [Made With Unity](http://madewith.unity.com/games/crashing-season) page.
+
+![crashingseason](https://cloud.githubusercontent.com/assets/4108756/15509662/1ed82a1a-2189-11e6-9f58-da01c16813fb.PNG)
+
 User group meeting of the week: Introduction to F# with Nikhil Bartwhal
 -----------------------------------------------------------------------
 
@@ -95,6 +104,14 @@ Xamarin
 * [The many flavors of HttpClient](http://kerry.lothrop.de/httpclient-flavors/) by Kerry W. Lothrop.
 * [Embedding Native Controls into Xamarin.Forms](https://blog.xamarin.com/embedding-native-controls-into-xamarin-forms/) by James Montemagno.
 * [Xamarin.Forms Workbooks](http://conceptdev.blogspot.com.au/2016/05/xamarinforms-workbooks.html), and [Xamarin Workbooks with Nugets](http://conceptdev.blogspot.com.au/2016/05/xamarin-workbooks-with-nugets.html) by Craig Dunn.
+
+Games
+-----
+
+* [CRYENGINE 5.1 is here](https://www.cryengine.com/news/cryengine-51-is-here)
+* [Unity Development with VS Code](https://code.visualstudio.com/Docs/runtimes/unity)
+* [Build A Unity Game Part 3 - Video](https://channel9.msdn.com/Shows/Visual-Studio-Toolbox/Build-A-Unity-Game-Part-3), by Stacey Haffner.
+* [(Unity 5) Let's Make Rust! [Episode 01 - Introduction] - Video](https://www.youtube.com/watch?v=-q_daB1aN8w), by Gabe Kutuzov.
 
 And this is it for this week!
 
