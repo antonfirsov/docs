@@ -91,13 +91,6 @@ The promise of making it easier to bring existing code extends to libraries and
 NuGet packages. Obviously this includes portable class libraries, regardless of
 whether they used `mscorlib` or `System.Runtime`.
 
-It is worth pointing out that we look at the convergence from the perspective of
-a Mono/Xamarin developer, i.e. we focus on APIs that Mono has implemented that
-we don’t have in .NET Core yet. The set of APIs in the .NET Framework is much
-larger; we’re looking at Mono because it provides a starting point for what our
-ecosystem needs outside of the Windows desktop scenarios. Of course, we can add
-even more APIs later.
-
 Here are a few examples of the additions that will make your life easier when
 targeting to .NET Core:
 
