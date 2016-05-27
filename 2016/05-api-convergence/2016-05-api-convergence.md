@@ -1,4 +1,4 @@
-# Making .NET Core easier to port to
+# Making it easier to port to .NET Core
 
 In my last post, I [talked about porting to .NET Core][porting-to-core] and
 requested feedback from our community on what their experience was and what we
@@ -17,10 +17,10 @@ happen, and what this means for existing .NET Core customers.
 ## Reflecting on .NET Core
 
 The [.NET Core platform][net-core] evolved from a desire to create a modern,
-modular, and app-local .NET stack. The business goals that drove its creation
-were focused on providing a stack for brand new application types (such as
-touch-based UWP apps) or modern cross-platform applications (such as ASP.NET
-Core web sites and services).
+modular, app-local, and cross-platform .NET stack. The business goals that drove
+its creation were focused on providing a stack for brand new application types
+(such as touch-based UWP apps) or modern cross-platform applications (such as
+ASP.NET Core web sites and services).
 
 We are about to ship .NET Core 1.0 and we have succeeded in creating a powerful
 and cross platform development stack. .NET Core 1.0 is the beginning of a
@@ -79,8 +79,9 @@ This is how we want to realize this promise: we will provide the source and
 binary compatibility for application that target the core Base Class Libraries
 (BCL) across all platforms with the same behavior across platforms. The Base
 Class Libraries are those that existed in `mscorlib`, `System`, `System.Core`,
-`System.Data`, `System.Xml` and that are not tied to a particular application
-model and are not tied to a particular operating system implementation.
+`System.Data`, and `System.Xml` and that are not tied to a particular
+application model and are not tied to a particular operating system
+implementation.
 
 Whether you target .NET Core 1.0 surface (`System.Runtime`-based surface), or
 the upcoming version of .NET Core with the expanded API (`mscorlib`-based
@@ -102,8 +103,9 @@ targeting to .NET Core:
 
 * Reflection will become the same as the .NET Framework, no need for `GetTypeInfo()`,
   good old `.GetType()` is back.
-* Types will no loner miss members we've removed for clean up reasons (`Clone()`,
+* Types will no longer miss members we've removed for clean up reasons (`Clone()`,
   `Close()` vs `Dispose()`, old APM APIs)
+* Binary serialization (`BinaryFormatter`) will be available again
 
 A full list of the planned additions will be made available in our [corefx]
 GitHub repo.
@@ -137,11 +139,11 @@ Core 1.0 RTM. This way, those of you that have been following along .NET Core
 will be able to deploy to production.
 
 You can expect to see more details and plans over the next couple of weeks
-published in our [corefx] GitHub repository. One of first thing we will do is to
-publish a set of API refs that list which APIs we're planning to bring. So when
-porting code you will be able to tell whether you want to jump to .NET Core 1.0
-or wait for the new APIs to come. We'll also call out which APIs we don't plan
-on bringing. Our desire is to provide a dashboard for our users to check on
+published in our [corefx] GitHub repository. One of the first things we will do
+is to publish a set of API refs that list which APIs we're planning to bring. So
+when porting code you will be able to tell whether you want to jump to .NET Core
+1.0 or wait for the new APIs to come. We'll also call out which APIs we don't
+plan on bringing. Our desire is to provide a dashboard for our users to check on
 the project status and goals.
 
 This will be an improvement over the process that we followed in the lead up to
@@ -153,8 +155,8 @@ that extends the set of available APIs. This way, you will not have to wait
 until all the API additions are done in order to take advantage of them. This
 also allows us to incorporate your feedback on behavioral compatibility.
 
-Over the next weeks we publish more details in the [corefx] repo. You can expect
-this blog to communicate the status and all major decisions.
+Over the next weeks we will publish more details in the [corefx] repo. You can
+expect this blog to communicate the status and all major decisions.
 
 Stay tuned for more details!
 
