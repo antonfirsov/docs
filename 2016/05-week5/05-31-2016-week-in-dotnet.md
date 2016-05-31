@@ -3,6 +3,21 @@ The week in .NET - 5/31/2016
 
 To read last week's post, see [The week in .NET – 5/24/2016](https://blogs.msdn.microsoft.com/dotnet/2016/05/24/the-week-in-net-5242016/).
 
+DotNetConf 7-9 June
+-------------------
+
+Are you ready to rediscover .NET? Well, dotnetConf is back!
+
+![DotNetConf](DotNetConf.PNG)
+
+Immerse yourself in the world of .NET and join our live stream for 3 days of free online content June 7 - 9 featuring speakers from the .NET Community and Microsoft product teams. Watch and ask questions after each session for a live Q&A. The live stream will be broadcasted on [Channel9](http://channel9.msdn.com/). 
+
+There's never been a better time to be a .NET developer. Learn to develop for web, mobile, desktop, games, services, libraries and more for a variety of platforms and devices all with .NET! We'll have presentations on .NET Core and ASP.NET Core, C#, F#, Roslyn, Visual Studio, Xamarin, and much more. Take a look at our lineup of great [speakers and sessions](https://channel9.msdn.com/Events/dotnetConf/2016). We'll have keynotes from Miguel de Icaza, Scott Hunter, and Scott Hanselman and a lot of great content from our community.
+
+For more information, check out [our website](http://www.dotnetconf.net/) and stay tuned to [#dotnetconf](https://twitter.com/search?q=%23dotNetConf) & [@dotnet](https://twitter.com/dotnet) on Twitter. 
+
+See you on the live stream! 
+
 On.NET
 ------
 
