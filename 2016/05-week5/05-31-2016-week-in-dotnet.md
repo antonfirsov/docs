@@ -75,6 +75,7 @@ Don't miss [Shawn Wildermuth and Miguel de Icaza tonight Tuesday, May 31, at 6:3
 * [Making it easier to port to .NET Core](https://blogs.msdn.microsoft.com/dotnet/2016/05/27/making-it-easier-to-port-to-net-core/) by Immo Landwerth.
 * [Announcing MSTest Framework support for .NET Core RC2 / ASP.NET Core RC2](https://blogs.msdn.microsoft.com/visualstudioalm/2016/05/30/announcing-mstest-framework-support-for-net-core-rc2-asp-net-core-rc2/) by Pratap Lakshman.
 * [Mads Torgersen and Dustin Campbell on the future of C#](http://www.theregister.co.uk/2016/05/19/mads_torgersen_and_dustin_campbell_on_the_future_of_c/) by Tim Anderson.
+* [Tuple Tuesday!](https://blogs.msdn.microsoft.com/dotnet/2016/05/31/tuple-tuesday/) by Anthony D. Green.
 * [TPL Dataflow Is The Best Library You're Not Using](http://blog.i3arnon.com/2016/05/23/tpl-dataflow/) by Bar Arnon.
 * [Rethinking IEnumerable](http://blog.paranoidcoding.com/2014/08/19/rethinking-enumerable.html) by Jared Parsons.
 * [Using Windows Runtime in a .NET desktop application](https://github.com/jbe2277/waf/wiki/Using-Windows-Runtime-in-a-.NET-desktop-application) by jbe2277.
