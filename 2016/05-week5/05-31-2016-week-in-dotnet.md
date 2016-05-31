@@ -25,7 +25,7 @@ Last week on the show, we had Maoni Stephens to talk about .NET garbage collecti
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Ue8D1ga1Nhw?rel=0" frameborder="0" allowfullscreen></iframe>
 
-[This week we speak](https://www.youtube.com/watch?v=5MnfrL7gfEs) with [Lucian Wischik](https://twitter.com/lwischik), Program Manager on managed languages at Microsoft, and concurrency expert.
+[This week we speak](https://www.youtube.com/watch?v=5MnfrL7gfEs) with [Lucian Wischik](https://twitter.com/lwischik), Program Manager on Managed Languages at Microsoft, and concurrency expert.
 
 Package of the week: FluentAssertions
 -------------------------------------
