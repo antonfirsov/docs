@@ -48,6 +48,15 @@ User group meeting of the week: HoloLens Development in Florida
 
 The [Florida .NET user group](http://www.fladotnet.com/) hosts [a meeting on HoloLens Development with Unity and .NET](http://www.fladotnet.com/Reg.aspx?EventID=810) on Wednesday, June 8 at 6:30PM at Octagon Technology Staffing@AXIS in Ft Lauderdale, FL.
 
+Game of the Week: McDroid
+-------------------------
+
+[McDroid](http://madewith.unity.com/games/mcdroid) is a tower defense game where players take on the role of McDroid, an adorable android who is in charge of protecting the talkative space ship it crash landed with while it repairs the planet. Players build up their base defenses while completing missions that often require harvesting resources and fending of several waves of aliens. Having excellent time management skills becomes key in order to progress to the next level. McDroid offers a story campaign, survival levels and a multiplayer survival arena. 
+
+![screen](https://cloud.githubusercontent.com/assets/4108756/15863054/6d72bcb4-2c86-11e6-98c4-1a9d77ee6d13.jpg)
+
+McDroid was created by [Grip Digital](http://madewith.unity.com/profiles/grip-digital) using [Unity](http://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is currently available on the PlayStation 4, Xbox One and Windows (via Steam). More information can be found on their [Made With Unity](http://madewith.unity.com/games/mcdroid) page.
+
 .NET
 ----
 
@@ -59,6 +68,8 @@ The [Florida .NET user group](http://www.fladotnet.com/) hosts [a meeting on Hol
 * [MSBuild Structured Log: record and visualize your builds](http://www.hanselman.com/blog/MSBuildStructuredLogRecordAndVisualizeYourBuilds.aspx) by Scott Hanselman.
 * [Storing C# app settings with JSON](http://piotrgankiewicz.com/2016/06/06/storing-c-app-settings-with-json/) by Piotr Gankiewicz.
 * [Async Programming : Unit Testing Asynchronous Code](https://msdn.microsoft.com/en-us/magazine/dn818493.aspx) by Stephen Cleary.
+* [Imageflow: Respect the pixels, accelerate the web (Kickstarter)](https://www.kickstarter.com/projects/njones/imageflow-respect-the-pixels-a-secure-alt-to-image) by Nathanael Jones.
+* [The .NET CLI Decoded](http://developer.telerik.com/featured/net-cli-decoded/) by Sam Basu.
 
 ASP.NET
 -------
@@ -89,6 +100,13 @@ Xamarin
 * [Xamarin DevOps with VSTS - Getting Started](http://www.thexamarinjournal.com/xamarin-dev-ops-with-vsts-getting-started/) by Richard Woollcott.
 * [Xamarin Forms UI Snippets](http://snppts.io/latest).
 
+Games
+-----
+
+* [Serialization, Monobehavior Constructors and Unity 5.4](http://blogs.unity3d.com/2016/06/06/serialization-monobehaviour-constructors-and-unity-5-4/) by Lukasz Paczkowski.
+* [Breakout! How to Stop An Infinite Loop in a Unity C# Script](http://blogs.unity3d.com/2016/05/24/breakout-how-to-stop-an-infinite-loop-in-a-unity-c-script/) by Peter Andreasen.
+* [Build a Unity Game Part 4 - Video](https://channel9.msdn.com/Shows/Visual-Studio-Toolbox/Build-a-Unity-Game-Part-4), by Stacey Haffner.
+* [Unity Linear Interpolation](https://channel9.msdn.com/Shows/Visual-Studio-Toolbox/Build-a-Unity-Game-Part-4), by Indiedevart.
 
 And this is it for this week!
 
