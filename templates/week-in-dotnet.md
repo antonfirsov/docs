@@ -16,6 +16,14 @@ Package of the week: xx
 ```csharp
 ```
 
+Xamarin App of the week: xx
+-----------------------------------
+
+
+Game of the week: xx
+-----------------------------------
+
+
 User group meeting of the week: xx
 ------------------------------------------------
 
@@ -24,18 +32,27 @@ User group meeting of the week: xx
 .NET
 ----
 
-* [xx](xx)
-  by xx.
+* [xx](xx) by xx.
 
 ASP.NET
 -------
 
-* [xx](xx)
-  by xx.
+* [xx](xx) by xx.
 
 F#
 --
 
+* [xx](xx) by xx.
+
+Xamarin
+-------
+
+* [xx](xx) by xx.
+
+Games
+-----
+
+* [xx](xx) by xx.
 
 
 And this is it for this week!
