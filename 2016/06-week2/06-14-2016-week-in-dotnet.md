@@ -21,6 +21,15 @@ Once ELMAH has been dropped into a running web application and configured approp
 
 ![ELMAH](http://www.tigraine.at/wp-content/uploads/2009/04/image2.png)
 
+Game of the Week: Endless Space
+-------------------------------
+
+[Endless Space](http://madewith.unity.com/games/endless-space) is a 4X turn-based strategy game and the winner of the 2013 Unity Golden Cube and Community Choice awards. In Endless Space, players choose between expanding, exploring, exploiting or exterminating as they control their civilization while racing to colonize space and dominate the Dust market. Players can select one of eight civilizations and explore hundreds of star systems and planets. There is no lack of content or replayability in Endless Space, as you are able to control the game's scope and generate random galaxies each time you choose to play.   
+
+![gamescreen](https://cloud.githubusercontent.com/assets/4108756/16045083/ce0606d8-31fb-11e6-8dc2-7b665d29c0b1.PNG)
+
+Endless Space was created by [Amplitude Studios](http://madewith.unity.com/profiles/amplitude-studios) using [Unity](http://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is currently available on Mac and Windows. More information can be found on their [Made With Unity](http://madewith.unity.com/games/endless-space) page.
+
 User group meeting of the week: Introduction to ASP.NET Core 1.0 and the dotnet CLI in NYC
 ------------------------------------------------------------------------------------------
 
@@ -77,7 +86,9 @@ Xamarin
 Games
 -----
 
-
+* [How to Make a Game Like Bomberman](https://www.raywenderlich.com/125559/make-game-like-bomberman) by Eric Van de Kerckhove.
+* [Tutorial: Save And Load system - How to save unity stuff in one file part #1 (Video)](https://www.youtube.com/watch?v=30gE2M8SCi0&feature=youtu.be) by Gamad.
+* [Introducing C# Developers to Building Games with Unity - For the Hobby Developer (Video)](https://channel9.msdn.com/events/dotnetConf/2016/Introducing-C-Developers-to-Building-Games-with-Unity-For-the-Hobby-Developer) by Stacey Haffner.
 
 And this is it for this week!
 
