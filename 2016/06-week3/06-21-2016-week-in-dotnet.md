@@ -31,11 +31,16 @@ Book of the week: Machine Learning Projects for .NET Developers by Mathias Brand
 
 ![Machine Learning Projects for .NET Developers](http://www.apress.com/media/catalog/product/cache/9/image/9df78eab33525d08d6e5fb8d27136e95/A/9/A9781430267676-3d.png)
 
-[Machine Learning Projects for .NET Developers](http://www.apress.com/9781430267676) shows you how to build smarter .NET applications that learn from data, using simple algorithms and techniques that can be applied to a wide range of real-world problems. You’ll code each project in the familiar setting of Visual Studio, while the machine learning logic uses F#, a language ideally suited to machine learning applications in .NET. If you’re new to F#, this book will give you everything you need to get started. If you’re already familiar with F#, this is your chance to put the language into action in an exciting new context.
+[Machine Learning Projects for .NET Developers](http://www.apress.com/9781430267676) will teach you how to build smarter .NET applications that learn from data, using simple algorithms and techniques that can be applied to a wide range of real-world problems. You'll code machine learning logic in F# in the familiar setting of Visual Studio. If you're new to F#, this book will give you everything you need to get started. If you're already familiar with F#, this is your chance to use the language in an exciting new context.
 
-Game of the week: xx
------------------------------------
+Game of the Week: Smashy Brick
+------------------------------
 
+[Smashy Brick](http://smashybrick.com/) is a casual new age take on Breakout or Arkanoid which features 90 beautiful hand crafted levels. Instead of moving a paddle left to right, players draw trampolines that must be timed and angled perfectly in order to smash the bricks. Smashy Brick features the ability to unlock up to 12 characters with unique abilities. Don't be fooled by the cute characters and environment, the levels can be quite challenging at times! 
+
+![gamescreen](https://cloud.githubusercontent.com/assets/4108756/16232536/c96179da-377f-11e6-9368-f316867a9561.PNG)
+
+Smashy Brick was created by Bulldozer Games using [Unity](http://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is currently available for free on iOS and Android. More information can be found on their [Smashy Brick](http://smashybrick.com/) page.
 
 User group meeting of the week: HoloLens in Miami
 -------------------------------------------------
@@ -69,10 +74,17 @@ F#
 --
 
 * [F# for the Practical Developer (video)](https://channel9.msdn.com/Events/dotnetConf/2016/F-for-the-Practical-Developer) by Phillip Carter.
+* [Types from data: Making structured data first-class citizens in F#](http://tpetricek.github.io/Talks/2016/fsharp-data-pldi/#/), by Tomas Petricek
+* [An F# web API in Azure Container](http://udooz.net/blog/2016/06/fsharp-on-cloudy-container/), by M Sheik Uduman Ali
+* [Updated: Getting started with Fable and Webpack](http://kcieslak.io/Getting-Started-with-Fable-and-Webpack), by Krzysztof Cieśla
+* [Paket 3 Released!](https://github.com/fsprojects/Paket/releases/tag/3.1.7)
+
+Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
 
 Xamarin
 -------
 
+* [Xamarin.Forms UI Designer is in Beta 1](https://www.xenforms.com/) by Michael Davis.
 * [Workbooks & Inspector 0.9.0 Released](https://forums.xamarin.com/discussion/66655/workbooks-inspector-0-9-0-released) by Aaron Bockover.
 * [NuGet Support in Xamarin Studio 6.0](http://lastexitcode.com/blog/2016/06/12/NuGetSupportInXamarinStudio6-0/) by Matt Ward.
 * [ASP.NET Core 1.0 RC2 support in Xamarin Studio](http://lastexitcode.com/blog/2016/06/05/AspNetCoreRC2SupportInXamarinStudio/) by Matt Ward.
@@ -85,7 +97,10 @@ Xamarin
 Games
 -----
 
-
+* [Shaders Case Study - Hearthstone Golden Cards (Video)](https://www.youtube.com/watch?v=OYjMnMZe1Vg) by Makin' Stuff Look Good.
+* [F# Kit](http://forum.unity3d.com/threads/f-kit.411420/) by Noobtuts.
+* [DotNetCore Tutorial for Unity3d for Absolute Noobs](https://github.com/NVentimiglia/DotNetCoreUnity3d) by Nicholas Ventimiglia.
+[Creating a 2D Platformer (Video)](https://www.youtube.com/watch?v=MbWK8bCAU2w&list=PLFt_AvWsXl0f0hqURlhyIoAabKPgRsqjz&index=1) by Sebastian Lague.
 
 And this is it for this week!
 
