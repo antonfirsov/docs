@@ -51,7 +51,8 @@ On Thursday, June 23 at 6:30PM at the Microsoft Innovation Center in Miami, [dot
 ----
 
 * [NUnit 3 Tests for .NET Core RC2 and ASP.NET Core RC2](http://www.alteridem.net/2016/06/18/nunit-3-testing-net-core-rc2/) by Rob Prouse.
-* [Taking the MSTest Framework forward with “MSTest V2”](https://blogs.msdn.microsoft.com/visualstudioalm/2016/06/17/taking-the-mstest-framework-forward-with-mstest-v2/) by Pratap Lakshman.
+* [Taking the MSTest Framework forward with "MSTest V2"](https://blogs.msdn.microsoft.com/visualstudioalm/2016/06/17/taking-the-mstest-framework-forward-with-mstest-v2/) by Pratap Lakshman.
+* [Visualising the .NET Garbage Collector](http://mattwarren.org/2016/06/20/Visualising-the-dotNET-Garbage-Collector/) by Matt Warren.
 * [What's new in .NET Core RC2 (podcast)](https://soundcloud.com/esc-podcast/whats-new-in-net-core-rc2) by the Eat Sleep Code Podcast.
 * [Rise of the IAsyncStateMachines](https://blog.scooletz.com/2016/06/13/rise-of-the-iasyncstatemachines/) by Szymon Kulec.
 * [IDisposable trumps APM](http://blog.i3arnon.com/2016/06/13/idisposable-trumps-apm/) by Bar Arnon.
