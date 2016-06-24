@@ -27,6 +27,12 @@ NetEase, a leading IT company in China that provides online services for content
 
 While benchmarks from TechEmpower are still pending, ASP.NET Core has proven over 8x faster than Node.js and almost 3x faster than Go [in our labs.](https://github.com/aspnet/benchmarks)
 
+Increased interest in .NET Core has also driven deeper engagement in the .NET Foundation, which now manages more than 60 projects. In April, Red Hat, Jet Brains and Unity were welcomed to the .NET Foundation Technical Steering Group. Today we are announcing a new member, Samsung. 
+
+*".NET is a great technology that dramatically boosts developer productivity. Samsung has been contributing to .NET Core on GitHub – especially in the area of ARM support – and we are looking forward to contributing further to the .NET open source community. Samsung is glad to join the .NET Foundation's Technical Steering Group and help more developers enjoy the benefits of .NET."* Hong-Seok Kim, Vice President, Samsung Electronics
+
+See the [.NET Foundation blog](http://www.dotnetfoundation.org/blog) for more details. 
+
 Using .NET Core 1.0
 ===================
 
