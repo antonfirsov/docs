@@ -43,6 +43,47 @@ Using Visual Studio Code
 
 Show the experience using Visual Studio Code.
 
+To get started with .NET Core on Visual Studio Code, make sure you have downloaded and installed:
+
+* [.NET Core](http://dot.net/core)
+* [Visual Studio Code](https://code.visualstudio.com)
+
+You can verify that you have the latest version of .NET Core installed by opening a command prompt and typing `dotnet --version`.  Your output should look something like this:
+
+IMAGE OR GIF HERE
+
+Next, you can create a new folder, scaffold a new "Hello World" C# application inside of it with the command line via `dotnet new`, then open Visual Studio Code in that directory with the `code .` command.  If you don't have `code` on your PATH, you'll have to set it.
+
+IMAGE OR GIF HERE
+
+If you don't have it installed already, you'll also want to install the [C# language plugin for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp):
+
+IMAGE OR GIF HERE
+
+Next, you'll need to create and configure the `launch.json` and `tasks.json` files.  Visual Studio Code will have asked if it can create these files for you.  If you didn't allow it to do that, you will have to create these files yourself.  Here's how:
+
+1. Create a new folder called `.vscode` and create the `launch.json` and `tasks.json` files inside of it.
+
+IMAGE OR GIF HERE
+
+2. Open `launch.json` and configure it like this:
+
+<script src="https://gist.github.com/cartermp/b2fea9ea7e0d2379e5a4d4a1bb0406cb.js"></script>
+
+3. Open the `tasks.json` file and configure it like this:
+
+<script src="https://gist.github.com/cartermp/2db7148c6618c758b59e34343741f0f1.js"></script>
+
+4. Click the Play icon again, and now you can run your .NET Core applications, cross-platform, inside Visual Studio code!
+
+IMAGE OR GIF HERE
+
+Note that if you open Visual Studio code from a different directory, you may need to change the values of `cwd` and `program` in `launch.json` and `tasks.json` to point to your application output folders.
+
+You can also debug your application by setting a breakpoint in the code and clicking the Play icon.
+
+IMAGE OR GIF HERE
+
 Using Visual Studio
 ===================
 
