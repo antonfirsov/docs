@@ -14,7 +14,12 @@ Make reference to the ASP.NET Core 1.0 release and usage. And talk about the per
 Getting .NET Core and ASP.NET Core
 ==================================
 
-How you get the product and the OSes supported.
+It's really easy to try out .NET Core and ASP.NET on Windows, macOS or Linux. You can have an app up and running in a few minutes. The you need to the .NET Core SDK to get started.
+
+The best place to start is the [.NET Core](https://dot.net/core) home page. It will offer you the correct download for the Operating System (OS) that you are using and the 3-4 steps you need to following to get started. It's pretty straightforward.
+
+more text here ...
+
 
 Community Contribution
 ======================
