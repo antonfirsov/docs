@@ -1,13 +1,13 @@
 Announcing .NET Core 1.0
 ========================
 
-We are extremly proud to announce the release of .NET Core 1.0 and ASP.NET Core 1.0 today! .NET Core is a cross-platform, open source, and modular .NET platform for creating modern web apps, microservices, libraries and console applications that run everywhere. This release includes the runtime and libraries for .NET Core and ASP.NET Core. Aligned with this release we are also releasing Preview 2 of the corresponding tooling. That tooling includes a new set of command line tools, as well as Visual Studio and Visual Studio Code extensions that enable developers to work with .NET Core projects. This tooling will be available as RTM aligned with the next major release of Visual Studio, Visual Studio “15”. Get started at [https://dot.net/core](https://dot.net/core).
+We are extremely proud to announce the release of .NET Core 1.0 and ASP.NET Core 1.0 today! .NET Core is a cross-platform, open source, and modular .NET platform for creating modern web apps, microservices, libraries and console applications. This release includes the .NET Core runtime, libraries and tools and the ASP.NET Core libraries. We are also releasing Visual Studio and Visual Studio Code extensions that enable you to create .NET Core projects. Get started at [https://dot.net/core](https://dot.net/core).
 
 Today we are at the [Red Hat DevNation](http://www.devnation.org) conference showing off the release and our partnership with Red Hat. [Watch the live stream via Channel 9](https://aka.ms/redhatdotnet) where Scott Hanselman will demonstrate .NET Core 1.0. .NET Core is now available on Red Hat Enterprise Linux and OpenShift via certified containers. In addition, .NET Core is fully supported by Red Hat and extended via the integrated hybrid support partnership between Microsoft and Red Hat. See the Red Hat Blog for more details.
 
-A little bit of content on the 1.0 journey. Make reference to customers going live on RC1 an RC2 and how that feedback has been quite useful and "thanks!".
+We'd also like to express our gratitude for everyone that has tried .NET Core and ASP.NET Core before today and given us feedback. We've received a lot of feedback about design choices, user experience, performance, community and other topics. We've tried our best to apply all of that feedback. The release is much better for it. Thanks!
 
-Define what's in the release.
+A little bit of content on the 1.0 journey. Make reference to customers going live on RC1 an RC2 and how that feedback has been quite useful and "thanks!".
 
 Make reference to the ASP.NET Core 1.0 release and usage. And talk about the performance work.
 
