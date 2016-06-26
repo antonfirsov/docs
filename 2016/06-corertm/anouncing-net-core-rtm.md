@@ -5,32 +5,45 @@ We are extremely proud to announce the release of .NET Core 1.0 and ASP.NET Core
 
 Today we are at the [Red Hat DevNation](http://www.devnation.org) conference showing off the release and our partnership with Red Hat. [Watch the live stream via Channel 9](https://aka.ms/redhatdotnet) where Scott Hanselman will demonstrate .NET Core 1.0. .NET Core is now available on Red Hat Enterprise Linux and OpenShift via certified containers. In addition, .NET Core is fully supported by Red Hat and extended via the integrated hybrid support partnership between Microsoft and Red Hat. See the Red Hat Blog for more details.
 
-We'd also like to express our gratitude for everyone that has tried .NET Core and ASP.NET Core before today and given us feedback. We've received a lot of feedback about design choices, user experience, performance, community and other topics. We've tried our best to apply all of that feedback. The release is much better for it. Thanks!
+We'd also like to express our gratitude for everyone that has tried .NET Core and ASP.NET Core before today and given us feedback. We've received a lot of feedback about design choices, user experience, performance, community and other topics. We've tried our best to apply all of that feedback. The release is much better for it. We couldn't have done it without you. Thanks!
 
 A little bit of content on the 1.0 journey. Make reference to customers going live on RC1 an RC2 and how that feedback has been quite useful and "thanks!".
 
 Make reference to the ASP.NET Core 1.0 release and usage. And talk about the performance work.
 
-Getting .NET Core and ASP.NET Core
-==================================
+Getting Started with .NET Core and ASP.NET Core
+===============================================
 
-It's really easy to try out .NET Core and ASP.NET on Windows, macOS or Linux. You can have an app up and running in a few minutes. The you need to the .NET Core SDK to get started.
+It's really easy to try out .NET Core and ASP.NET on Windows, macOS or Linux. You can have an app up and running in a few minutes. You need the .NET Core SDK to get started.
 
-The best place to start is the [.NET Core](https://dot.net/core) home page. It will offer you the correct download for the Operating System (OS) that you are using and the 3-4 steps you need to following to get started. It's pretty straightforward.
+The best place to start is the [.NET Core](https://dot.net/core) home page. It will offer you the correct .NET Core SDK for the Operating System (OS) that you are using and the 3-4 steps you need to following to get started. It's pretty straightforward.
 
-more text here ...
+To give you an idea, once you have the SDK installed, you can type these three simple commands for your first "Hello World" app.
 
+````
+dotnet new
+dotnet restore
+dotnet run
+```
+
+You'll see (no surprise!):
+
+```
+Hello World!
+```
+
+You'll likely get bored of "Hello World" quite quickly. You can read more in-depth tutorials at [.NET Core Tutorials](https://docs.microsoft.com/dotnet/articles/core/tutorials) and [ASP.NET Core Tutorials](https://docs.asp.net/en/latest/tutorials/index.html).
 
 Community Contribution
 ======================
 
-This is a huge accomplishment for the entire ecosystem – with more than 18,000 developers representing more than 1,300 companies contributing to .NET Core 1.0. Nearly half of all pull requests for the central .NET Core projects (corefx & coreclr) came from outside of Microsoft - up from 20% one year ago, which felt like a milestone to us at the time. The momentum has been incredible. 
+This is a huge accomplishment for the entire .NET ecosystem – with more than 18,000 developers representing more than 1,300 companies contributing to .NET Core 1.0. Nearly half of all pull requests for .NET Core projects (e.g. corefx, coreclr) came from the community - up from 20% one year ago, which felt like a milestone at the time. The momentum has been incredible. 
 
-Customers have already been using preview versions of .NET Core in production to drive tremendous business impact. We thank you for the feedback and contributions that have been quite useful to get us to our 1.0 release. Illyriad Games, the team behind Age of Ascent, reported a [10-fold increase in performance](http://web.ageofascent.com/video-microsoft-cloud-age-ascent-browser-game-handle-50000-players/) using ASP.NET Core with Azure Service Fabric. We are also extreemely greatful for their code contributions to this performance. 
+Customers have already been using preview versions of .NET Core in production. They tell us that .NET Core has been a tremendous business impact. Illyriad Games, the team behind Age of Ascent, reported a [10-fold increase in performance](http://web.ageofascent.com/video-microsoft-cloud-age-ascent-browser-game-handle-50000-players/) using ASP.NET Core with Azure Service Fabric. We are also extremely greatful for their code contributions to this performance. Thanks [@benaadams](https://github.com/benaadams)!
 
 NetEase, a leading IT company in China that provides online services for content, gaming, social media, communications and commerce, needed to stay on the leading edge of the ever-evolving mobile games space and chose .NET Core for their back end services. When comparing to their previous Java back-end architecture, *“.NET core has reduced our release cycle by 20% and cost on engineering resource by 30%.”* When speaking about the throughput improvements and cost savings, *“Additionally, it has made it possible to reduce the number of VMs needed in production by half.”*
 
-While benchmarks from TechEmpower are still pending, ASP.NET Core has proven over 8x faster than Node.js and almost 3x faster than Go [in our labs.](https://github.com/aspnet/benchmarks)
+While benchmarks from TechEmpower are still pending, ASP.NET Core has proven faster than our industry peers, over 8x faster than Node.js and almost 3x faster than Go [in our labs.](https://github.com/aspnet/benchmarks)
 
 Increased interest in .NET Core has also driven deeper engagement in the .NET Foundation, which now manages more than 60 projects. In April, Red Hat, Jet Brains and Unity were welcomed to the .NET Foundation Technical Steering Group. Today we are announcing a new member, Samsung. 
 
