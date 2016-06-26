@@ -1,7 +1,7 @@
 Announcing .NET Core 1.0
 ========================
 
-We are excited to announce the release of .NET Core 1.0, ASP.NET Core 1.0 and Entity Framework 1.0 today! .NET Core is a cross-platform, open source, and modular .NET platform for creating modern web apps, microservices, libraries and console applications. This release includes the .NET Core runtime, libraries and tools and the ASP.NET Core libraries. We are also releasing Visual Studio and Visual Studio Code extensions that enable you to create .NET Core projects. You can get started at [https://dot.net/core](https://dot.net/core).
+We are excited to announce the release of .NET Core 1.0, [ASP.NET Core 1.0](https://blogs.msdn.microsoft.com/webdev/2016/06/27/announcing-asp-net-core-1-0/) and [Entity Framework 1.0](https://blogs.msdn.microsoft.com/webdev/2016/06/27/announcing-asp-net-core-1-0/) today! .NET Core is a cross-platform, open source, and modular .NET platform for creating modern web apps, microservices, libraries and console applications. This release includes the .NET Core runtime, libraries and tools and the ASP.NET Core libraries. We are also releasing Visual Studio and Visual Studio Code extensions that enable you to create .NET Core projects. You can get started at [https://dot.net/core](https://dot.net/core).
 
 Today we are at the [Red Hat DevNation](http://www.devnation.org) conference showing the release and our partnership with Red Hat. [Watch the live stream via Channel 9](https://aka.ms/redhatdotnet) where Scott Hanselman will demonstrate .NET Core 1.0. .NET Core is now available on Red Hat Enterprise Linux and OpenShift via certified containers. In addition, .NET Core is fully supported by Red Hat and extended via the integrated hybrid support partnership between Microsoft and Red Hat. See the Red Hat Blog for more details.
 
@@ -32,7 +32,7 @@ Hello World!
 
 You'll likely get bored of "Hello World" quite quickly. You can read more in-depth tutorials at [.NET Core Tutorials](https://docs.microsoft.com/dotnet/articles/core/tutorials) and [ASP.NET Core Tutorials](https://docs.asp.net/en/latest/tutorials/index.html).
 
-Check out the [Announcing EF Core 1.0](https://blogs.com) to find out how to get started with Entity Framework Core 1.0.
+Check out the [Announcing EF Core 1.0](https://blogs.msdn.microsoft.com/webdev/2016/06/27/announcing-asp-net-core-1-0/) to find out how to get started with Entity Framework Core 1.0.
 
 Community Contribution
 ======================
@@ -63,12 +63,42 @@ Our lab runs show that ASP.NET Core is faster than some of our industry peers. W
 .NET Core 1.0
 =============
 
-.NET Core is a new cross-platform .NET product. It is very similar to the .NET Framework, but is a different product. The primary selling points of .NET Core are:
+We've been talking about .NET Core for about two years now, although it has changed significantly over that time. It's good to recap in this post what defines and is included in .NET Core 1.0.
 
-- **Flexible deployment:** app-local or side-by-side user- or machine-wide installation.
+.NET Core is a new cross-platform .NET product. The primary selling points of .NET Core are:
+
 - **Cross-platform:** Runs on Windows, macOS and Linux.
-- **Compatibility:** .NET Core is compatible with .NET Framework and Xamarin platforms, via the [.NET Standard Library](../standard/library.md).
-- **Open source:** The .NET Core platform is open source (MIT). 
+- **Flexible deployment:** Can be included in your app or installed side-by-side user- or machine-wide.
+- **Commandline tools:**  All product scenarios can be exercised at the commandline. 
+- **Compatible:** .NET Core is compatible with .NET Framework, Xamarin and Mono, via the [.NET Standard Library](https://docs.microsoft.com/dotnet/articles/standard/library.md).
+- **Open source:** The .NET Core platform is open source, using MIT and Apache 2 licenses. Documentation is licensed under [CC-BY](http://creativecommons.org/licenses/by/4.0/). .NET Core is a [.NET Foundation](http://www.dotnetfoundation.org/) project.
+
+The open source point deserves a little more elaboration. Over time, we noticed that all of the major web platforms were open source. ASP.NET MVC has been open source for a long time, but the platform underneath it, .NET Framework and Windows Server, were not. We didn't have an answer for web developers who cared deeply about open source, and MVC being open wasn't enough. The combination of .NET Core being open source and support for Linux means that ASP.NET Core is now a great candidate for anyone who has open source as a requirement. We also think that the move to open source has been a massive improvement for our own team. Open source works!
+
+Composition
+-----------
+
+.NET Core is composed of the following parts:
+
+- A [.NET runtime](https://github.com/dotnet/coreclr), which provides a type system, assembly loading, a garbage collector, native interop and other basic services. 
+- A set of [framework libraries](https://github.com/dotnet/corefx), which provide primitive data types, app composition types and fundamental utilities. 
+- A [set of SDK tools](https://github.com/dotnet/cli) and [language compilers](https://github.com/dotnet/roslyn) that enable the base developer experience, available in the [.NET Core SDK](https://docs.microsoft.com/dotnet/articles/core/sdk.md).
+- The 'dotnet' app host, which is used to launch .NET Core apps. It selects the runtime and hosts the runtime, provides an assembly loading policy and launches the app. The same host is also used to launch SDK tools in much the same way.
+
+Workloads
+---------
+
+By itself, .NET Core includes a single application model -- console apps -- which is useful for tools, local services and text-based games. Additional application models have been built on top of .NET Core to extend its functionality, such as:
+
+- [ASP.NET Core](http://asp.net)
+- [Windows 10 Universal Windows Platform (UWP)](https://developer.microsoft.com/windows)
+- [Xamarin.Forms](https://www.xamarin.com/forms)
+
+
+
+It is very similar to the .NET Framework, but is a different product.
+
+
 
 Using .NET Core 1.0
 ===================
