@@ -1,20 +1,20 @@
 Announcing .NET Core 1.0
 ========================
 
-We are extremely proud to announce the release of .NET Core 1.0 and ASP.NET Core 1.0 today! .NET Core is a cross-platform, open source, and modular .NET platform for creating modern web apps, microservices, libraries and console applications. This release includes the .NET Core runtime, libraries and tools and the ASP.NET Core libraries. We are also releasing Visual Studio and Visual Studio Code extensions that enable you to create .NET Core projects. Get started at [https://dot.net/core](https://dot.net/core).
+We are excited to announce the release of .NET Core 1.0 and ASP.NET Core 1.0 today! .NET Core is a cross-platform, open source, and modular .NET platform for creating modern web apps, microservices, libraries and console applications. This release includes the .NET Core runtime, libraries and tools and the ASP.NET Core libraries. We are also releasing Visual Studio and Visual Studio Code extensions that enable you to create .NET Core projects. You can get started at [https://dot.net/core](https://dot.net/core).
 
-Today we are at the [Red Hat DevNation](http://www.devnation.org) conference showing off the release and our partnership with Red Hat. [Watch the live stream via Channel 9](https://aka.ms/redhatdotnet) where Scott Hanselman will demonstrate .NET Core 1.0. .NET Core is now available on Red Hat Enterprise Linux and OpenShift via certified containers. In addition, .NET Core is fully supported by Red Hat and extended via the integrated hybrid support partnership between Microsoft and Red Hat. See the Red Hat Blog for more details.
+Today we are at the [Red Hat DevNation](http://www.devnation.org) conference showing the release and our partnership with Red Hat. [Watch the live stream via Channel 9](https://aka.ms/redhatdotnet) where Scott Hanselman will demonstrate .NET Core 1.0. .NET Core is now available on Red Hat Enterprise Linux and OpenShift via certified containers. In addition, .NET Core is fully supported by Red Hat and extended via the integrated hybrid support partnership between Microsoft and Red Hat. See the Red Hat Blog for more details.
 
-We'd also like to express our gratitude for everyone that has tried .NET Core and ASP.NET Core before today and given us feedback. We've received a lot of feedback about design choices, user experience, performance, community and other topics. We've tried our best to apply all of that feedback. The release is much better for it. We couldn't have done it without you. Thanks!
+We'd also like to express our gratitude for everyone that has tried .NET Core and ASP.NET Core and given us feedback. We've received a lot of feedback about design choices, user experience, performance, communication and other topics. We've tried our best to apply all of that feedback. The release is much better for it. We couldn't have done it without you. Thanks!
 
-A little bit of content on the 1.0 journey. Make reference to customers going live on RC1 an RC2 and how that feedback has been quite useful and "thanks!".
+About two years ago, we started receiving requests from some ASP.NET customers for ".NET on Linux". Around the same time, we were talking to the Windows Server Team about Windows Nano, their future, much smaller server product. At that time, we started a new .NET project, which we codenamed "Project K", to target these new platforms. It's great to see this project finally broadly available as .NET Core and ASP.NET Core 1.0. 
 
-Make reference to the ASP.NET Core 1.0 release and usage. And talk about the performance work.
+Tens or maybe hundreds of customers have been running ASP.NET Core RC1 and RC2 applications in production (more on that below). Thanks! We know that tens of thousands of you have been using the pre-1.0 product. Again, thanks! We look forward to seeing many of the applications that will get built over the next year. Please keep the feedback coming so that we can decide what to add next.
 
 Getting Started with .NET Core and ASP.NET Core
 ===============================================
 
-It's really easy to try out .NET Core and ASP.NET on Windows, macOS or Linux. You can have an app up and running in a few minutes. You need the .NET Core SDK to get started.
+It's really easy to try out .NET Core and ASP.NET on Windows, OS X or Linux. You can have an app up and running in a few minutes. You only need the .NET Core SDK to get started.
 
 The best place to start is the [.NET Core](https://dot.net/core) home page. It will offer you the correct .NET Core SDK for the Operating System (OS) that you are using and the 3-4 steps you need to following to get started. It's pretty straightforward.
 
@@ -37,19 +37,24 @@ You'll likely get bored of "Hello World" quite quickly. You can read more in-dep
 Community Contribution
 ======================
 
-This is a huge accomplishment for the entire .NET ecosystem – with more than 18,000 developers representing more than 1,300 companies contributing to .NET Core 1.0. Nearly half of all pull requests for .NET Core projects (e.g. corefx, coreclr) came from the community - up from 20% one year ago, which felt like a milestone at the time. The momentum has been incredible. 
+This is a huge milestone and accomplishment for the entire .NET ecosystem – with more than 18,000 developers representing more than 1,300 companies contributing to .NET Core 1.0. Nearly half of all pull requests for .NET Core projects (e.g. corefx, coreclr) came from the community - up from 20% one year ago, which felt like a milestone at the time. The momentum has been incredible.
 
-Customers have already been using preview versions of .NET Core in production. They tell us that .NET Core has been a tremendous business impact. Illyriad Games, the team behind Age of Ascent, reported a [10-fold increase in performance](http://web.ageofascent.com/video-microsoft-cloud-age-ascent-browser-game-handle-50000-players/) using ASP.NET Core with Azure Service Fabric. We are also extremely greatful for their code contributions to this performance. Thanks [@benaadams](https://github.com/benaadams)!
-
-NetEase, a leading IT company in China that provides online services for content, gaming, social media, communications and commerce, needed to stay on the leading edge of the ever-evolving mobile games space and chose .NET Core for their back end services. When comparing to their previous Java back-end architecture, *“.NET core has reduced our release cycle by 20% and cost on engineering resource by 30%.”* When speaking about the throughput improvements and cost savings, *“Additionally, it has made it possible to reduce the number of VMs needed in production by half.”*
-
-While benchmarks from TechEmpower are still pending, ASP.NET Core has proven faster than our industry peers, over 8x faster than Node.js and almost 3x faster than Go [in our labs.](https://github.com/aspnet/benchmarks)
+*".NET is a great technology that dramatically boosts developer productivity. Samsung has been contributing to .NET Core on GitHub – especially in the area of ARM support – and we are looking forward to contributing further to the .NET open source community. Samsung is glad to join the .NET Foundation's Technical Steering Group and help more developers enjoy the benefits of .NET."* Hong-Seok Kim, Vice President, Samsung Electronics.
 
 Increased interest in .NET Core has also driven deeper engagement in the .NET Foundation, which now manages more than 60 projects. In April, Red Hat, Jet Brains and Unity were welcomed to the .NET Foundation Technical Steering Group. Today we are announcing a new member, Samsung. 
 
-*".NET is a great technology that dramatically boosts developer productivity. Samsung has been contributing to .NET Core on GitHub – especially in the area of ARM support – and we are looking forward to contributing further to the .NET open source community. Samsung is glad to join the .NET Foundation's Technical Steering Group and help more developers enjoy the benefits of .NET."* Hong-Seok Kim, Vice President, Samsung Electronics
-
 See the [.NET Foundation blog](https://www.dotnetfoundation.org/blog) for more details. 
+
+.NET Core Usage
+===============
+
+Some customers couldn't wait until the final 1.0 release and have been using preview versions of .NET Core in production, on Windows and Linux. They tell us that .NET Core has had a significant impact for their businesses (we're not making this up!). Illyriad Games, the team behind Age of Ascent, reported a [10-fold increase in performance](http://web.ageofascent.com/video-microsoft-cloud-age-ascent-browser-game-handle-50000-players/) using ASP.NET Core with Azure Service Fabric. We are also extremely greatful for their code contributions to this performance. Thanks [@benaadams](https://github.com/benaadams)!
+
+NetEase, a leading IT company in China, provides online services for content, gaming, social media, communications and commerce, needed to stay on the leading edge of the ever-evolving mobile games space and chose .NET Core for their back end services. When compared to their previous Java back-end architecture: *“.NET Core has reduced our release cycle by 20% and cost on engineering resources by 30%.”* When speaking about the throughput improvements and cost savings: *“Additionally, it has made it possible to reduce the number of VMs needed in production by half.”*
+
+For this release, we decided to look at industry benchmarks for web platforms on Linux. We're starting with [TechEmpower Benchmarks](http://www.techempower.com/benchmarks/). We've been [sharing our findings](https://github.com/aspnet/benchmarks) and progress on those benchmarks, as demonstrated in our own labs. We're hoping to see official numbers from TechEmpower soon after our release. 
+
+Our lab runs show that ASP.NET Core is faster than some of our industry peers. We see throughput that is 8x better than Node.js and almost 3x better than Go, on the same hardware. We're also not done! These are the changes that we were able to get into the 1.0 product. Our customers know that .NET is a great choice for productivity. We want them to know that it's also a great choice for performance.
 
 Using .NET Core 1.0
 ===================
