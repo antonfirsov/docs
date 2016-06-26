@@ -41,9 +41,7 @@ This is a huge milestone and accomplishment for the entire .NET ecosystem – wi
 
 *".NET is a great technology that dramatically boosts developer productivity. Samsung has been contributing to .NET Core on GitHub – especially in the area of ARM support – and we are looking forward to contributing further to the .NET open source community. Samsung is glad to join the .NET Foundation's Technical Steering Group and help more developers enjoy the benefits of .NET."* Hong-Seok Kim, Vice President, Samsung Electronics.
 
-Increased interest in .NET Core has also driven deeper engagement in the .NET Foundation, which now manages more than 60 projects. In April, Red Hat, Jet Brains and Unity were welcomed to the .NET Foundation Technical Steering Group. Today we are announcing a new member, Samsung. 
-
-See the [.NET Foundation blog](https://www.dotnetfoundation.org/blog) for more details. 
+Increased interest in .NET Core has also driven deeper engagement in the [.NET Foundation](https://www.dotnetfoundation.org), which now manages more than 60 projects. In April, Red Hat, Jet Brains and Unity were welcomed to the .NET Foundation Technical Steering Group. Today we are [announcing Samsung as the newest member](http://www.dotnetfoundation.org/blog/samsung-join-tsg). 
 
 .NET Core Usage
 ===============
@@ -72,6 +70,7 @@ We've been talking about .NET Core for about two years now, although it has chan
 - **Commandline tools:**  All product scenarios can be exercised at the commandline. 
 - **Compatible:** .NET Core is compatible with .NET Framework, Xamarin and Mono, via the [.NET Standard Library](https://docs.microsoft.com/dotnet/articles/standard/library.md).
 - **Open source:** The .NET Core platform is open source, using MIT and Apache 2 licenses. Documentation is licensed under [CC-BY](http://creativecommons.org/licenses/by/4.0/). .NET Core is a [.NET Foundation](http://www.dotnetfoundation.org/) project.
+- **Supported by Microsoft:** .NET Core is supported by Microsoft, per [.NET Core Support](https://www.microsoft.com/net/core/support/)
 
 The open source point deserves a little more elaboration. Over time, we noticed that all of the major web platforms were open source. ASP.NET MVC has been open source for a long time, but the platform underneath it, .NET Framework and Windows Server, were not. We didn't have an answer for web developers who cared deeply about open source, and MVC being open wasn't enough. The combination of .NET Core being open source and support for Linux means that ASP.NET Core is now a great candidate for anyone who has open source as a requirement. We also think that the move to open source has been a massive improvement for our own team. Open source works!
 
@@ -94,7 +93,10 @@ By itself, .NET Core includes a single application model -- console apps -- whic
 - [Windows 10 Universal Windows Platform (UWP)](https://developer.microsoft.com/windows)
 - [Xamarin.Forms](https://www.xamarin.com/forms)
 
+Support
+-------
 
+.NET Core is [supported by Microsoft](https://www.microsoft.com/net/core/support). 
 
 It is very similar to the .NET Framework, but is a different product.
 
