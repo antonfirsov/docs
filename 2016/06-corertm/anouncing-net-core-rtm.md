@@ -3,7 +3,7 @@ Announcing .NET Core 1.0
 
 We are excited to announce the release of .NET Core 1.0, [ASP.NET Core 1.0](https://blogs.msdn.microsoft.com/webdev/2016/06/27/announcing-asp-net-core-1-0/) and [Entity Framework 1.0](https://blogs.msdn.microsoft.com/dotnet/2016/06/27/entity-framework-core-1-0-0-available), available on Windows, OS X and Linux! .NET Core is a cross-platform, open source, and modular .NET platform for creating modern web apps, microservices, libraries and console applications. 
 
-This release includes the .NET Core runtime, libraries and tools and the ASP.NET Core libraries. We are also releasing Visual Studio and Visual Studio Code extensions that enable you to create .NET Core projects. You can get started at [https://dot.net/core](https://dot.net/core).
+This release includes the .NET Core runtime, libraries and tools and the ASP.NET Core libraries. We are also releasing Visual Studio and Visual Studio Code extensions that enable you to create .NET Core projects. You can get started at [https://dot.net/core](https://dot.net/core). Read the [release notes](https://github.com/dotnet/core/blob/master/release-notes/1.0/1.0.0.md) for detailed release information.
 
 We are also releasing [.NET documentation](https://docs.microsoft.com/dotnet) today at [docs.microsoft.com](https://docs.microsoft.com/), the new documentation service for Microsoft. The documentation you see there is just a start. You can follow our progress at [core-docs](https://github.com/dotnet/core-docs) on GitHub. [ASP.NET Core documentation](https://docs.asp.net/) is also available and [open source](https://github.com/aspnet/docs).
 
@@ -11,7 +11,7 @@ Today we are at the [Red Hat DevNation](http://www.devnation.org) conference sho
 
 This is the biggest transformation of .NET since its inception and will define .NET for the next decade. We’ve rebuilt the foundation of .NET to be targeted at the needs of today’s world: highly distributed cloud applications, micro services and containers. 
 
-The .NET Framework and traditional ASP.NET will continue to be relevant for your existing workloads. You can share code and reuse your skills across the entire .NET family so you can decide what to use and when, including mobile apps with Xamarin. And because we designed .NET to share a common library (the .NET standard library) .NET Framework, .NET Core and Xamarin apps will share new common capabilities in the future.
+Moving forward .NET Framework and .NET Core and Xamarin are all important products that will continue to evolve, for Windows, cross-platform cloud and cross-platform mobile, respectively. The .NET Framework and traditional ASP.NET will continue to be relevant for your existing workloads. You can share code and reuse your skills across the entire .NET family so you can decide what to use and when, including mobile apps with Xamarin. And because we designed .NET to share a common library (the .NET standard library) .NET Framework, .NET Core and Xamarin apps will share new common capabilities in the future. 
 
 Getting Started
 ===============
@@ -56,7 +56,7 @@ This is a huge milestone and accomplishment for the entire .NET ecosystem. Nearl
 
 We also found that another 8k developers are watching these same repos, which effectively doubles the count. We believe that these developers watch these repos to either find that first opportunity to contribute or want to stay up-to-date on the project as part of their approach to .NET Core adoption.
 
-At this point, nearly half of all pull requests for .NET Core related projects (e.g. corefx, coreclr) come from the community. That's up from 20% one year ago. The momentum has been incredible.
+At this point, nearly half of all pull requests for .NET Core related projects (e.g. corefx, coreclr) come from the community. That's up from 20% one year ago. The momentum has been incredible. Check out the set of [developers who contributed pull requests](https://github.com/dotnet/core/blob/master/release-notes/1.0/1.0.0-contributor-list.md) that were merged to the product. Thanks!
 
 Here's the breakdown of developers that created pull requests, created issues or made comments in any one of the .NET Core related repos, per organization, as determined by using the GitHub API:
 
@@ -223,10 +223,10 @@ We use the [MICROSOFT .NET LIBRARY EULA](http://go.microsoft.com/fwlink/?LinkId=
 Using .NET Core 1.0
 ===================
 
-.NET Core 
+You can build .NET Core apps with Visual Studio, Visual Studio Code or at the command-line. Visual Studio Code is the newest experience for building .NET apps. Let's take a look at building .NET Core apps with it.
 
 Using Visual Studio Code
-========================
+------------------------
 
 Show the experience using Visual Studio Code.
 
@@ -265,11 +265,6 @@ You can also debug your application by setting a breakpoint in the code and clic
 
 ![](vscode-debug.gif)
 
-Using Visual Studio
-===================
-
-Show the experience using Visual Studio.
-
 Comparison with .NET Framework
 ==============================
 
@@ -283,12 +278,11 @@ The major differences between .NET Core and the .NET Framework:
 
 While .NET Core is unique and has significant differences to the .NET Framework and other .NET platforms, it is straightforward to share code, using either source or binary sharing techniques.
 
-Roadmap
-=======
-
-We've shipped 1.0 and we've got a plan for future releases. Make reference to the blog posts. Point to the new .NET Core project.
-
 Closing
 =======
 
-Thanks for all the feedback and usage.
+Thanks for all the feedback and usage. It's been a pleasure to build .NET Core and see so many people try it out. We really appreciate it. Please continue exploring the product and learning what it's capable of.
+
+We'll update the [.NET Core Roadmap](https://github.com/dotnet/core/blob/master/roadmap.md) as we have clear plans for upcoming versions.
+
+Thanks for being part of the .NET community!
