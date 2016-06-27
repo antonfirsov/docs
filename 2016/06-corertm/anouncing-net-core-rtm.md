@@ -16,7 +16,7 @@ It's really easy to try out .NET Core and ASP.NET on Windows, OS X or Linux. You
 
 The best place to start is the [.NET Core](https://dot.net/core) home page. It will offer you the correct .NET Core SDK for the Operating System (OS) that you are using and the 3-4 steps you need to following to get started. It's pretty straightforward.
 
-To give you an idea, once you have the SDK installed, you can type these three simple commands for your first "Hello World" app.
+To give you an idea, once you have the SDK installed, you can type these three simple commands for your first "Hello World" app. The first generates a template for you for a console app, the second restores package dependencies and the last builds and runs the app.
 
 ````
 dotnet new
@@ -37,11 +37,37 @@ Check out the [Announcing EF Core 1.0](https://blogs.msdn.microsoft.com/webdev/2
 Community Contribution
 ======================
 
-This is a huge milestone and accomplishment for the entire .NET ecosystem – with more than 18,000 developers representing more than 1,300 companies contributing to .NET Core 1.0. Nearly half of all pull requests for .NET Core projects (e.g. corefx, coreclr) came from the community - up from 20% one year ago, which felt like a milestone at the time. The momentum has been incredible.
+This is a huge milestone and accomplishment for the entire .NET ecosystem. Nearly 10k developers contributed to .NET Core 1.0. We never imagined that many folks contributing to the product. We've also been impressed by the quality of the contributions. There are significant components that the community is driving forward. Nice work, folks! 
+
+We also found that another 8k developers are watching these same repos, which effectively doubles the count. We believe that these developers watch these repos to either find that first opportunity to contribute or want to stay up-to-date on the project as part of their approach to .NET Core adoption.
+
+At this point, nearly half of all pull requests for .NET Core related projects (e.g. corefx, coreclr) come from the community. That's up from 20% one year ago. The momentum has been incredible.
+
+Here's the breakdown of developers that created pull requests, created issues or made comments in any one of the .NET Core related repos, per organization, as determined by using the GitHub API:
+
+| User Count | Organization | Example repo |
+| :--------: | :-----------:| :----------: |
+| 5176 | aspnet | [mvc](https://github.com/aspnet/Mvc) |
+| 3804 | dotnet | [corefx](https://github.com/dotnet/corefx) |
+| 2124 | nuget  | [NuGet.Client](https://github.com/NuGet/NuGet.Client) |
+| 560 | microsoft | [visualfsharp](https://github.com/microsoft/visualfsharp) |
+
+**Total unique users:** 9723
+
+Note: The counts don't sum to the total because some users contribute to multiple organizations (thanks!) and we've tried to avoid double-counting.  
+
+Note: The counts from the Microsoft org are specific to the few .NET Core-related repos that exist there, such as visualfsharp. 
+
+Note: These numbers include Microsoft employees, which are (at most) 10% of the count.
+
+Samsung joins the .NET Foundation
+---------------------------------
+
+Increased interest in .NET Core has also driven deeper engagement in the [.NET Foundation](https://www.dotnetfoundation.org), which now manages more than 60 projects. Today we are [announcing Samsung as the newest member](http://www.dotnetfoundation.org/blog/samsung-join-tsg). In April, Red Hat, Jet Brains and Unity were welcomed to the .NET Foundation Technical Steering Group.  
 
 *".NET is a great technology that dramatically boosts developer productivity. Samsung has been contributing to .NET Core on GitHub – especially in the area of ARM support – and we are looking forward to contributing further to the .NET open source community. Samsung is glad to join the .NET Foundation's Technical Steering Group and help more developers enjoy the benefits of .NET."* Hong-Seok Kim, Vice President, Samsung Electronics.
 
-Increased interest in .NET Core has also driven deeper engagement in the [.NET Foundation](https://www.dotnetfoundation.org), which now manages more than 60 projects. In April, Red Hat, Jet Brains and Unity were welcomed to the .NET Foundation Technical Steering Group. Today we are [announcing Samsung as the newest member](http://www.dotnetfoundation.org/blog/samsung-join-tsg). 
+The contributions from Samsung have been impressive. They have a great team of developers that have taken an interest in .NET Core. We're glad to have them as part of the larger team.
 
 .NET Core Usage
 ===============
@@ -67,7 +93,7 @@ We've been talking about .NET Core for about two years now, although it has chan
 
 - **Cross-platform:** Runs on Windows, macOS and Linux.
 - **Flexible deployment:** Can be included in your app or installed side-by-side user- or machine-wide.
-- **Commandline tools:**  All product scenarios can be exercised at the commandline. 
+- **Command-line tools:**  All product scenarios can be exercised at the command-line. 
 - **Compatible:** .NET Core is compatible with .NET Framework, Xamarin and Mono, via the [.NET Standard Library](https://docs.microsoft.com/dotnet/articles/standard/library.md).
 - **Open source:** The .NET Core platform is open source, using MIT and Apache 2 licenses. Documentation is licensed under [CC-BY](http://creativecommons.org/licenses/by/4.0/). .NET Core is a [.NET Foundation](http://www.dotnetfoundation.org/) project.
 - **Supported by Microsoft:** .NET Core is supported by Microsoft, per [.NET Core Support](https://www.microsoft.com/net/core/support/)
