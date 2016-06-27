@@ -5,9 +5,13 @@ We are excited to announce the release of .NET Core 1.0, [ASP.NET Core 1.0](http
 
 This release includes the .NET Core runtime, libraries and tools and the ASP.NET Core libraries. We are also releasing Visual Studio and Visual Studio Code extensions that enable you to create .NET Core projects. You can get started at [https://dot.net/core](https://dot.net/core).
 
-We are also releasing [.NET documentation](https://docs.microsoft.com/dotnet) today at [docs.microsoft.com](https://docs.microsoft.com/), the new documentation service for Microsoft. The documentation you see there is just a start. You can follow our progress at [core-docs](https://github.com/dotnet/core-docs) on GitHub. 
+We are also releasing [.NET documentation](https://docs.microsoft.com/dotnet) today at [docs.microsoft.com](https://docs.microsoft.com/), the new documentation service for Microsoft. The documentation you see there is just a start. You can follow our progress at [core-docs](https://github.com/dotnet/core-docs) on GitHub. [ASP.NET Core documentation](https://docs.asp.net/) is also available and [open source](https://github.com/aspnet/docs).
 
 Today we are at the [Red Hat DevNation](http://www.devnation.org) conference showing the release and our partnership with Red Hat. [Watch the live stream via Channel 9](https://aka.ms/redhatdotnet) where Scott Hanselman will demonstrate .NET Core 1.0. .NET Core is now available on Red Hat Enterprise Linux and OpenShift via certified containers. In addition, .NET Core is fully supported by Red Hat and extended via the integrated hybrid support partnership between Microsoft and Red Hat. See the Red Hat Blog for more details.
+
+This is the biggest transformation of .NET since its inception and will define .NET for the next decade. We’ve rebuilt the foundation of .NET to be targeted at the needs of today’s world: highly distributed cloud applications, micro services and containers. 
+
+The .NET Framework and traditional ASP.NET will continue to be relevant for your existing workloads. You can share code and reuse your skills across the entire .NET family so you can decide what to use and when, including mobile apps with Xamarin. And because we designed .NET to share a common library (the .NET standard library) .NET Framework, .NET Core and Xamarin apps will share new common capabilities in the future.
 
 Getting Started
 ===============
@@ -37,13 +41,13 @@ Check out the [Announcing EF Core 1.0](https://blogs.msdn.microsoft.com/dotnet/2
 The .NET Core Journey
 =====================
 
-About two years ago, we started receiving requests from some ASP.NET customers for ".NET on Linux". Around the same time, we were talking to the Windows Server Team about Windows Nano, their future, much smaller server product. As a result, we started a new .NET project, which we codenamed "Project K", to target these new platforms. We changed the name, shape and experience of the product a few times along the way, at every turn trying to the make the better and applicable to more scenarios and broader base of developers. It's great to see this project finally broadly available as .NET Core and ASP.NET Core 1.0.
+About two years ago, we started receiving requests from some ASP.NET customers for ".NET on Linux". Around the same time, we were talking to the Windows Server Team about Windows Nano, their future, much smaller server product. As a result, we started a new .NET project, which we codenamed "Project K", to target these new platforms. We changed the name, shape and experience of the product a few times along the way, at every turn trying to make it better and applicable to more scenarios and a broader base of developers. It's great to see this project finally available as .NET Core and ASP.NET Core 1.0.
 
-Open source is another important theme of this project. Over time, we noticed that all of the major web platforms were open source. ASP.NET MVC has been open source for a long time, but the platform underneath it, the .NET Framework, was not. We didn't have an answer for web developers who cared deeply about open source, and MVC being open wasn't enough. With today's releases, ASP.NET Core is now an open source web platform, top to bottom. Even the documentation is now open source. ASP.NET Core is now a great candidate for anyone who has open source as a requirement for their web stack. 
+Open source is another important theme of this project. Over time, we noticed that all of the major web platforms were open source. ASP.NET MVC has been open source for a long time, but the platform underneath it, the .NET Framework, was not. We didn't have an answer for web developers who cared deeply about open source, and MVC being open wasn't enough. With today's releases, ASP.NET Core is now an open source web platform, top to bottom. Even the documentation is open source. ASP.NET Core is a great candidate for anyone who has open source as a requirement for their web stack.
 
-We'd like to express our gratitude for everyone that has tried .NET Core and ASP.NET Core and given us feedback. We know that tens of thousands of you have been using the pre-1.0 product. Thanks! We've received a lot of feedback about design choices, user experience, performance, communication and other topics. We've tried our best to apply all of that feedback. The release is much better for it. We couldn't have done it without you. Thanks!
+We'd like to express our gratitude for everyone that has tried .NET Core and ASP.NET Core and has given us feedback. We know that tens of thousands of you have been using the pre-1.0 product. Thanks! We've received a lot of feedback about design choices, user experience, performance, communication and other topics. We've tried our best to apply all of that feedback. The release is much better for it. We couldn't have done it without you. Thanks!
 
-If you are not a .NET developer or haven't used .NET in a while, now is a great moment to try it. You can enjoy the productivity and power of .NET with no constraints, on any OS, with any tool and for any application. All of that fully open source, developed with the community and with Microsoft’s support.
+If you are not a .NET developer or haven't used .NET in a while, now is a great moment to try it. You can enjoy the productivity and power of .NET with no constraints, on any OS, with any tool and for any application. All of that fully open source, developed with the community and with Microsoft’s support. Check out [dot.net](https://dot.net) to see the breadth of .NET options.
 
 Community Contribution
 ======================
@@ -89,9 +93,9 @@ Illyriad Games, the team behind Age of Ascent, reported a [10-fold increase in p
 
 NetEase, a leading IT company in China, provides online services for content, gaming, social media, communications and commerce, needed to stay on the leading edge of the ever-evolving mobile games space and chose .NET Core for their back end services. When compared to their previous Java back-end architecture: *“.NET Core has reduced our release cycle by 20% and cost on engineering resources by 30%.”* When speaking about the throughput improvements and cost savings: *“Additionally, it has made it possible to reduce the number of VMs needed in production by half.”*
 
-We used industry benchmarks for web platforms on Linux as part of the release, including [TechEmpower Benchmarks](http://www.techempower.com/benchmarks/). We've been [sharing our findings](https://github.com/aspnet/benchmarks) as demonstrated in our own labs, starting several months ago. We're hoping to see official numbers from TechEmpower soon after our release. 
+We used industry benchmarks for web platforms on Linux as part of the release, including the [TechEmpower Benchmarks](http://www.techempower.com/benchmarks/). We've been [sharing our findings](https://github.com/aspnet/benchmarks) as demonstrated in our own labs, starting several months ago. We're hoping to see official numbers from TechEmpower soon after our release. 
 
-Our lab runs show that ASP.NET Core is faster than some of our industry peers. We see throughput that is 8x better than Node.js and almost 3x better than Go, on the same hardware. We're also not done! These are the changes that we were able to get into the 1.0 product. 
+Our lab runs show that ASP.NET Core is faster than some of our industry peers. We see throughput that is 8x better than Node.js and almost 3x better than Go, on the same hardware. We're also not done! These improvements are from the changes that we were able to get into the 1.0 product. 
 
 .NET developers know that the platform is a great choice for productivity. We want them to know that it's also a great choice for performance.
 
@@ -117,7 +121,7 @@ Composition
 - A [.NET runtime](https://github.com/dotnet/coreclr), which provides a type system, assembly loading, a garbage collector, native interop and other basic services. 
 - A set of [framework libraries](https://github.com/dotnet/corefx), which provide primitive data types, app composition types and fundamental utilities. 
 - A [set of SDK tools](https://github.com/dotnet/cli) and [language compilers](https://github.com/dotnet/roslyn) that enable the base developer experience, available in the [.NET Core SDK](https://docs.microsoft.com/dotnet/articles/core/sdk.md).
-- The 'dotnet' app host, which is used to launch .NET Core apps. It selects the runtime and hosts the runtime, provides an assembly loading policy and launches the app. The same host is also used to launch SDK tools in much the same way.
+- The ['dotnet' app host](https://docs.microsoft.com/en-us/dotnet/articles/core/tools/dotnet), which is used to launch .NET Core apps. It selects the runtime and hosts the runtime, provides an assembly loading policy and launches the app. The same host is also used to launch SDK tools in the same way.
 
 Workloads
 ---------
@@ -127,6 +131,44 @@ By itself, .NET Core includes a single application model -- console apps -- whic
 - [ASP.NET Core](http://asp.net)
 - [Windows 10 Universal Windows Platform (UWP)](https://developer.microsoft.com/windows)
 - [Xamarin.Forms](https://www.xamarin.com/forms)
+
+.NET Core Tools
+---------------
+
+You typically start .NET Core development by installing the .NET Core SDK. The SDK includes enough software to build an app. The SDK gives you both the .NET Core Tools and a copy of .NET Core. As new versions of .NET Core are made available, you can download and install them without needing to get a new version of the tools.
+
+Apps specify their dependence on a particular .NET Core version via the project.json project file. The tools help you acquire and use that .NET Core version. You can switch between multiple apps on your machine in Visual Studio, Visual Studio Code or at a command prompt and the .NET Core tools will always pick the right version of .NET Core to use within the context of each app.
+
+You can also have multiple versions of the .NET Core tools on your machine, too, which can be important for continuous integration and other scenarios. Most of the time, you will just have one copy of the tools, since doing so provides a simpler experience.
+
+### The dotnet Tool
+
+Your .NET Core experience will start with the [dotnet tool](https://docs.microsoft.com/en-us/dotnet/articles/core/tools/dotnet). It exposes a set of commands for common operations, including restoring packages, building your project and unit testing. It also includes a command to create an empty new project to make it easy to get started.
+
+The following is a partial list of the commands.
+
+- [dotnet new](https://docs.microsoft.com/dotnet/articles/core/tools/dotnet-new) – Initializes a sample console C# project.
+- [dotnet restore](https://docs.microsoft.com/dotnet/articles/core/tools/dotnet-restore) – Restores the dependencies for a given application.
+- [dotnet build](https://docs.microsoft.com/dotnet/articles/core/tools/dotnet-build) – Builds a .NET Core application.
+- [dotnet publish](https://docs.microsoft.com/dotnet/articles/core/tools/dotnet-publish) – Publishes a .NET portable or self-contained application.
+- [dotnet run](https://docs.microsoft.com/dotnet/articles/core/tools/dotnet-run) – Runs the application from source.
+- [dotnet test](https://docs.microsoft.com/dotnet/articles/core/tools/dotnet-test) – Runs tests using a test runner specified in the project.json.
+- [dotnet pack](https://docs.microsoft.com/dotnet/articles/core/tools/dotnet-pack) – Creates a NuGet package of your code.
+
+dotnet works great with C# projects. F# and VB support is coming.
+
+.NET Standard Library
+---------------------
+
+[The .NET Standard Library](https://docs.microsoft.com/dotnet/articles/standard/library) is a formal specification of .NET APIs that are intended to be available on all .NET runtimes. The motivation behind the Standard Library is establishing greater uniformity in the .NET ecosystem. [ECMA 335](https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/dotnet-standards.md) continues to establish uniformity for .NET runtime behavior, but there is no similar spec for the .NET Base Class Libraries (BCL) for .NET library implementations.
+
+The .NET Standard Library enables the following key scenarios:
+
+- Defines uniform set of BCL APIs for all .NET platforms to implement, independent of workload.
+- Enables developers to produce portable libraries that are usable across .NET runtimes, using this same set of APIs.
+- Reduces and hopefully eliminates conditional compilation of shared source due to .NET APIs, only for OS APIs.
+
+.NET Core 1.0 implements the standard library, as does the .NET Framework and Xamarin. We see the standard library as a major focus of innovation and that benefits multiple .NET products.
 
 Support
 -------
@@ -149,12 +191,39 @@ Some customers want to deploy apps on very stable releases and do not want new f
 
 Other customers want to take advantage of new features as soon as possible, particularly for apps that are almost always in development. Those customers should consider FTS releases.
 
-It is very similar to the .NET Framework, but is a different product.
+Note: We haven't released an FTS verion yet. .NET Core 1.0 is an LTS version.
+
+.NET Core Tools Telemetry
+-------------------------
+
+The .NET Core tools include a [telemetry feature](https://github.com/dotnet/cli/pull/2145) so that we can collect usage information about the .NET Core Tools. It’s important that we understand how the tools are being used so that we can improve them. Part of the reason the tools are in Preview is that we don’t have enough information on the way that they will be used. The telemetry is only in the tools and does not affect your app.
+
+### Behavior
+
+The telemetry feature is on by default. The data collected is anonymous in nature and will be published in an aggregated form for use by both Microsoft and community engineers under a Creative Commons license.
+
+You can opt-out of the telemetry feature by setting an environment variable DOTNET_CLI_TELEMETRY_OPTOUT (e.g. export on OS X/Linux, set on Windows) to true (e.g. “true”, 1). Doing this will stop the collection process from running.
+
+### Data Points
+
+The feature collects the following pieces of data:
+
+- The command being used (e.g. “build”, “restore”)
+- The ExitCode of the command
+- For test projects, the test runner being used
+- The timestamp of invocation
+- The framework used
+- Whether runtime IDs are present in the “runtimes” node
+- The CLI version being used
+
+The feature will not collect any personal data, such as usernames or emails. It will not scan your code and not extract any project-level data that can be considered sensitive, such as name, repo or author (if you set those in your project.json). We want to know how the tools are used, not what you are using the tools to build. If you find sensitive data being collected, that’s a bug. Please [file an issue](https://github.com/dotnet/cli/issues) and it will be fixed.
+
+We use the [MICROSOFT .NET LIBRARY EULA](http://go.microsoft.com/fwlink/?LinkId=329770) for the .NET Core Tools, which we also use for all .NET NuGet packages. We recently added a “DATA” section re-printed below, to enable telemetry from the tools. We want to stay with one EULA for .NET Core and only intend to collect data from the tools, not the runtime or libraries.
 
 Using .NET Core 1.0
 ===================
 
-Show the experience you get with .NET Core 1.0 via the CLI.
+.NET Core 
 
 Using Visual Studio Code
 ========================
