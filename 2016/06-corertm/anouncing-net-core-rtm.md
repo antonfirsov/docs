@@ -9,17 +9,6 @@ We are also releasing [.NET documentation](https://docs.microsoft.com/dotnet) to
 
 Today we are at the [Red Hat DevNation](http://www.devnation.org) conference showing the release and our partnership with Red Hat. [Watch the live stream via Channel 9](https://aka.ms/redhatdotnet) where Scott Hanselman will demonstrate .NET Core 1.0. .NET Core is now available on Red Hat Enterprise Linux and OpenShift via certified containers. In addition, .NET Core is fully supported by Red Hat and extended via the integrated hybrid support partnership between Microsoft and Red Hat. See the Red Hat Blog for more details.
 
-The .NET Core Journey
-=====================
-
-About two years ago, we started receiving requests from some ASP.NET customers for ".NET on Linux". Around the same time, we were talking to the Windows Server Team about Windows Nano, their future, much smaller server product. As a result, we started a new .NET project, which we codenamed "Project K", to target these new platforms. We changed the name, shape and experience of the product a few times along the way, at every turn trying to the make the better and applicable to more scenarios and broader base of developers. It's great to see this project finally broadly available as .NET Core and ASP.NET Core 1.0.
-
-Open source is another important theme of this project. Over time, we noticed that all of the major web platforms were open source. ASP.NET MVC has been open source for a long time, but the platform underneath it, the .NET Framework, was not. We didn't have an answer for web developers who cared deeply about open source, and MVC being open wasn't enough. With today's releases, ASP.NET Core is now an open source web platform, top to bottom. Even the documentation is now open source. ASP.NET Core is now a great candidate for anyone who has open source as a requirement for their web stack. 
-
-We'd like to express our gratitude for everyone that has tried .NET Core and ASP.NET Core and given us feedback. We know that tens of thousands of you have been using the pre-1.0 product. Thanks! We've received a lot of feedback about design choices, user experience, performance, communication and other topics. We've tried our best to apply all of that feedback. The release is much better for it. We couldn't have done it without you. Thanks!
-
-If you are not a .NET developer or haven't used .NET in a while, now is a great moment to try it. You can enjoy the productivity and power of .NET with no constraints, on any OS, with any tool and for any application. All of that fully open source, developed with the community and with Microsoft’s support.
-
 Getting Started
 ===============
 
@@ -44,6 +33,17 @@ Hello World!
 You'll likely get bored of "Hello World" quite quickly. You can read more in-depth tutorials at [.NET Core Tutorials](https://docs.microsoft.com/dotnet/articles/core/tutorials) and [ASP.NET Core Tutorials](https://docs.asp.net/en/latest/tutorials/index.html).
 
 Check out the [Announcing EF Core 1.0](https://blogs.msdn.microsoft.com/dotnet/2016/06/27/entity-framework-core-1-0-0-available) to find out how to get started with Entity Framework Core 1.0.
+
+The .NET Core Journey
+=====================
+
+About two years ago, we started receiving requests from some ASP.NET customers for ".NET on Linux". Around the same time, we were talking to the Windows Server Team about Windows Nano, their future, much smaller server product. As a result, we started a new .NET project, which we codenamed "Project K", to target these new platforms. We changed the name, shape and experience of the product a few times along the way, at every turn trying to the make the better and applicable to more scenarios and broader base of developers. It's great to see this project finally broadly available as .NET Core and ASP.NET Core 1.0.
+
+Open source is another important theme of this project. Over time, we noticed that all of the major web platforms were open source. ASP.NET MVC has been open source for a long time, but the platform underneath it, the .NET Framework, was not. We didn't have an answer for web developers who cared deeply about open source, and MVC being open wasn't enough. With today's releases, ASP.NET Core is now an open source web platform, top to bottom. Even the documentation is now open source. ASP.NET Core is now a great candidate for anyone who has open source as a requirement for their web stack. 
+
+We'd like to express our gratitude for everyone that has tried .NET Core and ASP.NET Core and given us feedback. We know that tens of thousands of you have been using the pre-1.0 product. Thanks! We've received a lot of feedback about design choices, user experience, performance, communication and other topics. We've tried our best to apply all of that feedback. The release is much better for it. We couldn't have done it without you. Thanks!
+
+If you are not a .NET developer or haven't used .NET in a while, now is a great moment to try it. You can enjoy the productivity and power of .NET with no constraints, on any OS, with any tool and for any application. All of that fully open source, developed with the community and with Microsoft’s support.
 
 Community Contribution
 ======================
