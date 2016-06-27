@@ -121,7 +121,7 @@ You can verify that you have the latest version of .NET Core installed by openin
 
 ![](vscode-dotnet-version.png)
 
-Next, you can create a new folder, scaffold a new "Hello World" C# application inside of it with the command line via `dotnet new`, then open Visual Studio Code in that directory with the `code .` command.  If you don't have `code` on your PATH, you'll have to set it.
+Next, you can create a new folder, scaffold a new "Hello World" C# application inside of it with the command line via the `dotnet new` command, then open Visual Studio Code in that directory with the `code .` command.  If you don't have `code` on your PATH, you'll have to set it.
 
 If you don't have [C# language plugin for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp) it installed already, you'll want to do that.
 
@@ -139,13 +139,13 @@ Next, you'll need to create and configure the `launch.json` and `tasks.json` fil
 
 4. Navigate to the Debug menu, click the Play icon, and now you can run your .NET Core applications!
 
-IMAGE OR GIF HERE
+![](vscode-run.gif)
 
 Note that if you open Visual Studio code from a different directory, you may need to change the values of `cwd` and `program` in `launch.json` and `tasks.json` to point to your application output folders.
 
 You can also debug your application by setting a breakpoint in the code and clicking the Play icon.
 
-IMAGE OR GIF HERE
+![](vscode-debug.gif)
 
 Using Visual Studio
 ===================
