@@ -87,10 +87,6 @@ Xamarin app of the week: ParentLove
 
 ![ParentLove](http://a1.mzstatic.com/us/r30/Purple5/v4/8a/f5/18/8af5184c-7330-9a44-0e94-2dbf938dfa81/screen322x572.jpeg)
 
-Game of the week: xx
------------------------------------
-
-
 User group meeting of the week: Building Smart Apps with Microsoft Cognitive Services in Boston
 -----------------------------------------------------------------------------------------------
 
@@ -136,11 +132,6 @@ Xamarin
 * [Using ModernHttpClient with Azure Mobile Apps](https://shellmonger.com/2016/06/23/using-modernhttpclient-with-azure-mobile-apps/) by Adrian Hall.
 * [Xamarin DevOps with VSTS (series)](http://www.thexamarinjournal.com/tag/devops/) by Richard Woollcott.
 * [Xamarin Technology Stack](https://xamarinhelp.com/xamarin-technology-stack/), [Merged Dictionaries with Xamarin Forms](https://xamarinhelp.com/merged-dictionaries-xamarin-forms/), [App Discovery and Deep Linking Series](https://xamarinhelp.com/app-discovery-deep-linking-series/), and [Contributing to Xamarin Forms](https://xamarinhelp.com/contributing-xamarin-forms/) by Adam Pedley.
-
-Games
------
-
-
 
 And this is it for this week!
 
