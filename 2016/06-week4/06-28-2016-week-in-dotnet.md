@@ -8,7 +8,7 @@ We shipped!
 
 We are excited to announce the release of .NET Core 1.0, [ASP.NET Core 1.0](https://blogs.msdn.microsoft.com/webdev/2016/06/27/announcing-asp-net-core-1-0/) and [Entity Framework Core 1.0](https://blogs.msdn.microsoft.com/dotnet/2016/06/27/entity-framework-core-1-0-0-available), available on Windows, OS X and Linux! .NET Core is a cross-platform, open source, and modular .NET platform for creating modern web apps, microservices, libraries and console applications.
 
-This release includes the .NET Core runtime, libraries and tools and the ASP.NET Core libraries. We are also releasing Visual Studio and Visual Studio Code extensions that enable you to create .NET Core projects. You can get started at [https://dot.net/core](https://dot.net/core).
+This release includes the .NET Core runtime, libraries, and tools as well as the ASP.NET Core libraries. We are also releasing Visual Studio and Visual Studio Code extensions that enable you to create .NET Core projects. You can get started at [https://dot.net/core](https://dot.net/core).
 
 The Visual Studio team also released [Visual Studio 2015 Update 3](https://blogs.msdn.microsoft.com/visualstudio/2016/06/27/visual-studio-2015-update-3-and-net-core-1-0-available-now/) today. You need that release to build .NET Core apps in Visual Studio.
 
@@ -119,8 +119,10 @@ F#
 Xamarin
 -------
 
-* [Xamarin DevOps with VSTS - Deploying To Devices From HockeyApp](http://www.thexamarinjournal.com/xamarin-dev-ops-with-vsts-deploying-to-devices-from-hockeyapp-2/) by Richard Woollcott.
-* [Merged Dictionaries with Xamarin Forms](https://xamarinhelp.com/merged-dictionaries-xamarin-forms/), [App Discovery and Deep Linking Series](https://xamarinhelp.com/app-discovery-deep-linking-series/), and [Contributing to Xamarin Forms](https://xamarinhelp.com/contributing-xamarin-forms/) by Adam Pedley.
+* [Adding Facial Recognition to Your Mobile Apps](https://blog.xamarin.com/adding-facial-recognition-to-your-mobile-apps/) by Pierce Boggan.
+* [Using ModernHttpClient with Azure Mobile Apps](https://shellmonger.com/2016/06/23/using-modernhttpclient-with-azure-mobile-apps/) by Adrian Hall.
+* [Xamarin DevOps with VSTS (series)](http://www.thexamarinjournal.com/tag/devops/) by Richard Woollcott.
+* [Xamarin Technology Stack](https://xamarinhelp.com/xamarin-technology-stack/), [Merged Dictionaries with Xamarin Forms](https://xamarinhelp.com/merged-dictionaries-xamarin-forms/), [App Discovery and Deep Linking Series](https://xamarinhelp.com/app-discovery-deep-linking-series/), and [Contributing to Xamarin Forms](https://xamarinhelp.com/contributing-xamarin-forms/) by Adam Pedley.
 
 Games
 -----
@@ -143,3 +145,5 @@ We'd love to hear from you, and feature your contributions on future posts:
 * [Send Stacey (@yecats131) tips on Twitter about .NET games](https://twitter.com/yecats131).
 
 This week's post (and future posts) also contains news I first read on [The ASP.NET Community Standup](https://blogs.msdn.microsoft.com/webdev/tag/communitystandup/), on [Weekly Xamarin](http://weeklyxamarin.com/), on [F# weekly](https://sergeytihon.wordpress.com/category/f-weekly/), on [ASP.NET Weekly](http://www.aspnetweekly.com/), and on [Chris Alcock's The Morning Brew](http://themorningbrew.net/).
+
+Xamarin links by Dan Rigby, F# links by Phillip Carter, and gaming links by Stacey Haffner.
