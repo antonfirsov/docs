@@ -80,6 +80,13 @@ MyMvc
     });
 ```
 
+Xamarin app of the week: ParentLove
+-----------------------------------
+
+[ParentLove](http://www.parentlove.me/) is a baby activity tracking application for iOS, Android, and Windows Phone. It's clearly a work of love, and it's built with Xamarin!
+
+![ParentLove](http://a1.mzstatic.com/us/r30/Purple5/v4/8a/f5/18/8af5184c-7330-9a44-0e94-2dbf938dfa81/screen322x572.jpeg)
+
 Game of the week: xx
 -----------------------------------
 
@@ -99,7 +106,6 @@ On Thursday, June 30 at 6:15PM, the [Boston Mobile C# Developers group](http://w
 * [NDepend – the king of code metrics](http://piotrgankiewicz.com/2016/06/27/ndepend-the-king-of-code-metrics/) by Piotr Gankiewicz.
 * [Portable- is dead, long live NetStandard](https://oren.codes/2016/06/23/portable-is-dead-long-live-netstandard/) by Oren Novotny.
 * [More on Inking with Wet Ink & Custom Rulers](https://mtaulty.com/2016/06/21/windows-10-anniversary-update-more-on-inking-with-wet-ink/) by Mike Taulty.
-* [Cross Platform Time Zone Handling for ASP.NET Core](http://www.joeaudette.com/cross-platform-time-zone-handling-for-aspnet-core.aspx) by Joe Audette.
 
 ASP.NET
 -------
@@ -109,6 +115,7 @@ ASP.NET
 * [Reloading strongly typed Options on file changes in ASP.NET Core RC2](http://andrewlock.net/reloading-strongly-typed-options-when-appsettings-change-in-asp-net-core-rc2/) by Andrew Lock.
 * [Building REST APIs using ASP.NET Core and Entity Framework Core](https://chsakell.com/2016/06/23/rest-apis-using-asp-net-core-and-entity-framework-core/) by Christos Sakell.
 * [Basics of Middleware in ASP NET Core (video)](https://www.youtube.com/watch?v=B2WftX-etVo) by ProCoder.
+* [Cross Platform Time Zone Handling for ASP.NET Core](http://www.joeaudette.com/cross-platform-time-zone-handling-for-aspnet-core.aspx) by Joe Audette.
 
 F#
 --
