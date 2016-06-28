@@ -120,8 +120,14 @@ ASP.NET
 F#
 --
 
+* [Understanding Parser Combinators: a Deep Dive](https://vimeo.com/171704565), by Scott Wlaschin
+* [Three is a crowd – Actor based](http://fjoppe.weebly.com/mingle-bar/three-is-a-crowd-actor-based/), by Frank Joppe
+* [Patterns and Practices for Real-World, Event-Driven Microservices](https://skillsmatter.com/skillscasts/7812-don-t-miss-rachel-reese-at-prognet-tutorials-2016), by Rachel Reese
+* [Fsharp.Interop.ComProvider](https://github.com/fsprojects/FSharp.Interop.ComProvider) - F# type provider for COM interop
 * [F# gotchas for C# developers](http://dobegin.com/fsharp-gotchas-for-csharp-devs/) by Daniel Lazarenko.
 * [F# Implementation of The Elm Architecture](http://anthonylloyd.github.io/blog/2016/06/20/fsharp-elm-part1) by Anthony Lloyd.
+​
+Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
 
 Xamarin
 -------
