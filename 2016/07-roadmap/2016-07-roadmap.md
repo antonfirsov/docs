@@ -20,8 +20,11 @@ investigating:
 
 * Performance improvements in `dotnet build` which will improve ASP.NET Core
   publishing times.
-* Updates to the `dotnet new` templates for F# so they build without changes.
+* Updates to the `dotnet new` templates for F# so they use the latest alpha of
+  F# on .NET Core
 * Miscellaneous fixes to the tools based on crash telemetry.
+
+
 
 ## Q4 2016 / Q1 2017
 
@@ -72,8 +75,9 @@ F# 4.1 will include things like:
 
 * Full .NET Core support
 * Better IDE experience with workspace support on the F# language service
-* New language features such as ValueTuple interop, more support for annotating
-  types as structs, better "low-level" programming support and more.
+* New language features such as struct tuples which interoperate with
+  `ValueTuple`, more support for annotating types as structs, support for the
+  `fixed` keyword and more.
 
 ### ASP.NET Core
 
