@@ -123,13 +123,15 @@ F# 4.1 will include things like:
 
 ## Q1 2017 / Q2 2017
 
-.NET Core will bring back many of the missing APIs in .NET Core, including
-networking, serialization, data and more. These APIs are part of .NET Standard
-2.0, which will be released at the same time, resulting in APIs being consistent
-across .NET Framework, .NET Core and Xamarin. It will be much easier to write
-portable code that can run on all the major .NET platforms, targeting .NET
-Standard 2.0. Expect a preview of this work to start showing up after we ship
-the Q4/Q1 release.
+This release will bring back many of the missing APIs in .NET Core, including
+networking, serialization, data and more. Looking at the various flavors of .NET
+there is a lot of common BCL code that is not tied to App Models (WinForms, WPF,
+ASP.NET, etc). These APIs will be part of .NET Standard 2.0, which will be
+released at the same time, resulting in APIs being consistent across .NET
+Framework, .NET Core and Xamarin. It will be much easier to write portable code
+that can run on all the major .NET platforms, targeting .NET Standard 2.0.
+Expect a preview of this work to start showing up after we ship the Q4/Q1
+release.
 
 ### Better Communication
 
@@ -144,11 +146,11 @@ the team. A rough list of upcoming topics is:
 * Support and Versioning .NET Core
 * Telemetry in .NET Core
 * .NET Standard
-* API's Returning
+* APIs Returning
 * Project Conversion from project.json to .csproj
 
 Next week we hope to show some of the first examples of what the conversion to
 .csproj/MSBuild will look like and a deeper dive of the new functionality in one
 of (ASP.NET, EF or .NET CLI).
 
-Let us know what your think!
+Thanks for reading this and please keep the feedback coming!
