@@ -5,7 +5,7 @@ To read the last post, see [The week in .NET – 7/12/2016](https://blogs.msdn.m
 
 On .NET
 -------
-Last weeks show was postponed and will be rescheduled at a later date. This week, we will have Rowan Miller on [the show](https://www.youtube.com/channel/UCvtT19MZW8dq5Wwfu6B0oxw/) to talk about EF Core.
+Last week's show was postponed and will be rescheduled at a later date. This week, we will have Rowan Miller on [the show](https://www.youtube.com/channel/UCvtT19MZW8dq5Wwfu6B0oxw/) to talk about EF Core.
 
 
 Package of the week: ImageResizer
