@@ -33,11 +33,11 @@ Below is an example on how to convert and resize images as they are being upload
 
 Game of the week: Tumblestone
 -----------------------------------
-[Tumblestone](http://www.tumblestonegame.com/) is a fast paced action-puzzle game where players can battle their friends in multiplayer or spruce up their skills in the story or arcade modes. Tumblestones story campaign features over 40 hours of progressively difficult content with 10 different game play modifiers, challenging puzzles and boss battles. In arcade mode, players can kick back and relax with the casual Marathon mode, solve challenging puzzles with Infinipuzzel mode or play the fast-paced Heartbat mode.
+[Tumblestone](http://www.tumblestonegame.com/) is a fast paced action-puzzle game where players can battle their friends in multiplayer or spruce up their skills in the story or arcade modes. Tumblestone's story campaign features over 40 hours of progressively difficult content with challenging puzzles, boss battles and 10 different game play modifiers. In arcade mode, players can kick back and relax with the casual Marathon mode, solve challenging puzzles with Infinipuzzle mode or play the fast-paced Heartbeat mode.
 
 ![alt](gameScreen.png) 
 
-Tumblestone was created by [The Quantum Astrophysicists Guild](http://quantumastrophysics.com/) using [Unity](http://unity3d.com/), JavaScript and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is currently available on Steam for Windows and Mac, Xbox One, Wii U and PlayStation 4.
+Tumblestone was created by [The Quantum Astrophysicists Guild](http://quantumastrophysics.com/) using [Unity](http://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is currently available on Steam for Windows and Mac, Xbox One, Wii U and PlayStation 4.
 
 User group meeting of the week: C# 6 and C# 7 with Kathleen Dollard
 ------------------------------------------------
