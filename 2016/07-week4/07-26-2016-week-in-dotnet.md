@@ -81,14 +81,13 @@ On Saturday, July 30 at 9:00 AM, the Seattle Mobile .NET Developers group is hos
 * [TPL: Producer Consumer Pattern - Thread Safe Queue Collection](http://www.codeproject.com/Articles/1112510/TPL-Producer-Consumer-Pattern-Thread-Safe-Queue-Co), by Ameet Parse.
 * [Freezable Pattern](https://github.com/jbe2277/waf/wiki/Freezable-Pattern)
 * [Reducing allocations and resource usages when using Task.Delay](https://ayende.com/blog/174851/reducing-allocations-and-resource-usages-when-using-task-delay), by Ayende.
-*[Key Steps in Developing .NET Core Applications](https://blogs.msdn.microsoft.com/mvpawardprogram/2016/07/19/key-steps-in-developing-net-core-applications/), by Damir Dobric.
+* [Key Steps in Developing .NET Core Applications](https://blogs.msdn.microsoft.com/mvpawardprogram/2016/07/19/key-steps-in-developing-net-core-applications/), by Damir Dobric.
 
 ASP.NET
 -------
 
 * [Status Code With Empty Response in ASP.NET Core](https://devblog.dymel.pl/2016/06/29/asp-net-core-status-code-empty-response/), by  Michal.
 * [Return 401 Unauthorized From ASP.NET Core API](https://devblog.dymel.pl/2016/07/07/return-401-unauthorized-from-asp-net-core-api/), by Michal.
-* [The Power of Global.json: Leveraging .NET Core Tooling Features](https://ievangelist.github.io/blog/the-global-json/), by David Pine.
 * [Loading tenants from the database with SaasKit in ASP.NET Core](http://andrewlock.net/loading-tenants-from-the-database-with-saaskit-in-asp-net-core/), by Andrew Lock.
 * [Service Discovery Patterns with ASP.NET Core](https://github.com/cecilphillip/aspnet-servicediscovery-patterns), by Cecil Phillip.
 * [The Minimal ASPNET Core App](http://ardalis.com/the-minimal-aspnet-core-app), by Steve Smith.
