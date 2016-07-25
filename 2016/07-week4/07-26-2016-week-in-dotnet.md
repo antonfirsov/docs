@@ -9,7 +9,7 @@ Last week, we had Rowan Miller on the show to talk about Entity Framework.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/8Sp7UMzJQD4" frameborder="0" allowfullscreen></iframe>
 
-This week's show is canceled and is anticipated to return next week.
+This week's show has been canceled and is anticipated to return next week.
 
 
 Package of the week: OpenPop.NET
@@ -61,7 +61,7 @@ Game of the week: FRU
 -----------------------------------
 [FRU](http://frugame.com/) is a highly innovative puzzle platformer built for Xbox One. In FRU, players use the Kinect to project their silhouette to solve puzzles within the game world. Players will enjoy four chapters, each with a unique twist, while they use their silhouette to strike creative poses to activate or avoid various components within the environment.
 
-![alt](FRU.png)
+![alt](fru.png)
 
 FRU was created by Through Games using [Unity](http://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is currently available on Xbox One.
 
