@@ -98,6 +98,7 @@ ASP.NET
 F#
 --
 
+* [A Peek into F# 4.1](https://blogs.msdn.microsoft.com/dotnet/2016/07/25/a-peek-into-f-4-1/), by Phillip Carter
 * [F# on .NET Core 1.0 RTM SDK Preview 2](https://www.youtube.com/watch?v=ufmlCL8IqmM), presented by Enrico Sada
 * [F#: Fixing Recursive-Induced Damage](https://bizmonger.wordpress.com/2016/07/23/f-fixing-recursive-induced-damage/), by Scott Nimrod
 * [Currying and Partial Application in F#](http://blog.guvweb.co.uk/2016/07/23/currying_in_fsharp/), by GuvBlog
