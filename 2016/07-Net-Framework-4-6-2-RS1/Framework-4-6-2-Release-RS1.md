@@ -1,8 +1,9 @@
 #Announcing .NET Framework 4.6.2
 Today we are pleased to announce the availability of .NET Framework 4.6.2! The release is packed with lots of great improvements including those in the following areas:
 
-* [Cryptography](#cryptography)
+* [Base Class Libraries](#base-class-libraries)
 * [ClickOnce](#clickonce)
+* [Cryptography](#cryptography)
 * [ASP.NET](#asp.net)
 * [Productivity](#productivity)
 * [SQL](#sql)
@@ -23,6 +24,27 @@ We would like to thank everyone who provided feedback on the 4.6.2 preview relea
 
 * [Bugs – VS Feedback](https://connect.microsoft.com/VisualStudio/Feedback)
 * [Suggestions – User Voice](https://visualstudio.uservoice.com/forums/121579-visual-studio-2015)
+
+#Base Class Libraries
+##Long Path Support
+A number of changes have been made around path handling to better align with work that has been done in .NET Core and to allow for future Windows improvements. These changes are only on by default if you target 4.6.2 or higher or explicitly opt in via AppContext switches. More details on these changes can be found on [Jeremy Kuhne’s blog](https://blogs.msdn.microsoft.com/jeremykuhne/2016/06/21/more-on-new-net-path-handling/).  
+
+### Allow for paths that are greater than MAX_PATH (260)
+Paths that are >= MAX_Path are no longer premetively blocked. Additionally, extended DOS device path syntax (`\\?\`) is now allowed. Using this syntax will skip the Windows MAX_PATH checks on all versions of Windows. 
+ 
+###Normalization Improvements
+.NET Framework 4.6.2 contains several normalization improvements including letting the OS primarily handle normalization in order to avoid inadvertently blocking legitimate DOS style paths. General performance improvements have also been made in addition to opening up DOS device path syntax  (\\?\, \\.\) to allow access to previous previously inaccessible paths.
+
+#ClickOnce
+##Transport Layer Security (TLS) 1.1 and 1.2 Support
+ClickOnce has been updated to support TLS 1.1 and 1.2. ClickOnce will automatically detect which TLS protocol is required at runtime. There are no extra steps that are needed within the ClickOnce application to enable this.
+
+ClickOnce continues to support TLS 1.0 for the foreseeable future for compatibility, for applications that do not or cannot upgrade.
+
+##Client Certificate Support
+ClickOnce applications can now be hosted in virtual directories with SSL enabled and with client certificates required. End users will now be prompted to select their certificate when accessing an application that is hosted via such virtual directory where as previously the ClickOnce deployment was terminated with an access denied error. Please note that ClickOnce will not prompt for a certificate if the setting is set to "Ignore".
+
+![alt](clickonce_ssl.jpg)
 
 # Cryptography
 ## X509 Certificates Now Support FIPS 186-3 DSA
@@ -62,17 +84,6 @@ The URI constants are all exposed on SignedXml:
 Any programs which have registered a custom SignatureDescription handler into CryptoConfig to add support for these algorithms will continue to function as they did in the past, but since there are now platform defaults the CryptoConfig registration should no longer be necessary.
 
 <script src="https://gist.github.com/staceyhaffner/8bd7376597d54f0c95be.js"></script>
-
-#ClickOnce
-##Transport Layer Security (TLS) 1.1 and 1.2 Support
-ClickOnce has been updated to support TLS 1.1 and 1.2. ClickOnce will automatically detect which TLS protocol is required at runtime. There are no extra steps that are needed within the ClickOnce application to enable this.
-
-ClickOnce continues to support TLS 1.0 for the foreseeable future for compatibility, for applications that do not or cannot upgrade.
-
-##Client Certificate Support
-ClickOnce applications can now be hosted in virtual directories with SSL enabled and with client certificates required. End users will now be prompted to select their certificate when accessing an application that is hosted via such virtual directory where as previously the ClickOnce deployment was terminated with an access denied error. Please note that ClickOnce will not prompt for a certificate if the setting is set to "Ignore".
-
-![alt](clickonce_ssl.jpg)
 
 #ASP.NET
 ##DataAnnotation Localization
