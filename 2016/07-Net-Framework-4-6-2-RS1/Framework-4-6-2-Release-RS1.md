@@ -1,7 +1,7 @@
 #Announcing .NET Framework 4.6.2
 Today we are pleased to announce the availability of .NET Framework 4.6.2! The release is packed with lots of great improvements including those in the following areas:
 
-* [Base Class Libraries](#base-class-libraries)
+* [Base Class Library](#base-class-library)
 * [ClickOnce](#clickonce)
 * [Cryptography](#cryptography)
 * [ASP.NET](#asp.net)
@@ -25,7 +25,7 @@ We would like to thank everyone who provided feedback on the 4.6.2 preview relea
 * [Bugs – VS Feedback](https://connect.microsoft.com/VisualStudio/Feedback)
 * [Suggestions – User Voice](https://visualstudio.uservoice.com/forums/121579-visual-studio-2015)
 
-#Base Class Libraries
+#Base Class Library
 ##Long Path Support
 A number of changes have been made around path handling to better align with work that has been done in .NET Core and to allow for future Windows improvements. These changes are only on by default if you target 4.6.2 or higher or explicitly opt in via AppContext switches. More details on these changes can be found on [Jeremy Kuhne’s blog](https://blogs.msdn.microsoft.com/jeremykuhne/2016/06/21/more-on-new-net-path-handling/).  
 
