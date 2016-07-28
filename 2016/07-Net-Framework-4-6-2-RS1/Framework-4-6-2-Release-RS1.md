@@ -169,7 +169,7 @@ To continue protecting sensitive data, the column encryption key entries in the 
 ##NetNamedPipeBinding Best Match
 In .NET 4.6.2, we have enhanced [NetNamedPipeBinding](https://msdn.microsoft.com/en-us/library/ms752247.aspx) to support a new pipe lookup, known as “Best Match”.  When using “Best Match”, the NetNamedPipeBinding service will force clients to search for the service listening at the best matching URI to their requested endpoint, rather than the first matching service found. 
 
-The “Best Match” pipe is particularly useful if a WCF client app is connected to the wrong URI when using the default “First Match” behavior. In certain situations when there are more than one pipe that WCF services are listening to, WCF clients using "First Match" could be connected to a wrong service. This could happen if some of the services are hosted by an administrator account. 
+The “Best Match” pipe is particularly useful if a WCF client app tries to connect to the wrong URI when using the default “First Match” behavior. In certain situations, when there are more than one WCF Services listening on named pipes, WCF clients using "First Match" could be connected to a wrong service. This could happen if some of the services are hosted by an administrator account.
 
 To enable this feature, developers can add the following AppSetting to their client application's App.config or Web.config file:
 
