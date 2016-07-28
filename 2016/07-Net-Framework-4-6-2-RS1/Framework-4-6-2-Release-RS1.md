@@ -1,30 +1,28 @@
 #Announcing .NET Framework 4.6.2
 Today we are pleased to announce the availability of .NET Framework 4.6.2! The release is packed with lots of great improvements including those in the following areas:
 
-* Cryptography
-* ClickOnce
-* ASP.NET
-* Productivity
-* Windows Presentation Foundation (WPF)
-* SQL
-* Windows Communication Foundation (WCF)
+* [Cryptography](#cryptography)
+* [ClickOnce](#clickonce)
+* [ASP.NET](#asp.net)
+* [Productivity](#productivity)
+* [SQL](#sql)
+* [Windows Presentation Foundation](#windows-presentation-foundation)
+* [Windows Communication Foundation](#windows-communication-foundation)
 
 The full set of changes included in the .NET Framework 4.6.2 are available on the [change list](xxx) and [API diff](xxx) that have been published on [GitHub](https://github.com/microsoft/dotnet).
 
 ##Download Now
 The release can be downloaded now from the following locations:
 
-1. [.NET Framework 4.6.2 Web Installer]()
-2. [.NET Framework 4.6.2 Offline Installer]()
-2. [.NET Framework 4.6.2 Developer Pack]()
+1. [.NET Framework 4.6.2 Web Installer](xxx)
+2. [.NET Framework 4.6.2 Offline Installer](xxx)
+2. [.NET Framework 4.6.2 Developer Pack](xxx)
 
 ##Provide Feedback
 We would like to thank everyone who provided feedback on the 4.6.2 preview release! Your feedback was instrumental in making 4.6.2 an amazing release. Please continue to direct your feedback towards the following places:
 
 * [Bugs – VS Feedback](https://connect.microsoft.com/VisualStudio/Feedback)
 * [Suggestions – User Voice](https://visualstudio.uservoice.com/forums/121579-visual-studio-2015)
-
-
 
 # Cryptography
 ## X509 Certificates Now Support FIPS 186-3 DSA
@@ -153,7 +151,7 @@ To improve performance of parameterized queries against encrypted database colum
 ###Security
 To continue protecting sensitive data, the column encryption key entries in the key cache are now evicted after a configurable time interval. The time interval can be set using the  [SqlConnection::ColumnEncryptionKeyCacheTtl](https://msdnstage.redmond.corp.microsoft.com/en-US/library/mt703753%28VS.110%29.aspx) Property.
 
-#Windows Communication Foundation (WCF)
+#Windows Communication Foundation
 ##NetNamedPipeBinding Best Match
 NetNamedPipeBinding provides interprocess communication on a single machine. In .NET 4.6.2, a new app setting was added which can be enabled to circumvent a known issue in WCF that causes clients using NetNamedPipeBinding to connect to the wrong service in certain situations. To enable this change, developers can add the following AppSetting to their client application's App.config or Web.config file:
 
@@ -224,9 +222,9 @@ public async Task InvokeCallbackWithDelay(int delay)
 
 Previously, the internal implementation of OperationContext.Current was to store the CurrentContext using a ThreadStatic variable, which used the thread's local storage to store the data associated with CurrentContext. If there was a change in the execution context of the method call (i.e. a thread change caused by awaiting another operation), any subsequent calls would be operating on a different thread without a reference to the original value. With the fix, the second call to OperationContext.Current will deliver the expected value even though threadId1 and threadId2 may be different.
 
-#Windows Presentation Foundation (WPF)
+#Windows Presentation Foundation
 ##Group Sorting
-An application that requests [CollectionView](https://msdn.microsoft.com/en-us/library/system.windows.data.collectionview.aspx) to group data can now explicitly declare how to sort the groups. This overcomes some unintuitive ordering that can arise when the application dynamically adds or removes groups, or when the application changes the value of item properties involved in grouping.  It can also improve the performance of the group creation process, by moving comparisions of the grouping properties from the sort of the full collection to the sort of the groups.
+An application that requests [CollectionView](https://msdn.microsoft.com/en-us/library/system.windows.data.collectionview.aspx) to group data can now explicitly declare how to sort the groups. This overcomes some unintuitive ordering that can arise when the application dynamically adds or removes groups, or when the application changes the value of item properties involved in grouping.  It can also improve the performance of the group creation process, by moving comparisons of the grouping properties from the sort of the full collection to the sort of the groups.
  
 The feature includes two new properties on the [GroupDescription](https://msdn.microsoft.com/en-us/library/system.componentmodel.groupdescription.aspx) class: `SortDescriptions` and `CustomSort`. These describe how to sort the collection of groups produced by the `GroupDescription`, analogous to the way the properties on `ListCollectionView` with the same names describe how to sort the data items. There are also two new static properties on the `PropertyGroupDescription` class for use in the most common cases: `CompareNameAscending` and `CompareNameDescending`.
  
