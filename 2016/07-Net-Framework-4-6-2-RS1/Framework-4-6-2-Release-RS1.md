@@ -122,6 +122,8 @@ It is important to note that each localization resx file will need to be located
 
 ![alt](asp.net_dataAnnotation.png)
 
+Developers can also plug in their own stringlocalizer provider to store the localization string somewhere else other than resource file.
+
 ##Async Improvements
 SessionStateModule and Output-Cache Module have been improved to enable async scenarios. The team is working on releasing async versions of both modules via NuGet, which will need to be imported into an existing project. Both NuGet packages are anticipated to release within the coming weeks. 
  
@@ -131,6 +133,7 @@ SessionStateModule and Output-Cache Module have been improved to enable async sc
 Developers will be able to take advantage of the scalability benefits of async into session state by replacing existing SessionStateModule with the custom session state module which implements the new interface named `ISessionStateModule`. Through the custom session state module, the developer will be able to plug in their async session state provider.
 
  ###Output-Cache Module
+ 
 [Output Caching](http://www.asp.net/mvc/overview/older-versions-1/controllers-and-routing/improving-performance-with-output-caching-cs) can dramatically improve the performance of an ASP.NET application by caching the result returned from the controller action to avoid unnecessarily generating the same content every time. 
 
 Developers will be able to use the Async APIs with Output Caching by implementing a new interface called `OutputCacheProviderAsync`. Doing so will reduce thread-blocking on a web server and improve scalability of an ASP.NET service. 
@@ -153,7 +156,11 @@ To continue protecting sensitive data, the column encryption key entries in the 
 
 #Windows Communication Foundation
 ##NetNamedPipeBinding Best Match
-NetNamedPipeBinding provides interprocess communication on a single machine. In .NET 4.6.2, a new app setting was added which can be enabled to circumvent a known issue in WCF that causes clients using NetNamedPipeBinding to connect to the wrong service in certain situations. To enable this change, developers can add the following AppSetting to their client application's App.config or Web.config file:
+In .NET 4.6.2, we have enhanced [NetNamedPipeBinding](https://msdn.microsoft.com/en-us/library/ms752247.aspx) to support a new pipe lookup, known as “Best Match”.  When using “Best Match”, the NetNamedPipeBinding service will force clients to search for the service listening at the best matching URI to their requested endpoint, rather than the first matching service found. 
+
+The “Best Match” pipe is particularly useful if a WCF client app is connected to the wrong URI when using the default “First Match” behavior. In certain situations when there are more than one pipe that WCF services are listening to, WCF clients using "First Match" could be connected to a wrong service. This could happen if some of the services are hosted by an administrator account. 
+
+To enable this feature, developers can add the following AppSetting to their client application's App.config or Web.config file:
 
 ```csharp
 <configuration>
@@ -162,9 +169,6 @@ NetNamedPipeBinding provides interprocess communication on a single machine. In 
   </appSettings>
 </configuration>
  ```
-This known issue occurs due to the way clients using NetNamedPipeBinding find the underlying pipe name to communicate with the service. Services create a named pipe based on the base address they are listening on, but clients are given a full endpoint address. As a result, the client has to do a search to find the correct pipe name to connect to. First it tries to connect to the full endpoint address given, for example “net.pipe://localhost/MyService/Endpoint”. If no service is found listening to the pipe for that location it checks the next possible base address, “net.pipe://localhost/MyService”, and continues until it finds a URI that has a service listening. Internally WCF uses a shared memory location to check if a service is listening at a pipe name before connecting. 
-
-This issue comes from the fact that WCF services write to a different shared memory location depending on permissions. If a service is running as administrator or has the SeCreateGlobalPrivilege permission, WCF will use global memory, otherwise it will use local memory. Currently WCF clients search for any services in global memory before checking local memory. This causes an issue where if a machine has a service running as administrator listening at “net.pipe://localhost” all clients on that machine will find this service before any un-elevated services. The above AppSetting forces clients to search for the service listening at the best matching URI to their requested endpoint, rather than the first service found.
 
 ##DataContractJsonSerializer Improvements
 The [DataContractJsonSerializer](https://msdn.microsoft.com/en-us/library/bb412179.aspx) has been improved to better support multiple daylight saving time adjustment rules. When turning on the new setting, DataContractJsonSerializer will use the [TimeZoneInfo](https://msdn.microsoft.com/en-us/library/system.timezoneinfo.aspx) class instead of the[TimeZone](https://msdn.microsoft.com/en-us/library/system.timezone) class. The TimeZoneInfo class supports the multiple adjustment rule, which makes it possible to work with historic time zone data. This is useful when a time zone has different daylight saving time adjustment rules, such as (UTC+2) Istanbul. 
