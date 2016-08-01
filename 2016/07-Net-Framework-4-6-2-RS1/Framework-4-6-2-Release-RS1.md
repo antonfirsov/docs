@@ -1,6 +1,6 @@
 #Announcing .NET Framework 4.6.2
 
-Today we are excited to announce the availability of the [.NET Framework 4.6.2](http://go.microsoft.com/fwlink/?LinkId=780597)! Many of the changes are based on your [feedback](#your-feedback), including from [UserVoice](https://visualstudio.uservoice.com/forums/121579-visual-studio-2015/category/31481--net) and [Connect](https://connect.microsoft.com/VisualStudio/Feedback). Thanks for your continued help and engagement! 
+Today we are excited to announce the availability of the [.NET Framework 4.6.2](http://go.microsoft.com/fwlink/?LinkId=780597)! Many of the changes are based on your [feedback](#your-feedback), including those submitted on [UserVoice](https://visualstudio.uservoice.com/forums/121579-visual-studio-2015/category/31481--net) and [Connect](https://connect.microsoft.com/VisualStudio/Feedback). Thanks for your continued help and engagement! 
 
 The release is packed with lots of great improvements in the following areas:
 
@@ -12,15 +12,15 @@ The release is packed with lots of great improvements in the following areas:
 * [Windows Presentation Foundation](#windows-presentation-foundation)
 * [Windows Communication Foundation](#windows-communication-foundation)
 
-You can see the full set of changes in the [.NET Framework 4.6.2 change list](xxx) and [API diff](xxx). The set of [supported Windows versions](xxx) is included in the changelist.
+You can see the full set of changes in the [.NET Framework 4.6.2 change list](xxx) and [API diff](xxx). The set of [supported Windows versions](xxx) is included in the change list.
 
 ##Download Now
 
 You can download the .NET Framework 4.6.2 now:
 
-* [.NET Framework 4.6.2 Web Installer](http://go.microsoft.com/fwlink/?LinkId=780597) - Quickest install - requires an internet connection.
-* [.NET Framework 4.6.2 Offline Installer](http://go.microsoft.com/fwlink/?LinkId=780601) - All-inclusive installer (includes all language packs) - does not require an internet connection.
-* [.NET Framework 4.6.2 Developer Pack](http://go.microsoft.com/fwlink/?LinkId=780617) - For development and build environments (includes Offline Installer and the 4.6.2 targeting pack) - does not require an internet connection.
+* [.NET Framework 4.6.2 Web Installer](http://go.microsoft.com/fwlink/?LinkId=780597) - Quickest Install. Requires an internet connection.
+* [.NET Framework 4.6.2 Offline Installer](http://go.microsoft.com/fwlink/?LinkId=780601) - All-inclusive installer (includes all language packs). Does not require an internet connection.
+* [.NET Framework 4.6.2 Developer Pack](http://go.microsoft.com/fwlink/?LinkId=780617) - For development and build environments (includes Offline Installer and the 4.6.2 targeting pack). Does not require an internet connection.
 
 #Base Class Library (BCL)
 
@@ -28,7 +28,7 @@ The following improvements have been made in the BCL.
 
 ##Long Path Support (`MAXPATH`)
 
-We [fixed the 260 character (MAXPATH) file name length limitation](https://visualstudio.uservoice.com/forums/121579-visual-studio-2015/suggestions/4954037-fix-260-character-file-name-length-limitation) in the System.IO APIs. Over 4500 of you voted for this issue on UserVoice. 
+We [fixed the 260 character (MAXPATH) file name length limitation](https://visualstudio.uservoice.com/forums/121579-visual-studio-2015/suggestions/4954037-fix-260-character-file-name-length-limitation) in the System.IO APIs. Over 4500 of you voted for this issue on UserVoice! 
 
 This limitation doesn't usually affect consumer applications (for example, loading files out of "My Documents"), but is more common on developer machines that build deeply nested source trees or use specialized tools that also run on Unix (where long paths are much more common).
 
@@ -56,15 +56,15 @@ You can opt applications that target an earlier version of the .NET Framework in
 </configuration>
 ```
 
-The absense of targeting the .NET Framework 4.6.2 or setting the AppContext switch results in the existing behavior of being blocked from using paths longer than `MAXPATH`. The behavior is opt-in to maintain backwards compatibility for existing applications.
+The absence of targeting the .NET Framework 4.6.2 or setting the AppContext switch results in the existing behavior of being blocked from using paths longer than `MAXPATH`. The behavior is opt-in to maintain backwards compatibility for existing applications.
 
 The following improvements were made to enable long paths:
 
 * **Allow paths that are greater than 260 character (MAX_PATH)**. Paths that are longer than [`MAX_PATH`](https://msdn.microsoft.com/library/windows/desktop/aa365247.aspx#maxpath) are allowed by the BCL. The BCL APIs rely on the underlying Win32 file APIs for limitation checks. 
 
-* **Enable extended path syntax and file namespaces (`\\?\`, `\\.\`)**. Windows exposes multiple [file namespaces](https://msdn.microsoft.com/library/windows/desktop/aa365247.aspx#namespaces) that enable alterate path schemes, such as the *extended path* syntax, which allows paths to just over 32k characters. The BCL now supports these paths, such as the following: `\\?\very long path`. The .NET Framework now primarily relies on Windows for path normalization, treating it as the "source of truth", to avoid inadvertently blocking legitimate paths. The extended path syntax is a good workaround for Windows versions that don't support long paths using the regular form (for example, `C:\very long path').
+* **Enable extended path syntax and file namespaces (`\\?\`, `\\.\`)**. Windows exposes multiple [file namespaces](https://msdn.microsoft.com/library/windows/desktop/aa365247.aspx#namespaces) that enable alternate path schemes, such as the *extended path* syntax, which allows paths to just over 32k characters. The BCL now supports these paths, such as the following: `\\?\very long path`. The .NET Framework now primarily relies on Windows for path normalization, treating it as the "source of truth", to avoid inadvertently blocking legitimate paths. The extended path syntax is a good workaround for Windows versions that don't support long paths using the regular form (for example, `C:\very long path').
 
-> * **Performance Improvements**. The adoption of Windows path normalization and the reduction of similar logic in the BCL has resulted in overall performance improvements for logic related to file paths. Other related performance improvements have also been made.
+* **Performance Improvements**. The adoption of Windows path normalization and the reduction of similar logic in the BCL has resulted in overall performance improvements for logic related to file paths. Other related performance improvements have also been made.
 
 More details on these changes can be found on [Jeremy Kuhne’s blog](https://blogs.msdn.microsoft.com/jeremykuhne/2016/06/21/more-on-new-net-path-handling/).
 
@@ -94,7 +94,7 @@ The Windows Cryptography Library (CNG) supports storing persisted symmetric keys
 
 <script src="https://gist.github.com/staceyhaffner/96ed50b66ea27cc14ac2.js"></script>
 
-You need to use the concrete implementation classes, such as [AesCng](https://msdn.microsoft.com/library/system.security.cryptography.aescng.aspx) to use this new capability, as opposed to the more common factory approach, such asa [Aes.Create()](https://msdn.microsoft.com/library/bb337875.aspx). This requirement is due to key names and key providers being implementation-specific
+You need to use the concrete implementation classes, such as [AesCng](https://msdn.microsoft.com/library/system.security.cryptography.aescng.aspx) to use this new capability, as opposed to the more common factory approach, [Aes.Create()](https://msdn.microsoft.com/library/bb337875.aspx). This requirement is due to key names and key providers being implementation-specific
 
 Persisted-key symmetric encryption has been added for the AES and 3DES algorithms, in the [AesCng](https://msdn.microsoft.com/library/system.security.cryptography.aescng.aspx) [TripleDESCng](https://msdn.microsoft.com/en-us/library/system.security.cryptography.tripledescng.aspx) classes, respectively.
 
@@ -125,15 +125,13 @@ The following improvements have been made in the CLR.
 
 ## NullReferenceException Improvements
 
-You have probably experienced and investigated the cause of a `NullReferenceException`. We are part-way through partnering with the Visual Studio team to provide a better debugging experience for *null-refs* in a future Visual Studio release.
+You have probably experienced and investigated the cause of a [NullReferenceException](https://msdn.microsoft.com/en-us/library/system.nullreferenceexception.aspx). We are part-way through partnering with the Visual Studio team to provide a better debugging experience for null references in a future Visual Studio release. 
 
-Today, the `NullReferenceException` experience in Visual Studio looks like this:
+The debugging experience in Visual Studio relies on the Common Language Runtime debugging APIs for low-level interaction with your code. Today, the `NullReferenceException` experience in Visual Studio looks like this:
 
-Picture here.
+![alt](null_ref.png)
 
-We believe that we can improve the experience so that the experience is improved in the way that this text describes.
-
-The debugging experience you see in Visual Studio relies on the Common Language Runtime debugging APIs for low-level interaction with your code. In this release, we extended these APIs to enable a debugger to request more information and perform additional analysis when a `NullReferenceException` occurs. Using this information, a debugger will be able to determine which reference is `null` and provide this information to you, making your job easier.
+In this release, we extended the CLR debugging APIs to enable the debugger to request more information and perform additional analysis when a `NullReferenceException` occurs. Using this information, a debugger will be able to determine which reference is `null` and provide this information to you, making your job easier.
 
 #ClickOnce
 
@@ -141,11 +139,12 @@ The following improvements have been made in ClickOnce.
 
 ##Transport Layer Security (TLS) 1.1 and 1.2 Support
 
-ClickOnce has been updated to support TLS 1.1 and 1.2 protocols in .NET Framework versions 4.6.2, 4.6.1, 4.6 and 4.5.2. ClickOnce will automatically detect which TLS protocol is required at runtime. There are no extra steps needed to enable this.
+As requested on [UserVoice](https://visualstudio.uservoice.com/forums/121579-visual-studio-2015/suggestions/10629357-enable-tls-1-2-1-1-during-click-once-setup), ClickOnce has been updated to support TLS 1.1 and 1.2 protocols in .NET Framework versions 4.6.2, 4.6.1, 4.6 and 4.5.2. ClickOnce will automatically detect which TLS protocol is required at runtime. There are no extra steps needed to enable this.
 
-Secure Sockets Layer (SSL) and TLS 1.0 are no longer recommended or supported by some organizations. For example, the Payment Card Industry Security Standards Council is in the process of [requiring TLS 1.1 or higher](https://blog.pcisecuritystandards.org/migrating-from-ssl-and-early-tls) for online transations that meet their specifications.
+Secure Sockets Layer (SSL) and TLS 1.0 are no longer recommended or supported by some organizations. For example, the Payment Card Industry Security Standards Council is in the process of [requiring TLS 1.1 or higher](https://blog.pcisecuritystandards.org/migrating-from-ssl-and-early-tls) for online transactions that meet their specifications.
 
-ClickOnce continues to support TLS 1.0 for applications that do not or cannot upgrade, for compatibility. You are recommended to analyze all of your uses of SSL and TLS 1.0.
+ClickOnce continues to support TLS 1.0 for applications that do not or cannot upgrade, for compatibility. We recommend analyzing all of your uses of SSL and TLS 1.0. See the KB articles for links to download the hotfix .NET Framework versions [4.6, 4.6.1](https://support.microsoft.com/en-us/kb/3146716) and [4.5.2](https://support.microsoft.com/en-us/kb/3146710).
+
 
 ##Client Certificate Support
 
@@ -161,12 +160,12 @@ The following improvements have been made in ASP.NET. See [Announcing ASP.NET Co
 
 ##DataAnnotation Localization
 
-Localization is now much easier when using model binding and `DataAnnotiation` validation. ASP.NET has adopted a simple convention for resx resource files that contain `DataAnnotation` validation messages.
+Localization is now much easier when using model binding and `DataAnnotiation` validation. ASP.NET has adopted a simple convention for resx resource files that contain `DataAnnotation` validation messages:
 
 - Located in the `App_LocalResources` folder.
 - Follow the `DataAnnotation.Localization.{locale}.resx` naming convention.
 
-Using the .NET Framework 4.6.2, you specify `DataAnnotation` attributes in your model file just like you would in an [un-localized application](http://www.asp.net/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6). For the `ErrorMessage`, you specify the name that you will use in resx file, as you can see in the example below and in the following image.
+Using the .NET Framework 4.6.2, you specify `DataAnnotation` attributes in your model file just like you would in an [un-localized application](http://www.asp.net/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6). For the `ErrorMessage`, you specify the name that you will use in resx file, as you can see in the example below:
 
 ```csharp
 public class ContactInfo
@@ -183,13 +182,13 @@ public class ContactInfo
 
 ![alt](asp.net_dataAnnotation_localization.png)
 
-You can see localized resx files that have been placed in the `App_LocalResources` folder, according to the new convention.
+The localized resx files that have been placed in the `App_LocalResources` folder, in accordance to the new convention:
 
 ![alt](asp.net_dataAnnotation.png)
 
-You can also plug in your own stringlocalizer provider to store the localized strings in another location or file type.
+Custom stringlocalizer providers can be created to store the localized strings in another location or file type.
 
-In contract, in previous .NET Framework versions, you would need to specify `ErrorMessageResourceType` and `ErrorMessageResourceName` values, as you can see in the example below.
+In previous .NET Framework versions, you would need to specify `ErrorMessageResourceType` and `ErrorMessageResourceName` values, as you can see in the example below.
 
 ```csharp
 
@@ -213,24 +212,24 @@ public class User
 
 ##Async Improvements
 
-SessionStateModule and Output-Cache Module have been improved to enable async scenarios. The team is working on releasing async versions of both modules via NuGet, which will need to be imported into an existing project. The team anticipates releasing both NuGet packages in the coming weeks. This post will be updated when that happens.
+SessionStateModule and Output-Cache Module have been improved to enable async scenarios. The team is working on releasing async versions of both modules via NuGet, which will need to be imported into an existing project. Both NuGet packages are anticipated to release within the coming weeks. We will update this post when that happens.
  
 ###SessionStateModule Interfaces
 
-[Session State](https://msdn.microsoft.com/library/ms178581.aspx) allows you to store and retrieve user session data as a user navigates an ASP.NET site. You can now create your own async [Session State Module](https://msdn.microsoft.com/library/system.web.sessionstate.sessionstatemodule.aspx) implementation using the new `ISessionStateModule` interface. You can store session data in your own way and use async methods.
+[Session State](https://msdn.microsoft.com/library/ms178581.aspx) allows you to store and retrieve user session data as a user navigates an ASP.NET site. You can now create your own async [Session State Module](https://msdn.microsoft.com/library/system.web.sessionstate.sessionstatemodule.aspx) implementation using the new `ISessionStateModule` interface, enabling you to store session data in your own way and use async methods.
 
  ###Output-Cache Module
  
 [Output Caching](http://www.asp.net/mvc/overview/older-versions-1/controllers-and-routing/improving-performance-with-output-caching-cs) can dramatically improve the performance of an ASP.NET application by caching the result returned from a controller action to avoid unnecessarily generating the same content for every request. 
 
-You can now use async APIs with with Output Caching by implementing a new interface called `OutputCacheProviderAsync`. Doing so will reduce thread-blocking on a web server and improve scalability of an ASP.NET service. 
+You can now use async APIs with Output Caching by implementing a new interface called `OutputCacheProviderAsync`. Doing so will reduce thread-blocking on a web server and improve scalability of an ASP.NET service. 
 
 #SQL
 
 The following improvements have been made in the SQL client.
 
 ## Always Encrypted Enhancements
-[Always Encrypted](https://msdn.microsoft.com/en-us/library/mt163865.aspx) is a feature designed to protect sensitive data, such as credit card numbers or national identification numbers that are stored in a database. It allows clients to encrypt sensitive data inside client applications and never revealing the encryption keys to the database engine. As a result, Always Encrypted provides a separation between those who own the data (and can view it) and those who manage the data (but should have no access).
+[Always Encrypted](https://msdn.microsoft.com/en-us/library/mt163865.aspx) is a feature designed to protect sensitive data, such as credit card numbers or national identification numbers that are stored in a database. It allows clients to encrypt sensitive data inside client applications, never revealing the encryption keys to the database engine. As a result, Always Encrypted provides a separation between those who own the data (and can view it) and those who manage the data (but should have no access).
 
 The .NET Framework Data Provider for SQL Server (System.Data.SqlClient) introduces two important enhancements for Always Encrypted around performance and security.
 
@@ -263,7 +262,7 @@ To enable this feature, you can add the following AppSetting to your client appl
 
 ##DataContractJsonSerializer Improvements
 
-The [DataContractJsonSerializer](https://msdn.microsoft.com/en-us/library/bb412179.aspx) has been improved to better support multiple daylight saving time adjustment rules. When enabled, DataContractJsonSerializer will use the [TimeZoneInfo](https://msdn.microsoft.com/library/system.timezoneinfo.aspx) class instead of the[TimeZone](https://msdn.microsoft.com/library/system.timezone) class. The TimeZoneInfo class supports multiple adjustment rules, which makes it possible to work with historic time zone data. This is useful when a time zone has different daylight saving time adjustment rules, such as (UTC+2) Istanbul. 
+The [DataContractJsonSerializer](https://msdn.microsoft.com/en-us/library/bb412179.aspx) has been improved to better support multiple daylight saving time adjustment rules. When enabled, DataContractJsonSerializer will use the [TimeZoneInfo](https://msdn.microsoft.com/library/system.timezoneinfo.aspx) class instead of the [TimeZone](https://msdn.microsoft.com/library/system.timezone) class. The TimeZoneInfo class supports multiple adjustment rules, which makes it possible to work with historic time zone data. This is useful when a time zone has different daylight saving time adjustment rules, such as (UTC+2) Istanbul. 
 
 You can enable this feature by adding the following AppSetting to the app.config file:
 
@@ -275,9 +274,9 @@ You can enable this feature by adding the following AppSetting to the app.config
 
 ## TransportDefaults No Longer Supports SSL 3
 
-The SSL 3 protocol is no longer a default protocol used for negotiating a secure connection when using NetTcp with transport security and a credential type of certificate. In most cases there should be no impact to existing apps, since TLS 1.0 has always been included in the default protocol list for NetTcp. All existing clients should be able to negotiate a connection using at least TLS 1.0.  SSL3 was removed as a default protocol since it is not longer considered secure.
- 
-While not recommended, one of the following configuration mechanisms can be used to add SSL 3 back to the list of negotiated protocols if it is required for your deployment:
+The SSL 3 protocol is no longer a default protocol used for negotiating a secure connection when using NetTcp with transport security and a credential type of certificate. In most cases there should be no impact to existing applications, since TLS 1.0 has always been included in the default protocol list for NetTcp. All existing clients should be able to negotiate a connection using at least TLS 1.0.  
+
+SSL3 was removed as a default protocol since it is not longer considered secure. While not recommended, one of the following configuration mechanisms can be used to add SSL 3 back to the list of negotiated protocols if it is required for your deployment:
 
 * [SslStreamSecurityBindingElement.SslProtocols Property](https://msdn.microsoft.com/en-us/library/system.servicemodel.channels.sslstreamsecuritybindingelement.sslprotocols%28v=vs.110%29.aspx)
 * [TcpTransportSecurity.SslProtocols Property](https://msdn.microsoft.com/en-us/library/system.servicemodel.tcptransportsecurity.sslprotocols%28v=vs.110%29.aspx)
@@ -381,7 +380,7 @@ Prior to this feature, the application would declare:
 
 ##  Per-Monitor DPI Support
 
-WPF applications are now enabled for per-monitor DPI awareness. This improvement is critical for scenarios where multiple displays of varying DPI level are attached to a single machine. As all or part of a WPF application is transitioned between monitors, you expect WPF to "do the right thing" with resolution, matching the DPI of the app to the screen. It now does. 
+WPF applications are now enabled for per-monitor DPI awareness. This improvement is critical for scenarios where multiple displays of varying DPI level are attached to a single machine. As all or part of a WPF application is transitioned between monitors, the expected behavior is for WPF to automatically match the DPI of the app to the screen. It now does. 
 
 You can learn more about how to [enable your WPF application to become per-monitor DPI aware](https://github.com/Microsoft/WPF-Samples/tree/master/PerMonitorDPI) in the WPF samples and developer guide on GitHub. 
 
@@ -396,7 +395,7 @@ In previous versions, WPF applications did not implicitly support the invocation
 
 #Your Feedback
 
-We would like to thank everyone who provided feedback on the 4.6.2 preview release! It has been instrumental in making 4.6.2 a great release. Please continue to direct your feedback towards the following places:
+Once again, we would like to thank everyone who provided feedback on the 4.6.2 preview release! It has been instrumental in making 4.6.2 a great release. Please continue to direct your feedback towards the following places:
 
 * [Bugs – VS Feedback](https://connect.microsoft.com/VisualStudio/Feedback)
 * [Suggestions – User Voice](https://visualstudio.uservoice.com/forums/121579-visual-studio-2015)
