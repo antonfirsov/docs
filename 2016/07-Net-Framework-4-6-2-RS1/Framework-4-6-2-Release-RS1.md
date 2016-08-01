@@ -1,96 +1,172 @@
 #Announcing .NET Framework 4.6.2
-Today we are excited to announce the availability of .NET Framework 4.6.2! The release is packed with lots of great improvements including those in the following areas:
+
+Today we are excited to announce the availability of the [.NET Framework 4.6.2](http://go.microsoft.com/fwlink/?LinkId=780597)! Many of the changes are based on your [feedback](#your-feedback), including from [UserVoice](https://visualstudio.uservoice.com/forums/121579-visual-studio-2015/category/31481--net) and [Connect](https://connect.microsoft.com/VisualStudio/Feedback). Thanks for your continued help and engagement! 
+
+The release is packed with lots of great improvements in the following areas:
 
 * [Base Class Library](#base-class-library)
+* [Common Language Runtime](#common-language-runtime)
 * [ClickOnce](#clickonce)
-* [Cryptography](#cryptography)
 * [ASP.NET](#asp.net)
-* [Productivity](#productivity)
 * [SQL](#sql)
 * [Windows Presentation Foundation](#windows-presentation-foundation)
 * [Windows Communication Foundation](#windows-communication-foundation)
 
-The full set of changes included in the .NET Framework 4.6.2 are available on the [change list](xxx) and [API diff](xxx).
+You can see the full set of changes in the [.NET Framework 4.6.2 change list](xxx) and [API diff](xxx). The set of [supported Windows versions](xxx) is included in the changelist.
 
 ##Download Now
-The release can be downloaded now from the following locations:
 
-1. [.NET Framework 4.6.2 Web Installer](http://go.microsoft.com/fwlink/?LinkId=780597)
-2. [.NET Framework 4.6.2 Offline Installer](http://go.microsoft.com/fwlink/?LinkId=780601)
-2. [.NET Framework 4.6.2 Developer Pack](http://go.microsoft.com/fwlink/?LinkId=780617)
+You can download the .NET Framework 4.6.2 now:
 
-##Provide Feedback
-We would like to thank everyone who provided feedback on the 4.6.2 preview release! It has been instrumental in making 4.6.2 an amazing release. Please continue to direct your feedback towards the following places:
+* [.NET Framework 4.6.2 Web Installer](http://go.microsoft.com/fwlink/?LinkId=780597) - Quickest install - requires an internet connection.
+* [.NET Framework 4.6.2 Offline Installer](http://go.microsoft.com/fwlink/?LinkId=780601) - All-inclusive installer (includes all language packs) - does not require an internet connection.
+* [.NET Framework 4.6.2 Developer Pack](http://go.microsoft.com/fwlink/?LinkId=780617) - For development and build environments (includes Offline Installer and the 4.6.2 targeting pack) - does not require an internet connection.
 
-* [Bugs – VS Feedback](https://connect.microsoft.com/VisualStudio/Feedback)
-* [Suggestions – User Voice](https://visualstudio.uservoice.com/forums/121579-visual-studio-2015)
+#Base Class Library (BCL)
 
-#Base Class Library
-## NullReferenceException Improvements
-New unmanaged debugging APIs have been added to enable the debugger to perform some additional analysis when a NullReferenceException occurs. The analysis will provide enough information to determine which reference is NULL. Previously, this was possible only at the granularity of source-lines, but the new APIs make it possible to analyze chains of differences in a single source line, providing more meaningful messages. We are partnering with the Visual Studio team to implement the new APIs to provide a better debugging experience in the future.
+The following improvements have been made in the BCL.
 
-##Long Path Support
-A number of changes have been made around path handling to better align with work that has been done in .NET Core and to allow for future Windows improvements. These changes are only on by default if you target 4.6.2 or higher or explicitly opt in via AppContext switches. More details on these changes can be found on [Jeremy Kuhne’s blog](https://blogs.msdn.microsoft.com/jeremykuhne/2016/06/21/more-on-new-net-path-handling/).  
+##Long Path Support (`MAXPATH`)
 
-### Allow for paths that are greater than MAX_PATH (260)
-Paths that are >= MAX_Path are no longer preemptively blocked. Additionally, extended DOS device path syntax (`\\?\`) is now allowed. Using this syntax will skip the Windows MAX_PATH checks on all versions of Windows. 
- 
-###Normalization Improvements
-.NET Framework 4.6.2 contains several normalization improvements including letting the OS primarily handle normalization in order to avoid inadvertently blocking legitimate DOS style paths. General performance improvements have also been made in addition to opening up DOS device path syntax  (\\?\, \\.\) to allow access to previous previously inaccessible paths.
+We [fixed the 260 character (MAXPATH) file name length limitation](https://visualstudio.uservoice.com/forums/121579-visual-studio-2015/suggestions/4954037-fix-260-character-file-name-length-limitation) in the System.IO APIs. Over 4500 of you voted for this issue on UserVoice. 
 
-## Cryptography
-### X509 Certificates Now Support FIPS 186-3 DSA
+This limitation doesn't usually affect consumer applications (for example, loading files out of "My Documents"), but is more common on developer machines that build deeply nested source trees or use specialized tools that also run on Unix (where long paths are much more common).
 
-The .NET Framework 4.6.2 adds support for Digital Signature Algorithm (DSA) X509 certificates whose keys exceed the FIPS 186-2 limit of 1024-bit. Support for FIPS 186-3 includes the allownace of computing signatures with the SHA-2 family of hash algorithms (SHA256, SHA384, and SHA512). The FIPS 186-3 support is provided by the new [DSACng class](https://msdn.microsoft.com/en-us/library/system.security.cryptography.dsacng).
+This new capability is enabled for applications that target the .NET Framework 4.6.2 (or later). You can [configure an application](https://msdn.microsoft.com/library/1fk1t1t0.aspx) to target the .NET Framework 4.6.2 with the following app.config or web.config configuration file:
 
-Keeping in line with recent changes to RSA (.NET Framework 4.6) and ECDsa (.NET Framework 4.6.1), the DSA abstract base class has additional methods to allow callers to make use of this functionality without casting.
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <startup>
+    <supportedRuntime version=".NETFramework,Version=v4.6.2"/>
+  </startup>
+</configuration>
+```
+You can opt applications that target an earlier version of the .NET Framework into using this functionality by setting an AppContext switch, as demonstrated in the following configuration file. The switch will only be honored when an application in running on the .NET Framework 4.6.2 (or later). 
+
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <startup>
+    <supportedRuntime version=".NETFramework,Version=v4.5.2"/>
+  </startup>
+  <runtime>
+    <AppContextSwitchOverrides value="Switch.System.IO.UseLegacyPathHandling=false" />
+  </runtime>
+</configuration>
+```
+
+The absense of targeting the .NET Framework 4.6.2 or setting the AppContext switch results in the existing behavior of being blocked from using paths longer than `MAXPATH`. The behavior is opt-in to maintain backwards compatibility for existing applications.
+
+The following improvements were made to enable long paths:
+
+* **Allow paths that are greater than 260 character (MAX_PATH)**. Paths that are longer than [`MAX_PATH`](https://msdn.microsoft.com/library/windows/desktop/aa365247.aspx#maxpath) are allowed by the BCL. The BCL APIs rely on the underlying Win32 file APIs for limitation checks. 
+
+* **Enable extended path syntax and file namespaces (`\\?\`, `\\.\`)**. Windows exposes multiple [file namespaces](https://msdn.microsoft.com/library/windows/desktop/aa365247.aspx#namespaces) that enable alterate path schemes, such as the *extended path* syntax, which allows paths to just over 32k characters. The BCL now supports these paths, such as the following: `\\?\very long path`. The .NET Framework now primarily relies on Windows for path normalization, treating it as the "source of truth", to avoid inadvertently blocking legitimate paths. The extended path syntax is a good workaround for Windows versions that don't support long paths using the regular form (for example, `C:\very long path').
+
+> * **Performance Improvements**. The adoption of Windows path normalization and the reduction of similar logic in the BCL has resulted in overall performance improvements for logic related to file paths. Other related performance improvements have also been made.
+
+More details on these changes can be found on [Jeremy Kuhne’s blog](https://blogs.msdn.microsoft.com/jeremykuhne/2016/06/21/more-on-new-net-path-handling/).
+
+### X509 Certificates Now Support FIPS 186-3 Digital Signature Algorithm
+
+The .NET Framework 4.6.2 adds support for [FIPS 186-3](http://csrc.nist.gov/publications/fips/fips186-3/fips_186-3.pdf) Digital Signature Algorithm (DSA). This support enables X509 certificates with keys that exceed 1024-bit. It also enables computing signatures with the SHA-2 family of hash algorithms (SHA256, SHA384, and SHA512). 
+
+The .NET Framework 4.6.1 supports [FIPS 186-2](http://csrc.nist.gov/publications/fips/archive/fips186-2/fips186-2.pdf), which is limited to keys no greater than 1024-bit. 
+
+You can take advantage of FIPS 186-3 support by using the new [DSACng class](https://msdn.microsoft.com/library/system.security.cryptography.dsacng), as you can see in the example below.
 
 <script src="https://gist.github.com/staceyhaffner/e214f78ff29adf165fb4.js"></script>
 
-###Increased Clarity for Inputs to ECDiffieHellman Key Derivation Routines
+The [DSA base class](https://msdn.microsoft.com/library/system.security.cryptography.dsa) has also been updated so you can you use FIPS 186-3 support without casting to the new DSACng class. This is the same as the approach that was used for updating RSA and ECDsa implementations, in the two previous .NET Framework releases.
 
-.NET Framework version 3.5 added support for [Ellptic Curve Diffie-Hellman](https://msdn.microsoft.com/en-us/library/system.security.cryptography.ecdiffiehellman.aspx) Key Agreement that included three different KDF (Key Derivation Function) routines. The inputs to the routines, and the routine itself, were configured via properties on the ECDiffieHellmanCng object; but since not every routine read every input property, there was ample room for confusion.
+###Improved Usability of Elliptic Curve Diffie-Hellman Key Derivation Routines
 
-The ECDiffieHellman base class has been updated to more clearly represent these KDF routines and their inputs: 
+The usability of the [ECDiffieHellmanCng class](https://msdn.microsoft.com/library/system.security.cryptography.ecdiffiehellmancng.aspx) has been improved. The .NET Framework Elliptic Curve Diffie-Hellman (ECDH) Key Agreement implementation  includes three different Key Derivation Function (KDF) routines. These KDF routines are now represented and supported by three different methods, as you can see in the example below. 
 
 <script src="https://gist.github.com/staceyhaffner/71710b339cca406629ad.js"></script>
 
+In previous .NET Framework versions, you had to know which subset of properties to set on the [ECDiffieHellmanCng class](https://msdn.microsoft.com/library/system.security.cryptography.ecdiffiehellmancng.aspx) for each of the three different routines.
+
 ### Support for Persisted-Key Symmetric Encryption
 
-The Windows Cryptography Library (CNG) has support for storing persisted symmetric keys on software and hardware devices and the .NET Framework 4.6.2 has made it possible for users to make use of this feature. Since key names and key providers are implementation-specific, using this feature requires calling the constructor of the concrete implementation type instead of the more common factory approach (e.g. [Aes.Create()](https://msdn.microsoft.com/en-us/library/bb337875.aspx)).
-
-Persisted-key symmetric encryption support exists for the AES ([AesCng](https://msdn.microsoft.com/en-us/library/system.security.cryptography.aescng.aspx)) and 3DES ([TripleDESCng](https://msdn.microsoft.com/en-us/library/system.security.cryptography.tripledescng.aspx)) algorithms.
+The Windows Cryptography Library (CNG) supports storing persisted symmetric keys on software and hardware devices. The .NET Framework now exposes this CNG capability, as you can see demonstrated in the example below.
 
 <script src="https://gist.github.com/staceyhaffner/96ed50b66ea27cc14ac2.js"></script>
 
+You need to use the concrete implementation classes, such as [AesCng](https://msdn.microsoft.com/library/system.security.cryptography.aescng.aspx) to use this new capability, as opposed to the more common factory approach, such asa [Aes.Create()](https://msdn.microsoft.com/library/bb337875.aspx). This requirement is due to key names and key providers being implementation-specific
+
+Persisted-key symmetric encryption has been added for the AES and 3DES algorithms, in the [AesCng](https://msdn.microsoft.com/library/system.security.cryptography.aescng.aspx) [TripleDESCng](https://msdn.microsoft.com/en-us/library/system.security.cryptography.tripledescng.aspx) classes, respectively.
+
 ### SignedXml Support for SHA-2 Hashing
 
-The .NET Framework 4.6.2 has added support to SignedXml which permits [RSA-SHA256](https://msdn.microsoft.com/en-us/library/system.security.cryptography.xml.signedxml.xmldsigrsasha256url.aspx), [RSA-SHA384](https://msdn.microsoft.com/en-us/library/system.security.cryptography.xml.signedxml.xmldsigrsasha384url.aspx), and [RSA-SHA512](https://msdn.microsoft.com/en-us/library/system.security.cryptography.xml.signedxml.xmldsigrsasha512url.aspx) PKCS#1 signature methods, and [SHA256](https://msdn.microsoft.com/en-us/library/system.security.cryptography.xml.signedxml.xmldsigsha256url.aspx), [SHA384](https://msdn.microsoft.com/en-us/library/system.security.cryptography.xml.signedxml.xmldsigsha384url.aspx), and [SHA512](https://msdn.microsoft.com/en-us/library/system.security.cryptography.xml.signedxml.xmldsigsha512url.aspx) reference digest algorithms.
+The .NET Framework SignedXml implementation now supports the following SHA-2 Hashing algorithms:
 
-The URI constants are all exposed on SignedXml:
+- [RSA-SHA256](https://msdn.microsoft.com/library/system.security.cryptography.xml.signedxml.xmldsigrsasha256url.aspx)
+- [RSA-SHA384](https://msdn.microsoft.com/library/system.security.cryptography.xml.signedxml.xmldsigrsasha384url.aspx)
+- [RSA-SHA512](https://msdn.microsoft.com/library/system.security.cryptography.xml.signedxml.xmldsigrsasha512url.aspx) PKCS#1 signature methods
+- [SHA256](https://msdn.microsoft.com/library/system.security.cryptography.xml.signedxml.xmldsigsha256url.aspx)
+- [SHA384](https://msdn.microsoft.com/library/system.security.cryptography.xml.signedxml.xmldsigsha384url.aspx)
+- [SHA512](https://msdn.microsoft.com/library/system.security.cryptography.xml.signedxml.xmldsigsha512url.aspx) reference digest algorithms
+
+You can see an example of signing XML with SHA-256 in the example below.
+
+<script src="https://gist.github.com/staceyhaffner/8bd7376597d54f0c95be.js"></script>
+
+The new SignedXML URI constants have been added as new [SignedXml fields](https://msdn.microsoft.com/library/system.security.cryptography.xml.signedxml_fields.aspx). The new fields are shown below.
 
 <script src="https://gist.github.com/staceyhaffner/3137806c60dd3682ca59.js"></script>
 
 Any programs which have registered a custom SignatureDescription handler into CryptoConfig to add support for these algorithms will continue to function as they did in the past, but since there are now platform defaults the CryptoConfig registration should no longer be necessary.
 
-<script src="https://gist.github.com/staceyhaffner/8bd7376597d54f0c95be.js"></script>
+# Common Language Runtime (CLR)
+
+The following improvements have been made in the CLR.
+
+## NullReferenceException Improvements
+
+You have probably experienced and investigated the cause of a `NullReferenceException`. We are part-way through partnering with the Visual Studio team to provide a better debugging experience for *null-refs* in a future Visual Studio release.
+
+Today, the `NullReferenceException` experience in Visual Studio looks like this:
+
+Picture here.
+
+We believe that we can improve the experience so that the experience is improved in the way that this text describes.
+
+The debugging experience you see in Visual Studio relies on the Common Language Runtime debugging APIs for low-level interaction with your code. In this release, we extended these APIs to enable a debugger to request more information and perform additional analysis when a `NullReferenceException` occurs. Using this information, a debugger will be able to determine which reference is `null` and provide this information to you, making your job easier.
 
 #ClickOnce
-##Transport Layer Security (TLS) 1.1 and 1.2 Support
-Beginning June 2018, the Payment Card Industry Security Standards Council (PCI SSC) compliance is [transitioning from SSL and TLS 1.0 to TLS 1.1 or greater](https://blog.pcisecuritystandards.org/migrating-from-ssl-and-early-tls). ClickOnce has been updated to support TLS 1.1 and 1.2 protocols in .NET Framework versions 4.6.2, 4.6.1, 4.6 and 4.5.2. ClickOnce will automatically detect which TLS protocol is required at runtime and there are no extra steps that are needed to enable this.
 
-ClickOnce continues to support TLS 1.0 for applications that do not or cannot upgrade, for compatibility. The NET Team recommends updating applications to require TLS 1.2.
+The following improvements have been made in ClickOnce.
+
+##Transport Layer Security (TLS) 1.1 and 1.2 Support
+
+ClickOnce has been updated to support TLS 1.1 and 1.2 protocols in .NET Framework versions 4.6.2, 4.6.1, 4.6 and 4.5.2. ClickOnce will automatically detect which TLS protocol is required at runtime. There are no extra steps needed to enable this.
+
+Secure Sockets Layer (SSL) and TLS 1.0 are no longer recommended or supported by some organizations. For example, the Payment Card Industry Security Standards Council is in the process of [requiring TLS 1.1 or higher](https://blog.pcisecuritystandards.org/migrating-from-ssl-and-early-tls) for online transations that meet their specifications.
+
+ClickOnce continues to support TLS 1.0 for applications that do not or cannot upgrade, for compatibility. You are recommended to analyze all of your uses of SSL and TLS 1.0.
 
 ##Client Certificate Support
-ClickOnce applications can now be hosted in virtual directories with SSL enabled and with client certificates required. End users will now be prompted to select their certificate when accessing an application that is hosted via such virtual directory where as previously the ClickOnce deployment was terminated with an access denied error. Please note that ClickOnce will not prompt for a certificate if the setting is set to "Ignore".
+
+ClickOnce applications can now be hosted in virtual directories with SSL enabled and with client certificates required. In that configuration, end users will be prompted to select their certificate when accessing an application. ClickOnce will not prompt for a certificate if the `Client Certificates` setting is set to "Ignore".
+
+In previous versions, ClickOnce deployments were terminated with an access denied error when applications where hosted this way.
 
 ![alt](clickonce_ssl.jpg)
 
 #ASP.NET
-##DataAnnotation Localization
-The ASP.NET model binding feature makes it very easy to create and maintain data-rich web pages as it will automatically update the view model with the user input data from the databind control. Validation of the input is possible with the DataAnnotation ValidationAttribute, which can be added onto the properties of the view models to trigger a validation when ASP.NET updates the model. 
 
-In .NET Framework 4.6.2, developers will be able to point to the localization string to be displayed during validation by including a single ErrorMessage in the attributes with a pointer to the name property of the correct line item in the localization resx file:
+The following improvements have been made in ASP.NET. See [Announcing ASP.NET Core 1.0](https://blogs.msdn.microsoft.com/webdev/2016/06/27/announcing-asp-net-core-1-0/) to learn about improvements in ASP.NET Core.
+
+##DataAnnotation Localization
+
+Localization is now much easier when using model binding and `DataAnnotiation` validation. ASP.NET has adopted a simple convention for resx resource files that contain `DataAnnotation` validation messages.
+
+- Located in the `App_LocalResources` folder.
+- Follow the `DataAnnotation.Localization.{locale}.resx` naming convention.
+
+Using the .NET Framework 4.6.2, you specify `DataAnnotation` attributes in your model file just like you would in an [un-localized application](http://www.asp.net/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6). For the `ErrorMessage`, you specify the name that you will use in resx file, as you can see in the example below and in the following image.
 
 ```csharp
 public class ContactInfo
@@ -107,7 +183,13 @@ public class ContactInfo
 
 ![alt](asp.net_dataAnnotation_localization.png)
 
-Previously, developers would need to specify `ErrorMessageResourceType` and `ErrorMessageResourceName` values:
+You can see localized resx files that have been placed in the `App_LocalResources` folder, according to the new convention.
+
+![alt](asp.net_dataAnnotation.png)
+
+You can also plug in your own stringlocalizer provider to store the localized strings in another location or file type.
+
+In contract, in previous .NET Framework versions, you would need to specify `ErrorMessageResourceType` and `ErrorMessageResourceName` values, as you can see in the example below.
 
 ```csharp
 
@@ -127,50 +209,51 @@ public class User
     
 
 }
-
 ```
 
-It is important to note that each localization resx file will need to be located in the *app_LocalResources* folder and follow the naming convention of DataAnnotation.Localization.{local}.resx.
-
-![alt](asp.net_dataAnnotation.png)
-
-Developers can also plug in their own stringlocalizer provider to store the localization string somewhere else other than resource file.
-
 ##Async Improvements
-SessionStateModule and Output-Cache Module have been improved to enable async scenarios. The team is working on releasing async versions of both modules via NuGet, which will need to be imported into an existing project. Both NuGet packages are anticipated to release within the coming weeks. 
+
+SessionStateModule and Output-Cache Module have been improved to enable async scenarios. The team is working on releasing async versions of both modules via NuGet, which will need to be imported into an existing project. The team anticipates releasing both NuGet packages in the coming weeks. This post will be updated when that happens.
  
 ###SessionStateModule Interfaces
-[Session State](https://msdn.microsoft.com/en-us/library/ms178581.aspx) leverages the [Provider Model](https://msdn.microsoft.com/en-us/library/aa479020.aspx) to enable the ability to store user session data in different sources, such as in memory within the ASP.NET worker process (InProcSessionStateStore), in memory in an external state server process (OutOfProcSessionStateStore) and in Microsoft SQL Server or Microsoft SQL Server Express databases (SqlSessionStateStore).
 
-Developers will be able to take advantage of the scalability benefits of async in session state by replacing an existing `SessionStateModule` with a custom session state module that implements the new `ISessionStateModule` interface. Through the custom session state module, the developer will be able to plug in their async session state provider.
+[Session State](https://msdn.microsoft.com/library/ms178581.aspx) allows you to store and retrieve user session data as a user navigates an ASP.NET site. You can now create your own async [Session State Module](https://msdn.microsoft.com/library/system.web.sessionstate.sessionstatemodule.aspx) implementation using the new `ISessionStateModule` interface. You can store session data in your own way and use async methods.
 
  ###Output-Cache Module
  
-[Output Caching](http://www.asp.net/mvc/overview/older-versions-1/controllers-and-routing/improving-performance-with-output-caching-cs) can dramatically improve the performance of an ASP.NET application by caching the result returned from the controller action to avoid unnecessarily generating the same content every time. 
+[Output Caching](http://www.asp.net/mvc/overview/older-versions-1/controllers-and-routing/improving-performance-with-output-caching-cs) can dramatically improve the performance of an ASP.NET application by caching the result returned from a controller action to avoid unnecessarily generating the same content for every request. 
 
-Developers will be able to use the Async APIs with Output Caching by implementing a new interface called `OutputCacheProviderAsync`. Doing so will reduce thread-blocking on a web server and improve scalability of an ASP.NET service. 
+You can now use async APIs with with Output Caching by implementing a new interface called `OutputCacheProviderAsync`. Doing so will reduce thread-blocking on a web server and improve scalability of an ASP.NET service. 
 
 #SQL
+
+The following improvements have been made in the SQL client.
+
 ## Always Encrypted Enhancements
-[Always Encrypted](https://msdn.microsoft.com/en-us/library/mt163865.aspx) is a feature designed to protect sensitive data, such as credit card numbers or national identification numbers that are stored in a database. It allows clients to encrypt sensitive data inside client appliactions, never revealing the encryption keys to the Database Engine. As a result, Always Encrypted provides a separation between those who own the data (and can view it) and those who manage the data (but should have no access).
+[Always Encrypted](https://msdn.microsoft.com/en-us/library/mt163865.aspx) is a feature designed to protect sensitive data, such as credit card numbers or national identification numbers that are stored in a database. It allows clients to encrypt sensitive data inside client applications and never revealing the encryption keys to the database engine. As a result, Always Encrypted provides a separation between those who own the data (and can view it) and those who manage the data (but should have no access).
 
 The .NET Framework Data Provider for SQL Server (System.Data.SqlClient) introduces two important enhancements for Always Encrypted around performance and security.
 
 ###Performance
-To improve performance of parameterized queries against encrypted database columns, encryption metadata for query parameters is now cached. With the [SqlConnection::ColumnEncryptionQueryMetadataCacheEnabled](https://msdnstage.redmond.corp.microsoft.com/en-US/library/mt703754%28VS.110%29.aspx) Property set to true (which is the default value), if the same query is called multiple times, the client retrieves parameter metadata from the server only once.
+To improve performance of parameterized queries against encrypted database columns, encryption metadata for query parameters is now cached. Database clients retrieve parameter metadata from the server only once when the [SqlConnection::ColumnEncryptionQueryMetadataCacheEnabled](https://msdnstage.redmond.corp.microsoft.com/en-US/library/mt703754%28VS.110%29.aspx) property is set to true (the default), even if the same query is called multiple times.
 
 ###Security
-To continue protecting sensitive data, the column encryption key entries in the key cache are now evicted after a configurable time interval. The time interval can be set using the  [SqlConnection::ColumnEncryptionKeyCacheTtl](https://msdnstage.redmond.corp.microsoft.com/en-US/library/mt703753%28VS.110%29.aspx) Property.
 
-#Windows Communication Foundation
+Column encryption key entries in the key cache are now evicted after a configurable time interval. The time interval can be set using the  [SqlConnection::ColumnEncryptionKeyCacheTtl](https://msdnstage.redmond.corp.microsoft.com/en-US/library/mt703753%28VS.110%29.aspx) property.
+
+#Windows Communication Foundation (WCF)
+
+The following improvements have been made in WCF.
+
 ##NetNamedPipeBinding Best Match
-In .NET 4.6.2, we have enhanced [NetNamedPipeBinding](https://msdn.microsoft.com/en-us/library/ms752247.aspx) to support a new pipe lookup, known as “Best Match”.  When using “Best Match”, the NetNamedPipeBinding service will force clients to search for the service listening at the best matching URI to their requested endpoint, rather than the first matching service found. 
 
-The “Best Match” pipe is particularly useful if a WCF client app tries to connect to the wrong URI when using the default “First Match” behavior. In certain situations, when there is more than one WCF Services listening on named pipes, WCF clients using "First Match" could be connected to a wrong service. This could happen if some of the services are hosted by an administrator account.
+In .NET 4.6.2, [NetNamedPipeBinding](https://msdn.microsoft.com/en-us/library/ms752247.aspx) has been enhanced to support a new pipe lookup, known as “Best Match”.  When using “Best Match”, the NetNamedPipeBinding service will force clients to search for the service listening at the best matching URI to their requested endpoint, rather than the first matching service found. 
 
-To enable this feature, developers can add the following AppSetting to their client application's App.config or Web.config file:
+The “Best Match” pipe is particularly useful if a WCF client app tries to connect to the wrong URI when using the default “First Match” behavior. In certain situations, when there is more than one WCF Services listening on named pipes, WCF clients using "First Match" could be connected to a wrong service. This could happen if some of the services is hosted by an administrator account.
 
-```csharp
+To enable this feature, you can add the following AppSetting to your client application's App.config or Web.config file:
+
+```xml
 <configuration>
   <appSettings>
     <add key="wcf:useBestMatchNamedPipeUri" value="true" />
@@ -179,20 +262,22 @@ To enable this feature, developers can add the following AppSetting to their cli
  ```
 
 ##DataContractJsonSerializer Improvements
-The [DataContractJsonSerializer](https://msdn.microsoft.com/en-us/library/bb412179.aspx) has been improved to better support multiple daylight saving time adjustment rules. When turning on the new setting, DataContractJsonSerializer will use the [TimeZoneInfo](https://msdn.microsoft.com/en-us/library/system.timezoneinfo.aspx) class instead of the[TimeZone](https://msdn.microsoft.com/en-us/library/system.timezone) class. The TimeZoneInfo class supports multiple adjustment rules, which makes it possible to work with historic time zone data. This is useful when a time zone has different daylight saving time adjustment rules, such as (UTC+2) Istanbul. 
 
-In .NET Framework 4.6.2, developers can toggle this feature on by adding the following AppSetting to the app.config file:
+The [DataContractJsonSerializer](https://msdn.microsoft.com/en-us/library/bb412179.aspx) has been improved to better support multiple daylight saving time adjustment rules. When enabled, DataContractJsonSerializer will use the [TimeZoneInfo](https://msdn.microsoft.com/library/system.timezoneinfo.aspx) class instead of the[TimeZone](https://msdn.microsoft.com/library/system.timezone) class. The TimeZoneInfo class supports multiple adjustment rules, which makes it possible to work with historic time zone data. This is useful when a time zone has different daylight saving time adjustment rules, such as (UTC+2) Istanbul. 
 
- ```csharp
+You can enable this feature by adding the following AppSetting to the app.config file:
+
+ ```xml
  <runtime>
     <AppContextSwitchOverrides value="Switch.System.Runtime.Serialization.DoNotUseTimeZoneInfo=false" /> 
 </runtime>
  ```
 
 ## TransportDefaults No Longer Supports SSL 3
-The SSL 3 protocol is no longer a default protocol used for negotiating a secure connection when using NetTcp with transport security and a credential type of certificate. This is due to it being an insecure protocol. In most cases there should be no impact to existing apps, since TLS 1.0 has always been included in the default protocol list for NetTcp. All existing clients should be able to negotiate a connection using at least TLS 1.0.
+
+The SSL 3 protocol is no longer a default protocol used for negotiating a secure connection when using NetTcp with transport security and a credential type of certificate. In most cases there should be no impact to existing apps, since TLS 1.0 has always been included in the default protocol list for NetTcp. All existing clients should be able to negotiate a connection using at least TLS 1.0.  SSL3 was removed as a default protocol since it is not longer considered secure.
  
-While not recommended, in the event that SSL 3 is required, one of the following configuration mechanisms can be used to add it back to the list of negotiated protocols:
+While not recommended, one of the following configuration mechanisms can be used to add SSL 3 back to the list of negotiated protocols if it is required for your deployment:
 
 * [SslStreamSecurityBindingElement.SslProtocols Property](https://msdn.microsoft.com/en-us/library/system.servicemodel.channels.sslstreamsecuritybindingelement.sslprotocols%28v=vs.110%29.aspx)
 * [TcpTransportSecurity.SslProtocols Property](https://msdn.microsoft.com/en-us/library/system.servicemodel.tcptransportsecurity.sslprotocols%28v=vs.110%29.aspx)
@@ -201,15 +286,34 @@ While not recommended, in the event that SSL 3 is required, one of the following
  
 ##  Transport Security for Windows Cryptography Library (CNG) 
 
-[Transport Security](https://msdn.microsoft.com/en-us/library/ms733043.aspx) using certificate now supports certificates stored using the Windows cryptography library (CNG). Currently, this support is limited to using certificates with a public key which has an exponent no more than 32bits in length. When an application targets .NET 4.6.2, this feature is on by default. For applications targeting .NET Framework 4.6.1 or earlier and running on .NET V4.6.2, this feature can be enabled by adding the following line to the <runtime> section of the app.config or web.config file:
+[Transport Security](https://msdn.microsoft.com/library/ms733043.aspx) now supports certificates stored using the Windows cryptography library (CNG). Currently, this support is limited to using certificates with a public key which has an exponent no more than 32bits in length. 
 
-```csharp
-<runtime>
-    <AppContextSwitchOverrides value="Switch.System.ServiceModel.DisableCngCertificates=false" />
-</runtime>
+This new capability is enabled for applications that target the .NET Framework 4.6.2 (or later). You can [configure an application](https://msdn.microsoft.com/library/1fk1t1t0.aspx) to target the .NET Framework 4.6.2 with the following app.config or web.config configuration file:
+
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <startup>
+    <supportedRuntime version=".NETFramework,Version=v4.6.2"/>
+  </startup>
+</configuration>
 ```
 
-Enabling the functionality can also be done programmatically: 
+You can opt applications that target an earlier version of the .NET Framework into using this functionality by setting an AppContext switch, as demonstrated in the following configuration file. The switch will only be honored when an application in running on the .NET Framework 4.6.2 (or later). 
+
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <startup>
+    <supportedRuntime version=".NETFramework,Version=v4.5.2"/>
+  </startup>
+  <runtime>
+    <AppContextSwitchOverrides value="Switch.System.ServiceModel.DisableCngCertificates=false" />
+  </runtime>
+</configuration>
+```
+
+You can also enable this functionality programmatically: 
 
 ```csharp
 private const string DisableCngCertificates = @"Switch.System.ServiceModel.DisableCngCertificates";
@@ -217,9 +321,9 @@ AppContext.SetSwitch(DisableCngCertificates, false);
 ```
 
 ## OperationContext.Current Async Improvements
-WCF now has the ability to include [OperationContext.Current](https://msdn.microsoft.com/en-us/library/system.servicemodel.operationcontext.current.aspx) with [ExecutionContext](https://msdn.microsoft.com/en-us/library/system.threading.executioncontext.aspx) so that it flows through asynchronous continuations. With this fix, WCF allows CurrentContext to propagate from one thread to another thread. This means that even if there's a context switch between calls to OperationContext.Current, it's value will flow correctly throughout the execution of the method.
+WCF now has the ability to include [OperationContext.Current](https://msdn.microsoft.com/library/system.servicemodel.operationcontext.current.aspx) with [ExecutionContext](https://msdn.microsoft.com/en-us/library/system.threading.executioncontext.aspx) so that the OperationContext flows through asynchronous continuations. With this improvement, WCF allows CurrentContext to propagate from one thread to another thread. This means that even if there's a context switch between calls to OperationContext.Current, it's value will flow correctly throughout the execution of the method.
 
-The following is an example of the CurrentThread changing between an async operation with the OperationContext.Current still flowing correctly:
+The following example demonstrates OperationContext.Current flowing correctly across a thread transition:
 
 ```csharp
 public async Task InvokeCallbackWithDelay(int delay)
@@ -234,30 +338,21 @@ public async Task InvokeCallbackWithDelay(int delay)
 
 Previously, the internal implementation of OperationContext.Current was to store the CurrentContext using a ThreadStatic variable, which used the thread's local storage to store the data associated with CurrentContext. If there was a change in the execution context of the method call (i.e. a thread change caused by awaiting another operation), any subsequent calls would be operating on a different thread without a reference to the original value. With the fix, the second call to OperationContext.Current will deliver the expected value even though threadId1 and threadId2 may be different.
 
-#Windows Presentation Foundation
+#Windows Presentation Foundation (WPF)
+
+The following improvements have been made in WPF.
+
 ##Group Sorting
-An application that requests [CollectionView](https://msdn.microsoft.com/en-us/library/system.windows.data.collectionview.aspx) to group data can now explicitly declare how to sort the groups. This overcomes some unintuitive ordering that can arise when the application dynamically adds or removes groups, or when the application changes the value of item properties involved in grouping.  It can also improve the performance of the group creation process, by moving comparisons of the grouping properties from the sort of the full collection to the sort of the groups.
+
+An application that requests a [CollectionView](https://msdn.microsoft.com/library/system.windows.data.collectionview.aspx) to group data can now explicitly declare how to sort the groups. This overcomes some unintuitive ordering that can arise when the application dynamically adds or removes groups, or when the application changes the value of item properties involved in grouping.  It can also improve the performance of the group creation process, by moving comparisons of the grouping properties from the sort of the full collection to the sort of the groups.
  
-The feature includes two new properties on the [GroupDescription](https://msdn.microsoft.com/en-us/library/system.componentmodel.groupdescription.aspx) class: `SortDescriptions` and `CustomSort`. These describe how to sort the collection of groups produced by the `GroupDescription`, analogous to the way the properties on `ListCollectionView` with the same names describe how to sort the data items. There are also two new static properties on the `PropertyGroupDescription` class for use in the most common cases: `CompareNameAscending` and `CompareNameDescending`.
+The feature includes two new properties on the [GroupDescription class](https://msdn.microsoft.com/library/system.componentmodel.groupdescription.aspx): `SortDescriptions` and `CustomSort`. These properties describe how to sort the collection of groups produced by the `GroupDescription`, analogous to the way the properties on `ListCollectionView` with the same names describe how to sort the data items. There are also two new static properties on the [`PropertyGroupDescription` class](https://msdn.microsoft.com/library/system.windows.data.propertygroupdescription.aspx) for use in the most common cases: `CompareNameAscending` and `CompareNameDescending`.
  
 For example, suppose an application wants to group data by Age, sorting the groups in ascending order and the items within each group by LastName.
 
-Prior to this feature, the application would declare:
- 
-```csharp
-<GroupDescriptions>
-   <PropertyGroupDescription PropertyName=”Age”/>
-</GroupDescriptions>
- 
-<SortDescriptions>
-   <SortDescription PropertyName=”Age”/>
-   <SortDescription PropertyName=”LastName”/>
-</SortDescriptions>
-```
-
 With this new feature the application can now declare:
 
-```csharp
+```xml
 <GroupDescriptions>
    <PropertyGroupDescription
       PropertyName=”Age”
@@ -271,14 +366,37 @@ With this new feature the application can now declare:
 </SortDescriptions>
 ```
 
-##  Per-Monitor DPI Support
-WPF applications are [system-DPI aware](https://msdn.microsoft.com/en-us/library/windows/desktop/dn280512%28v=vs.85%29.aspx), which means that applications are scaled by Windows depending on the DPI of the monitor on which the application is being rendered. This can result in loss of sharpness, blurry text etc. Prior to 4.6.2, [additional native code](https://msdn.microsoft.com/en-us/library/windows/desktop/ee308410%28v=vs.85%29.aspx) was required to enable per-monitor DPI awareness in WPF applications.
+Prior to this feature, the application would declare:
+ 
+```xml
+<GroupDescriptions>
+   <PropertyGroupDescription PropertyName=”Age”/>
+</GroupDescriptions>
+ 
+<SortDescriptions>
+   <SortDescription PropertyName=”Age”/>
+   <SortDescription PropertyName=”LastName”/>
+</SortDescriptions>
+```
 
-Given the recent proliferation of high-DPI and hybrid-DPI environments in the ecosystem, we have now enabled per-monitor DPI awareness in WPF applications. See the [samples and developer guide](https://github.com/Microsoft/WPF-Samples/tree/master/PerMonitorDPI) for more information about how to enable your WPF application to become per-monitor DPI aware. 
+##  Per-Monitor DPI Support
+
+WPF applications are now enabled for per-monitor DPI awareness. This improvement is critical for scenarios where multiple displays of varying DPI level are attached to a single machine. As all or part of a WPF application is transitioned between monitors, you expect WPF to "do the right thing" with resolution, matching the DPI of the app to the screen. It now does. 
+
+You can learn more about how to [enable your WPF application to become per-monitor DPI aware](https://github.com/Microsoft/WPF-Samples/tree/master/PerMonitorDPI) in the WPF samples and developer guide on GitHub. 
+
+In previous versions, you would have to write [additional native code](https://msdn.microsoft.com/library/windows/desktop/ee308410%28v=vs.85%29.aspx) to enable per-monitor DPI awareness in WPF applications.
 
 ## Soft Keyboard Support
-Soft Keyboard support enables automatic invocation and dismissal of the touch keyboard in WPF applications without disabling WPF stylus/touch support on Windows 10. Prior to 4.6.2, WPF applications did not implicitly support the invocation or dismissal of the touch keyboard without disabling WPF stylus/touch support.  This is due to a change in the way the touch keyboard tracks focus in applications starting in Windows 8.
+Soft Keyboard support enables automatic invocation and dismissal of the touch keyboard in WPF applications without disabling WPF stylus/touch support on Windows 10. 
+
+In previous versions, WPF applications did not implicitly support the invocation or dismissal of the touch keyboard without disabling WPF stylus/touch support.  This is due to a change in the way the touch keyboard tracks focus in applications starting in Windows 8.
 
 ![alt](softkeyboard.gif)
 
+#Your Feedback
 
+We would like to thank everyone who provided feedback on the 4.6.2 preview release! It has been instrumental in making 4.6.2 a great release. Please continue to direct your feedback towards the following places:
+
+* [Bugs – VS Feedback](https://connect.microsoft.com/VisualStudio/Feedback)
+* [Suggestions – User Voice](https://visualstudio.uservoice.com/forums/121579-visual-studio-2015)
