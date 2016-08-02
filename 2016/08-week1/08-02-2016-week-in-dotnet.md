@@ -38,6 +38,17 @@ while (!needToStop)
 
 [Emitter.io](https://emitter.io/) is a fast [MQTT](http://mqtt.org/) implementation that was built entirely on .NET Core, LibUV, and Docker. Naturally, a [.NET client library](https://emitter.io/develop/dotnet) is available.
 
+Game of the Week: Overcooked
+----------------------------
+
+Chaotic couch co-op cooking game for one to four players.
+
+In [Overcooked](http://www.ghosttowngames.com/overcooked/), you work as a team of chefs preparing, cooking and serving a variety of tasty orders, making sure to serve them before your customers storm out angry, of course! You can play solo or with up to four of your friends in both co-op and challenge game modes. Overcooked features an array of bizarre kitchens that push your co-op and coordination skills, including being located on a pirate ship, moving trucks and the bowels of a fiery underworld!
+
+![gamescreen](https://cloud.githubusercontent.com/assets/4108756/17334147/fae2a7ce-5889-11e6-83c5-00f7ea073432.png)
+
+Overcooked was created by Ghost Town Games using [Unity](http://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is available August 3rd on Xbox One, Windows (via Steam) and PS4.
+
 User group meeting of the week: Using F# to Create a Shared Logic Layer in Seattle
 ----------------------------------------------------------------------------------
 
@@ -92,6 +103,19 @@ Xamarin
 * [Asset Previewer](http://tirania.org/blog/archive/2016/Jul-28.html) by Miguel de Icaza.
 * [Implement Custom fonts using Effects in Xamarin Forms](http://err2solution.com/2016/07/custom-fonts-using-effects-in-xamarin-forms/) by S Ravi Kumar.
 * [Creating a Xamarin.Android Navigation Service for MVVM Light to use with any Activity](http://www.blogaboutxamarin.com/creating-a-xamarin-android-navigation-service-for-mvvm-light-to-use-with-any-activity/), [Using the MVVM Light ObservableRecylerAdapter with the Xamarin.Android RecylerView](http://www.blogaboutxamarin.com/using-the-mvvm-light-observablerecyleradapter-with-the-xamarin-android-recylerview/), and [Using the ObservableTableViewSource in MVVM Light V5.3 with Xamarin.iOS](http://www.blogaboutxamarin.com/using-the-observabletableviewsource-in-mvvm-light-v5-3-with-xamarin-ios/) by Richard Woollcott.
+
+Games
+---
+
+* [Unity 5.4 is Out – Here's What's In It](http://blogs.unity3d.com/2016/07/28/unity-5-4-is-out-heres-whats-in-it/) by Alex Lian
+* [Creating an Ability System With Scriptable Objects (upcoming Unity live training)](http://unity3d.com/learn/live-training/session/creating-ability-system-scriptable-objects) by Matthew-Schell
+* [Character Select System with Scriptable Objects (upcoming Unity live training)](http://unity3d.com/learn/live-training/session/character-select-system-scriptable-objects) by Matthew-Schell
+* [Delegates and Events in Unity](http://www.unitygeek.com/delegates-events-unity/) by Unity Geek
+* [Finite State Machine For Game Developers](http://gamedevelopertips.com/finite-state-machine-game-developers/) by Marco
+* [Hex Map 2: Blending Cell Colors](http://catlikecoding.com/unity/tutorials/hex-map-2/) by Catlike Coding
+* [1.1 Unity Tower defense tutorial](https://www.youtube.com/watch?v=-EQKXyzdWwg) by inScope Studios
+* [Unity and C# Tutorial - Lesson Three - Arrays](https://www.youtube.com/watch?v=YhMT7Eg5hWg) by Craig Hinrichs
+* [C# Monogame RPG Made Easy Tutorial 2 - GameScreen](https://www.youtube.com/watch?v=CcPb0bKkpeg) by CodingMadeEasy
 
 And this is it for this week!
 
