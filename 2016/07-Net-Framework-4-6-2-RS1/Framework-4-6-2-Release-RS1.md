@@ -138,8 +138,7 @@ In this release, we extended the CLR debugging APIs to enable the debugger to re
 The following improvements have been made in ClickOnce.
 
 ##Transport Layer Security (TLS) 1.1 and 1.2 Support
-
-As requested on [UserVoice](https://visualstudio.uservoice.com/forums/121579-visual-studio-2015/suggestions/10629357-enable-tls-1-2-1-1-during-click-once-setup), ClickOnce has been updated to support TLS 1.1 and 1.2 protocols in .NET Framework versions 4.6.2, 4.6.1, 4.6 and 4.5.2. ClickOnce will automatically detect which TLS protocol is required at runtime. There are no extra steps needed to enable this.
+We added support for TLS 1.1 and 1.2 protocols in ClickOnce for .NET Framework versions 4.6.2, 4.6.1, 4.6 and 4.5.2. We would like to thank those who voted for it on [UserVoice](https://visualstudio.uservoice.com/forums/121579-visual-studio-2015/suggestions/10629357-enable-tls-1-2-1-1-during-click-once-setup)! You do not need to do any extra steps to enable TLS 1.1 or 1.2 support as ClickOnce will automatically detect which TLS protocol is required at runtime. 
 
 Secure Sockets Layer (SSL) and TLS 1.0 are no longer recommended or supported by some organizations. For example, the Payment Card Industry Security Standards Council is in the process of [requiring TLS 1.1 or higher](https://blog.pcisecuritystandards.org/migrating-from-ssl-and-early-tls) for online transactions that meet their specifications.
 
@@ -182,11 +181,11 @@ public class ContactInfo
 
 ![alt](asp.net_dataAnnotation_localization.png)
 
-The localized resx files that have been placed in the `App_LocalResources` folder, in accordance to the new convention:
+You can see that localized resx files have been placed in the 'App_LocalResources' folder, following the new convention, in the example below:
 
 ![alt](asp.net_dataAnnotation.png)
 
-Custom stringlocalizer providers can be created to store the localized strings in another location or file type.
+You can also plug in your own stringlocalizer provider to store the localized strings in another location or file type.
 
 In previous .NET Framework versions, you would need to specify `ErrorMessageResourceType` and `ErrorMessageResourceName` values, as you can see in the example below.
 
