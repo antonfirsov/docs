@@ -51,10 +51,21 @@ Tool of the week: .NET API Catalog
 
 The tool runs on Azure, with an in memory object model that is pulled from Azure Blob Storage. The deployment of the web site is fully automated and is happening each time a commit happens to our internal CoreFxTools Git repo, which is hosted on VSTS, without disrupting service.
 
-User group meeting of the week: IOT RpiCar and ASP.NET Core + Docker in Bucarest, Romania
------------------------------------------------------------------------------------------
+Game of the Week: Dreamfall Chapters
+------------------------------------
 
-Join the ADCES group and Victor Hurdugaci on Tuesday, August 9 at 7:00PM at the AFI PARK 2, Bucarest, Romania for a session about [IOT RpiCar and ASP.NET Core + Docker](http://www.meetup.com/Bucharest-A-D-C-E-S-Meetup/events/232773415/).
+[Dreamfall Chapters](http://redthreadgames.com/games/chapters/) is the latest sequel to the hit adventure games [The Longest Journey](http://www.longestjourney.com/) and [DreamFall: Longest Journey](http://www.dreamfall.com/). The Longest Journey series takes place in two parallel universes, known as Stark, a cyberpunk future Earth, and Arcadia, a magical fantasy realm. You take on the role of two heroes as you follow their unlikely journey to save both worlds. Experience a deep and engaging story that is shaped with your decisions, and make no mistake, those decisions will have consequences that matter! Dreamfall Chapters is broken into five episodes, each of which show you how your decisions ranked against those that other players made.
+
+Make no mistake: the Dreamfall series is one of the very best in the point-and-click adventure genre. It has amazing and deep storytelling. A personal favorite, very highly recommended.
+
+![dreamfallchapters](https://cloud.githubusercontent.com/assets/4108756/17522703/deb503d4-5e0c-11e6-8594-ce72635c01cb.jpg)
+
+Dreamfall Chapters was created by [Red Thread Games](http://redthreadgames.com/) using [Unity](http://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). They also use [Azure](https://azure.microsoft.com/en-us/?b=16.24) for their online server. Dreamfall Chapters is available on Windows, Mac OS X and Linux via [Good Old Games](https://www.gog.com/game/dreamfall_chapters_season_pass_special_edition) and [Steam](http://store.steampowered.com/app/237850/) as well as PlayStation 4.
+
+User group meeting of the week: IOT RpiCar and ASP.NET Core + Docker in Bucharest, Romania
+------------------------------------------------------------------------------------------
+
+Join the ADCES group and Victor Hurdugaci on Tuesday, August 9 at 7:00PM at the AFI PARK 2, Bucharest, Romania for a session about [IOT RpiCar and ASP.NET Core + Docker](http://www.meetup.com/Bucharest-A-D-C-E-S-Meetup/events/232773415/).
 
 .NET
 ----
@@ -84,24 +95,37 @@ F#
 
 * [Walmart Rewrites Its E-Commerce Strategy With $3.3 Billion Deal for Jet.com](http://www.nytimes.com/2016/08/09/business/dealbook/walmart-jet-com.html) by Leslie Picker and Rachel Abrams.
 * [F# in Numbers: A Look at the Annual F# Survey Results](https://www.infoq.com/articles/fsharp-community-survey-2016) by Tomas Petricek.
+* [F# for Fun and Profit is Available as a Gitbook](https://www.gitbook.com/book/swlaschin/fsharpforfunandprofit/details)
+* [Comparing Scala to F#](http://mikhail.io/2016/08/comparing-scala-to-fsharp/), by Mikhail Shilkov
+* [F# for Scala Developers (slides)](https://alfonsogarciacaro.github.io/fsharp-for-scala-developers/#/) by Alfonso Garcia-Caro.
+* [TypeShape: Practical Generic Programming for F#](https://github.com/eiriktsarpalis/TypeShape), a new library by Erik Tsarpalis
 * [F# to Javascript with Tomas Petricek (podcast)](http://dotnetrocks.com/?show=1330).`
 * [Perspectives on Clojure and F# (video)](https://channel9.msdn.com/Blogs/Charles/Emerging-Langs-Clojure-and-F) by Rich Hickey and Joe Pamer.
-* [F# for Scala Developers (slides)](https://alfonsogarciacaro.github.io/fsharp-for-scala-developers/#/) by Alfonso Garcia-Caro.
 * [If you're not live-codeing, you're dead-coding (video)](https://vimeo.com/131658147) by Jeremy Chassaing.
 * [Fable |> React Native – Native apps with F#](http://www.navision-blog.de/blog/2016/08/06/fable-react-native/) by Steffen Forkmann.
 * [Incremental construction of DFA in F#](http://www.codeproject.com/Articles/1110749/Incremental-construction-of-DFA-in-Fsharp) by Vyacheslav Chernykh.
 * [Building an OData service in F# using Entity Framework and Suave](https://fsharp.tv/gazettes/building-an-odata-service-in-f-using-entity-framework-and-suave-gazette-007-2/) by Tamizh Vendan.
-* [TypeShape: Practical Generic Programming in F#](https://eiriktsarpalis.wordpress.com/2016/08/05/typeshape-practical-generic-programming-in-f/) by Eirik Tsarpalis.
+
+Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
 
 Xamarin
 -------
 
 * [Xamarin.Forms 2.3.1-stable](https://forums.xamarin.com/discussion/70166/xamarin-forms-2-3-1-stable) by Bryan Hunter.
 * [Using Speech Recognition in iOS 10](http://gregshackles.com/using-speech-recognition-in-ios-10/) by Greg Shackles.
-* [.NET Standard Library Support for Xamarin](https://blog.xamarin.com/net-standard-library-support-for-xamarin/) by James Montemagno.
+* [.NET Standard Library Support for Xamarin](https://blog.xamarin.com/net-standard-library-support-for-xamarin/) and [Creating and Consuming .NET Standard Libraries in Xamarin and Xamarin.Forms (video)](https://www.youtube.com/watch?v=r2tJWph0b8U) by James Montemagno.
 * [.NET Standard Library with Xamarin Forms](https://xamarinhelp.com/dot-net-standard-pcl-xamarin-forms/) and [.NET Standard with Xamarin Forms Gotchas](https://xamarinhelp.com/net-standard-xamarin-forms-gotchas/) by Adam Pedley.
 * [Integrating Azure Active Directory B2C into Xamarin Mobile App](http://www.hossambarakat.net/2016/07/07/integrating-azure-active-directory-b2c-into-xamarin-mobile-app/) by Hossam Barakat.
 * [Using the ContainerView to Share Views - aka Fragments in Xamarin.iOS](http://www.blogaboutxamarin.com/using-the-containerview-to-share-views-aka-fragments-in-xamarin-ios/) by Richard Woollcott.
+
+Games
+-----
+
+* [IL2CPP Optimizations: Faster Virtual Method Calls](https://blogs.unity3d.com/2016/08/04/il2cpp-optimizations-faster-virtual-method-calls/) by Josh Peterson
+* [Hex Map 3: Elevation](http://catlikecoding.com/unity/tutorials/hex-map/part-3/) by Catlike Coding
+* [1.2 Unity Tower defense tutorial - Tile types](https://www.youtube.com/watch?v=8JPuK4-gIM0) by inScope Studios
+* [Unity and C# Tutorial 4 - Finish Rock Paper Scissors Console](https://www.youtube.com/watch?v=K4_JTY1rR3o) by Craig Hinrichs
+* [C# Monogame RPG Made Easy Tutorial 3 - Xml Serialization](https://www.youtube.com/watch?v=T3X0bWxiSRY) by CodingMadeEasy
 
 And this is it for this week!
 
