@@ -33,8 +33,8 @@ The new Security and Quality Rollup for .NET Framework allows all customers to b
 ###Will I be forced to update to a newer version of the framework?
 The Security and Quality Rollup for .NET Framework will not upgrade your base Framework version to a newer version. 
 
- ###What is the estimated size of the Security and Quality Rollup for .NET Framework?
- The Security and Quality Rollup for .NET Framework will be roughly 60MB.
+###What is the estimated size of the Security and Quality Rollup for .NET Framework?
+The Security and Quality Rollup for .NET Framework will be roughly 60MB.
 
 ###Can I uninstall the Security and Quality Rollup for .NET Framework?
 You can uninstall the Security and Quality Rollup for .NET Framework via the Add Remove Programs panel. You can refer to the .NET Bulletin for the list of KBs each Rollup installed in a particular month.
