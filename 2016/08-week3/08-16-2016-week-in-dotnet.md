@@ -83,11 +83,10 @@ Join the [.NET Bangalore user group](http://www.meetup.com/DotNetBLR/) for [a fu
 * [How to avoid recursion](http://metacoding.azurewebsites.net/2016/08/16/how-to-avoid-recursion/) by Matthieu Mezil.
 * [I tell you, that thing is a bona fide ZEBRA, or a tale of being utterly stupid](https://ayende.com/blog/174947/i-tell-you-that-thing-is-a-bona-fide-zebra-or-a-tale-of-being-utterly-stupid) and [Exceptional costs, Part II](https://ayende.com/blog/175010/digging-into-the-coreclr-exceptional-costs-part-ii) by Ayende Rahien.
 * [Building a Producer Consumer Queue with TPL Dataflow](https://jeremydmiller.com/2016/08/09/building-a-producer-consumer-queue-with-tpl-dataflow/) and [Health Monitoring and Task Reassignment in our Service Bus Applications](https://jeremydmiller.com/2016/08/11/using-the-bully-algorithm-in-our-service-bus-applications/) by Jeremy D Miller.
-* [Should I Use ASP.NET Core or MVC 5?](http://www.jeffreyfritz.com/2016/08/should-i-use-asp-net-core-or-mvc-5/) by Jeffrey T Fritz.
 * [MSTest V2 - First impressions](http://blog.drorhelper.com/2016/08/mstest-v2-first-impressions.html) by Dror Helper.
-* [WebAPIContrib.Core](https://channel9.msdn.com/coding4fun/blog/WebAPIContribCore) by Greg Duncan.
 * [Retrieving Performance Counter from a remote PC using C#](http://www.productiverage.com/retrieving-performance-counter-from-a-remote-pc-using-c-sharp) by Productive Rage.
 * [Couchbase .NET SDK 2.3.5 now available with .NET Core support](http://blog.couchbase.com/2016/august/couchbase-.net-sdk-2.3.5-now-available) by Jeff Morris.
+* [Application Insights & Semantic Logging for Service Fabric Microservices](http://www.medic-consulting.com/2016/08/12/Application-Insights-and-Semantic-Logging-for-Service-Fabric-Microservices/) by Andrej Medic.
 
 ASP.NET
 -------
@@ -99,6 +98,8 @@ ASP.NET
 * [Using Semantic UI with ASP.NET Core](http://www.khalidabuhakmeh.com/using-semantic-ui-with-asp-net-core) and [Strongly Typed Configuration Settings in ASP.NET Core Part II](http://rimdev.io/strongly-typed-configuration-settings-in-asp-net-core-part-ii/) by Khalid Abuhakmeh.
 * [Global Routes for ASP.NET Core MVC](http://benjii.me/2016/08/global-routes-for-asp-net-core-mvc/) by Ben Cull.
 * [Add Swagger to ASP.NET Core Web API](http://www.talkingdotnet.com/add-swagger-to-asp-net-core-web-api/) by Talking Dotnet.
+* [Should I Use ASP.NET Core or MVC 5?](http://www.jeffreyfritz.com/2016/08/should-i-use-asp-net-core-or-mvc-5/) by Jeffrey T Fritz.
+* [WebAPIContrib.Core](https://channel9.msdn.com/coding4fun/blog/WebAPIContribCore) by Greg Duncan.
 
 F#
 --
