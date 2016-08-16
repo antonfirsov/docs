@@ -6,7 +6,7 @@ To read last week's post, see [The week in .NET – 8/9/2016](https://blogs.msdn
 On .NET
 -------
 
-Last week, we had [Pablo Santos and Francisco Monteverde to talk about PlasticSCM](https://www.youtube.com/watch?v=wPNKyC5sbac), a version control system with interesting features such as semantic merge and digital asset management. If you thing version control is done and that Git is the end of it, you should check out the video, and prepare to be surprised:
+Last week, we had [Pablo Santos and Francisco Monteverde to talk about PlasticSCM](https://www.youtube.com/watch?v=wPNKyC5sbac), a version control system with interesting features such as semantic merge and digital asset management. If you think version control is done and that Git is the end of it, you should check out the video, and prepare to be surprised:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/wPNKyC5sbac" frameborder="0" allowfullscreen></iframe>
 
@@ -78,6 +78,7 @@ Join the [.NET Bangalore user group](http://www.meetup.com/DotNetBLR/) for [a fu
 .NET
 ----
 
+* [Introducing the .NET Framework Monthly Rollup](https://blogs.msdn.microsoft.com/dotnet/2016/08/15/introducing-the-net-framework-monthly-rollup) by Stacey Haffner.
 * [Announcing NuGet 3.5 RC](http://blog.nuget.org/20160811/Announcing-NuGet-3.5-RC.html) by Harikrishna Menon.
 * [How to avoid recursion](http://metacoding.azurewebsites.net/2016/08/16/how-to-avoid-recursion/) by Matthieu Mezil.
 * [I tell you, that thing is a bona fide ZEBRA, or a tale of being utterly stupid](https://ayende.com/blog/174947/i-tell-you-that-thing-is-a-bona-fide-zebra-or-a-tale-of-being-utterly-stupid) and [Exceptional costs, Part II](https://ayende.com/blog/175010/digging-into-the-coreclr-exceptional-costs-part-ii) by Ayende Rahien.
@@ -112,15 +113,18 @@ Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for 
 
 Xamarin
 -------
+
 * [Xamarin Dev Days: More Dates & More Cities!](https://blog.xamarin.com/xamarin-dev-days-more-dates-more-cities/) by Jayme Singleton.
 * [Preview: iOS 10 / Xcode 8 / Sierra Support Update 2](https://releases.xamarin.com/preview-ios-10-xcode-8-sierra-support-update-2/) and [Preview: iOS Simulator (For Windows) update 3](https://releases.xamarin.com/preview-ios-simulator-for-windows-update-3/) by Adrian Murphy.
-* [Authenticating Mobile Apps with Azure Active Directory B2C](https://blog.xamarin.com/authenticating-mobile-apps-with-azure-active-directory-b2c/) by Pierce Boggan.
+* [Authenticating Mobile Apps with Azure Active Directory B2C](https://blog.xamarin.com/authenticating-mobile-apps-with-azure-active-directory-b2c/) and [Performing OCR for iOS, Android, and Windows with Microsoft Cognitive Services](https://blog.xamarin.com/performing-ocr-for-ios-android-and-windows-with-microsoft-cognitive-services/) by Pierce Boggan.
 * [Declarative & implicit animations Library for Xamarin Forms](https://github.com/OliveTreeBible/Xamarin.Transitions) by Olive Tree.
 * [Announcing Cake.Raygun](https://ghuntley.com/archive/2016/08/09/announcing-cake-raygun/) by Geoffrey Huntley.
 * [Interacting with Siri on Xamarin in iOS 10](https://xamarinhelp.com/interacting-siri-xamarin/) by Adam Pedley.
 * [Formatted number entry](http://thatcsharpguy.com/post/formatted-number-entry/) by Antonio Feregrino Bolaños.
 * [Creating Animations with Xamarin.Forms](https://blog.xamarin.com/creating-animations-with-xamarin-forms/) by David Britch.
 * [Composable Customizations with Xamarin.Forms](https://visualstudiomagazine.com/articles/2016/08/01/composable-customizations.aspx) by Greg Shackles.
+* [Installing a PCL into netstandard Libraries ](http://motzcod.es/post/148657853472/installing-a-pcl-into-netstandard-libraries) by James Montemagno.
+* [Using the ContainerView to Transition between Views - aka More Fragments in Xamarin.iOS](http://www.blogaboutxamarin.com/using-the-containerview-to-transition-between-views-aka-more-fragments-in-xamarin-ios/) by Richard Woollcott.
 
 And this is it for this week!
 
