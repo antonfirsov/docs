@@ -61,6 +61,15 @@ var warden = WardenInstance.Create(configuration);
 await warden.StartAsync();
 ```
 
+Game of the week: Stardew Valley
+--------------------------------
+
+[Stardew Valley](http://stardewvalley.net/) is an open-ended country-life role playing game. Armed with a newly inherited farm plot, a few hand-me-down tools and a bit of coin, you can begin your new life. Engage in the valley by turning your plot of land into a bustling farm, befriending the local community or exploring a vast and mysterious cave full of dangerous monsters, powerful weapons and a wide array of treasures. Stardew Valley also has over 100 different cooking and crafting recipes which can be used to give temporary boosts to skills or create useful objects like oil makers, funraces or scarecrows. 
+
+![stardewvalley_6](https://cloud.githubusercontent.com/assets/4108756/17898144/843e9a3c-690b-11e6-92be-606670a6d3ee.png)
+
+Stardew Valley was created by Eric Barone (ConcernedApe) using [XNA](https://msdn.microsoft.com/en-us/library/bb203894.aspx) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is currently available on Windows, Mac OS X via [Steam](http://store.steampowered.com/app/413150/).
+
 User group meeting of the week: TypeShape - Practical Generic Programming in F# in NYC
 --------------------------------------------------------------------------------------
 
@@ -76,6 +85,7 @@ The [New York City F# User Group](http://www.meetup.com/nyc-fsharp/) will have E
 * [An approach to building .NET Core apps using Bamboo and Cake](http://www.inversionofcontrol.co.uk/an-approach-to-building-net-core-apps-using-bamboo-and-cake/) by Matthew Abbott.
 * [Detecting and Setting Zoom Level in the WPF WebBrowser Control](https://weblog.west-wind.com/posts/2016/Aug/22/Detecting-and-Setting-Zoom-Level-in-the-WPF-WebBrowser-Control) by Rick Strahl.
 * [Wire – Writing one of the fastest .NET serializers](https://rogeralsing.com/2016/08/16/wire-writing-one-of-the-fastest-net-serializers/) by Roger Johansson.
+* [Analysing Optimisations in the Wire Serialiser](http://mattwarren.org/2016/08/23/Analysing-Optimisations-in-the-Wire-Serialiser/) by Matt Warren.
 
 ASP.NET
 -------
@@ -115,6 +125,17 @@ Xamarin
 * [Prism for Xamarin.Forms 6.2 Release](http://brianlagunas.com/prism-for-xamarin-forms-6-2-release/) by Brian Lagunas.
 * [Announcing FreshMvvm 2.1 and 2.2](http://www.michaelridland.com/xamarin/announcing-freshmvvm-2-1-and-2-2/) by Michael Ridland.
 * [Latest Version of InTheHand.Core](https://peterfoot.net/2016/08/17/latest-version-of-inthehand-core/) by Peter Foot.
+
+Games
+-----
+
+* [Developing for Hololens with the Emulator](https://blogs.unity3d.com/2016/08/18/developing-for-hololens-with-the-emulator/) by René Schulte.
+* [Shaders Case Study - No Man's Sky: Topographic Scanner (video)](https://www.youtube.com/watch?v=OKoNp2RqE9A) by Makin' Stuff Look Good.
+* [[Unity 5] Tutorial: How to make a Circular (Pie) menu part 1](https://youtu.be/qBsLezkjJck)
+* [Hex Map 4: Irregulatity](http://catlikecoding.com/unity/tutorials/hex-map/part-4/) by Catlike Coding.
+* [1.3 Unity Tower defense tutorial - Map from text](https://www.youtube.com/watch?v=p3lAmkxTUz8) by inScope Studios.
+* [Unity and C# Tutorial 5 - Methods (video)](https://www.youtube.com/watch?v=74ScHxDiFHk) by Craig Hinrichs.
+* [C# Monogame RPG Made Easy Tutorial 4 - (Recap)Xml Serialization (video)](https://www.youtube.com/watch?v=vgDye5JB87w) by CodingMadeEasy.
 
 And this is it for this week!
 
