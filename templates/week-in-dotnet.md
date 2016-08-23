@@ -60,7 +60,7 @@ And this is it for this week!
 Contribute to the week in .NET
 ------------------------------
 
-As always, this weekly post couldn't exist without community contributions, and I'd like to thank all those who sent links and tips.
+As always, this weekly post couldn't exist without community contributions, and I'd like to thank all those who sent links and tips. The F# section is provided by Phillip Carter, the gaming section by Stacey Haffner, and the Xamarin section by Dan Rigby.
 
 You can participate too. Did you write a great blog post, or just read one? Do you want everyone to know about an amazing new contribution or a useful library? Did you make or play a great game built on .NET?
 We'd love to hear from you, and feature your contributions on future posts:
