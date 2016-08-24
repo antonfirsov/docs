@@ -5,21 +5,24 @@ should be authored in text, ideally Markdown.
 
 The directory structure should look like this:
 
-    2014
-    └───08-interns-at-microsoft
-            2014-08-interns-at-microsoft.md
-            CharlesLovell.png
-            ChristianSalgadoPacheco.png
-            IanHays.png
-            SantiagoFernandezMadero.png
-            ShaunArora.png
-            ZachMontoya.png
+```
+2014
+    └───08-Aug
+        └───interns-at-microsoft
+                interns-at-microsoft.md
+                CharlesLovell.png
+                ChristianSalgadoPacheco.png
+                IanHays.png
+                SantiagoFernandezMadero.png
+                ShaunArora.png
+                ZachMontoya.png
+```
 
 In other words:
 
 * A top level folder per year
-* One nested folder per post. The prefix should indicate the month, using double
-  digits for easier sorting
+* One nested folder per month, with the two-digit month number, a hyphen, and the three letter abbreviation for the month.
+* One nested folder per post. The folder name should reflect the post's title.
 * The post folder should contain all assets, especially images
 
 ## Reviewing Posts
