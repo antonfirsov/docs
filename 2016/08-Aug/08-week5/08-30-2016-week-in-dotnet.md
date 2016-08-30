@@ -10,7 +10,7 @@ Last week, [Phillip Carter was on the show and gave some pretty neat intro-level
 
 <iframe src="https://channel9.msdn.com/Shows/On-NET/Phillip-Carter-F/player" width="560" height="315" allowFullScreen frameBorder="0"></iframe>
 
-This week, we'll speak with [Ayende Rahien](https://ayende.com/blog) from [Hibernating Rhinos](https://www.hibernatingrhinos.com/), to talk about [RavenDB](https://ravendb.net/) and .NET. The show begins at 11AM Pacific Time [on Channel 9](https://channel9.msdn.com/Shows/On-NET). We'll take questions on Gitter, on [the dotnet/home channel](https://gitter.im/dotnet/home). Please use the `#onnet` tag. It's OK to start sending us questions in advance if you can't do it live during the show.
+This week, we'll talk to [Ayende Rahien](https://ayende.com/blog) from [Hibernating Rhinos](https://www.hibernatingrhinos.com/), about [RavenDB](https://ravendb.net/) and .NET. The show begins at 11AM Pacific Time [on Channel 9](https://channel9.msdn.com/Shows/On-NET). We'll take questions on Gitter, on [the dotnet/home channel](https://gitter.im/dotnet/home). Please use the `#onnet` tag. It's OK to start sending us questions in advance if you can't do it live during the show.
 
 Package of the week: F# Data
 ----------------------------
@@ -26,10 +26,6 @@ Tool of the week: NDepend
 
 ![Querying source code using LINQ](http://www.ndepend.com/assets/img/apps/rule.png)
 
-Game of the week: xx
------------------------------------
-
-
 User group meeting of the week: intro to Azure DocumentDB for .NET and SQL Server developers in Tallahassee
 -----------------------------------------------------------------------------------------------------------
 
@@ -39,17 +35,25 @@ The [Capital City .NET Users Group](http://www.meetup.com/tally-dot-net/) hosts 
 ----
 
 * [What's New in C# 7.0](https://blogs.msdn.microsoft.com/dotnet/2016/08/24/whats-new-in-csharp-7-0/) by Mads Torgersen.
+* [Changes to Expiring NuGet API Keys](http://blog.nuget.org/20160825/Changes-to-Expiring-API-Keys.html) by Harikrishna Menon.
 * [What's New in Entity Framework Core 1.0?](https://stormpath.com/blog/entity-framework-core-new) by Team Stormpath.
+* [Writing Better Tests Than Humans Can Part 1: FsCheck Property Tests in C#](http://www.aaronstannard.com/fscheck-property-testing-csharp-part1/) by Aaron Stannard.
 * [Create vCard QR Codes using Azure Functions](https://carlos.mendible.com/2016/08/28/create-vcard-qr-codes-using-azure-functions/) by Carlos Mendible.
 * [Building NuGet (.NET Core) using Atlassian Bitbucket Pipelines](https://blog.maartenballiauw.be/post/2016/08/17/building-nuget-netcore-using-atlassian-bitbucket-pipelines.html) by Maarten Balliauw.
 * [Using JSON Data and EF to Seed a Database](http://thedatafarm.com/uncategorized/seeding-ef-with-json-data/) by Julie Lerman.
+* [Extending dotnet cli commands in dotnet core](https://wannabeegeek.com/2016/08/20/extending-dotnet-cli-commands-in-dotnet-core/) by Swaminathan Vetri.
 
 ASP.NET
 -------
 
 * [A look behind the JWT bearer authentication middleware in ASP.NET Core](http://andrewlock.net/a-look-behind-the-jwt-bearer-authentication-middleware-in-asp-net-core/) and [An introduction to Session storage in ASP.NET Core](http://andrewlock.net/an-introduction-to-session-storage-in-asp-net-core/) by Andrew Lock.
+* [Adding Application Insights in ASP.Net core project](http://www.janaks.com.np/adding-application-insights-asp-net-core-project/) by Janak.
 * [Getting Started with ASP.Net Performance Monitoring and Optimization](https://www.infoq.com/articles/dotnet-performance-monitoring-optimization) by Pierre-Luc Maheu.
 * [Initial Port Of Restful Routing To ASP.NET Core](http://www.khalidabuhakmeh.com/initial-port-of-restful-routing-to-asp-net-core) by Khalid Abuhakmeh.
+* [Using NancyFx in ASP.NET Core](http://dotnetthoughts.net/using-nancyfx-in-aspnet-core/) by Anuraj.
+* [Creating a GPS configuration provider for ASP.NET Core](https://www.billboga.com/posts/creating-a-gps-configuration-provider-for-aspnet-core-10) by Bill Boga.
+* [ASP.NET Core 1.0 with MySQL and Entity Framework Core](https://damienbod.com/2016/08/26/asp-net-core-1-0-with-mysql-and-entity-framework-core/) by Damien Bod.
+* [Secure Your ASP.NET Core Application From Image Hotlinking](http://en.xn--mgbz4cf.com/post/secure-your-aspnet-core-application-from-image-hotlinking) by Hisham.
 
 F#
 --
@@ -75,12 +79,6 @@ Xamarin
 * [Jason Smith's Xamarin Forms Performance Tips](http://kent-boogaart.com/blog/jason-smith's-xamarin-forms-performance-tips) by Kent Boogaart.
 * [Prism for Xamarin Forms – An overview (Part 1)](http://blog.qmatteoq.com/prism-for-xamarin-forms-an-overview-part-1/) and [Prism for Xamarin Forms – Basic navigation and dependency injection (Part 2)](http://blog.qmatteoq.com/prism-for-xamarin-forms-basic-navigation-and-dependency-injection-part-2/) by Matteo Pagani.
 * [Announcing Serilog.Sinks.Xamarin](https://ghuntley.com/archive/2016/08/22/announcing-serilog-sinks-xamarin/) by Geoffrey Huntley.
-
-Games
------
-
-* [xx](xx) by xx.
-
 
 And this is it for this week!
 
