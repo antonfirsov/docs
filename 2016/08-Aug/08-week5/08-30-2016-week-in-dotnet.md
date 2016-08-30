@@ -26,6 +26,15 @@ Tool of the week: NDepend
 
 ![Querying source code using LINQ](http://www.ndepend.com/assets/img/apps/rule.png)
 
+Game of the Week: Mervils: A VR Adventure
+-----------------------------------------
+
+[Mervils: A VR Adventure](https://madewith.unity.com/games/mervils-a-vr-adventure) is an open-world RPG with platformer-like elements. Your story begins with your good friend, Merlin the Blue, an ancient wizard, foreseeing the return of a powerful enemy, known as "Balazar". Geared with a few coins and a great sword, you begin the quest to defeat Balazar. Designed from the ground up for virtual reality, Mervils: A VR Adventure features character customization, a rich and evolving story, beautiful environments and challenging puzzles. 
+
+![mervils_pirate_oculus1](https://cloud.githubusercontent.com/assets/4108756/18095537/2f487eae-6e8c-11e6-9266-4fed781adfbb.jpg)
+
+[Mervils: A VR Adventure](http://www.mervils.com/) was created by [VitruviusVR](https://madewith.unity.com/profiles/vitruviusvr) using [Unity](https://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is currently available for the Oculus Rift on [Oculus Home](https://www.oculus.com/experiences/rift/349692435154738/) and HTC Vive on [Steam](http://store.steampowered.com/app/497460/) and will be available for PlaystationVR in the fall.
+
 User group meeting of the week: intro to Azure DocumentDB for .NET and SQL Server developers in Tallahassee
 -----------------------------------------------------------------------------------------------------------
 
@@ -79,6 +88,15 @@ Xamarin
 * [Jason Smith's Xamarin Forms Performance Tips](http://kent-boogaart.com/blog/jason-smith's-xamarin-forms-performance-tips) by Kent Boogaart.
 * [Prism for Xamarin Forms – An overview (Part 1)](http://blog.qmatteoq.com/prism-for-xamarin-forms-an-overview-part-1/) and [Prism for Xamarin Forms – Basic navigation and dependency injection (Part 2)](http://blog.qmatteoq.com/prism-for-xamarin-forms-basic-navigation-and-dependency-injection-part-2/) by Matteo Pagani.
 * [Announcing Serilog.Sinks.Xamarin](https://ghuntley.com/archive/2016/08/22/announcing-serilog-sinks-xamarin/) by Geoffrey Huntley.
+
+Games
+-----
+
+* [Get the Unity 5.5 Beta Now](https://blogs.unity3d.com/2016/08/30/get-the-unity-5-5-beta-now/) by Alex Lian.
+* [CRYENGINE 5.2 is now available for download!](https://www.cryengine.com/news/cryengine-52-is-now-available-for-download).
+* [(CRYENGINE) Getting Started Running C# in Visual Studio](http://docs.cryengine.com/display/CEPROG/CE%23+Framework#CE#Framework-GettingStarted(RunningC#inVisualStudio), [(CRYENGINE) Using Managed Entities (Tutorial Series)](http://docs.cryengine.com/pages/viewpage.action?pageId=25536731), and [(CRYENGINE) Using CE#'s UI System (Tutorial Series)](http://docs.cryengine.com/pages/viewpage.action?pageId=25536751) by Benjamin Peters and Aaron Garcha.
+* [Shaders Case Study - Overwatch: Winston's Barrier Projector (video)](https://www.youtube.com/watch?v=C6lGEgcHbWc) by Makin' Stuff Look Good.
+* [Use Linear Algebra to solve problems in Unity with C#](http://www.habrador.com/tutorials/linear-algebra/) by Erik Nordeus.
 
 And this is it for this week!
 
