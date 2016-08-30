@@ -94,7 +94,7 @@ Games
 
 * [Get the Unity 5.5 Beta Now](https://blogs.unity3d.com/2016/08/30/get-the-unity-5-5-beta-now/) by Alex Lian.
 * [CRYENGINE 5.2 is now available for download!](https://www.cryengine.com/news/cryengine-52-is-now-available-for-download).
-* [(CRYENGINE) Getting Started Running C# in Visual Studio](http://docs.cryengine.com/display/CEPROG/CE%23+Framework#CE#Framework-GettingStarted(RunningC#inVisualStudio), [(CRYENGINE) Using Managed Entities (Tutorial Series)](http://docs.cryengine.com/pages/viewpage.action?pageId=25536731), and [(CRYENGINE) Using CE#'s UI System (Tutorial Series)](http://docs.cryengine.com/pages/viewpage.action?pageId=25536751) by Benjamin Peters and Aaron Garcha.
+* [(CRYENGINE) Getting Started Running C# in Visual Studio](http://docs.cryengine.com/display/CEPROG/CE%23+Framework#CE#Framework-GettingStarted(RunningC#inVisualStudio)), [(CRYENGINE) Using Managed Entities (Tutorial Series)](http://docs.cryengine.com/pages/viewpage.action?pageId=25536731), and [(CRYENGINE) Using CE#'s UI System (Tutorial Series)](http://docs.cryengine.com/pages/viewpage.action?pageId=25536751) by Benjamin Peters and Aaron Garcha.
 * [Shaders Case Study - Overwatch: Winston's Barrier Projector (video)](https://www.youtube.com/watch?v=C6lGEgcHbWc) by Makin' Stuff Look Good.
 * [Use Linear Algebra to solve problems in Unity with C#](http://www.habrador.com/tutorials/linear-algebra/) by Erik Nordeus.
 
