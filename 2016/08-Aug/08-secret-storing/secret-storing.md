@@ -5,7 +5,7 @@ Most applications need access to secret information in order to function: it cou
 
 Which one you choose depends on the level of security your application requires. Oftentimes, storing an API key in an environment variable will be adequate (what is never adequate is hard-coded values in code or config files checked into source control). If you require a higher level of security, however, you'll need a specialized vault such as Azure Key Vault. 
 
-Azure Key Vault's unique responsibility is to store your secrets securely. Once stored, your secrets can only be accessed by applications you authorize, and only on an encrypted channel.
+Azure Key Vault's unique responsibility is to store your secrets securely. Once stored, your secrets can only be accessed by applications you authorize, and only on an encrypted channel. Each secret can be managed in a single secure place, while multiple applications can use it. 
 
 In this post, we'll create a simple service that will compare the temperatures in Seattle and Paris using the [OpenWeatherMap API](http://openweathermap.org/api), for which we'll need a secret API key. I'll walk you through the usage of [Azure's Key Vault](https://azure.microsoft.com/en-us/services/key-vault/) for storing the key, then I'll show how to retrieve and use it in a simple [Azure function](https://azure.microsoft.com/en-us/documentation/articles/functions-reference-csharp/).
 
@@ -45,10 +45,28 @@ First, we're going to set-up Key Vault. There are quite a few steps involved, bu
 8. Store the API key on Key Vault (replace the 'x's with your actual key):
    `azure Key Vault secret set sample-weather-vault  open-weather-map-key -w xxxxxxxxxxxxxxxxxxxxxxxxxxxx`
 
-Preparing authentication
-------------------------
+Preparing Active Directory authentication
+-----------------------------------------
 
-Of course, the application will need to securely connect to the vault, for which it will have to use some form of secret.
+Of course, the application will need to securely connect to the vault, for which it will have to use some form of master secret. This is similar to the master password that a password vault uses. We'll use Active Directory for this.
+
+If you don't already have a directory that you want to use, you'll need to create one. This is currently done in [the old Azure portal](https://manage.windowsazure.com/) and is outside of the scope of this tutorial.
+
+...
+
+Go to "configure", where you can see your application's client ID. You'll need that and a key.
+
+![Viewing the application's client ID](ad-05-configure-key)
+
+Scroll down to the keys section and add a new one.
+
+![Adding a new key](ad-06-add-key.png)
+
+Once you've saved, the key can be viewed and copied to a safe place. Do it now, because this is the last time the Azure portal is going to show it.
+
+![The generated key](ad-07-the-key.png)
+
+Now we can go back to the command-line and add the client ID to the list of authorized apps for our vault. Note that using a different key and id for each application that will use the secrets makes it possible to revoke access to the whole vault for a specific application in one operation.
 
 Creating the Azure function
 ---------------------------
