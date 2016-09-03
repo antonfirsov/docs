@@ -19,42 +19,72 @@ Setting up Key Vault
 
 First, we're going to set-up Key Vault. There are quite a few steps involved, but only steps 6-8 have to be repeated for new secrets, the others being the one-time building of the vault.
 
-1. Log your PowerShell Azure console in using `azure login`:
-   ![Log-in from PowerShell](01-AzureLogin.png)
+1. Log your console in using `azure login`.
+
+   ![Log-in from the CLI](01-AzureLogin.png)
+
    Follow the instructions on the screen, which will likely include using a browser to enter a validation code.
 
 2. Select the subscription you want to use, if you have more than one, using `azure account set "name of the subscription"`:
+
    ![Pick a subscription](02-PickSubscription.png)
 
 3. Create a new resource group (change the location as needed):
-   `azure group create sample-weather-group -l WestUS`.
+
+   ```azure group create sample-weather-group -l WestUS```
+
    You can skip this if you already have a resource group that you want to use.
 
 4. Register Key Vault with your subscription:
-   `azure provider register Microsoft.Key Vault`.
+
+   ```azure provider register Microsoft.Key Vault```
+
    This only needs to be done once per subscription.
 
-5. Create a new vault under the group we created above (change the location as needed):
-   `azure Key Vault create sample-weather-vault -g sample-weather-group -l WestUS`
+5. Create a new vault under the group we created above (change the location as needed).
+
+   ```azure Key Vault create sample-weather-vault -g sample-weather-group -l WestUS```
 
 6. Get an API key from [OpenWeatherMaps](http://openweathermap.org/api).
 
-7. Create the key in the vault:
-   `azure Key Vault key create sample-weather-vault open-weather-map-key -d software`
+7. Create the key in the vault.
+
+   ```azure Key Vault key create sample-weather-vault open-weather-map-key -d software```
    
-8. Store the API key on Key Vault (replace the 'x's with your actual key):
-   `azure Key Vault secret set sample-weather-vault  open-weather-map-key -w xxxxxxxxxxxxxxxxxxxxxxxxxxxx`
+8. Store the API key on Key Vault (replace the 'x's with your actual key).
+
+   ```azure Key Vault secret set sample-weather-vault  open-weather-map-key -w xxxxxxxxxxxxxxxxxxxxxxxxxxxx```
 
 Preparing Active Directory authentication
 -----------------------------------------
 
-Of course, the application will need to securely connect to the vault, for which it will have to use some form of master secret. This is similar to the master password that a password vault uses. We'll use Active Directory for this.
+Of course, the application will need to securely connect to the vault, for which it will have to use some form of master secret.
+This is similar to the master password that a password vault uses.
+We'll use Active Directory for this. Managing Active Directory is currently done in [the old Azure portal](https://manage.windowsazure.com/).
+Once you've selected the same subscription that you used for the Key Vault, you should see the Active Directory instance that the Key Vault will be able to use to verify authentication tokens.
 
-If you don't already have a directory that you want to use, you'll need to create one. This is currently done in [the old Azure portal](https://manage.windowsazure.com/) and is outside of the scope of this tutorial.
+![Selecting a directory](ad-00-select.png)
 
-...
+We'll select that instance and create a new application there.
+Go to the "Applications" tab and click the "Add" button that is in the bottom toolbar.
 
-Go to "configure", where you can see your application's client ID. You'll need that and a key.
+![Adding a new application](ad-01-new-app.png)
+
+You'll then be asked to choose between an application you're developing or an application from the gallery.
+We'll choose the first option, "Add an application my organization is developing".
+
+![Choosing what kind of application to add](ad-02-add-dev-app.png)
+
+Next, you'll be asked for a name for the application.
+We'll choose "sample-weather-ad", and leave the "Web application and/or Web API" type checked.
+
+![Naming the AD application](ad-03-new-app-name.png)
+
+Then, we need to provide URIs that need to be unique, but won't actually be used for our application. They are used as identifiers, but don't need to actually exist.
+
+![Specifying URIs](ad-04-app-uris.png)
+
+Now that the application has been created, go to the "Configure" tab, where you can see your application's client ID. You'll need that and a key.
 
 ![Viewing the application's client ID](ad-05-configure-key)
 
@@ -62,11 +92,27 @@ Scroll down to the keys section and add a new one.
 
 ![Adding a new key](ad-06-add-key.png)
 
-Once you've saved, the key can be viewed and copied to a safe place. Do it now, because this is the last time the Azure portal is going to show it.
+Once you've saved, the key can be viewed and copied to a safe place. Do it now, because this is the last time the Azure portal is going to show it. Also notice that this key expires, so take the time to create a reminder on the schedule of the team in charge of managing this application.
 
 ![The generated key](ad-07-the-key.png)
 
 Now we can go back to the command-line and add the client ID to the list of authorized apps for our vault. Note that using a different key and id for each application that will use the secrets makes it possible to revoke access to the whole vault for a specific application in one operation.
+
+We'll also need the URL of the Active Directory end point.
+This can be obtained by clicking the "View endpoints" button on the bottom of the screen.
+
+![The "View endpoints" button](ad-08-getting-the-URL.png)
+
+The URL we want to copy for later use is the one under "OAuth 2.0 Token Endpoint".
+
+We're now ready to authorize the application to access the vault and get values out of it.
+From the command-line, do the following.
+
+```azure keyvault set-policy --vault-name sample-weather-vault --spn xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx --perms-to-secrets '[\"get\"]'```
+
+The string behind `--spn` should be replaced with the client ID from above. This command authorizes the application to get values out of the vault, but it should be pointed out that there are other Key Vault commands that can be enabled to allow the application to decrypt or sign values using stored certificates without having to read the actual secrets that can remain safely in the vault. Adapt this according to your requirements.
+Note that the syntax and escaping of the "permissions to secrets" parameter, a JSON array, may vary depending on the shell you're using.
+The syntax in the sample works with PowerShell on Windows.  
 
 Creating the Azure function
 ---------------------------
@@ -91,6 +137,38 @@ We're going to use Azure Functions to implement the actual service, because it's
 
 ```csharp
 ```
+
+4. In the code above, you'll notice that we're reading the AD URL, client ID and key from configuration, because of course we haven't done all this to store secrets in code... For the code to function, we'll have to enter that information into the function's Azure configuration. This can be done by clicking "Function app settings" on the top-right of the function editing screen.
+
+    ![The function app settings button](fun-01-config.png)
+
+    In the screen thig brings up, you'll want to select the last option, "Go to App Service Settings", under "Advanced Settings".
+    This will lead you to a long list where you'll want to find and select "Application Settings" under the "Settings" heading.
+    Once there, you'll see a few general settings, but what we're interested in is the table of custom "App settings".
+    We'll add three new key-value pairs in there with the names we used in the code: "WeatherADURL" with the Active Directory OAuth 2.0 Token Endpoint URL, "WeatherADClientID" with the Active Directory client app ID we got in the previous section, and "WeatherADKey" with the Active Directory application key.
+    Don't forget to hit "Save" on top of the panel.
+
+    ![Setting the Active Directory URL, master id and key in the app settings](fun-02-settings.png)
+
+5. While we're in advanced settings, we can also access the App Service Editor and set-up a project.json file to import the NuGet packages we need.
+
+    ![Opening the App Service Editor](fun-03-app-editor.png)
+
+    Add a project.json file under `wwwroot/ParisSeattleWeatherComparison` with the following code.
+
+    ```json
+    {
+        "frameworks": {
+            "net46": {
+                "dependencies": {
+                    "Microsoft.IdentityModel.Clients.ActiveDirectory": "3.13.4"
+                }
+            }
+        }
+    }
+    ```
+
+    ![Adding a project.json file](fun-04-adding-project-json.png)
 
 References
 ----------
