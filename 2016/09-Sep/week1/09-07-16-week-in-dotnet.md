@@ -93,6 +93,13 @@ Xamarin
 * [Using Prism modularization in Xamarin.Forms](http://www.davidezordan.net/blog/?p=7893) by Davide Zordan.
 * [Working with Native Bitmap pixel buffers in Xamarin.Forms](http://christian-helle.blogspot.com/2016/09/working-with-native-bitmap-pixel.html) by Christian Resma Helle.
 
+Games
+-----
+
+* [Creating a first person shooter in Unity](https://www.youtube.com/watch?v=KfxVFjNPE3A) by Rabidgremlin.
+* [Data Compression: Bit-Packing 101](http://www.kinematicsoup.com/news/2016/9/6/data-compression-bit-packing-101).
+* [Time Manipulation in Unity – Rewinding Time](http://letsmakeagame.net/time-manipulation-unity-rewinding-time/) by Alexander Grishanin & Stas Korotaev.
+
 And this is it for this week!
 
 Contribute to the week in .NET
