@@ -37,6 +37,7 @@ As I'm writing this post every week, it's easy to notice those bloggers who cons
 .NET
 ----
 
+* [Announcing the ongoing Bug Bounty for .NET Core and ASP.NET Core](https://blogs.msdn.microsoft.com/webdev/2016/09/01/announcing-the-ongoing-bug-bounty-for-net-core-and-asp-net-core/) by Barry Dorrans.
 * [Engineering the Future of .NET](http://developer.telerik.com/featured/engineering-the-future-of-dotnet/) by Sam Basu.
 * [Announcing MSTest V2 Framework support for .NET Core 1.0 RTM](https://blogs.msdn.microsoft.com/visualstudioalm/2016/09/01/announcing-mstest-v2-framework-support-for-net-core-1-0-rtm/) by Pratap Lakshman.
 * [Analysing .NET Memory Dumps with CLR MD](http://mattwarren.org/2016/09/06/Analysing-.NET-Memory-Dumps-with-CLR-MD/) by Matt Warren.
@@ -44,13 +45,21 @@ As I'm writing this post every week, it's easy to notice those bloggers who cons
 * [Creating "ZoneBot" using the Microsoft Bot Framework and LUIS](https://medium.com/@ThisisZone/creating-zonebot-using-the-microsoft-bot-framework-and-luis-f88e7f34ba70#.dwer43lup) and [Adding a conversational UI to "Zonebot" with the Microsoft bot framework](https://medium.com/@ThisisZone/adding-a-conversational-ui-to-zonebot-with-the-microsoft-bot-framework-ed82e5df9d69#.mcvel2nxp) by Andy Butland.
 * [The absolute easiest way to use SVG icons in UWP apps... or your money back!](http://ian.bebbs.co.uk/posts/UsingSVGInUWP) by Ian Bebbington.
 * [Moving Storyteller to the CoreCLR and going Cross Platform](https://jeremydmiller.com/2016/08/29/moving-storyteller-to-the-coreclr-and-going-cross-platform/) by Jeremy D Miller.
+* [Capturing Zoom Operations in the WPF Web Browser Control](https://weblog.west-wind.com/posts/2016/Sep/05/Capturing-Zoom-Operations-in-the-WPF-Web-Browser-Control) by Rick Strahl.
+* [9 Docker .NET App Templates: A Complete Guide](https://dzone.com/articles/9-docker-net-app-templates-a-complete-guide-for-co) by Amjad Afanah.
 
 ASP.NET
 -------
 
 * [POST-REDIRECT-GET using TempData in ASP.NET Core](http://andrewlock.net/post-redirect-get-using-tempdata-in-asp-net-core/) and [An introduction to OAuth 2.0 using Facebook in ASP.NET Core](http://andrewlock.net/an-introduction-to-oauth-2-using-facebook-in-asp-net-core/) by Andrew Lock.
+* [New ASP.NET Core Feature coming to 1.1 : Better Integration of Third Party Containers in Startup Class](http://www.maherjendoubi.io/new-asp-net-core-feature-coming-to-1-1-better-integration-of-3rd-party-ioc-containers-in-startup-class/) by Maher Jendoubi. 
 * [ASP.NET Core 1.0 Configuration Deep Dive](https://joonasw.net/view/asp-net-core-1-configuration-deep-dive) by Joonas Westlin.
 * [Setting Up a .NET Core Server With Entity Framework Core Using a PostgreSQL Database](https://medium.com/@mikezrimsek/setting-up-a-net-core-server-with-entity-framework-core-using-a-postgresql-database-242438f7d9c3#.equ199nt0) by Mike Zrimsek.
+* [ASP.NET Core APIs in the fast lane with Swagger and Autorest](https://auth0.com/blog/aspnet-core-apis-with-swagger-and-autorest) by Matías Quaranta.
+* [Integrate HangFire With ASP.NET Core WEB API](http://www.talkingdotnet.com/integrate-hangfire-with-asp-net-core-web-api/) by Talking Dotnet.
+* [ASP.NET Core logging with NLog and Elasticsearch](https://damienbod.com/2016/08/20/asp-net-core-logging-with-nlog-and-elasticsearch/) by Damien Bod.
+* [Feature Slices for ASP.NET Core MVC](https://msdn.microsoft.com/magazine/mt763233) by Steve Smith.
+* [Deploying an ASP.NET Core website with VSTS and Octopus Deploy](https://www.rhysgodfrey.co.uk/b/blog/posts/deploying-an-asp-net-core-website-with-vsts-and-octopus-deploy) by Rhys Godfrey.
 
 F#
 --
@@ -95,7 +104,7 @@ You can participate too. Did you write a great blog post, or just read one? Do y
 We'd love to hear from you, and feature your contributions on future posts:
 
 * Send an email to beleroy at Microsoft,
-* [comment on this gist](xx)
+* [comment on this gist](https://gist.github.com/bleroy/37f603f2231f9d51e4279024d8f1af7a)
 * Leave us a pointer in the comments section below.
 * [Send Stacey (@yecats131) tips on Twitter about .NET games](https://twitter.com/yecats131).
 
