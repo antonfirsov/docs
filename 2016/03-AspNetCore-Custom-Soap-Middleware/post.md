@@ -6,20 +6,20 @@ This post was written by **Mike Rousos**, a software engineer on the .NET team.
 Introduction
 ------------
 
-One of the great things about ASP.NET Core is its extensibility. The behavior of an ASP.NET Core app's HTTP request handling pipeline can be easily customized by specifying different [middleware](https://docs.asp.net/en/latest/fundamentals/middleware.html) components. This allows developers to plug in request handlers like MVC middleware, static file providers, authentication, error pages, or even their own custom middleware. In this article, I walk though how to create custom middleware to handle requests with simple SOAP payloads (similar to what would have been handled by WCF services previously).
+One of the great things about ASP.NET Core is its extensibility. The behavior of an ASP.NET Core app's HTTP request handling pipeline can be easily customized by specifying different [middleware](https://docs.asp.net/en/latest/fundamentals/middleware.html) components. This allows developers to plug in request handlers like MVC middleware, static file providers, authentication, error pages, or even their own custom middleware. In this article, I walk though how to create custom middleware to handle requests with simple SOAP payloads.
 
 ### A Disclaimer ###
-Hopefully this article provides a useful demonstration of creating custom middleware for ASP.NET Core in a real-world scenario. Some users might also find the SOAP handling itself useful for processing requests from old clients that previously communicated with a WCF endpoint. Be aware, though, that **this sample does not provide general WCF host support for ASP.NET Core**. Among other things, it has no support for message security, WSDL generation, duplex channels, non-HTTP transports, etc. The recommended way of providing web services with ASP.NET Core is via RESTful web API solutions. The ASP.NET [MVC](https://github.com/aspnet/Mvc) framework provides a powerful and flexible model for routing and handling web requests with controllers and actions. 
+Hopefully this article provides a useful demonstration of creating custom middleware for ASP.NET Core in a real-world scenario. Some users might also find the SOAP handling itself useful for processing requests from old clients that previously communicated with a basic WCF endpoint. Be aware, though, that **this sample does not provide general WCF host support for ASP.NET Core**. Among other things, it has no support for message security, WSDL generation, duplex channels, non-HTTP transports, etc. The recommended way of providing web services with ASP.NET Core is via RESTful web API solutions. The ASP.NET [MVC](https://github.com/aspnet/Mvc) framework provides a powerful and flexible model for routing and handling web requests with controllers and actions. 
 
 Getting Started
 ---------------
 
-To start, create a .NET Core library (the project type is under web templates and is called `Class Library (package)`). Throughout this article I will be using the RC1 Update 1 version of the [ASP.NET web tools](https://docs.asp.net/en/latest/getting-started/installing-on-windows.html).
+To start, create a .NET Core library (the project type is under web templates and is called `Class Library (package)`). Throughout this article I will be using the Preview 2 version of the [.NET Core tools](https://www.microsoft.com/net/core).
 ![Creating a new .NET Core library project](NewClassLibrary.png)
 
 ASP.NET Core middleware uses the <a href="http://deviq.com/explicit-dependencies-principle/" target="_blank">explicit dependencies principle</a>, so all dependencies should be provided through dependency injection via arguments to the middleware's constructor. The one dependency common to most middleware is a `RequestDelegate` object representing the next delegate in the HTTP request processing pipeline. If our middleware does not completely handle a request, the request's context should be passed along to this next delegate. Later, we'll specify more dependencies in our constructor but, for now, let's add a basic constructor to our middleware class.
 
-Add a dependency to `Microsoft.AspNet.Http.Abstractions` to your project.json (since that's the contract containing `RequestDelegate`), give your class a descriptive name (I'm using `SOAPEndpointMiddleware`), and create a constructor for the middleware class like this:
+Add a dependency to `Microsoft.AspNetCore.Http.Abstractions` to your project.json (since that's the contract containing `RequestDelegate`), give your class a descriptive name (I'm using `SOAPEndpointMiddleware`), and create a constructor for the middleware class like this:
 
 ```C#
 // The middleware delegate to call after this one finishes processing
@@ -31,7 +31,7 @@ public SOAPEndpointMiddleware(RequestDelegate next)
 }
 ```
 
-Next, we need to handle incoming HTTP request contexts. For this, middleware is expected to have an `Invoke` method taking an `HttpContext` parameter. This method should take whatever actions are necessary based on the `HttpContext` being processed and then call the next middleware in the HTTP request processing pipeline (unless no further processing is needed). For the moment, add this trivial `Invoke` method (as well as a dotnet5.4 dependency for `System.Console` in your project.json file):
+Next, we need to handle incoming HTTP request contexts. For this, middleware is expected to have an `Invoke` method taking an `HttpContext` parameter. This method should take whatever actions are necessary based on the `HttpContext` being processed and then call the next middleware in the HTTP request processing pipeline (unless no further processing is needed). For the moment, add this trivial `Invoke` method:
 
 ```C#
 public async Task Invoke(HttpContext httpContext)
@@ -46,7 +46,7 @@ public async Task Invoke(HttpContext httpContext)
 To try out our middleware as we create it, we will need a test ASP.NET Core app. Add an ASP.NET Core web API project to your solution and set it as the startup project.
 ![Creating a new web API project](NewWebApiProject.png) 
 
-ASP.NET Core middleware (custom or otherwise) can be added to an application's pipeline with the `IApplicationBuilder.UseMiddleware<T>` extension method. After adding a project reference to your middleware project (`"CustomMiddleware": ""`), add the middleware to your test app's pipeline in the `Configure` method of its Startup.cs file:
+ASP.NET Core middleware (custom or otherwise) can be added to an application's pipeline with the `IApplicationBuilder.UseMiddleware<T>` extension method. After adding a project reference to your middleware project (`"CustomMiddleware": "1.0.0.0"`), add the middleware to your test app's pipeline in the `Configure` method of its Startup.cs file:
 
 ```C#
 public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -55,13 +55,19 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
     loggerFactory.AddDebug();
 
     app.UseMiddleware<SOAPEndpointMiddleware>();
+
+    // This call to use MVC middleware from the project template is not necessary, but 
+    // doesn't hurt anything so long as it comes after our UseMiddleware call. 
+    app.UseMvc();
 }
 ```
 
-You may notice that the other middleware components (MVC, static files, etc.) all have custom extension methods to make adding them easy. Let's add an extension method for our custom middleware, too (notice the Microsoft.AspNet.Builder namespace so that IApplicationBuilder users can easily call the method):
+You may notice that the other middleware components (MVC, static files, etc.) all have custom extension methods to make adding them easy. Let's add an extension method for our custom middleware, too. I added the following method in a new source file in the custom middleware library project (notice the Microsoft.AspNetCore.Builder namespace so that IApplicationBuilder users can easily call the method):
 
 ```C#
-namespace Microsoft.AspNet.Builder
+using CustomMiddleware;
+
+namespace Microsoft.AspNetCore.Builder
 {
     // Extension method used to add the middleware to the HTTP request pipeline.
     public static class SOAPEndpointExtensions
@@ -89,7 +95,7 @@ Now that we have a simple custom middleware component working, let's have it sta
 2. The type of the service to invoke methods from
 3. The [MessageEncoder](https://msdn.microsoft.com/en-us/library/system.servicemodel.channels.messageencoder%28v=vs.110%29.aspx) used to encode the incoming SOAP payloads
 
-These arguments will all need to be provided when an app registers our middleware as part of its processing pipeline, so let's add them to the constructor. Note that the `MessageEncoder` class is in the `System.ServiceModel.Primitives` contract in .NET Core, and in the `System.ServiceModel` framework assembly on desktop. Since `System.ServiceModel` is a built-in Framework assembly for the desktop .NET Framework, the reference will belong in the `frameworkAssemblies` element under `net451` in your project.json file. `System.ServiceModel.Primitives` can be added to `dotnet5.4` dependencies as usual (since it is a NuGet package).
+These arguments will all need to be provided when an app registers our middleware as part of its processing pipeline, so let's add them to the constructor. Note that the `MessageEncoder` class is in the `System.ServiceModel.Primitives` contract.
 
 After updating the constructor it should look like this:
 
@@ -118,7 +124,7 @@ public static IApplicationBuilder UseSOAPEndpoint<T>(this IApplicationBuilder bu
 }
 ```
 
-Because `MessageEncoder` is an abstract class without any implementations publicly exposed, users of this library will have to either implement their own encoders or (more likely) extract an encoder from a WCF binding. To make that easier, let's also add a `UseSOAPEndpoint` extension method that takes a binding (and extracts the encoder on the user's behalf):
+Because `MessageEncoder` is an abstract class without any implementations publicly exposed, users of this library will have to either implement their own encoders or (more likely) extract an encoder from a WCF binding. To make that easier, let's also add a `UseSOAPEndpoint` overload that takes a binding (and extracts the encoder on the user's behalf):
 
 ```C#
 public static IApplicationBuilder UseSOAPEndpoint<T>(this IApplicationBuilder builder, string path, Binding binding)
@@ -140,7 +146,9 @@ Let's create a new type (`ServiceDescription`) to store this metadata. It should
 2. Operations should be discovered by finding `OperationContractAttribute` elements on methods within the contract interfaces
 	1. Operation name, properties, and action name are taken from the attribute; the method to invoke is the service type's implementation of the interface method
 
-So, the `ServiceDescription` type should end up looking something like this:
+Note that `ServiceDescription`, `ContractDescription`, and `OperationDescription` used here are not the types from the `System.ServiceModel.Description` namespace (so you should not need to depend on that namespace). Rather, they are simple new types used for the purpose of this sample code. If the names are confusing, feel free to change them.
+
+The `ServiceDescription` type (or whatever you have named it) should end up looking something like this:
 
 ```C#
 public class ServiceDescription
@@ -238,7 +246,7 @@ public SOAPEndpointMiddleware(RequestDelegate next, Type serviceType, string pat
 ```
 
 
-Note that this could all be simplified by just having a dictionary of action names and `OperationDescription` or `MethodInfo` dispatch methods. I've opted to have the whole service/contract/operation structure stored, though, because it will allow expanding the sample with more complex functionality (such as supporting message inspectors) in a future blog post.
+Note that this could all be simplified by just having a dictionary of action names and `OperationDescription` or `MethodInfo` dispatch methods. I've opted to have the whole service/contract/operation structure stored, though, because it will allow expanding the sample with more complex functionality (such as supporting message inspectors) in the future.
 
 Invoking the Operations
 -----------------------
@@ -271,7 +279,7 @@ var requestMessage = _messageEncoder.ReadMessage(httpContext.Request.Body, 0x100
 // TODO : Get requested action and invoke
 ```
 
-After that, we need to get the requested action by looking for a 'SOAPAction' header (which is how SOAP actions are usually communicated).
+After that, we need to get the requested action by looking for a 'SOAPAction' header (which is how SOAP actions are usually communicated). Again, this code replaces the 'todo' from the previous snippet.
 
 ```C#
 var soapAction = httpContext.Request.Headers["SOAPAction"].ToString().Trim('\"');
@@ -283,7 +291,7 @@ if (!string.IsNullOrEmpty(soapAction))
 // TODO : Lookup operation and invoke
 ```
 
-Knowing the requested action, we can build on the previous snippet by finding the correct `OperationDescription` to invoke.
+Knowing the requested action, we can build on the previous snippet by finding the correct `OperationDescription` to invoke. Replace the previous 'todo' with the following:
 
 ```C#
 var operation = _service.Operations.Where(o => o.SoapAction.Equals(requestMessage.Headers.Action, StringComparison.Ordinal)).FirstOrDefault();
@@ -296,8 +304,6 @@ if (operation == null)
 ```
 
 Now that we have a `MethodInfo` to invoke, we need to extract the arguments to pass to the operation from the request's body. This can be done in a helper method with an `XmlReader` and `DataContractSerializer`. 
-
-Note that `XmlReader` exists in the `System.Xml.ReaderWriter` contract in .NET Core and in the `System.Xml` framework assembly in the desktop .NET Framework. `DataContractSerializer` exists in `System.Runtime.Serialization.Xml` in .NET Core and in `System.Runtime.Serialization` in the desktop .NET Framework.
 
 ```C#
 private object[] GetRequestArguments(Message requestMessage, OperationDescription operation)
@@ -327,13 +333,13 @@ private object[] GetRequestArguments(Message requestMessage, OperationDescriptio
 }
 ```
 
-Note that this argument reading helper assumes the arguments are provided in order in the message body. This is true for messages coming from .NET WCF clients, but may not be true for all SOAP clients. If needed, this method could be replaced with a slightly more complex variant that allows for re-ordered arguments and fuzzier parameter name matching.
+This argument reading helper assumes the arguments are provided in order in the message body. This is true for messages coming from .NET WCF clients, but may not be true for all SOAP clients. If needed, this method could be replaced with a slightly more complex variant that allows for re-ordered arguments and fuzzier parameter name matching.
 
 With the operation and arguments known, all that remains is to retrieve an instance of the service type to call the operation method on. This can be done with ASP.NET Core's built-in dependency injection.
 
 Change the middleware's `Invoke` method signature to add an `IServiceProvider` parameter (`IServiceProvider serviceProvider`). Then, we can use the `IServiceProver.GetService` API to retrieve service types that the user has registered in the `ConfigureServices` method of their Startup.cs file.
 
-All together, the call to invoke the operation (back in our `Invoke` method) should look something like this:
+All together, the call to invoke the operation (replacing the 'todo' back in our `Invoke` method) should look something like this:
 
 ```C#
 // Get service type
@@ -379,7 +385,7 @@ public class ServiceBodyWriter : BodyWriter
 }
 ```
 
-Then we can update the middleware's `Invoke` method to create a response message (if the operation isn't one way) and write it to the HTTP context's response.
+Then we can update the middleware's `Invoke` method (replacing the final 'todo') to create a response message (if the operation isn't one way) and write it to the HTTP context's response.
 
 ```C#
 // Create response message
@@ -424,20 +430,20 @@ namespace TestApp
 }
 ```
 
-The `UseSOAPEndpoint` call we added to the `Configure` method in our test host's Startup.cs file will need updated to point to this new type: `app.UseSOAPEndpoint<CalculatorService>("/CalculatorService.svc", new BasicHttpBinding());`. Note that we've also created an HttpBinding (to get a message encoder from). To use `BasicHttpBinding`, we will need to add .NET Core references to `System.ServiceModel.Http` and `System.Net.Security` in the  test app's `project.json` file.
+The `UseSOAPEndpoint` call we added to the `Configure` method in our test host's Startup.cs file will need updated to point to this new type: `app.UseSOAPEndpoint<CalculatorService>("/CalculatorService.svc", new BasicHttpBinding());`. Note that we've also created an HttpBinding (to get a message encoder from). To use `BasicHttpBinding`, we will need to add a reference to the `System.ServiceModel.Http` contract in the  test app's project.json file.
 
 Also, since the instance of our service is created with dependency injection, the following line will need added to the `ConfigureServices` method in our host's startup.cs file: `services.AddSingleton<CalculatorService>();` 
 
 If you have a WSDL for your test service, you can create a client from that using WCF tools. Otherwise, create a client directly using `ClientBase<T>`.
 
-Here is a simple client I created (as an ASP.NET Core console application) to test the middleware and host:
+Here is a simple client I created (as a .NET Core console application) to test the middleware and host (be sure to reference `System.ServiceModel.Http` and `System.ServiceModel.Primitives` in the project.json file):
 
 ```C#
 using System;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 
-namespace TestApp
+namespace TestClient
 {
     public class Program
     {
@@ -537,7 +543,7 @@ Content-Length: 231
 Conclusion
 ----------
 
-I hope that this article has been helpful in demonstrating a real-world case of custom middleware expanding ASP.NET Core's request processing capabilities. By creating a constructor that took the middleware's dependencies as parameters and creating an `Invoke` method with the logic of deserializing and dispatching SOAP requests, we were able to serve responses to a WCF client from ASP.NET Core! SOAP handling middleware is just one example of how custom middleware can be used. More details on middleware are available in the [ASP.NET Core documentation](https://docs.asp.net/en/latest/fundamentals/middleware.html).
+I hope that this article has been helpful in demonstrating a real-world case of custom middleware expanding ASP.NET Core's request processing capabilities. By creating a constructor that took the middleware's dependencies as parameters and creating an `Invoke` method with the logic of deserializing and dispatching SOAP requests, we were able to serve responses to a simple WCF client from ASP.NET Core! SOAP handling middleware is just one example of how custom middleware can be used. More details on middleware are available in the [ASP.NET Core documentation](https://docs.asp.net/en/latest/fundamentals/middleware.html).
 
 References
 ----------
