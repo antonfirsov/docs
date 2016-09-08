@@ -83,7 +83,7 @@ public static void Main(string[] args)
 Then just run our project to get this!
 ![console output](console.output.png "Console output")
 
-Lastly, our configuration provider code is on [GitHub](https://github.com/aspnet/entropy) for you to view/use/modify.
+Lastly, our configuration provider code is on [GitHub](https://github.com/aspnet/Entropy/tree/dev/samples/Config.CustomConfigurationProviders.Sample) for you to view/use/modify.
 
 # References
 * [Why build for ASP.NET Core?](https://docs.asp.net/en/latest/conceptual-overview/aspnet.html#why-build-asp-net-5)
