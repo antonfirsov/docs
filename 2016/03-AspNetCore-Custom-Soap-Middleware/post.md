@@ -497,7 +497,7 @@ Launch the test host and point a test client (like the one pasted above) at it t
 
 ![ASP.NET Core Handling SOAP Requests](Success.png)
 
-Using a tool like [Fiddler](http://www.telerik.com/fiddler), we can observe the requests and responses.
+Using a network monitoring tool like [Wireshark](https://www.wireshark.org/) or [Fiddler](http://www.telerik.com/fiddler), we can observe the requests and responses.
 
 Request from sample:
 
