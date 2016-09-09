@@ -145,7 +145,7 @@ We're going to use Azure Functions to implement the actual service, because it's
     In the screen thig brings up, you'll want to select the last option, "Go to App Service Settings", under "Advanced Settings".
     This will lead you to a long list where you'll want to find and select "Application Settings" under the "Settings" heading.
     Once there, you'll see a few general settings, but what we're interested in is the table of custom "App settings".
-    We'll add three new key-value pairs in there with the names we used in the code: "WeatherADURL" with the Active Directory OAuth 2.0 Token Endpoint URL, "WeatherADClientID" with the Active Directory client app ID we got in the previous section, and "WeatherADKey" with the Active Directory application key.
+    We'll add new key-value pairs in there with the names we used in the code: "WeatherADURL" with the Active Directory OAuth 2.0 Token Endpoint URL, "WeatherADClientID" with the Active Directory client app ID we got in the previous section, "WeatherADKey" with the Active Directory application key, and "WeatherKeyUrl" with the URL for the secret API key we stored in the vault earlier.
     Don't forget to hit "Save" on top of the panel.
 
     ![Setting the Active Directory URL, master id and key in the app settings](fun-02-settings.png)
