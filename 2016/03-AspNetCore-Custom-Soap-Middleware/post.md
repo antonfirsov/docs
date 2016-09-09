@@ -97,7 +97,7 @@ Now that we have a simple custom middleware component working, let's have it sta
 
 These arguments will all need to be provided when an app registers our middleware as part of its processing pipeline, so let's add them to the constructor. Note that the `MessageEncoder` class is in the `System.ServiceModel.Primitives` contract.
 
-After updating the constructor it should look like this:
+After updating the constructor, it should look like this:
 
 ```C#
 // The middleware delegate to call after this one finishes processing
@@ -115,7 +115,7 @@ public SOAPEndpointMiddleware(RequestDelegate next, Type serviceType, string pat
 }
 ```
 
-The `UseSOAPEndpoint` extension method will also need updated (and can be made generic to capture the service type parameter):
+The `UseSOAPEndpoint` extension method will also need to be updated (and can be made generic to capture the service type parameter):
 
 ```C#
 public static IApplicationBuilder UseSOAPEndpoint<T>(this IApplicationBuilder builder, string path, MessageEncoder encoder)
@@ -268,7 +268,7 @@ public async Task Invoke(HttpContext httpContext)
     }
 }
 ```
-If the the request's path *does* equal the expected path for our service endpoint, we need to read the message and compose a response (this code replaces the 'todo' in the previous snippet). 
+If the request's path *does* equal the expected path for our service endpoint, we need to read the message and compose a response (this code replaces the 'todo' in the previous snippet). 
 
 ```C#
 Message responseMessage;
