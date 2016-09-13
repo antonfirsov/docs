@@ -44,3 +44,8 @@ Here is the workflow:
         git push origin 2014/08-interns-at-microsoft
 
 4. Create a pull request
+
+## Planning
+
+We use a [Trello Board](https://trello.com/b/6gKEIeAB/blog-schedule) for managing the blog schedule.
+In order to get access, please send mail to <atdotnet@microsoft.com>.
