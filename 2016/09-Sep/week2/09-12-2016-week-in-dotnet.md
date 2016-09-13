@@ -110,7 +110,8 @@ Games
 * [(Unity 5) Let's Make Rust! \[Episode 28 - Inventory 6\] (video)](https://www.youtube.com/watch?v=X7SWDWaVOYQ) by Gabemeister1201.
 * [Monogame - Building multi-platform solutions (video)](https://www.youtube.com/watch?v=WonVmlpPBuU) by Simon Jackson.
 * [Shaders Case Study - Pixel Art Palette Swapping (video)](https://www.youtube.com/watch?v=u4Iz5AJa31Q) by Makin' Stuff Look Good.
-* [Animated Metro UI Tutorial - Unity3D (video)](https://www.youtube.com/watch?v=PYrDztnGmUw) by Supermassive
+* [Animated Metro UI Tutorial - Unity3D (video)](https://www.youtube.com/watch?v=PYrDztnGmUw) by Supermassive.
+* [How to Develop VR for 770 million Users](https://medium.com/beyond-the-headset/how-to-develop-vr-for-770-million-users-f3c2820f11ab#.m4pyzktr2) by Hayim Pinson.
 
 And this is it for this week!
 
