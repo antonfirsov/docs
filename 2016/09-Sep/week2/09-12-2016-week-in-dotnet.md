@@ -1,5 +1,5 @@
-The week in .NET: .NET Core 1.0.1 - On .NET with Peachpie - Avalonia
-====================================================================
+The week in .NET: .NET Core 1.0.1 - On .NET with Peachpie - Avalonia - Folk Tale
+================================================================================
 
 To read last week's post, see [The week in .NET – 9/7/2016](https://blogs.msdn.microsoft.com/dotnet/2016/09/07/the-week-in-net-972016/#comments).
 
@@ -33,6 +33,7 @@ Project of the week: Avalonia
     </ListBox.DataTemplates>
 </ListBox>
 ```
+
 Game of the Week: Folk Tale
 ---------------------------
 
