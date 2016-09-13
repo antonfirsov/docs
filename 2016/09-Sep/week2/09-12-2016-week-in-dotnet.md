@@ -1,7 +1,12 @@
-The week in .NET: On .NET with Peachpie - Avalonia
-==================================================
+The week in .NET: .NET Core 1.0.1 - On .NET with Peachpie - Avalonia
+====================================================================
 
 To read last week's post, see [The week in .NET – 9/7/2016](https://blogs.msdn.microsoft.com/dotnet/2016/09/07/the-week-in-net-972016/#comments).
+
+.NET Core 1.0.1 shipped!
+------------------------
+
+We shipped .NET Core 1.0.1 this morning. Check out [the announcement](xx)!
 
 On .NET
 -------
@@ -28,6 +33,14 @@ Project of the week: Avalonia
     </ListBox.DataTemplates>
 </ListBox>
 ```
+Game of the Week: Folk Tale
+---------------------------
+
+[Folk Tale](http://www.gamesfoundry.com/) blends the mechanics of a real time strategy with role playing elements. Players balance building a thriving village from nothing whilst exploring the vast world, making new relationships and discovering new loot. Folk Tale features random events and a dynamic story, letting you run your village the way you want while never knowing exactly how the story will unfold. Both campaign and sandbox modes can be enjoyed in addition to an in-game editor which the community can use to make their own worlds.
+
+![game](https://cloud.githubusercontent.com/assets/4108756/18481379/d6f29d2e-7990-11e6-9256-cd843c50bd35.png)
+
+[Folk Tale](http://www.gamesfoundry.com/) was created by Games Foundry using [Unity](https://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is currently in early access on [Steam](http://store.steampowered.com/app/224440/) and is available for Windows and Mac OS X.
 
 User group meeting of the week: ASP.NET Core - What you need to know to be productive on day 1, in Durham, NC
 ------------------------------------------------
@@ -45,6 +58,7 @@ User group meeting of the week: ASP.NET Core - What you need to know to be produ
 * [DateTime under the hood](http://aakinshin.net/en/blog/dotnet/datetime/) and [Stopwatch under the hood](http://aakinshin.net/en/blog/dotnet/stopwatch/) by Andrey Akinshin.
 * [Stop wasting time during .NET Core builds](http://donovanbrown.com/post/2016/08/28/Stop-wasting-time-during-NET-Core-builds) by Donovan Brown.
 * [The Dotnet Watch Tool](http://rehansaeed.com/the-dotnet-watch-tool/) by Muhammad Rehan Saeed.
+* [OneTrueError - Automated exception handling](http://www.codeproject.com/Articles/1126297/OneTrueError-Automated-exception-handling) by Jonas Gauffin.
 * [Another awesome curated list of links about .NET performance](https://github.com/adamsitnik/awesome-dot-net-performance) by Adam Sitnik.
 
 ASP.NET
@@ -89,6 +103,13 @@ Xamarin
 * [Accessing Android Application Context outside Activity in Xamarin](http://blog.falafel.com/accessing-android-application-context-outside-activity-xamarin/) by Venkata Koppaka.
 * [Navigation tab bar with colorful interactions for Xamarin Android](https://github.com/martijn00/NavigationTabBarXamarin) by Martijn van Dijk.
 * [XAML Power Toys for Visual Studio 2015](https://github.com/Oceanware/XAMLPowerToys2015) by Karl Shifflett.
+
+Games
+---
+* [(Unity 5) Let's Make Rust! \[Episode 28 - Inventory 6\] (video)](https://www.youtube.com/watch?v=X7SWDWaVOYQ) by Gabemeister1201.
+* [Monogame - Building multi-platform solutions (video)](https://www.youtube.com/watch?v=WonVmlpPBuU) by Simon Jackson.
+* [Shaders Case Study - Pixel Art Palette Swapping (video)](https://www.youtube.com/watch?v=u4Iz5AJa31Q) by Makin' Stuff Look Good.
+* [Animated Metro UI Tutorial - Unity3D (video)](https://www.youtube.com/watch?v=PYrDztnGmUw) by Supermassive
 
 And this is it for this week!
 
