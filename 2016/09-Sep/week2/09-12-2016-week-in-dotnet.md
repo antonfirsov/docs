@@ -6,7 +6,7 @@ To read last week's post, see [The week in .NET – 9/7/2016](https://blogs.msdn
 On .NET
 -------
 
-Last week, we spoke with Benjamin Fistein and Jakub Míšek about Peachpie, a PHP compiler for .NET. We've had Ben and Jakub on the show before, and they were back to show us some of the new features they've built: .NET Core compatibility, debugging in VS Code, Docker deployment, and NuGet package building and consumption.
+Last week, we spoke with Benjamin Fistein and Jakub Míšek about Peachpie, a PHP compiler for .NET. We've had Ben and Jakub on the show before, and they came back to show us some of the new features they've built: .NET Core compatibility, debugging in VS Code, Docker deployment, and NuGet package building and consumption.
 
 <iframe src="https://channel9.msdn.com/Shows/On-NET/Benjamin-Fistein--Jakub-Mek-Peachpie-PHP-compiler-for-NET/player" width="560" height="315" allowFullScreen frameBorder="0"></iframe>
 
@@ -15,7 +15,7 @@ This week, we'll speak about [Steeltoe](http://steeltoe.io), a .NET toolkit for 
 Project of the week: Avalonia
 -----------------------------
 
-[Avalonia](https://github.com/avaloniaui/avalonia) is a multi-platform windowing toolkit, somewhat like WPF. It supports XAML and a flexible styling system, and runs on Windows, Linux, macOS, iOS, and Android.
+[Avalonia](https://github.com/avaloniaui/avalonia) is a multi-platform UI toolkit, somewhat like WPF. It supports XAML and a flexible styling system, and runs on Windows, Linux, macOS, iOS, and Android.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/c_AB_XSILp0" frameborder="0" allowfullscreen></iframe>
 
@@ -37,12 +37,28 @@ User group meeting of the week: ASP.NET Core - What you need to know to be produ
 .NET
 ----
 
+* [The .NET Fringe 2016 conference recordings are available](https://www.youtube.com/playlist?list=PLwZVRWVJepJvam4NiKwKfR9P1aInAHev_).
 * [Quick summary of what’s new in Entity Framework Core 1.0](http://www.talkingdotnet.com/summary-whats-new-entity-framework-core/) by Talking Dotnet.
+* [ImageProcessor Core](http://jamessouth.me/archive/imageprocessor-core/) by James Jackson-South. We featured James' [ImageProcessor as package of the week](https://blogs.msdn.microsoft.com/dotnet/2015/12/29/the-week-in-net-12292015/) back in December last year.
+* [Unobserved Exceptions](https://github.com/jbe2277/waf/wiki/Unobserved-Exceptions) by jbe2277.
+* [.NET Core and Microsoft Bot Framework](https://carlos.mendible.com/2016/09/11/netcore-and-microsoft-bot-framework/) by Carlos Mendible.
+* [DateTime under the hood](http://aakinshin.net/en/blog/dotnet/datetime/) and [Stopwatch under the hood](http://aakinshin.net/en/blog/dotnet/stopwatch/) by Andrey Akinshin.
+* [Stop wasting time during .NET Core builds](http://donovanbrown.com/post/2016/08/28/Stop-wasting-time-during-NET-Core-builds) by Donovan Brown.
+* [The Dotnet Watch Tool](http://rehansaeed.com/the-dotnet-watch-tool/) by Muhammad Rehan Saeed.
+* [Another awesome curated list of links about .NET performance](https://github.com/adamsitnik/awesome-dot-net-performance) by Adam Sitnik.
 
 ASP.NET
 -------
 
-* [xx](xx) by xx.
+* [Customizing ASP.NET Core MVC: filters, constraints and conventions](https://luisfsgoncalves.wordpress.com/2016/09/10/customizing-asp-net-core-mvc-filters-constraints-and-conventions/) by Luís Gonçalves.
+* [An introduction to OpenID Connect in ASP.NET Core](http://andrewlock.net/an-introduction-to-openid-connect-in-asp-net-core/), and [Configuring environment specific services for dependency injection in ASP.NET Core](http://andrewlock.net/configuring-environment-specific-services-in-asp-net-core/) by Andrew Lock.
+* [Real-World CQRS/ES with ASP.NET and Redis Part 1](https://www.exceptionnotfound.net/real-world-cqrs-es-with-asp-net-and-redis-part-1-overview/), and [Part 2](https://www.exceptionnotfound.net/real-world-cqrs-es-with-asp-net-and-redis-part-2-the-write-model/) by Matthew Jones.
+* [What I Learned Building with ASP.NET Core: Part 1 - Routing](http://wildermuth.com/2016/09/05/What-I-Learned-Building-with-ASP-NET-Core-Part-1---Routing) by Shawn Wildermuth.
+* [A Recipe Book for DropDownLists in ASP.NET MVC](http://www.danylkoweb.com/Blog/a-recipe-book-for-dropdownlists-in-aspnet-mvc-HA) by Jonathan Danylko.
+* [Using ASP.NET Core against .NET 4.6](https://jonhilton.net/2016/09/07/using-asp-net-core-against-net-4-6/) by Jon Hilton.
+* [\[Controller\] and \[NonController\] attributes in ASP.NET Core MVC](http://www.strathweb.com/2016/09/controller-and-noncontroller-attributes-in-asp-net-core-mvc/) by Filip W.
+* [ASP.NET Core continuous deployment with Docker Hub](https://stefanprodan.com/2016/aspnetcore-cd-pipeline-docker-hub/) by Stefan Prodan.
+* [ASP.NET Core Action Arguments Validation using an ActionFilter](https://damienbod.com/2016/09/09/asp-net-core-action-arguments-validation-using-an-actionfilter/) by Damien Bod.
 
 F#
 --
@@ -58,6 +74,7 @@ Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for 
 Azure
 -----
 
+* [Create And Publish ASP.NET WEB API In Azure](http://www.c-sharpcorner.com/article/create-and-publish-asp-net-web-api-in-azure/) by Gowtham K.
 
 Xamarin
 -------
