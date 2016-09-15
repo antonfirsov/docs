@@ -133,9 +133,95 @@ We're going to use Azure Functions to implement the actual service, because it's
 
    Now we have an empty function. Let's add some meat to it.
 
-3. Enter the following code as the body of the function:
+3. Click "View Files" under the code editor. This shows the list of files in the function's directory. Click the "+" icon to add a new file, and name it "weather.csx". Enter the following code in that file:
 
 ```csharp
+using System.Collections.Generic;
+
+public class WeatherList
+{
+    public IEnumerable<Weather> List { get; set; }
+}
+
+public class Weather
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public WeatherData Main { get; set; }
+}
+
+public class WeatherData
+{
+    public double Temp { get; set; }
+    public double Humidity { get; set; }
+    public double Pressure { get; set; }
+}
+```
+
+Those classes will help deserialize the response from the weather server. The structure of the `WeatherList / Weather / WeatherData` reflects the schema of the JSON documents that the weather service will return. It does not, nor needs to reflect the entirety of the data in the API: the `Microsoft.AspNet.WebApi.Client` library will figure out which parts to deserialize and how to map them onto the provided object model.
+
+4. Enter the following code as the body of the function:
+
+```csharp
+#r "System.Runtime"
+#r "System.Threading.Tasks"
+
+#load "weather.csx"
+
+using System.Configuration;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Azure.KeyVault;
+
+public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceWriter log)
+{
+    // City codes from http://bulk.openweathermap.org/sample/city.list.json.gz
+    const int parisId = 6455259;
+    const int seattleId = 5809844;
+
+    var adUrl = ConfigurationManager.AppSettings["WeatherADUrl"];
+    var adClientId = ConfigurationManager.AppSettings["WeatherADClientID"];
+    var adKey = ConfigurationManager.AppSettings["WeatherADKey"];
+    var keyUrl = ConfigurationManager.AppSettings["WeatherKeyUrl"];
+    
+    var keyVault = new KeyVaultClient(async (string authority, string resource, string scope) => {
+        var authContext = new AuthenticationContext(authority);
+        var credential = new ClientCredential(adClientId, adKey);
+        var token = await authContext.AcquireTokenAsync(resource, credential);
+
+        return token.AccessToken;
+    });
+
+    var apiKey = keyVault.GetSecretAsync(keyUrl).Result.Value;
+
+    using (var weatherClient = new HttpClient())
+    {
+        weatherClient.BaseAddress = new Uri("http://api.openweathermap.org/");
+        var weatherResponse = await weatherClient.GetAsync($"data/2.5/group?id={parisId},{seattleId}&units=metric&APPID={apiKey}");
+        if (weatherResponse.IsSuccessStatusCode)
+        {
+            var weather = await weatherResponse.Content.ReadAsAsync<WeatherList>();
+            var parisTemperature = weather.List.Where(city => city.Id == parisId).FirstOrDefault()?.Main.Temp;
+            var seattleTemperature = weather.List.Where(city => city.Id == seattleId).FirstOrDefault()?.Main.Temp;
+            if (parisTemperature != null && seattleTemperature != null)
+            {
+                if (parisTemperature > seattleTemperature)
+                {
+                    return req.CreateResponse(HttpStatusCode.OK, 
+                        $"It's nicer in Paris ({parisTemperature}°C) than in Seattle ({seattleTemperature}°C) right now.");
+                }
+                else
+                {
+                    return req.CreateResponse(HttpStatusCode.OK, 
+                        $"It's nicer in Seattle ({seattleTemperature}°C) than in Paris ({parisTemperature}°C) right now.");
+                }
+            }
+        }
+    }
+    return req.CreateResponse(HttpStatusCode.InternalServerError, $"Something went wrong.");
+}
 ```
 
 4. In the code above, you'll notice that we're reading the AD URL, client ID and key from configuration, because of course we haven't done all this to store secrets in code... For the code to function, we'll have to enter that information into the function's Azure configuration. This can be done by clicking "Function app settings" on the top-right of the function editing screen.
@@ -161,7 +247,9 @@ We're going to use Azure Functions to implement the actual service, because it's
         "frameworks": {
             "net46": {
                 "dependencies": {
-                    "Microsoft.IdentityModel.Clients.ActiveDirectory": "3.13.4"
+                    "Microsoft.IdentityModel.Clients.ActiveDirectory": "3.13.4",
+                    "Microsoft.Azure.KeyVault": "2.0.1-preview",
+                    "Microsoft.AspNet.WebApi.Client": "5.2.3"
                 }
             }
         }
