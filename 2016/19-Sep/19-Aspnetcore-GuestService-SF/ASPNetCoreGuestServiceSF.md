@@ -1,0 +1,64 @@
+# Hosting .NET Core cross platform services on Service Fabric  #
+This tutorial is for users who already have a group of ASP.NET Core services which they want to host as Micro Services in Azure using Azure Service Fabric. Azure Service Fabric is a great way to host Micro Services in a PaaS world to obtain many benefits like high density, scalability and upgradability.  In this tutorial I will take a [self-contained](https://docs.microsoft.com/en-us/dotnet/articles/core/deploying/index) ASP.NET Core service targeting .NETCoreApp framework and host it as Guest service in Service Fabric.
+
+Writing cross platform services/apps is one of the key benefits of ASP.NET Core. If you plan to host the services on Linux and also want to host the same set of services on Windows Azure using Service Fabric while maintaining the same code base, then you can easily achieve this by using the Guest Services feature of Service Fabric.  You can run any type of application, such as Node.js, Java, ASP.NET Core or native applications in Azure Service Fabric. Service Fabric terminology refers to those types of applications as guest executables. Guest executables are treated by Service Fabric like stateless services. As a result, they will be placed on nodes in a cluster, based on availability and other metrics.
+
+The current Service Fabric SDK only provides a way to host .NET Core Services which target full dot net frameworks like 45x. If you already have a service that targets .NETCoreApp alone or .NETCoreApp and .net 4* then you cannot use the built in ASP.NET Core template as the Service Fabric SDK Nuget package only supports .NET 4.5.2. To avoid this, we need to use the Guest Services solution for all the projects that target .NETCoreApp as a target framework in their project.json.
+
+### Service Fabric Application package ###
+ As explained in [Deploying a guest executable](https://azure.microsoft.com/en-us/documentation/articles/service-fabric-deploy-existing-app/) to Service Fabric, Any Service Fabric Application that is deployed on the Service Fabric cluster needs to follow a predefined directory structure. 
+
+	|-- ApplicationPackage
+	    |-- code
+	        |-- existingapp.exe
+	    |-- config
+	        |-- Settings.xml
+	    |-- data
+	    |-- ServiceManifest.xml
+	|-- ApplicationManifest.xml
+
+The root contains the ApplicationManifest.xml that defines the entire application. A subdirectory for each service included in the application is used to contain all the artifacts that the respective service requires. It contains the following items
+
+- ServiceManifest.xml which defines the service.
+- Code. This directory contains the service code.
+- Config. This directory contains a Settings.xml for configuration specific settings for service.
+- Data.  This directory stores local data that Service might need. 
+
+In order to deploy a Guest Service, we need to get all the required binaries to run the service and copy them under Code folder. Config and Data folders are optional only and are used by services that require them. For .NETCoreApp standalone projects, you can easily achieve this directory structure by using the Publish to File System mechanism from Visual Studio. Once you publish the service to a folder, all the required binaries for the service including .NETCoreApp binaries will be copied to this folder. We can then use the published location and map it to Code folder in of Service Fabric service.
+
+### Publish .NETCoreApp Service to Folder ###
+Right click the .NETCoreApp project and click Publish
+
+Create a Custom publish target and Name it as Account
+
+![](1.jpg)
+
+Under Connection set the target folder location where you want the project to be published. Choose the Publish method as File System. 
+
+![](2.jpg)
+
+Under Settings, Set the Configuration to be Release – Any CPU. Target Framework to be. NETCoreApp, Version=v1.0 and Target Runtime to be win10-64. Click the Publish button.
+ 
+![](3.jpg)
+
+You have now published the App to a directory. 
+
+### Creating a Guest Service Fabric Application ###
+Visual Studio provides a Guest Service Fabric Application template to help you deploy a guest executable to a Service Fabric cluster.
+ 
+Following are the steps
+ 
+1. Choose File -> New Project and Create a Service Fabric Application.  The template could be found under Visual C# -> Cloud. Choose an appropriate Project name as this will reflect the name of the application that is deployed on Cluster.
+![](4.jpg)
+2.  Choose Guest Executable. Under the Code Package Folder, Browse to previously published directory bin\Release\Account
+3.  Under Code Package Behavior you can specify either Add link to external folder or Copy Folder contents to Project.  You can use the Linked folders which will enable to update the guest Executable in its Source as a part of the application package Build.
+4.  Choose the Program that needs to run as service and also specify the arguments and working directory if they are different. In my case I am just using Code Package.
+5.  If your Service needs an endpoint for Communication, you can now add the Protocol, Port and Type to the ServiceManifest.xml for example
+ `<Endpoint Protocol="http" Name="CustomerTransactionsServiceEndpoint" Type="Input" Port="5000" />`
+
+1. Set the project as Startup Project.
+2. You can now Publish the Guest Service to the local Cluster by just F5 Debugging. 
+
+If you have multiple Services that you want to Deploy as Guest Services you can simply edit this Guest Service Project file to include new Code, Config and Data packages for the new service or use the ServiceFabricAppPackageUtil.exe as mentioned in this [tutorial](https://azure.microsoft.com/en-us/documentation/articles/service-fabric-deploy-multiple-apps/). 
+
+ 
