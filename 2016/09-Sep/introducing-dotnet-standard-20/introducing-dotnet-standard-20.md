@@ -87,7 +87,7 @@ these components can be deployed with the application because you can update
 them independently. However, when you target an abstract specification, such as
 PCLs or the .NET Standard, this story doesn't work so well because there is a
 very specific combination of versions that will allow you to run on the right
-set of platforms, also know as *versioning hell*. The .NET Standard doesn't
+set of platforms, also known as *versioning hell*. The .NET Standard doesn't
 suffer from versioning hell because it's a single NuGet package. Since it only
 represents the set of required APIs, there is no need to break it up any
 further. The only important dimension is its version which acts like an API
@@ -200,9 +200,9 @@ Framework:
   of .NET Framework.
 
 * **Xamarin**. With Xamarin, the .NET platform doesn't ship with the OS but with
-  the ap, so updating Xamarin is mostly an SDK problem. We hope we can update it
-  to simply include all APIs that are currently missing (in fact, the majority
-  of APIs were already added to the stable Cycle 8 release/Mono 4.6.0).
+  the app, so updating Xamarin is mostly an SDK problem. We hope we can update
+  it to simply include all APIs that are currently missing (in fact, the
+  majority of APIs were already added to the stable Cycle 8 release/Mono 4.6.0).
 
 [This document][netstandard-20-removals] includes all the APIs that are
 available in .NET Standard 1.6 but aren't implemented yet in .NET Framework
@@ -249,7 +249,7 @@ principles:
 5. All removals in (4) will be reviewed by the [.NET Standard's review
    body][reviewboard].
 
-I's easiest to see what we're planing for .NET Standard 2.0 in terms of
+I's easiest to see what we're planning for .NET Standard 2.0 in terms of
 assemblies. As a starting point, we've looked at the assemblies that .NET
 Framework and Xamarin have in common and made an assessment of what we believe
 is so fundamental that it should be part of .NET Standard:
@@ -344,7 +344,8 @@ Let's look at a few examples and how we plan on modelling them:
   be able to consume it from .NET Core, but it will only work on Windows.
   Calling registry APIs from any other OS will result in
   `PlatformNotSupportedException`. You're expected to guard your calls
-  appropriately or making sure your code will only ever run on Windows.
+  appropriately or making sure your code will only ever run on Windows. We're
+  considering improving our tooling to help you with detecting these cases.
 
 * **AppDomain**. The `AppDomain` type has many APIs that aren't tied to creating
   app domains, such as getting the list of loaded assemblies or registering an
@@ -404,13 +405,14 @@ spectrums at once. The nice thing about .NET Core is that this platform is
 designed to be fully self-contained. So for the future, we're more likely to
 leverage this capability for experimentation and previewing.
 
-**Splitting .NET Standard from .NET Core**. To address these issues we've
-divorced the portability mechanism from .NET Core. The .NET Standard is an
-independent reference assembly that is simply implemented by all .NET platforms,
-but each of the platforms uses a different set of reference assemblies and thus
-can freely add new APIs in whatever cadence they choose. We can then, after the
-fact, make decisions around which of these APIs are added to .NET Standard and
-thus should become universally available.
+**Splitting .NET Standard from .NET Core**. In order to be able to evolve .NET
+Core independently from other platforms we've divorced the portability mechanism
+from .NET Core. The .NET Standard is an independent reference assembly that is
+simply implemented by all .NET platforms, but each of the platforms uses a
+different set of reference assemblies and thus can freely add new APIs in
+whatever cadence they choose. We can then, after the fact, make decisions around
+which of these APIs are added to .NET Standard and thus should become
+universally available.
 
 Separating portability from .NET Core helps us to speed up development of .NET
 Core and makes experimentation of newer features much simpler. Instead of
