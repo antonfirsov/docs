@@ -54,25 +54,32 @@ Consider the following [Web.config](http://www.asp.net/mvc/overview/getting-star
 </configuration>
 ```
 
-to reuse this file, all we have to do is use our new provider like below:
-
+to reuse this file, all we have to do is use our new provider like below and run `dotnet run` to see the code in action.
 
 ```csharp
-public static void Main()
+using System;
+using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+
+public class Program 
 {
-    var builder = new ConfigurationBuilder()
-        .AddConfigFile("Web.config");
-
+  public static void Main()
+  {
+    var builder = new ConfigurationBuilder().AddConfigFile("Web.config");
     var configuration = builder.Build();
-
     var movieDB = configuration.GetValue("ConnectionStrings", "MovieDBContext");
 
-    using (var sqlConnection = new System.Data.SqlClient.SqlConnection(configuration))
+    Console.WriteLine($"Connecting to MovieDBContext with: '{movieDB}'...");
+
+    using (var sqlConnection = new System.Data.SqlClient.SqlConnection(movieDB))
     {
-        // Perform database actions with SQL connection
+      // Perform database actions with SQL connection
     }
+  }
 }
 ```
+
+![dotnet run output](console.output.png)
 
 Our configuration provider code is on [GitHub](https://github.com/aspnet/Entropy/tree/dev/samples/Config.CustomConfigurationProviders.Sample) so you can check it out yourself and see how easy it is to use the ASP.NET configuration model.
 
