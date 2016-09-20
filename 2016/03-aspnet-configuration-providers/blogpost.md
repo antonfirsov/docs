@@ -1,11 +1,10 @@
 # Reusing Configuration Files in ASP.NET Core
 
 ## Introduction
-There have been some very exciting changes in the .NET world, especially in the world of ASP.NET! [ASP.NET Core](https://docs.asp.net/en/latest/) is a .NET platform that has been created from the ground up, is open-source, and supports cross-platform user experiences.  These exciting features have enticed existing ASP.NET customers to migrate their existing assets.  One obstacle customers may encounter while trying to migrate their assets to ASP.NET Core is how to deal with their Configuration (`*.config`) files.
 
-Since this is a new platform, the ASP.NET team was able to reengineer the existing [System.Configuration](https://msdn.microsoft.com/en-us/library/system.configuration.configuration(v=vs.110).aspx) model into a [very flexible configuration model](http://docs.asp.net/en/latest/conceptual-overview/aspnet.html#configuration).  This new configuration model allows customers to write their own [`ConfigurationProviders`](http://docs.asp.net/en/latest/fundamentals/configuration.html#writing-custom-providers) that will parse their configuration files.  The goal of this post is to demonstrate how easy it is to reuse your existing `*.config` files. 
+The release of [ASP.NET Core 1.0](https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/) has enticed existing ASP.NET customers to migrate their projects to this new platform.  While working with a customer to move their assets to ASP.NET Core, we encountered an obstacle.  Our customer had a many configuration files (`*.config`) they used regularly.  They had hundreds of configuration files that would take time to transform into a format that could be consumed by the existing configuration providers.  In this post, we'll show how to tackle this hurdle by utilizing ASP.NET Core's configuration extensibility model.  We will write our own configuration provider to reuse the existing `*.config` files.
 
-While working with a customer to move their assets to ASP.NET Core, we encountered this issue.  Our customer had a lot of configuration files that they used regularly.  We decided that it would be easier to create a `ConfigurationProvider` to parse the same files rather than transform their files into a format that could be consumed by the existing providers.
+The new [configuration model](https://docs.asp.net/en/latest/intro.html#configuration) handles configuration values as a series of name-value pairs.  There are built-in configuration providers to parse (XML, JSON, INI) files. It also enables developers to create [their own providers](http://docs.asp.net/en/latest/fundamentals/configuration.html#writing-custom-providers) if the current providers do not suit their needs. 
 
 ## Creating the ConfigurationProvider
 By following the documentation outlined in [Writing custom providers](https://docs.asp.net/en/latest/fundamentals/configuration.html#writing-custom-providers), we created a class that inherited from `ConfigurationProvider`. Then, it was a matter of overriding the `public override void Load()` function to parse the data we wanted from the configuration files!  Here's a little snippet of that code below.
@@ -28,6 +27,7 @@ public class ConfigFileConfigurationProvider : ConfigurationProvider
 
 ## The ConfigurationProvider in Action
 Consider the following [Web.config](http://www.asp.net/mvc/overview/getting-started/introduction/creating-a-connection-string):
+
 ```xml
 <?xml version="1.0"?>
 <configuration>
@@ -56,36 +56,27 @@ Consider the following [Web.config](http://www.asp.net/mvc/overview/getting-star
 
 to reuse this file, all we have to do is use our new provider like below:
 
+
 ```csharp
-public static void Main(string[] args)
+public static void Main()
 {
-    var configuration = new ConfigurationBuilder().AddConfigFile("Web.config").Build();
-    var configurationManager = new ConfigurationManager(configuration);
+    var builder = new ConfigurationBuilder()
+        .AddConfigFile("Web.config");
 
-    Console.WriteLine("---------- AppSettings ----------");
-    foreach (var kvp in configurationManager.AppSettings)
-        Console.WriteLine($"{kvp.Key}: [{kvp.Value}]");
+    var configuration = builder.Build();
 
-    Console.WriteLine("---------- ConnectionStrings ----------");
-    foreach (var kvp in configurationManager.ConnectionStrings)
-        Console.WriteLine($"{kvp.Key}: [{kvp.Value}]");
+    var movieDB = configuration.GetValue("ConnectionStrings", "MovieDBContext");
 
-    Console.WriteLine("---------- configNode:nestedNode ---------- ");
-    foreach (var kvp in configurationManager.GetSection("configNode", "nestedNode"))
-        Console.WriteLine($"{kvp.Key}: [{kvp.Value.Value}]");
-
-    Console.WriteLine("---------- Specific Key ---------- ");
-    var value = configurationManager.GetValue("sampleSection", "setting2");
-    Console.WriteLine($"KEY: sampleSection:setting2, VALUE: {value}");
+    using (var sqlConnection = new System.Data.SqlClient.SqlConnection(configuration))
+    {
+        // Perform database actions with SQL connection
+    }
 }
 ```
 
-Then just run our project to get this!
-![console output](console.output.png "Console output")
-
-Lastly, our configuration provider code is on [GitHub](https://github.com/aspnet/Entropy/tree/dev/samples/Config.CustomConfigurationProviders.Sample) for you to view/use/modify.
+Our configuration provider code is on [GitHub](https://github.com/aspnet/Entropy/tree/dev/samples/Config.CustomConfigurationProviders.Sample) so you can check it out yourself and see how easy it is to use the ASP.NET configuration model.
 
 # References
 * [Why build for ASP.NET Core?](https://docs.asp.net/en/latest/conceptual-overview/aspnet.html#why-build-asp-net-5)
-* [ASP.NET Documentation - Configuration](http://docs.asp.net/en/latest/fundamentals/configuration.html)
-* [GitHub - ConfigurationProvider Code](https://github.com/aspnet/entropy)
+* [ASP.NET Documentation - Configuration](https://docs.asp.net/en/latest/intro.html#configuration)
+* [GitHub - ConfigurationProvider Code](https://github.com/aspnet/Entropy/tree/dev/samples/Config.CustomConfigurationProviders.Sample)
