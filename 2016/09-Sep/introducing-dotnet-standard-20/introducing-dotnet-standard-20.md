@@ -90,7 +90,7 @@ very specific combination of versions that will allow you to run on the right
 set of platforms, also known as *versioning hell*. The .NET Standard doesn't
 suffer from versioning hell because it's a single NuGet package. Since it only
 represents the set of required APIs, there is no need to break it up any
-further. The only important dimension is its version which acts like an API
+further. The only important dimension is its version, which acts like an API
 level: the higher the version, the more APIs you have, but the lower the
 version, the more .NET platforms have already implemented it.
 
@@ -406,10 +406,10 @@ designed to be fully self-contained. So for the future, we're more likely to
 leverage this capability for experimentation and previewing.
 
 **Splitting .NET Standard from .NET Core**. In order to be able to evolve .NET
-Core independently from other platforms we've divorced the portability mechanism
-from .NET Core. The .NET Standard is an independent reference assembly that is
-simply implemented by all .NET platforms, but each of the platforms uses a
-different set of reference assemblies and thus can freely add new APIs in
+Core independently from other .NET platforms we've divorced the portability
+mechanism from .NET Core. The .NET Standard is an independent reference assembly
+that is simply implemented by all .NET platforms, but each of the .NET platforms
+uses a different set of reference assemblies and thus can freely add new APIs in
 whatever cadence they choose. We can then, after the fact, make decisions around
 which of these APIs are added to .NET Standard and thus should become
 universally available.
@@ -458,7 +458,7 @@ The key differences between PCLs and .NET Standard are:
   is similar, but it additionally also allows referencing .NET Framework
   binaries, which are still the defacto exchange currency in the library
   ecosystem. Thus, with .NET Standard 2.0 you'll have access to a much larger
-  set of libraries.  
+  set of libraries.
 
 In order to make an informed decision, I suggest you:
 
