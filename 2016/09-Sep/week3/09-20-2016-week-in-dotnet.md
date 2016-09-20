@@ -1,5 +1,5 @@
-The week in .NET: On .NET with Steeltoe - 
-============================
+The week in .NET: On .NET with Steeltoe - C# Functional Extensions
+==================================================================
 
 To read last week's post, see [The week in .NET: .NET Core 1.0.1 – On .NET with Peachpie – Avalonia – Folk Tale](https://blogs.msdn.microsoft.com/dotnet/2016/09/14/the-week-in-net-net-core-1-0-1-on-net-with-peachpie-avalonia-folk-tale/).
 
