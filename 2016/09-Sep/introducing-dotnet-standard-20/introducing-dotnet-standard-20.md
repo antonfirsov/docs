@@ -76,9 +76,8 @@ Xamarin/Mono, you'll notice that .NET Core offers the smallest API surface
 all the technologies, the problem is also that .NET Core also has different
 shapes for core concepts, such as reflection. So, while Xamarin and Mono
 runtimes allow you to reuse large chunks of existing code (either in source form
-or as a binary compiled against the .NET Framework), this is generally much less
-true for .NET Core. This is a key problem for bringing existing code to .NET
-Core.
+or as a binary compiled against the .NET Framework), this is very often not true
+for .NET Core. This is a key problem for bringing existing code to .NET Core.
 
 **Versioning and Tooling** Another challenge is around how we present .NET Core
 in tooling today. Since our goal was to build a modular system, we've broken the
@@ -87,9 +86,9 @@ these components can be deployed with the application because you can update
 them independently. However, when you target an abstract specification, such as
 PCLs or the .NET Standard, this story doesn't work so well because there is a
 very specific combination of versions that will allow you to run on the right
-set of platforms, also known as *versioning hell*. The .NET Standard doesn't
-suffer from versioning hell because it's a single NuGet package. Since it only
-represents the set of required APIs, there is no need to break it up any
+set of platforms, also known as *versioning hell*. In order to avoid versioning
+hell issues, we've defined .NET Standard as a single NuGet package. Since it
+only represents the set of required APIs, there is no need to break it up any
 further. The only important dimension is its version, which acts like an API
 level: the higher the version, the more APIs you have, but the lower the
 version, the more .NET platforms have already implemented it.
@@ -112,9 +111,15 @@ availability across all current platforms. The following table shows which
 version of an existing platform is compatible with a given version of .NET
 Standard.
 
-For example, it shows that .NET Core implements .NET Standard 1.6 while .NET
-Framework 4.5 only implements .NET Standard 1.1. So if you want to target .NET
-Framework 4.5 and .NET Core 1.0, you can at most target .NET Standard 1.1.
+The arrows indicate that the platform supports a higher version of .NET
+Standard. For instance, .NET Core 1.0 supports the .NET Standard version 1.6,
+which is why there are arrows pointing to the right for the lower versions 1.0 -
+1.5.
+
+You can use this table to understand what the highest version of .NET Standard
+is that you can target, based on which .NET platforms you intend to run on. For
+instance, if you want to run on .NET Framework 4.5 and .NET Core 1.0, you can at
+most target .NET Standard 1.1.
 
 |.NET Platform              |   1.0|   1.1|   1.2|   1.3|   1.4|   1.5|   1.6|
 |:--------------------------|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
@@ -191,8 +196,9 @@ existing .NET platforms do not support all the APIs we have already added in
 At first, it seems much more logical to go with option (1). Unfortunately,
 updating existing platforms means shipping a new version of that platform. This
 doesn't help our adoption problem as those new platforms aren't necessarily
-available to target in all circumstances. This is particularly true for .NET
-Framework:
+available to target in all circumstances, which is particularly true for .NET
+Framework. Thus, we're going with option (1) where we can and fall back to 
+option (2) where we cannot:
 
 * **.NET Framework**. At the time we ship .NET Standard 2.0 we expect .NET
   Framework 4.6.1 to have enough adoption to make this a viable prerequisite for
@@ -249,7 +255,7 @@ principles:
 5. All removals in (4) will be reviewed by the [.NET Standard's review
    body][reviewboard].
 
-I's easiest to see what we're planning for .NET Standard 2.0 in terms of
+It's easier to see what we're planning for .NET Standard 2.0 in terms of
 assemblies. As a starting point, we've looked at the assemblies that .NET
 Framework and Xamarin have in common and made an assessment of what we believe
 is so fundamental that it should be part of .NET Standard:
@@ -273,7 +279,7 @@ Standard. As explained above, some APIs might become optional via a separate
 package.
 
 Conversely, assemblies not listed above might still be available in other
-packages. Their absence merely indicates that they aren't of .NET Standard
+packages. Their absence merely indicates that they aren't part of .NET Standard
 itself and thus they might not be available on all .NET platforms.
 
 If you want to find out which APIs will be included in .NET Standard 2.0, you
@@ -299,7 +305,7 @@ platforms:
 
 * **Runtime specific APIs.** For example, the ability to generate and run code
   on the fly using reflection emit. This cannot work on .NET platforms that do
-  not have a JIT compiler, for example, .NET Native on UWP or via Xamarin's iOS
+  not have a JIT compiler, such as .NET Native on UWP or via Xamarin's iOS
   tool chain.
 
 * **Operating system specific APIs**. In .NET we've exposed many APIs from Win32
@@ -374,7 +380,7 @@ To summarize:
 * We'll expose concepts that might not be available on all .NET platforms.
 * We generally make them individual packages that you have to explicitly
   reference.
-* In rare cases, individual members might throw.
+* In rare cases, individual members might throw exceptions.
 
 The goal is to make .NET Standard-based libraries as powerful and as expressive
 as possible while making sure you're aware of cases where you take dependencies
@@ -385,8 +391,8 @@ on technologies that might not work everywhere.
 We [designed .NET Core][post-netcore] so that its reference assemblies are the
 .NET portability story. This made it harder to add new APIs because adding them
 in .NET Core preempts the decision on whether these APIs are made available
-everywhere. Worse, due to versioning rules, it also means we've to decide which
-combination of APIs are made available in which order.
+everywhere. Worse, due to versioning rules, it also means we have to decide
+which combination of APIs are made available in which order.
 
 **Out-of-band delivery**. We've tried to work this around by making those APIs
 available "out-of-band" which basically means making them new components that
@@ -433,9 +439,9 @@ updated.
 As a library author, you should consider switching to .NET Standard because it
 will replace Portable Class Libraries for targeting multiple .NET platforms.
 
-In case of .NET Standard 1.x the set of available APIs will is very similar to
-PCLs. But .NET Standard 2.x will have a significantly bigger API set and will
-also allow you to depend on libraries targeting .NET Framework.
+In case of .NET Standard 1.x the set of available APIs is very similar to PCLs.
+But .NET Standard 2.x will have a significantly bigger API set and will also
+allow you to depend on libraries targeting .NET Framework.
 
 The key differences between PCLs and .NET Standard are:
 
@@ -449,16 +455,15 @@ The key differences between PCLs and .NET Standard are:
 
 * **Platform availability**. PCLs currently support a wider range of platforms
   and not all profiles have a corresponding .NET Standard version. Take a look
-  at [documentation][docs-netstandard] for more details.
+  at the [documentation][docs-netstandard] for more details.
 
 * **Library availability**. PCLs are designed to enforce that you cannot take
   dependencies on APIs and libraries that the selected platforms will not be
   able to run. Thus, PCL projects will only allow you to reference other PCLs
   that target a superset of the platforms your PCL is targeting. .NET Standard
-  is similar, but it additionally also allows referencing .NET Framework
-  binaries, which are still the defacto exchange currency in the library
-  ecosystem. Thus, with .NET Standard 2.0 you'll have access to a much larger
-  set of libraries.
+  is similar, but it additionally allows referencing .NET Framework binaries,
+  which are still the de facto exchange currency in the library ecosystem. Thus,
+  with .NET Standard 2.0 you'll have access to a much larger set of libraries.
 
 In order to make an informed decision, I suggest you:
 
@@ -491,8 +496,8 @@ can be shared, but also includes a compatibility shim that allows referencing
 binaries that were compiled against the .NET Framework. Moving forward, you
 should be using .NET Standard instead of Portable Class Libraries.
 
-.NET Standard 2 will ship in the same timeframe as the upcoming release of
-Visual Studio, code named "Dev 15". You'll reference .NET Standard as a NuGet
+.NET Standard 2.0 will ship in the same timeframe as the upcoming release of
+Visual Studio, code-named "Dev 15". You'll reference .NET Standard as a NuGet
 package. It will have first class tooling support from Visual Studio, VS Code as
 well as Xamarin Studio. You can follow our progress via our new
 [dotnet/standard] GitHub repository.
