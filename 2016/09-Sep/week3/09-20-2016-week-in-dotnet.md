@@ -15,7 +15,7 @@ This week, we'll speak with [Sébastien Ros](http://sebastienros.com/) about [Or
 Package of the week: C# Functional Extensions
 ---------------------------------------------
 
-[C# functional extensions](https://github.com/louthy/language-ext) is a project that adds common functional patterns such as tuples, option types, monads, easier Lambda declaration (`var add = fun( (int x, int y) => x + y );`), or even pattern matching. It also implements "Erlang-like" concurrency, which is based on the concept of agents communicating through messages.
+[C# functional extensions](https://github.com/louthy/language-ext) is a project that adds common functional patterns such as tuples, option types, monads, easier Lambda declaration (`var add = fun( (int x, int y) => x + y );`), or even pattern matching. It also implements "Erlang-like" concurrency, which is based on the concept of [agents](https://en.wikipedia.org/wiki/Agent-oriented_programming) communicating through messages.
 
 ```csharp
 // Log process
@@ -38,6 +38,15 @@ pong = spawn<string>("pong", msg =>
 // Trigger
 tell(pong, "start");
 ```
+
+Game of the Week: Firewatch
+---------------------------
+
+[Firewatch](http://www.firewatchgame.com/) is a visually beautiful, story driven adventure game. The story takes place in 1989, where you witness a mystery that pulls you out of the sanctity of your lookout post and into the wilderness to investigate. Explore the Wyoming wilderness as Henry, a man who has retreated from his messy life to work as a fire lookout. Your only human interaction while you investigate is your supervisor, Delilah, who is available at any time over a handheld radio.
+
+![gameimage](https://cloud.githubusercontent.com/assets/4108756/18677136/aae1b34c-7f0c-11e6-8114-b9ac4c95e01d.jpg)
+
+[Firewatch](http://www.firewatchgame.com/) was created by Campo Santo using [Unity](https://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is available on PlayStation 4, Windows, Mac and Linux (via Steam and Good Old Games) and will release for the Xbox One on September 21, 2016.
 
 User group meeting of the week: PerfView and Warden in Wrocław, Poland
 ----------------------------------------------------------------------
@@ -108,7 +117,13 @@ Games
 -----
 
 * [MonoGame – Building multi-platform solutions](http://darkgenesis.zenithmoon.com/monogame-building-multi-platform-solutions/) by Simon Jackson.
-
+* [Tutorial – Zelda style screen transitions in Unity](https://theadrainblog.wordpress.com/2016/09/15/zelda-style-screen-transitions-in-unity/).
+* [Seeing Is Deceiving: Your Brain and VR](http://www.crytek.com/blog/seeing-is-deceiving-your-brain-and-vr).
+* [Episode 22: MonoGame (video)](https://channel9.msdn.com/Shows/Level-Up/Episode-22-MonoGame) by Katie Stone Perez.
+* [Unity: In Beta - Animation Window Workflows](https://blogs.unity3d.com/2016/09/19/in-beta-animation-window-workflows/) by Will Goldstone.
+* [Curated #UnityTips No. 13](http://devdog.io/blog/2016/09/9-best-unity-tips-for-game-developers-13) by DevDog.
+* [Unity: Make the Camera Follow a Player (or any GameObject) Smoothly and Fluidly](https://kylewbanks.com/blog/unity-make-camera-follow-player-smoothly-and-fluidly) by Kyle W. Banks.
+* [Unity: Terrain Generation Part 1(2)- Viking Game #2 (video)](https://www.youtube.com/watch?v=V0dwkrS6CoI) by System Cult.
 
 And this is it for this week!
 
