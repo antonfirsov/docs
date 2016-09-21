@@ -19,13 +19,11 @@ cloud services:
 
 * .NET Standard is a set of APIs that all .NET platforms have to implement. This
   unifies the .NET platforms and prevents future fragmentation.
-* .NET Core will implement .NET Standard 2.0 which will add many of the existing
-  APIs to .NET Core. It also enables referencing .NET Framework binaries through
-  a compatibility shim.
+* .NET Standard 2.0 will be implemented by .NET Framework, .NET Core, and
+  Xamarin. For .NET Core, this will add many of the existing APIs and also
+  enables referencing .NET Framework binaries through a compatibility shim.
 * .NET Standard will replace Portable Class Libraries (PCLs) as our tooling
-  story for building multi-platform .NET libraries. Since it's a single NuGet
-  package it can be easily used from Visual Studio, VS Code, Xamarin Studio, as
-  well as the command line.
+  story for building multi-platform .NET libraries.
 * The .NET Standard API definition is [available on GitHub][dotnet/standard].
 
 # Why do we need a standard?
