@@ -280,19 +280,19 @@ assemblies. As a starting point, we've looked at the assemblies that .NET
 Framework and Xamarin have in common and made an assessment of what we believe
 is so fundamental that it should be part of .NET Standard:
 
-* Microsoft.CSharp
-* mscorlib
-* System
-* System.Core
-* System.Drawing
-* System.IO.Compression
-* System.IO.Compression.FileSystem
-* System.Net
-* System.Net.Http
-* System.Numerics
-* System.Runtime.Serialization
-* System.Xml
-* System.Xml.Linq
+* `Microsoft.CSharp`
+* `mscorlib`
+* `System`
+* `System.Core`
+* `System.Drawing`
+* `System.IO.Compression`
+* `System.IO.Compression.FileSystem`
+* `System.Net`
+* `System.Net.Http`
+* `System.Numerics`
+* `System.Runtime.Serialization`
+* `System.Xml`
+* `System.Xml.Linq`
 
 Please note that not all APIs in these assemblies are being added to .NET
 Standard. As explained above, some APIs might become optional via a separate
