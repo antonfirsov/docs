@@ -38,26 +38,37 @@ in the 2000 era. The same is true today: Unity (a fork of Mono) runs on more
 than 20 platforms. Being able to fork and customize is an important capability
 for any technology that requires reach.
 
-But on the other hand, this forking poses a massive problem for class library
-authors as there isn't a unified class library to target:
+But on the other hand, this forking poses a massive problem for developers
+writing code for multiple .NET platforms because there isn't a unified class
+library to target:
 
 ![](dotnet-today.png)
 
 There are currently three major flavors of .NET, which means you have to master
 three different base class libraries in order to write code that works across
-all of them. Since the industry is heavily diversifying in terms of operating
-systems and device capabilities, it's safe to assume that we're not done with
-creating new .NET platforms. Either Microsoft or someone else will build new
-flavors.
+all of them. Since the industry is much more diverse now than when .NET was
+originally created it's safe to assume that we're not done with creating new
+.NET platforms. Either Microsoft or someone else will build new flavors of .NET
+in order to support new operating systems or to tailor it for specific device
+capabilities.
 
 This is where the .NET Standard comes in:
 
 ![](dotnet-tomorrow.png)
 
-For library authors, this means they only have to master one base class library.
+For developers, this means they only have to master one base class library.
 Libraries targeting .NET Standard will be able to run on all .NET platforms. And
 platform providers don't have to guess which APIs they need to offer in order to
 consume the libraries available on NuGet.
+
+**Applications**. In the context of applications you don't use .NET Standard
+directly. However, you still benefit indirectly. First of all, .NET Standard
+makes sure that all .NET platforms share the same API shape for the base class
+library. Once you learn how to use it in your desktop application you know how
+to use it in your mobile application or your cloud service. Secondly, with .NET
+Standard most class libraries will become available everywhere, which means the
+consistency at the base layer will also apply to the larger .NET library
+ecosystem.
 
 **Portable Class Libraries**. Let's contrast this with how Portable Class
 Libraries (PCL) work today. With PCLs, you select the platforms you want to run
@@ -66,32 +77,40 @@ the tooling helps you to produce binaries that work on multiple platforms, it
 still forces you to think about different base class libraries. With .NET
 Standard you have a single base class library. Everything in it will be
 supported across all .NET platforms -- current ones as well as future ones.
-Another key aspect is that the API surface of .NET Standard is very predictable,
-while the API surface of PCLs is the result of the intersection between the
-selected platforms, which isn't always intuitive.
+Another key aspect is that the API availability in .NET Standard is very
+predictable: higher version equals more APIs. With PCLs, that's not necessarily
+the case: the set of available APIs is the result of the intersection between
+the selected platforms, which doesn't always produce an API surface you can
+easily predict.
 
-**API Availability**. If you compare .NET Framework, .NET Core, and
+**Consistency in APIs**. If you compare .NET Framework, .NET Core, and
 Xamarin/Mono, you'll notice that .NET Core offers the smallest API surface
-(excluding OS-specific APIs). The problem isn't just that .NET Core doesn't have
-all the technologies, the problem is also that .NET Core also has different
-shapes for core concepts, such as reflection. So, while Xamarin and Mono
-runtimes allow you to reuse large chunks of existing code (either in source form
-or as a binary compiled against the .NET Framework), this is very often not true
-for .NET Core. This is a key problem for bringing existing code to .NET Core.
+(excluding OS-specific APIs). The first inconsistency is having drastic
+differences in the availability of foundational APIs (such as networking- and
+crypto APIs). The second problem .NET Core introduced was having differences in
+the API shape of core pieces, especially in reflection. Both inconsistencies are
+the primary reason why porting code to .NET Core is much harder than it should
+be. By creating the .NET Standard we're codifying the requirement of having
+consistent APIs across all .NET platforms, and this includes availability as
+well as the shape of the APIs.
 
-**Versioning and Tooling** Another challenge is around how we present .NET Core
-in tooling today. Since our goal was to build a modular system, we've broken the
-.NET platform into smaller NuGet packages. This works reasonably well if all
-these components can be deployed with the application because you can update
-them independently. However, when you target an abstract specification, such as
-PCLs or the .NET Standard, this story doesn't work so well because there is a
-very specific combination of versions that will allow you to run on the right
-set of platforms, also known as *versioning hell*. In order to avoid versioning
-hell issues, we've defined .NET Standard as a single NuGet package. Since it
-only represents the set of required APIs, there is no need to break it up any
-further. The only important dimension is its version, which acts like an API
-level: the higher the version, the more APIs you have, but the lower the
-version, the more .NET platforms have already implemented it.
+**Versioning and Tooling**. As I mentioned in [Introducing .NET
+Core][post-netcore] our goal with .NET Core was to lay the foundation for a
+portable .NET platform that can unify APIs in shape and implementation. We
+intended it to be the next version of portable class libraries. Unfortunately,
+it didn't result in a great tooling experience. Since our goal was to represent
+any .NET platform we had to break it up into smaller NuGet packages. This works
+reasonably well if all these components can be deployed with the application
+because you can update them independently. However, when you target an abstract
+specification, such as PCLs or the .NET Standard, this story doesn't work so
+well because there is a very specific combination of versions that will allow
+you to run on the right set of platforms. In order to avoid that issue, we've
+defined .NET Standard as a single NuGet package. Since it only represents the
+set of required APIs, there is no need to break it up any further because all
+.NET platforms have to support it in its entirety anyways. The only important
+dimension is its version, which acts like an API level: the higher the version,
+the more APIs you have, but the lower the version, the more .NET platforms have
+already implemented it.
 
 To summarize, we need .NET Standard for two reasons:
 
