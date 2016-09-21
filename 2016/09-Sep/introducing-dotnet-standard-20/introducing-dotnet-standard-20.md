@@ -139,16 +139,23 @@ is that you can target, based on which .NET platforms you intend to run on. For
 instance, if you want to run on .NET Framework 4.5 and .NET Core 1.0, you can at
 most target .NET Standard 1.1.
 
-|.NET Platform              |   1.0|   1.1|   1.2|   1.3|   1.4|   1.5|   1.6|
-|:--------------------------|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
-|.NET Core                  |&rarr;|&rarr;|&rarr;|&rarr;|&rarr;|&rarr;|   1.0|
-|.NET Framework             |&rarr;|  4.5 | 4.5.1|   4.6| 4.6.1| 4.6.2| vNext|
-|Xamarin.iOS                |&rarr;|&rarr;|&rarr;|&rarr;|&rarr;|&rarr;|     *|
-|Xamarin.Android            |&rarr;|&rarr;|&rarr;|&rarr;|&rarr;|&rarr;|     *|
-|Universal Windows Platform |&rarr;|&rarr;|&rarr;|&rarr;|  10.0|      |      |
-|Windows                    |&rarr;|   8.0|   8.1|      |      |      |      |
-|Windows Phone              |&rarr;|&rarr;|   8.1|      |      |      |      |
-|Windows Phone Silverlight  |   8.0|      |      |      |      |      |      |
+You can also see which platforms will support .NET Standard 2.0:
+
+* We'll ship updated versions of .NET Core, Xamarin, and UWP that will add
+  all the necessary APIs for supporting .NET Standard 2.0.
+* .NET Framework 4.6.1 already implements all the APIs that are part of .NET
+  Standard 2.0.
+
+|.NET Platform              |   1.0|   1.1|   1.2|   1.3|   1.4|   1.5|   1.6|   2.0|
+|:--------------------------|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
+|.NET Core                  |&rarr;|&rarr;|&rarr;|&rarr;|&rarr;|&rarr;|   1.0| vNext|
+|.NET Framework             |&rarr;|  4.5 | 4.5.1|   4.6| 4.6.1| 4.6.2| vNext| 4.6.1|
+|Xamarin.iOS                |&rarr;|&rarr;|&rarr;|&rarr;|&rarr;|&rarr;|&rarr;| vNext|
+|Xamarin.Android            |&rarr;|&rarr;|&rarr;|&rarr;|&rarr;|&rarr;|&rarr;| vNext|
+|Universal Windows Platform |&rarr;|&rarr;|&rarr;|&rarr;|  10.0|&rarr;|&rarr;| vNext|
+|Windows                    |&rarr;|   8.0|   8.1|      |      |      |      |      |
+|Windows Phone              |&rarr;|&rarr;|   8.1|      |      |      |      |      |
+|Windows Phone Silverlight  |   8.0|      |      |      |      |      |      |      |
 
 .NET Standard is also compatible with Portable Class Libraries. The mapping from
 PCL profiles to .NET Standard versions is listed in [our
@@ -500,25 +507,28 @@ libraries like so:
                                     -t ".NET Standard,Version=2.0"
 ```
 
-> ***Note:*** .NET Standard 2.0 is still work in progress and therefore API
-> availability is subject to change. I also suggest that you watch out for the
-> APIs that are available in .NET Standard 1.6 but are [removed from .NET
-> Standard 2.0][netstandard-20-removals].
+**Note:** .NET Standard 2.0 is still work in progress and therefore API
+availability is subject to change. I also suggest that you watch out for the
+APIs that are available in .NET Standard 1.6 but are [removed from .NET Standard
+2.0][netstandard-20-removals].
 
 ## Summary
 
 We've created .NET Standard so that sharing and re-using code between multiple
-.NET platforms becomes much easier. With .NET Standard 2.0, we're focusing on
-compatibility. This includes substantially growing .NET Core so that more APIs
-can be shared, but also includes a compatibility shim that allows referencing
-binaries that were compiled against the .NET Framework. Moving forward, you
-should be using .NET Standard instead of Portable Class Libraries.
+.NET platforms becomes much easier.
 
-.NET Standard 2.0 will ship in the same timeframe as the upcoming release of
-Visual Studio, code-named "Dev 15". You'll reference .NET Standard as a NuGet
-package. It will have first class tooling support from Visual Studio, VS Code as
-well as Xamarin Studio. You can follow our progress via our new
-[dotnet/standard] GitHub repository.
+With .NET Standard 2.0, we're focusing on compatibility. In order to support
+.NET Standard 2.0 in .NET Core and UWP, we'll be extending these platforms to
+include many more of the existing APIs. This also includes a compatibility shim
+that allows referencing binaries that were compiled against the .NET Framework.
+
+Moving forward, you should be using .NET Standard instead of Portable Class
+Libraries. The tooling for targeting .NET Standard 2.0 will ship in the same
+timeframe as the upcoming release of Visual Studio, code-named "Dev 15". You'll
+reference .NET Standard as a NuGet package. It will have first class support
+from Visual Studio, VS Code as well as Xamarin Studio.
+
+You can follow our progress via our new [dotnet/standard] GitHub repository.
 
 Please let us know what you think!
 
