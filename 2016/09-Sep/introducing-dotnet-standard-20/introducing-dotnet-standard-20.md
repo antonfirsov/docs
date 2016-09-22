@@ -10,7 +10,7 @@ If you're interested in details, this post is for you. But don't worry if you
 don't have time or you're not interested in details: you can just read the TL;DR
 section.
 
-# For the impatient: TL;DR
+## For the impatient: TL;DR
 
 .NET Standard solves the code sharing problem for .NET developers across all
 platforms by bringing all the APIs that you expect and love across the
@@ -26,7 +26,7 @@ cloud services:
   story for building multi-platform .NET libraries.
 * The .NET Standard API definition is [available on GitHub][dotnet/standard].
 
-# Why do we need a standard?
+## Why do we need a standard?
 
 As explained in detail in the post [Introducing .NET Core][post-netcore], the
 .NET platform was forked quite a bit over the years. On the one hand, this is
