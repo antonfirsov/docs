@@ -24,14 +24,6 @@ The recommended approach is to run the seeding code within a service scope in `S
 ```C#
 using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
 {
-       var context = serviceScope.ServiceProvider.GetService<DbContext>();       
-          …
-}
-```
-For example, if not using migration, this would be:
-```C#
-using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-{
        var context = serviceScope.ServiceProvider.GetService<MyContext>();       
        if (context.Database.EnsureCreated())
        {
@@ -148,7 +140,9 @@ public class MyContext : DbContext
 ```
 Notes
 -----
-The approaches described above, which override low-level components of Entity Framework Core, should not be considered as long-term solutions. The APIs for accessing internal services may change in the future releases, and there is a risk that the application will break when updated to a new version of Entity Framework Core.
+The APIs for accessing internal services may change in the future releases, and there is a risk that the application will break when updated to a new version of Entity Framework Core. The approaches described above should not be considered as long-term solutions, but as workarounds until we have a first class way of achieving the functionality.
+
+Interceptors and seeding are high on the feature backlog and the Entity Framework team plans to address them in the near future.
 
 Useful Links
 ---------
