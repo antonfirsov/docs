@@ -17,9 +17,9 @@ With EF 6 you can seed a database with initial data by overriding one of the fol
 * [`DropCreateDatabaseAlways<TContext>.Seed()`](https://msdn.microsoft.com/en-us/library/gg679506(v=vs.113).aspx)
 * [`CreateDatabaseIfNotExists<TContext>.Seed()`](https://msdn.microsoft.com/en-us/library/gg679221(v=vs.113).aspx)
 
-EF Core does not provide similar API’s, and database initializers also no longer exist in EF Core. To seed the database, you would put the database initialization code in the application startup. If you are using migrations, call `context.Database.Migrate()`, otherwise use `context.Database.EnsureCreated()/EnsureDeleted()`.
+EF Core does not provide similar APIs, and database initializers also no longer exist in EF Core. To seed the database, you would put the database initialization code in the application startup. If you are using migrations, call `context.Database.Migrate()`, otherwise use `context.Database.EnsureCreated()/EnsureDeleted()`.
 
-The patterns for seeding the database are discussed on GitHub, in the EF Core repository, issue [3070](https://github.com/aspnet/EntityFramework/issues/3070).
+The patterns for seeding the database are discussed in issue [3070] (https://github.com/aspnet/EntityFramework/issues/3070) in the Entity Framework Core repository on GitHub.
 The recommended approach is to run the seeding code within a service scope in `Startup.Configure()`:
 ```C#
 using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
@@ -109,7 +109,7 @@ Registering and using the ModelValidator created here is explained later in this
 Interceptors
 ------------
 Entity Framework 6 provides the ability to intercept a context using `IDbCommandInterceptor`. Interceptors let you to get into the pipeline just before and just after a query or command is sent to the database.
-Entity Framework Core doesn’t have any interceptors yet. The functionality can be achieved by accessing internal services, in a similar way with the example described above for the model validator.
+Entity Framework Core doesn’t have any interceptors yet. The functionality can be achieved by accessing internal services, in a similar way as the example described above for the model validator.
 The following example implements `IEntityStateListener` to modify an entity just before it is added to the database:
 ```C#
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
@@ -148,7 +148,7 @@ public class MyContext : DbContext
 ```
 Notes
 -----
-The approaches described above, which override low-level components of Entity Framework Core, should not be considered as long term solutions. The API’s for accessing internal services may change in the future releases, and there is the risk that the application will break when updated to a new version of Entity Framework Core.
+The approaches described above, which override low-level components of Entity Framework Core, should not be considered as long-term solutions. The APIs for accessing internal services may change in the future releases, and there is a risk that the application will break when updated to a new version of Entity Framework Core.
 
 Useful Links
 ---------
