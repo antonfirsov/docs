@@ -1,33 +1,50 @@
-Porting from Entity Framework 6 to Entity Framework Core
+Implementing Seeding, Custom Conventions and Interceptors when moving an application from Entity Framework 6 to Entity Framework Core 1.0
 ========================================================
 Introduction
 ------------
-Entity Framework Core is a lightweight and extensible version of the Entity Framework data access technology which is cross-platform and supports multiple database providers. You can find a comparison of EF Core vs. EF 6 under the [Entity Framework documentation] (https://docs.efproject.net/en/latest/efcore-vs-ef6/index.html).
+Entity Framework Core (EF Core) is a lightweight and extensible version of the Entity Framework (EF) data access technology which is cross-platform and supports multiple database providers. You can find a comparison of EF Core vs. EF 6 under the [Entity Framework documentation] (https://docs.efproject.net/en/latest/efcore-vs-ef6/index.html).
 
-When porting an application from Entity Framework 6 to Entity Framework Core, you may encounter features that existed in EF 6 but no longer exist in EF Core, or are not yet implemented. For many of those features, the functionality can still be achieved. This article discusses three features: seeding, custom conventions and interceptors.
+When moving an application from EF 6 to EF Core, you may encounter features that existed in EF 6 but either are not present or are not yet implemented in EF Core. For many of those features, however, you can implement equivalent functionality. This article discusses three features: 
+* seeding
+* custom conventions
+* interceptors
+
 Seeding
 -------
-Entity Framework 6 allows overriding of `Seed()` method as part of using migrations, in `DbMigrationsConfiguration<TContext>.Seed()`, or one of the following methods as part of the database initialization:
-* `DropCreateDatabaseIfModelChanges<TContext>.Seed()` 
-* `DropCreateDatabaseAlways<TContext>.Seed()`
-* `CreateDatabaseIfNotExists<TContext>.Seed()`
+With EF 6 you can seed a database with initial data by overriding one of the following `Seed()` methods: 
+* [`DbMigrationsConfiguration<TContext>.Seed()`](https://msdn.microsoft.com/en-us/library/hh829453(v=vs.113).aspx)
+* [`DropCreateDatabaseIfModelChanges<TContext>.Seed()`](https://msdn.microsoft.com/en-us/library/gg679410(v=vs.113).aspx) 
+* [`DropCreateDatabaseAlways<TContext>.Seed()`](https://msdn.microsoft.com/en-us/library/gg679506(v=vs.113).aspx)
+* [`CreateDatabaseIfNotExists<TContext>.Seed()`](https://msdn.microsoft.com/en-us/library/gg679221(v=vs.113).aspx)
 
-EF Core does not provide these API’s, and the database initializers no longer exist in EF Core.
-The recommendation from the Entity Framework team is to use `context.Database.Migrate()` if using migrations, or `context.Database.EnsureCreated()/EnsureDeleted()` if not using migrations.
-The patterns for seeding the database in EF Core are discussed on GitHub, in the Entity Framework Core repository, issue [3070](https://github.com/aspnet/EntityFramework/issues/3070).
-The recommendation from the EF team is to run the seeding code within a service scope in `Startup.Configure()`:
+EF Core does not provide similar API’s, and database initializers also no longer exist in EF Core. To seed the database, you would put the database initialization code in the application startup. If you are using migrations, call `context.Database.Migrate()`, otherwise use `context.Database.EnsureCreated()/EnsureDeleted()`.
+
+The patterns for seeding the database are discussed on GitHub, in the EF Core repository, issue [3070](https://github.com/aspnet/EntityFramework/issues/3070).
+The recommended approach is to run the seeding code within a service scope in `Startup.Configure()`:
 ```C#
-using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>() 	
-  .CreateScope())
-   {
-          var context = serviceScope.ServiceProvider.GetService<DbContext>();       
+using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+{
+       var context = serviceScope.ServiceProvider.GetService<DbContext>();       
           …
-   }
+}
 ```
-This pattern for seeding is used in the [MusicStore](https://github.com/aspnet/MusicStore) sample.
+For example, if not using migration, this would be:
+```C#
+using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+{
+       var context = serviceScope.ServiceProvider.GetService<MyContext>();       
+       if (context.Database.EnsureCreated())
+       {
+           context.SeedData();
+       }
+ }
+```
+You can find [here](https://github.com/rowanmiller/UnicornStore/blob/master/UnicornStore/src/UnicornStore/Startup.cs#L66) an example of database initialization that uses migrations.
+The [MusicStore](https://github.com/aspnet/MusicStore) sample also uses this pattern for seeding.
+
 Custom Conventions
 ------------------
-In Entity Framework 6 we can create custom configurations of properties and tables by using model based conventions. For example, the following code in EF 6 creates a convention to throw an exception when the column name is longer than 30 characters:
+In Entity Framework 6 we can create custom configurations of properties and tables by using model-based conventions. For example, the following code in EF 6 creates a convention to throw an exception when the column name is longer than 30 characters:
 ```C#
 public class IdentifierConvention : IStoreModelConvention<EdmProperty>
 {
@@ -87,6 +104,8 @@ public class MyValidator : RelationalModelValidator
     }
 }
 ```
+Registering and using the ModelValidator created here is explained later in this article.
+
 Interceptors
 ------------
 Entity Framework 6 provides the ability to intercept a context using `IDbCommandInterceptor`. Interceptors let you to get into the pipeline just before and just after a query or command is sent to the database.
@@ -131,3 +150,8 @@ Notes
 -----
 The approaches described above, which override low-level components of Entity Framework Core, should not be considered as long term solutions. The API’s for accessing internal services may change in the future releases, and there is the risk that the application will break when updated to a new version of Entity Framework Core.
 
+Useful Links
+---------
+* [Moving an application from EF 6 to EF Core](https://docs.efproject.net/en/latest/efcore-vs-ef6/porting/index.html)
+* EF Core [Migrations: Seed Data](https://github.com/aspnet/EntityFramework/issues/629) GitHub issue 
+* [Lifecycle Hooks] (https://github.com/aspnet/EntityFramework/issues/626) GitHub issue
