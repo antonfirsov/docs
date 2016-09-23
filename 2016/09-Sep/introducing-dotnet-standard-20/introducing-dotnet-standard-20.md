@@ -144,7 +144,8 @@ You can also see which platforms will support .NET Standard 2.0:
 * We'll ship updated versions of .NET Core, Xamarin, and UWP that will add
   all the necessary APIs for supporting .NET Standard 2.0.
 * .NET Framework 4.6.1 already implements all the APIs that are part of .NET
-  Standard 2.0.
+  Standard 2.0. Note that this version appears twice; I'll cover later why that
+  is and how it works.
 
 |.NET Platform              |   1.0|   1.1|   1.2|   1.3|   1.4|   1.5|   1.6|   2.0|
 |:--------------------------|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
@@ -206,11 +207,11 @@ the [specification for .NET Standard 2.0][spec-compatshim].
 
 ## When can I start using .NET Standard 2.0?
 
-From the existing platforms only .NET Framework 4.6.1 already supports .NET
-Standard 2.0. Support in Xamarin will likely come online in Q4 2016. In the same
-time frame, we'll release .NET Standard 2.0 as a NuGet package that you will be
-able to target with the existing tools. A future blog post will go into the
-details on how to do that.
+From the existing platforms only .NET Framework 4.6.1 (and later) already
+supports .NET Standard 2.0. Support in Xamarin will likely come online in Q4
+2016. In the same time frame, we'll release .NET Standard 2.0 as a NuGet package
+that you will be able to target with the existing tools. A future blog post will
+go into the details on how to do that.
 
 .NET Core and UWP will also support .NET Standard 2.0, but we need a bit more
 time in order to add the required set of APIs. We expect to ship an updated
@@ -236,10 +237,9 @@ existing .NET platforms do not support all the APIs we have already added in
 
 At first, it seems much more logical to go with option (1). Unfortunately,
 updating existing platforms means shipping a new version of that platform. This
-doesn't help our adoption problem as those new platforms aren't necessarily
-available to target in all circumstances, which is particularly true for .NET
-Framework. Thus, we're going with option (1) where we can and fall back to 
-option (2) where we cannot:
+doesn't help our adoption problem as those new versions may not be viable for
+you to target, which is particularly true for .NET Framework. Thus, we're going
+with option (1) where we can and fall back to option (2) where we cannot:
 
 * **.NET Framework**. At the time we ship .NET Standard 2.0 we expect .NET
   Framework 4.6.1 to have enough adoption to make this a viable prerequisite for
