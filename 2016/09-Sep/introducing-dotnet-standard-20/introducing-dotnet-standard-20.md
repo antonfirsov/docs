@@ -205,22 +205,6 @@ libraries that haven't been converted yet.
 If you want to learn more about how the compatibility shim works, take a look at
 the [specification for .NET Standard 2.0][spec-compatshim].
 
-## When can I start using .NET Standard 2.0?
-
-From the existing platforms only .NET Framework 4.6.1 (and later) already
-supports .NET Standard 2.0. Support in Xamarin will likely come online in Q4
-2016. In the same time frame, we'll release .NET Standard 2.0 as a NuGet package
-that you will be able to target with the existing tools. A future blog post will
-go into the details on how to do that.
-
-.NET Core and UWP will also support .NET Standard 2.0, but we need a bit more
-time in order to add the required set of APIs. We expect to ship an updated
-version of .NET Core in Q1 2017. The UWP update will come with a future version
-of Windows.
-
-We'll also ship more extensive and integrated tooling for .NET Standard 2.0 with
-the upcoming version of Visual Studio, code named "Dev 15".
-
 ## Breaking changes between .NET Standard 1.x and 2.0
 
 Our goal for .NET Core is to significantly extend its surface area so that more
