@@ -1,17 +1,14 @@
-Implementing Seeding, Custom Conventions and Interceptors when Moving from EF 6 to EF Core 1.0
+Implementing Seeding, Custom Conventions and Interceptors When Moving from EF6 to EF Core 1.0
 ========================================================
 Introduction
 ------------
-Entity Framework Core (EF Core) is a lightweight and extensible version of the Entity Framework (EF) data access technology which is cross-platform and supports multiple database providers. You can find a comparison of EF Core vs. EF 6 under the [Entity Framework documentation] (https://docs.efproject.net/en/latest/efcore-vs-ef6/index.html).
+Entity Framework Core (EF Core) is a lightweight and extensible version of the Entity Framework (EF) data access technology which is cross-platform and supports multiple database providers. You can find a comparison of EF Core vs. EF6 under the [Entity Framework documentation] (https://docs.efproject.net/en/latest/efcore-vs-ef6/index.html).
 
-When moving an application from EF 6 to EF Core, you may encounter features that existed in EF 6 but either are not present or are not yet implemented in EF Core. For many of those features, however, you can implement equivalent functionality. This article discusses three features: 
-* seeding
-* custom conventions
-* interceptors
+When moving an application from EF6 to EF Core, you may encounter features that existed in EF6 but either are not present or are not yet implemented in EF Core. For many of those features, however, you can implement equivalent functionality.
 
 Seeding
 -------
-With EF 6 you can seed a database with initial data by overriding one of the following `Seed()` methods: 
+With EF6 you can seed a database with initial data by overriding one of the following `Seed()` methods: 
 * [`DbMigrationsConfiguration<TContext>.Seed()`](https://msdn.microsoft.com/en-us/library/hh829453(v=vs.113).aspx)
 * [`DropCreateDatabaseIfModelChanges<TContext>.Seed()`](https://msdn.microsoft.com/en-us/library/gg679410(v=vs.113).aspx) 
 * [`DropCreateDatabaseAlways<TContext>.Seed()`](https://msdn.microsoft.com/en-us/library/gg679506(v=vs.113).aspx)
@@ -36,7 +33,7 @@ The [MusicStore](https://github.com/aspnet/MusicStore) sample also uses this pat
 
 Custom Conventions
 ------------------
-In Entity Framework 6 we can create custom configurations of properties and tables by using model-based conventions. For example, the following code in EF 6 creates a convention to throw an exception when the column name is longer than 30 characters:
+In Entity Framework 6 we can create custom configurations of properties and tables by using model-based conventions. For example, the following code in EF6 creates a convention to throw an exception when the column name is longer than 30 characters:
 ```C#
 public class IdentifierConvention : IStoreModelConvention<EdmProperty>
 {
@@ -146,6 +143,7 @@ Interceptors and seeding are high on the feature backlog and the Entity Framewor
 
 Useful Links
 ---------
-* [Moving an application from EF 6 to EF Core](https://docs.efproject.net/en/latest/efcore-vs-ef6/porting/index.html)
+* [Moving an application from EF6 to EF Core](https://docs.efproject.net/en/latest/efcore-vs-ef6/porting/index.html)
 * EF Core [Migrations: Seed Data](https://github.com/aspnet/EntityFramework/issues/629) GitHub issue 
 * [Lifecycle Hooks] (https://github.com/aspnet/EntityFramework/issues/626) GitHub issue
+* [EF Core Roadmap] (https://github.com/aspnet/EntityFramework/wiki/Roadmap)
