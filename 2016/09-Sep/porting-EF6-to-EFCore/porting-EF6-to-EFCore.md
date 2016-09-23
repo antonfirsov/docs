@@ -1,4 +1,4 @@
-Implementing Seeding, Custom Conventions and Interceptors when moving an application from Entity Framework 6 to Entity Framework Core 1.0
+Implementing Seeding, Custom Conventions and Interceptors when Moving from EF 6 to EF Core 1.0
 ========================================================
 Introduction
 ------------
@@ -101,7 +101,7 @@ Registering and using the ModelValidator created here is explained later in this
 Interceptors
 ------------
 Entity Framework 6 provides the ability to intercept a context using `IDbCommandInterceptor`. Interceptors let you to get into the pipeline just before and just after a query or command is sent to the database.
-Entity Framework Core doesn’t have any interceptors yet. The functionality can be achieved by accessing internal services, in a similar way as the example described above for the model validator.
+Entity Framework Core doesnâ€™t have any interceptors yet. The functionality can be achieved by accessing internal services, in a similar way as the example described above for the model validator.
 The following example implements `IEntityStateListener` to modify an entity just before it is added to the database:
 ```C#
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
