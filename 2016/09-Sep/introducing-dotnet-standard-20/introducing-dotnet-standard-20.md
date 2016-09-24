@@ -186,7 +186,7 @@ times a given target occurs in packages on NuGet.org:
 |Portable      |      4,501|
 
 As you can see, it's quite clear that the vast majority of class libraries on
-NuGet are still targeting .NET Framework. However, we know that a large number
+NuGet are targeting .NET Framework. However, we know that a large number
 of these libraries are only using APIs we'll expose in .NET Standard 2.0.
 
 In .NET Standard 2.0, we'll make it possible for libraries that target .NET
@@ -251,9 +251,9 @@ packages that do. We'll reach out to those package owners and work with them to
 mitigate the issue. From looking at their code, it's clear that their calls can
 be replaced with APIs that are coming with .NET Standard 2.0.
 
-In order for these packages to work across .NET Standard 1.5, 1.6 and 2.0, they
-have to cross-compile and target these versions specifically. Alternatively,
-they could only support .NET Standard 2.0 or higher.
+In order for these package owners to support .NET Standard 1.5, 1.6 and 2.0, they
+will need to cross-compile to target these versions specifically. Alternatively,
+they can chooose to target .NET Standard 2.0 and higher given the broad set of platforms that support it.
 
 ## What's in .NET Standard?
 
@@ -402,7 +402,7 @@ everywhere. Worse, due to versioning rules, it also means we have to decide
 which combination of APIs are made available in which order.
 
 **Out-of-band delivery**. We've tried to work this around by making those APIs
-available "out-of-band" which basically means making them new components that
+available "out-of-band" which means making them new components that
 can sit on top of the existing APIs. For technologies where this is easily
 possible, that's the preferred way because it also means any .NET developer can
 play with the APIs and give us feedback. We've done that for immutable
@@ -420,8 +420,8 @@ leverage this capability for experimentation and previewing.
 
 **Splitting .NET Standard from .NET Core**. In order to be able to evolve .NET
 Core independently from other .NET platforms we've divorced the portability
-mechanism from .NET Core. The .NET Standard is an independent reference assembly
-that is simply implemented by all .NET platforms, but each of the .NET platforms
+mechanism (which I referred to earlier) from .NET Core. .NET Standard is defined as an independent reference assembly
+that is satisfied by all .NET platforms. Each of the .NET platforms
 uses a different set of reference assemblies and thus can freely add new APIs in
 whatever cadence they choose. We can then, after the fact, make decisions around
 which of these APIs are added to .NET Standard and thus should become
@@ -431,14 +431,14 @@ Separating portability from .NET Core helps us to speed up development of .NET
 Core and makes experimentation of newer features much simpler. Instead of
 artificially trying to design features to sit on top of existing platforms, we
 can simply modify the layer that needs to be modified in order to support the
-feature. We can also add the APIs on the types they logically belong on instead
+feature. We can also add the APIs on the types they logically belong to instead
 of having to worry about whether that type has already shipped in other
 platforms.
 
 Adding new APIs in .NET Core isn't a statement whether they will go into the
 .NET Standard but our goal for .NET Standard is to create and maintain
-consistency between the .NET platforms. So adding members on types that are
-already part of the standard are automatically considered when the standard is
+consistency between the .NET platforms. So new members on types that are
+already part of the standard will be automatically considered when the standard is
 updated.
 
 ## As a library author, what should I do now?
@@ -457,7 +457,7 @@ The key differences between PCLs and .NET Standard are:
   packages as you have to list the platforms in the lib folder name, e.g.
   `portable-net45+win8`. This causes issues when new platforms show up that
   support the same APIs. .NET Standard doesn't have this problem because you
-  simply target a version of the standard which doesn't include any platform
+ target a version of the standard which doesn't include any platform
   information, e.g. `netstandard14`.
 
 * **Platform availability**. PCLs currently support a wider range of platforms
@@ -469,7 +469,7 @@ The key differences between PCLs and .NET Standard are:
   able to run. Thus, PCL projects will only allow you to reference other PCLs
   that target a superset of the platforms your PCL is targeting. .NET Standard
   is similar, but it additionally allows referencing .NET Framework binaries,
-  which are still the de facto exchange currency in the library ecosystem. Thus,
+  which are the de facto exchange currency in the library ecosystem. Thus,
   with .NET Standard 2.0 you'll have access to a much larger set of libraries.
 
 In order to make an informed decision, I suggest you:
@@ -504,7 +504,7 @@ With .NET Standard 2.0, we're focusing on compatibility. In order to support
 include many more of the existing APIs. This also includes a compatibility shim
 that allows referencing binaries that were compiled against the .NET Framework.
 
-Moving forward, you should be using .NET Standard instead of Portable Class
+Moving forward, we recommend that you use .NET Standard instead of Portable Class
 Libraries. The tooling for targeting .NET Standard 2.0 will ship in the same
 timeframe as the upcoming release of Visual Studio, code-named "Dev 15". You'll
 reference .NET Standard as a NuGet package. It will have first class support
