@@ -1,4 +1,4 @@
-Implementing Seeding, Custom Conventions and Interceptors When Moving from EF6 to EF Core 1.0
+Implementing Seeding, Custom Conventions and Interceptors in EF Core 1.0
 ========================================================
 Introduction
 ------------
