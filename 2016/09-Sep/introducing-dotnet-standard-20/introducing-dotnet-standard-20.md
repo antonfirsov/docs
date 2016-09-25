@@ -205,7 +205,7 @@ libraries that haven't been converted yet.
 If you want to learn more about how the compatibility shim works, take a look at
 the [specification for .NET Standard 2.0][spec-compatshim].
 
-## Breaking change between .NET Standard 1.x and 2.0
+## .NET Standard 2.0 Breaking Change: Adding .NET Framework 4.6.1 Compatibility
 
 A standard is only as useful as there are platforms implementing it. At the same
 time, we want to make the .NET Standard meaningful and useful in and of itself,
