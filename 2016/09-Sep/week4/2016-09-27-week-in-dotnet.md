@@ -60,7 +60,17 @@ Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for 
 Xamarin
 -------
 
-* [xx](xx) by xx.
+* [Scaling from Side Project to 200,000+ Downloads with Xamarin and Microsoft Azure](https://blog.xamarin.com/scaling-from-side-project-to-200000-downloads-with-xamarin-and-microsoft-azure/) by Courtney Witmer.
+* [Start Building Azure-Connected Apps with the Xamarin Shopping Demo App](https://blog.xamarin.com/start-building-azure-connected-apps-with-the-xamarin-shopping-demo-app/) by Mike James.
+* [Xamarin Around the World with Xamarin Dev Days](https://blog.xamarin.com/xamarin-around-the-world-with-xamarin-dev-days/) by Jayme Singleton.
+* [New iOS 10 Privacy Permission Settings](https://blog.xamarin.com/new-ios-10-privacy-permission-settings/), [The Xamarin Show 2 - Continuous Integration with Simina Pasat](https://channel9.msdn.com/Shows/XamarinShow/Continuous-Integration-with-Simina-Pasat), and [The Xamarin Show - Snack Pack 1: Android Emulators](https://channel9.msdn.com/Shows/XamarinShow/Snack-Pack-1-Android-Emulators) by James Montemagno.
+* [Preview: iOS Simulator (for Windows) Update 4](https://releases.xamarin.com/preview-ios-simulator-for-windows-update-4/) by Adrian Murphy.
+* [NuGet Support in Xamarin Studio 6.1](http://lastexitcode.com/blog/2016/09/17/NuGetSupportInXamarinStudio6-1/) by Matt Ward.
+* [Xamarin Forms Triggers vs Behaviors vs Effects](https://xamarinhelp.com/xamarin-forms-triggers-behaviors-effects/) by Adam Pedley.
+* [Hololens – Xamarin, URHO and an Spatial Mapping sample (with 2 more lines of code it became a Shooting Game)](https://elbruno.com/2016/09/19/hololens-xamarin-urho-and-an-spatial-mapping-sample-with-2-more-lines-of-code-it-became-a-shooting-game/) by Bruno Capuano.
+* [The Thumb Zone: Designing For Mobile Users](https://www.smashingmagazine.com/2016/09/the-thumb-zone-designing-for-mobile-users) by Samantha Ingram.
+* [Fix for UITest crashing after Xamarin Studio update to 6.1 (build 5441) fails with SetUp : System.InvalidOperationException](http://www.xradapp.com/fix-for-uitest-crashing-after-xamarin-studio-update-to-6-1-build-5441-fails-with-setup-system-invalidoperationexception/) by Mark J Radacz.
+* [Yet Another Podcast #164 – Azure Mobile Apps with Chris Risner](http://jesseliberty.com/2016/09/19/yet-another-podcast-164-azure-mobile-apps-with-chris-risner/) by Jesse Liberty.
 
 Games
 -----
