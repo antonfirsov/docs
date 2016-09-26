@@ -1,16 +1,16 @@
 The week in .NET - 9/27/2016
 ============================
 
-To read last week's post, see [xx](xx).
+To read last week's post, see [The week in .NET: On .NET with Steeltoe – C# Functional Extensions – Firewatch](https://blogs.msdn.microsoft.com/dotnet/2016/09/20/the-week-in-net-on-net-with-steeltoe-c-functional-extensions-firewatch/).
 
 On .NET
 -------
 
-Last week, [xx was on the show](xx):
+Last week, [Sébastien Ros was on the show](xx) to talk about [Orchard 2](https://github.com/orchardcms/orchard2):
 
-<iframe src="xx" width="560" height="315" allowFullScreen frameBorder="0"></iframe>
+<iframe src="https://channel9.msdn.com/Shows/On-NET/Sbastien-Ros-Orchard-2/player" width="560" height="315" allowFullScreen frameBorder="0"></iframe>
 
-This week, we'll speak with [xx](xx) from [xx](xx) about [xx](xx) and .NET. The show begins at 10AM Pacific Time [on Channel 9](https://channel9.msdn.com/Shows/On-NET). We'll take questions on Gitter, on [the dotnet/home channel](https://gitter.im/dotnet/home). Please use the `#onnet` tag. It's OK to start sending us questions in advance if you can't do it live during the show.
+This week, we'll speak with [JB Evain](http://evain.net/) about his work on the [Visual Studio 2015 Tools](https://visualstudiogallery.msdn.microsoft.com/8d26236e-4a64-4d64-8486-7df95156aba9) for [Unity](https://unity3d.com/)  and .NET. The show begins at 12PM Pacific Time (note that's 2 hours later than usual) [on Channel 9](https://channel9.msdn.com/Shows/On-NET). We'll take questions on Gitter, on [the dotnet/home channel](https://gitter.im/dotnet/home). Please use the `#onnet` tag. It's OK to start sending us questions in advance if you can't do it live during the show.
 
 Package of the week: xx
 ----------------------------------
@@ -36,6 +36,8 @@ User group meeting of the week: xx
 .NET
 ----
 
+* Kendra's video
+* Immo's post
 * [Deal with Swallowed Exceptions Magically with IL Weaving](https://buildplease.com/pages/ilweaving/) by Nick Chamberlain.
 
 ASP.NET
