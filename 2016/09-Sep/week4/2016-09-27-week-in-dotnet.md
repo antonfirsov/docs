@@ -1,5 +1,5 @@
-The week in .NET: On .NET on Orchard 2 - Mocking on Core - StoryTeller
-=======================================================================
+The week in .NET: On .NET on Orchard 2 - Mocking on Core - StoryTeller - Armello
+================================================================================
 
 To read last week's post, see [The week in .NET: On .NET with Steeltoe – C# Functional Extensions – Firewatch](https://blogs.msdn.microsoft.com/dotnet/2016/09/20/the-week-in-net-on-net-with-steeltoe-c-functional-extensions-firewatch/).
 
@@ -39,6 +39,15 @@ public double AddingNumbersTogether(double x, double y)
     return _calculator.Value;
 }
 ```
+
+Game of the Week: Armello
+-------------------------
+
+[Armello](http://armello.com/) is a visually stunning digital board game that combines tactical card game elements with tabletop strategy and roleplaying. When entering the world of Armello, you become one of eight heroes, each of which has their own set of unique traits. Explore, quest, scheme and vanquish monsters while you attempt to overthrow the current ruler and take your rightful place on the throne. Armello features both single player and multiplayer games, dynamically generated levels, and over 120 beautifully animated cards.
+
+![gameimage](https://cloud.githubusercontent.com/assets/4108756/18880446/b105c2e2-848c-11e6-846f-df565393b9ee.jpg)
+
+[Armello](http://armello.com/) was created by [League of Geeks](http://leagueofgeeks.com/) using [Unity](https://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is available on Xbox One, PlayStation 4 and Steam for Windows, Mac and Linux.
 
 Blogger of the week: Muhammad Rehan Saeed
 -----------------------------------------
@@ -114,6 +123,10 @@ Azure
 Games
 -----
 
+* [Unity 5 Tutorial: How to make Snake Movement in Unity](https://www.youtube.com/watch?v=xz8Ga9er3_8&feature=youtu.be) by Gamad
+* [Let's Learn Unity: Unity Interface Tips and Tricks](https://www.youtube.com/watch?v=B5-zf6BEJ8s&feature=youtu.be) by Wuzseen
+* [Understanding Interfaces](https://publicstringnotes.wordpress.com/2016/09/24/understanding-interfaces/) by clawsgamedev
+* [Unity 2D Movement (Part 1) - Forwards & Backwards](https://www.youtube.com/watch?v=Rr4sE_A_E-Q) by Pixel Make
 * [Unity 2D: Checking if a Character or Object is on the Ground using Raycasts](https://kylewbanks.com/blog/unity-2d-checking-if-a-character-or-object-is-on-the-ground-using-raycasts) by Kyle Banks.
 
 
