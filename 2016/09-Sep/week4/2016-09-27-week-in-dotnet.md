@@ -1,5 +1,5 @@
-The week in .NET - On .NET on Orchard 2 - Mocking on Core - 
-============================
+The week in .NET: On .NET on Orchard 2 - Mocking on Core - StoryTeller
+=======================================================================
 
 To read last week's post, see [The week in .NET: On .NET with Steeltoe – C# Functional Extensions – Firewatch](https://blogs.msdn.microsoft.com/dotnet/2016/09/20/the-week-in-net-on-net-with-steeltoe-c-functional-extensions-firewatch/).
 
@@ -17,53 +17,69 @@ Mocking on .NET Core
 
 Three major .NET mocking frameworks now have official pre-releases with .NET Standard support:
 
-* [FakeItEasy](https://ci.appveyor.com/nuget/FakeItEasy) (nuget feed from AppVeyor CI builds)
-* [Moq](https://www.nuget.org/packages/Moq/4.6.38-alpha). Note that there is another "moq.netcore" package from the ASP.NET team's MyGet feed. It is an obsolete private fork meant to unblock testing in the early days before Moq had releases that support .NET Standard. Consumers of the "moq.netcore" package should switch to use the latest official Moq package.
-* [NSubstitute](https://www.nuget.org/packages/NSubstitute/2.0.0-rc)
+* [FakeItEasy](https://ci.appveyor.com/nuget/FakeItEasy) (nuget feed from AppVeyor CI builds).
+* [Moq](https://www.nuget.org/packages/Moq/4.6.38-alpha): Note that there is another "moq.netcore" package from the ASP.NET team's MyGet feed. It is an obsolete private fork meant to unblock testing in the early days before Moq had releases that support .NET Standard. Consumers of the "moq.netcore" package should switch to use the latest official Moq package.
+* [NSubstitute](https://www.nuget.org/packages/NSubstitute/2.0.0-rc).
 
-Xamarin App of the Week: SpeechCentral
---------------------------------------
+Package of the week: Storyteller
+--------------------------------
 
-Speech Central is an iOS app that lets you enjoy the Internet with the screen off by using the headphones or Bluetooth hands-free for reading aloud and issuing commands. Keep up with the news while you're commuting or jogging.
+[BDD](https://en.wikipedia.org/wiki/Behavior-driven_development) enables you to focus on the functional behavior your code should have. Its products are runnable code expressed in plain English, and are thus easy to validate by non-technical stakeholders, converging specification and testing. The natural language used in BDD also opens some really interesting scenarios, such as documentation that lives on with the code.
 
-The application is written with Xamarin.iOS.
+[StoryTeller](http://storyteller.github.io/) is such a BDD package for .NET (soon on .NET Core), that is perfect for integration testing, executable specifications, and living documentation. [StoryTeller 3.0](https://jeremydmiller.com/2016/09/19/storyteller-3-0-official-release-and-on-to-4-0/) was just released, and it's used by [StructureMap](http://structuremap.github.io/), [Marten](http://jasperfx.github.io/marten), and of course StoryTeller itself.
 
-Package of the week: xx
-----------------------------------
-
-
+![A Storyteller specification](StoryTeller.png)
 
 ```csharp
+[FormatAs("Adding {x} to {y} should equal {returnValue}")]
+public double AddingNumbersTogether(double x, double y)
+{
+    _calculator.Value = x;
+    _calculator.Add(y);
+    return _calculator.Value;
+}
 ```
 
-Xamarin App of the week: xx
------------------------------------
+Blogger of the week: Muhammad Rehan Saeed
+-----------------------------------------
 
+[Muhammad Rehan Saeed](http://rehansaeed.com/) appears in Week in .NET almost weekly, with long-form, detailed posts that are absolutely outstanding. We are featuring two of his posts this week. Check them out!
 
-Game of the week: xx
------------------------------------
+User group meeting of the week: Deep Dive to Azure IoT Hub in Edmondton, Alberta
+--------------------------------------------------------------------------------
 
-
-User group meeting of the week: xx
-------------------------------------------------
-
-
+On Wednesday, September 28, in Edmonton, Alberta, Canada, Sergii Baidachnyi is taking you on [a deep dive into Azure's IoT hub](http://www.meetup.com/Edmonton-NET-User-Group/events/234182774/) with the [Edmonton .NET User Group](http://www.meetup.com/Edmonton-NET-User-Group/).
 
 .NET
 ----
 
-* Immo's post
+* [Introducing .NET Standard](https://blogs.msdn.microsoft.com/dotnet/2016/09/26/introducing-net-standard/) by Immo Landwerth.
 * [Get started with VS Code using C# and .NET Core](https://channel9.msdn.com/Blogs/dotnet/Get-started-with-VS-Code-using-CSharp-and-NET-Core) by Kendra Havens.
+* [GLAD is available](https://blogs.msdn.microsoft.com/maoni/2016/09/19/556/) by Maoni Stephens.
+* [Announcing the DotNetCompilerPlatform 1.0.2 release](https://blogs.msdn.microsoft.com/webdev/2016/09/20/announcing-the-dotnetcompilerplatform-1-0-2-release/) by Matt FJH.
+* [Cake v0.16.0 released](http://cakebuild.net/blog/2016/09/cake-v0-16-0-released) by Patrik Svensson.
+* [When a disk cache performs better than an in-memory cache (befriending the .net GC)](http://www.productiverage.com/when-a-disk-cache-performs-better-than-an-inmemory-cache-befriending-the-net-gc) by Productive Rage.
+* [The Dotnet Watch Tool](http://rehansaeed.com/the-dotnet-watch-tool/) by Muhammad Rehan Saeed.
 * [Deal with Swallowed Exceptions Magically with IL Weaving](https://buildplease.com/pages/ilweaving/) by Nick Chamberlain.
+* [September Update to docs.microsoft.com](https://docs.microsoft.com/teamblog/september-docs-update/) by Jeff Sandquist.
 
 ASP.NET
 -------
 
-* [xx](xx) by xx.
+* [Reusing Configuration Files in ASP.NET Core](https://blogs.msdn.microsoft.com/dotnet/2016/09/21/reusing-configuration-files-in-asp-net-core/) by Connie Yau.
+* [Introducing IdentityServer4 for authentication and access control in ASP.NET Core](https://blogs.msdn.microsoft.com/webdev/2016/09/19/introducing-identityserver4-for-authentication-and-access-control-in-asp-net-core/) by Jeffrey T. Fritz.
+* [IdentityServer4 RC1](https://leastprivilege.com/2016/09/06/identityserver4-rc1/) by Dominick Baier.
+* [NGINX for ASP.NET Core In-Depth](http://rehansaeed.com/nginx-asp-net-core-depth/) by Muhammad Rehan Saeed.
+* [To do: write "to do" app with ASP.Net Core](https://medium.com/@ThisisZone/to-do-write-to-do-app-with-asp-net-core-c02bc3ca9fa1#.6s0c2rjx1) by Andy Butland.
+* [Use NancyFx in ASP.NET Core](http://www.talkingdotnet.com/use-nancyfx-in-asp-net-core/) by Talking Dotnet.
+* [Step by step: ASP.NET Core on Docker](https://carlos.mendible.com/2016/09/26/step-by-step-asp-net-core-on-docker/) by Carlos Mendible.
+* [Adding Localisation to an ASP.NET Core application](https://andrewlock.net/adding-localisation-to-an-asp-net-core-application/) and [How to use machine-specific configuration with ASP.NET Core](https://andrewlock.net/how-to-use-machine-specific-configuration-with-asp-net-core/) by Andrew Lock.
+* [Troubleshooting High CPU Usage of a .NET Web Application](http://www.codeproject.com/Tips/1130593/Troubleshooting-High-CPU-Usage-of-a-NET-Web-Applic) by Paulo Henrique S.S.
 
 F#
 --
 
+* [xUnit-Jet – Open Sourced](https://tech.jet.com/blog/2016/09-14-xunit-jet-open-sourced/) by Rand Davis.
 * [F# and ASP.NET Core (video)](https://www.youtube.com/watch?v=zYi4ev6ll0Y), by Enrico Sada via Community for F#.
 * [F# in the Real World (video)](https://vimeo.com/183301783), by Yan Cui
 * [Xando: Down the rabbit hole of CQRS and Event Sourcing](http://alxandr.me/2016/09/19/xando-pt-1), by alxandr
@@ -89,10 +105,16 @@ Xamarin
 * [Fix for UITest crashing after Xamarin Studio update to 6.1 (build 5441) fails with SetUp : System.InvalidOperationException](http://www.xradapp.com/fix-for-uitest-crashing-after-xamarin-studio-update-to-6-1-build-5441-fails-with-setup-system-invalidoperationexception/) by Mark J Radacz.
 * [Yet Another Podcast #164 – Azure Mobile Apps with Chris Risner](http://jesseliberty.com/2016/09/19/yet-another-podcast-164-azure-mobile-apps-with-chris-risner/) by Jesse Liberty.
 
+Azure
+-----
+
+* [Azure Functions in practice](https://www.troyhunt.com/azure-functions-in-practice/) by Troy Hunt.
+* [Tutorial: Launch Your ASP.NET Core WebApp on Azure with TLS & Authentication](https://stormpath.com/blog/dotnet-core-azure-lets-encrypt-authentication) by Laura Rodriguez.
+
 Games
 -----
 
-* [xx](xx) by xx.
+* [Unity 2D: Checking if a Character or Object is on the Ground using Raycasts](https://kylewbanks.com/blog/unity-2d-checking-if-a-character-or-object-is-on-the-ground-using-raycasts) by Kyle Banks.
 
 
 And this is it for this week!
