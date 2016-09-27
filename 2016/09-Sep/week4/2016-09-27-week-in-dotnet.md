@@ -1,4 +1,4 @@
-The week in .NET - 9/27/2016
+The week in .NET - On .NET on Orchard 2 - Mocking on Core - 
 ============================
 
 To read last week's post, see [The week in .NET: On .NET with Steeltoe – C# Functional Extensions – Firewatch](https://blogs.msdn.microsoft.com/dotnet/2016/09/20/the-week-in-net-on-net-with-steeltoe-c-functional-extensions-firewatch/).
@@ -10,7 +10,23 @@ Last week, [Sébastien Ros was on the show](xx) to talk about [Orchard 2](https:
 
 <iframe src="https://channel9.msdn.com/Shows/On-NET/Sbastien-Ros-Orchard-2/player" width="560" height="315" allowFullScreen frameBorder="0"></iframe>
 
-This week, we'll speak with [JB Evain](http://evain.net/) about his work on the [Visual Studio 2015 Tools](https://visualstudiogallery.msdn.microsoft.com/8d26236e-4a64-4d64-8486-7df95156aba9) for [Unity](https://unity3d.com/)  and .NET. The show begins at 12PM Pacific Time (note that's 2 hours later than usual) [on Channel 9](https://channel9.msdn.com/Shows/On-NET). We'll take questions on Gitter, on [the dotnet/home channel](https://gitter.im/dotnet/home). Please use the `#onnet` tag. It's OK to start sending us questions in advance if you can't do it live during the show.
+This week, we'll speak with [JB Evain](http://evain.net/) about his work on the [Visual Studio 2015 Tools](https://visualstudiogallery.msdn.microsoft.com/8d26236e-4a64-4d64-8486-7df95156aba9) for [Unity](https://unity3d.com/),  and maybe also [Cecil](https://github.com/jbevain/cecil). The show begins at 12PM Pacific Time (note that's 2 hours later than usual) [on Channel 9](https://channel9.msdn.com/Shows/On-NET). We'll take questions on Gitter, on [the dotnet/home channel](https://gitter.im/dotnet/home). Please use the `#onnet` tag. It's OK to start sending us questions in advance if you can't do it live during the show.
+
+Mocking on .NET Core
+--------------------
+
+Three major .NET mocking frameworks now have official pre-releases with .NET Standard support:
+
+* [FakeItEasy](https://ci.appveyor.com/nuget/FakeItEasy) (nuget feed from AppVeyor CI builds)
+* [Moq](https://www.nuget.org/packages/Moq/4.6.38-alpha). Note that there is another "moq.netcore" package from the ASP.NET team's MyGet feed. It is an obsolete private fork meant to unblock testing in the early days before Moq had releases that support .NET Standard. Consumers of the "moq.netcore" package should switch to use the latest official Moq package.
+* [NSubstitute](https://www.nuget.org/packages/NSubstitute/2.0.0-rc)
+
+Xamarin App of the Week: SpeechCentral
+--------------------------------------
+
+Speech Central is an iOS app that lets you enjoy the Internet with the screen off by using the headphones or Bluetooth hands-free for reading aloud and issuing commands. Keep up with the news while you're commuting or jogging.
+
+The application is written with Xamarin.iOS.
 
 Package of the week: xx
 ----------------------------------
@@ -36,8 +52,8 @@ User group meeting of the week: xx
 .NET
 ----
 
-* Kendra's video
 * Immo's post
+* [Get started with VS Code using C# and .NET Core](https://channel9.msdn.com/Blogs/dotnet/Get-started-with-VS-Code-using-CSharp-and-NET-Core) by Kendra Havens.
 * [Deal with Swallowed Exceptions Magically with IL Weaving](https://buildplease.com/pages/ilweaving/) by Nick Chamberlain.
 
 ASP.NET
@@ -67,6 +83,7 @@ Xamarin
 * [Preview: iOS Simulator (for Windows) Update 4](https://releases.xamarin.com/preview-ios-simulator-for-windows-update-4/) by Adrian Murphy.
 * [NuGet Support in Xamarin Studio 6.1](http://lastexitcode.com/blog/2016/09/17/NuGetSupportInXamarinStudio6-1/) by Matt Ward.
 * [Xamarin Forms Triggers vs Behaviors vs Effects](https://xamarinhelp.com/xamarin-forms-triggers-behaviors-effects/) by Adam Pedley.
+* [Hololens app with UrhoSharp : Introduction – Part 1](http://blog.lordinaire.fr/2016/09/xamarin-build-hololens-apps-with-urhosharp-part-1/) by Maxime Frappat.
 * [Hololens – Xamarin, URHO and an Spatial Mapping sample (with 2 more lines of code it became a Shooting Game)](https://elbruno.com/2016/09/19/hololens-xamarin-urho-and-an-spatial-mapping-sample-with-2-more-lines-of-code-it-became-a-shooting-game/) by Bruno Capuano.
 * [The Thumb Zone: Designing For Mobile Users](https://www.smashingmagazine.com/2016/09/the-thumb-zone-designing-for-mobile-users) by Samantha Ingram.
 * [Fix for UITest crashing after Xamarin Studio update to 6.1 (build 5441) fails with SetUp : System.InvalidOperationException](http://www.xradapp.com/fix-for-uitest-crashing-after-xamarin-studio-update-to-6-1-build-5441-fails-with-setup-system-invalidoperationexception/) by Mark J Radacz.
