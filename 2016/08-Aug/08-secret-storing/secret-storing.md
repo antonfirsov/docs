@@ -1,5 +1,5 @@
-Storing secrets for use in an Azure application
-===============================================
+Storing and using secrets in Azure
+==================================
 
 Most applications need access to secret information in order to function: it could be an API key, database credentials, or something else. There are or course many different places where people store such secrets. From worst to best, one could think of the following: in your source code repository on GitHub (of course, nobody should ever do that), in config files, in environment variables, or in specialized secret vaults.
 
@@ -17,13 +17,13 @@ In order to be able to follow along, you'll need an [Azure subscription](https:/
 Setting up Key Vault
 -------------------
 
-First, we're going to set-up Key Vault. There are quite a few steps involved, but only steps 6-8 have to be repeated for new secrets, the others being the one-time building of the vault.
+First, we're going to set-up Key Vault. There are quite a few steps involved, but only steps 4 and 5 have to be repeated for new secrets, the others being the one-time building of the vault.
 
 1. Open the [Azure portal](https://portal.azure.com) and click on "Resource groups". Choose an existing group, or create a new one. For this tutorial, we'll create a new one called "sample-weather-group". After clicking the "Create" button, you may have to wait a few seconds and refresh the list of resource groups.
 
    ![Creating a new resource group](rg-01-create.png)
 
-2. Select the newly created group, then click the "Add" button over its property page. Enter "Key Vault" in the search box, and select the Key Vault service, then click "Create".
+2. Select the newly created group, then click the "Add" button over its property page. Enter "Key Vault" in the search box, select the Key Vault service, then click "Create".
 
    ![Adding the Key Vault service to the resource group](rg-02-add-key-vault.png)
 
@@ -39,22 +39,30 @@ First, we're going to set-up Key Vault. There are quite a few steps involved, bu
 
    ![Getting the URL for the secret](rg-05-secret-url.png)
 
+And this is it for now for Key Vault: we now have a vault, containing our secret.
+
 Preparing Active Directory authentication
 -----------------------------------------
 
-Of course, the application will need to securely connect to the vault, for which it will have to use some form of master secret.
-This is similar to the master password that a password vault uses.
-We'll use Active Directory for this.
+Of course, the application will need to securely connect to the vault, for which it will have to prove its identity, using some form of master secret. This is similar to the master password that a password vault uses, and makes sure the identity of our application can be managed independently from the secret, which may be shared with more than one application. We'll use Active Directory for this.
 
-1. To access Active Directory, in [the Azure portal](https://portal.azure.com), select "More Services" and choose "Azure Active Directory". In the next menu that will appear, click "App registrations". Click the "Add" button above the list of applications. You'll be asked for a name for the application. We'll choose "sample-weather-ad". For the application type, leave the default "Web app / API" selected., and leave the "Web application and/or Web API" type checked. We also have to provide a sign-on URL. For our purposes, this doesn't need to actually exist, but only to be unique. Click the "Create" button.
+1. To access Active Directory, in [the Azure portal](https://portal.azure.com), select "More Services" and choose "Azure Active Directory" (currently in preview). In the next menu that will appear, click "App registrations". Click the "Add" button above the list of applications. You'll be asked for a name for the application. We'll choose "sample-weather-ad". For the application type, leave the default "Web app / API" selected., and leave the "Web application and/or Web API" type checked. We also have to provide a sign-on URL. For our purposes, this doesn't need to actually exist, but only to be unique. Click the "Create" button.
 
    ![Naming the AD application](ad-03-new-app-name.png)
 
-2. Now that the application has been created, select it in the application list, so that you can see your application's application ID. You'll need that and a key.
+2. Now that the application has been created, select it in the application list, so that you can see your application's principal ID, which can be found under "Managed Application In Local Directory" in the application's property page. You'll need that and a key.
 
    ![Viewing the application's ID](ad-04-app-id.png)
 
-3. Click on "All settings", then select "Keys". We can add a new key by entering a description, selecting a duration, and hitting the "Save" button. If you do choose to have the key expire, you should also take the time to create a reminder on the schedule of the team in charge of managing this application.
+   Currently, this principal ID does not get automatically generated until the Active Directory application is logged into for the first time. This is a temprary issue that is being looked into. In the meantime, it can be worked around by browsing to `<oauth 2.0 authorization endpoint URL>?client_id=<application_id>`, where `<oauth 2.0 authorization endpoint URL>` can be found by clicking the "Endpoints" button above the list of registered apps, and `<application_id>` can be found under the property page for the application.
+
+   ![Getting the authorization URL](ad-05-get-auth-url.png)
+
+   Navigating to the URL composed above will require your authenticating with the credentials of a user that has admin rights on the subscription, and then it will yield an error page that can be safely ignored. If all went well, you should now be able to see your application's principal ID in the property page.
+
+   ![Getting the AD application's principal ID](ad-05b-get-principal.png)
+
+3. We can now proceed to create credentials that our Azure Function will be able to use to authenticate to Active Directory as the application we created above. Click on "All settings", then select "Keys". We can add a new key by entering a description, selecting an expiration, and hitting the "Save" button. If you do choose to have the key expire, you should also take the time to create a reminder on the schedule of the team in charge of managing this application to renew it.
 
    ![Adding a new key](ad-06-add-key.png)
 
@@ -70,23 +78,18 @@ We'll use Active Directory for this.
 
    The URL we want to copy for later use is the one under "OAuth 2.0 Token Endpoint".
 
-6.  
+6. We're now ready to authorize the application to access the vault and get values out of it. Navigate back to the key vault's property page, and select the vault we created earlier, then "Access policies". Click "Add new", then "Select principal". Paste the principal id from above into the text box. After a few seconds, the principal should appear checked. Click the "Select" button. Then click on "Secret permissions" and check "Get", then click "OK".
 
-7.
-   ![Adding access for the AD application](rg-06-add-access.png)
-   select and ok. Don't forget to hit "Save"on top of the list of access policies.
+   ![Adding permissions for AD](rg-06-add-access.png)
 
-
-7. We're now ready to authorize the application to access the vault and get values out of it. Navigate back to the key vault's property page, and select the vault we created earlier, then "Access policies". Click "Add new", then "Select principal". In the list, you should see "xxx". Select it, then click the "Select" button. Then click on "Secret permissions" and check "Get", then click "OK".
-
-   ![Adding permissions for AD]
+We now have a set of Active Directory credentials that our Azure Function will be able to use, that will enable read access to the secrets in the key vault. Our last remaining step is to create the actual code.
 
 Creating the Azure function
 ---------------------------
 
 We're going to use Azure Functions to implement the actual service, because it's the easiest way to write code on Azure, but roughly the same steps would apply to any other kind of application.
 
-1. From the resource group's property page, click "Add", and type "Function App" in the filter box. Select "Function App", the click "Create". Name your new function app "sample-weather". Select the relevant subscription, resource group, plan and location.
+1. From the resource group's property page, click "Add", and type "Function App" in the filter box. Select "Function App", then click "Create". Name your new function app "sample-weather". Select the relevant subscription, resource group, plan, and location.
 
    ![Setting up the new function app](04-setting-up-the-function.png)
 
@@ -121,7 +124,7 @@ We're going to use Azure Functions to implement the actual service, because it's
     }
     ```
 
-   Those classes will help deserialize the response from the weather server. The structure of the `WeatherList / Weather / WeatherData` types reflects the schema of the JSON documents that the weather service will return. It does not, nor needs to reflect the entirety of the schema returned by the API: the `Microsoft.AspNet.WebApi.Client` library will figure out which parts to deserialize and how to map them onto the provided object model.
+   Those classes will help deserialize the response from the weather server. The structure of the `WeatherList / Weather / WeatherData` types reflects [the schema of the JSON documents that the weather service will return](http://openweathermap.org/current). It does not, nor needs to reflect the entirety of the schema returned by the API: the `Microsoft.AspNet.WebApi.Client` library will figure out which parts to deserialize and how to map them onto the provided object model.
 
 4. Enter the following code as the body of the function:
 
@@ -208,7 +211,9 @@ We're going to use Azure Functions to implement the actual service, because it's
     }
    ```
 
-4. In the code above, you'll notice that we're reading the AD URL, client ID and key from configuration, because of course we haven't done all this to store secrets in code... For the code to function, we'll have to enter that information into the function's Azure configuration. This can be done by clicking "Function app settings" on the bottom-left of the function editing screen.
+   This tells Azure Functions what objects to inject into the function.
+
+5. In the code above, you'll notice that we're reading the AD URL, client ID and key from configuration, because of course we haven't done all this to end up storing secrets in code... For the code to function, we'll have to enter that information into the function's Azure configuration. This can be done by clicking "Function app settings" on the bottom-left of the function editing screen.
 
     ![The function app settings button](fun-01-config.png)
 
@@ -223,7 +228,7 @@ We're going to use Azure Functions to implement the actual service, because it's
 
     ![Setting the Active Directory URL, master id and key in the app settings](fun-02-settings.png)
 
-5. Go back to the function editor and add a project.json file to import the NuGet packages we need.
+6. Go back to the function editor and add a project.json file to import the NuGet packages we need.
 
     ![Adding a project.json file](fun-04-adding-project-json.png)
 
@@ -242,6 +247,14 @@ We're going to use Azure Functions to implement the actual service, because it's
         }
     }
     ```
+
+And this is it. Once you've saved all the files, you should see the trace of the package restoration and compilation of the function in the logs window. After that's completed, you should be able to click the "Run" button and figure out where the weather is nicest, between Paris and Seattle.
+
+![Where is the weather the nicest?](fun-05-result.png)
+
+To summarize what we've accomplished, we now have a function that connects to an Azure Key Vault using Azure Active Directory authentication, and then uses a secret stored in the vault to query a remote service.
+
+I hope this is useful and will help you build more secure cloud applications.
 
 References
 ----------
