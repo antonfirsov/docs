@@ -63,7 +63,7 @@ In this post, we'll authenticate using a secret key, but it's important to note 
 
    ![Getting the authorization URL](ad-05-get-auth-url.png)
 
-   Navigating to the URL composed earlier will require you to authenticate with the credentials of a user that has admin rights on the subscription, and then it will yield an error page that can be safely ignored. If all went well, you should now be able to see your application's principal ID in the property page.
+   Navigating to the URL we composed will require you to authenticate with the credentials of a user that has admin rights on the subscription, and then it will yield an error page that can be safely ignored. If all went well, you should now be able to see your application's principal ID in the property page.
 
    ![Getting the AD application's principal ID](ad-05b-get-principal.png)
 
