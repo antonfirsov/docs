@@ -254,6 +254,108 @@ And this is it. Once you've saved all the files, you should see the trace of the
 
 To summarize what we've accomplished, we now have a function that connects to an Azure Key Vault using Azure Active Directory authentication, and then uses a secret stored in the vault to query a remote service.
 
+What about .NET Core?
+---------------------
+
+Now that we've made this work in Azure Functions, how about re-using the knowledge we've gained in a different kind of application, such as a .NET Core console application? We actually wouldn't have to change much. First, we'd need to check our dependencies to make sure that everything we need is available on .NET Core, then we'd have to modify the code so that it reads configuration using the new [`ConfigurationBuilder`](https://docs.asp.net/projects/api/en/latest/autoapi/Microsoft/Extensions/Configuration/ConfigurationBuilder/). Finally, we'd just change `req.CreateResponse(HttpStatusCode.OK, $"...");` into simple `Console.WriteLine` calls.
+
+Here's what the code looks like once ported to a .NET Core console app.
+
+```csharp
+public static void Main(params string[] args)
+{
+    MainAsync(args).Wait();
+}
+
+public static async Task MainAsync(params string[] args)
+{
+    // City codes from http://bulk.openweathermap.org/sample/city.list.json.gz
+    const int parisId = 6455259;
+    const int seattleId = 5809844;
+
+    var configurationBuilder = new ConfigurationBuilder();
+    var config = configurationBuilder
+        .AddEnvironmentVariables("WeatherSample")
+        .AddCommandLine(args)
+        .Build();
+
+    var adUrl = config["WeatherADUrl"];
+    var adClientId = config["WeatherADClientID"];
+    var adKey = config["WeatherADKey"];
+    var keyUrl = config["WeatherKeyUrl"];
+
+    var keyVault = new KeyVaultClient(async (string authority, string resource, string scope) => {
+        var authContext = new AuthenticationContext(authority);
+        var credential = new ClientCredential(adClientId, adKey);
+        var token = await authContext.AcquireTokenAsync(resource, credential);
+
+        return token.AccessToken;
+    });
+
+    var apiKey = keyVault.GetSecretAsync(keyUrl).Result.Value;
+
+    using (var weatherClient = new HttpClient())
+    {
+        weatherClient.BaseAddress = new Uri("http://api.openweathermap.org/");
+        var weatherResponse = await weatherClient.GetAsync($"data/2.5/group?id={parisId},{seattleId}&units=metric&APPID={apiKey}");
+        if (weatherResponse.IsSuccessStatusCode)
+        {
+            var weather = await weatherResponse.Content.ReadAsAsync<WeatherList>();
+            var parisTemperature = weather.List.Where(city => city.Id == parisId).FirstOrDefault()?.Main.Temp;
+            var seattleTemperature = weather.List.Where(city => city.Id == seattleId).FirstOrDefault()?.Main.Temp;
+            if (parisTemperature != null && seattleTemperature != null)
+            {
+                if (parisTemperature > seattleTemperature)
+                {
+                    Console.WriteLine($"It's nicer in Paris ({parisTemperature}C) than in Seattle ({seattleTemperature}C) right now.");
+                }
+                else
+                {
+                    Console.WriteLine($"It's nicer in Seattle ({seattleTemperature}C) than in Paris ({parisTemperature}C) right now.");
+                }
+            }
+        }
+    }
+
+    Console.ReadKey();
+}
+```
+
+And here's the `project.json` that enables it to restore the right packages.
+
+```json
+{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+
+  "dependencies": {
+    "Microsoft.AspNet.WebApi.Client": "5.2.3",
+    "Microsoft.Azure.KeyVault": "2.0.1-preview",
+    "Microsoft.Extensions.Configuration": "1.0.0",
+    "Microsoft.Extensions.Configuration.CommandLine": "1.0.0",
+    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0",
+    "Microsoft.IdentityModel.Clients.ActiveDirectory": "3.13.4",
+    "Microsoft.NETCore.App": {
+      "type": "platform",
+      "version": "1.0.0"
+    },
+    "System.Runtime.Serialization.Xml": "4.3.0-preview1-24528-02"
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [ "portable-net451+win8" ]
+    }
+  }
+}
+```
+
+The weather data model remains unchanged from the Azure Functions version.
+
+And that's it, this console application will, like the Azure Function, authenticate to Active Directory, get the API key from Key Vault, and then query the API and tell you about the weather.
+
 I hope this is useful and will help you build more secure cloud applications.
 
 References
@@ -262,3 +364,4 @@ References
 1. [Manage Key Vault using CLI](https://azure.microsoft.com/en-us/documentation/articles/key-vault-manage-with-cli/)
 2. [Azure Key Vault .NET Samples](https://github.com/Azure/azure-sdk-for-net/tree/AutoRest/src/KeyVault/Microsoft.Azure.KeyVault.Samples)
 3. [Azure Functions C# Reference](https://azure.microsoft.com/en-us/documentation/articles/functions-reference-csharp/)
+4. [Safe storage of app secrets during development](http://docs.asp.net/en/latest/security/app-secrets.html)
