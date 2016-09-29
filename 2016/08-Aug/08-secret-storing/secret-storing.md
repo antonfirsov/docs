@@ -377,6 +377,11 @@ The weather data model remains unchanged from the Azure Functions version.
 
 And that's it, this console application will, like the Azure Function, authenticate to Active Directory, get the API key from Key Vault, and then query the API and tell you about the weather.
 
+What's next?
+------------
+
+Azure services are evolving constantly, and so is .NET support for them. While I was writing this article, I was able to transfer some of the steps that previously required command-line operations, to using the portal, making them a lot easier, as well as more discoverable. One of the things to look forward to is [a new ASP.NET configuration provider](https://github.com/aspnet/Configuration/tree/dev/src/Microsoft.Extensions.Configuration.Azure.KeyVault) that will enable developers to get rid of much of the code I had to write to access the key vault.
+
 Please let us know if tutorials like these are helpful. Happy programming!
 
 References
