@@ -353,16 +353,16 @@ And here's the `project.json` that enables it to restore the right packages.
 
   "dependencies": {
     "Microsoft.AspNet.WebApi.Client": "5.2.3",
-    "Microsoft.Azure.KeyVault": "2.0.1-preview",
+    "Microsoft.Azure.KeyVault": "2.0.2-preview",
     "Microsoft.Extensions.Configuration": "1.0.0",
     "Microsoft.Extensions.Configuration.CommandLine": "1.0.0",
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0",
-    "Microsoft.IdentityModel.Clients.ActiveDirectory": "3.13.4",
+    "Microsoft.IdentityModel.Clients.ActiveDirectory": "3.13.5",
     "Microsoft.NETCore.App": {
       "type": "platform",
       "version": "1.0.0"
     },
-    "System.Runtime.Serialization.Xml": "4.3.0-preview1-24528-02"
+    "System.Runtime.Serialization.Xml": "4.3.0-preview1-24528-03"
   },
 
   "frameworks": {
