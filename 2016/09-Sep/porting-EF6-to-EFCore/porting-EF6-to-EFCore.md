@@ -22,14 +22,14 @@ The recommended approach is to run the seeding code within a service scope in `S
 using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
 {
        var context = serviceScope.ServiceProvider.GetService<MyContext>();       
-       if (context.Database.EnsureCreated())
-       {
-           context.SeedData();
-       }
+       context.Database.Migrate();
+       context.SeedData();
  }
 ```
 You can find [here](https://github.com/rowanmiller/UnicornStore/blob/master/UnicornStore/src/UnicornStore/Startup.cs#L66) an example of database initialization that uses migrations.
 The [MusicStore](https://github.com/aspnet/MusicStore) sample also uses this pattern for seeding.
+
+Please note that, in general, it is recommended to apply these operations manually (rather than performing migrations and seeding automatically on startup), to avoid racing conditions when there are multiple servers, and unintentional changes.
 
 Custom Conventions
 ------------------
@@ -46,98 +46,13 @@ public class IdentifierConvention : IStoreModelConvention<EdmProperty>
     }
 }
 ```
-EF Core does not provide the `IStoreModelConvention` interface; however, we can create this convention by accessing internal services (extending lower level components in EF Core). In the following example we implement a model validator which checks for very long table and column names:
-```C#
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore.Storage;
-
-public class MyValidator : RelationalModelValidator
-{
-    const int MAX_TABLE_NAME = 30;
-    const int MAX_COLUMN_NAME = 30;
-    public MyValidator(
-        ILogger<RelationalModelValidator> loggerFactory,
-        IRelationalAnnotationProvider relationalExtensions,
-        IRelationalTypeMapper typeMapper)
-        : base(loggerFactory, relationalExtensions, typeMapper)
-    { }
-
-    public override void Validate(IModel model)
-    {
-        base.Validate(model);
-
-        var longTables = model.GetEntityTypes()
-            .Where(e => e.Relational().TableName.Length > MAX_TABLE_NAME)
-            .ToList();
-
-        if (longTables.Any())
-        {
-            throw new NotSupportedException(
-                $"The following types are mapped to table names that exceed {MAX_TABLE_NAME} characters; "
-                + string.Join(", ", longTables.Select(e => $"{e.ClrType.Name} ({e.Relational().TableName})")));
-        }
-
-        var longColumns = model.GetEntityTypes()
-            .SelectMany(e => e.GetProperties())
-            .Where(p => p.Relational().ColumnName.Length > MAX_COLUMN_NAME)
-            .ToList();
-
-        if (longColumns.Any())
-        {
-            throw new NotSupportedException(
-                $"The following properties are mapped to column names that exceed {MAX_COLUMN_NAME} characters; "
-                + string.Join(", ", longColumns.Select(p => $"{p.DeclaringEntityType.Name}.{p.Name} ({p.Relational().ColumnName})")));
-        }
-    }
-}
-```
-Registering and using the ModelValidator created here is explained later in this article.
+EF Core does not provide the `IStoreModelConvention` interface; however, we can create this convention by performing some queries over the data model and applying some changes inside the OnModelCreating() method.
 
 Interceptors
 ------------
 Entity Framework 6 provides the ability to intercept a context using `IDbCommandInterceptor`. Interceptors let you to get into the pipeline just before and just after a query or command is sent to the database.
-Entity Framework Core doesn’t have any interceptors yet. The functionality can be achieved by accessing internal services, in a similar way as the example described above for the model validator.
-The following example implements `IEntityStateListener` to modify an entity just before it is added to the database:
-```C#
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
-public class StateListener : IEntityStateListener
-{
-    public void StateChanging(InternalEntityEntry entry, EntityState newState)
-    {
-        if (newState == EntityState.Added)
-        {
-            //modify entry.Entity here
-        }
-    }
+Entity Framework Core doesn’t have any interceptors yet. The functionality can be achieved by overriding SaveChanges().
 
-    public void StateChanged(InternalEntityEntry entry, EntityState oldState, bool skipInitialFixup, bool fromQuery)
-    {
-
-    }
-}
-```
-To use the StateListener and the ModelValidator in your context, create a ServiceProvider and use it in OptionsBuilder:
-```C#
-using Microsoft.Extensions.DependencyInjection;
-public class MyContext : DbContext
-{
-    private static readonly IServiceProvider _serviceProvider
-   = new ServiceCollection()
-       .AddEntityFrameworkSqlServer()
-       .AddSingleton<IEntityStateListener>(new StateListener())
-       .AddScoped<RelationalModelValidator, MyValidator>()
-       .BuildServiceProvider();
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-   => optionsBuilder
-       .UseInternalServiceProvider(_serviceProvider)
-       .UseSqlServer(@"Server = (localdb)\mssqllocaldb;Database=MyDb;Trusted_Connection=True;");
-```
-Notes
------
-The APIs for accessing internal services may change in the future releases, and there is a risk that the application will break when updated to a new version of Entity Framework Core. The approaches described above should not be considered as long-term solutions, but as workarounds until we have a first class way of achieving the functionality.
 
 Interceptors and seeding are high on the feature backlog and the Entity Framework team plans to address them in the near future.
 
