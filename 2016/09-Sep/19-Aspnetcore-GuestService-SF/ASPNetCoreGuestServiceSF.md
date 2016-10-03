@@ -29,7 +29,7 @@ In order to deploy a guest service, we need to get all the required binaries to 
 ##Publish .NETCoreApp Service to Folder ##
 Right-click the .NET Core project and click **Publish**.
 
-Create a Custom publish target and name it **Account**.
+Create a Custom publish target and name it appropriately to describe the final published service. I am deploying an account-management service and naming it **Account**. 
 
 ![](1.jpg)
 
