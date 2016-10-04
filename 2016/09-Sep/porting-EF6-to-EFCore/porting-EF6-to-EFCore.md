@@ -46,26 +46,50 @@ public class IdentifierConvention : IStoreModelConvention<EdmProperty>
     }
 }
 ```
-EF Core does not provide the `IStoreModelConvention` interface; however, we can create this convention by performing some queries over the data model and applying some changes inside the OnModelCreating() method.
+EF Core does not provide the `IStoreModelConvention` interface; however, we can create this convention by accessing the data model inside the OnModelCreating() method:
+```C#
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+    {
+        foreach (var property in entityType.GetProperties())
+        {
+            var columnName = property.SqlServer().ColumnName;
+            if (columnName.Length > 30)
+            {
+                throw new InvalidOperationException("Column name is greater than 30 characters - " + columnName);
+            }
+        }
+    }
+}
+```
+Note that the model is not read-only and it can be modified inside the loop.
 
 Interceptors
 ------------
 Entity Framework 6 provides the ability to intercept a context using `IDbCommandInterceptor`. Interceptors let you to get into the pipeline just before and just after a query or command is sent to the database.
 Entity Framework Core doesn’t have any interceptors yet. Similar functionality can be achieved by overriding DbContext.SaveChanges(), such as in the following example:
 ```C#
-public override int SaveChanges()
+public override int SaveChanges(bool acceptAllChangesOnSuccess)
 {
-    var selectedEntityList = ChangeTracker.Entries()
-                           .Where(x => x.State == EntityState.Added);
+    ChangeTracker.DetectChanges();
 
-    foreach (var entry in selectedEntityList)
+    foreach (var entry in ChangeTracker.Entries().Where(e => e.State == EntityState.Added))
     {
-	         // modify entry.Entity here
+        //modify entry.Entity here
     }
 
-    return base.SaveChanges();
+    ChangeTracker.AutoDetectChangesEnabled = false;
+    var result = base.SaveChanges(acceptAllChangesOnSuccess);
+    ChangeTracker.AutoDetectChangesEnabled = true;
+
+    return result;
 }
 ```
+Some notes on the example above:
+* The call to `ChangeTracker.DetectChanges()` is to ensure that the change tracker is aware of the changes made to the entities, e.g. if you set .Category to a new Category on an existing Product, the new Category wouldn’t be tracked until `DetectChanges()` is called or it’s added explicitly through DbSet or ChangeTracker.
+* Setting `AutoDetectChangesEnabled` to false before calling the base `SaveChanges` is for performance reasons, to avoid calling `DetectChanges()` again.
+
 
 Interceptors and seeding are high on the feature backlog and the Entity Framework team plans to address them in the near future.
 
