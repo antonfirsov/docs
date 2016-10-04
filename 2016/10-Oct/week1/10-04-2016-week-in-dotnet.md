@@ -52,6 +52,15 @@ User group meeting of the week: Real World Examples of Azure Functions in Seattl
 
 [.netda](http://www.meetup.com/NET-Developers-Association-Westside/) is hosting a meeting tonight at 7:00PM on [Real World Examples of Azure Functions](http://www.meetup.com/NET-Developers-Association-Westside/events/234174442/).
 
+Game of the week: Hand of Fate
+------------------------------
+
+[Hand of Fate](http://www.defiantdev.com/hof1.html) is a cross between action, RPG and deck building game play. Challenge the Dealer, a mysterious game master, while you battle your way beyond the thirteen gates at the end of the world. In Hand of Fate, you must make strategic decisions when building your deck and see the consequences of those decisions play out in the traditional RPG/action combat style. Hand of Fate features unique deck building mechanics, hundreds of encounters, items, armor, weapons and mysteries. 
+
+![hof_screen_combat11](https://cloud.githubusercontent.com/assets/4108756/19081035/becf5a74-8a0d-11e6-91f0-61dd5ab58b19.png)
+
+[Hand of Fate](http://armello.com/) was created by [Defiant Development](http://www.defiantdev.com/) using [Unity](https://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is available on Xbox One, PlayStation 4 and Windows, Mac and Linux on [Steam](http://store.steampowered.com/app/266510/).
+
 .NET
 ----
 
@@ -111,6 +120,15 @@ Azure
 -----
 
 * [Azure Functions in practice](https://www.troyhunt.com/azure-functions-in-practice/) by Troy Hunt.
+
+Gaming
+------
+
+* [[Unity] Creating a 2D Platformer (E13. max slopes)](https://www.youtube.com/watch?v=1i1hTLU6JTY) by Sebastian Lague
+* [Unity - 2D Movement (Part 3B) - Jump : Standard Jump](https://www.youtube.com/watch?v=Kvje4xqB258) by Pixel Make
+* [Unity - 2D Movement (Part 4A) - Shoot : Spawn Bullet](https://www.youtube.com/watch?v=xc2jsbYIXjY) by Pixel Make
+* [Curated #UnityTips No. 15 by DevDog October 2016](http://devdog.io/blog/2016/10/11-best-unity-tips-for-game-developers-15) by DevDog
+* [[Unity 5] Tutorial: How to make a climbing system like in Assassins Creed in Unity - part 9](https://www.youtube.com/watch?v=qOdNKxUe__o&feature=youtu.be) by Gamad
 
 And this is it for this week!
 
