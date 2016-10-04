@@ -51,8 +51,21 @@ EF Core does not provide the `IStoreModelConvention` interface; however, we can 
 Interceptors
 ------------
 Entity Framework 6 provides the ability to intercept a context using `IDbCommandInterceptor`. Interceptors let you to get into the pipeline just before and just after a query or command is sent to the database.
-Entity Framework Core doesn’t have any interceptors yet. The functionality can be achieved by overriding SaveChanges().
+Entity Framework Core doesn’t have any interceptors yet. Similar functionality can be achieved by overriding DbContext.SaveChanges(), such as in the following example:
+```C#
+public override int SaveChanges()
+{
+    var selectedEntityList = ChangeTracker.Entries()
+                           .Where(x => x.State == EntityState.Added);
 
+    foreach (var entry in selectedEntityList)
+    {
+	         // modify entry.Entity here
+    }
+
+    return base.SaveChanges();
+}
+```
 
 Interceptors and seeding are high on the feature backlog and the Entity Framework team plans to address them in the near future.
 
