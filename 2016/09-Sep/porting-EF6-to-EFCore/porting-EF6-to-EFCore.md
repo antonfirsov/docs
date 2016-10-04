@@ -23,10 +23,10 @@ using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceSco
 {
        var context = serviceScope.ServiceProvider.GetService<MyContext>();       
        context.Database.Migrate();
-       context.SeedData();
+       context.EnsureSeedData();
  }
 ```
-You can find [here](https://github.com/rowanmiller/UnicornStore/blob/master/UnicornStore/src/UnicornStore/Startup.cs#L66) an example of database initialization that uses migrations.
+You can find [here](https://github.com/rowanmiller/UnicornStore/blob/master/UnicornStore/src/UnicornStore/Startup.cs#L66) an example of database initialization that uses migrations, along with an implementation example of [EnsureSeedData()] (https://github.com/rowanmiller/UnicornStore/blob/master/UnicornStore/src/UnicornStore/Models/UnicornStore/UnicornStoreExtensions.cs) method.
 The [MusicStore](https://github.com/aspnet/MusicStore) sample also uses this pattern for seeding.
 
 Please note that, in general, it is recommended to apply these operations manually (rather than performing migrations and seeding automatically on startup), to avoid racing conditions when there are multiple servers, and unintentional changes.
