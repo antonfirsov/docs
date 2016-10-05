@@ -22,14 +22,14 @@ The recommended approach is to run the seeding code within a service scope in `S
 using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
 {
        var context = serviceScope.ServiceProvider.GetService<MyContext>();       
-       if (context.Database.EnsureCreated())
-       {
-           context.SeedData();
-       }
+       context.Database.Migrate();
+       context.EnsureSeedData();
  }
 ```
-You can find [here](https://github.com/rowanmiller/UnicornStore/blob/master/UnicornStore/src/UnicornStore/Startup.cs#L66) an example of database initialization that uses migrations.
+You can find [here](https://github.com/rowanmiller/UnicornStore/blob/master/UnicornStore/src/UnicornStore/Startup.cs#L66) an example of database initialization that uses migrations, along with an implementation example of [EnsureSeedData()] (https://github.com/rowanmiller/UnicornStore/blob/master/UnicornStore/src/UnicornStore/Models/UnicornStore/UnicornStoreExtensions.cs) method.
 The [MusicStore](https://github.com/aspnet/MusicStore) sample also uses this pattern for seeding.
+
+Please note that, in general, it is recommended to apply these operations manually (rather than performing migrations and seeding automatically on startup), to avoid racing conditions when there are multiple servers, and unintentional changes.
 
 Custom Conventions
 ------------------
@@ -46,98 +46,51 @@ public class IdentifierConvention : IStoreModelConvention<EdmProperty>
     }
 }
 ```
-EF Core does not provide the `IStoreModelConvention` interface; however, we can create this convention by accessing internal services (extending lower level components in EF Core). In the following example we implement a model validator which checks for very long table and column names:
+EF Core does not provide the `IStoreModelConvention` interface; however, we can create this convention by accessing the data model inside the OnModelCreating() method:
 ```C#
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore.Storage;
-
-public class MyValidator : RelationalModelValidator
+protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
-    const int MAX_TABLE_NAME = 30;
-    const int MAX_COLUMN_NAME = 30;
-    public MyValidator(
-        ILogger<RelationalModelValidator> loggerFactory,
-        IRelationalAnnotationProvider relationalExtensions,
-        IRelationalTypeMapper typeMapper)
-        : base(loggerFactory, relationalExtensions, typeMapper)
-    { }
-
-    public override void Validate(IModel model)
+    foreach (var entityType in modelBuilder.Model.GetEntityTypes())
     {
-        base.Validate(model);
-
-        var longTables = model.GetEntityTypes()
-            .Where(e => e.Relational().TableName.Length > MAX_TABLE_NAME)
-            .ToList();
-
-        if (longTables.Any())
+        foreach (var property in entityType.GetProperties())
         {
-            throw new NotSupportedException(
-                $"The following types are mapped to table names that exceed {MAX_TABLE_NAME} characters; "
-                + string.Join(", ", longTables.Select(e => $"{e.ClrType.Name} ({e.Relational().TableName})")));
-        }
-
-        var longColumns = model.GetEntityTypes()
-            .SelectMany(e => e.GetProperties())
-            .Where(p => p.Relational().ColumnName.Length > MAX_COLUMN_NAME)
-            .ToList();
-
-        if (longColumns.Any())
-        {
-            throw new NotSupportedException(
-                $"The following properties are mapped to column names that exceed {MAX_COLUMN_NAME} characters; "
-                + string.Join(", ", longColumns.Select(p => $"{p.DeclaringEntityType.Name}.{p.Name} ({p.Relational().ColumnName})")));
+            var columnName = property.SqlServer().ColumnName;
+            if (columnName.Length > 30)
+            {
+                throw new InvalidOperationException("Column name is greater than 30 characters - " + columnName);
+            }
         }
     }
 }
 ```
-Registering and using the ModelValidator created here is explained later in this article.
+Note that the model is not read-only and it can be modified inside the loop.
 
 Interceptors
 ------------
-Entity Framework 6 provides the ability to intercept a context using `IDbCommandInterceptor`. Interceptors let you to get into the pipeline just before and just after a query or command is sent to the database.
-Entity Framework Core doesn’t have any interceptors yet. The functionality can be achieved by accessing internal services, in a similar way as the example described above for the model validator.
-The following example implements `IEntityStateListener` to modify an entity just before it is added to the database:
+Among other useful things, Entity Framework 6 provides the ability to intercept a context using `IDbCommandInterceptor`. Interceptors let you to get into the pipeline just before and just after a query or command is sent to the database.
+
+Entity Framework Core doesn’t have any interceptors yet, but an important subset of the functionality of the interceptors can be achieved by using simple patterns, such as overriding `DbContext.SaveChanges`:
 ```C#
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
-public class StateListener : IEntityStateListener
+public override int SaveChanges(bool acceptAllChangesOnSuccess)
 {
-    public void StateChanging(InternalEntityEntry entry, EntityState newState)
+    ChangeTracker.DetectChanges();
+
+    foreach (var entry in ChangeTracker.Entries().Where(e => e.State == EntityState.Added))
     {
-        if (newState == EntityState.Added)
-        {
-            //modify entry.Entity here
-        }
+        //modify entry.Entity here
     }
 
-    public void StateChanged(InternalEntityEntry entry, EntityState oldState, bool skipInitialFixup, bool fromQuery)
-    {
+    ChangeTracker.AutoDetectChangesEnabled = false;
+    var result = base.SaveChanges(acceptAllChangesOnSuccess);
+    ChangeTracker.AutoDetectChangesEnabled = true;
 
-    }
+    return result;
 }
 ```
-To use the StateListener and the ModelValidator in your context, create a ServiceProvider and use it in OptionsBuilder:
-```C#
-using Microsoft.Extensions.DependencyInjection;
-public class MyContext : DbContext
-{
-    private static readonly IServiceProvider _serviceProvider
-   = new ServiceCollection()
-       .AddEntityFrameworkSqlServer()
-       .AddSingleton<IEntityStateListener>(new StateListener())
-       .AddScoped<RelationalModelValidator, MyValidator>()
-       .BuildServiceProvider();
+Some notes on the example above:
+* The call to `ChangeTracker.DetectChanges()` is to ensure that the change tracker is aware of the changes made to the entities, e.g. if you set .Category to a new Category on an existing Product, the new Category wouldn’t be tracked until `DetectChanges()` is called or it’s added explicitly through DbSet or ChangeTracker.
+* Setting `AutoDetectChangesEnabled` to false before calling the base `SaveChanges` is for performance reasons, to avoid calling `DetectChanges()` again.
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-   => optionsBuilder
-       .UseInternalServiceProvider(_serviceProvider)
-       .UseSqlServer(@"Server = (localdb)\mssqllocaldb;Database=MyDb;Trusted_Connection=True;");
-```
-Notes
------
-The APIs for accessing internal services may change in the future releases, and there is a risk that the application will break when updated to a new version of Entity Framework Core. The approaches described above should not be considered as long-term solutions, but as workarounds until we have a first class way of achieving the functionality.
 
 Interceptors and seeding are high on the feature backlog and the Entity Framework team plans to address them in the near future.
 
