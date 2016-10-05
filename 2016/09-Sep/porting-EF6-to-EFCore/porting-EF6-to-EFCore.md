@@ -67,8 +67,9 @@ Note that the model is not read-only and it can be modified inside the loop.
 
 Interceptors
 ------------
-Entity Framework 6 provides the ability to intercept a context using `IDbCommandInterceptor`. Interceptors let you to get into the pipeline just before and just after a query or command is sent to the database.
-Entity Framework Core doesn’t have any interceptors yet. Similar functionality can be achieved by overriding DbContext.SaveChanges(), such as in the following example:
+Among other useful things, Entity Framework 6 provides the ability to intercept a context using `IDbCommandInterceptor`. Interceptors let you to get into the pipeline just before and just after a query or command is sent to the database.
+
+Entity Framework Core doesn’t have any interceptors yet, but an important subset of the functionality of the interceptors can be achieved by using simple patterns, such as overriding `DbContext.SaveChanges`:
 ```C#
 public override int SaveChanges(bool acceptAllChangesOnSuccess)
 {
