@@ -17,7 +17,3 @@ WIth the new model, there will no longer be indivual KB's available on Windows U
 Even though the Security and Quality Rollup is a single installation, it is possible after the update has been applied to remove the rollup for a particular version of the .NET Framework. For example, if you installed the Security and Quality Rollup and you have .NET Framework 3.5 and 4.6.2 installed, you can uninstall the .NET Framework 3.5 Security and Quality Rollup, leaving the .NET Framework 4.6.2 Security and Quality Rollup on your computer. This can be done by removing the Security and Quality Rollup that appears in Add Remove Programs (ARP) as a KB:
 
 [IMG]
-
-## How to tell what is included
-
-To align with this, we will have a master 
