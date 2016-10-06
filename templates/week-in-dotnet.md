@@ -10,7 +10,7 @@ Last week, [xx was on the show](xx):
 
 <iframe src="xx" width="560" height="315" allowFullScreen frameBorder="0"></iframe>
 
-This week, we'll speak with [xx](xx) from [xx](xx) about [xx](xx) and .NET. The show begins at 10AM Pacific Time [on Channel 9](https://channel9.msdn.com/Shows/On-NET). We'll take questions on Gitter, on [the dotnet/home channel](https://gitter.im/dotnet/home). Please use the `#onnet` tag. It's OK to start sending us questions in advance if you can't do it live during the show.
+This week, we'll speak with [xx](xx) from [xx](xx) about [xx](xx) and .NET. The show is on Thursdays and begins at 10AM Pacific Time [on Channel 9](https://channel9.msdn.com/Shows/On-NET). We'll take questions on Gitter, on [the dotnet/home channel](https://gitter.im/dotnet/home). Please use the `#onnet` tag. It's OK to start sending us questions in advance if you can't do it live during the show.
 
 Package of the week: xx
 ----------------------------------
