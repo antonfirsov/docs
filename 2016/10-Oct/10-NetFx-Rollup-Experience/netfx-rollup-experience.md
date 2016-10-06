@@ -4,7 +4,7 @@ We [recently introduced](https://blogs.msdn.microsoft.com/dotnet/2016/08/15/intr
 
 ## The Three Rollup Types
 
-There are three rollup types that may be available throughout the month. Not every month will yield a monthly rollup nor will every rollup apply to all supported versions of the .NET Framework. 
+There are three rollup types that may be available throughout the month. Not every month will yield a monthly rollup nor will every rollup apply to all supported versions of the .NET Framework.
 
 ### Security and Quality Rollup
 As you may recall, the Security and Quality Rollup is a cumulative set of updates for all [supported](https://support.microsoft.com/en-us/gp/framework_faq/en-us) (and applicable) versions of the .NET Framework.  The Security and Quality Rollup will supersede the previous rollup, making it easy to catch up if you have missed any. They will never install a different version of the .NET Framework than what is currently on your computer. 
