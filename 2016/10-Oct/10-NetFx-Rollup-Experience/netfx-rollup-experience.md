@@ -1,23 +1,61 @@
-# .NET Framework Security and Quality Rollup - October 2016
+# .NET Framework Monthly Rollup
 
-We [recently introduced](https://blogs.msdn.microsoft.com/dotnet/2016/08/15/introducing-the-net-framework-monthly-rollup/) the .NET Framework Security and Quality Rollup, a simplified way for you to obtain all quality and security updates. The first release of the Security and Quality Rollup and Security-Only Update is now available and the details of what is included in the release are [below](xxx). We have also gotten a few questions around the new model and we thought the answers would be helpful for everyone.  
+We recently introduced the [.NET Framework Monthly Rollup](https://blogs.msdn.microsoft.com/dotnet/2016/08/15/introducing-the-net-framework-monthly-rollup/). It's a new and easier way for you to install all applicable .NET Framework updates in a single step. 
 
-## Update Types
+This post describes the three monthly updates types that you can install. It shows you what the install process looks like. Last, it addresses some common questions that we have heard since introducing the new model.
 
-There are three rollup types that may be available throughout the month. Not every month will yield a monthly rollup nor will every rollup apply to all supported versions of the .NET Framework.
+The introduction of these new monthly releases aligns with a similar set of [monthly Windows releases](https://blogs.technet.microsoft.com/windowsitpro/2016/10/07/more-on-windows-7-and-windows-8-1-servicing-changes/) that you can also learn more about.
+
+## Monthly Releases
+
+There are three kinds of release that you can choose from. You can read the descriptions below to help you pick the best one for your situation.
 
 ### Security and Quality Rollup
-The Security and Quality Rollup is a cumulative set of updates for all [supported](https://support.microsoft.com/en-us/gp/framework_faq/en-us) (and applicable) versions of the .NET Framework.  The Security and Quality Rollup will contain the updates from all the previous rollups, making it easy to catch up if you have missed any. They will never install a different version of the .NET Framework than what is currently on your computer.
+The Security and Quality Rollup is recommended for consumer and developer machines. It includes both security  and quality improvements. It is cumulative, meaning that it contains all of the updates from previous rollups, making it easy to catch up if you have missed any of the previous updates. Security and Quality Rollup release will be made available on Windows Update and Windows Update Catalog.
+
+- When?: Second Tuesday of the month (Patch Tuesday).
+- Where?: Windows Update, Microsoft Update Catalog.
+- Cumulative: Yes.
+- Contents: Security and/or quality improvements.
 
 ### Security-Only Update
-For those who prefer to take only the security updates, you can download the Security Only Update on Windows Server Update Services and Microsoft Update Catalog. It's important to note that the Security Only Update will not contain the updates from the previous Security Only Update or be those included in the Security and Quality Rollup. This enables you to fine-tune the security updates that are applied. If you have installed the current Monthly Rollup you are up to date and do not need to install the Security-Only Update.
+The Security-Only Update is recommended for production machines. It contains only security updates and only updates for that month. This enables you to fine-tune the security updates that are applied. If you have installed the Security and Quality Rollup for the month, then you are up to date and do not need to install the Security-Only Update. The Security-Only Update will be made available on Windows Server Update Services and Microsoft Update Catalog. 
 
-### Quality Preview Rollup
-Lastly, you will be able to download an optional preview of upcoming .NET Framework quality changes that are scheduled to be included in the next .NET Framework Monthly Rollup. The Quality Preview Rollup will be available on Windows Update, Windows Server Update Services and Microsoft Update Catalog typically on the third Tuesday of the month. The Quality Preview Rollup will always replace previous Quality Preview Rollups and will be replaced by future Security and Quality Rollups.
+- When?: Second Tuesday of the month (Patch Tuesday).
+- Where?: Windows Server Update Services, Microsoft Update Catalog.
+- Cumulative: No.
+- Contents: Security improvements.
+
+### Quality Rollup
+The Quality Rollup is recommended for large businesses that want to use and/or preview quality improvements as soon as they become available. These same quality improvements will typically be included in the following Security and Quality Rollup, approxiately three weeks later. The Quality Rollup will be made available on Windows Update, Windows Server Update Services and Microsoft Update Catalog.
+
+- When?: Third Tuesday of the Month (one week after Patch Tuesday).
+- Where?: Windows Update, Windows Server Update Services and Microsoft Update Catalog.
+- Cumulative: Yes.
+- Contents: Quality improvements.
+
+## More Information
+
+The following information answers common questions.
+
+### Supported Versions
+
+These new releases apply to [supported .NET Framework versions](https://support.microsoft.com/en-us/gp/framework_faq/en-us). This means that you need to install a supported version of the .NET Framework to get these updates. At the time of writing, the supports versions are:
+
+- .NET Framework 3.5 SP1
+- .NET Framework 4.5.2 or later
+
+## Cadence
+
+We intend to ship updates monthly, however, we will only release updates if we have made changes. Also, some changes only apply to a subset of .NET Framework versions and/or Windows versions. You can always check this blog to see if an update has been released.
+
+## Updating to a later .NET Framework
+
+These updates include patch-level changes. They will not change the .NET Framework that is currently installed on your computer. For example, if you have .NET Framework 4.5.2, you will still have .NET Framework 4.5.2 after installing one of these updates. If you want to upgrade to a later .NET Framework version, you must install it manually.
 
 ## Installation
 
-With the new model, there will no longer be individual updates for each .NET Framework version available on Windows Update, Windows Server Update Services or Microsoft Update Catalog. Instead, you will see a single item for each operating system:
+You will see a single item for each operating system:
  
 ![qualitysecurity](qualitysecurityrollup.png)
 *Available Security and Quality Rollup on Windows Server 2008 SP2*
@@ -29,8 +67,3 @@ Even though the Security and Quality Rollup appears as a single installation, it
 
 ![securityOnlyARP](SecurityOnlyARP.png)
 *Installed Security-Only Update on WIndows Server 2008 SP2*
-
-## October 2016 Release Notes
-The following is a list of updates included in the .NET Framework Security and Quality Rollup and Security-Only Update. This month's Security and Quality Rollup contains all past hotfixes for .NET Framework 4.5.x and 4.6.x. It does not contain all past hotfixes for .NET Framework 3.5 as those will be introduced naturally if/when new changes are necessary for those components. Additional information can be found on the Knowledge Base [article](https://technet.microsoft.com/library/security/ms16-120). 
-
-* TODO: Add when provided 
