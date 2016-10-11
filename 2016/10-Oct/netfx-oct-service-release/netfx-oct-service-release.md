@@ -10,7 +10,17 @@ This update resolves vulnerabilities in Microsoft Windows, Microsoft Office, Sky
 
 ## Quality
 
-This release contains all limited distribution release (LDR) updates that have been shipped to date.
+This release contains all of the quality updates shipped to date for the .NET Framework 4.x. These updates provides important reliability improvements, based on customer-reported issues. These updates have previously been called limited distribution release (LDR) updates, if you are more familiar with that term.
+
+The release does not contain quality updates for the .NET Framework 3.5. Future releases will contain these updates. 
 
 # How to download the update
-The .NET Framework Security and Quality Rollup is available on Windows Update, Windows Server Update Services and Microsoft Update Catalog. The Security only Update are available on Windows Server Update Services and Microsoft Update Catalog.  
+
+The product improvements are available in [two flavors](https://blogs.msdn.microsoft.com/dotnet/2016/10/11/net-framework-monthly-rollups-explained/):
+
+- Security and Quality Rollup (recommended for most users)
+- Security-Only Update
+
+The .NET Framework Security and Quality Rollup is available on Windows Update, Windows Server Update Services and Microsoft Update Catalog. 
+
+The Security-Only Update is available on Windows Server Update Services and Microsoft Update Catalog.  
