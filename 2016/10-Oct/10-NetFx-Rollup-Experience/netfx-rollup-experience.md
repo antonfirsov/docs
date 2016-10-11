@@ -1,6 +1,6 @@
-# .NET Framework Monthly Rollup
+# .NET Framework Monthly Rollups Explained
 
-We recently introduced the [.NET Framework Monthly Rollup](https://blogs.msdn.microsoft.com/dotnet/2016/08/15/introducing-the-net-framework-monthly-rollup/), a new and simplier way for you to install all applicable .NET Framework updates in a single step. 
+We recently introduced the [.NET Framework Monthly Rollup](https://blogs.msdn.microsoft.com/dotnet/2016/08/15/introducing-the-net-framework-monthly-rollup/), a new and simpler way for you to install all applicable .NET Framework updates in a single step. We wanted to go into more depth on these new releases.
 
 This post describes the three monthly update types that you can install. It shows you what the install process looks like and addresses some common questions that we have heard since introducing the new model.
 
@@ -26,7 +26,7 @@ The Security-Only Update is recommended for production machines. It contains onl
 - Contents: Security improvements.
 
 ### Quality Rollup
-The Quality Rollup is recommended for large businesses that want to use and/or preview quality improvements as soon as they become available. These same quality improvements will typically be included in the following Security and Quality Rollup, approxiately three weeks later. The Quality Rollup will be made available on Windows Update, Windows Server Update Services and Microsoft Update Catalog. 
+The Quality Rollup is recommended for large businesses that want to use and/or preview quality improvements as soon as they become available. These same quality improvements will typically be included in the following Security and Quality Rollup, approximately three weeks later. The Quality Rollup will be made available on Windows Update, Windows Server Update Services and Microsoft Update Catalog. 
 
 - When: Typically the Third Tuesday of the Month (one week after Patch Tuesday).
 - Where: Windows Update, Windows Server Update Services and Microsoft Update Catalog.
@@ -37,9 +37,10 @@ The Quality Rollup is recommended for large businesses that want to use and/or p
 
 The following information answers common questions.
 
-### Supersedence
+### Including Past Updates
+The Security and Quality Rollup and Quality Rollup will contain all of the past updates for .NET Framework 4.5.x and 4.6.x.
 
-The Security and Quality Rollup and Quality Rollup will contain all of the past updates for .NET Framework 4.5.x and 4.6.x that were released prior to this new model. They will not contain all past updates for .NET Framework 3.5 as those will be introduced naturally if/when new changes are necessary for those components. 
+The rollups will not contain all past updates for .NET Framework 3.5 at first. The remainder of past .NET Framework 3.5 updates will be included over time. We will notify you on our blog when the monthly rollups include all of the past .NET Framework 3.5 updates. 
 
 ### Supported .NET Framework Versions
 
@@ -66,12 +67,26 @@ These updates include patch-level changes. They will not upgrade the .NET Framew
 You will see a single item for each operating system:
  
 ![qualitysecurity](qualitysecurityrollup.png)
-*Available Security and Quality Rollup on Windows Server 2008 SP2*
+*Security and Quality Rollup on Windows Server 2008 SP2*
 
 ![securityOnly](securityonlyupdate.png)
-*Available Security-Only Update on Windows Server 2008 SP2*
+*Security-Only Update on Windows Server 2008 SP2*
 
-Even though the Security and Quality Rollup appears as a single installation, it is possible to remove the rollup or security-only update for a specific version of the .NET Framework after the update has been applied. For example, if you installed the Security and Quality Rollup and you have .NET Framework 3.5 and 4.5.2 installed, you can uninstall the .NET Framework 3.5 Security and Quality Rollup, leaving only the .NET Framework 4.5.2 Security and Quality Rollup on your computer. This can be done by removing the Security and Quality Rollup that appears in Add or Remove Programs (ARP):
+We’ve been asked a lot about the uninstall experience for these releases. The Security and Quality Rollup above appears as a single installation. It is possible to remove the release for a specific version of the .NET Framework after the update has been applied.
+
+For example, if you installed the Security and Quality Rollup and you have .NET Framework 3.5 and 4.5.2 installed, you can uninstall the .NET Framework 3.5 Security and Quality Rollup, leaving only the .NET Framework 4.5.2 Security and Quality Rollup on your computer. You can do the opposite, too.
+
+In the image below, you can see that the version-specific updates are displayed in the “Uninstall Updates” dialog in Add or Remote Programs:
 
 ![securityOnlyARP](SecurityOnlyARP.png)
 *Installed Security-Only Update on WIndows Server 2008 SP2*
+
+# Closing
+
+You now have a simpler way to stay current with the latest updates to the .NET Framework. There are three releases to choose from, a Security and Quality Rollup for most users and Security-Only and Quality-Only releases for those who want more control and an opportunity to preview changes before they are released more broadly.
+
+For most users, you’ll get the latest changes in Windows Update each month, which isn’t much different than the experience today. Some of you will need to do a bit more planning on moving to the Security-Only and/or Quality-Only releases.
+
+This new model is aligned with a similar set of Windows changes. On Windows 10, the .NET Framework changes are included in the Windows updates.
+
+We’d like to hear feedback on how these release work for you and how you are approaching them in your environment. We’ll post the specific updates on the blog so that you know what we’ve released and if they are applicable to your environment.
