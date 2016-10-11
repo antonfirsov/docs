@@ -1,5 +1,5 @@
-The week in .NET - On .NET on Net Standard 2.0 - Nancy
-======================================================
+The week in .NET - On .NET on Net Standard 2.0 - Nancy - Satellite Reign
+========================================================================
 
 To read last week's post, see [The week in .NET – On .NET on Cecil – NAudio – SpeechCentral – Hand of Fate](https://blogs.msdn.microsoft.com/dotnet/2016/10/04/the-week-in-net-on-net-on-cecil-naudio-speechcentral-hand-of-fate/).
 
@@ -29,14 +29,19 @@ public class Module : NancyModule
 }
 ```
 
-Game of the week: xx
------------------------------------
+Game of the week: Satellite Reign
+---------------------------------
 
+[Satellite Reign](https://madewith.unity.com/games/satellite-reign) is a real-time strategy game set in a cyberpunk city. Command a group of four agents, using them to sneak, steal, kill and sabotage to complete your missions. Satellite Reign features an open world, multiple strategies for completing missions and agent customization that allows you to play with your style. You can enjoy single player or multiplayer co-op play, where each person controls an individual agent. 
+
+![screenshot](https://cloud.githubusercontent.com/assets/4108756/19274294/824ecf22-8f84-11e6-8978-14f76519e300.jpg)
+
+[Satellite Reign](https://madewith.unity.com/games/satellite-reign) was created by [5 Lives Studios](http://www.5livesstudios.com/) using [Unity](https://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is available on Windows, Mac OS and Linux on [Steam](http://store.steampowered.com/app/268870/) and [Good Old Games](https://www.gog.com/game/satellite_reign).
 
 User group meeting of the week: The new .NET universe in Berkeley, CA, with Beth Massi
 ------------------------------------------------
 
-On Friday, October 13 at 6:45 in Berkeley, the [EastBay.NET group](http://www.meetup.com/BayNET/) invites you to [a presentation of the new .NET landscape](http://www.meetup.com/BayNET/events/234653169/) given by Beth Massi.
+On Friday, October 13 at 6:45 in Berkeley, the [EastBay.NET group](http://www.meetup.com/BayNET/) invites you to [a presentation of the new .NET landscape](http://www.meetup.com/BayNET/events/234653169/) given by [Beth Massi](https://twitter.com/BethMassi).
 
 .NET
 ----
@@ -91,8 +96,10 @@ Xamarin
 Games
 -----
 
-* [xx](xx) by xx.
-
+* [Unity 5 Tutorial: How to make a climbing system like in Assassins Creed in Unity - part 10 (video)](https://www.youtube.com/watch?v=O-sE2mZpaXU) by Gamad.
+* [Unity - 2D Movement (Part 5) - Building Tank Prefab (video)](https://www.youtube.com/watch?v=uvMLNkk9SeA) by Pixel Make
+* [Beginning C# with Unity: Part 14: Foreach Loops (video)](https://videos.raywenderlich.com/courses/beginning-c/lessons/14) by Brian Moakley.
+* [7.1 Unity Tower defense tutorial - Spawn position (video)](https://www.youtube.com/watch?v=c43OJOBjaL0&feature=youtu.be) by inScope Studios.
 
 And this is it for this week!
 
