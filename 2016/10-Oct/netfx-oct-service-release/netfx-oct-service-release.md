@@ -10,14 +10,7 @@ This update resolves vulnerabilities in Microsoft Windows, Microsoft Office, Sky
 
 ## Quality
 
-This release contains all limited distribution release (LDR) updates that have been shipped to date. This update provides important reliability improvements in the following .NET Framework components, among others: 
-
-1. Common Language Runtime (CLR)
-2. Windows Forms
-3. Windows Presentation Foundation (WPF)
-4. Windows Communication Foundation (WCF)
-5. ASP.NET
-
+This release contains all limited distribution release (LDR) updates that have been shipped to date.
 
 # How to download the update
-The .NET Framework 
+The .NET Framework Security and Quality Rollup is available on Windows Update, Windows Server Update Services and Microsoft Update Catalog. The Security only Update are available on Windows Server Update Services and Microsoft Update Catalog.  
