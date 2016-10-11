@@ -7,10 +7,10 @@ This post describes the three monthly update types that you can install. It show
 The introduction of these new monthly releases aligns with a similar set of [monthly Windows releases](https://blogs.technet.microsoft.com/windowsitpro/2016/10/07/more-on-windows-7-and-windows-8-1-servicing-changes/) that you can also learn more about.
 
 ## Monthly Releases
-There are three kinds of updates that you can choose from. You can read the descriptions below to help you pick the best one for your situation.
+There are three kinds of updates that you can choose from. You can read the descriptions below to help you pick the best one for your situation. 
 
 ### Security and Quality Rollup
-The Security and Quality Rollup  is recommended for consumer and developer machines. It includes both security and quality improvements and is cumulative, meaning that it contains all of the updates from previous rollups. This makes it easy to catch up if you have missed any of the previous updates. The Security and Quality Rollup update will be made available on Windows Update and Windows Update Catalog.
+The Security and Quality Rollup  is recommended for consumer and developer machines. It includes both security and quality improvements and is cumulative, meaning that it contains all of the updates from previous rollups. This makes it easy to catch up if you have missed any of the previous updates. The Security and Quality Rollup update will be made available on Windows Update and Windows Update Catalog. 
 
 - When: Second Tuesday of the month (Patch Tuesday).
 - Where: Windows Update, Windows Server Update Services and Microsoft Update Catalog.
@@ -26,7 +26,7 @@ The Security-Only Update is recommended for production machines. It contains onl
 - Contents: Security improvements.
 
 ### Quality Rollup
-The Quality Rollup is recommended for large businesses that want to use and/or preview quality improvements as soon as they become available. These same quality improvements will typically be included in the following Security and Quality Rollup, approxiately three weeks later. The Quality Rollup will be made available on Windows Update, Windows Server Update Services and Microsoft Update Catalog.
+The Quality Rollup is recommended for large businesses that want to use and/or preview quality improvements as soon as they become available. These same quality improvements will typically be included in the following Security and Quality Rollup, approxiately three weeks later. The Quality Rollup will be made available on Windows Update, Windows Server Update Services and Microsoft Update Catalog. 
 
 - When: Typically the Third Tuesday of the Month (one week after Patch Tuesday).
 - Where: Windows Update, Windows Server Update Services and Microsoft Update Catalog.
@@ -37,12 +37,21 @@ The Quality Rollup is recommended for large businesses that want to use and/or p
 
 The following information answers common questions.
 
-### Supported Versions
+### Supersedence
+
+The Security and Quality Rollup and Quality Rollup will contain all of the past updates for .NET Framework 4.5.x and 4.6.x that were released prior to this new model. They will not contain all past updates for .NET Framework 3.5 as those will be introduced naturally if/when new changes are necessary for those components. 
+
+### Supported .NET Framework Versions
 
 These new releases apply to [supported .NET Framework versions](https://support.microsoft.com/en-us/gp/framework_faq/en-us). This means that you need to install a supported version of the .NET Framework to get these updates. At the time of writing, the supported versions are:
 
 - .NET Framework 3.5 SP1
 - .NET Framework 4.5.2 or later
+
+### Supported OS Versions
+These new releases apply to Windows Vista SP2, Windows 7 SP1, Windows 8.1, Windows Server 2008 SP2, Windows Server 2008 R2, Windows Server 2012 and Windows Server 2012 R2. 
+
+On Windows 10, these same .NET Framework security and quality updates are included in [Monthly Windows Updates](https://technet.microsoft.com/en-us/itpro/windows/plan/windows-10-servicing-options#the-windows-servicing-model).
 
 ## Cadence
 
@@ -50,7 +59,7 @@ We intend to ship updates monthly, however, we will only release updates if we h
 
 ## Updating to a later .NET Framework
 
-These updates include patch-level changes. They will not upgrade the .NET Framework that is currently installed on your computer to a newer version. For example, if you have .NET Framework 4.5.2 but do not have 4.6.2, you will still not have .NET Framework 4.6.2 after installing one of these updates. If you want to upgrade to a later .NET Framework version, you must install it manually.
+These updates include patch-level changes. They will not upgrade the .NET Framework that is currently installed on your computer to a newer version. For example, if you have .NET Framework 4.5.2 but do not have 4.6.2, you will still not have .NET Framework 4.6.2 after installing one of these updates. If you want to upgrade to a later .NET Framework version, you must install it separately.
 
 ## Installation
 
