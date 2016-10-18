@@ -1,5 +1,5 @@
-The week in .NET - xx/xx/xx
-============================
+The week in .NET - Bond - The Gallery
+=====================================
 
 To read last week's post, see [The week in .NET – On .NET on Net Standard 2.0 – Nancy – Satellite Reign](https://blogs.msdn.microsoft.com/dotnet/2016/10/11/the-week-in-net-on-net-on-net-standard-2-0-nancy-satellite-reign/).
 
@@ -11,7 +11,7 @@ We didn't have a show last week, but we're back this week with Rowan Miller to c
 Package of the week: Bond
 -------------------------
 
-[Bond](https://microsoft.github.io/bond/manual/bond_cs.html) is a battle-tested binary serialization format and library, similar to [Google's Protocol Buffer](https://developers.google.com/protocol-buffers/docs/csharptutorial). Bond works on Linux, OSX, and Windows, and supports C++, C#, and Python.
+[Bond](https://microsoft.github.io/bond/manual/bond_cs.html) is a battle-tested binary serialization format and library, similar to [Google's Protocol Buffer](https://developers.google.com/protocol-buffers/docs/csharptutorial). Bond works on Linux, macOS, and Windows, and supports C++, C#, and Python.
 
 To work with Bond, you start by defining your schema using an [IDL](http://www.ibm.com/developerworks/webservices/library/co-corbajct3.html)-like specification.
 
@@ -52,6 +52,15 @@ var dst = Deserialize<Record>.From(reader);
 ```
 
 Bond also offers deep cloning and comparison for objects of compatible types defined from Bond specifications.
+
+Game of the Week: The Gallery - Episode 1: Call of the Starseed
+---------------------------------------------------------------
+
+[The Gallery - Episode 1: Call of the Starseed](https://madewith.unity.com/games/the-gallery-episode-1-call-of-the-starseed) is a four part episodic fantasy adventure game designed for virtual reality. Meet mysterious and bizarre characters while you follow clues in search for your missing sister, Elsie. The Gallery - Episode 1: Call of the Starseed features full-room scale VR with interactions that will have you sitting, standing, crouching and crawling around.   
+
+![screenshot4](https://cloud.githubusercontent.com/assets/4108756/19486227/94b65a70-9512-11e6-862e-0ad0def1154e.png)
+
+[The Gallery - Episode 1: Call of the Starseed](https://madewith.unity.com/games/the-gallery-episode-1-call-of-the-starseed) was created by [Cloudhead Games](http://cloudheadgames.com/cloudhead/) using [Unity](https://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is available for the HTC Vive on [Steam](http://store.steampowered.com/app/270130/) and will be available in December on Oculus Home for the Oculus Touch.
 
 Conference of the week: .NET DeveloperDays October 20-21 in Warsaw
 ------------------------------------------------------------------
@@ -118,6 +127,13 @@ Azure
 * [ASP.NET Core 1.0 - Configure Application Insights](http://www.codeproject.com/Tips/1139662/ASP-NET-Core-Configure-Application-Insights) by Joao Sousa.
 * [App Service Mobile Apps .NET Client SDK 3.0.1 release](https://azure.microsoft.com/en-us/blog/app-service-mobile-apps-net-client-sdk-3-0-1-release/) by Mimi Xu.
 * [Sending a Regular SMS with Azure Functions and Twilio](http://dontcodetired.com/blog/post/Sending-a-Regular-SMS-with-Azure-Functions-and-Twilio) by Jason Roberts.
+
+Games
+-----
+
+* [Curated #UnityTips No. 17 by DevDog October 2016](http://devdog.io/blog/2016/10/9-best-unity-tips-for-game-developers-17) by DevDog.
+* [Unity 5 Tutorial: How to debug raycasts (video)](https://www.youtube.com/watch?v=Lm-e9cNumbk) by Gamad.
+* [Using InputFields with C# Unity 5.4 (video)](https://www.youtube.com/watch?v=k_XB7caZI08) by Learn To Be Indie.
 
 And this is it for this week!
 
