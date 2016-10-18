@@ -146,7 +146,7 @@ You can participate too. Did you write a great blog post, or just read one? Do y
 We'd love to hear from you, and feature your contributions on future posts:
 
 * Send an email to beleroy at Microsoft,
-* [comment on this gist](xx)
+* [comment on this gist](https://gist.github.com/bleroy/b02472119a737e70da8e81e6d5947f8c)
 * Leave us a pointer in the comments section below.
 * [Send Stacey (@yecats131) tips on Twitter about .NET games](https://twitter.com/yecats131).
 
