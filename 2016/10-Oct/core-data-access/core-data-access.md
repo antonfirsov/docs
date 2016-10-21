@@ -29,7 +29,23 @@ using (var db = new BloggingContext())
 Dapper
 ------
 
-[.NET Core support is in beta](https://blogs.msdn.microsoft.com/dotnet/2016/10/19/net-core-tooling-in-visual-studio-15).
+Dapper is a micro-ORM built and maintained by StackExchange engineers. It focuses on performance, and can map the results of a query to a strongly-typed list, or to dynamic objects. [.NET Core support is currently in beta](https://blogs.msdn.microsoft.com/dotnet/2016/10/19/net-core-tooling-in-visual-studio-15).
+
+```csharp
+var sql = @"
+select * from Customers where CustomerId = @id
+select * from Orders where CustomerId = @id";
+
+using (var multi = connection.QueryMultiple(sql, new {id=selectedId}))
+{
+   var customer = multi.Read<Customer>().Single();
+   var orders = multi.Read<Order>().ToList();
+   // ...
+} ```
+
+SQL Server
+----------
+
 
 MongoDB
 -------
@@ -45,6 +61,32 @@ var customers = database.GetCollection<Person>("customer").AsQueryable();
 var query = from c in customers
             where c.Age > 21
             select c;
+```
+
+RavenDB
+-------
+
+[RavenDB](https://ravendb.net/) is a document database that is not only compatible with .NET Core, it's also built with it.
+
+```csharp
+using (IDocumentStore store = new DocumentStore
+{
+	Url = "http://localhost:8080/",
+	DefaultDatabase = "Northwind"
+})
+{
+	store.Initialize();
+
+	using (IDocumentSession session = store.OpenSession())
+	{
+        IList<Product> results = session
+            .Query<Product>()
+            .Where(x => x.UnitsInStock > 10)
+            .Skip(5)
+            .Take(10)
+            .ToList();
+    }
+}
 ```
 
 CouchDB
