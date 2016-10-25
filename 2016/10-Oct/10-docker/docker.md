@@ -1,27 +1,33 @@
 .NET and Docker
 ===============
 
-Many people I talk to these days are either using Docker actively or planning their adoption of containers in their environment. Containers and containerization are an important trend in our industry and .NET is part of that. Microsoft and Docker have been working together so that you'll have a great experience using Docker with .NET apps. The Windows team recently released Windows Server 2016 and updates to Windows 10 that enable Windows containers. You can now use the .NET Framework with Windows containers and .NET Core with both Windows and Linux containers. That gives you a lot of choice in the way you build and containerize your .NET applications.
+Many people I talk to are either using Docker actively or planning to adopt containers in their environment. Containers and containerization are an important trend in our industry and .NET is now part of that. Microsoft and Docker have been working together so that you'll have a great experience using Docker with .NET apps.
+
+The Docker ecosystem has targeted Linux. You can use .NET Core with Debian Linux images, with a similar workflow and set of supported scenarios as other development platforms.
+
+The Windows team recently released Windows Server 2016 and updates to Windows 10 that enable Windows containers. You can now use the both .NET Core and .NET Framework with Windows containers. 
+
+These options give you a lot of choice in the way you build and containerize your .NET applications. This post describes some of those options and provides information on how to get started, even if you are completely new to Docker.
 
 Why Containers?
 ---------------
 
-There are multiple reasons why developers have been moving to containers to model, package and distribute their applications.
+There are multiple reasons why developers have been moving to containers to model, build, package, test and distribute their applications.
 
 - **Consistent:** Containers include the application and all of its dependencies. The application executes the same code, regardless of computer, environment or cloud.
-- **Lightweight:** Containers start instantly and use minimal amount of RAM by using a minimal abstraction over the operating system and sharing common resources across containers.
+- **Lightweight:** Containers start instantly and use a minimal amount of RAM by using a minimal abstraction over the operating system and sharing common resources across containers.
 - **Sharing:** Containers are easy to share via DockerHub, Docker Store and/or private Docker registries.
 
-There plenty of other reasons why containers are catching on. The ones listed above are the key ones. 
+There are plenty of other reasons why containers are catching on. The ones listed above are the key ones. 
 
-On the .NET Team, we realized that we needed to add test coverage for containers. Instead of "testing the container scenario", we decided to move significant parts of our engineering infrastructure to containers to get these same benefits. This approach provides us the double benefit of providing high confidence on running .NET in containers and making our overall process more efficient.
+As an example on the .NET Team, we realized that we needed to add test coverage for containers. Instead of "testing the container scenario", we decided to move significant parts of our engineering infrastructure to containers to get the same benefits listed above. This approach has provided us with the double benefit of developing high confidence on running .NET in containers and making our overall process more efficient.
 
 Scenarios for .NET Applications
 -------------------------------
 
 The most obvious scenario for using Docker and .NET applications is for production deployment and hosting. This is true and it works great. It turns out that production is just one of the scenarios and the other ones are equally useful. These scenario are not really specific to .NET, but apply to most developer platforms.
 
-- **Try out .NET** -- You can try out .NET without installing anything on your machine.
+- **Low friction install** -- You can try out .NET without installing anything on your machine.
 - **Develop in a container** -- You can develop in a consistent environment, making development and production environments very similar (avoiding issues like global state on developer machines).
 - **Test in a container** -- You can test in a containers, reducing failures due to incorrectly configured environments.
 - **Build in a container** -- You can build code in a container, avoiding the need to correctly configure shared build machines for multiple environments but instead move to a "BYOC" (Bring your own container) approach.
@@ -30,11 +36,11 @@ The most obvious scenario for using Docker and .NET applications is for producti
 How to get Started
 ------------------
 
-You can get started using .NET docker containers right now, on Windows, macOS or Linux. First, you need a Docker client. The best place to get that is [Docker.com](https://www.docker.com/products/docker). If you are Windows, we currently recommend the [Beta channel](https://docs.docker.com/docker-for-windows/) build since it supports both Windows and Linux VMs. That functionality will eventually be available in the stable channel build.
+You can get started using .NET docker containers right now, on Windows, macOS or Linux. First, you need a Docker client. The best place to get that is [Docker.com](https://www.docker.com/products/docker). If you are Windows, we currently recommend the [Beta channel](https://docs.docker.com/docker-for-windows/) build since it supports both Windows and Linux containers. That functionality will eventually be available in the stable channel build.
 
-If you are new to Docker, I recommend that you check out the [Get Started with Docker](https://docs.docker.com/engine/getstarted/) section in the Docker documentation. That's where I started. It's Linux specific, but it's pretty general and you can use it on Windows (with Linux containers), macOS or Windows.
+If you are new to Docker, I recommend that you check out the [Get Started with Docker](https://docs.docker.com/engine/getstarted/) section in the Docker documentation. That's where I started. It's Linux specific, but it's pretty general and you can use it on Windows (with Linux containers), macOS or Linux.
 
-If you've got that handled or decided to skip it, then you can look at the .NET with Docker samples that a few of us created. I'm a big fan of the [Docker Whalesay](https://docs.docker.com/engine/getstarted/step_three/) image, so decided to create something very similar. We already had a [dotnet-bot](https://github.com/dotnet-bot) sample that did almost the same thing, so only needed to package it up as a Docker image.
+Once you have basic knowledge of Docker, then should take a look at the .NET with Docker samples that a few of us created. I'm a big fan of the [Docker Whalesay](https://docs.docker.com/engine/getstarted/step_three/) image, so decided to create something very similar. We already had a [dotnet-bot](https://github.com/dotnet-bot) sample that did almost the same thing, so only needed to package it up as a Docker image.
 
 We went one step further with the dotnet-bot image. Instead of packaging it up as a single "hello world" image, we created multiple variants of it to demontrate the scenarios that I listed above. You may want to replicate all of these scenarios and now you have a base to start from. We have two variants of the images, for [.NET Framework](https://github.com/microsoft/dotnet-framework-docker-samples) and [.NET Core](https://github.com/dotnet/dotnet-docker-samples). There are key differences the two platforms, which require different images.
 
