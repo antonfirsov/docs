@@ -72,7 +72,7 @@ dotnet run
 
 You can take a look at the [dotnetapp-preview][dotnetapp-preview] sample to try a .NET Core 1.1 Preview 1 application, with our without Docker.
 
-### Upgrading Existing Project
+### Upgrading Existing .NET Core 1.0 Projects
 
 You can upgrade existing .NET Core projects from using .NET Core 1.0 to .NET Core 1.1 Preview 1. I will show you the new project.json file that the updated `dotnet new` now produces. It's the best way to see the new version values that you need to copy/paste into your existing project.json files. There are no automated tools to upgrade projects to later .NET Core versions.
 
@@ -107,7 +107,44 @@ You can use the following substitutions to help you update project.json files th
 - Update the `netcoreapp1.0` target framework to `netcoreapp1.1`.
 - Update the `Microsoft.NETCore.App` package version from 1.0.x (for example, `1.0.0` or `1.0.1`) to `1.1.0-preview1-001100-00`. 
 
-You can also just write `1.1.0-preview1` as a short-hand, skipping the build-specific information. It works and enables you to more easily move forward with .NET Core 1.1 nightly builds if you adopt those. You will want to change the metapackage version to `1.1.0` when .NET Core 1.1 ships as a stable release. The target framework version will not change. It is set for the lifetime of .NET Core 1.1.
+You can also just write `1.1.0-preview1-*` as a short-hand, skipping the build-specific information. It works and enables you to more easily move forward with .NET Core 1.1 nightly builds if you adopt those. You will want to change the metapackage version to `1.1.0` when .NET Core 1.1 ships as a stable release. The target framework version will not change. It is set for the lifetime of .NET Core 1.1.
+
+### Upgrading Existing .NET Standard Projects
+
+.NET Standard projects can also be updated, to use [.NET Standard 1.6 Preview 1](https://www.nuget.org/packages/NETStandard.Library/1.6.1-preview1-24530-04). Unlike, .NET Core, targeting a newer .NET Standard version isn't expected to give you a change in behavior, only new APIs.  
+
+It's useful to try out a new .NET Standard version to try out new APIs, but there is no reason to move to a later .NET Standard version unless you need to use those new APIs. Moving to a later .NET Standard version results in dropping support for older operating system versions, so it is best to use the earliest .NET Standard version you can make due with, resulting in greater breadth for your library.
+
+I will show you the new project.json file that the `dotnet new -t lib` now produces.
+The default .NET Standard 1.1 Preview 1 project.json file follows:
+
+```json
+{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "debugType": "portable"
+  },
+  "dependencies": {},
+  "frameworks": {
+    "netstandard1.6": {
+      "dependencies": {
+        "NETStandard.Library": "1.6.1-preview1-24530-04"
+      }
+    }
+  }
+}
+```
+
+<script src="https://gist.github.com/richlander/bbc5bff1782f7d5d9c7f848567637bd2.js"></script>
+
+This project.json file is very similar to the project.json that the .NET Core 1.0 tools product, with the exception of the `netstandard1.6` and `1.6.1-preview1-24530-04` target framework and meta-package version strings, respectively. 
+
+You can use the following substitutions to help you update project.json files that you want to move temporarily or permanently to .NET Core 1.1.
+
+- Update the `netcoreapp1.x` (for example, `netstandard1.4`) target framework to `netstandard1.6`.
+- Update the `NETStandard.Library` package version from 1.x (for example, 1.5) to `1.6.1-preview1-24530-04`. 
+
+You can also just write `1.6.1-preview1-*` as a short-hand, skipping the build-specific information. It works and enables you to more easily move forward with .NET Core 1.1 nightly builds if you adopt those. You will want to change the metapackage version to `1.6.1` when .NET Standard 1.6.1 ships as a stable release. The target framework version will not change. It is set for the lifetime of .NET Core 1.1.
 
 ### Upgrading to .NET Core 1.1 Preview 1 Docker Images
 
