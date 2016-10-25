@@ -1,7 +1,16 @@
-The week in .NET - On .NET on EF Core 1.1 - FluentValidation - Reverse: Time Collapse 
+The week in .NET - .NET, ASP.NET, EF Core 1.1 Preview 1 - On .NET on EF Core 1.1 - Changelog - FluentValidation - Reverse: Time Collapse 
 ==================================================================
 
 To read last week's post, see [The week in .NET – Bond – The Gallery](https://blogs.msdn.microsoft.com/dotnet/2016/10/18/the-week-in-net-bond-the-gallery/).
+
+Preview 1 of .NET Core 1.1, ASP.NET Core 1.1, and EF Core 1.1 announced
+-----------------------------------------------------------------------
+
+Preview 1 versions of [.NET Core 1.1](https://blogs.msdn.microsoft.com/dotnet/2016/10/25/announcing-net-core-1-1-preview-1/), [ASP.NET Core 1.1](https://blogs.msdn.microsoft.com/webdev/2016/10/25/announcing-asp-net-core-1-1-preview-1/), and [Entity Framework Core 1.1](https://blogs.msdn.microsoft.com/dotnet/2016/10/25/announcing-entity-framework-core-1-1-preview-1/) were released today. Check out the blog posts to discover the new features!
+
+* [Announcing .NET Core 1.1 Preview 1](https://blogs.msdn.microsoft.com/dotnet/2016/10/25/announcing-net-core-1-1-preview-1/) by Rich Lander.
+* [Announcing ASP.NET Core 1.1 Preview 1](https://blogs.msdn.microsoft.com/webdev/2016/10/25/announcing-asp-net-core-1-1-preview-1/) by Jeffrey T. Fritz.
+* [Announcing Entity Framework Core 1.1 Preview 1](https://blogs.msdn.microsoft.com/dotnet/2016/10/25/announcing-entity-framework-core-1-1-preview-1/) by Rowan Miller.
 
 On .NET
 -------
@@ -15,7 +24,7 @@ This week, we'll speak with [Martin Woodward](https://twitter.com/martinwoodward
 The Changelog podcast
 ---------------------
 
-I hope you will forgive me for the self-promotion, but I had the chance to be [interviewed on the Changelog podcast](https://changelog.com/podcast/224) and you might want to check it out.
+I hope you will forgive me for the self-promotion... I had the chance to be [interviewed on the Changelog podcast](https://changelog.com/podcast/224) and you might want to check it out.
 
 Package of the week: FluentValidation
 -------------------------------------
@@ -35,7 +44,7 @@ public class CustomerValidator: AbstractValidator<Customer> {
   }
 
   private bool BeAValidPostcode(string postcode) {
-    // custom postcode validating logic goes here
+    // custom postcode validation logic goes here
   }
 }
 
@@ -81,6 +90,7 @@ Rick's been blogging for as long as I can remember, and his posts are always ver
 * [Multiple optimizations passes with case insensitive routing](https://ayende.com/blog/175841/multiple-optimizations-passes-with-case-insensitive-routing) by Ayende Rahien.
 * [Introducing NATSConsumer and .NET Core support](http://danielwertheim.se/introducing-natsconsumer-and-net-core-support/) by Daniel Wertheim.
 * [Interception in .NET – Part 3: Static Interception](https://weblogs.asp.net/ricardoperes/interception-in-net-part-3-static-interception) by Ricardo Peres.
+* [.NET Core Microservices using GeekseatBus](https://weltam.wordpress.com/2016/10/22/net-core-microservices-using-geekseatbus/) by Welly Tambunan.
 
 ASP.NET
 -------
