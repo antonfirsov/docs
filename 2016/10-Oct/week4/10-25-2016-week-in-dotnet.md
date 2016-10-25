@@ -6,16 +6,21 @@ To read last week's post, see [The week in .NET – Bond – The Gallery](https:
 On .NET
 -------
 
-Last week, [Rowan Miller was on the show](https://channel9.msdn.com/Shows/On-NET/Rowan-Miller-Entity-Framework-Core-11):
+Last week, Rowan Miller was on the show to talk about [Entity Framework Core 1.1](https://channel9.msdn.com/Shows/On-NET/Rowan-Miller-Entity-Framework-Core-11):
 
 <iframe src="https://channel9.msdn.com/Shows/On-NET/Rowan-Miller-Entity-Framework-Core-11/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
 This week, we'll speak with [Martin Woodward](https://twitter.com/martinwoodward) about [the .NET Foundation](https://www.dotnetfoundation.org/). The show is on Thursdays and begins at 10AM Pacific Time [on Channel 9](https://channel9.msdn.com/Shows/On-NET). We'll take questions on Gitter, on [the dotnet/home channel](https://gitter.im/dotnet/home) and on Twitter. Please use the `#onnet` tag. It's OK to start sending us questions in advance if you can't do it live during the show.
 
+The Changelog podcast
+---------------------
+
+I hope you will forgive me for the self-promotion, but I had the chance to be [interviewed on the Changelog podcast](https://changelog.com/podcast/224) and you might want to check it out.
+
 Package of the week: FluentValidation
 -------------------------------------
 
-[FluentValidation](https://github.com/JeremySkinner/fluentvalidation) is a lightweight validation library that uses a fluent interface and Lambda expressions for building validation rules. It's written by [Jeremy Skinner](http://www.jeremyskinner.co.uk/) and is compatible with NetStandard 1.0.
+[FluentValidation](https://github.com/JeremySkinner/fluentvalidation) is a lightweight validation library that uses a fluent interface and Lambda expressions for building validation rules. It's written by [Jeremy Skinner](http://www.jeremyskinner.co.uk/) and is compatible with .NET Standard 1.0.
 
 ```csharp
 using FluentValidation;
