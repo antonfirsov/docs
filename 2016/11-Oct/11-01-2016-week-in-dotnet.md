@@ -10,7 +10,7 @@ Last week, [Martin Woodward was on the show to talk about the .NET Foundation](h
 
 <iframe src="https://channel9.msdn.com/Shows/On-NET/Martin-Woodward-NET-Foundation/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
-This week, we'll speak with [xx](xx) from [xx](xx) about [xx](xx) and .NET. The show is on Thursdays and begins at 10AM Pacific Time [on Channel 9](https://channel9.msdn.com/Shows/On-NET). We'll take questions on Gitter, on [the dotnet/home channel](https://gitter.im/dotnet/home) and on Twitter. Please use the `#onnet` tag. It's OK to start sending us questions in advance if you can't do it live during the show.
+This week, we'll speak with Mei-Chin Tsai and Jan Kotas about [CoreRT and .NET Native](https://msdn.microsoft.com/en-us/library/dn807190(v=vs.110).aspx) and .NET. The show is on Thursdays and begins at 10AM Pacific Time [on Channel 9](https://channel9.msdn.com/Shows/On-NET). We'll take questions on Gitter, on [the dotnet/home channel](https://gitter.im/dotnet/home) and on Twitter. Please use the `#onnet` tag. It's OK to start sending us questions in advance if you can't do it live during the show.
 
 Package of the week: Serilog
 ----------------------------------
