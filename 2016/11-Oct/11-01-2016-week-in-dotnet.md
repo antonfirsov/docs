@@ -1,5 +1,5 @@
-The week in .NET - .NET Foundation - Serilog
-============================================
+The week in .NET - .NET Foundation - Serilog - Super Dungeon Bros
+=================================================================
 
 To read last week's post, see [The week in .NET – .NET, ASP.NET, EF Core 1.1 Preview 1 – On .NET on EF Core 1.1 – Changelog – FluentValidation – Reverse: Time Collapse](https://blogs.msdn.microsoft.com/dotnet/2016/10/25/the-week-in-net-net-asp-net-ef-core-1-1-preview-1-on-net-on-ef-core-1-1-changelog-fluentvalidation-reverse-time-collapse/).
 
@@ -32,6 +32,15 @@ While messages can be formatted into text, Serilog uses named placeholders to ca
 Many of the Serilog [sinks](https://github.com/serilog/serilog/wiki/Provided-Sinks) accept data in structured formats like JSON, so searches like `Elapsed > 10` can be answered directly, without the need for regular expressions or log parsing.
 
 Serilog is built from the ground up for distributed logging, and comes with a rich set of features for grouping, enriching and correlating log events. The project is [open source and developed by a dedicated community](https://github.com/serilog/serilog) on GitHub.
+
+Game of the Week: Super Dungeon Bros
+------------------------------------
+
+[Super Dungeon Bros](https://madewith.unity.com/games/super-dungeon-bros) is a fast paced dungeon brawler where you can play with up to four friends. Complete quests from the Gods of Rock with heavy metal heroes Axl, Lars, Freddie and Ozzie (get it?). You and your friends must explore and fight your way through the deepest, darkest dungeons of Rökheim, searching for epic loot and the legends of fabled rock stars as you solve puzzles and destroy undead monsters. Super Dungeon Bros features cross-platform multiplayer, multiple worlds, randomly generated dungeons and a series of daily and weekly dungeon challenges.
+
+![screenshot](https://cloud.githubusercontent.com/assets/4108756/19894765/6517b896-a00b-11e6-91a8-6efbf0850645.jpg)
+
+[Super Dungeon Bros]( https://madewith.unity.com/games/super-dungeon-bros) is being developed by [React Games](http://www.reactgames.com/) using [Unity](https://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is available for Xbox One, PlayStation 4 and [Steam](http://store.steampowered.com/app/306000/).
 
 User group meeting of the week: Intro to Azure DocumentDB in Tallahassee, FL
 ----------------------------------------------------------------------------
@@ -92,6 +101,14 @@ Azure
 -----
 
 * [Announcing Azure Storage Client Library GA for Xamarin](https://azure.microsoft.com/en-us/blog/announcing-storage-client-library-ga-for-xamarin/) by Dinesh Murthy.
+
+Games
+-----
+
+* [Unite '16 Keynote (video)](https://www.youtube.com/watch?v=h5iBcVYluRs).
+* [Introducing Holographic Emulation (video)](https://blogs.unity3d.com/2016/10/28/introducing-holographic-emulation-2/) by Peter Freese.
+* [MonoGame Live #6 : XNA Sample Conversion, Localisation (video)](https://www.youtube.com/watch?v=mcafPXwG7Rg) by MonoGame.
+* [Unity - 2D Movement (part 6a) - Animation : Wheels](https://www.youtube.com/watch?v=BNFLhgw_H44) and [Unity - 2D Movement (Part 6b) - Animation : Tread (video)](https://www.youtube.com/watch?v=1m6y2UdTxdY) by Pixel Make.
 
 And this is it for this week!
 
