@@ -1,4 +1,4 @@
-.NET Core Data Access
+﻿.NET Core Data Access
 =====================
 
 .NET Core was released a few months ago, and data access libraries for most databases, both [relational](https://en.wikipedia.org/wiki/Relational_database) and [NoSQL](https://en.wikipedia.org/wiki/NoSQL) are now available. In this post, I'll detail what client libraries are available, as well as show code samples for each of them.
@@ -66,6 +66,28 @@ using (var connection = new SqlConnection("Server=tcp:YourServer,1433;Initial Ca
 
 MySQL
 -----
+
+[MySQL](https://www.mysql.com/) is one of the most commonly used relational databases on the market, and it's open source. [Support for .NET Core is now available](http://insidemysql.com/mysql-connector-net-for-net-core-1-0/), both through [EF Core](https://docs.efproject.net/en/latest/providers/mysql/index.html) and directly through [the MySQL Connector for .NET Core](https://www.nuget.org/packages/MySql.Data/).
+
+```csharp
+MySqlConnection connection = new MySqlConnection
+{
+    ConnectionString = "server=localhost;user id=root;password=******;persistsecurityinfo=True;port=3305;database=music"
+};
+connection.Open();
+MySqlCommand command = new MySqlCommand("SELECT * FROM music.category;", connection);
+
+using (MySqlDataReader reader =  command.ExecuteReader())
+{
+    while (reader.Read())
+    {
+        System.Console.WriteLine(
+            $"{reader["category_id"]}: {reader["name"]} {reader["last_update"]}");
+    }
+}
+
+connection.Close();
+```
 
 SQLLite
 -------
