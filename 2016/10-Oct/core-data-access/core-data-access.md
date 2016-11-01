@@ -64,6 +64,15 @@ using (var connection = new SqlConnection("Server=tcp:YourServer,1433;Initial Ca
 }
 ```
 
+MySQL
+-----
+
+SQLLite
+-------
+
+DB2
+---
+
 MongoDB
 -------
 
@@ -106,13 +115,20 @@ using (IDocumentStore store = new DocumentStore
 }
 ```
 
+Redis
+-----
+
+http://redis.io/
+https://github.com/StackExchange/StackExchange.Redis
+https://github.com/ServiceStack/ServiceStack.Redis
+
 CouchDB
 -------
 
 What about OLE DB?
 ------------------
 
-[OLE DB](https://msdn.microsoft.com/en-us/library/ms722784(v=vs.85).aspx) has been a great way to access various data sources in a uniform manner, but it was based on COM, which is a Windows-only technology, and as such was not the best fit for a cross-platform technology such as .NET Core. It is also unsupported in SQL Server versions 2014 and later.
+[OLE DB](https://msdn.microsoft.com/en-us/library/ms722784(v=vs.85).aspx) has been a great way to access various data sources in a uniform manner, but it was based on COM, which is a Windows-only technology, and as such was not the best fit for a cross-platform technology such as .NET Core. It is also unsupported in SQL Server versions 2014 and later. For those reasons, OLE DB won't be supported by .NET Core.
 
 Keeping track
 -------------
