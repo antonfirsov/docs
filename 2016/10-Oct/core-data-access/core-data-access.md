@@ -1,7 +1,7 @@
 .NET Core Data Access
 =====================
 
-.NET Core has been released a few months ago, and data access libraries for most databases, both [relational](https://en.wikipedia.org/wiki/Relational_database) and [NoSQL](https://en.wikipedia.org/wiki/NoSQL) is now available. In this post, I'll detail what client libraries are available, as well as show code samples.
+.NET Core has been released a few months ago, and data access libraries for most databases, both [relational](https://en.wikipedia.org/wiki/Relational_database) and [NoSQL](https://en.wikipedia.org/wiki/NoSQL) are now available. In this post, I'll detail what client libraries are here now, then I'll show code samples for each of them.
 
 EF Core
 -------
