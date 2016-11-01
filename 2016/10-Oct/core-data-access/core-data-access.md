@@ -1,7 +1,7 @@
 .NET Core Data Access
 =====================
 
-.NET Core has been released a few months ago, and data access libraries for most databases, both [relational](https://en.wikipedia.org/wiki/Relational_database) and [NoSQL](https://en.wikipedia.org/wiki/NoSQL) is now available. In this post, I'll detail what client libraries are available, as well as show code samples.
+.NET Core was released a few months ago, and data access libraries for most databases, both [relational](https://en.wikipedia.org/wiki/Relational_database) and [NoSQL](https://en.wikipedia.org/wiki/NoSQL) are now available. In this post, I'll detail what client libraries are available, as well as show code samples for each of them.
 
 EF Core
 -------
@@ -41,11 +41,28 @@ using (var multi = connection.QueryMultiple(sql, new {id=selectedId}))
    var customer = multi.Read<Customer>().Single();
    var orders = multi.Read<Order>().ToList();
    // ...
-} ```
+} 
+```
 
 SQL Server
 ----------
 
+The Microsoft SQL Server client library is built into .NET Core. You don't have to use an ORM, and can instead go directly to the metal and talk to a SQL Server instance or to an Azure SQL database using the same APIs from the `System.Data.SqlClient` package.
+
+```csharp
+using (var connection = new SqlConnection("Server=tcp:YourServer,1433;Initial Catalog=YourDatabase;Persist Security Info=True;"))
+{
+    var command = new SqlCommand("SELECT TOP 10 Id, Name, Price FROM Products ORDER BY Price", connection);
+    connection.Open();
+    using (var reader = command.ExecuteReader())
+    {
+        while (reader.Read())
+        {
+            Console.WriteLine($"{reader[0]}:{reader[1]} ${reader[2]}");
+        }
+    }
+}
+```
 
 MongoDB
 -------
