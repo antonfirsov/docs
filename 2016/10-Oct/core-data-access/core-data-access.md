@@ -70,27 +70,45 @@ MySQL
 [MySQL](https://www.mysql.com/) is one of the most commonly used relational databases on the market, and it's open source. [Support for .NET Core is now available](http://insidemysql.com/mysql-connector-net-for-net-core-1-0/), both through [EF Core](https://docs.efproject.net/en/latest/providers/mysql/index.html) and directly through [the MySQL Connector for .NET Core](https://www.nuget.org/packages/MySql.Data/).
 
 ```csharp
-MySqlConnection connection = new MySqlConnection
-{
-    ConnectionString = "server=localhost;user id=root;password=******;persistsecurityinfo=True;port=3305;database=music"
-};
-connection.Open();
-MySqlCommand command = new MySqlCommand("SELECT * FROM music.category;", connection);
-
-using (MySqlDataReader reader =  command.ExecuteReader())
-{
-    while (reader.Read())
+using (var connection = new MySqlConnection
     {
-        System.Console.WriteLine(
-            $"{reader["category_id"]}: {reader["name"]} {reader["last_update"]}");
+        ConnectionString = "server=localhost;user id=root;password=******;persistsecurityinfo=True;port=3305;database=music"
+    }) {
+    connection.Open();
+    var command = new MySqlCommand("SELECT * FROM music.category;", connection);
+
+    using (MySqlDataReader reader =  command.ExecuteReader())
+    {
+        while (reader.Read())
+        {
+            Console.WriteLine(
+                $"{reader["category_id"]}: {reader["name"]} {reader["last_update"]}");
+        }
     }
 }
-
-connection.Close();
 ```
 
-SQLLite
+SQLite
 -------
+
+[SQLite](http://sqlite.org/) is a self-contained, embedded relational database that is released in the public domain. SQLite is lightweight (less than 1MB), cross-platform, and is extremely easy to embed and deploy with an application, which explains how it quietly became the most widely deployed database in the world. It's commonly used as an application file format.
+
+You can use [SQLite with EF Core](https://docs.efproject.net/en/latest/providers/sqlite/index.html), or you can talk to a SQLite database directly using the [Microsoft.Data.Sqlite](https://github.com/aspnet/Microsoft.Data.Sqlite/releases) library that is maintained by the ASP.NET team.
+
+```csharp
+using (var connection = new SqliteConnection("Filename=" + path"))
+{
+    connection.Open();
+
+    using (var reader = connection.ExecuteReader("SELECT Name FROM Person;"))
+    {
+        while (reader.Read())
+        {
+            Console.WriteLine($"Hello {reader.GetString(0)}!"));
+        }
+    }
+}
+```
 
 DB2
 ---
@@ -119,14 +137,14 @@ RavenDB
 ```csharp
 using (IDocumentStore store = new DocumentStore
 {
-	Url = "http://localhost:8080/",
-	DefaultDatabase = "Northwind"
+    Url = "http://localhost:8080/",
+    DefaultDatabase = "Northwind"
 })
 {
-	store.Initialize();
+    store.Initialize();
 
-	using (IDocumentSession session = store.OpenSession())
-	{
+    using (IDocumentSession session = store.OpenSession())
+    {
         IList<Product> results = session
             .Query<Product>()
             .Where(x => x.UnitsInStock > 10)
