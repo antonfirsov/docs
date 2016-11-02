@@ -64,6 +64,31 @@ using (var connection = new SqlConnection("Server=tcp:YourServer,1433;Initial Ca
 }
 ```
 
+PostgreSQL
+----------
+
+[PostgreSQL](https://www.postgresql.org/) is an open source relational database with a devoted following. The [Npgsql client library supports .NET Core](http://www.npgsql.org/doc/coreclr.html).
+
+```csharp
+using (var conn = new NpgsqlConnection("Host=myserver;Username=mylogin;Password=******;Database=music"))
+{
+    conn.Open();
+    using (var cmd = new NpgsqlCommand())
+    {
+        cmd.Connection = conn;
+
+        cmd.CommandText = "SELECT name FROM artists";
+        using (var reader = cmd.ExecuteReader())
+        {
+            while (reader.Read())
+            {
+                Console.WriteLine(reader.GetString(0));
+            }
+        }
+    }
+}
+```
+
 MySQL
 -----
 
@@ -112,6 +137,9 @@ using (var connection = new SqliteConnection("Filename=" + path"))
 
 DB2
 ---
+
+Oracle
+------
 
 MongoDB
 -------
