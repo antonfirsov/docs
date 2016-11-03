@@ -138,9 +138,6 @@ using (var connection = new SqliteConnection("Filename=" + path"))
 DB2
 ---
 
-Oracle
-------
-
 MongoDB
 -------
 
@@ -189,6 +186,32 @@ Redis
 http://redis.io/
 https://github.com/StackExchange/StackExchange.Redis
 https://github.com/ServiceStack/ServiceStack.Redis
+
+Cassandra
+---------
+
+[Apache Cassandra](http://cassandra.apache.org/) is a highly scalable and fault-tolerant NoSQL database. [DataStax](https://www.nuget.org/packages/CassandraCSharpDriver/) is a C# driver for Cassandra with built-in support for mapping Cassandra data to CLR objects. The latest version is compatible with .NET Core.
+
+```csharp
+var cluster = Cluster.Builder()
+    .AddContactPoint("127.0.0.1")
+    .Build();
+using (var session = cluster.Connect())
+{
+    session.UserDefinedTypes.Define(
+      UdtMap.For<Address>()
+        .Map(a => a.Street, "street")
+        .Map(a => a.City, "city")
+        .Map(a => a.ZipCode, "zip_code")
+        .Map(a => a.Phones, "phones")
+    );
+    var query = new SimpleStatement("SELECT id, name, address FROM users where id = ?", userId);
+    var rs = await session.ExecuteAsync(query);
+    var row = rs.First();
+    var userAddress = row.GetValue<Address>("address");
+    Console.WriteLine("user lives on {0} Street", userAddress.Street);
+}
+```
 
 CouchDB
 -------
