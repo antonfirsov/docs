@@ -183,9 +183,28 @@ using (IDocumentStore store = new DocumentStore
 Redis
 -----
 
-http://redis.io/
-https://github.com/StackExchange/StackExchange.Redis
-https://github.com/ServiceStack/ServiceStack.Redis
+[Redis](http://redis.io/) is one of the most popular key-value stores.
+
+[StackExchange.Redis](https://www.nuget.org/packages/StackExchange.Redis/) is a high performance Redis client that is maintained by the [StackExchange](http://stackexchange.com/) team.
+
+```csharp
+var redis = ConnectionMultiplexer.Connect("localhost");
+var db = redis.GetDatabase();
+var value = await db.StringGetAsync("mykey");
+Console.WriteLine($"mykey: {value}");
+```
+
+[ServiceStack](https://servicestack.net/) has [its own Redis client library](https://www.nuget.org/packages/ServiceStack.Redis/), that is compatible with .NET Core, like the rest of ServiceStack.
+
+```csharp
+var clientsManager = container.Resolve<IRedisClientsManager>();
+using (IRedisClient redis = clientsManager.GetClient())
+{
+    var redisTodos = redis.As<Todo>();
+    var todo = redisTodos.GetById(1);
+    Console.WriteLine($"Need to {todo.Content}.");
+}
+```
 
 Cassandra
 ---------
@@ -212,6 +231,9 @@ using (var session = cluster.Connect())
     Console.WriteLine("user lives on {0} Street", userAddress.Street);
 }
 ```
+
+CouchBase
+---------
 
 CouchDB
 -------
