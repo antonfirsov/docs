@@ -140,6 +140,29 @@ DB2
 
 Pending... Waiting for additional info from IBM.
 
+Azure DocumentDB
+----------------
+
+[Azure DocumentDB](https://azure.microsoft.com/en-us/services/documentdb/) Azure DocumentDB is a fully managed NoSQL database service built for fast and predictable performance, high availability, automatic scaling, and ease of development. Its flexible data model, consistent low latencies, and rich query capabilities make it a great fit for web, mobile, gaming, IoT, and many other applications that need seamless scale. Read more in [the DocumentDB introduction](https://azure.microsoft.com/en-us/documentation/articles/documentdb-introduction/). DocumentDB databases can now be used as the data store for apps written for MongoDB. Using [existing drivers for MongoDB](https://docs.mongodb.org/ecosystem/drivers/), applications can easily and transparently communicate with DocumentDB, in many cases by simply changing a connection string. The next version of the DocumentDB client library, which will be available around [Connect](https://connectevent.microsoft.com/), supports .NET Core.
+
+```csharp
+using (var client = new DocumentClient(
+    new Uri("https://your-nosql-database.documents.azure.com:443/"),
+    "******"))
+{
+    var contentUri = UriFactory.CreateDocumentCollectionUri("cms", "content-items");
+    var home = client.CreateDocumentQuery<ContentItem>(contentUri)
+        .Where(item => item.Id == "home")
+        .AsEnumerable()
+        .FirstOrDefault();
+    if (home != null)
+    {
+        Console.WriteLine($"{home.Id}: {home.Title}");
+        Console.WriteLine(home.Body);
+    }
+}
+```
+
 MongoDB
 -------
 
@@ -228,9 +251,12 @@ using (var session = cluster.Connect())
     );
     var query = new SimpleStatement("SELECT id, name, address FROM users where id = ?", userId);
     var rs = await session.ExecuteAsync(query);
-    var row = rs.First();
-    var userAddress = row.GetValue<Address>("address");
-    Console.WriteLine("user lives on {0} Street", userAddress.Street);
+    var row = rs.FirstOrDefault();
+    if (row != null)
+    {
+        var userAddress = row.GetValue<Address>("address");
+        Console.WriteLine("user lives on {0} Street", userAddress.Street);
+    }
 }
 ```
 
@@ -250,6 +276,21 @@ using (var bucket = Cluster.OpenBucket())
 
 CouchDB
 -------
+
+[CouchDB](http://couchdb.apache.org/) is a document database that I personally like a lot for its simplicity. It can scale from small devices such as a Raspberry Pi to cloud applications. It uses a very simple HTTP and JSON-based API, which limits the need for a client library. [C# client libraries do exist](https://www.nuget.org/packages?q=couchdb), but none of them support .NET Core today as far as I can tell except for [Kanapa](https://github.com/l0nley/kanapa) which hasn't been updated for a while. It's very easy to interact with the database through its REST API nonetheless.
+
+```csharp
+var albumId = "b08825e2a0303f5352e4840e1300167f";
+var url = $"http://localhost:5984/music/{albumId}";
+var request = WebRequest.Create(url);
+using (var response = await request.GetResponseAsync() as HttpWebResponse)
+{
+    if (response.StatusCode != HttpStatusCode.OK) return;
+    var json = await new StreamReader(response.GetResponseStream()).ReadToEndAsync();
+    var album = JsonConvert.DeserializeObject<Album>(json);
+    Console.WriteLine($"{album.Title} by {album.Artist} is a {album.Category} album.");
+}
+```
 
 What about OLE DB?
 ------------------
