@@ -287,6 +287,38 @@ using (var response = await request.GetResponseAsync() as HttpWebResponse)
 }
 ```
 
+Lucene.NET
+----------
+
+Finally, I want to mention [Lucene.NET](https://lucenenet.apache.org/). It's not technically a database, but it's so useful in setting up full-text search on a data-driven project that a post on data access wouldn't be complete without it. The team has put a lot of work into the new version of Lucene to implement new features and major improvements, and they also made it compatible with .NET Core. It's still early, but [prerelease packages are already available](https://myget.org/feed/lucene-net/package/nuget/Lucene.Net).
+
+```csharp
+var indexSearcher = new DirectoryIndexSearcher(new DirectoryInfo(indexPath));
+using (var searchService = new SearchService(indexSearcher))
+{
+    var parser = new MultiFieldQueryParser(
+        Lucene.Net.Util.Version.LUCENE_48,
+        new[] { "Text" },
+        new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_48));
+
+    Query multiQuery = parser.Parse(QueryParser.Escape(query));
+
+    var result = searchService.SearchIndex(multiQuery);
+    return new SearchResults
+    {
+        Documents = result.Results
+        .Skip(PageSize*(page - 1))
+        .Take(PageSize)
+        .Select(d => new SearchResult {
+            Url = d.Get("Url"),
+            Title = d.Get("Title"),
+            Summary = d.Get("Summary")
+        }),
+        TotalCount = result.Results.Count()
+    };
+}
+```
+
 What about OLE DB?
 ------------------
 
