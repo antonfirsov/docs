@@ -29,7 +29,7 @@ using (var db = new BloggingContext())
 Dapper
 ------
 
-Dapper is a micro-ORM built and maintained by StackExchange engineers. It focuses on performance, and can map the results of a query to a strongly-typed list, or to dynamic objects. [.NET Core support is currently in beta](https://blogs.msdn.microsoft.com/dotnet/2016/10/19/net-core-tooling-in-visual-studio-15).
+[Dapper](https://github.com/StackExchange/dapper-dot-net) is a micro-ORM built and maintained by StackExchange engineers. It focuses on performance, and can map the results of a query to a strongly-typed list, or to dynamic objects. [.NET Core support is currently in beta](https://blogs.msdn.microsoft.com/dotnet/2016/10/19/net-core-tooling-in-visual-studio-15).
 
 ```csharp
 var sql = @"
@@ -47,7 +47,7 @@ using (var multi = connection.QueryMultiple(sql, new {id=selectedId}))
 SQL Server
 ----------
 
-The Microsoft SQL Server client library is built into .NET Core. You don't have to use an ORM, and can instead go directly to the metal and talk to a SQL Server instance or to an Azure SQL database using the same APIs from the `System.Data.SqlClient` package.
+The [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2016) client library is built into .NET Core. You don't have to use an ORM, and can instead go directly to the metal and talk to a SQL Server instance or to an [Azure SQL database](https://azure.microsoft.com/en-us/services/sql-database/) using the same APIs from the `System.Data.SqlClient` package.
 
 ```csharp
 using (var connection = new SqlConnection("Server=tcp:YourServer,1433;Initial Catalog=YourDatabase;Persist Security Info=True;"))
