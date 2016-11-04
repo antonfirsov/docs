@@ -138,6 +138,8 @@ using (var connection = new SqliteConnection("Filename=" + path"))
 DB2
 ---
 
+Pending... Waiting for additional info from IBM.
+
 MongoDB
 -------
 
@@ -235,6 +237,17 @@ using (var session = cluster.Connect())
 CouchBase
 ---------
 
+[CouchBase](http://www.couchbase.com/nosql-databases/couchbase-server) is an open source document database that is popular in mobile applications. [The offical Couchbase client library](https://www.nuget.org/packages/CouchbaseNetClient/2.4.0-dp2) is compatible with .NET Core.
+
+```csharp
+using (var bucket = Cluster.OpenBucket())
+{
+    var get = bucket.GetDocument<dynamic>(documentId);
+    document = get.Document;
+    Console.WriteLine($"{document.Id}: {document.Content.name}");
+}
+```
+
 CouchDB
 -------
 
@@ -246,4 +259,4 @@ What about OLE DB?
 Keeping track
 -------------
 
-More database support will come as .NET Core matures.
+More database support for .NET Core will no doubt become available in the future, and we'll make sure to highlight new client libraries in our [Week in .NET posts]() as they get announced. In the meantime, I hope this post helps get you started with .NET Core application development.
