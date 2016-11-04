@@ -135,11 +135,6 @@ using (var connection = new SqliteConnection("Filename=" + path"))
 }
 ```
 
-DB2
----
-
-Pending... Waiting for additional info from IBM.
-
 Azure DocumentDB
 ----------------
 
