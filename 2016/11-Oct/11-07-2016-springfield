@@ -258,7 +258,7 @@ let delete (c:InfrastructureContext) groupName =
     async {
         try
             Trace.info "Deleting resource group %s" groupName
-            let! result = c.resource.ResourceGroups.DeleteAsync(groupName) |> Async.AwaitTask
+            let! result = c.resource.ResourceGroups.DeleteAsync(groupName).AsAsync
             Trace.info "Deletion of group %s returned code %O" groupName result.StatusCode
 
             match result.StatusCode with
@@ -266,7 +266,7 @@ let delete (c:InfrastructureContext) groupName =
             | System.Net.HttpStatusCode.OK ->
                 Trace.info "Resource group %s deleted" groupName
             | statusCode ->
-                Trace.failwith "Failed to create group: %O" statusCode
+                Trace.failwith "Failed to delete group: %O" statusCode
         with
         | CloudError.NotFoundException e
         | IsAggregateOf SomeResourceGroupNotFoundException e ->
@@ -299,7 +299,7 @@ To achieve high scalability, online services like Springfield must make use of a
 
 F# pioneered a language-level asynchronous programming model for the .NET platform in 2007. In practice this means that F# comes out of the box with state of the art support for asynchrony in the form of [Asynchronous Workflows](https://docs.microsoft.com/en-us/dotnet/articles/fsharp/language-reference/asynchronous-workflows).
 
-In Springfield, most of the IO-bound code is wrapped inside an `async{..}` block and makes us of the `let!` operator to asynchronously wait for the underlying IO operation to complete.
+In Springfield, most of the IO-bound code is wrapped inside an `async{..}` block and make us of the `let!` operator to asynchronously wait for the underlying IO operation to complete.
 
 For example, in the `delete` snippet above, we use `let!` to asynchronously wait on the delete API from the Azure SDK. Asynchronous workflows are used pervasively in our services. Our backend event processing and our REST API are all asynchronous:
 
@@ -356,12 +356,12 @@ let SomeResourceGroupNotFoundException (e:System.Exception) =
 F# comes with a [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) environment that makes it a great alternative to other scripting languages like PowerShell.
 Since F# scripts are executed on the .NET Platform, they can leverage existing code from existing core assemblies. In Springfield, we have F# scripts to perform maintenance operations like usage monitoring and clean up.
 Another advantage of F# scripts is that they are statically type-checked, an unusual thing for a scripting language! In practice this yields huge saving in debugging time. Foolish errors like typos in variable names or incorrect typing are
-immediately caught by Intellisense in the IDE tooling available for F# - Visual Studio, Xamarin Studio, and Visual Studio Code with the Ionide suite of plugings. Refactoring code also becomes a piece of cake.
-This contrasts a lot with the fragility of PowerShell scripts experienced by our team.
+immediately caught by Intellisense in the IDE tooling available for F# - Visual Studio, Xamarin Studio, and Visual Studio Code with the Ionide suite of plug-ins. Refactoring code also becomes a piece of cake.
+This stands in stark contrast to the fragility of PowerShell scripts experienced by our team.
 
 These features of F# Scripting have been a huge benefit, allowing our team to replace PowerShell for our scripting needs in some components of the service.
 
-We still use PowerShell for our deployments and resource management, mainly due to our reliance on Azure, or because some tools like Service Fabric only expose certain feature through PowerShell. But whenever possible, we try stick to F# scripting.
+We still use PowerShell for our deployments and resource management, mainly due to our reliance on Azure, or because some tools like Service Fabric only expose certain feature through PowerShell. But whenever possible, we try to stick to F# scripting.
 
 ```Fsharp
 #load "load-references-release.fsx"
@@ -411,9 +411,7 @@ for the language or frustration for not being able to use it in their current jo
 For others, it was curiosity in learning a new programming paradigm,
  and willingness to challenge themselves and try to do things differently.
  Secondly, we observed that, once hired, those engineers turn out to be great developers in any language, not just in F#.
-We had no trouble recruiting engineers to work on Springfield, and even found the use of F# in the codebase a boon to hiring [talented people]()!
-
-> [TODO for David]: add link above to engineering team picture.
+We had no trouble recruiting engineers to work on Springfield, and even found the use of F# in the codebase a boon to hiring [talented people](https://www.microsoft.com/en-us/research/project/project-springfield/)!
 
 As for Springfield, we have plenty more work in the pipeline. Among other things, we are considering porting our backend to [.NET core](https://dotnet.github.io/),
 which F# will support in the [forthcoming 4.1 release](https://blogs.msdn.microsoft.com/dotnet/2016/07/25/a-peek-into-f-4-1/)!
@@ -428,5 +426,6 @@ FSharpLu library: [https://github.com/Microsoft/fsharplu](https://github.com/Mic
 
 FSharpLu.Json library: [https://github.com/Microsoft/fsharplu/wiki/fsharplu.json](https://github.com/Microsoft/fsharplu/wiki/fsharplu.json)
 
-> [TODO for David]: Add link to Springfield engineering team page
+The Springfield team: https://www.microsoft.com/en-us/research/project/project-springfield/
+
 > [TODO for David]: Springfield Azure blog post [TBD]()
