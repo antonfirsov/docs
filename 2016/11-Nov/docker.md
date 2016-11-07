@@ -1,7 +1,7 @@
 .NET and Docker
 ===============
 
-Many people I talk to are either using Docker actively or planning to adopt containers in their environment. Containers are an important trend in our industry and .NET is now part of that. Microsoft and Docker have been working together so that you'll have a great experience using Docker with .NET apps.
+Many developers I talk to are either using Docker actively or planning to adopt containers in their environment. Containers are an important trend in our industry and .NET is now part of that. Microsoft and Docker have been working together so that you'll have a great experience using Docker with .NET apps.
 
 The Docker ecosystem has until now targeted Linux. You can use .NET Core with Debian Linux images, with a similar workflow and set of supported scenarios as other development platforms.
 
@@ -15,7 +15,7 @@ Why Containers?
 There are multiple reasons why developers have been moving to containers to model, build, package, test and distribute their applications.
 
 - **Consistent:** Containers include the application and all of its dependencies. The application executes the same code, regardless of computer, environment or cloud.
-- **Lightweight:** Containers start instantly and use a minimal amount of RAM by using a minimal abstraction over the host operating system and sharing common resources across containers.
+- **Lightweight:** Containers start quickly and use a minimal amount of RAM by using a minimal abstraction over the host operating system and sharing common resources across containers.
 - **Sharing:** Containers are easy to share via Docker Hub (soon to be replaced by Docker Store) and private Docker registries.
 
 There are plenty of other reasons why containers are catching on. The ones listed above are the key ones. 
@@ -27,28 +27,41 @@ As an example on the .NET Team, we realized that we needed to add test coverage 
 Scenarios for .NET Applications
 -------------------------------
 
-The most obvious scenario for using Docker and .NET applications is for production deployment and hosting. It turns out that production is just one of the scenarios and the other ones are equally useful. These scenario are not really specific to .NET, but apply to most developer platforms.
+The most obvious scenario for using Docker and .NET applications is for production deployment and hosting. It turns out that production is just one of the scenarios and the other ones are equally useful. These scenarios are not really specific to .NET, but apply to most developer platforms.
 
 - **Low friction install** -- You can try out .NET without installing anything on your machine. Just download a Docker image with .NET in it.
 - **Develop in a container** -- You can develop in a consistent environment, making development and production environments very similar (avoiding issues like global state on developer machines).
 - **Test in a container** -- You can test in a containers, reducing failures due to incorrectly configured environments or turds left behind from the last test.
-- **Build in a container** -- You can build code in a container, avoiding the need to correctly configure shared build machines for multiple environments but instead move to a "BYOC" (Bring your own container) approach.
-- **Hosting in test, stage, production and other environments** -- You can deploy a read-only image through all of your environments, reducing failures due to differences in configuration, typically only changing the behavior of the image via external configuration (for example, injected environment variables).
+- **Build in a container** -- You can build code in a container, avoiding the need to correctly configure shared build machines for multiple environments but instead move to a "BYOC" (bring your own container) approach.
+- **Deployment in test, stage, production and other environments** -- You can deploy a read-only image through all of your environments, reducing failures due to differences in configuration, typically only changing the behavior of the image via external configuration (for example, injected environment variables).
 
 How to get Started
 ------------------
 
-You can get started using .NET docker containers right now, on Windows, macOS or Linux. First, you need a Docker client. The best place to get that is [Docker.com](https://www.docker.com/products/docker). If you are Windows, we currently recommend the [Beta channel](https://docs.docker.com/docker-for-windows/) build since it supports both Windows and Linux containers. That functionality will eventually be available in the stable channel build.
+You can get started using .NET docker containers right now, on Windows, macOS or Linux. First, you need a Docker client. The best place to get that is [Docker.com](https://www.docker.com/products/docker). If you are on Windows, we currently recommend the Docker [Beta channel](https://docs.docker.com/docker-for-windows/) build since it supports both Windows and Linux containers. That functionality will eventually be available in the stable channel build.
 
 If you are new to Docker, I recommend that you check out the [Get Started with Docker](https://docs.docker.com/engine/getstarted/) section in the Docker documentation. That's where I started. The instructions use Linux containers, but don't let that scare you off if you are not a Linux user. The instructions are general and focus on general Docker concepts and mechanisms.
 
-Once you have basic knowledge of Docker, then should take a look at the .NET with Docker samples that a few of us created. I'm a big fan of the [Docker Whalesay](https://docs.docker.com/engine/getstarted/step_three/) image, so wanted something similar for .NET. We already had a [dotnet-bot](https://github.com/dotnet-bot) sample that did almost the same thing, so I only needed to package it up as a Docker image. I hope you like it!
+I'm a big fan of the [Docker Whalesay](https://docs.docker.com/engine/getstarted/step_three/) image that is used in the Docker gettng started instructiosn, so wanted something similar for .NET. We already had a [dotnet-bot](https://github.com/dotnet-bot) sample that did almost the same thing, so I only needed to package it up as a Docker image. I hope you like it!
 
-We went one step further with the dotnet-bot image. Instead of packaging it up as a single "hello world" image, we created multiple variants of it to demontrate the scenarios that I listed above. We figured that you'd appreciate having starter examples to start from as you adopt Docker in your environment.
+Once you have basic knowledge of Docker, then try the samples we created for using .NET with Docker. They should help you get started with .NET and Docker in your environment. We created two sets of samples since there are key differences between .NET Core and .NET Framework that require different Dockerfiles and other artifacts.
 
-We created two variants of the images, for [.NET Framework](https://github.com/microsoft/dotnet-framework-docker-samples) and [.NET Core](https://github.com/dotnet/dotnet-docker-samples). There are key differences between the two platforms, which require different Dockerfiles and other artifacts.
+- [.NET Core + Docker samples](https://github.com/dotnet/dotnet-docker-samples)
+- [.NET Framework + Docker samples](https://github.com/microsoft/dotnet-framework-docker-samples)
 
-To make trying these images even easier, we provisioned a couple of the images to DockerHub. This means that you can try .NET on your maschine without installing anything (except Docker) or git cloning the samples to your machine. That said, I think trying the samples locally is still the best idea to fully experience and evaluate .NET with Docker.
+To make trying these images even easier, we provisioned a couple of the images to DockerHub.
+
+- [.NET Core sample images](https://hub.docker.com/r/microsoft/dotnet-samples/)
+- [.NET Framework sample images](https://hub.docker.com/r/microsoft/dotnet-framework-samples/)
+
+You can try .NET on your machine without installing anything (except Docker), by using the sample images. That said, I think trying the samples locally is still the best idea to fully experience and evaluate .NET with Docker.
+
+As an example, for .NET Core, try the following Linux image (even on Windows):
+
+```console
+docker run microsoft/dotnet-samples
+
+```
 
 .NET in DockerHub
 -----------------
@@ -60,19 +73,20 @@ One of the most important aspects of using .NET with Docker is relying on the .N
 - Docker shares the memory of common images when more than one application uses them on the same machine. The images have to be the same to be shared.
 - Docker scans official images by default for security vulnerabilities, giving you more information about your environment.
 
-Note: The .NET images are not yet "official" at the time of writing, but we hope that this will happen soon.
+Note: The .NET images are not yet "official" at the time of writing, but we hope they will be deemed official soon (likely 2017).
 
 We publish our Docker images in a few different repositories on [Docker Hub](https://hub.docker.com/). It's important to segment images so that they are easier to find, both on the Docker Hub website as well as with the `docker search` command.
 
-- [microsoft/dotnet](https://hub.docker.com/r/microsoft/dotnet/) -- .NET Core images for Linux and Nano server
-- [microsoft/aspnetcore](https://hub.docker.com/r/microsoft/aspnetcore/) -- ASP.NET Core images for Linux
-- [microsoft/dotnet-framework](https://hub.docker.com/r/microsoft/dotnet-framework/) -- .NET Framework 3.5 and 4.6.2 images for Windows Server Core
-- [microsoft/aspnet](https://hub.docker.com/r/microsoft/aspnet/) -- .NET Framework 3.5 and 4.6.2 ASP.NET images for Windows Server Core
+- [microsoft/dotnet](https://hub.docker.com/r/microsoft/dotnet/) -- .NET Core Runtime and SDK images for Linux and Nano server.
+- [microsoft/aspnetcore](https://hub.docker.com/r/microsoft/aspnetcore/) -- ASP.NET Core images for Linux.
+- [microsoft/aspnetcore-build](https://hub.docker.com/r/microsoft/aspnetcore-build/) -- ASP.NET Core images for Linux, intending for building apps.
+- [microsoft/dotnet-framework](https://hub.docker.com/r/microsoft/dotnet-framework/) -- .NET Framework 3.5 and 4.6.2 images for Windows Server Core.
+- [microsoft/aspnet](https://hub.docker.com/r/microsoft/aspnet/) -- .NET Framework 3.5 and 4.6.2 ASP.NET images for Windows Server Core.
 
 We also publish samples to Docker Hub so that you can more easily try out the product.
 
-- [microsoft/dotnet-samples](https://hub.docker.com/r/microsoft/dotnet-samples/)
-- [microsoft/dotnet-framework-samples](https://hub.docker.com/r/microsoft/dotnet-samples/)
+- [microsoft/dotnet-samples](https://hub.docker.com/r/microsoft/dotnet-samples/) -- .NET Core samples.
+- [microsoft/dotnet-framework-samples](https://hub.docker.com/r/microsoft/dotnet-framework-samples/) -- .NET Framework samples.
 
 The instructions to use the base images and the samples are provided on Docker Hub at the links provided above.
 
@@ -81,7 +95,7 @@ Defining Docker images
 
 Docker images (including the .NET ones) are defined by a (relatively) simple file written in the [Dockerfile](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/) format. You can find links to each of the Dockerfile files in the Docker Hub repositories provided above. 
 
-These files define the set of images that we provide, their size, contents and other characteristics. In many cases, we've studied what other platforms have done with their images and have tried to follow that industry norm. In other cases, we've chose to do something that works best for .NET apps that may or may not map to other platforms. In many cases Docker employees create the initial images for other platforms, so our liberal "copying" of patterns we see on Docker Hub is really just following the Docker's lead.
+These files define the set of images that we provide, their size, contents and other characteristics. In many cases, we've studied what other platforms have done with their images and have tried to follow that industry norm. In other cases, we've chosen to do something that works best for .NET apps that may or may not map to other platforms. In many cases Docker employees create the initial images for other platforms, so our liberal "copying" of patterns we see on Docker Hub is really just following Docker's lead. As the Docker norm changes, we'll do our best to follow it with the .NET images.
 
 You'll quickly see that the Dockerfile source is stored on GitHub. You can follow the changes we make the images, see why we're making them and participate in that conversation if you'd like.
 
@@ -92,13 +106,20 @@ Docker images have cryptic IDs (for example, d99acb94e777) as their primary mean
 
 For .NET Core, tags are used to describe image differences on the following 2 axes:
 
-- .NET Core distribution - .NET Core SDK, .NET Core Runtime, .NET Core dependencies only
+- .NET Core distribution - .NET Core Runtime, .NET Core SDK, .NET Core dependencies only
 - Operating System base image and version - Windows and Linux
 
 For .NET Framework, tags are used to describe image differences on the following 2 axis:
 
 - .NET Framework version -- 3.5, 4.6.2
 - Operating system base image version -- Windows Server Core
+
+.NET Core Tags
+--------------
+
+The .NET Core tags were recently changed significantly.
+
+Text here.
 
 Segmenting repositories
 -----------------------
