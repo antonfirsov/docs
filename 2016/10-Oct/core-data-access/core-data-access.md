@@ -3,10 +3,12 @@
 
 .NET Core was released a few months ago, and data access libraries for most databases, both [relational](https://en.wikipedia.org/wiki/Relational_database) and [NoSQL](https://en.wikipedia.org/wiki/NoSQL) are now available. In this post, I'll detail what client libraries are available, as well as show code samples for each of them.
 
-EF Core
--------
+ORM
+---
 
-[Entity Framework](https://github.com/aspnet/EntityFramework6) is Microsoft's [Objet-Relational Mapper](https://en.wikipedia.org/wiki/Object-relational_mapping) for .NET, and as such is one of the most-used data access technologies for .NET. [EF Core](https://docs.efproject.net/en/latest/), released simultaneously with .NET Core, is a lightweight and extensible version of Entity Framework that works on both .NET Core and .NET Framework. It has [support](https://docs.efproject.net/en/latest/providers/index.html) for [Microsoft SQL Server](https://docs.efproject.net/en/latest/providers/sql-server/index.html), [SQLLite](https://docs.efproject.net/en/latest/providers/sqlite/index.html), [PostgreSQL](http://www.npgsql.org/), [MySQL](https://docs.efproject.net/en/latest/providers/mysql/index.html), [Microsoft SQL Server Compact Edition](https://docs.efproject.net/en/latest/providers/sql-compact/index.html), [DB2](https://docs.efproject.net/en/latest/providers/ibm/index.html), with more, such as [Oracle](https://docs.efproject.net/en/latest/providers/oracle/index.html), to come.
+### EF Core
+
+[Entity Framework](https://github.com/aspnet/EntityFramework6) is Microsoft's [Object-Relational Mapper](https://en.wikipedia.org/wiki/Object-relational_mapping) for .NET, and as such is one of the most-used data access technologies for .NET. [EF Core](https://docs.efproject.net/en/latest/), released simultaneously with .NET Core, is a lightweight and extensible version of Entity Framework that works on both .NET Core and .NET Framework. It has [support](https://docs.efproject.net/en/latest/providers/index.html) for [Microsoft SQL Server](https://docs.efproject.net/en/latest/providers/sql-server/index.html), [SQLite](https://docs.efproject.net/en/latest/providers/sqlite/index.html), [PostgreSQL](http://www.npgsql.org/), [MySQL](https://docs.efproject.net/en/latest/providers/mysql/index.html), [Microsoft SQL Server Compact Edition](https://docs.efproject.net/en/latest/providers/sql-compact/index.html), with more, such as [DB2](https://docs.efproject.net/en/latest/providers/ibm/index.html) and [Oracle](https://docs.efproject.net/en/latest/providers/oracle/index.html), to come.
 
 What follows is an example of EF Core code accessing a blog's database. [The full tutorial can be found on the EF documentation site](https://docs.efproject.net/en/latest/platforms/netcore/new-db-sqlite.html).
 
@@ -26,10 +28,9 @@ using (var db = new BloggingContext())
 }
 ```
 
-Dapper
-------
+### Dapper
 
-[Dapper](https://github.com/StackExchange/dapper-dot-net) is a micro-ORM built and maintained by StackExchange engineers. It focuses on performance, and can map the results of a query to a strongly-typed list, or to dynamic objects. [.NET Core support is currently in beta](https://blogs.msdn.microsoft.com/dotnet/2016/10/19/net-core-tooling-in-visual-studio-15).
+[Dapper](https://github.com/StackExchange/dapper-dot-net) is a micro-ORM built and maintained by StackExchange engineers. It focuses on performance, and can map the results of a query to a strongly-typed list, or to dynamic objects. [.NET Core support is currently in beta](https://www.nuget.org/packages/Dapper/1.50.0-beta10).
 
 ```csharp
 var sql = @"
@@ -44,8 +45,10 @@ using (var multi = connection.QueryMultiple(sql, new {id=selectedId}))
 } 
 ```
 
-SQL Server
-----------
+Relational databases
+--------------------
+
+### SQL Server
 
 The [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2016) client library is built into .NET Core. You don't have to use an ORM, and can instead go directly to the metal and talk to a SQL Server instance or to an [Azure SQL database](https://azure.microsoft.com/en-us/services/sql-database/) using the same APIs from the `System.Data.SqlClient` package.
 
@@ -64,8 +67,7 @@ using (var connection = new SqlConnection("Server=tcp:YourServer,1433;Initial Ca
 }
 ```
 
-PostgreSQL
-----------
+### PostgreSQL
 
 [PostgreSQL](https://www.postgresql.org/) is an open source relational database with a devoted following. The [Npgsql client library supports .NET Core](http://www.npgsql.org/doc/coreclr.html).
 
@@ -89,10 +91,9 @@ using (var conn = new NpgsqlConnection("Host=myserver;Username=mylogin;Password=
 }
 ```
 
-MySQL
------
+### MySQL
 
-[MySQL](https://www.mysql.com/) is one of the most commonly used relational databases on the market, and it's open source. [Support for .NET Core is now available](http://insidemysql.com/mysql-connector-net-for-net-core-1-0/), both through [EF Core](https://docs.efproject.net/en/latest/providers/mysql/index.html) and directly through [the MySQL Connector for .NET Core](https://www.nuget.org/packages/MySql.Data/).
+[MySQL](https://www.mysql.com/) is one of the most commonly used relational databases on the market and is open source. [Support for .NET Core is now available](http://insidemysql.com/mysql-connector-net-for-net-core-1-0/), both through [EF Core](https://docs.efproject.net/en/latest/providers/mysql/index.html) and directly through [the MySQL Connector for .NET Core](https://www.nuget.org/packages/MySql.Data/).
 
 ```csharp
 using (var connection = new MySqlConnection
@@ -113,15 +114,14 @@ using (var connection = new MySqlConnection
 }
 ```
 
-SQLite
--------
+### SQLite
 
 [SQLite](http://sqlite.org/) is a self-contained, embedded relational database that is released in the public domain. SQLite is lightweight (less than 1MB), cross-platform, and is extremely easy to embed and deploy with an application, which explains how it quietly became the most widely deployed database in the world. It's commonly used as an application file format.
 
 You can use [SQLite with EF Core](https://docs.efproject.net/en/latest/providers/sqlite/index.html), or you can talk to a SQLite database directly using the [Microsoft.Data.Sqlite](https://github.com/aspnet/Microsoft.Data.Sqlite/releases) library that is maintained by the ASP.NET team.
 
 ```csharp
-using (var connection = new SqliteConnection("Filename=" + path"))
+using (var connection = new SqliteConnection("Filename=" + path))
 {
     connection.Open();
 
@@ -135,10 +135,14 @@ using (var connection = new SqliteConnection("Filename=" + path"))
 }
 ```
 
-Azure DocumentDB
-----------------
+There's another SQLite package that's compatible with .NET Core called [SQLitePCL.raw](https://github.com/ericsink/SQLitePCL.raw).
 
-[Azure DocumentDB](https://azure.microsoft.com/en-us/services/documentdb/) Azure DocumentDB is a fully managed NoSQL database service built for fast and predictable performance, high availability, automatic scaling, and ease of development. Its flexible data model, consistent low latencies, and rich query capabilities make it a great fit for web, mobile, gaming, IoT, and many other applications that need seamless scale. Read more in [the DocumentDB introduction](https://azure.microsoft.com/en-us/documentation/articles/documentdb-introduction/). DocumentDB databases can now be used as the data store for apps written for MongoDB. Using [existing drivers for MongoDB](https://docs.mongodb.org/ecosystem/drivers/), applications can easily and transparently communicate with DocumentDB, in many cases by simply changing a connection string. The next version of the DocumentDB client library, which will be available around [Connect](https://connectevent.microsoft.com/), supports .NET Core.
+NoSQL
+-----
+
+### Azure DocumentDB
+
+[Azure DocumentDB](https://azure.microsoft.com/en-us/services/documentdb/) is a NoSQL database service built for fast and predictable performance, high availability, automatic scaling, and ease of development. Its flexible data model, consistent low latencies, and rich query capabilities make it a great fit for web, mobile, gaming, IoT, and many other applications that need seamless scale. Read more in [the DocumentDB introduction](https://azure.microsoft.com/en-us/documentation/articles/documentdb-introduction/). DocumentDB databases can now be used as the data store for apps written for MongoDB. Using [existing drivers for MongoDB](https://docs.mongodb.org/ecosystem/drivers/), applications can easily and transparently communicate with DocumentDB, in many cases by simply changing a connection string. The next version of the DocumentDB client library, which will be available around [the Connect event](https://connectevent.microsoft.com/), supports .NET Core.
 
 ```csharp
 using (var client = new DocumentClient(
@@ -158,8 +162,7 @@ using (var client = new DocumentClient(
 }
 ```
 
-MongoDB
--------
+### MongoDB
 
 [MongoDB](https://www.mongodb.com/) is a document database with [an official .NET driver that supports .NET Core](https://mongodb.github.io/mongo-csharp-driver/).
 
@@ -174,8 +177,7 @@ var query = from c in customers
             select c;
 ```
 
-RavenDB
--------
+### RavenDB
 
 [RavenDB](https://ravendb.net/) is a document database that is not only compatible with .NET Core, it's also built with it.
 
@@ -200,8 +202,7 @@ using (IDocumentStore store = new DocumentStore
 }
 ```
 
-Redis
------
+### Redis
 
 [Redis](http://redis.io/) is one of the most popular key-value stores.
 
@@ -226,8 +227,7 @@ using (IRedisClient redis = clientsManager.GetClient())
 }
 ```
 
-Cassandra
----------
+### Cassandra
 
 [Apache Cassandra](http://cassandra.apache.org/) is a highly scalable and fault-tolerant NoSQL database. [DataStax](https://www.nuget.org/packages/CassandraCSharpDriver/) is a C# driver for Cassandra with built-in support for mapping Cassandra data to CLR objects. The latest version is compatible with .NET Core.
 
@@ -255,8 +255,7 @@ using (var session = cluster.Connect())
 }
 ```
 
-CouchBase
----------
+### CouchBase
 
 [CouchBase](http://www.couchbase.com/nosql-databases/couchbase-server) is an open source document database that is popular in mobile applications. [The offical Couchbase client library](https://www.nuget.org/packages/CouchbaseNetClient/2.4.0-dp2) is compatible with .NET Core.
 
@@ -269,8 +268,7 @@ using (var bucket = Cluster.OpenBucket())
 }
 ```
 
-CouchDB
--------
+### CouchDB
 
 [CouchDB](http://couchdb.apache.org/) is a document database that I personally like a lot for its simplicity. It can scale from small devices such as a Raspberry Pi to cloud applications. It uses a very simple HTTP and JSON-based API, which limits the need for a client library. [C# client libraries do exist](https://www.nuget.org/packages?q=couchdb), but none of them support .NET Core today as far as I can tell except for [Kanapa](https://github.com/l0nley/kanapa) which hasn't been updated for a while. It's very easy to interact with the database through its REST API nonetheless.
 
@@ -287,8 +285,7 @@ using (var response = await request.GetResponseAsync() as HttpWebResponse)
 }
 ```
 
-Lucene.NET
-----------
+### Lucene.NET
 
 Finally, I want to mention [Lucene.NET](https://lucenenet.apache.org/). It's not technically a database, but it's so useful in setting up full-text search on a data-driven project that a post on data access wouldn't be complete without it. The team has put a lot of work into the new version of Lucene to implement new features and major improvements, and they also made it compatible with .NET Core. It's still early, but [prerelease packages are already available](https://myget.org/feed/lucene-net/package/nuget/Lucene.Net).
 
