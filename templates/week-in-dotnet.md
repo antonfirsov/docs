@@ -20,10 +20,6 @@ Package of the week: xx
 ```csharp
 ```
 
-Xamarin App of the week: xx
------------------------------------
-
-
 Game of the week: xx
 -----------------------------------
 
