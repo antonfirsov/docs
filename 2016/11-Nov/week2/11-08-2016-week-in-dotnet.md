@@ -1,4 +1,4 @@
-﻿The week in .NET - On .NET on CoreRT & .NET Native - 
+﻿The week in .NET – On .NET on CoreRT &amp; .NET Native – Enums.NET – Ylands – Markdown Monster
 ============================
 
 To read last week's post, see [The week in .NET – .NET Foundation – Serilog – Super Dungeon Bros](https://blogs.msdn.microsoft.com/dotnet/2016/11/01/the-week-in-net-net-foundation-serilog-super-dungeon-bros/).
