@@ -91,6 +91,8 @@ using (var conn = new NpgsqlConnection("Host=myserver;Username=mylogin;Password=
 }
 ```
 
+Another interesting library for PostgreSQL that is compatible with .NET Core is [Marten](http://jasperfx.github.io/marten/). Marten uses PostgreSQL storage to implements a document database.
+
 ### MySQL
 
 [MySQL](https://www.mysql.com/) is one of the most commonly used relational databases on the market and is open source. [Support for .NET Core is now available](http://insidemysql.com/mysql-connector-net-for-net-core-1-0/), both through [EF Core](https://docs.efproject.net/en/latest/providers/mysql/index.html) and directly through [the MySQL Connector for .NET Core](https://www.nuget.org/packages/MySql.Data/).
@@ -284,6 +286,10 @@ using (var response = await request.GetResponseAsync() as HttpWebResponse)
     Console.WriteLine($"{album.Title} by {album.Artist} is a {album.Category} album.");
 }
 ```
+
+### YesSql
+
+[YesSql](https://github.com/sebastienros/yessql) is an interesting library that implements a transactional document database on top of relational stores such as SQL Server.
 
 ### Lucene.NET
 
