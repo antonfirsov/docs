@@ -31,6 +31,15 @@ Console.WriteLine($@"{nameof(NumericOperator)} has
 
 ![Comparing the performance of Enums.NET with System.Enum](https://github.com/TylerBrinkley/Enums.NET/raw/master/Doc/performance.png)
 
+Game of the Week: Ylands
+------------------------
+
+[Ylands](https://ylands.com/) is a low-poly sandbox game that gives players the tools to create their own environment and scenarios. When first jumping into the world of Ylands, you pick a completely modifiable island to build and play your own adventures. Using the Scenario Editor, you are able to make anything happen - talking chests, teleportation, castles in desperate need of sieging and even large scale scenarios that you can challenge your friends with.
+
+![Ylands](https://cloud.githubusercontent.com/assets/4108756/20107931/23449a72-a58f-11e6-9078-b4db8ad09204.jpg)
+
+[Ylands](https://ylands.com/) is being developed by [Bohemia Interactive](https://www.bistudio.com/) using [Unity](https://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is currently in early alpha development for Windows and has a free [trial](https://store.bistudio.com/products/ylands) available.
+
 User group meeting of the week: Intro to HoloLens Development with Unity and UWP in Sterling, VA
 ------------------------------------------------
 
@@ -102,6 +111,16 @@ Azure
 -----
 
 * [Using Azure DocumentDB and ASP.NET Core for extreme NoSQL performance](https://auth0.com/blog/documentdb-with-aspnetcore/) by Matías Quaranta.
+
+Games
+-----
+
+* [Unite 2016 Keynote Wrap Up: News on Graphics, Platforms, VR and More](https://blogs.unity3d.com/2016/11/01/unite-2016-keynote-wrap-up-news-on-graphics-platforms-vr-and-more/) by Alice Liang.
+* [Unity - 2D Movement (Part 6c) - Animation : Aim (video)](https://www.youtube.com/watch?v=NY6sTw2oDiA) by Pixel Make.
+* [[Unity 5] Tutorial: How to make a compass in unity (video)](https://www.youtube.com/watch?v=urNuYkkbZCc) by Gamad.
+* [Mono game drawing tutorial (video)](https://www.youtube.com/watch?v=I9uh1i7_ltg) by Tj Bomba.
+* [The challenges of porting XCOM 2 to consoles](http://www.gamasutra.com/view/news/285050/The_challenges_of_porting_XCOM_2_to_consoles.php) by Alan Bradley.
+* [5 Most Expensive Game Localization Mistakes](http://www.gamasutra.com/blogs/DamienYoccoz/20161102/284690/5_Most_Expensive_Game_Localization_Mistakes.php) by Damien Yoccoz.
 
 And this is it for this week!
 
