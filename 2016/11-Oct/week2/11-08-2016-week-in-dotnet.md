@@ -40,6 +40,13 @@ Game of the Week: Ylands
 
 [Ylands](https://ylands.com/) is being developed by [Bohemia Interactive](https://www.bistudio.com/) using [Unity](https://unity3d.com/) and [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners). It is currently in early alpha development for Windows and has a free [trial](https://store.bistudio.com/products/ylands) available.
 
+App of the week: Markdown Monster
+---------------------------------
+
+Rick Strahl doesn't just blog a lot, he also writes some quality tools. This week, he's [introducing Markdown Monster - a new Markdown Editor](https://weblog.west-wind.com/posts/2016/Nov/04/Introducing-Markdown-Monster-a-new-Markdown-Editor) by Rick Strahl. [Markdown Monster is a WPF application](https://github.com/RickStrahl/MarkdownMonster), and I'm using it to write this post.
+
+![Markdown Monster (and yes, I'll definitely register my copy)](markdownmonster.png)
+
 User group meeting of the week: Intro to HoloLens Development with Unity and UWP in Sterling, VA
 ------------------------------------------------
 
@@ -55,7 +62,6 @@ User group meeting of the week: Intro to HoloLens Development with Unity and UWP
 * [Paket-like NuGet with MSBuild](http://www.bricelam.net/2016/10/23/paket-like-nuget-with-msbuild.html) by Brice Lambson.
 * [.NET Standard based Windows Service support for .NET](https://github.com/dasMulli/dotnet-win32-service) by Martin Andreas Ullrich.
 * [Mapping to Getter-only Properties with EF Core](https://csharp.christiannagel.com/2016/11/07/efcorefields/) by Christian Nagel.
-* [Introducing Markdown Monster - a new Markdown Editor](https://weblog.west-wind.com/posts/2016/Nov/04/Introducing-Markdown-Monster-a-new-Markdown-Editor) by Rick Strahl. [Markdown Monster is a WPF application](https://github.com/RickStrahl/MarkdownMonster), and I'm using it to write this post.
 * [.NET Document Databases with Marten](http://dontcodetired.com/blog/post/NET-Document-Databases-with-Marten) by Jason Roberts.
 * [Learn .NET Core by example (or micro example) – Part II](https://jonhilton.net/2016/11/03/learn-dot-net-core-by-example-part-ii/) by Jon Hilton.
 * [High performance field clobbering](https://ayende.com/blog/176002/high-performance-field-clobbering) and [HTTP benchmark and pipelining](https://ayende.com/blog/176001/http-benchmark-and-pipelining) by Ayende Rahien.
