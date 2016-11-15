@@ -53,16 +53,27 @@ The [Boulder .NET User Group](https://www.meetup.com/Boulder-NET-User-Group/) ho
 
 * [.NET Core Data Access](https://blogs.msdn.microsoft.com/dotnet/2016/11/09/net-core-data-access/) by Bertrand Le Roy.
 * [So you want to write an EF Core provider...](https://blog.oneunicorn.com/2016/11/11/so-you-want-to-write-an-ef-core-provider/) by Arthur Vickers.
+* [Is Entity Framework Core Production Ready?](https://jonhilton.net/2016/11/09/is-entity-framework-core-production-ready/) by Jon hilton.
 * [Using dependency injection in a .Net Core console application](https://andrewlock.net/using-dependency-injection-in-a-net-core-console-application/) by Andrew Lock.
 * [VLC.MediaElement for UWP, a MediaElement clone leveraging VLC](https://github.com/kakone/VLC.MediaElement) by Stéphane Mitermite.
 * [Refit: The automatic type-safe REST library for .NET Core, Xamarin and .NET](https://github.com/paulcbetts/refit) by Paul Betts.
 * [Efficient discriminated unions in C#7](http://xoofx.com/blog/2016/10/28/efficient-discriminated-unions-in-csharp/) by Alexandre Mutel.
 * [OneOf, easy to use discriminated unions for C#](https://github.com/mcintyre321/OneOf) by Harry McIntyre.
+* [Hitchhiking the HoloToolkit-Unity, Leg 2 – Input Scripts (video)](https://mtaulty.com/2016/11/11/hitchiking-the-holotoolkit-unity-leg-2/) and [Windows 10, 1607, UWP and Experimenting with the Kinect for Windows V2 Update](https://mtaulty.com/2016/11/07/windows-10-1607-uwp-and-experimenting-with-the-kinect-for-windows-v2-update/) by Mike Taulty.
+* [How bwin is using SQL Server 2016 In-Memory OLTP to achieve unprecedented performance and scale](https://blogs.msdn.microsoft.com/sqlcat/2016/10/26/how-bwin-is-using-sql-server-2016-in-memory-oltp-to-achieve-unprecedented-performance-and-scale/) by Mike Weiner.
+* [Fat Controller CQRS Diet: Simple Command](http://codeopinion.com/fat-controller-cqrs-diet-simple-command/) by Derek Comartin.
+* [C# Wildcard Variables](http://aspnetmonsters.com/2016/11/2016-11-09-csharp-wildcards/) by Simon Timms.
+* [Control the name of your .NET Core output](http://www.donovanbrown.com/post/Control-the-name-of-your-NET-Core-output) by Donovan Brown.
+* [Nothing Cheesy in the "Cheese Edition" of the C# Yellow Book](https://channel9.msdn.com/coding4fun/blog/Nothing-Cheesy-in-the-Cheese-Edition-of-the-C-Yellow-Book) by Greg Duncan.
+* [Responsive Applications with Asynchronous Programming](http://www.codeproject.com/Articles/1153166/Responsive-Applications-with-Asynchronous-Programm) by Dirk Strauss.
 
 ASP.NET
 -------
 
 * [How to serve a static (non-MVC) website and a web API at the same time in ASP.NET Core (video)](http://makingoutwith.net/2016/how-to-serve-a-static-site-plus-a-web-api-in-aspnetcore/) by Joe Petrakovich.
+* [Using MongoDB with Web API and ASP.NET Core](http://www.dotnetcurry.com/aspnet-mvc/1267/using-mongodb-nosql-database-with-aspnet-webapi-core) by Mahesh Sabnis.
+* [Config transformations in ASP.NET Core](http://blog.elmah.io/config-transformations-in-aspnetcore/) by Thomas Ardal.
+* [The Monsters Weekly - Episode 77 -  Internationalization Part 2 - Request Localization](http://aspnetmonsters.com/2016/11/monsters-weekly/ep77/) by the ASP.NET Monsters.
 
 F#
 --
@@ -72,6 +83,7 @@ F#
 * [F# Beginner Function Declaration Gotcha](http://markheath.net/post/fsharp-beginner-function-declaration-gotcha) by Mark Heath.
 * [F# Error Handling Compared](https://medium.com/@dogwith1eye/fsharp-error-handling-compared-bef0516a449#.bjweuq5a1) by Matthew Doig.
 * [Let's Play with Azure Functions](http://lukemerrett.com/lets-play-with-azure-functions/) by Luke Merrett.
+* [Code as Data: Structuring business rules in F#](https://medium.com/cleartax-engineering/code-as-data-structuring-business-rules-in-f-34cf05f083a2#.rz4l0j21j) by Ankit Solanki.
 
 Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
 
@@ -95,6 +107,10 @@ Xamarin
 
 Azure
 -----
+
+* [Fluent API Libraries for Azure .NET SDK](https://buildazure.com/2016/11/09/fluent-api-libraries-for-azure-net-sdk/) by Build Azure.
+* [Automating deployment of ASP.NET Core to Azure App Service from Linux](http://www.codeproject.com/Articles/1153874/Automating-deployment-of-ASP-NET-Core-to-Azure-App) by Afzaal Ahmad Zeeshan.
+* [Serverless Computing and Workflows with Azure Functions and Microsoft Flow](http://dontcodetired.com/blog/post/Serverless-Computing-and-Workflows-with-Azure-Functions-and-Microsoft-Flow) by Jason roberts
 
 Games
 -----
