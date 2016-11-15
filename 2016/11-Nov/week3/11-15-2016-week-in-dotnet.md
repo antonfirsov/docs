@@ -1,5 +1,5 @@
-The week in .NET - 
-============================
+The week in .NET - Mitch Muenster - Stateless
+=============================================
 
 To read last week's post, see [The week in .NET – On .NET on CoreRT and .NET Native – Enums.NET – Ylands – Markdown Monster](https://blogs.msdn.microsoft.com/dotnet/2016/11/08/the-week-in-net-on-net-on-corert-amp-net-native-enums-net-ylands-markdown-monster/).
 
@@ -38,10 +38,6 @@ phoneCall.Configure(State.Connected)
 
 // ...
 ```
-
-Game of the week: xx
------------------------------------
-
 
 User group meeting of the week: Introduction to TPL Dataflow in Boulder, CO
 ---------------------------------------------------------------------------
@@ -113,9 +109,6 @@ Azure
 * [Fluent API Libraries for Azure .NET SDK](https://buildazure.com/2016/11/09/fluent-api-libraries-for-azure-net-sdk/) by Build Azure.
 * [Automating deployment of ASP.NET Core to Azure App Service from Linux](http://www.codeproject.com/Articles/1153874/Automating-deployment-of-ASP-NET-Core-to-Azure-App) by Afzaal Ahmad Zeeshan.
 * [Serverless Computing and Workflows with Azure Functions and Microsoft Flow](http://dontcodetired.com/blog/post/Serverless-Computing-and-Workflows-with-Azure-Functions-and-Microsoft-Flow) by Jason roberts
-
-Games
------
 
 And this is it for this week!
 
