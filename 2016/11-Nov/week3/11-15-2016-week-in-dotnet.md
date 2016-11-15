@@ -48,7 +48,8 @@ The [Boulder .NET User Group](https://www.meetup.com/Boulder-NET-User-Group/) ho
 ----
 
 * [.NET Core Data Access](https://blogs.msdn.microsoft.com/dotnet/2016/11/09/net-core-data-access/) by Bertrand Le Roy.
-* [So you want to write an EF Core provider...](https://blog.oneunicorn.com/2016/11/11/so-you-want-to-write-an-ef-core-provider/) by Arthur Vickers.
+* [So you want to write an EF Core provider...](https://blog.oneunicorn.com/2016/11/11/so-you-want-to-write-an-ef-core-provider/) and [Internal code in EF Core 1.1](https://blog.oneunicorn.com/2016/11/09/internal-code-in-ef-core-1-1/) by Arthur Vickers.
+* [EF Core Lets Us Finally Define NoTracking DbContexts](http://thedatafarm.com/data-access/ef-core-lets-us-finally-define-notracking-dbcontexts/) by Julie Lerman.
 * [Is Entity Framework Core Production Ready?](https://jonhilton.net/2016/11/09/is-entity-framework-core-production-ready/) by Jon hilton.
 * [Using dependency injection in a .Net Core console application](https://andrewlock.net/using-dependency-injection-in-a-net-core-console-application/) by Andrew Lock.
 * [VLC.MediaElement for UWP, a MediaElement clone leveraging VLC](https://github.com/kakone/VLC.MediaElement) by Stéphane Mitermite.
