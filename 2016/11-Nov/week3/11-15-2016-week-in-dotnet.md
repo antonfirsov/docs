@@ -66,6 +66,8 @@ The [Boulder .NET User Group](https://www.meetup.com/Boulder-NET-User-Group/) ho
 * [Control the name of your .NET Core output](http://www.donovanbrown.com/post/Control-the-name-of-your-NET-Core-output) by Donovan Brown.
 * [Nothing Cheesy in the "Cheese Edition" of the C# Yellow Book](https://channel9.msdn.com/coding4fun/blog/Nothing-Cheesy-in-the-Cheese-Edition-of-the-C-Yellow-Book) by Greg Duncan.
 * [Responsive Applications with Asynchronous Programming](http://www.codeproject.com/Articles/1153166/Responsive-Applications-with-Asynchronous-Programm) by Dirk Strauss.
+* [ZeroFormatter, an interesting approach to serialization](https://github.com/neuecc/ZeroFormatter) by Yoshifumi Kawai.
+* [20 .NET and Visual Studio power tips](http://www.manuelmeyer.net/2016/10/introducing-netvisual-studio-power-tips/) by Manuel Meyer.
 
 ASP.NET
 -------
