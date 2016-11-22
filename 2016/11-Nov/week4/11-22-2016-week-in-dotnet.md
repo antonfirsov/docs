@@ -116,6 +116,7 @@ Xamarin
 * [Xamarin User Interface Testing for Android Apps](http://blog.falafel.com/xamarin-user-interface-testing-for-android-apps/) & [Mobile Testing in the Xamarin Test Cloud](http://blog.falafel.com/mobile-testing-in-the-xamarin-test-cloud/) by Noel Rice.
 * [ReactiveUI v7.0.0 released](https://ghuntley.com/archive/2016/11/12/reactiveui-version-7-0-0-released/) by Geoffrey Huntley.
 * [Bindable Native Views – Xamarin.Forms 2.3.3 Look Ahead](https://codemilltech.com/bindable-native-views-xamarin-forms-2-3-3-look-ahead/) by Matthew Soucoup.
+* [Xamarin Android - Proguard](http://www.jon-douglas.com/2016/11/22/xamarin-android-proguard/) by Jon Douglas.
 
 Azure
 -----
@@ -123,6 +124,7 @@ Azure
 * [The DocumentDB client API now supports .NET Core](https://docs.microsoft.com/en-us/azure/documentdb/documentdb-sdk-dotnet-core).
 * [Announcing general availability of Azure Functions](https://azure.microsoft.com/en-us/blog/announcing-general-availability-of-azure-functions/) by Yochay Kiriaty.
 * [How to deploy to Azure Functions using GitHub](http://jameschambers.com/2016/11/deploy-functions-from-github/), [How to organize types in your Azure Function scripts](http://jameschambers.com/2016/11/How-to-organize-types-in-your-scripts/), and [Fan out workloads in Azure Function Apps](http://jameschambers.com/2016/11/Fan-out-workloads-in-Azure-Function-Apps/) by James Chambers.
+* [Using Azure Functions as glue between Octopus deploy and Microsoft Teams Channel](http://blog.deltacode.be/2016/11/17/azure-functions-octopus-deploy-and-microsoft-teams-channel/) by David De Sloovere.
 
 Games
 -----
