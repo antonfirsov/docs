@@ -3,10 +3,10 @@ The week in .NET - .NET Core, ASP.NET Core, EF Core 1.1 - Docker - Xenko
 
 To read last week's post, see [The week in .NET – Mitch Muenster – Stateless](https://blogs.msdn.microsoft.com/dotnet/2016/11/15/the-week-in-net-mitch-muenster-stateless/).
 
-.NET Core, ASP.NET Core, EF Core 1.1
+.NET Core, ASP.NET Core, EF Core 1.1, VS for Mac Preview, VS 2017 RC, SQL Server on Linux, Tizen, Google joins .NET Foundation, and Microsoft becomes a Linux Foundation platinum member
 ------------------------------------
 
-This week, at the [Connect(); // 2016](https://connectevent.microsoft.com/) event, we made a number of announcements, including [Visual Studio 2017 RC](https://blogs.msdn.microsoft.com/visualstudio/2016/11/16/visual-studio-2017-rc/), [Visual Studio for Mac Preview](https://blogs.msdn.microsoft.com/visualstudio/2016/11/16/visual-studio-for-mac/), [SQL Server on Linux Preview](https://blogs.technet.microsoft.com/dataplatforminsider/2016/11/16/announcing-sql-server-on-linux-public-preview-first-preview-of-next-release-of-sql-server/), [.NET Core 1.1](https://blogs.msdn.microsoft.com/dotnet/2016/11/16/announcing-net-core-1-1/), [Entity Framework Core 1.1](https://blogs.msdn.microsoft.com/dotnet/2016/11/16/announcing-entity-framework-core-1-1/), and [ASP.NET Core 1.1](https://blogs.msdn.microsoft.com/webdev/2016/11/16/announcing-asp-net-core-1-1/). Check out the announcement posts for all the details.
+This week, at the [Connect(); // 2016](https://connectevent.microsoft.com/) event, we made a number of announcements, including [Visual Studio 2017 RC](https://blogs.msdn.microsoft.com/visualstudio/2016/11/16/visual-studio-2017-rc/), [Visual Studio for Mac Preview](https://blogs.msdn.microsoft.com/visualstudio/2016/11/16/visual-studio-for-mac/), [SQL Server on Linux Preview](https://blogs.technet.microsoft.com/dataplatforminsider/2016/11/16/announcing-sql-server-on-linux-public-preview-first-preview-of-next-release-of-sql-server/), [.NET Core 1.1](https://blogs.msdn.microsoft.com/dotnet/2016/11/16/announcing-net-core-1-1/), [Entity Framework Core 1.1](https://blogs.msdn.microsoft.com/dotnet/2016/11/16/announcing-entity-framework-core-1-1/), [ASP.NET Core 1.1](https://blogs.msdn.microsoft.com/webdev/2016/11/16/announcing-asp-net-core-1-1/), [Samsung adopts .NET in their Tizen OS](https://www.tizen.org/blogs/dh0922/2016/tizen-.net-developer-preview), [Google joins the .NET Foundation](https://cloudplatform.googleblog.com/2016/11/Google-Cloud-to-join-NET-Foundation-Technical-Steering-Group.html), and [Microsoft becomes a Linux Foundation platinum member](https://www.linuxfoundation.org/announcements/microsoft-fortifies-commitment-to-open-source-becomes-linux-foundation-platinum). Check out the announcement posts for all the details.
 
 On .NET
 -------
@@ -15,7 +15,7 @@ Last week, [Michael Friis and Glenn Condron were on the show](https://channel9.m
 
 <iframe src="https://channel9.msdn.com/Shows/On-NET/Michael-Friis-Docker/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
-This week, we'll speak with Chad Z. Hower a.k.a. Kudzu to talk about [Cosmos](https://github.com/CosmosOS/Cosmos#c-open-source-managed-operating-system), an operating system "construction kit" built with the IL2CPU compiler, C#, and X#, a homebrew language that's part of the project. This week, because of the Tanksgiving week-end, the show is exceptionally on Wednesday, and begins at 10AM Pacific Time [on YouTube](https://www.youtube.com/watch?v=wgEBo-u19Wc). We'll take questions on the video's built-in chat.
+This week, we'll speak with Chad Z. Hower a.k.a. Kudzu to talk about [Cosmos](https://github.com/CosmosOS/Cosmos#c-open-source-managed-operating-system), an operating system "construction kit" built with the IL2CPU compiler, C#, and X#, a homebrew language that's part of the project. This week, because of the Thanksgiving week-end, the show is exceptionally on Wednesday, and begins at 10AM Pacific Time [on YouTube](https://www.youtube.com/watch?v=wgEBo-u19Wc). We'll take questions on the video's built-in chat.
 
 Package of the week: mahapps.metro
 ----------------------------------
@@ -48,6 +48,9 @@ The [New England Microsoft Developers group](https://www.meetup.com/NE-MSFT-Devs
 * [Announcing .NET Core 1.1](https://blogs.msdn.microsoft.com/dotnet/2016/11/16/announcing-net-core-1-1/) by Rich Lander.
 * [Announcing Entity Framework Core 1.1](https://blogs.msdn.microsoft.com/dotnet/2016/11/16/announcing-entity-framework-core-1-1/) by Rowan Miller.
 * [Announcing .NET Core Tools MSBuild "alpha"](https://blogs.msdn.microsoft.com/dotnet/2016/11/16/announcing-net-core-tools-msbuild-alpha/) by Rich Lander.
+* [Tizen .NET Developer Preview](https://www.tizen.org/blogs/dh0922/2016/tizen-.net-developer-preview) by Dong-hyun Lee.
+* [https://cloudplatform.googleblog.com/2016/11/Google-Cloud-to-join-NET-Foundation-Technical-Steering-Group.html](https://cloudplatform.googleblog.com/2016/11/Google-Cloud-to-join-NET-Foundation-Technical-Steering-Group.html) by Chris Sells.
+* [Microsoft Fortifies Commitment to Open Source, Becomes Linux Foundation Platinum Member](https://www.linuxfoundation.org/announcements/microsoft-fortifies-commitment-to-open-source-becomes-linux-foundation-platinum) by the Linux Foundation.
 * [Live Unit Testing in Visual Studio 2017 RC](https://blogs.msdn.microsoft.com/visualstudio/2016/11/18/live-unit-testing-visual-studio-2017-rc/) by Joe Morris.
 * [Put a .NET Core App in a Container with the new Docker Tools for Visual Studio](https://blogs.msdn.microsoft.com/webdev/2016/11/16/new-docker-tools-for-visual-studio/) by Jeffrey T. Fritz.
 * [Lucene.NET status update (October '16)](http://code972.com/blog/2016/10/99-lucene-net-status-update-october-16) by Itamar Syn-Hershko.
