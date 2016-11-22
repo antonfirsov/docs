@@ -80,18 +80,18 @@ ASP.NET
 F#
 --
 
-* [What's new in F# 4.1](https://channel9.msdn.com/Events/Connect/2016/118), by Phillip Carter
-* [F# Suave app on dotnet core on Kubernetes on Google Cloud](http://blog.2mas.xyz/fsharp-suave-app-on-dotnet-core-on-kubernetes-on-google-cloud/), by Tomas Jansson
-* [Using Blobs in Azure Functions with F#](http://markheath.net/post/using-blobs-in-azure-functions-with-fsharp), by Mark Heath
-* [F# and .NET Core preview3 (msbuild fsproj vs2017rc) is wip but ok](https://github.com/dotnet/netcorecli-fsc/wiki/.NET-Core-SDK-preview3)
-* [Let's Play with Azure Functions](http://lukemerrett.com/lets-play-with-azure-functions/), by  Luke Merrett
+* [What's new in F# 4.1 (video)](https://channel9.msdn.com/Events/Connect/2016/118), by Phillip Carter.
+* [F# Suave app on dotnet core on Kubernetes on Google Cloud](http://blog.2mas.xyz/fsharp-suave-app-on-dotnet-core-on-kubernetes-on-google-cloud/), by Tomas Jansson.
+* [Using Blobs in Azure Functions with F#](http://markheath.net/post/using-blobs-in-azure-functions-with-fsharp), by Mark Heath.
+* [F# and .NET Core preview3 (msbuild fsproj vs2017rc) is wip but ok](https://github.com/dotnet/netcorecli-fsc/wiki/.NET-Core-SDK-preview3).
+* [Let's Play with Azure Functions](http://lukemerrett.com/lets-play-with-azure-functions/), by  Luke Merrett.
 
 New F# language proposals:
 
-* [Shorthand notations for the if expressions](https://github.com/fsharp/fslang-suggestions/issues/519)
-* [Reverse selection and slice operators](https://github.com/fsharp/fslang-suggestions/issues/518)
-* [Allow Getters and Setters for Primitive Types To Validate and Coerce Values](https://github.com/fsharp/fslang-suggestions/issues/517)
-* [Allow Getters and Setters for Record Field Validation](https://github.com/fsharp/fslang-suggestions/issues/516)
+* [Shorthand notations for the if expressions](https://github.com/fsharp/fslang-suggestions/issues/519).
+* [Reverse selection and slice operators](https://github.com/fsharp/fslang-suggestions/issues/518).
+* [Allow Getters and Setters for Primitive Types To Validate and Coerce Values](https://github.com/fsharp/fslang-suggestions/issues/517).
+* [Allow Getters and Setters for Record Field Validation](https://github.com/fsharp/fslang-suggestions/issues/516).
 
 Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
 
@@ -121,7 +121,7 @@ Azure
 -----
 
 * [The DocumentDB client API now supports .NET Core](https://docs.microsoft.com/en-us/azure/documentdb/documentdb-sdk-dotnet-core).
-* [Announcing general availability of Azure Functions](https://azure.microsoft.com/en-us/blog/announcing-general-availability-of-azure-functions/) by Yochay Kiriaty
+* [Announcing general availability of Azure Functions](https://azure.microsoft.com/en-us/blog/announcing-general-availability-of-azure-functions/) by Yochay Kiriaty.
 * [How to deploy to Azure Functions using GitHub](http://jameschambers.com/2016/11/deploy-functions-from-github/), [How to organize types in your Azure Function scripts](http://jameschambers.com/2016/11/How-to-organize-types-in-your-scripts/), and [Fan out workloads in Azure Function Apps](http://jameschambers.com/2016/11/Fan-out-workloads-in-Azure-Function-Apps/) by James Chambers.
 
 Games
