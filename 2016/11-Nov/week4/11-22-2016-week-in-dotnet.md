@@ -74,6 +74,24 @@ ASP.NET
 * [Dockerizing Nerd Dinner: Part 2, Connecting ASP.NET to SQL Server](https://blog.sixeyed.com/dockerizing-nerd-dinner-part-2-connecting-asp-net-to-sql-server/) by Elton Stoneman.
 * [The Advanced Uses of Razor Views in ASP.NET MVC](https://www.simple-talk.com/dotnet/asp-net/advanced-uses-razor-views-asp-net-mvc/) by Dino Esposito.
 
+F#
+--
+
+* [What's new in F# 4.1](https://channel9.msdn.com/Events/Connect/2016/118), by Phillip Carter
+* [F# Suave app on dotnet core on Kubernetes on Google Cloud](http://blog.2mas.xyz/fsharp-suave-app-on-dotnet-core-on-kubernetes-on-google-cloud/), by Tomas Jansson
+* [Using Blobs in Azure Functions with F#](http://markheath.net/post/using-blobs-in-azure-functions-with-fsharp), by Mark Heath
+* [F# and .NET Core preview3 (msbuild fsproj vs2017rc) is wip but ok](https://github.com/dotnet/netcorecli-fsc/wiki/.NET-Core-SDK-preview3)
+* [Let's Play with Azure Functions](http://lukemerrett.com/lets-play-with-azure-functions/), by  Luke Merrett
+
+New F# language proposals:
+
+* [Shorthand notations for the if expressions](https://github.com/fsharp/fslang-suggestions/issues/519)
+* [Reverse selection and slice operators](https://github.com/fsharp/fslang-suggestions/issues/518)
+* [Allow Getters and Setters for Primitive Types To Validate and Coerce Values](https://github.com/fsharp/fslang-suggestions/issues/517)
+* [Allow Getters and Setters for Record Field Validation](https://github.com/fsharp/fslang-suggestions/issues/516)
+
+Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
+
 Xamarin
 -------
 
