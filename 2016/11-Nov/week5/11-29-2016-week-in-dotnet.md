@@ -92,6 +92,19 @@ ASP.NET
 F#
 --
 
+* [Vote here for Project Rider support for F#](https://youtrack.jetbrains.com/issue/RIDER-574).
+* [Using Paket with Azure Functions](http://kcieslak.io/Using-Paket-with-Azure-Functions), by Krzysztof Cieślak.
+* [Writing Azure Functions in F#](http://jameschambers.com/2016/11/2016-11-16-writing-azure-functions-in-fsharp/), by James Chambers.
+* [Why F# is the best language for Web Scraping](http://biarity.me/2016/11/23/Why-F-is-the-best-langauge-for-web-scraping/), by Biarity.
+* [F# Templates for .NET Core and ASP.NET Core](https://twitter.com/davidfowl/status/801681674916347904).
+
+New F# language proposals:
+
+* [Implement Async.StartImmediateAsTask](https://github.com/fsharp/fslang-suggestions/issues/521).
+* [Signature Files should effect the type inference in the corresponding implementation file](https://github.com/fsharp/fslang-suggestions/issues/522).
+
+Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
+
 Xamarin
 -------
 
