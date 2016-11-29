@@ -49,9 +49,14 @@ class ExampleViewModel : IDropTarget
 }
 ```
 
-Game of the week: xx
------------------------------------
+Game of the week: Transistor
+----------------------------
 
+[Transistor](https://www.supergiantgames.com/games/transistor/) is a sci-fi action RPG that follows the story of Red, a famous singer who is under attack. Even though Red manages to escape, it is not without losses. Fortunately, Red immediately comes into possession of a weapon known as the Transistor. As foes are defeated, new Functions are unlocked for the weapon, giving players the ability to configure thousands of possible combinations. Transistor features a unique strategic approach to combat, beautiful graphics and a rich story. 
+
+![transistorscreenshot](https://cloud.githubusercontent.com/assets/4108756/20717778/829c04ce-b60b-11e6-8cf0-0da70591cbaa.jpg)
+
+[Transistor](https://www.supergiantgames.com/games/transistor/) was created [Supergiant Games](https://www.supergiantgames.com/) using [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners) and their own custom engine. It is currently available on [Steam](http://store.steampowered.com/app/237930/), PlayStation 4 and the Apple App Store.
 
 User group meeting of the week: Electrical Engineering for Programmers in NYC
 -----------------------------------------------------------------------------
@@ -141,11 +146,19 @@ Data
 * [LLBLGen Pro v5.1 RTM has been released!](https://weblogs.asp.net/fbouma/llblgen-pro-v5-1-rtm-has-been-released) by Frans Bouma.
 * [EF6 or EF Core? How Do I Choose? (slide deck)](http://thedatafarm.com/data-access/ef6-or-ef-core-how-do-i-choose/) by Julie Lerman.
 * [Entity Framework Core and Cross-Database Support](https://blogs.msdn.microsoft.com/mvpawardprogram/2016/11/22/entity-framework-core/) by Shay Rojansky.
+* [EF Core 1.1: Looking at your model in the debugger](https://blog.oneunicorn.com/2016/11/17/ef-core-1-1-looking-at-your-model-in-the-debugger/) by Arthur Vickers.
+* [Add, Attach, Update, and Remove methods in EF Core 1.1](https://blog.oneunicorn.com/2016/11/17/add-attach-update-and-remove-methods-in-ef-core-1-1/) by Arthur Vickers.
 * [Entity Framework Core – Unit Testing](https://csharp.christiannagel.com/2016/11/22/efcoreunittesting/) by Christian Nagel.
 * [Integration Testing with Entity Framework Core and SQL Server](http://www.davepaquette.com/archive/2016/11/27/integration-testing-with-entity-framework-core-and-sql-server.aspx) by Dave Paquette.
 
 Games
 -----
+
+* [C# Opengl4 Minecraft Tutorial - Textured Block (Video)](https://www.youtube.com/watch?v=lXcXZ0muCKo&feature=youtu.be) by Creysys.
+* [Rapid Game Prototyping: Tips for Programmers](http://devmag.org.za/2014/01/08/rapid-game-prototyping-tips-for-programmers/) by Herman Tulleken.
+* [MonoGame Tutorial 001 - Drawing a Sprite (Video)](https://youtu.be/r5dM0_J7KuY?list=PLV27bZtgVIJqoeHrQq6Mt_S1-Fvq_zzGZ) by Oyyou.
+* [[Unity 5] Tutorial: How to start multiple events with OnTriggerEnter (Video)](https://www.youtube.com/watch?v=j_-2W6Kzbn4) by Gamad.
+* [Unity - 2D Movement (Part 7) - Camera Follow : Player (Video)](https://www.youtube.com/watch?v=VJjD1Tp1I8U) by Pixel Make.
 
 And this is it for this week!
 
