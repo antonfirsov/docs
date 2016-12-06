@@ -26,7 +26,7 @@ Game of the week: I Expect You To Die
 
 ![I Expect You To Die](iexpectyoutodie.png)
 
-[I Expect You To Die](https://iexpectyoutodie.schellgames.com/) was created [Shell Games](https://www.schellgames.com/) using [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners) and [Unity](unity3d.com). It is available for Oculus Rift and will release for PlayStationVR on December 13th.
+[I Expect You To Die](https://iexpectyoutodie.schellgames.com/) was created [Shell Games](https://www.schellgames.com/) using [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners) and [Unity](unity3d.com). It is available for Oculus Rift and will release for PlayStation VR on December 13th.
 
 User group meeting of the week: Using C# for Data Access in Seattle
 -------------------------------------------------------------------
