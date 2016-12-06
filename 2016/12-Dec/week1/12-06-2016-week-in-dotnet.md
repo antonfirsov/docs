@@ -26,7 +26,7 @@ Game of the week: I Expect You To Die
 
 ![I Expect You To Die](iexpectyoutodie.png)
 
-[I expect You To Die](https://iexpectyoutodie.schellgames.com/) was created [Shell Games](https://www.schellgames.com/) using [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners) and [Unity](unity3d.com). It is available for Oculus Rift and will release for PlayStationVR on December 13th.
+[I Expect You To Die](https://iexpectyoutodie.schellgames.com/) was created [Shell Games](https://www.schellgames.com/) using [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners) and [Unity](unity3d.com). It is available for Oculus Rift and will release for PlayStationVR on December 13th.
 
 User group meeting of the week: Using C# for Data Access in Seattle
 -------------------------------------------------------------------
@@ -71,7 +71,7 @@ F#
 
 * [Azure Notebooks supports F# out of the box!](https://notebooks.azure.com)
 * [F# in Production](http://www.kreutz.us/2016/12/02/f-in-production/) by Kristian Schmidt.
-* [Introduction to Azure IoT with F#](http://www.lucidmotions.net/2016/11/introduction-to-azure-iot-with-fsharp.html)by Chambers
+* [Introduction to Azure IoT with F#](http://www.lucidmotions.net/2016/11/introduction-to-azure-iot-with-fsharp.html) by Chambers
 * [Easy Domain Modeling with Types](http://blog.ploeh.dk/2016/11/28/easy-domain-modelling-with-types/) by Mark Seemann.
 * [Introducing Stream Processing in F#](http://mikhail.io/2016/11/introducing-stream-processing-in-fsharp/) Mikhail Shilkov.
 
