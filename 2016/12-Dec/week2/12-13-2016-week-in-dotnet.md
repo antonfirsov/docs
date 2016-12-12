@@ -95,6 +95,16 @@ ASP.NET
 F#
 --
 
+* [Build your own chatbot therapist in F#](http://evelinag.com/eliza/#/) by Evalina Gabasova.
+* [A gentle introduction to programming networked services on linux](https://github.com/haf/linux-intro-course) by Henrik Feldt.
+* [RdKafka for F# Microservices](https://j-alexander.github.io/entry/2016/12/08/rdkafka-for-fsharp-microservices) by Jonathan Leaver.
+* [Asterik Game in F# and WPF](http://markheath.net/post/asterisk-fsharp) by Mark Heath.
+* [How F# delighted this newbie while experimenting with distributed systems](https://hussam.github.io/fsadvent16/) by Hussam Abu-Libdeh.
+
+Check out the [F# Advent Calendar](https://sergeytihon.wordpress.com/2016/10/23/f-advent-calendar-in-english-2016/) for loads of great F# blog posts for the month of December.
+
+Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
+
 Xamarin
 -------
 
