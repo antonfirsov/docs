@@ -22,7 +22,7 @@ When an application uses unaligned block initialization, for example, from manag
 A memory leak may occur for certain scenarios when an application includes a D3DImage control. For example, if you started an application, changed both the size and content of the image and then ran the application through Remote Desktop. This improvement applies .NET Framework 4.5.2, 4.6 and 4.6.1.
 
 ## More Information
-Additional information on what is included in each of the rollups can be found on their associated knowledge base articles, listed below. 
+Additional information on what is included in each of the rollups along with the applicable operating systems can be found on their associated knowledge base articles, listed below. 
 
 ### Security and Quality Rollup
 
