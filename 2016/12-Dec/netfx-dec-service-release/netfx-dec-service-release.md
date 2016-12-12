@@ -2,7 +2,9 @@
 
 Today we are releasing a new Security and Quality Rollup and Security Only Rollup for the .NET Framework. You can read more about the recent changes to how the .NET Framework receives updates on the [.NET Framework Monthly Rollups Explained](https://blogs.msdn.microsoft.com/dotnet/2016/10/11/net-framework-monthly-rollups-explained/) post. 
 
-Both rollups resolve a vulnerability in the .NET Framework 4.6.2 that could allow an attacker to access information that should be defended by cryptographic mechanisms. To learn more about the vulnerability, see [Microsoft Security Bulletin MS16-155](https://technet.microsoft.com/library/security/MS16-155). More information on what is included in each of the rollups can be found on their associated knowledge base articles, listed below. 
+It is important to note that both rollups resolve a vulnerability in the .NET Framework 4.6.2 that could allow an attacker to access information that should be defended by cryptographic mechanisms. To learn more about the vulnerability, see [Microsoft Security Bulletin MS16-155](https://technet.microsoft.com/library/security/MS16-155).
+
+More information on what is included in each of the rollups can be found on their associated knowledge base articles, listed below.  
 
 **Security and Quality Rollup**
 
