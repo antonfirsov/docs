@@ -82,6 +82,7 @@ The presentations include:
 
 There's an awesome article this week by Matt Warren about [research papers in the .NET source](http://mattwarren.org/2016/12/12/Research-papers-in-the-.NET-source/) that's juxtaposing research papers with their application in the .NET source code. It's also showing examples of the reverse: academic papers that are the result of work on .NET. This is an excellent read that I highly recommend!
 
+* [December 2016 Update for .NET Core 1.0](https://blogs.msdn.microsoft.com/dotnet/2016/12/13/december-2016-update-net-core-1-0/) by Kendra Havens.
 * [Updating Visual Studio 2017 RC – .NET Core Tooling improvements](https://blogs.msdn.microsoft.com/dotnet/2016/12/12/updating-visual-studio-2017-rc-net-core-tooling-improvements/) by Joe Morris and David Carmona.
 * [.NET Standard (video playlist)](https://www.youtube.com/watch?v=YI4MurjfMn8&list=PLRAdsfhKI4OWx321A_pr-7HhRNk7wOLLY) by Immo Landwerth.
 * [Implementing low level trie](https://ayende.com/blog/176065/implementing-low-level-trie-part-i) and [Writing my own synchronization primitive ReaderWriterLock](https://ayende.com/blog/176226/writing-my-own-synchronization-primitive-readerwriterlock) by Ayende Rahien.
