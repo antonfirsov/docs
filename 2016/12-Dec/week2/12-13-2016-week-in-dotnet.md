@@ -1,12 +1,20 @@
-The week in .NET - Visual Studio 2017 RC updated, On .NET with Stephen Cleary and Luis Valencia, Ulterius, Inferno, LoGeek Night
+The <strike>week</strike>year in .NET - Visual Studio 2017 RC and .NET Core updated, On .NET with Stephen Cleary and Luis Valencia, Ulterius, Inferno, Bastion, LoGeek Night
 ============================
 
 To read last week's post, see [The week in .NET – On .NET on MyGet – FlexViewer – I Expect You To Die](https://blogs.msdn.microsoft.com/dotnet/2016/12/06/the-week-in-net-on-net-on-myget-flexviewer-i-expect-you-to-die/).
 
-Visual Studio 2017 RC updated
------------------------------
+The Week in .NET is now more than a year old! [Our first post](https://blogs.msdn.microsoft.com/dotnet/2015/12/01/the-week-in-net-1212015/) was published on December 1 of last year, and it had only 6 links. This week's issue has more than 60! This is not me becoming less selective (I'm actually becoming more selective), it really is the community growing, and producing more quality content each week. My goals when I started these posts were the following:
 
-Yesterday, [Visual Studio 2017 RC got an update](https://blogs.msdn.microsoft.com/visualstudio/2016/12/12/updating-visual-studio-2017-release-candidate/), with further improvements to the `csproj` format. You can read all the .NET Core and `csproj` details in [Updating Visual Studio 2017 RC – .NET Core Tooling improvements](https://blogs.msdn.microsoft.com/dotnet/2016/12/12/updating-visual-studio-2017-rc-net-core-tooling-improvements/), and the ASP.NET changes in [New Updates to Web Tools in Visual Studio 2017 RC](https://blogs.msdn.microsoft.com/webdev/2016/12/12/new-updates-to-web-tools-in-visual-studio-2017-rc/).
+* Provide useful resources every week.
+* Show how productive the .NET community is.
+* Recognize the amazing work that's being done by you all.
+
+Thank you all for an amazing year. Thank you to all the great writers of code and blogs, without whom this could simply not exist. Thank you to Stacey, Phillip, Dan, and Rowan for sending me gaming, F#, Xamarin, and EF content every week. And finally, thanks to all of you who read and support us every week.
+
+Visual Studio 2017 RC and .NET Core 1.0 updated
+-----------------------------------------------
+
+Yesterday, [Visual Studio 2017 RC got an update](https://blogs.msdn.microsoft.com/visualstudio/2016/12/12/updating-visual-studio-2017-release-candidate/), with further improvements to the `csproj` format. You can read all the .NET Core and `csproj` details in [Updating Visual Studio 2017 RC – .NET Core Tooling improvements](https://blogs.msdn.microsoft.com/dotnet/2016/12/12/updating-visual-studio-2017-rc-net-core-tooling-improvements/), and the ASP.NET changes in [New Updates to Web Tools in Visual Studio 2017 RC](https://blogs.msdn.microsoft.com/webdev/2016/12/12/new-updates-to-web-tools-in-visual-studio-2017-rc/). [.NET Core 1.0 also got updated to 1.0.3, along with ASP.NET and Entity Framework Core](https://blogs.msdn.microsoft.com/dotnet/2016/12/13/december-2016-update-net-core-1-0/).
 
 On .NET
 -------
