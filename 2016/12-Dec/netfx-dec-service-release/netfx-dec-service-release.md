@@ -1,17 +1,13 @@
 # .NET Framework December Monthly Rollup
 
-Today we are releasing a new Security and Quality Rollup and Security Only Rollup for the .NET Framework. This release resolves a security vulnerability and includes three new quality and reliability improvements.
+Today we are releasing a new Security and Quality Rollup and Security Only update for the .NET Framework. This release resolves a security vulnerability and includes three new quality and reliability improvements.
 
-You can read more about the recent changes to how the .NET Framework receives updates on the [.NET Framework Monthly Rollups Explained](https://blogs.msdn.microsoft.com/dotnet/2016/10/11/net-framework-monthly-rollups-explained/) post. 
+You can read more about the recent changes to how the .NET Framework receives updates on the [.NET Framework Monthly Rollups Explained](https://blogs.msdn.microsoft.com/dotnet/2016/10/11/net-framework-monthly-rollups-explained/) post.
 
 ## Security
 This release resolves a vulnerability in Microsoft .NET 4.6.2 Framework’s Data Provider for SQL Server. A security vulnerability exists in Microsoft .NET Framework 4.6.2 that could allow an attacker to access information that is defended by the [Always Encrypted](https://technet.microsoft.com/library/security/dn848375.aspx#AlwaysEncrypted) feature.  The security update addresses the vulnerability by correcting the way .NET Framework handles the developer-supplied key, and thus properly defends the data. This security update is rated Important for Microsoft .NET Framework 4.6.2. To learn more about the vulnerability, see [Microsoft Security Bulletin MS16-155](https://technet.microsoft.com/library/security/MS16-155).
 
 ## Quality and Reliability 
-
-### ADO.NET
-
-Exceptions may be thrown in SqlClient during the prelogin handshake process or during MARS communication when a received TDS packet size is smaller than expected. Prelogin handshake errors will manifest as an OverflowException, and MARS errors will manifest as a generic "Physical connection is not usable" exception. This improvement applies .NET Framework 3.5, 3.5.1, 4.5.2, 4.6 and 4.6.1.
 
 ### Common Language Runtime
 
@@ -33,7 +29,7 @@ Additional information on what is included in each of the rollups along with the
 | [3205403](https://support.microsoft.com/en-us/kb/3205403)  |.NET Frameworks 3.5, 4.5.2, 4.6, 4.6.1, and 4.6.2   |  Windows Server 2012 |
 | [3205404](https://support.microsoft.com/en-us/kb/3205404)  |.NET Frameworks 3.5, 4.5.2, 4.6, 4.6.1, and 4.6.2   |  Windows 8.1 and Windows Server 2012 R2 |
 
-### Security Only Rollup
+### Security Only Update
 
 |KB Article | .NET Version  | Operating System   |
 |---|---|---|
