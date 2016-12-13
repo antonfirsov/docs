@@ -1,4 +1,4 @@
-The week in .NET - Visual Studio 2017 RC updated, On .NET with Stephen Cleary and Luis Valencia
+The week in .NET - Visual Studio 2017 RC updated, On .NET with Stephen Cleary and Luis Valencia, Ulterius, Inferno, LoGeek Night
 ============================
 
 To read last week's post, see [The week in .NET – On .NET on MyGet – FlexViewer – I Expect You To Die](https://blogs.msdn.microsoft.com/dotnet/2016/12/06/the-week-in-net-on-net-on-myget-flexviewer-i-expect-you-to-die/).
