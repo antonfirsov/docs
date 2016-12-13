@@ -49,6 +49,15 @@ using (var decTransform = new EtM_DecryptTransform(key: key))
 }
 ```
 
+Game of the week: Bastion
+-------------------------
+
+[Bastion](https://www.supergiantgames.com/games/bastion/) is an action role playing game. Play as a young man who sets out on a journey towards Bastion after waking up to find his world shattered to pieces by a catastrophe called the Calamity. Explore over 40 beautifully hand-painted environments as you discover the secrets of Calamity while trying to reverse its effects. Bastion features a reactive narrator who marks your ever move, upgradeable weapons, and character customization that lets you tailor game play to your style.
+
+![screenshot](https://cloud.githubusercontent.com/assets/4108756/21149160/6d747da6-c10f-11e6-9e77-ed22c511672a.jpg)
+
+[Bastion](https://www.supergiantgames.com/games/bastion/) was created [Supergiant Games](https://www.supergiantgames.com/) using [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners) and their own custom engine. It is currently available on [Steam](http://store.steampowered.com/app/237930/), Xbox One, Xbox 360, PlayStation 4, PlayStation VITA and the Apple App Store.
+
 User group meeting of the week: LTS LoGeek Night in Wrocław, Poland
 -------------------------------------------------------------------
 
@@ -62,6 +71,8 @@ The presentations include:
 
 .NET
 ----
+
+There's an awesome article this week by Matt Warren about [research papers in the .NET source](http://mattwarren.org/2016/12/12/Research-papers-in-the-.NET-source/) that's juxtaposing research papers with their application in the .NET source code. It's also showing examples of the reverse: academic papers that are the result of work on .NET. This is an excellent read that I highly recommend!
 
 * [Updating Visual Studio 2017 RC – .NET Core Tooling improvements](https://blogs.msdn.microsoft.com/dotnet/2016/12/12/updating-visual-studio-2017-rc-net-core-tooling-improvements/) by Joe Morris and David Carmona.
 * [.NET Standard (video playlist)](https://www.youtube.com/watch?v=YI4MurjfMn8&list=PLRAdsfhKI4OWx321A_pr-7HhRNk7wOLLY) by Immo Landwerth.
@@ -140,6 +151,15 @@ Data
 
 Games
 -----
+
+* [Judging Ludum Dare 37](http://ludumdare.com/compo/2016/12/11/judging-ludum-dare-37/) by PoV.
+* [Unity 5.6 Beta is Now Available](https://blogs.unity3d.com/2016/12/13/unity-5-6-beta-is-now-available/) by Alex Lian.
+* [Unity 5.6 Wraps Unity 5 Cycle, What's Next In 2018](https://blogs.unity3d.com/2016/12/13/unity-5-6-wraps-unity-5-cycle-whats-next-in-2017/) by Brett Bibby.
+* [Asynchronous Serial Communication](http://www.alanzucconi.com/2016/12/01/asynchronous-serial-communication/) by Alan Zucconi.
+* [How to integrate Arduino with Unity](http://www.alanzucconi.com/2015/10/07/how-to-integrate-arduino-with-unity/) by Alan Zucconi.
+* [13 More Tips for Making a Fun Platformer](http://devmag.org.za/2012/07/19/13-more-tips-for-making-a-fun-platformer/) by Diorgo Jonkers.
+* [Designing a deep strategy game with no random elements](http://www.gamasutra.com/blogs/DaniGarcia/20161206/286822/Designing_a_deep_strategy_game_with_no_random_elements.php) by Dani Garcia.
+* [Free Lowpoly Nature Pack Vol.3](https://www.reddit.com/r/gamedev/comments/5hguoz/free_lowpoly_nature_pack_vol3/) by QuaterniusDev.
 
 And this is it for this week!
 
