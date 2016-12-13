@@ -109,6 +109,24 @@ Xamarin
 -------
 
 * [Bindable Native Views in XAML – With Commands!?!](https://codemilltech.com/bindable-native-views-in-xaml-with-commands/) by Matthew Soucoup.
+* [Xamarin Alpha Preview 4: Cycle 9](https://releases.xamarin.com/alpha-preview-4-cycle-9/) & [Preview 2: Visual Studio for Mac](https://releases.xamarin.com/preview-2-visual-studio-for-mac/) by Adrian Murphy.
+* [Join us for the Xamarin Dev Days Live Virtual Event](https://blog.xamarin.com/join-us-for-the-xamarin-dev-day-live-virtual-event/) by James Montemagno.
+* [Webinar Recording | Get Started with Xamarin and Microsoft Azure](https://blog.xamarin.com/webinar-recording-get-started-with-xamarin-and-microsoft-azure/) by Courtney Witmer.
+* [Optimizing Android Apps for Multi-Window Mode](https://blog.xamarin.com/optimizing-android-apps-for-multi-window-mode/) by James Montemagno.
+* [Google Awareness API for Android: Query and React to Signals](https://blog.xamarin.com/google-awareness-api-for-android-query-and-react-to-signals/) by James Montemagno.
+* [Vehicle Smart Solves an Everyday Problem with Five-Star Xamarin Apps](https://blog.xamarin.com/vehicle-smart-solves-an-everyday-problem-with-five-star-xamarin-apps/) by Lacey Butler.
+* [Xamarin + Universal Windows Platform](https://developer.xamarin.com/guides/cross-platform/windows/universal/) & [Introducing Visual Studio for Mac](https://developer.xamarin.com/guides/cross-platform/visual-studio-mac/) by Xamarin.
+* [The Xamarin Show 12: MVVM Light and Xamarin with Laurent Bugnion](https://channel9.msdn.com/Shows/XamarinShow/The-Xamarin-Show-12-MVVM-Light-and-Xamarin-with-Laurent-Bugnion) by James Montemagno.
+* [Setting Up Android x86 HAXM Emulators](http://motzcod.es/post/154096351292/setting-up-android-x86-haxm-emulators) by James Montemagno.
+* [Xamarin.Android - Where Do These Permissions Come From?](http://www.jon-douglas.com/2016/12/05/xamarin-android-where-do-these-permissions-come-from/) by Jon Douglas.
+* [Introduction To Xamarin Workbooks](https://xamarinhelp.com/introduction-xamarin-workbooks/) by Adam Pedley.
+* [Best Practices For Animated Progress Indicators](https://www.smashingmagazine.com/2016/12/best-practices-for-animated-progress-indicators/) by Nick Babich.
+* [Putting Aid on the Map with Help from Urban Refuge](https://channel9.msdn.com/Blogs/DevRadio/DR1707) by Jerry Nixon.
+* [X-Platform Development With Xamarin.Forms & F#](http://trelford.com/blog/post/XamarinForms.aspx) by Phillip Trelford.
+* [Xamarin.iOS - How to get the mime type of a file](http://blog.thomaslebrun.net/2016/12/xamarin-ios-how-to-get-the-mime-type-of-a-file/) by Thomas Lebrun.
+* [Xamarin.iOS - How to pre-calculate the size of a text, depending of its content](http://blog.thomaslebrun.net/2016/12/xamarin-ios-how-to-pre-calculate-the-size-of-a-text-depending-of-its-content/) by Thomas Lebrun.
+* [Xamarin Forms: Customizing the Synfusion Kanban Control is as simple as 1-2-3](https://inquisitorjax.blogspot.com/2016/12/xamarin-forms-customizing-synfusion.html) by Malcolm Jack.
+* [Caliburn.Micro 3.0.2 released](http://caliburnmicro.com/announcements/3.0.2) by Caliburn.Micro Team.
 
 Azure
 -----
