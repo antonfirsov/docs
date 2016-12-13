@@ -1,6 +1,6 @@
 # .NET Framework December Monthly Rollup
 
-Today we are releasing a new Security and Quality Rollup and Security Only update for the .NET Framework. This release resolves a security vulnerability and includes three new quality and reliability improvements.
+Today we are releasing a new Security and Quality Rollup and Security Only update for the .NET Framework. This release resolves a security vulnerability and includes two new quality and reliability improvements. The Security and Quality Rollup is available via Windows Update, Windows Server Update Services and Microsoft Update Catalog. The Security Only Update is available on Windows Server Update Services and Microsoft Update Catalog
 
 You can read more about the recent changes to how the .NET Framework receives updates on the [.NET Framework Monthly Rollups Explained](https://blogs.msdn.microsoft.com/dotnet/2016/10/11/net-framework-monthly-rollups-explained/) post.
 
