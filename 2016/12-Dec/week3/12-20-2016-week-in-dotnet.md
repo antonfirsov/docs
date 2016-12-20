@@ -63,7 +63,7 @@ F#
 
 * [Project Springfield: a cloud service built entirely in F#](https://blogs.msdn.microsoft.com/dotnet/2016/12/13/project-springfield-a-cloud-service-built-entirely-in-f/)
 * [Why functional programming matters](https://www.youtube.com/watch?v=IyR04U66z7E) by John Hughes.
-* [Some advice to F# beginngers](http://www.pirrmann.net/some-advice-to-f-beginners/) by Pierre Irrmann
+* [Some advice to F# beginners](http://www.pirrmann.net/some-advice-to-f-beginners/) by Pierre Irrmann
 * [Working with SQL syntax trees in F#](https://gist.github.com/isaksky/f8c4881bf93c7e57115439af07722ecc) by Isak Sky.
 * [Scripting in F# using Fake and Paket](https://www.infoq.com/news/2016/12/fsharp-scripting-fake-paket) by Pierre-Luc Maheu.
 
