@@ -12,7 +12,7 @@ Last week, [we had Karel Zikmund, Wes Haggard, and Immo Landwerth on the show](h
 
 <iframe src="https://channel9.msdn.com/Shows/On-NET/Karel-Zikmund-Wes-Haggard--Immo-Landwerth-NET-Core-Triage--Project-Management/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
-This week (and next week), we won't have a live show, because it's this time of year, but I will publish more of the short interviews that we recorded at the MVP Summit, so stay tuned for new videos on [Channel 9](https://channel9.msdn.com/Shows/On-NET) and [YouTube](https://www.youtube.com/channel/UCvtT19MZW8dq5Wwfu6B0oxw).
+Because it's the holiday season, we won't have have a live show until next year, but I will publish more of the short interviews that we recorded at the MVP Summit, so stay tuned for new videos on [Channel 9](https://channel9.msdn.com/Shows/On-NET) and [YouTube](https://www.youtube.com/channel/UCvtT19MZW8dq5Wwfu6B0oxw).
 
 App of the week: ShareX
 -----------------------
@@ -29,42 +29,43 @@ App of the week: ShareX
 * [Why is reflection slow?](http://mattwarren.org/2016/12/14/Why-is-Reflection-slow/) by Matt Warren.
 * [Orleans and Midori](https://blogs.msdn.microsoft.com/orleans/2016/12/11/orleans-and-midori/) by Sergey Bykov.
 * [Using bit masks for high-performance calculations](http://indexoutofrange.com/Using-bit-operations-for-performance-optimizations/) by Szymon Warda.
-* [How to Use Your GPU in .NET](https://www.codeproject.com/Articles/1116907/How-to-Use-Your-GPU-in-NET) by D. Infuehr.
+* [How to use Your GPU in .NET](https://www.codeproject.com/Articles/1116907/How-to-Use-Your-GPU-in-NET) by D. Infuehr.
 * [A magic mirror application written with C#, UWP, and Microsoft Cognitive Services](https://github.com/IEvangelist/Mirror) by David M Pine.
-* [Visual Studio Debugging and 64 Bit .NET Applications](https://weblog.west-wind.com/posts/2016/Dec/19/Visual-Studio-Debugging-and-64-Bit-NET-Applications) by Rick Strahl.
+* [Visual Studio debugging and 64 Bit .NET Applications](https://weblog.west-wind.com/posts/2016/Dec/19/Visual-Studio-Debugging-and-64-Bit-NET-Applications) by Rick Strahl.
 * [RavenDB 4.0 Alpha is out!](https://ayende.com/blog/176385/ravendb-4-0-alpha-is-out) by Ayende Rahien.
-* [Loading .NET Assemblies out of Seperate Folders](https://weblog.west-wind.com/posts/2016/Dec/12/Loading-NET-Assemblies-out-of-Seperate-Folders) by Rick Strahl.
-* [Avoid Referencing Infrastructure in Visual Studio Solutions](http://ardalis.com/avoid-referencing-infrastructure-in-visual-studio-solutions) by Steve Smith.
-* [Eliding Async and Await](http://blog.stephencleary.com/2016/12/eliding-async-await.html) by Stephen Cleary.
+* [Loading .NET assemblies out of seperate folders](https://weblog.west-wind.com/posts/2016/Dec/12/Loading-NET-Assemblies-out-of-Seperate-Folders) by Rick Strahl.
+* [Avoid referencing infrastructure in Visual Studio solutions](http://ardalis.com/avoid-referencing-infrastructure-in-visual-studio-solutions) by Steve Smith.
+* [Eliding async and await](http://blog.stephencleary.com/2016/12/eliding-async-await.html) by Stephen Cleary.
 * [QuickStart TOR in .NET Core](https://www.codeproject.com/Articles/1161078/QuickStart-TOR-in-NET-Core) by Ádám Ficsór.
-* [Dealing with Duplication in MediatR Handlers](https://lostechies.com/jimmybogard/2016/12/12/dealing-with-duplication-in-mediatr-handlers/) by Jimmy Bogard.
+* [Dealing with duplication in MediatR handlers](https://lostechies.com/jimmybogard/2016/12/12/dealing-with-duplication-in-mediatr-handlers/) by Jimmy Bogard.
 * [Request and response with C# and NATS](http://danielwertheim.se/request-and-response-with-c-and-nats/) by Daniel Wertheim.
+* [Performance exercise: minimum](http://aakinshin.net/en/blog/dotnet/perfex-min/) by Andrey Akinshin.
 
 ASP.NET
 -------
 
 * [Announcing Microsoft ASP.NET WebHooks V1](https://blogs.msdn.microsoft.com/webdev/2016/12/14/introducing-microsoft-asp-net-webhooks-preview-2/) by Henrik F Nielsen.
-* [Using a culture constraint and redirecting 404s with the url culture provider](https://andrewlock.net/using-a-culture-constraint-and-catching-404s-with-the-url-culture-provider/) by Andrew Lock.
+* [Using a culture constraint and redirecting 404s with the URL culture provider](https://andrewlock.net/using-a-culture-constraint-and-catching-404s-with-the-url-culture-provider/) by Andrew Lock.
 * [Using Web Sockets with ASP.NET Core](http://www.softfluent.com/blog/dev/2016/12/11/Using-Web-Sockets-with-ASP-NET-Core) by Gérald Barré.
 * [How to set up Angular2 with DevExtreme from scratch using Asp.Net Core 1.1](https://www.youtube.com/watch?v=iR-azi-kgjg) by Viktor Kjartansson.
-* [Making Application Insights Fast & Secure](http://rehansaeed.com/making-application-insights-fast-and-secure/) by Muhammad Rehan Saeed.
-* [ASP.NET Core Response Optimization](https://ievangelist.github.io/blog/asp-net-core-optimization/) by David M Pine.
-* [Implementing a Client White-list using ASP.NET Core Middleware](https://damienbod.com/2016/12/18/implementing-a-client-white-list-using-asp-net-core-middleware/) by Damien Bod.
-* [http://blog.falafel.com/mvc-areas-with-asp-net-core/](http://blog.falafel.com/mvc-areas-with-asp-net-core/) by Josh Morales.
-* [SEO Friendly URL’s for ASP.NET Core](http://rehansaeed.com/seo-friendly-urls-asp-net-core/) by Muhammad Rehan Saeed.
-* [HTTP/2 Server Push and ASP.NET MVC](http://tpeczek.blogspot.co.uk/2016/12/one-of-new-features-in-http2-is-server.html) by Tomasz Pęczek.
+* [Making Application Insights fast & secure](http://rehansaeed.com/making-application-insights-fast-and-secure/) by Muhammad Rehan Saeed.
+* [ASP.NET Core response optimization](https://ievangelist.github.io/blog/asp-net-core-optimization/) by David M Pine.
+* [Implementing a client white-list using ASP.NET Core middleware](https://damienbod.com/2016/12/18/implementing-a-client-white-list-using-asp-net-core-middleware/) by Damien Bod.
+* [MVC Areas with ASP.NET Core](http://blog.falafel.com/mvc-areas-with-asp-net-core/) by Josh Morales.
+* [SEO friendly URLs for ASP.NET Core](http://rehansaeed.com/seo-friendly-urls-asp-net-core/) by Muhammad Rehan Saeed.
+* [HTTP/2 server push and ASP.NET MVC](http://tpeczek.blogspot.co.uk/2016/12/one-of-new-features-in-http2-is-server.html) by Tomasz Pęczek.
 * [Conditionally set sliding expiration time on authentication cookies in ASP.NET Core](https://medium.com/cacti-pins/conditionally-set-sliding-expiration-time-on-authentication-cookies-in-asp-net-core-e70ffe7da49d#.8f47h4jlk) by Legogris.
-* [Pragmatic Web Error Handling in ASP.NET MVC](https://www.simple-talk.com/dotnet/asp-net/pragmatic-web-error-handling-asp-net-mvc/) by Dino Esposito.
+* [Pragmatic web error handling in ASP.NET MVC](https://www.simple-talk.com/dotnet/asp-net/pragmatic-web-error-handling-asp-net-mvc/) by Dino Esposito.
 * [Accessing HttpContext outside of framework components in ASP.NET Core](http://www.strathweb.com/2016/12/accessing-httpcontext-outside-of-framework-components-in-asp-net-core/) by Filip W.
 
 F#
 --
 
-* [Project Springfield: a Cloud Service Built Entirely in F#](https://blogs.msdn.microsoft.com/dotnet/2016/12/13/project-springfield-a-cloud-service-built-entirely-in-f/)
-* [Why Functional Programming Matters](https://www.youtube.com/watch?v=IyR04U66z7E) by John Hughes.
-* [Some Advice to F# Beginngers](http://www.pirrmann.net/some-advice-to-f-beginners/) by Pierre Irrmann
-* [Working with SQL Syntax Trees in F#](https://gist.github.com/isaksky/f8c4881bf93c7e57115439af07722ecc) by Isak Sky.
-* [Scripting in F# Using Fake and Paket](https://www.infoq.com/news/2016/12/fsharp-scripting-fake-paket) by Pierre-Luc Maheu.
+* [Project Springfield: a cloud service built entirely in F#](https://blogs.msdn.microsoft.com/dotnet/2016/12/13/project-springfield-a-cloud-service-built-entirely-in-f/)
+* [Why functional programming matters](https://www.youtube.com/watch?v=IyR04U66z7E) by John Hughes.
+* [Some advice to F# beginngers](http://www.pirrmann.net/some-advice-to-f-beginners/) by Pierre Irrmann
+* [Working with SQL syntax trees in F#](https://gist.github.com/isaksky/f8c4881bf93c7e57115439af07722ecc) by Isak Sky.
+* [Scripting in F# using Fake and Paket](https://www.infoq.com/news/2016/12/fsharp-scripting-fake-paket) by Pierre-Luc Maheu.
 
 Check out the [F# Advent Calendar](https://sergeytihon.wordpress.com/2016/10/23/f-advent-calendar-in-english-2016/) for loads of great F# blog posts for the month of December.
 
@@ -73,17 +74,17 @@ Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for 
 Xamarin
 -------
 
-* [Xamarin Stable Release: Updated Cycle 8 Service Release 1 w/ Xcode 8.2 Support](https://releases.xamarin.com/stable-release-updated-cycle-8-service-release-1-w-xcode-8-2-support/) & [Xamarin Alpha Preview 5: Cycle 9](https://releases.xamarin.com/alpha-preview-5-cycle-9/) by Adrian Murphy.
-* [Installing Xamarin Made Easy with Offline Installation](https://blog.xamarin.com/installing-xamarin-made-easy-offline-installation/) by Mayur Tendulkar.
-* [Introducing the BikeRider Xamarin.Forms Sample App](https://blog.xamarin.com/introducing-bikerider-app/) by Pierce Boggan.
-* [Connect(“demos”); // 2016: BikeSharing360 on GitHub](https://blogs.msdn.microsoft.com/visualstudio/2016/12/14/connectdemos-2016-bikesharing360-on-github/) by Erika Ehrli Cabral.
+* [Xamarin Stable Release: Updated Cycle 8 Service Release 1 w/ Xcode 8.2 support](https://releases.xamarin.com/stable-release-updated-cycle-8-service-release-1-w-xcode-8-2-support/) & [Xamarin Alpha Preview 5: Cycle 9](https://releases.xamarin.com/alpha-preview-5-cycle-9/) by Adrian Murphy.
+* [Installing Xamarin made easy with offline installation](https://blog.xamarin.com/installing-xamarin-made-easy-offline-installation/) by Mayur Tendulkar.
+* [Introducing the BikeRider Xamarin.Forms sample app](https://blog.xamarin.com/introducing-bikerider-app/) by Pierce Boggan.
+* [Connect("demos"); // 2016: BikeSharing360 on GitHub](https://blogs.msdn.microsoft.com/visualstudio/2016/12/14/connectdemos-2016-bikesharing360-on-github/) by Erika Ehrli Cabral.
 * [Exploring our newest sample app, BikeSharing360](https://channel9.msdn.com/Shows/Visual-Studio-Toolbox/Exploring-our-newest-sample-app-BikeSharing360) by Visual Studio Toolbox.
 * [Infographic - How to design a growth strategy for your app](https://www.visionmobile.com/blog/2016/12/6463-2) by Mark Boyd.
-* [Bindable Native Views in XAML – With Commands!?!](https://codemilltech.com/bindable-native-views-in-xaml-with-commands/) by Matthew Soucoup.
-* [Ahead of Time Compilation with Xamarin.Mac](https://medium.com/@donblas/ahead-of-time-compilation-with-xamarin-mac-ceb6fb1d0a3c) by Chris Hamons.
-* [Troubleshooting Connecting to Xamarin Mac Agent](https://xamarinhelp.com/troubleshooting-connecting-xamarin-mac-agent/) by Adam Pedley.
+* [Bindable native views in XAML – with commands!?!](https://codemilltech.com/bindable-native-views-in-xaml-with-commands/) by Matthew Soucoup.
+* [Ahead of time compilation with Xamarin.Mac](https://medium.com/@donblas/ahead-of-time-compilation-with-xamarin-mac-ceb6fb1d0a3c) by Chris Hamons.
+* [Troubleshooting connecting to Xamarin Mac Agent](https://xamarinhelp.com/troubleshooting-connecting-xamarin-mac-agent/) by Adam Pedley.
 * [Xamarin Forms (Android): Why won't it store my Azure B2C Auth Token?](http://blog.wislon.io/posts/2016/12/05/msal-token-not-stored-on-android) by John Wilson.
-* [My UICollectionView doesn’t refresh on new items](https://marcoscobena.com/2016/12/12/my-uicollectionview-doesnt-refresh-on-new-items/) by Marcos Cobeña Morián.
+* [My UICollectionView doesn't refresh on new items](https://marcoscobena.com/2016/12/12/my-uicollectionview-doesnt-refresh-on-new-items/) by Marcos Cobeña Morián.
 
 Azure
 -----
@@ -95,9 +96,9 @@ Data
 
 * [Entity Framework Core Extensions](http://erikej.blogspot.dk/2016/12/entity-framework-core-extensions.html) by ErikEJ.
 * [EF Core diagnosis and features with MS SQL Server](https://damienbod.com/2016/12/13/ef-core-diagnosis-and-features-with-ms-sql-server/) by Damien Bod.
-* [Previewing the Generated PostgreSQL SQL for a Query in Marten](http://dontcodetired.com/blog/post/Previewing-the-Generated-PostgreSQL-SQL-for-a-Query-in-Marten) by Jason Roberts.
-* [Page the Doctor! When Entity Framework Paging Goes Rogue!](http://rion.io/2016/12/14/when-entity-framework-goes-rogue/) by Rion Williams.
-* [Retrieving Raw JSON Data in Web API with Marten](http://dontcodetired.com/blog/post/Retrieving-Raw-JSON-Data-in-Web-API-with-Marten) by Jason Roberts.
+* [Previewing the generated PostgreSQL SQL for a query in Marten](http://dontcodetired.com/blog/post/Previewing-the-Generated-PostgreSQL-SQL-for-a-Query-in-Marten) by Jason Roberts.
+* [Page the Doctor! When Entity Framework paging goes rogue!](http://rion.io/2016/12/14/when-entity-framework-goes-rogue/) by Rion Williams.
+* [Retrieving raw JSON data in Web API with Marten](http://dontcodetired.com/blog/post/Retrieving-Raw-JSON-Data-in-Web-API-with-Marten) by Jason Roberts.
 
 And this is it for this week!
 
