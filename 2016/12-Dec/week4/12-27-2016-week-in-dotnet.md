@@ -42,6 +42,15 @@ list.Add(1); // automatically converted to String
 list.Count; // 2
 ```
 
+Game of the Week: Blue Effect
+-----------------------------
+
+[Blue Effect](http://blue-effect.com/) is a virtual reality first-person shooter survival horror game. You are deployed to Planet Exo-277, which is populated by an alien race who wants to exterminate you. Fight waves of cruel aliens with your "Little Buddy" (a laser pistol that vaporizes anything in its path), "Enlightenment" (an orb used for lighting the path) and "Blue Effect" (a rare energy source that powers your equipment). Blue Effect also features a Hide & Seek, local multiplayer game mode. In Hide and Seek, a second player is put in control of one of the aliens via a game controller with the goal of seeking, scaring and exterminating.
+
+![gamescreen](https://cloud.githubusercontent.com/assets/4108756/21527251/b7481ac0-ccde-11e6-9bc3-c9cd82755f27.jpg)
+
+[Blue Effect](http://blue-effect.com/) was created [DIVR Labs](http://divrlabs.com/) using [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners) and [Unity](unity3d.com). It is currently in early access on [Steam](http://store.steampowered.com/app/522020/) for the HTC Vive and Oculus Rift.
+
 .NET
 ----
 
@@ -81,10 +90,35 @@ Azure
 * [Using Azure App Service Authentication with ASP.NET (Classic) MVC Applications](https://blogs.msdn.microsoft.com/appserviceteam/2016/12/21/using-azure-app-service-authentication-with-asp-net-classic-mvc-applications/) by Adrian Hall.
 * [Getting started with Azure Functions and using them within Logic Apps](http://blogs.biztalk360.com/getting-started-azure-functions-logic-apps/) by Steef-Jan Wiggers.
 
+Xamarin
+-------
+
+* [Xamarin Stable Release: Cycle 8 Service Release 2](https://releases.xamarin.com/stable-release-cycle-8-service-release-2/) by Luis Aguilera.
+* [Xamarin Alpha Preview 6: Cycle 9](https://releases.xamarin.com/alpha-preview-6-cycle-9/) by Bri Brothers.
+* [Android 7.1 Developer Preview Now Available](https://blog.xamarin.com/android-7-1-developer-preview-now-available/) by Miguel de Icaza.
+* [Build your Mobile Development Toolkit for 2017](https://blog.xamarin.com/build-your-mobile-development-toolkit-for-2017/) by Cormac Foster.
+* [Simple and Intuitive App Shortcuts in Android 7.1](https://blog.xamarin.com/simple-and-intuitive-app-shortcuts-in-android-7-1/) by James Montemagno.
+* [Xamarin Dev Days Available On-Demand](https://blog.xamarin.com/xamarin-dev-days-recap/) by Jayme Singleton.
+* [The Xamarin Show Snack Pack 4: Interactive Learning with Xamarin Workbooks](https://channel9.msdn.com/Shows/XamarinShow/Snack-Pack-4-Interactive-Learning-with-Xamarin-Workbooks) by James Montemagno.
+* [Going Serverless with Azure Functions: SendGrid](http://motzcod.es/post/154814819597/going-serverless-with-azure-functions-sendgrid) by James Montemagno.
+* [Xamarin.Forms: Google AdMob Ads in Android](http://motzcod.es/post/154607061227/xamarinforms-google-admob-ads-in-android) & [Xamarin.Forms: Google Admob Ads in iOS](http://motzcod.es/post/154696375922/xamarinforms-google-admob-ads-in-ios) by James Montemagno.
+* [Deploy the Android 7 Multi-Window Mode via Xamarin](https://visualstudiomagazine.com/articles/2016/12/01/multiwindow-mode-via-xamarin.aspx) by Wallace McClure.
+* [Xamarin Forms Layout Engine, Under The Hood](https://xamarinhelp.com/xamarin-forms-layout-engine-hood/) by Adam Pedley.
+* [How to Make an Android and iOS App in C# on a Mac](https://www.toptal.com/c-sharp/how-to-make-an-android-and-ios-app-in-c-on-a-mac) by Demir Selmanovic.
+
 Data
 ----
 
 * [Looking at Entity Framework Core 1.0](https://visualstudiomagazine.com/articles/2016/12/01/entity-framework-core-1_0.aspx) by Peter Vogel.
+
+Games
+-----
+
+* [Take a look behind-the-scenes with design documents from The Legend of Zelda!](https://www.nintendo.co.uk/News/2016/December/Take-a-look-behind-the-scenes-with-design-documents-from-The-Legend-of-Zelda--1169414.html).
+* [Object construction with factory method](http://brightreasongames.com/object-construction-factory-method/) by Pasquale Franzese.
+* [[Unity 5] Tutorial: How to make an inventory system - part 1 (Video)](https://youtu.be/SZjWN9MsA94) by Gamad.
+* [Generating Collision Meshes for a Voxel Chunk](http://www.ben-drury.co.uk/index.php/2016/12/19/generating-collision-mesh-voxel-chunk/) by Benjamin James Drury.
+* [Procedural Landmass Generation (E17: texture shader)](https://youtu.be/XjH-UoyaTgs) by Sebastian Lague.
 
 And this is it for this week!
 
