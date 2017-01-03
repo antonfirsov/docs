@@ -58,7 +58,8 @@ using (var file = File.OpenRead("person.bin")) {
 }
 ```
 
-* NuGet
+* NuGet: [protobuf-net](https://www.nuget.org/packages/protobuf-net/)
+* GitHub: [mgravell/protobuf-net](https://github.com/mgravell/protobuf-net)
 
 Game of the week: Arizona Sunshine
 ----------------------------------
