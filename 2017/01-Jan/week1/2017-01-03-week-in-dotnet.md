@@ -10,7 +10,7 @@ Last week, I published [another short interview from the MVP Summit, this time w
 
 <iframe src="https://channel9.msdn.com/Shows/On-NET/Glenn-Versweyveld-Kliva/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
-This week, I'll publish the last of our MVP Summit interviews, in which Reed Copsey, Jr. told me about the F# Software Foundation and its new programs. Next week, we'll resume our regular shows.
+This week, I'll publish the last of our MVP Summit interviews, in which Reed Copsey, Jr. told me about [the F# Software Foundation](http://fsharp.org/) and its new programs. Next week, we'll resume our regular shows.
 
 Package of the week: Protobuf.NET
 ---------------------------------
