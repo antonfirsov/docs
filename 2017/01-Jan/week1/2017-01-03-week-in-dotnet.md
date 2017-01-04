@@ -103,7 +103,7 @@ F#
 
 * [F# Software Foundation grows from over 200 members to over 1200 members since January of 2015](http://foundation.fsharp.org/welcome_to_2017).
 * [F# Advent 2016 Gitbook - over 600 pages of F# Wisdom!](https://www.gitbook.com/book/swlaschin/fsadvent-2016/details), curated by Scott Wlaschin.
-* [The magic of Type Providers](https://medium.com/@nevoroman/the-magic-of-type-providers-7f6825acd54#.3ayur4gj3 by Roman Nevolin.
+* [The magic of Type Providers](https://medium.com/@nevoroman/the-magic-of-type-providers-7f6825acd54#.3ayur4gj3) by Roman Nevolin.
 * [End to End F# with the Elm Architecture](https://medium.com/@dogwith1eye/introducing-the-elm-architecture-with-suave-fable-and-arch-a0ffea40e13f#.kg01krlfp) by Matthew Doig.
 * [Azure Notebook in F# - creative way to share your notes beside the code](https://mnie.github.io/2016-12-26-AzureNotebooksInF/) by Michał Niegrzybowski.
 * [More Simple Mocking with Object Expressions](https://jeremybytes.blogspot.com.by/2016/12/more-simple-mocking-in-f-with-object.html) by Jeremy Bytes.
