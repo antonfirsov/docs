@@ -125,6 +125,14 @@ Xamarin
 
 * [Xamarin.Android - Entity Framework](http://www.jon-douglas.com/2016/12/28/xamarin-android-entity-framework/) by Jon Douglas.
 * [Making It Snow! Xamarin.Forms and CocosSharp and Particles](https://codemilltech.com/making-it-snow-xamarin-forms-and-cocossharp-and-particles/) by Matthew Soucoup.
+* [Introduction to the Mobile Software Development Lifecycle](https://developer.xamarin.com/guides/cross-platform/getting_started/introduction_to_mobile_sdlc/) by Xamarin.
+* [Enabling TLS 1.2 in Xamarin.Android and Xamarin.iOS](https://developer.xamarin.com/guides/cross-platform/transport-layer-security/) by Xamarin.
+* [An Introduction to SkiaSharp](https://developer.xamarin.com/guides/cross-platform/drawing/introduction/) by Xamarin.
+* [Xamarin Show Snack Pack 5: Android Archive Manager for Visual Studio](https://channel9.msdn.com/Shows/XamarinShow/Snack-Pack-5-Android-Archive-Manager-for-Visual-Studio) by James Montemagno.
+* [Creating Tizen Applications Using Xamarin.Forms](http://geeks.ms/xamarinteam/2016/12/23/creating-tizen-applications-using-xamarin-forms/) by Javier Suárez Ruiz.
+* [Xamarin Forms Pull To Refresh With ListView](https://xamarinhelp.com/pull-to-refresh-listview/) by Adam Pedley.
+* [Identifying users with HockeyApp](http://blog.ostebaronen.dk/2016/12/identifying-users-with-hockeyapp.html) by Tomasz Cielecki.
+* [Wrapping views in Xamarin.iOS](https://marcoscobena.wordpress.com/2016/12/22/wrapping-views-in-xamarin-ios/) by Marcos Cobeña Morián.
 
 Azure
 -----
