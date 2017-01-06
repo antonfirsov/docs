@@ -8,9 +8,9 @@ CoreCompat.System.Drawing
 
 The easiest way to process images with .NET Framework is to use [the built-in System.Drawing APIs](https://msdn.microsoft.com/en-us/library/mt481535(v=vs.110).aspx). The implementation in .NET Framework is however relying on the GDI+ features in Windows, and was not included in .NET Core, which needs to be cross-platform.
 
-This library is a .NET Core port of [the Mono implementation of System.Drawing](https://github.com/mono/mono/tree/master/mcs/class/System.Drawing).
+CoreCompat.System.Drawing is a .NET Core port of [the Mono implementation of System.Drawing](https://github.com/mono/mono/tree/master/mcs/class/System.Drawing).
 
-If you have existing code relying on System.Drawing, using this library is clearly your fastest path to .NET Core and cross-platform bliss: the performance and quality are fine, and the API is exactly the same. Be careful however when using the library cross-platform, to include the [runtime.osx.10.10-x64.CoreCompat.System.Drawing](https://www.nuget.org/packages/runtime.osx.10.10-x64.CoreCompat.System.Drawing) and / or [runtime.linux-x64.CoreCompat.System.Drawing](https://www.nuget.org/packages/runtime.linux-x64.CoreCompat.System.Drawing/1.0.0-beta009) packages. Another important consideration is that on Windows, like `System.Drawing`, and like the Mono implementation, `CoreCompat.System.Drawing` relies on GDI+, which is a client API that was never designed for multi-threaded server environments. There is going to be locking issues that may make this solution unsuitable for your applications.
+If you have existing code relying on System.Drawing, using this library is clearly your fastest path to .NET Core and cross-platform bliss: the performance and quality are fine, and the API is exactly the same. Be careful however when using the library cross-platform, to include the [runtime.osx.10.10-x64.CoreCompat.System.Drawing](https://www.nuget.org/packages/runtime.osx.10.10-x64.CoreCompat.System.Drawing) and / or [runtime.linux-x64.CoreCompat.System.Drawing](https://www.nuget.org/packages/runtime.linux-x64.CoreCompat.System.Drawing/1.0.0-beta009) packages. Another important consideration is that on Windows, like `System.Drawing`, and like the Mono implementation, `CoreCompat.System.Drawing` still relies on GDI+, which is a client technology that was never designed for multi-threaded server environments. There is going to be locking issues that may make this solution unsuitable for your applications.
 
 ```csharp
 using System.Drawing;
@@ -49,7 +49,7 @@ using (var image = new Bitmap(System.Drawing.Image.FromFile(inputPath)))
 ImageSharp
 ----------
 
-ImageSharp is a brand new, pure managed code, and cross-platform image processing library. Because it's 100% managed code, its performance is not as good as that of libraries relying on native OS-specific dependencies, but it remains very reasonable. Its only dependency is .NET itself, which makes it extremely portable: no additional package to install, just reference ImageSharp itself, and you're done.
+ImageSharp is a brand new, pure managed code, and cross-platform image processing library. Its performance is not as good as that of libraries relying on native OS-specific dependencies, but it remains very reasonable. Its only dependency is .NET itself, which makes it extremely portable: no additional package to install, just reference ImageSharp itself, and you're done.
 
 Be aware that the version of ImageSharp that shows in NuGet is a placeholder, and it's necessary for now to get the actual bits from a [MyGet](https://www.myget.org) feed. This can be done by adding the following `NuGet.config` to the root directory of the project:
 
