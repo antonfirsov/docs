@@ -6,14 +6,16 @@ Image processing, and in particular image resizing, is a common requirement for 
 CoreCompat.System.Drawing
 -------------------------
 
-The easiest way to process images with .NET Framework is to use [the built-in System.Drawing APIs](https://msdn.microsoft.com/en-us/library/mt481535(v=vs.110).aspx). The implementation in .NET Framework is however relying on the GDI+ features in Windows, and was not included in .NET Core, which needs to be cross-platform.
+If you have existing code relying on System.Drawing, using this library is clearly your fastest path to .NET Core and cross-platform bliss: the performance and quality are fine, and the API is exactly the same. [The built-in System.Drawing APIs](https://msdn.microsoft.com/en-us/library/mt481535(v=vs.110).aspx) are the easiest way to process images with .NET Framework, but they rely on the GDI+ features from Windows, which are not included in .NET Core, and are a client technology that was never designed for multi-threaded server environments. There is going to be locking issues that may make this solution unsuitable for your applications.
 
-CoreCompat.System.Drawing is a .NET Core port of [the Mono implementation of System.Drawing](https://github.com/mono/mono/tree/master/mcs/class/System.Drawing).
+[`CoreCompat.System.Drawing`](https://github.com/CoreCompat/CoreCompat) is a .NET Core port of [the Mono implementation of System.Drawing](https://github.com/mono/mono/tree/master/mcs/class/System.Drawing). Like `System.Drawing` in .NET Framework, and like its Mono implementation, [`CoreCompat.System.Drawing`](https://github.com/CoreCompat/CoreCompat) also relies on GDI+ on Windows. Caution is therefore advised, for the same reasons.
 
-If you have existing code relying on System.Drawing, using this library is clearly your fastest path to .NET Core and cross-platform bliss: the performance and quality are fine, and the API is exactly the same. Be careful however when using the library cross-platform, to include the [runtime.osx.10.10-x64.CoreCompat.System.Drawing](https://www.nuget.org/packages/runtime.osx.10.10-x64.CoreCompat.System.Drawing) and / or [runtime.linux-x64.CoreCompat.System.Drawing](https://www.nuget.org/packages/runtime.linux-x64.CoreCompat.System.Drawing/1.0.0-beta009) packages. Another important consideration is that on Windows, like `System.Drawing`, and like the Mono implementation, `CoreCompat.System.Drawing` still relies on GDI+, which is a client technology that was never designed for multi-threaded server environments. There is going to be locking issues that may make this solution unsuitable for your applications.
+Also be careful when using the library cross-platform, to include the [runtime.osx.10.10-x64.CoreCompat.System.Drawing](https://www.nuget.org/packages/runtime.osx.10.10-x64.CoreCompat.System.Drawing) and / or [runtime.linux-x64.CoreCompat.System.Drawing](https://www.nuget.org/packages/runtime.linux-x64.CoreCompat.System.Drawing/1.0.0-beta009) packages.
 
 ```csharp
 using System.Drawing;
+
+const int size = 150;
 
 using (var image = new Bitmap(System.Drawing.Image.FromFile(inputPath)))
 {
@@ -49,9 +51,9 @@ using (var image = new Bitmap(System.Drawing.Image.FromFile(inputPath)))
 ImageSharp
 ----------
 
-ImageSharp is a brand new, pure managed code, and cross-platform image processing library. Its performance is not as good as that of libraries relying on native OS-specific dependencies, but it remains very reasonable. Its only dependency is .NET itself, which makes it extremely portable: no additional package to install, just reference ImageSharp itself, and you're done.
+[ImageSharp](https://github.com/JimBobSquarePants/ImageSharp) is a brand new, pure managed code, and cross-platform image processing library. Its performance is not as good as that of libraries relying on native OS-specific dependencies, but it remains very reasonable. Its only dependency is .NET itself, which makes it extremely portable: no additional package to install, just reference [ImageSharp](https://github.com/JimBobSquarePants/ImageSharp) itself, and you're done.
 
-Be aware that the version of ImageSharp that shows in NuGet is a placeholder, and it's necessary for now to get the actual bits from a [MyGet](https://www.myget.org) feed. This can be done by adding the following `NuGet.config` to the root directory of the project:
+If you decide to use [ImageSharp](https://github.com/JimBobSquarePants/ImageSharp), don't include the package that shows on NuGet: that's going to be an empty placeholder until the first official release of ImageSharp ships. For the moment, you need to get a nightly build from a [MyGet](https://www.myget.org) feed. This can be done by adding the following `NuGet.config` to the root directory of the project:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -64,6 +66,8 @@ Be aware that the version of ImageSharp that shows in NuGet is a placeholder, an
 
 ```csharp
 using ImageSharp;
+
+const int size = 150;
 
 Configuration.Default.AddImageFormat(new JpegFormat());
 
@@ -82,7 +86,7 @@ using (var input = File.OpenRead(inputPath))
 }
 ```
 
-For a new codebase, the library is surprisingly complete. It includes all the filters you'd expect to treat images, and even includes very comprehensive support for reading and writing [EXIF tags](https://en.wikipedia.org/wiki/Exif) that is shared with ImageMagick.NET:
+For a new codebase, the library is surprisingly complete. It includes all the filters you'd expect to treat images, and even includes very comprehensive support for reading and writing [EXIF tags](https://en.wikipedia.org/wiki/Exif) that is shared with Magick.NET:
 
 ```csharp
 var exif = image.ExifProfile;
@@ -103,14 +107,16 @@ exif.SetValue(ImageSharpExifTag.Copyright, copyright);
 Magick.NET
 ----------
 
-Magick.NET is the .NET wrapper for the popular [ImageMagick](http://www.imagemagick.org/script/index.php) library. ImageMagick is an open-source, cross-platform library that focuses on image quality, and on a very wide choice of supported image formats. It also has the same support for EXIF as ImageSharp.
+[Magick.NET](https://magick.codeplex.com/) is the .NET wrapper for the popular [ImageMagick](http://www.imagemagick.org/script/index.php) library. ImageMagick is an open-source, cross-platform library that focuses on image quality, and on a very wide choice of supported image formats. It also has the same support for EXIF as ImageSharp.
 
-The .NET Core build of ImageMagick currently only supports Windows. [The author of the library](https://github.com/dlemstra) is [looking for help converting build scripts](https://github.com/dlemstra/Magick.NET/issues/16) for the native ImageMagick dependency, so if you have some expertise building native libraries on Mac or Linux, this is a great opportunity to help an awesome project.
+The .NET Core build of ImageMagick currently only supports Windows. The author of the library, [Dirk Lemstra]](https://github.com/dlemstra) is [looking for help converting build scripts](https://github.com/dlemstra/Magick.NET/issues/16) for the native ImageMagick dependency, so if you have some expertise building native libraries on Mac or Linux, this is a great opportunity to help an awesome project.
 
-Magick.NET has the best image quality of all the libraries discussed in this post, as you can see in the samples below, and it performs relatively well. It also has a very complete API, and the best support for exotic file formats.
+[Magick.NET](https://magick.codeplex.com/) has the best image quality of all the libraries discussed in this post, as you can see in the samples below, and it performs relatively well. It also has a very complete API, and the best support for exotic file formats.
 
 ```csharp
 using ImageMagick;
+
+const int size = 150;
 
 using (var image = new MagickImage(inputPath))
 {
@@ -120,18 +126,20 @@ using (var image = new MagickImage(inputPath))
 }
 ```
 
-* NuGet: [Magick.NET.Core-Q8](https://www.nuget.org/packages/Magick.NET.Core-Q8/)`
+* NuGet: [Magick.NET.Core-Q8](https://www.nuget.org/packages/Magick.NET.Core-Q8/)
 * CodePlex: [Magick.NET](https://magick.codeplex.com/)
 
 SkiaSharp
 ---------
 
-I'm including SkiaSharp in this post because it's very promising, and despite the fact that [it is not yet](https://github.com/mono/SkiaSharp/issues/20) [compatible with .NET Core](https://github.com/mono/SkiaSharp/issues/111). It's by far the fastest library featured here.
+[SkiaSharp](https://github.com/mono/SkiaSharp/) is the .NET wrapper for [Google's Skia cross-platform 2D graphics library](https://skia.org/).
 
-SkiaSharp is the .NET wrapper for [Google's Skia cross-platform 2D graphics library](https://skia.org/).
+I'm including [SkiaSharp](https://github.com/mono/SkiaSharp/) in this post because it's very promising, despite the fact that [it is not yet](https://github.com/mono/SkiaSharp/issues/20) [compatible with .NET Core](https://github.com/mono/SkiaSharp/issues/111). It's by far the fastest library featured here.
 
 ```csharp
 using SkiaSharp;
+
+const int size = 150;
 
 using (var input = File.OpenRead(inputPath))
 {
@@ -188,15 +196,17 @@ I ran the benchmarks on Windows, on a HP Z420 workstation with a quad-core Xeon 
 
 |                   Library | Load, resize, save (ms) | Resize (ms) | Size (kB) |
 |---------------------------|------------------------:|------------:|----------:|
-|                ImageSharp |                  63 ± 1 |  14.8 ± 0.8 |      16.5 |
 | CoreCompat.System.Drawing |                  34 ± 1 |  16.0 ± 0.6 |       3.9 |
+|                ImageSharp |                  63 ± 1 |  14.8 ± 0.8 |      16.5 |
 |                Magick.NET |                  62 ± 1 |  22.7 ± 0.7 |       8.1 |
 |                 SkiaSharp |                  16 ± 1 |   2.5 ± 0.1 |       4.0 |
+
+For all three metrics, lower is better.
 
 Quality comparison
 ------------------
 
-Here are the resized images. As you can see, the quality varies a lot from one image to the next, and between libraries. You should make a choice based on the constraints of your project, and on the performance vs. quality trade-offs you're willing to make.
+Here are the resized images. As you can see, the quality varies a lot from one image to the next, and between libraries. Some images show dramatic differences i You should make a choice based on the constraints of your project, and on the performance vs. quality trade-offs you're willing to make.
 
 | ImageSharp | CoreCompat.System.Drawing | Magick.NET | SkiaSharp |
 |:----------:|:-------------------------:|:----------:|:---------:|
@@ -216,16 +226,25 @@ Here are the resized images. As you can see, the quality varies a lot from one i
 Conclusions
 -----------
 
-Image processing on .NET Core is not only possible on .NET Core, there is in fact a good choice of available libraries, that can fit different requirements.
+There is today a good choice of libraries for image processing on .NET Core, that can fit different requirements, with even more great choices coming in the near future.
 
-If performance is your priority, for instance, SkiaSharp, when available on .NET Core, will be your best choice. CoreCompat.System.Drawing would be a good choice in the meantime if the possible lock issues in server scenarios are not a showstopper for your application.
+If performance is your priority, CoreCompat.System.Drawing is a good choice today if the possible lock issues in Windows server scenarios are not a showstopper for your application. SkiaSharp, when available on .NET Core, will be a fantastic choice.
 
 If quality or file type support is your priority, Magick.NET is the clear winner. Cross-platform support is not quite there yet, however, but [you can help](https://github.com/dlemstra/Magick.NET/issues/16).
 
 Finally, the only pure managed code available at this point, ImageSharp, is an excellent choice. Its performance is close to that of Magick.NET, and the fact that it has no native dependencies means that the library is guaranteed to work everywhere .NET Core works.
 
+Acknowledgements
+----------------
+
+All four libraries in this post are open-source, and only exists thanks to the talent and generosity of their authors, contributors and maintainers. In particular,
+
+* [Frederik Carlier](https://github.com/qmfrederik) wrote [`CoreCompat.System.Drawing`](https://github.com/CoreCompat/CoreCompat).
+* [James Jackson South](https://github.com/jimbobsquarepants) wrote [ImageSharp](https://github.com/JimBobSquarePants/ImageSharp). James was extremely helpful while I was preparing this post, and even contributed sample code.
+* [Dirk Lemstra](http://www.codeplex.com/site/users/view/dlemstra) wrote [Magick.NET](http://magick.codeplex.com/). Dirk was also super-patient and nice, and helped me fix some performance issues I had on my benchmark machine. He also fixed my sample code.
+* [Matthew Leibowitz](https://github.com/mattleibow) maintains [SkiaSharp](https://github.com/mono/SkiaSharp/).
+
 Sample code
 -----------
 
 My sample code [can be found on GitHub](https://github.com/bleroy/core-imaging-playground). The repository includes [the sample images](https://github.com/bleroy/core-imaging-playground/tree/master/images) I've been using in this post.
-
