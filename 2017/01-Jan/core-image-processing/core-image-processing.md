@@ -6,9 +6,9 @@ Image processing, and in particular image resizing, is a common requirement for 
 CoreCompat.System.Drawing
 -------------------------
 
-If you have existing code relying on System.Drawing, using this library is clearly your fastest path to .NET Core and cross-platform bliss: the performance and quality are fine, and the API is exactly the same. [The built-in System.Drawing APIs](https://msdn.microsoft.com/en-us/library/mt481535(v=vs.110).aspx) are the easiest way to process images with .NET Framework, but they rely on the GDI+ features from Windows, which are not included in .NET Core, and are a client technology that was never designed for multi-threaded server environments. There is going to be locking issues that may make this solution unsuitable for your applications.
+If you have existing code relying on `System.Drawing`, using this library is clearly your fastest path to .NET Core and cross-platform bliss: the performance and quality are fine, and the API is exactly the same. [The built-in `System.Drawing` APIs](https://msdn.microsoft.com/en-us/library/mt481535(v=vs.110).aspx) are the easiest way to process images with .NET Framework, but they rely on the GDI+ features from Windows, which are not included in .NET Core, and are a client technology that was never designed for multi-threaded server environments. There is going to be locking issues that may make this solution unsuitable for your applications.
 
-[`CoreCompat.System.Drawing`](https://github.com/CoreCompat/CoreCompat) is a .NET Core port of [the Mono implementation of System.Drawing](https://github.com/mono/mono/tree/master/mcs/class/System.Drawing). Like `System.Drawing` in .NET Framework, and like its Mono implementation, [`CoreCompat.System.Drawing`](https://github.com/CoreCompat/CoreCompat) also relies on GDI+ on Windows. Caution is therefore advised, for the same reasons.
+[`CoreCompat.System.Drawing`](https://github.com/CoreCompat/CoreCompat) is a .NET Core port of [the Mono implementation of `System.Drawing`](https://github.com/mono/mono/tree/master/mcs/class/System.Drawing). Like `System.Drawing` in .NET Framework, and like its Mono implementation, [`CoreCompat.System.Drawing`](https://github.com/CoreCompat/CoreCompat) also relies on GDI+ on Windows. Caution is therefore advised, for the same reasons.
 
 Also be careful when using the library cross-platform, to include the [runtime.osx.10.10-x64.CoreCompat.System.Drawing](https://www.nuget.org/packages/runtime.osx.10.10-x64.CoreCompat.System.Drawing) and / or [runtime.linux-x64.CoreCompat.System.Drawing](https://www.nuget.org/packages/runtime.linux-x64.CoreCompat.System.Drawing/1.0.0-beta009) packages.
 
@@ -51,7 +51,7 @@ using (var image = new Bitmap(System.Drawing.Image.FromFile(inputPath)))
 ImageSharp
 ----------
 
-[ImageSharp](https://github.com/JimBobSquarePants/ImageSharp) is a brand new, pure managed code, and cross-platform image processing library. Its performance is not as good as that of libraries relying on native OS-specific dependencies, but it remains very reasonable. Its only dependency is .NET itself, which makes it extremely portable: no additional package to install, just reference [ImageSharp](https://github.com/JimBobSquarePants/ImageSharp) itself, and you're done.
+[ImageSharp](https://github.com/JimBobSquarePants/ImageSharp) is a brand new, pure managed code, and cross-platform image processing library. Its performance is not as good as that of libraries relying on native OS-specific dependencies, but it remains very reasonable. Its only dependency is .NET itself, which makes it extremely portable: there is no additional package to install, just reference [ImageSharp](https://github.com/JimBobSquarePants/ImageSharp) itself, and you're done.
 
 If you decide to use [ImageSharp](https://github.com/JimBobSquarePants/ImageSharp), don't include the package that shows on NuGet: that's going to be an empty placeholder until the first official release of ImageSharp ships. For the moment, you need to get a nightly build from a [MyGet](https://www.myget.org) feed. This can be done by adding the following `NuGet.config` to the root directory of the project:
 
@@ -63,6 +63,8 @@ If you decide to use [ImageSharp](https://github.com/JimBobSquarePants/ImageShar
   </packageSources>
 </configuration>
 ```
+
+Resizing an image with [ImageSharp](https://github.com/JimBobSquarePants/ImageSharp) is very simple.
 
 ```csharp
 using ImageSharp;
@@ -86,7 +88,7 @@ using (var input = File.OpenRead(inputPath))
 }
 ```
 
-For a new codebase, the library is surprisingly complete. It includes all the filters you'd expect to treat images, and even includes very comprehensive support for reading and writing [EXIF tags](https://en.wikipedia.org/wiki/Exif) that is shared with Magick.NET:
+For a new codebase, the library is surprisingly complete. It includes all the filters you'd expect to treat images, and even includes very comprehensive support for reading and writing [EXIF tags](https://en.wikipedia.org/wiki/Exif) (that code is shared with [Magick.NET](https://magick.codeplex.com/)):
 
 ```csharp
 var exif = image.ExifProfile;
@@ -107,9 +109,9 @@ exif.SetValue(ImageSharpExifTag.Copyright, copyright);
 Magick.NET
 ----------
 
-[Magick.NET](https://magick.codeplex.com/) is the .NET wrapper for the popular [ImageMagick](http://www.imagemagick.org/script/index.php) library. ImageMagick is an open-source, cross-platform library that focuses on image quality, and on a very wide choice of supported image formats. It also has the same support for EXIF as ImageSharp.
+[Magick.NET](https://magick.codeplex.com/) is the .NET wrapper for the popular [ImageMagick](http://www.imagemagick.org/script/index.php) library. ImageMagick is an open-source, cross-platform library that focuses on image quality, and on offering a very wide choice of supported image formats. It also has the same support for EXIF as [ImageSharp](https://github.com/JimBobSquarePants/ImageSharp).
 
-The .NET Core build of ImageMagick currently only supports Windows. The author of the library, [Dirk Lemstra]](https://github.com/dlemstra) is [looking for help converting build scripts](https://github.com/dlemstra/Magick.NET/issues/16) for the native ImageMagick dependency, so if you have some expertise building native libraries on Mac or Linux, this is a great opportunity to help an awesome project.
+The .NET Core build of ImageMagick currently only supports Windows. The author of the library, [Dirk Lemstra](https://github.com/dlemstra) is [looking for help converting build scripts](https://github.com/dlemstra/Magick.NET/issues/16) for the native ImageMagick dependency, so if you have some expertise building native libraries on Mac or Linux, this is a great opportunity to help an awesome project.
 
 [Magick.NET](https://magick.codeplex.com/) has the best image quality of all the libraries discussed in this post, as you can see in the samples below, and it performs relatively well. It also has a very complete API, and the best support for exotic file formats.
 
