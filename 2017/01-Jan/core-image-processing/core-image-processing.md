@@ -6,9 +6,9 @@ Image processing, and in particular image resizing, is a common requirement for 
 CoreCompat.System.Drawing
 -------------------------
 
-If you have existing code relying on `System.Drawing`, using this library is clearly your fastest path to .NET Core and cross-platform bliss: the performance and quality are fine, and the API is exactly the same. [The built-in `System.Drawing` APIs](https://msdn.microsoft.com/en-us/library/mt481535(v=vs.110).aspx) are the easiest way to process images with .NET Framework, but they rely on the GDI+ features from Windows, which are not included in .NET Core, and are a client technology that was never designed for multi-threaded server environments. There is going to be locking issues that may make this solution unsuitable for your applications.
+If you have existing code relying on `System.Drawing`, using this library is clearly your fastest path to .NET Core and cross-platform bliss: the performance and quality are fine, and the API is exactly the same. [The built-in `System.Drawing` APIs](https://msdn.microsoft.com/en-us/library/mt481535(v=vs.110).aspx) are the easiest way to process images with .NET Framework, but they rely on the GDI+ features from Windows, which are not included in .NET Core, and are a client technology that was never designed for multi-threaded server environments. There are locking issues that may make this solution unsuitable for your applications.
 
-[`CoreCompat.System.Drawing`](https://github.com/CoreCompat/CoreCompat) is a .NET Core port of [the Mono implementation of `System.Drawing`](https://github.com/mono/mono/tree/master/mcs/class/System.Drawing). Like `System.Drawing` in .NET Framework, and like its Mono implementation, [`CoreCompat.System.Drawing`](https://github.com/CoreCompat/CoreCompat) also relies on GDI+ on Windows. Caution is therefore advised, for the same reasons.
+[`CoreCompat.System.Drawing`](https://github.com/CoreCompat/CoreCompat) is a .NET Core port of [the Mono implementation of `System.Drawing`](https://github.com/mono/mono/tree/master/mcs/class/System.Drawing). Like `System.Drawing` in .NET Framework and in Mono, [`CoreCompat.System.Drawing`](https://github.com/CoreCompat/CoreCompat) also relies on GDI+ on Windows. Caution is therefore advised, for the same reasons.
 
 Also be careful when using the library cross-platform, to include the [runtime.osx.10.10-x64.CoreCompat.System.Drawing](https://www.nuget.org/packages/runtime.osx.10.10-x64.CoreCompat.System.Drawing) and / or [runtime.linux-x64.CoreCompat.System.Drawing](https://www.nuget.org/packages/runtime.linux-x64.CoreCompat.System.Drawing/1.0.0-beta009) packages.
 
@@ -46,7 +46,7 @@ using (var image = new Bitmap(System.Drawing.Image.FromFile(inputPath)))
 ```
 
 * Nuget: [CoreCompat.System.Drawing](https://www.nuget.org/packages/CoreCompat.System.Drawing/), [runtime.osx.10.10-x64.CoreCompat.System.Drawing](https://www.nuget.org/packages/runtime.osx.10.10-x64.CoreCompat.System.Drawing), and [runtime.linux-x64.CoreCompat.System.Drawing](https://www.nuget.org/packages/runtime.linux-x64.CoreCompat.System.Drawing/1.0.0-beta009)
-* GitHub: [CoreCompat / CoreCompat](https://github.com/CoreCompat/CoreCompat)
+* GitHub: [CoreCompat/CoreCompat](https://github.com/CoreCompat/CoreCompat)
 
 ImageSharp
 ----------
@@ -104,7 +104,7 @@ exif.SetValue(ImageSharpExifTag.Copyright, copyright);
 ```
 
 * MyGet: [ImageSharp](https://www.myget.org/feed/imagesharp/package/nuget/ImageSharp)
-* GitHub: [JimBobSquarePants / ImageSharp](https://github.com/JimBobSquarePants/ImageSharp)
+* GitHub: [JimBobSquarePants/ImageSharp](https://github.com/JimBobSquarePants/ImageSharp)
 
 Magick.NET
 ----------
@@ -179,7 +179,7 @@ using (var input = File.OpenRead(inputPath))
 ```
 
 * NuGet: [SkiaSharp](https://www.nuget.org/packages/SkiaSharp/)
-* GitHub: [mono / SkiaSharp](https://github.com/mono/SkiaSharp/)
+* GitHub: [mono/SkiaSharp](https://github.com/mono/SkiaSharp/)
 
 Performance comparison
 ----------------------
