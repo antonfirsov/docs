@@ -208,7 +208,7 @@ For all three metrics, lower is better.
 Quality comparison
 ------------------
 
-Here are the resized images. As you can see, the quality varies a lot from one image to the next, and between libraries. Some images show dramatic differences i You should make a choice based on the constraints of your project, and on the performance vs. quality trade-offs you're willing to make.
+Here are the resized images. As you can see, the quality varies a lot from one image to the next, and between libraries. Some images show dramatic differences in sharpness, and some moiré effects can be seen in places. You should make a choice based on the constraints of your project, and on the performance vs. quality trade-offs you're willing to make.
 
 | ImageSharp | CoreCompat.System.Drawing | Magick.NET | SkiaSharp |
 |:----------:|:-------------------------:|:----------:|:---------:|
