@@ -16,6 +16,7 @@ Also be careful when using the library cross-platform, to include the [runtime.o
 using System.Drawing;
 
 const int size = 150;
+const int Quality = 75;
 
 using (var image = new Bitmap(System.Drawing.Image.FromFile(inputPath)))
 {
@@ -37,9 +38,15 @@ using (var image = new Bitmap(System.Drawing.Image.FromFile(inputPath)))
         graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
         graphics.CompositingMode = CompositingMode.SourceCopy;
         graphics.DrawImage(image, 0, 0, width, height);
-        using (var output = File.OpenWrite(outputPath))
+        using (var output = File.Open(
+            OutputPath(path, outputDirectory, SystemDrawing), FileMode.Create))
         {
-            resized.Save(output, ImageFormat.Jpeg);
+            var qualityParamId = Encoder.Quality;
+            var encoderParameters = new EncoderParameters(1);
+            encoderParameters.Param[0] = new EncoderParameter(qualityParamId, Quality);
+            var codec = ImageCodecInfo.GetImageDecoders()
+                .FirstOrDefault(codec => codec.FormatID == ImageFormat.Jpeg.Guid);
+            resized.Save(output, codec, encoderParameters);
         }
     }
 }
@@ -70,6 +77,7 @@ Resizing an image with [ImageSharp](https://github.com/JimBobSquarePants/ImageSh
 using ImageSharp;
 
 const int size = 150;
+const int Quality = 75;
 
 Configuration.Default.AddImageFormat(new JpegFormat());
 
@@ -83,6 +91,8 @@ using (var input = File.OpenRead(inputPath))
                 Size = new Size(size, size),
                 Mode = ResizeMode.Max
             });
+        image.ExifProfile = null;
+        image.Quality = Quality;
         image.Save(output);
     }
 }
@@ -119,11 +129,13 @@ The .NET Core build of ImageMagick currently only supports Windows. The author o
 using ImageMagick;
 
 const int size = 150;
+const int Quality = 75;
 
 using (var image = new MagickImage(inputPath))
 {
     image.Resize(size, size);
     image.Strip();
+    image.Quality = Quality;
     image.Write(outputPath);
 }
 ```
@@ -184,11 +196,13 @@ using (var input = File.OpenRead(inputPath))
 Performance comparison
 ----------------------
 
-For the first benchmark, that loads, resizes, and saves images on disk, I used 12 images with a good variety of subjects, and details that are not too easy to resize, so that defects are easy to spot. The images are roughly one megapixel JPEGs, except for one of the images that is a little smaller. Your mileage may vary, depending on what type of image you need to work with. I'd recommend you try to reproduce these results with a sample of images that corresponds to your own use case.
+The first benchmark loads, resizes, and saves images on disk as Jpegs with a a quality of 75. I used 12 images with a good variety of subjects, and details that are not too easy to resize, so that defects are easy to spot. The images are roughly one megapixel JPEGs, except for one of the images that is a little smaller. Your mileage may vary, depending on what type of image you need to work with. I'd recommend you try to reproduce these results with a sample of images that corresponds to your own use case.
 
 For the second benchmark, an empty megapixel image is resized to a 150 pixel wide thumbnail, without disk access.
 
-I ran the benchmarks on Windows, on a HP Z420 workstation with a quad-core Xeon E5-1620 processor and 16GB of RAM.
+The benchmarks use .NET Core 1.0.3 (the latest LTS at this date) for `CoreCompat.System.Drawing`, ImageSharp, and Magick.NET, and Mono 4.6.2 for SkiaSharp.
+
+I ran the benchmarks on Windows, on a HP Z420 workstation with a quad-core Xeon E5-1620 processor, 16GB of RAM, and the built-in Radeon GPU. Results are going to vary substantially depending on hardware: usage and performance of the GPU and of SIMD depends on both what's available on the machine, and on the usage the library is making of it. Developers wanting to get maximum performance should further experiment. I should mention that I had to disable OpenCL on Magick.NET (`OpenCL.IsEnabled = false;`), as I was getting substantially worse performance with it enabled on that workstation than on my laptop.
 
 ![Load, resize, save benchmark results (lower is better)](./images/LoadResizeSave.png)
 
@@ -198,10 +212,10 @@ I ran the benchmarks on Windows, on a HP Z420 workstation with a quad-core Xeon 
 
 |                   Library | Load, resize, save (ms) | Resize (ms) | Size (kB) |
 |---------------------------|------------------------:|------------:|----------:|
-| CoreCompat.System.Drawing |                  34 ± 1 |  16.0 ± 0.6 |       3.9 |
-|                ImageSharp |                  63 ± 1 |  14.8 ± 0.8 |      16.5 |
-|                Magick.NET |                  62 ± 1 |  22.7 ± 0.7 |       8.1 |
-|                 SkiaSharp |                  16 ± 1 |   2.5 ± 0.1 |       4.0 |
+| CoreCompat.System.Drawing |                  34 ± 1 |  16.0 ± 0.6 |       4.0 |
+|                ImageSharp |                  63 ± 1 |  14.8 ± 0.8 |       3.3 |
+|                Magick.NET |                  62 ± 1 |  22.7 ± 0.7 |       4.2 |
+|                 SkiaSharp |                  16 ± 1 |   2.5 ± 0.1 |       3.1 |
 
 For all three metrics, lower is better.
 
