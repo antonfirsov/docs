@@ -234,12 +234,12 @@ If performance is your priority, CoreCompat.System.Drawing is a good choice toda
 
 If quality or file type support is your priority, Magick.NET is the clear winner. Cross-platform support is not quite there yet, however, but [you can help](https://github.com/dlemstra/Magick.NET/issues/16).
 
-Finally, the only pure managed code available at this point, ImageSharp, is an excellent choice. Its performance is close to that of Magick.NET, and the fact that it has no native dependencies means that the library is guaranteed to work everywhere .NET Core works.
+Finally, the only pure managed code library available at this point, ImageSharp, is an excellent choice. Its performance is close to that of Magick.NET, and the fact that it has no native dependencies means that the library is guaranteed to work everywhere .NET Core works.
 
 Acknowledgements
 ----------------
 
-All four libraries in this post are open-source, and only exists thanks to the talent and generosity of their authors, contributors and maintainers. In particular,
+All four libraries in this post are open-source, and only exist thanks to the talent and generosity of their authors, contributors and maintainers. In particular,
 
 * [Frederik Carlier](https://github.com/qmfrederik) wrote [`CoreCompat.System.Drawing`](https://github.com/CoreCompat/CoreCompat).
 * [James Jackson South](https://github.com/jimbobsquarepants) wrote [ImageSharp](https://github.com/JimBobSquarePants/ImageSharp). James was extremely helpful while I was preparing this post, and even contributed sample code.
