@@ -227,17 +227,17 @@ Here are the resized images. As you can see, the quality varies a lot from one i
 | ImageSharp | CoreCompat.System.Drawing | Magick.NET | SkiaSharp |
 |:----------:|:-------------------------:|:----------:|:---------:|
 | ![](./images/DSCN0533-ImageSharp.JPG) | ![](./images/DSCN0533-SystemDrawing.JPG) | ![](./images/DSCN0533-MagickNET.JPG) | ![](./images/DSCN0533-SkiaSharp.JPG) |
-| ![](./images/IMG_2301-ImageSharp.JPG) | ![](./images/IMG_2301-SystemDrawing.JPG) | ![](./images/IMG_2301-MagickNET.JPG) | ![](./images/IMG_2301-SkiaSharp.JPG) |
-| ![](./images/IMG_2317-ImageSharp.JPG) | ![](./images/IMG_2317-SystemDrawing.JPG) | ![](./images/IMG_2317-MagickNET.JPG) | ![](./images/IMG_2317-SkiaSharp.JPG) |
-| ![](./images/IMG_2325-ImageSharp.JPG) | ![](./images/IMG_2325-SystemDrawing.JPG) | ![](./images/IMG_2325-MagickNET.JPG) | ![](./images/IMG_2325-SkiaSharp.JPG) |
-| ![](./images/IMG_2351-ImageSharp.JPG) | ![](./images/IMG_2351-SystemDrawing.JPG) | ![](./images/IMG_2351-MagickNET.JPG) | ![](./images/IMG_2351-SkiaSharp.JPG) |
-| ![](./images/IMG_2443-ImageSharp.JPG) | ![](./images/IMG_2443-SystemDrawing.JPG) | ![](./images/IMG_2443-MagickNET.JPG) | ![](./images/IMG_2443-SkiaSharp.JPG) |
-| ![](./images/IMG_2445-ImageSharp.JPG) | ![](./images/IMG_2445-SystemDrawing.JPG) | ![](./images/IMG_2445-MagickNET.JPG) | ![](./images/IMG_2445-SkiaSharp.JPG) |
-| ![](./images/IMG_2446-ImageSharp.JPG) | ![](./images/IMG_2446-SystemDrawing.JPG) | ![](./images/IMG_2446-MagickNET.JPG) | ![](./images/IMG_2446-SkiaSharp.JPG) |
-| ![](./images/IMG_2525-ImageSharp.JPG) | ![](./images/IMG_2525-SystemDrawing.JPG) | ![](./images/IMG_2525-MagickNET.JPG) | ![](./images/IMG_2525-SkiaSharp.JPG) |
-| ![](./images/IMG_2565-ImageSharp.JPG) | ![](./images/IMG_2565-SystemDrawing.JPG) | ![](./images/IMG_2565-MagickNET.JPG) | ![](./images/IMG_2565-SkiaSharp.JPG) |
-| ![](./images/IMG_2734-ImageSharp.JPG) | ![](./images/IMG_2734-SystemDrawing.JPG) | ![](./images/IMG_2734-MagickNET.JPG) | ![](./images/IMG_2734-SkiaSharp.JPG) |
-| ![](./images/sample-ImageSharp.JPG) | ![](./images/sample-SystemDrawing.JPG) | ![](./images/sample-MagickNET.JPG) | ![](./images/sample-SkiaSharp.JPG) |
+| ![](./images/IMG_2301-ImageSharp.jpg) | ![](./images/IMG_2301-SystemDrawing.jpg) | ![](./images/IMG_2301-MagickNET.jpg) | ![](./images/IMG_2301-SkiaSharp.jpg) |
+| ![](./images/IMG_2317-ImageSharp.jpg) | ![](./images/IMG_2317-SystemDrawing.jpg) | ![](./images/IMG_2317-MagickNET.jpg) | ![](./images/IMG_2317-SkiaSharp.jpg) |
+| ![](./images/IMG_2325-ImageSharp.jpg) | ![](./images/IMG_2325-SystemDrawing.jpg) | ![](./images/IMG_2325-MagickNET.jpg) | ![](./images/IMG_2325-SkiaSharp.jpg) |
+| ![](./images/IMG_2351-ImageSharp.jpg) | ![](./images/IMG_2351-SystemDrawing.jpg) | ![](./images/IMG_2351-MagickNET.jpg) | ![](./images/IMG_2351-SkiaSharp.jpg) |
+| ![](./images/IMG_2443-ImageSharp.jpg) | ![](./images/IMG_2443-SystemDrawing.jpg) | ![](./images/IMG_2443-MagickNET.jpg) | ![](./images/IMG_2443-SkiaSharp.jpg) |
+| ![](./images/IMG_2445-ImageSharp.jpg) | ![](./images/IMG_2445-SystemDrawing.jpg) | ![](./images/IMG_2445-MagickNET.jpg) | ![](./images/IMG_2445-SkiaSharp.jpg) |
+| ![](./images/IMG_2446-ImageSharp.jpg) | ![](./images/IMG_2446-SystemDrawing.jpg) | ![](./images/IMG_2446-MagickNET.jpg) | ![](./images/IMG_2446-SkiaSharp.jpg) |
+| ![](./images/IMG_2525-ImageSharp.jpg) | ![](./images/IMG_2525-SystemDrawing.jpg) | ![](./images/IMG_2525-MagickNET.jpg) | ![](./images/IMG_2525-SkiaSharp.jpg) |
+| ![](./images/IMG_2565-ImageSharp.jpg) | ![](./images/IMG_2565-SystemDrawing.jpg) | ![](./images/IMG_2565-MagickNET.jpg) | ![](./images/IMG_2565-SkiaSharp.jpg) |
+| ![](./images/IMG_2734-ImageSharp.jpg) | ![](./images/IMG_2734-SystemDrawing.jpg) | ![](./images/IMG_2734-MagickNET.jpg) | ![](./images/IMG_2734-SkiaSharp.jpg) |
+| ![](./images/sample-ImageSharp.jpg) | ![](./images/sample-SystemDrawing.jpg) | ![](./images/sample-MagickNET.jpg) | ![](./images/sample-SkiaSharp.jpg) |
 
 Conclusions
 -----------
