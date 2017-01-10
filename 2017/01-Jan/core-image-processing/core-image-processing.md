@@ -113,6 +113,8 @@ var copyright = $"{description} (c) {yearTaken} {author}";
 exif.SetValue(ImageSharpExifTag.Copyright, copyright);
 ```
 
+Note that the latest builds of ImageSharp are more modular than they used to, and if you're going to use image formats such as Jpeg, or image processing capabilities such as `Resize`, you need to import additional packages in addition to the core ImageSharp package (respectively `ImageSharp.Processing` and `ImageSharp.Formats.Jpeg`).
+
 * MyGet: [ImageSharp](https://www.myget.org/feed/imagesharp/package/nuget/ImageSharp)
 * GitHub: [JimBobSquarePants/ImageSharp](https://github.com/JimBobSquarePants/ImageSharp)
 
