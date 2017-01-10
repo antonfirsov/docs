@@ -1,9 +1,14 @@
-The week in .NET - On .NET with Reed Copsey, Jr., Eco
+The week in .NET - On .NET with Reed Copsey, Jr., Orchard Harvest, Ammy, Concurrency Visualizer, Eco
 =====================================================
 
 To read last week's post, see [The week in .NET – On .NET with Glenn Versweyveld, Protobuf.NET, Arizona Sunshine](https://blogs.msdn.microsoft.com/dotnet/2017/01/04/the-week-in-net-on-net-with-glenn-versweyveld-protobuf-net-arizona-sunshine/).
 
 Starting this week, UWP links, which have been in the general .NET section until now, are getting their own section thanks to [Michael Crump](http://twitter.com/mbcrump) who graciously accepted to provide weekly contents along with [Phillip Carter](https://twitter.com/_cartermp) for F#, [Stacey Haffner](https://twitter.com/yecats131) for gaming, and [Dan Rigby](https://twitter.com/DanRigby) for Xamarin.
+
+Orchard Harvest
+---------------
+
+The [Orchard CMS](http://orchardproject.net) community will hold [its yearly conference in New York City from February 21 to the 22](http://orchardharvest.org/). This week is the last one to benefit from early registration fees. I'll be there myself, to give a talk about .NET Core and C# 7.
 
 On .NET
 -------
@@ -52,7 +57,7 @@ Game of the week: Eco
 User group meeting of the week: Serverless .NET Core app for the AWS IoT Button in San Diego, CA
 ------------------------------------------------
 
-The [λ#](https://www.meetup.com/lambdasharp/) user group
+The [λ# user group](https://www.meetup.com/lambdasharp/) holds [a meeting on Wednesday, January 18, at 6:00 PM in San Diego, CA](https://www.meetup.com/lambdasharp/events/236703830/) where you'll learn how to build a serverless .NET Core app for the AWS IoT Button.
 
 .NET
 ----
@@ -64,6 +69,9 @@ The [λ#](https://www.meetup.com/lambdasharp/) user group
 * [Reactive Extensions (Rx) – Part 8 – Timeouts](http://rehansaeed.com/reactive-extensions-rx-part-8-timeouts/) by Muhammad Rehan Saeed.
 * [Explaining .NET Standard Like I'm Five](http://miniml.ist/dotnet/explaining-dotnet-standard-like-im-five/) by Joe Petrakovich.
 * [Understanding OutOfMemoryException](http://indexoutofrange.com/Understanding-OutOfMemoryException/) by Szymon Warda.
+* [An efficient filtering DSL for Serilog](https://nblumhardt.com/2017/01/serilog-filtering-dsl/) by Nicholas Blumhardt.
+* [Deploying a self contained .Net core application on Linux and run as a daemon process](http://cloudauthority.blogspot.co.uk/2017/01/deploying-self-contained-net-core.html) by Arindam Datta.
+* [Breakpoints in Auto-Properties in Visual Studio 2015](https://blog.falafel.com/breakpoints-auto-properties-visual-studio-2015/) by Rachel Hagerman.
 
 ASP.NET
 -------
@@ -71,6 +79,8 @@ ASP.NET
 * [Having a merry, geeky Christmas… creating an Alexa skill with ASP.Net Web API](https://tutorials.botsfloor.com/having-a-merry-geeky-christmas-creating-an-alexa-skill-with-asp-net-web-api-d4a2cd6d016d#.9htpngngo) by Andy Butland.
 * [Custom Tag Helper: Toggling Visibility On Existing HTML elements](https://scottsauber.com/2017/01/02/custom-tag-helper-toggling-visibility-on-existing-html-elements/) by Scott Sauber.
 * [Using MongoDB with ASP.NET Core – Part I (Setup)](https://www.janaks.com.np/using-mongodb-with-aspnet-core-i/) and [Using MongoDB with ASP.NET Core – Part II (Implementation)](https://www.janaks.com.np/using-mongodb-with-aspnet-core-ii/) by Janak shrestha.
+* [Response Caching in ASP.Net Core 1.1](http://www.talkingdotnet.com/response-caching-in-asp-net-core-1-1/) by Talking Dotnet.
+* [Prefix: A lightweight ASP.NET profiler helping you write better software](http://stackify.com/asp-net-profiler/) by Matt Watson.
 
 F#
 --
@@ -88,13 +98,14 @@ New F# Language Proposal:
 
 Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
 
-Xamarin
--------
-
 Azure
 -----
 
+* [Hello world! Welcome to AzureCAT Guidance!](https://blogs.msdn.microsoft.com/azurecat/2017/01/05/hello-world-welcome-to-azurecat-guidance/) by Ed Price.
 * [Streamlining a search experience with ASP.NET Core and Azure Search](https://auth0.com/blog/azure-search-with-aspnetcore/)  by Matías Quaranta.
+* [Enable System.Net tracing on Azure App Service](https://blogs.msdn.microsoft.com/benjaminperkins/2017/01/05/enable-system-net-tracing-on-azure-app-service-unable-to-connect-to-remote-server/) by Benjamin Perkins.
+* [Azure Functions preview versioning update](https://blogs.msdn.microsoft.com/appserviceteam/2017/01/03/azure-functions-preview-versioning-update/) by Chris Anderson.
+* [Create and deploy an ASP.NET Core Web API to Azure Windows](https://blogs.msdn.microsoft.com/benjaminperkins/2017/01/03/create-and-deploy-an-asp-net-core-web-api-to-azure-windows/) by Benjamin Perkins.
 
 
 UWP
