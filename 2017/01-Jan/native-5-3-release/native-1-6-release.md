@@ -29,7 +29,7 @@ Here are some of the general improvements:
 
 Here are some of the more common customer reported issues that we fixed:
 
-* Resolved an issue that caused some customers to receive a 1300 error when submitting their package to the store after upgrading .NET Native versions. 
+* Resolved an issue that sometimes resulted in a 1300 error when submitting a package to the store after upgrading .NET Native versions. 
 * Resolved an issue that caused a memory leak when using the `CoReleaseMarshalData` function.
 * Fixed a global lock issue with multiple threads competing for WinRT factory lock and interface lock.
 * Fixed an issue that resulted in queries not executing properly in Entity Framework when enabling .NET Native. ([GitHub #6381](https://github.com/aspnet/EntityFramework/issues/6381))
