@@ -29,11 +29,11 @@ Here are some of the general improvements:
 
 Here are some of the more common customer reported issues that we fixed:
 
-* Resolved an issue that caused some customers to receieve a 1300 error when submitting their package to the store after upgrading .NET Native versions. 
+* Resolved an issue that sometimes resulted in a 1300 error when submitting a package to the store after upgrading .NET Native versions. 
 * Resolved an issue that caused a memory leak when using the `CoReleaseMarshalData` function.
-* Fixed a global lock issue with multiple threads competing for WinRT factory lock and interface lock.
-* Fixed an issue that resulted in queries not executing properly in Entity Framework when enabling .NET Native. ([GitHub #6381](https://github.com/aspnet/EntityFramework/issues/6381))
-* Fixed an issue with System.Linq.Expressions that resulted in unsupressable error messages. ([GitHub #5088](https://github.com/dotnet/corefx/issues/5088))
+* Resolved a global lock issue with multiple threads competing for WinRT factory lock and interface lock.
+* Resolved an issue that resulted in queries not executing properly in Entity Framework when enabling .NET Native. ([GitHub #6381](https://github.com/aspnet/EntityFramework/issues/6381))
+* Resolved an issue with System.Linq.Expressions that resulted in unsupressable error messages. ([GitHub #5088](https://github.com/dotnet/corefx/issues/5088))
 
 ## Provide Feedback
 We want to thank everyone for your feedback as it has been instrumental! Please continue to send questions, suggestions and feedback to us at dotnetnative@microsoft.com. 
