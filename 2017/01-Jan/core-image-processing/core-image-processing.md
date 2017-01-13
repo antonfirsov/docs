@@ -206,20 +206,46 @@ The benchmarks use .NET Core 1.0.3 (the latest LTS at this date) for `CoreCompat
 
 I ran the benchmarks on Windows, on a HP Z420 workstation with a quad-core Xeon E5-1620 processor, 16GB of RAM, and the built-in Radeon GPU. Results are going to vary substantially depending on hardware: usage and performance of the GPU and of SIMD depends on both what's available on the machine, and on the usage the library is making of it. Developers wanting to get maximum performance should further experiment. I should mention that I had to disable OpenCL on Magick.NET (`OpenCL.IsEnabled = false;`), as I was getting substantially worse performance with it enabled on that workstation than on my laptop.
 
-![Load, resize, save benchmark results (lower is better)](./images/LoadResizeSave.png)
+![Resize benchmark results on Windows (lower is better)](./images/ResizeWin.png)
 
-![Resize benchmark results (lower is better)](./images/Resize.png)
+|                   Library | Load, resize, save (ms) | Resize (ms) |
+|---------------------------|------------------------:|------------:|
+| CoreCompat.System.Drawing |                  34 ± 1 |  16.0 ± 0.6 |
+|                ImageSharp |                  63 ± 1 |  14.8 ± 0.8 |
+|                Magick.NET |                  62 ± 1 |  22.7 ± 0.7 |
+|                 SkiaSharp |                  16 ± 1 |   2.5 ± 0.1 |
+
+For both metrics, lower is better.
+
+![Resize benchmark results on macOS (lower is better)](./images/ResizeMac.png)
+
+|                   Library | Load, resize, save (ms) | Resize (ms) |
+|---------------------------|------------------------:|------------:|
+| CoreCompat.System.Drawing |                  93 ± 1 |  71.5 ± 0.3 |
+|                ImageSharp |              94.2 ± 0.4 |  40.6 ± 0.8 |
+|                 SkiaSharp |              15.6 ± 0.1 | 3.29 ± 0.03 |
+
+For both metrics, lower is better.
+
+![Resize benchmark results on Linux (lower is better)](./images/ResizeLinux.png)
+
+|                   Library | Load, resize, save (ms) | Resize (ms) |
+|---------------------------|------------------------:|------------:|
+| CoreCompat.System.Drawing |                 114 ± 5 |      92 ± 1 |
+|                ImageSharp |                 178 ± 5 |      95 ± 1 |
+
+For both metrics, lower is better.
 
 ![Average size of resized images (lower is better)](./images/Size.png)
 
-|                   Library | Load, resize, save (ms) | Resize (ms) | Size (kB) |
-|---------------------------|------------------------:|------------:|----------:|
-| CoreCompat.System.Drawing |                  34 ± 1 |  16.0 ± 0.6 |       4.0 |
-|                ImageSharp |                  63 ± 1 |  14.8 ± 0.8 |       3.3 |
-|                Magick.NET |                  62 ± 1 |  22.7 ± 0.7 |       4.2 |
-|                 SkiaSharp |                  16 ± 1 |   2.5 ± 0.1 |       3.1 |
+|                   Library | Size (kB) |
+|---------------------------|----------:|
+| CoreCompat.System.Drawing |       4.0 |
+|                ImageSharp |       3.3 |
+|                Magick.NET |       4.2 |
+|                 SkiaSharp |       3.1 |
 
-For all three metrics, lower is better.
+Lower is better.
 
 Quality comparison
 ------------------
