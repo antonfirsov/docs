@@ -123,7 +123,7 @@ Magick.NET
 
 [Magick.NET](https://magick.codeplex.com/) is the .NET wrapper for the popular [ImageMagick](http://www.imagemagick.org/script/index.php) library. ImageMagick is an open-source, cross-platform library that focuses on image quality, and on offering a very wide choice of supported image formats. It also has the same support for EXIF as [ImageSharp](https://github.com/JimBobSquarePants/ImageSharp).
 
-The .NET Core build of ImageMagick currently only supports Windows. The author of the library, [Dirk Lemstra](https://github.com/dlemstra) is [looking for help converting build scripts](https://github.com/dlemstra/Magick.NET/issues/16) for the native ImageMagick dependency, so if you have some expertise building native libraries on Mac or Linux, this is a great opportunity to help an awesome project.
+The .NET Core build of [Magick.NET](https://magick.codeplex.com/) currently only supports Windows. The author of the library, [Dirk Lemstra](https://github.com/dlemstra) is [looking for help with converting build scripts](https://github.com/dlemstra/Magick.NET/issues/16) for the native ImageMagick dependency, so if you have some expertise building native libraries on Mac or Linux, this is a great opportunity to help an awesome project.
 
 [Magick.NET](https://magick.codeplex.com/) has the best image quality of all the libraries discussed in this post, as you can see in the samples below, and it performs relatively well. It also has a very complete API, and the best support for exotic file formats.
 
@@ -144,6 +144,7 @@ using (var image = new MagickImage(inputPath))
 
 * NuGet: [Magick.NET.Core-Q8](https://www.nuget.org/packages/Magick.NET.Core-Q8/)
 * CodePlex: [Magick.NET](https://magick.codeplex.com/)
+* Github: [dlemstra/Magick.NET](https://github.com/dlemstra/Magick.NET/)
 
 SkiaSharp
 ---------
@@ -204,7 +205,9 @@ For the second benchmark, an empty megapixel image is resized to a 150 pixel wid
 
 The benchmarks use .NET Core 1.0.3 (the latest LTS at this date) for `CoreCompat.System.Drawing`, ImageSharp, and Magick.NET, and Mono 4.6.2 for SkiaSharp.
 
-I ran the benchmarks on Windows, on a HP Z420 workstation with a quad-core Xeon E5-1620 processor, 16GB of RAM, and the built-in Radeon GPU. Results are going to vary substantially depending on hardware: usage and performance of the GPU and of SIMD depends on both what's available on the machine, and on the usage the library is making of it. Developers wanting to get maximum performance should further experiment. I should mention that I had to disable OpenCL on Magick.NET (`OpenCL.IsEnabled = false;`), as I was getting substantially worse performance with it enabled on that workstation than on my laptop.
+I ran the benchmarks on Windows on a HP Z420 workstation with a quad-core Xeon E5-1620 processor, 16GB of RAM, and the built-in Radeon GPU. For Linux, the results are for the same machine as Windows, but in a 4GB VM, so lower performance does not mean anything regarding Windows vs. Linux performance, and only library to library comparison should be considered meaningful. The macOS numbers are on an iMac with a 1.4GHz Core i5 processor, 8GB of RAM, and the built-in Intel HD Graphics 5000 GPU, running macOS Sierra.
+
+Results are going to vary substantially depending on hardware: usage and performance of the GPU and of SIMD depends on both what's available on the machine, and on the usage the library is making of it. Developers wanting to get maximum performance should further experiment. I should mention that I had to disable OpenCL on Magick.NET (`OpenCL.IsEnabled = false;`), as I was getting substantially worse performance with it enabled on that workstation than on my laptop.
 
 ![Resize benchmark results on Windows (lower is better)](./images/ResizeWin.png)
 
@@ -238,14 +241,14 @@ For both metrics, lower is better.
 
 ![Average size of resized images (lower is better)](./images/Size.png)
 
-|                   Library | Size (kB) |
-|---------------------------|----------:|
-| CoreCompat.System.Drawing |       4.0 |
-|                ImageSharp |       3.3 |
-|                Magick.NET |       4.2 |
-|                 SkiaSharp |       3.1 |
+|                   Library | File Size (kB) |
+|---------------------------|---------------:|
+| CoreCompat.System.Drawing |            4.0 |
+|                ImageSharp |            3.3 |
+|                Magick.NET |            4.2 |
+|                 SkiaSharp |            3.1 |
 
-Lower is better.
+Lower is better. Note that file size is affected by the quality of the subsampling that's being performed, so size comparisons should take into account the visual quality of the end result.
 
 Quality comparison
 ------------------
@@ -276,7 +279,7 @@ If performance is your priority, CoreCompat.System.Drawing is a good choice toda
 
 If quality or file type support is your priority, Magick.NET is the clear winner. Cross-platform support is not quite there yet, however, but [you can help](https://github.com/dlemstra/Magick.NET/issues/16).
 
-Finally, the only pure managed code library available at this point, ImageSharp, is an excellent choice. Its performance is close to that of Magick.NET, and the fact that it has no native dependencies means that the library is guaranteed to work everywhere .NET Core works.
+Finally, the only pure managed code library available at this point, ImageSharp, is an excellent choice. Its performance is close to that of Magick.NET, and the fact that it has no native dependencies means that the library is guaranteed to work everywhere .NET Core works. The library is still in alpha, and significant performance improvements are in store, notably with future usage of `Span<T>` and ref returns.
 
 Acknowledgements
 ----------------
@@ -285,7 +288,7 @@ All four libraries in this post are open-source, and only exist thanks to the ta
 
 * [Frederik Carlier](https://github.com/qmfrederik) wrote [`CoreCompat.System.Drawing`](https://github.com/CoreCompat/CoreCompat).
 * [James Jackson South](https://github.com/jimbobsquarepants) wrote [ImageSharp](https://github.com/JimBobSquarePants/ImageSharp). James was extremely helpful while I was preparing this post, and even contributed sample code.
-* [Dirk Lemstra](http://www.codeplex.com/site/users/view/dlemstra) wrote [Magick.NET](http://magick.codeplex.com/). Dirk was also super-patient and nice, and helped me fix some performance issues I had on my benchmark machine. He also fixed my sample code.
+* [Dirk Lemstra](https://github.com/dlemstra) wrote [Magick.NET](https://magick.codeplex.com/). Dirk was also super-patient and nice, and helped me fix some performance issues I had on my benchmark machine. He also fixed my sample code.
 * [Matthew Leibowitz](https://github.com/mattleibow) maintains [SkiaSharp](https://github.com/mono/SkiaSharp/).
 
 Sample code
