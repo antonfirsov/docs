@@ -6,7 +6,7 @@ To read last week's post, see [The week in .NET – On .NET with Reed Copsey, Jr
 On .NET
 -------
 
-Last week, [David Pine was on the show](https://channel9.msdn.com/Shows/On-NET/David-Pine-Magic-mirror-on-the-wall-who-is-the-fairest-one-of-all) to talk about his magic mirror, a screen in a mirror, that can display useful information such as his schedule for the day, the weather forecast, and much more. The mirror uses a Raspberry Pi 3 running Windows 10 IoT Core, and runs a custom, open source UWP application. It also has a camera, microphone, and sound bar, enabling voice-based interactions.
+Last week, [David Pine was on the show](https://channel9.msdn.com/Shows/On-NET/David-Pine-Magic-mirror-on-the-wall-who-is-the-fairest-one-of-all) to talk about his magic mirror, a screen in a mirror, that can display useful information such as his schedule for the day, the weather forecast, and much more. The mirror uses a Raspberry Pi 3 running Windows 10 IoT Core, and runs a custom, open-source UWP application. It also has a camera, microphone, and sound bar, enabling voice-based interactions.
 
 <iframe src="https://channel9.msdn.com/Shows/On-NET/David-Pine-Magic-mirror-on-the-wall-who-is-the-fairest-one-of-all/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
@@ -17,9 +17,9 @@ Package of the week: PwdLess
 
 [Passwords](https://en.wikipedia.org/wiki/Password) suffer from many issues, and their efficacy is to be doubted more and more with each mass breach, [some of which leaked hundreds of millions and up to a billion passwords](http://www.informationisbeautiful.net/visualizations/worlds-biggest-data-breaches-hacks/). There are alternatives to passwords, however, that may be appropriate for your applications.
 
-One such alternative is "magic links", that are [nonces](https://en.wikipedia.org/wiki/Cryptographic_nonce) that the application usually sends through email or instant messaging to an email address or phone number that is known to belong to the user.
+One such alternative is "magic links", that are [nonces](https://en.wikipedia.org/wiki/Cryptographic_nonce) that the application usually sends to an email address or phone number that is known to belong to the user.
 
-[PwdLess](http://pwdless.biarity.me/) is a C# implementation of an authentication server that uses magic links. [PwdLess may be built with .NET](https://github.com/PwdLess/PwdLess), but it's usable from any platofrm through its simple HTTP API. `GET /auth/sendNonce?identifier=[IDENTIFIER]` sends the nonce, and `GET /auth/nonceToToken?nonce=[NONCE]` responds 200 with the [JWT](https://jwt.io/) if the nonce is valid.
+Even though [PwdLess is built with .NET](https://github.com/PwdLess/PwdLess), it's usable from any platform through its simple HTTP API. `GET /auth/sendNonce?identifier=[IDENTIFIER]` sends the nonce, and `GET /auth/nonceToToken?nonce=[NONCE]` responds 200 with the [JWT](https://jwt.io/) if the nonce is valid.
 
 PwdLess configuration is done through a simple JSON file:
 
@@ -61,7 +61,7 @@ Game of the week: Terraria
 
 ![game](terraria.jpg)
 
-[Terraria](https://terraria.org/) was created by [Re-Logic](https://re-logic.com/) using [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners) and XNA. It is available on.
+[Terraria](https://terraria.org/) was created by [Re-Logic](https://re-logic.com/) using [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners) and XNA. It is available on [Steam](http://store.steampowered.com/app/105600/) for Windows and Mac, Xbox 360, Xbox One, PlayStation 3, PlayStation 4, PSVita, Android and iOS.
 
 User group meeting of the week: migrating from TFS to the cloud in Sydney
 -------------------------------------------------------------------------
@@ -99,7 +99,7 @@ F#
 --
 
 * [F# has won me over: coming to .NET world from outside .NET](http://www.prigrammer.com/?p=363), by Tom Prior.
-* [New relase of @fsibot, now on Azure Functions](http://brandewinder.com/2017/01/10/fsibot-on-azure-functions/), by Matthias Brandewinder.
+* [New release of @fsibot, now on Azure Functions](http://brandewinder.com/2017/01/10/fsibot-on-azure-functions/), by Matthias Brandewinder.
 * [You too can build Xamarin apps with F# ](https://visualstudiomagazine.com/articles/2017/01/01/build-xamarin-apps.aspx), by Greg Shackles.
 * [Pairwise distance calculation on the GPU](https://github.com/quantalea/AleaNotebooks/blob/master/AleaGPU_PairwiseDist.ipynb), by Xiang Zhang.
 * [Estimating Pi on the GPU](https://github.com/quantalea/AleaNotebooks/blob/master/AleaGPU_CalculatePI.ipynb), by Xiang Zhang.
