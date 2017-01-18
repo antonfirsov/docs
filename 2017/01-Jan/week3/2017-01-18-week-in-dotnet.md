@@ -1,5 +1,5 @@
-The week in .NET - On .NET with David Pine, Terraria
-============================
+The week in .NET - On .NET with David Pine, PwdLess, Terraria
+=============================================================
 
 To read last week's post, see [The week in .NET – On .NET with Reed Copsey, Jr., Orchard Harvest, Ammy, Concurrency Visualizer, Eco](https://blogs.msdn.microsoft.com/dotnet/2017/01/10/the-week-in-net-on-net-with-reed-copsey-jr-orchard-harvest-ammy-concurrency-visualizer-eco/).
 
@@ -10,7 +10,7 @@ Last week, [David Pine was on the show](https://channel9.msdn.com/Shows/On-NET/D
 
 <iframe src="https://channel9.msdn.com/Shows/On-NET/David-Pine-Magic-mirror-on-the-wall-who-is-the-fairest-one-of-all/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
-Our guest for this week is not confirmed yet. In the unlikely event that we don't have a show this week, don't worry, as we'll have two live shows next week...
+This week, we'll talk about the year ahead for .NET. The list of guests is still TBD as I'm writing this, but I hope to have some good surprises. We'll take questions on Gitter, on [the dotnet/home channel](https://gitter.im/dotnet/home) and on Twitter. Please use the `#onnet` tag. It's OK to start sending us questions in advance if you can't do it live during the show.
 
 Package of the week: PwdLess
 ----------------------------
