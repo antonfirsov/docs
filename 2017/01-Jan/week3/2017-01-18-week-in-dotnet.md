@@ -82,6 +82,7 @@ On [Wednesday, January 18 at 6:30PM](https://www.meetup.com/Sydney-NET-User-Grou
 * [Visual Studio 2017 and Visual Studio 2015 with .NET Core](https://csharp.christiannagel.com/2017/01/10/dotnetcoreversionissues/) by Christian Nagel.
 * [C# code formatting settings in VS Code and OmniSharp](http://www.strathweb.com/2017/01/c-code-formatting-settings-in-vs-code-and-omnisharp/) by Filip W.
 * [Analyzing GitHub LINQ usage – the results](https://blog.oz-code.com/analyzing-github-linq-usage-the-results/) by Dror Helper.
+* [VSTS and MSBuild (v15)](https://dneimke.github.io/aspnet_msbuild) by Darren Neimke.
 
 ASP.NET
 -------
