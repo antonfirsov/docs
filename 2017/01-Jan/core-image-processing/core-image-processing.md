@@ -244,7 +244,7 @@ For both metrics, lower is better.
 |                   Library | File Size (kB) |
 |---------------------------|---------------:|
 | CoreCompat.System.Drawing |            4.0 |
-|                ImageSharp |            3.3 |
+|                ImageSharp |            4.7 |
 |                Magick.NET |            4.2 |
 |                 SkiaSharp |            3.1 |
 
