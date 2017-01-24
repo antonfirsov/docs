@@ -57,6 +57,7 @@ User group meeting of the week: Mocking - Making fun of unit tests using DI in R
 * [Essential MSBuild: A Build Engine Overview for .NET Tooling](https://msdn.microsoft.com/en-us/magazine/mt791801.aspx) by Mark Michaelis.
 * [New code coverage highlighting in dotCover 2016.3](https://blog.jetbrains.com/dotnet/2017/01/18/new-code-coverage-highlighting-in-dotcover-2016-3/) by Alexey Totin.
 * [Introduction to Akka.Cluster.Sharding in Akka.NET](https://petabridge.com/blog/introduction-to-cluster-sharding-akkadotnet/) by Bartosz Sypytkowski.
+* [The .NET Core 2 Wave](http://developer.telerik.com/topics/net/the-net-core-2-wave/) by Ed Charbeneau.
 
 ASP.NET
 -------
@@ -68,6 +69,16 @@ ASP.NET
 
 F#
 --
+
+* [F# for Azure Notebooks](https://notebooks.azure.com/library/fsharp/html/FSharp%20for%20Azure%20Notebooks.ipynb)
+* [Security testing in the cloud with F# and Project Springfield](https://channel9.msdn.com/Blogs/Seth-Juarez/Security-testing-in-the-cloud-with-F-and-Project-Springfield)
+* [ASP.NET Monsters #85: Suave Web Services](http://www.codechannels.com/video/microsoft/dotnet/asp-net-monsters-85-suave-web-services/)
+* [F# Unit Test Simplified - Expecto with Visual Studio Code](http://www.prigrammer.com/?p=398), by Tomr Prior
+* [Experimenting with data in F#](http://chris-alexander.co.uk/on-engineering/f-sharp/experimenting-with-data-in-f-sharp/), by Chris Alexander
+
+New F# RFC: [Implement IReadOnlyCollection<'T> in list<'T>](https://github.com/fsharp/fslang-design/blob/master/RFCs/FS-1029-Implement%20IReadOnlyCollection%20in%20list.md)
+
+Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
 
 Xamarin
 -------
@@ -82,10 +93,7 @@ Xamarin
 * [Xamarin Forms WebView advanced series](https://xamarinhelp.com/xamarin-forms-webview-advanced-series/), [Xamarin Forms WebView bindable actions](https://xamarinhelp.com/xamarin-forms-webview-bindable-actions/), & [Xamarin Forms WebView executing JavaScript](https://xamarinhelp.com/xamarin-forms-webview-executing-javascript/) by Adam Pedley.
 * [Codemash and Xamarin.Forms](https://jfarrell.net/2017/01/15/codemash-and-xamarin-forms/) by Jason Farrell.
 * [ReactiveUI v7.1.0 released](https://ghuntley.com/archive/2017/01/13/reactiveui-v7-1-0-released/) by Geoffrey Huntley.
-* [Attached properties � what are they good for?](https://codemilltech.com/attached-properties-what-are-they-good-for/) by Matthew Soucoup.
-
-Azure
------
+* [Attached properties - what are they good for?](https://codemilltech.com/attached-properties-what-are-they-good-for/) by Matthew Soucoup.
 
 UWP
 ---
