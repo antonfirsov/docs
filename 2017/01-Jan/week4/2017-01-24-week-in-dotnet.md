@@ -38,8 +38,12 @@ private void OnGGAEvent(object sender, GPS.GPSGGA GGA)
 }
 ```
 
-Game of the week: xx
------------------------------------
+Game of the week: Floor Plan
+----------------------------
+
+[Floor Plan](http://www.turbo-button.com/games/floorplan) is a puzzle adventure game designed for virtual reality. In Floor Plan, players travel in an elevator in order to find items that can be used to solve various puzzles. You'll meet a whole cast of cooky characters as you move between floors, each of which is designed with their own whimsical theme.
+![game](floorplan.jpg)
+[Floor Plan](http://www.turbo-button.com/games/floorplan) was created by [Turbo Button](http://www.turbo-button.com/about/) using [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners) and [Unity](unity3d.com). It is available for Gear VR, Oculus Rift, and Daydream.
 
 
 User group meeting of the week: Mocking - Making fun of unit tests using DI in Raleigh, NC
@@ -108,6 +112,12 @@ UWP
 
 Games
 -----
+
+* [Unity Navigation - Part 2](https://channel9.msdn.com/Shows/dotGAME/Unity-Navigation-Part-2) by Stacey Haffner.
+* [Building a 3D Game Engine with .NET Core](https://mellinoe.wordpress.com/2017/01/18/net-core-game-engine/) by Eric Mellino.
+* [(Unity) Live Session: Localization Tools](https://unity3d.com/learn/tutorials/topics/scripting/overview-and-goals).
+* [Simple LODs in Unity - Unity 5.xx](https://youtu.be/Y9DZAuYX_SY) by James Arndt.
+* [Circle Loading Animation In Unity3D](http://www.salusgames.com/2017/01/08/circle-loading-animation-in-unity3d/) by Salus Games.
 
 And this is it for this week!
 
