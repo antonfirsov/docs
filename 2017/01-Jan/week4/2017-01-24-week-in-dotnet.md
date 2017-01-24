@@ -1,4 +1,4 @@
-The week in .NET - Adafruit Class Library for Windows IoT Core
+﻿The week in .NET - Adafruit Class Library for Windows IoT Core
 ==============================================================
 
 Previous posts:
@@ -11,7 +11,11 @@ On .NET
 
 We had no show last week, but we'll have two this week.
 
+![Public speaking](onnet.png)
+
 On **Wednesday at 9:00AM Pacific Time**, **Scott Hanselman** will host a panel discussion on public speaking, with **Kasey Uhlenhuth**, **Maria Naggaga Nakanwagi**, **Donovan Brown**, and **Mitch Muenster**.
+
+![ndepend](http://www.ndepend.com/Res/NDependBig03.png)
 
 On **Thursday at 9:00AM Pacific Time**, **Patrick Smacchia** will be on the show to talk about the brand new version of **[ndepend](http://www.ndepend.com/)**.
 
@@ -109,15 +113,16 @@ UWP
 * [Windows 10 development for beginners (free course)](http://devproconnections.com/windows-development/windows-10-development-beginners-free-course) by Richard Hay.
 * [Dragging holograms with gaze and tapping them in place on a surface](http://dotnetbyexample.blogspot.com/2017/01/dragging-holograms-with-gaze-and.html) by Joost van Schaik.
 * [windows.updatetask - The hidden gem in UWP](https://www.suchan.cz/2017/01/windows-updatetask-the-hidden-gem-in-universal-windows-platform/) by Martin Suchan.
+* [Open tab items dynamically with UWP](https://csharp.christiannagel.com/2017/01/17/dynamictabswithuwp/) by Christian Nagel.
 
 Games
 -----
 
 * [Unity Navigation - Part 2](https://channel9.msdn.com/Shows/dotGAME/Unity-Navigation-Part-2) by Stacey Haffner.
-* [Building a 3D Game Engine with .NET Core](https://mellinoe.wordpress.com/2017/01/18/net-core-game-engine/) by Eric Mellino.
-* [(Unity) Live Session: Localization Tools](https://unity3d.com/learn/tutorials/topics/scripting/overview-and-goals).
+* [Building a 3D game engine with .NET Core](https://mellinoe.wordpress.com/2017/01/18/net-core-game-engine/) by Eric Mellino.
+* [(Unity) Live Session: localization Tools](https://unity3d.com/learn/tutorials/topics/scripting/overview-and-goals).
 * [Simple LODs in Unity - Unity 5.xx](https://youtu.be/Y9DZAuYX_SY) by James Arndt.
-* [Circle Loading Animation In Unity3D](http://www.salusgames.com/2017/01/08/circle-loading-animation-in-unity3d/) by Salus Games.
+* [Circle loading animation in Unity3D](http://www.salusgames.com/2017/01/08/circle-loading-animation-in-unity3d/) by Salus Games.
 
 And this is it for this week!
 
