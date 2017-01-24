@@ -1,23 +1,26 @@
 The week in .NET - Adafruit Class Library for Windows IoT Core
 ==============================================================
 
-To read last week's post, see [The week in .NET - On .NET with David Pine, PwdLess, Terraria](https://blogs.msdn.microsoft.com/dotnet/2017/01/18/the-week-in-net-on-net-with-david-pine-pwdless-terraria/).
+Previous posts:
+* [On .NET with David Pine, PwdLess, Terraria](https://blogs.msdn.microsoft.com/dotnet/2017/01/18/the-week-in-net-on-net-with-david-pine-pwdless-terraria/).
+* [On .NET with Reed Copsey, Jr., Orchard Harvest, Ammy, Concurrency Visualizer, Eco](https://blogs.msdn.microsoft.com/dotnet/2017/01/10/the-week-in-net-on-net-with-reed-copsey-jr-orchard-harvest-ammy-concurrency-visualizer-eco/)
+* [On .NET with Glenn Versweyveld, Protobuf.NET, Arizona Sunshine](https://blogs.msdn.microsoft.com/dotnet/2017/01/04/the-week-in-net-on-net-with-glenn-versweyveld-protobuf-net-arizona-sunshine/)
 
 On .NET
 -------
 
 We had no show last week, but we'll have two this week.
 
-On Wednesday at 9:00AM Pacific Time, Scott Hanselman will host a panel discussion on public speaking, with Kasey Uhlenhuth, Maria Naggaga Nakanwagi, Donovan Brown, and Mitch Muenster.
+On **Wednesday at 9:00AM Pacific Time**, **Scott Hanselman** will host a panel discussion on public speaking, with **Kasey Uhlenhuth**, **Maria Naggaga Nakanwagi**, **Donovan Brown**, and **Mitch Muenster**.
 
-On Thursday at 9:00AM Pacific Time, Patrick Smacchia will be on the show to talk about the brand new version of [ndepend](http://www.ndepend.com/).
+On **Thursday at 9:00AM Pacific Time**, **Patrick Smacchia** will be on the show to talk about the brand new version of **[ndepend](http://www.ndepend.com/)**.
 
 Both shows will stream live [on Channel 9](https://channel9.msdn.com/Shows/On-NET). We'll take questions on Gitter, on [the dotnet/home channel](https://gitter.im/dotnet/home) and on Twitter. Please use the `#onnet` tag. It's OK to start sending us questions in advance if you can't do it live during the shows.
 
 Package of the week: Adafruit Class Library for Windows IoT Core
 ----------------------------------------------------------------
 
-[Adafruit](https://www.adafruit.com/) is a familiar brand for anyone involved in the maker movement. Their [high quality tutorials](https://learn.adafruit.com/) and their [line of open source and US-manufactured products](https://www.adafruit.com/categories) are key to their success.
+[Adafruit](https://www.adafruit.com/) is a familiar brand for anyone involved in the maker movement. Entrepreneur extraordinaire and open source advocate Limor Fried built the success of the company on [high quality tutorials](https://learn.adafruit.com/) and a [line of open source and US-manufactured products](https://www.adafruit.com/categories).
 
 Adafruit recently released the [Adafruit Class Library for Windows IoT Core](https://learn.adafruit.com/adafruit-class-library-for-windows-iot-core/overview), a set of classes and associated tutorials for using some of their most popular products with Windows IoT Core, for example on a Raspberry Pi.
 
