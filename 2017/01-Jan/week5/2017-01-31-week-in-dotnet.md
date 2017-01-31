@@ -30,23 +30,26 @@ On [our second show](https://channel9.msdn.com/Shows/On-NET/Patrick-Smacchia-nde
 Tool of the week: CrazyCore
 ---------------------------
 
-[Building a 3D Game Engine with .NET Core](https://mellinoe.wordpress.com/2017/01/18/net-core-game-engine/)
+[Eric Mellinoe](https://github.com/mellinoe) is a developer on the .NET team, and when he's not working on .NET Core, he builds game engines like it's nothing at all. His engine, [CrazyCore](https://github.com/mellinoe/CrazyCore), is still very early, but is very impressive nonetheless. It's open-source, cross-platform, and it runs on .NET Core. One of the most interesting aspects of this work is how Eric went the extra mile to build wrapper for the libraries he needed, and that didn't exist yet for .NET Core.
 
-[CrazyCore](https://github.com/mellinoe/CrazyCore)
+![CrazyCore](https://mellinoe.files.wordpress.com/2017/01/ezgif-com-f1b640f058.gif)
+
+You can read more about CrazyCore in Eric's blog post: [Building a 3D Game Engine with .NET Core](https://mellinoe.wordpress.com/2017/01/18/net-core-game-engine/)
 
 Game of the week: 
 ----------------------------
 
 
-User group meeting of the week: Mocking - Making fun of unit tests using DI in Raleigh, NC
-------------------------------------------------
+User group meeting of the week: Docker for .NET in Tulsa
+--------------------------------------------------------
 
-[TRINUG](https://www.meetup.com/TRINUG/) holds [a meeting on Wednesday, January 25 at 6:00PM in Raleigh, NC](https://www.meetup.com/TRINUG/events/236616674/) on mocking, and using dependency injection in tests.
+The [Tulsa Developers Net](https://www.meetup.com/TulsaDevelopers-net/) hold a meeting [tonight January 31 at 6:00PM in Tulsa, OK](https://www.meetup.com/TulsaDevelopers-net/events/235083041/) on Docker for .NET.
 
 .NET
 ----
 
 * [Virtual Panel: What's Next for .NET?](https://www.infoq.com/articles/virtual-panel-dotnet-future) by Pierre-Luc Maheu.
+* [Open sourcing the VS Test platform](https://blogs.msdn.microsoft.com/bharry/2017/01/20/open-sourcing-the-vs-test-platform/) by Brian Harry.
 * [Publishing .NET Core NuGet packages](http://thingrepository.com/2017/01/29/Publishing-NET-Core-NuGet-Packages/) by Ryan Stelly.
 * [Announcing a new documentation experience: easy to customize API, content/wiki pages, and blog posts in the new Wyam Docs recipe](https://daveaglick.com/posts/announcing-a-new-documentation-experience) by Dave Glick.
 * [How to print a GIF](https://github.com/stupotmcdoodlepip/Print-A-Gif) by stupotmcdoodlepip.
@@ -54,14 +57,22 @@ User group meeting of the week: Mocking - Making fun of unit tests using DI in R
 * [What happened to my Thread.CurrentPrincipal](https://ievangelist.github.io/blog/principal-architecture-changes/) by David Pine.
 * [C# 7.0 expression bodied members](https://csharp.christiannagel.com/2017/01/25/expressionbodiedmembers/) by Christian Nagel.
 * [.Net Core, Roslyn and code generation](https://carlos.mendible.com/2017/01/29/net-core-roslyn-and-code-generation/) by Carlos Mendible.
+* [Adding Files to Visual Studio Projects](https://weblog.west-wind.com/posts/2017/Jan/25/Adding-Files-to-Visual-Studio-Projects) by Rick Strahl.
+* [Debugging .NET Core on Unix over SSH](https://blogs.msdn.microsoft.com/visualstudioalm/2017/01/26/debugging-net-core-on-unix-over-ssh/) by Gregg Miskelly.
 
 ASP.NET
 -------
 
 * [Microsoft Security Advisory 4010983: Vulnerability in ASP.NET Core MVC 1.1.0 Could Allow Denial of Service](https://technet.microsoft.com/en-us/library/security/4010983).
+* [ASP.NET Core Authentication with IdentityServer4](https://blogs.msdn.microsoft.com/webdev/2017/01/23/asp-net-core-authentication-with-identityserver4/) by Mike Rousos.
 * [Docker compose with ASP.NET Core, EF Core and the PostgreSQL image](https://damienbod.com/2017/01/27/docker-compose-with-asp-net-core-ef-core-and-the-postgresql-image/) by Damien Bod.
 * [Reloading strongly typed options in ASP.NET Core 1.1.0](http://andrewlock.net/reloading-strongly-typed-options-in-asp-net-core-1-1-0/) by Andrew Lock.
 * [A file upload API with Nancy, .NET Core in a shockingly small amount of code](https://blog.nandotech.com/post/2017-01-19-nancy-dotnet-core-file-upload/) by NandoTech.
+* [Introducing Alba for integration testing against ASP.Net Core applications](https://jeremydmiller.com/2017/01/25/introducing-alba-for-integration-testing-against-asp-net-core-applications/) by Jeremy D Miller.
+* [ASP.NET Core – Migrating to MSBuild](http://angularfirst.com/asp-net-core-migrating-to-msbuild/) by Aaron Marisi.
+* [Building complex UI components with ASP.NET Core MVC Tag Helpers](https://scottaddie.com/2017/01/30/building-complex-ui-components-with-asp-net-core-mvc-tag-helpers/) by Scott Addie.
+* [Building microservices with ASP.NET Core (without MVC)](http://www.strathweb.com/2017/01/building-microservices-with-asp-net-core-without-mvc/) by Filip W.
+* [Building simple plug-ins system for ASP.NET Core](http://gunnarpeipman.com/2017/01/aspnet-core-plugins/) by Gunnar Peipman.
 
 F#
 --
@@ -82,7 +93,10 @@ Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for 
 Azure
 -----
 
+* [Manage App Service, SQL Database, and more - Azure Management Libraries for .NET](https://azure.microsoft.com/en-us/blog/manage-app-service-sql-database-application-gateway-and-more-using-simpler-azure-management-libraries-for-net/) by Asir Selvasingh.
+* [Azure Tools for Visual Studio Code 1.2.0 - ARM export, batch, telemetry](http://www.bradygaster.com/posts/azure-tools-for-vs-code-1-2-0) by Brady Gaster.
 * [How To Build Planet Scale Mobile App in Minutes with Xamarin and DocumentDB](https://azure.microsoft.com/en-us/blog/announcing-azure-documentdb-sdk-for-xamarin/) by Kirill Gavrylyuk.
+* [Using Azure Functions to add a Contact Form to a Static Site](http://blogs.lessthandot.com/index.php/enterprisedev/cloud/azure/using-azure-functions-to-add-a-contact-form-to-a-static-site/) by Eli Weinstock-Herman.
 
 Xamarin
 -------
