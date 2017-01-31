@@ -13,6 +13,7 @@ This week, we announced updates to .NET Core, .NET Native, NuGet, and VS 2017 RC
 
 * [Announcing .NET Core, .NET Native and NuGet Updates in VS 2017 RC](https://blogs.msdn.microsoft.com/dotnet/2017/01/30/announcing-net-core-net-native-and-nuget-updates-in-vs-2017-rc/)
 * [January 2017 Update for ASP.NET Core 1.1](https://blogs.msdn.microsoft.com/dotnet/2017/01/30/january-2017-update-for-asp-net-core-1-1/)
+* [Updates to Web Tools in Visual Studio 2017 RC](https://blogs.msdn.microsoft.com/webdev/2017/01/27/updates-to-web-tools-in-visual-studio-2017-rc/)
 * [Update to Visual Studio 2017 Release Candidate](https://blogs.msdn.microsoft.com/visualstudio/2017/01/26/update-to-visual-studio-2017-release-candidate/)
 
 On .NET
