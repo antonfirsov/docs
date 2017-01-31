@@ -1,4 +1,4 @@
-﻿The week in .NET - On .NET on public speaking, ndepend
+﻿The week in .NET - On .NET on public speaking, ndepend, CrazyCore, The Perils of Man
 ==============================================================
 
 Previous posts:
@@ -36,9 +36,14 @@ Tool of the week: CrazyCore
 
 You can read more about CrazyCore in Eric's blog post: [Building a 3D Game Engine with .NET Core](https://mellinoe.wordpress.com/2017/01/18/net-core-game-engine/)
 
-Game of the week: 
-----------------------------
+Game of the week: The Perils of Man
+-----------------------------------
 
+[The Perils of Man](http://www.perilsofman.com/) is a point and click style adventure game. The Perils of Man tosses you straight into a world of mystery while it recounts the disappearance of Max Eberling, a rogue scientist who vanished 10 years prior. Even more mysterious is that his father also vanished years before him. In The Perils of Man, you take the role of Ana Eberling, a teenage girl on a mission to out what happened to Max, who happens to be her father. Journey through time and explore the notions of cause and effect while solving a century old mystery. 
+
+![screenshot](https://cloud.githubusercontent.com/assets/4108756/22472053/4d9d58b8-e789-11e6-99fc-41384f25d49b.jpg)
+
+[The Perils of Man](http://www.perilsofman.com/) was a joint project by [IF Games](http://if-games.com/) and [Vertigo Games](http://vertigo-games.com/) using [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners) and [Unity](unity3d.com). It is available on [Steam](http://store.steampowered.com/app/347710/) and [iTunes](https://itunes.apple.com/us/app/perils-of-man-adventure-game/id919457017?mt=8).
 
 User group meeting of the week: Docker for .NET in Tulsa
 --------------------------------------------------------
@@ -130,6 +135,12 @@ UWP
 Games
 -----
 
+* [Inventory and store system - Part 1](https://channel9.msdn.com/Shows/dotGAME/Inventory-and-Store-System-Part-1) by Stacey Haffner.
+* [Top 10 Unity tips](https://youtu.be/JDVuTBHnGWw) by Brackeys.
+* [Blender table animation in Unity 5](https://youtu.be/vWagnRJEXuI) by Jay AnAm.
+* [Hex Map 13: managing maps](http://catlikecoding.com/unity/tutorials/hex-map/part-13/) by Catlike Coding.
+* [MonoGame - Engines, frameworks & more](https://youtu.be/TFriP9z9qKQ) by Simon Jackson.
+* [[Unity 5] Tutorial: how to create an infinite background (2D)](https://youtu.be/dV4bNUXR2dE) by Gamad.
 
 And this is it for this week!
 
