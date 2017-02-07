@@ -9,7 +9,7 @@ Previous posts:
 On .NET
 -------
 
-Last week, we recorded the show twice. Apologies to those of you who watched live: the sound was badly calibrated, and the demos did not go well. As a consequence, we did [a second recording, which is now on Channel 9](https://channel9.msdn.com/Shows/On-NET/Docker-New-NET-Core-tooling). In this episode, we're running ASP.NET in a Docker image, and we look at some of the changes in the .NET Core .csproj tooling.
+In [this week's episode](https://channel9.msdn.com/Shows/On-NET/Docker-New-NET-Core-tooling), we're running ASP.NET in a Docker image, and we look at some of the changes in the .NET Core .csproj tooling. Apologies to those of you who watched live: we had some technical difficulties, and as a consequence, we did a second recording, which is now on Channel 9. 
 
 <iframe src="https://channel9.msdn.com/Shows/On-NET/Docker-New-NET-Core-tooling/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
