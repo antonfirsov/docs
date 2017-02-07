@@ -53,6 +53,7 @@ If you're around Adelaide on Wednesday, February 8, don't miss the [Adelaide .NE
 
 * [The .NET language strategy](https://blogs.msdn.microsoft.com/dotnet/2017/02/01/the-net-language-strategy/) by Mads Torgersen.
 * [Digging deeper into the Visual Basic language strategy](https://blogs.msdn.microsoft.com/vbteam/2017/02/01/digging-deeper-into-the-visual-basic-language-strategy/) by Anthony D. Green.
+* [Cross-platform drawing with SkiaSharp](https://blog.xamarin.com/drawing-with-skiasharp/) by Matthew Leibowitz.
 * [NuGet: introducing scoped API keys](http://blog.nuget.org/20170202/introducing-scoped-api-keys.html) by Anand Gaurav.
 * [How do .NET delegates work?](http://mattwarren.org/2017/01/25/How-do-.NET-delegates-work/) by Matt Warren.
 * [Application Insights telemetry processors](https://blog.maartenballiauw.be/post/2017/01/31/application-insights-telemetry-processors.html) by Maarten Balliauw.
