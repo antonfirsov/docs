@@ -1,4 +1,4 @@
-﻿The week in .NET - On .NET with Phil Haack
+﻿The week in .NET - On .NET with Phil Haack, Readline
 ================================================================================
 
 Previous posts:
@@ -6,10 +6,12 @@ Previous posts:
 * [On .NET on public speaking, ndepend, CrazyCore, The Perils of Man](https://blogs.msdn.microsoft.com/dotnet/2017/01/31/the-week-in-net-on-net-on-public-speaking-ndepend-crazycore-the-perils-of-man/).
 * [On .NET with David Pine, PwdLess, Terraria](https://blogs.msdn.microsoft.com/dotnet/2017/01/18/the-week-in-net-on-net-with-david-pine-pwdless-terraria/).
 
-Happy 15th Birthday .NET!
--------------------------
+Happy 15th Birthday .NET! Happy 20th Anniversary Visual Studio!
+---------------------------------------------------------------
 
 This week marks the 15th anniversary since .NET debuted to the world. On February 13th, 2002, the first version of .NET was released as part of Visual Studio.NET. [Read Beth Massi's post, featuring a new interview of Anders Hejlsberg](https://blogs.msdn.microsoft.com/dotnet/2017/02/13/happy-15th-birthday-net/).
+
+It's also Visual Studio's 20th anniversary. [Julia Liuson tells the story](https://blogs.msdn.microsoft.com/visualstudio/2017/02/09/visual-studio-2017-launch-event-and-20th-anniversary/).
 
 On .NET
 -------
@@ -53,21 +55,45 @@ The [Chicago Azure Cloud Users Group](https://www.meetup.com/Chicagoazure/) hold
 .NET
 ----
 
-* [Announcing .NET Core Tools Updates in VS 2017 RC](https://blogs.msdn.microsoft.com/dotnet/2017/02/07/announcing-net-core-tools-updates-in-vs-2017-rc/) by Rich Lander.
+* [Announcing .NET Core Tools updates in VS 2017 RC](https://blogs.msdn.microsoft.com/dotnet/2017/02/07/announcing-net-core-tools-updates-in-vs-2017-rc/) by Rich Lander.
 * [Welcoming Jon Galloway as the new Executive Director of the .NET Foundation](https://dotnetfoundation.org/blog/welcoming-jon-galloway-as-the-new-executive-director-of-the-net-foundation) by Martin Woodward.
 * [.NET Renaissance](https://medium.com/altdotnet/net-renaissance-32f12dd72a1) by Mark Rendle.
+* [Evolving the Visual Studio Test Platform – Part 4: Together, in the Open](https://blogs.msdn.microsoft.com/visualstudioalm/2017/02/12/evolving-the-visual-studio-test-platform-part-4-together-in-the-open/) by Pratap Lakshman.
+* [Trying out "dotnet new" template updates and csproj with VS2017](http://www.hanselman.com/blog/TryingOutDotnetNewTemplateUpdatesAndCsprojWithVS2017.aspx) by Scott Hanselman.
+* [Exploring the new dotnet cli](http://tattoocoder.com/exploring-the-new-dotnet-cli/) by Shayne Boyer.
+* [The 68 things the CLR does before executing a single line of your code](http://mattwarren.org/2017/02/07/The-68-things-the-CLR-does-before-executing-a-single-line-of-your-code/) by Matt Warren.
 * [Migrating existing .NET projects to SDK-based projects](https://blogs.infosupport.com/migrating-existing-projects-to-sdk-based-projects/) by Jonathan Mezach.
-* [The Performance Cost of Boxing in .NET](http://www.tomdupont.net/2016/11/the-performance-cost-of-boxing-in-net.html) by Tom DuPont.
+* [The performance cost of boxing in .NET](http://www.tomdupont.net/2016/11/the-performance-cost-of-boxing-in-net.html) by Tom DuPont.
+* [.NET on Linux](https://dzone.com/refcardz/net-on-linux) by Don Schenck.
+* [Advanced email address validation in .NET](https://www.softfluent.com/blog/dev/2017/02/06/Advanced-email-address-validation-in-NET) by Gérald Barré.
+* [NuGet2 and a DirectorySeparatorChar bug](http://aakinshin.net/en/blog/dotnet/nuget2-and-directoryseparatorchar/), [Why is NuGet search in Rider so fast?](http://aakinshin.net/en/blog/dotnet/rider-nuget-search/), [InvalidDataException in Process.GetProcesses](http://aakinshin.net/en/blog/dotnet/invaliddataexception-in-getprocesses/), and [A bug story about named mutex on Mono](http://aakinshin.net/en/blog/dotnet/namedmutex-on-mono/) by Andrey Akinhin.
+* [Serverless C# on AWS Lambda (part 2) - Handling HTTP Events](http://thingrepository.com/2017/02/11/Serverless-C-on-AWS-Lambda-pt-2/) by Ryan Stelly.
+* [Upgraded SimplCommerce from project.json to csproj](http://thienn.com/upgraded-projectjson-csproj-simplcommerce/) by Thien Nguyen.
+* [Creating solid classes with AutoFac](http://blog.bennymichielsen.be/2017/02/07/creating-solid-classes-with-autofac/) by Benny Michielsen.
 
 ASP.NET
 -------
 
-
+* [ASP.NET Documentation Now on docs.microsoft.com](https://blogs.msdn.microsoft.com/webdev/2017/02/07/asp-net-documentation-now-on-docs-microsoft-com/) by Wade Pickett.
+* [Exploring IStartupFilter in ASP.NET Core](https://andrewlock.net/exploring-istartupfilter-in-asp-net-core/) by Andrew Lock.
+* [Migrating from .NET Framework to .NET Core](https://www.stevejgordon.co.uk/migrating-full-net-framework-net-core) by Steve Gordon.
+* [Updating My Blog to Visual Studio 2017 and .csproj](https://wildermuth.com/2017/02/11/Updating-My-Blog-to-Visual-Studio-2017-and-csproj) by Shawn Wildermuth.
+* [ASP.NET Core Dependency Injection Deep Dive](https://joonasw.net/view/aspnet-core-di-deep-dive) by Joonas Westlin.
+* [.Net Core Health Endpoint Monitoring Middleware](https://carlos.mendible.com/2017/02/12/net-core-health-endpoint-monitoring-middleware/) by Carlos Mendible.
+* [Empty SoapActions in ASMX Web Services](https://weblog.west-wind.com/posts/2017/Feb/12/Empty-SoapActions-in-ASMX-Web-Services) by Rick Strahl.
+* [Anti-Forgery Tokens and ASP.NET Core APIs](http://odetocode.com/blogs/scott/archive/2017/02/06/anti-forgery-tokens-and-asp-net-core-apis.aspx) by K. Scott Allen.
 
 F#
 --
 
+* [F# is in the top 3 for most-loved technology on StackOverflow](http://stackoverflow.com/research/developer-survey-2016#technology-most-loved-dreaded-and-wanted).
+* [Functional ASP.NET Core](https://dusted.codes/functional-aspnet-core) by Dustin Moris Gorski.
+* [A brief peek about Universal F#](http://banashek.com/posts/20170204-a-brief-peek-at-universal-fsharp.html), by Jonathan Banashek.
+* [DocumentDB Stored Procs in F# via Fable](https://github.com/jbeeko/fs-stored-procs/blob/master/README.md), by Joerg Beekmann.
+* [Introducing Type Providers](https://cockneycoder.wordpress.com/2017/02/10/introducing-type-providers/), by Isaac Abraham.
+* [Creating an F# Azure Function from the Ground Up (Part 1)](http://brandewinder.com/2017/02/11/fsharp-azure-function-from-the-ground-up-part-1/), by Mathias Brandewinder.
 
+Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
 
 Xamarin
 -------
@@ -88,13 +114,12 @@ Xamarin
 * [Build action 'EmbeddedResource'](http://davidyardy.com/archive/build-action-embeddedresource/), [Visual Studio 2017–IOS Build Debug Error](http://davidyardy.com/archive/visual-studio-2017-ios-build-debug-error/), & [Xamarin: Unable to Debug Android Application](http://davidyardy.com/archive/xamarin-unable-to-debug-android-application/) by David Yardy.
 * [Announcing ReactiveUI virtual community meetups](https://ghuntley.com/archive/2017/02/07/announcing-reactiveui-virtual-community-meetups/) by Geoffrey Huntley.
 * [Yet Another Podcast #167 – Charles Petzold](http://jesseliberty.com/2017/02/08/yet-another-podcast-167-charles-petzold/) by Jesse Liberty.
-
-Azure
------
-
+* [Sending Files to a Xamarin.Forms App – Part 1: iOS](https://codemilltech.com/sending-files-to-a-xamarin-forms-app-part-1-ios/) by Matthew Soucoup.
 
 UWP
 ----
+
+* [Universal Windows Platform (UWP) docs are now on Docs.Microsoft.com](https://blogs.windows.com/buildingapps/2017/02/09/universal-windows-platform-uwp-docs-now-docs-microsoft-com/) by Martin Ekuan.
 * [Recap Windows Developer Day: Creators Update](https://blogs.windows.com/buildingapps/2017/02/08/windows-developer-day-creators-update/) by Kevin Gallo.
 * [Telerik UI for UWP Now Open Source](http://www.telerik.com/blogs/telerik-ui-for-uwp-now-open-source) by Dobrin Grancharov.
 * [Using SQLite databases in UWP apps](https://blogs.windows.com/buildingapps/2017/02/06/using-sqlite-databases-uwp-apps/) by Gautam Kanumuru.
@@ -103,6 +128,10 @@ UWP
 Games
 -----
 
+Data
+----
+
+* [Working with Enumerated Values in Entity Framework](https://visualstudiomagazine.com/articles/2017/02/01/enumerated-values.aspx) by Peter Vogel.
 
 And this is it for this week!
 
