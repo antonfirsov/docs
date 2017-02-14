@@ -43,10 +43,6 @@ string input = ReadLine.Read("(prompt)> ");
 Console.Write(input);
 ```
 
-Game of the week: 
--------------------------
-
-
 User group meeting of the week: Shared Security Responsibility in the Azure Cloud in Illinois
 ---------------------------------------------------------------
 
@@ -127,6 +123,12 @@ UWP
 
 Games
 -----
+
+* [Getting Started with SadConsole](https://channel9.msdn.com/Shows/dotGAME/Getting-Started-with-SadConsole) by Stacey Haffner
+* [Lessons Learned from VR Prototyping](https://youtu.be/G295PAPzZX8)
+* [[Unity 5.5] Tutorial: How to create a JetPack](https://youtu.be/2merbiVLv28) by Gamad
+* [A* Pathfinding (E10: threading)](https://youtu.be/TFyEWDMQUKc) by Sebastian Lague
+* [iProfiler - Free Script to Display Profiling Stats on Screen in Unity](https://github.com/ahmedmohi/iProfiler)
 
 Data
 ----
