@@ -102,7 +102,7 @@ You'll quickly see that the Dockerfile source is stored on GitHub. You can follo
 Docker Image Tag-ing
 ---------------------
 
-Docker images have cryptic IDs (for example, d99acb94e777) as their primary means of identification by default. Since that's not super helpful for humans, Docker images can also be given tags. That's usually a friendly name that describes what the image is for, such as "hello-world-app". That model works great locally on your machine. On Docker Hub, the repository name becomes the name for the image and the tags are used to disambiguate images within the repository, by version or other aspect.
+Docker images have cryptic IDs (for example, d99acb94e777) for identification by default. Since that's not super helpful for humans, Docker images are also given tags. That's usually a friendly name that describes what the image is for, such as "hello-world-app". That model works great locally on your machine. On Docker Hub, the repository name becomes the name for the image and the tags are used to disambiguate images within the repository, by version or other aspect.
 
 For .NET Core, tags are used to describe image differences on the following 3 axes:
 
