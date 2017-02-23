@@ -1,0 +1,431 @@
+# Springfield: a cloud service built entirely in F#
+
+Earlier this year, Microsoft announced a preview of Project Springfield, one of the most sophisticated tools Microsoft has for rooting out potential security vulnerabilities in software.  [Project Springfield](https://www.microsoft.com/en-us/springfield/) is a fuzz testing service which finds security-critical bugs in your code.
+
+One of the amazing things about Springfield is that it's built on top of Microsoft's development platforms - F#, .NET, and Azure!  This post will go over some of the *what*, *why*, and *how* of Project Springfield, F#, .NET, and Azure.
+
+## What is Project Springfield?
+
+Project Springfield is Microsoft’s unique fuzz testing service for finding security critical bugs in software.
+It helps you quickly adopt practices and technology from Microsoft.
+The service leverages the power of the Azure cloud to scale security testing using a suite of security testing tools from Microsoft. It's currently in preview, and you can sign up at [Project Springfield](https://www.microsoft.com/en-us/springfield/) if you want to give it a try!
+
+## Why F#?
+
+The reason why we chose F# for this project can be summarized as *fast time to market*.
+
+In 2015, [Microsoft Research NExT](http://blogs.microsoft.com/next/) kicked off Project Springfield. The engineering team, consisting of three developers at the time, was given the ambitious goal to build an entirely new service from scratch and ship it to external customers in just three months.
+
+Due to its conciseness, correctness, and interoperability with the entire .NET ecosystem, we believe that F# accelerated our development cycle and reduced our time to market. Some specific benefits of using F# we saw included scripting capabilities and interactive REPL to quickly prototype working code, Algebraic Data Types, Immutability by default, Pattern Matching, Higher-Order Functions, a powerful Asynchronous Programming model, and Type Providers.
+
+## How
+
+F# scripting allowed the team to quickly discover and interact with external .NET APIs. For instance, we routinely used F# interactive to learn how to use the Azure SDK:
+
+```FSharp
+#r "../../../packages/Microsoft.Azure.Management.Compute/lib/net40/Microsoft.Azure.Management.Compute.dll"
+open Microsoft.Azure.Management.Compute
+let credential = TokenCloudCredentials(subscriptionId, token)
+let azureCompute = new ComputeManagementClient(credential) :> IComputeManagementClient
+azureCompute.VirtualMachines.ListAll(Models.ListParameters())
+```
+**The above script in F# Interactive will enumerate all Azure Virtual Machines in the specified Azure subscription.**
+
+Later on in the development process the very same script code could easily be integrated into the final compiled code without any modification.
+
+### Functional
+
+Because F# is a functional programming language, we wrote our code in a functional style, which allowed us to eliminate a lot of boilerplate code.
+
+For instance, when working with collections such as lists or arrays, we would use [F# sequence](https://docs.microsoft.com/en-us/dotnet/articles/fsharp/language-reference/sequences) operations from the Seq module to process data. Because F# supports [partial application](https://docs.microsoft.com/en-us/dotnet/articles/fsharp/language-reference/functions/#partial-application-of-arguments) of function arguments and functions as [first-class arguments](https://docs.microsoft.com/en-us/dotnet/articles/fsharp/introduction-to-functional-programming/functions-as-first-class-values), we can process sequences of data with simple, reliable, and composable code.
+
+We find this to be simple because it avoids iteration and needing to store the state of something in a temporary variable, such as when using a C-style for loop. We value the increased reliability of not needing to iterate because it avoids common issues found in iteration, such as Out of Bounds array indexing exceptions. Lastly, the pipeline operator in F# (|>) allows us to compose operations succinctly.
+
+```FSharp
+let histogram =
+    samples
+    |> Seq.countBy (fun x -> (double x / 100.0) * 10.0 |> int)
+    |> Seq.sortBy fst
+```
+**Sorted histogram using F# piping operator and Sequence module**
+
+The above snippet demonstrates the use of quite a few functional programming features like lambda functions, function composition, and [functional purity](https://en.wikipedia.org/wiki/Pure_function), which are natural defaults for F#. The power of these constructs have even led to some integration into non-functional languages like C#.
+
+Functional purity in particular is one of the biggest benefits to our codebase. Functional purity is a form of determinism indicating that a function's output is fully determined by the value of its input. That is, for a given input, a pure function will always return the same output. Furthermore, a pure function does not affect its environment in any way (e.g., global variables, affecting files on disk...).
+
+Upholding the property of functional purity in our codebase has lead to code that's easier to reason about and simpler for us to test. And because pure functions do not affect one another, they are easily parallelizable!
+
+F# makes it easy to write functionally pure code by making all let-bounded values immutable by default. In other words, you must opt in to not writing a pure function. When this is truly necessary (e.g., you must modify the environment in some way), you can easily do so by explicitly indicating mutability with the let mutable keywords. In Springfield, we only have five mutable variables in our entire F# codebase.
+
+### Conciseness
+
+The example above highlights another aspect of functional languages: programs tend to be concise. The four lines of code from the program above would be expanded to many more if written in imperative style. This may look like a contrived example but at the scale of Springfield, it yields a codebase that is very easy to maintain.
+
+In fact, we could quantify this phenomenon when we ported some of our components from other languages to F#. In order to remove some legacy dependencies, for instance, we ported a Perl script to a 37% smaller F# program. In a separate effort we ported 1,338 lines of PowerShell scripts to just 489 lines of F# (2.7 times smaller). In both cases, despite the code size reduction, the resulting F# program improved logging, readability and reliability (due in part to static type checking).
+
+### Correctness
+
+Another reason why F# helped us to ship quickly is because we found that the functional paradigm F# uses helped us improve code correctness. One of the most compelling examples of how language constructs improve correctness is the use of Algebraic Data Types and Pattern Matching.
+
+The quintessential example of this is how you represent and handle missing data in F#.
+In most mainstream languages, missing data is typically represented by a special `null` value. This has a big drawback: because `null` is implicit in most types you operate on, it's easy to forget to check for the possibility of a null when consuming your data. This makes it easy to have reliability issues and bugs such as `NullReferenceException` errors at runtime. In many languages, such as C#, every object value is by default nullable, which means that the need to check for null is spread throughout an entire codebase.
+
+In F#, the datatypes you define are by default non-nullable. If missing data is expected, then you wrap your existing type `'T` into the Algebraic Data Type `'T option` (or `Option<'T>`). [F# Options are](https://docs.microsoft.com/en-us/dotnet/articles/fsharp/language-reference/options) inhabited by two possible kinds of values: the `None` value representing absence of data, or `Some v` where `v` is some valid of type `'T`.
+
+
+By capturing the possible absence of data in the `Option` type itself, the compiler is able to enforce that you account for both the `Some v` and `None` cases whenever you try to consume an Optional in your code. This is typically done with Pattern Matching and the `match ... with` construct. Here is an example taken from Springfield's codebase:
+
+```Fsharp
+match tryGetCurrentEmail() with
+| Some email ->
+    printf "User email is %s" email
+| None ->
+    printf "User does not have any email"
+```
+Pattern matching works together with the type system to ensure that all cases are accounted for: the `None` case and the `Some` case.
+
+This language feature alone helped us almost entirely eliminate `null` as a concern from our codebase, which ultimately saved us very precious time.
+
+### An expressive type system
+
+Option types are just one example of the power of Algebraic Data Types. Used more generally, Algebraic Data Types allowed us to concisely define all the data structures involved in the system, and write correct and efficient code to manipulate those data structures.
+For instance, we use simple Discriminated Unions to define the size of the virtual machines provisioned in Azure for testing:
+
+```FSharp
+type FuzzingVmSize =
+ | ExtraSmall
+ | Small
+ | Medium
+ | Large
+ | ExtraLarge
+```
+We also use more complex structures to encode events and messages exchanged between various component of the system.
+
+For each test workload submitted to Springfield, thousands of messages are being created and exchanged between the various components of the service. Thanks to the powerful F# type system
+we can easily represent such complex information via F# [Records](https://docs.microsoft.com/en-us/dotnet/articles/fsharp/language-reference/records) and [Discriminated Unions](https://docs.microsoft.com/en-us/dotnet/articles/fsharp/language-reference/discriminated-unions):
+
+```Fsharp
+type CustomerId = System.Guid
+
+type EventType =
+  | MsgType1 of CustomerId
+  | MsgType2 of CustomerId * string * int
+  | MsgType3 of CustomerId * string * int option
+
+type Event =
+    { Id: System.Guid
+      Timestamp: System.DateTime
+      Type : EventType
+      Data : byte [] option
+      MetaData: byte [] option }
+```
+
+Once we represent incoming messages via the type system, we can use [Pattern Matching](https://docs.microsoft.com/en-us/dotnet/articles/fsharp/language-reference/pattern-matching) dispatch on the incoming message.
+
+```fsharp
+let dispatch msg =
+    match msg with
+    | MsgType1 -> ...
+    | MsgType2 -> ...
+    | MsgType3 -> ...
+```
+
+What's nice about the above is that the compiler *enforces* that we account for all cases. Any queue message that is successfully deserialized into the F# discriminated union `EventType` is guaranteed to be accounted for by the dispatch function. Because we get that correctness guarantee, we don't spend nearly as much time debugging.  Features like F# types, used in conjunction with Pattern Matching, helped us tremendously in getting working code completed faster.
+
+Another example: for reliability, service requests are implemented in our backend using finite state machines.
+The state of the machine is saved onto an [Azure Queue](https://azure.microsoft.com/en-us/services/storage/queues/), that way the service can resume from where it left off should a failure ever happen.
+Once again F# lets us define our state machines very succinctly:
+```Fsharp
+/// State machine transition with state type 's and return type 't
+type Transition<'s, 't> =
+    /// Sleep for the specified amount of type and come back to the same state
+    | Sleep of System.TimeSpan
+    /// Go to the specified state
+    | Goto of 's
+    /// Reached a final state
+    | Return of 't
+```
+**Finite state machines used in Springfield backend**
+
+### Json serialization and open source contribution
+
+In Springfield, we leveraged [Json.NET](http://www.newtonsoft.com/json) to serialize and deserialize JSON messages. However, we found that the default output when serializing F# data types was too verbose for our needs. We built FSharpLu.Json, a small library which wraps and augments Json.NET when serializing F# data types, so we could more succinctly serialize F# data types like Options, Algebraic Data Types and Discriminated Unions.
+
+For example the simple value `Some [ None; Some 2; Some 3; None; Some 5 ]` gets serialized by `FSharpLu.Json` to just `[null, 2, 3, null, 5]`. Without  `FSharpLu.Json`, it would get serialized to the following:
+```Json
+{
+  "Case": "Some",
+  "Fields": [
+    [
+      null,
+      {
+        "Case": "Some",
+        "Fields": [ 2 ]
+      },
+      {
+        "Case": "Some",
+        "Fields": [ 3 ]
+      },
+      null,
+      {
+        "Case": "Some",
+        "Fields": [ 5 ]
+      }
+    ]
+  ]
+}
+```
+
+For complex data types, like the `Event` type introduced earlier, the difference becomes
+more appreciable. The following event, for instance:
+```Fsharp
+let event =
+    Some
+        { Id = System.Guid("3939df09-124f-43ca-8788-42935f7350d4")
+          Timestamp = System.DateTime(1930, 4, 9)
+          Type = EventType.MsgType3 (System.Guid("202cbfa3-b1e4-48d9-b6d9-d5be3efb0bed"), "Foo", None)
+          Data = Some <| [|1uy;2uy;|]
+          MetaData = None }
+```
+gets serialized with `FSharpLu.Json` to just
+```Json
+{
+  "Id": "3939df09-124f-43ca-8788-42935f7350d4",
+  "Timestamp": "1930-04-09T00:00:00",
+  "Type": {
+    "MsgType3": [
+      "202cbfa3-b1e4-48d9-b6d9-d5be3efb0bed",
+      "Foo",
+      null
+    ]
+  },
+  "Data": "AQI="
+}
+```
+which better reflects the F# syntax, and is 47% more compact than the default Json.NET formatting:
+```Json
+{
+  "Case": "Some",
+  "Fields": [
+    {
+      "Id": "3939df09-124f-43ca-8788-42935f7350d4",
+      "Timestamp": "1930-04-09T00:00:00",
+      "Type": {
+        "Case": "MsgType3",
+        "Fields": [
+          "202cbfa3-b1e4-48d9-b6d9-d5be3efb0bed",
+          "Foo",
+          null
+        ]
+      },
+      "Data": {
+        "Case": "Some",
+        "Fields": [
+          "AQI="
+        ]
+      }
+    }
+  ]
+}
+```
+
+We thought JSON utility would be useful to the F# community, so we've open-sourced `FSharpLu.Json` on [GitHub](https://github.com/Microsoft/fsharplu/wiki/FSharpLu.Json) and released it on [Nuget](https://www.nuget.org/packages/Microsoft.FSharpLu.Json/).
+
+### F# Type Providers + Azure
+
+Springfield is built entirely on Azure. All the compute and network resources used to run the test workloads are dynamically provisioned in Azure through the [Azure Resource Manager (ARM)](https://azure.microsoft.com/en-us/documentation/articles/resource-group-overview/).
+Creating resources in ARM requires authoring two JSON files: one  [template JSON file]((https://azure.microsoft.com/en-us/documentation/articles/resource-group-overview/)) definining all the resources you want to create (e.g., virtual machines), and one parameter JSON file with values used to customize the deployment (e.g., machine names).
+
+Springfield allocates compute resources dynamically, therefore it  needs to generate JSON parameter files at run-time; a task that can be error-prone. With F# [Type Providers](https://docs.microsoft.com/en-us/dotnet/articles/fsharp/tutorials/type-providers/) we can statically verify at compilation time that our generated template parameters are valid. Because our ARM templates constantly evolves, this tremendously speed-up development and debugging time.
+
+With the Json Type Provider from `FSharp.Data`, just three lines of F# code suffice to automatically infer from the template parameters file (shown in the screenshot below) all the necessary types required to submit the deployment to Azure:
+```FSharp
+open FSharp.Data
+type CustomerAccountTemplateParameters =
+    JsonProvider<"CustomerAccount.param.dev.json", InferTypesFromValues=true>
+```
+
+![Json Type Provider and Intellisense catching missing fields from Azure ARM template](JsonTypeProvidersForAzureTemplates.png)
+**Screenshot showing F# Intellisense catching a missing field from the template parameters (left), and the corresponding ARM template (right)**
+
+## Strongly-typed logging, Asynchronous programming, Active Patterns
+
+To illustrate other areas where F# helped us build Springfield, let's look at another snippet from our codebase. Below is the function we use to delete a resource group in Azure.
+
+```Fsharp
+/// Delete an Azure Resource Group
+let delete (c:InfrastructureContext) groupName =
+    async {
+        try
+            Trace.info "Deleting resource group %s" groupName
+            let! result = c.resource.ResourceGroups.DeleteAsync(groupName).AsAsync
+            Trace.info "Deletion of group %s returned code %O" groupName result.StatusCode
+
+            match result.StatusCode with
+            | System.Net.HttpStatusCode.Accepted
+            | System.Net.HttpStatusCode.OK ->
+                Trace.info "Resource group %s deleted" groupName
+            | statusCode ->
+                Trace.failwith "Failed to delete group: %O" statusCode
+        with
+        | CloudError.NotFoundException e
+        | IsAggregateOf SomeResourceGroupNotFoundException e ->
+            Trace.error "Did not find resource group %s with exception: %A" groupName e
+    }
+```
+
+#### Strongly-typed logging
+
+In the snippet of code above, C/C++ programmers must recognize the `printf`-like formatting with the use of `%s` in the calls to logging functions `Trace.info` and `Trace.error`. According to game programmer John Carmack ["Printf format string errors were, after null-safety issue, the second biggest issue in (video game **Rage** C/C++) codebase"](http://www.gamasutra.com/view/news/128836/InDepth_Static_Code_Analysis.php).
+Such errors occur when you pass an incorrect number of parameters to the `printf` function, or if the input parameter types do not match the format specifiers like `%d` and `%s`.
+
+Because we rely a lot on trace logging to help us diagnose bugs and issues in Springfield, we cannot afford reliability issues in the logging function themselves!
+Thanks to its powerful type system, F# helps you eliminate the problem altogether: any mismatch between formatting specification and parameters is statically caught by the compiler!
+To take advantage of this, we simply defined our own trace logging helpers using the
+strongly-typed formatting module [Printf](https://msdn.microsoft.com/visualfsharpdocs/conceptual/core.printf-module-%5bfsharp%5d). The underlying logging logic is then offloaded to some other logging APIs like .NET Frameworks's `System.Diagnostics.TraceInformation` or Azure SDK's [AppInsights](https://azure.microsoft.com/en-us/documentation/articles/app-insights-overview/).
+
+We've open sourced the strongly-typed wrapper for `System.Diagnostics.TraceInformation` in the [FSharpLu library](https://github.com/Microsoft/fsharplu/wiki) and plan to open source the AppInsights wrapper in the future.
+
+```FSharp
+open Microsoft.FSharpLu.TraceLogging
+
+Trace.info "%d machines created for customer %s at %O" vmName customerName System.DateTime.Now
+```
+**Strongly-typed logging to System.Diagnostics with Microsoft.FSharpLu.TraceLogging**
+
+#### Asynchronous programming
+
+To achieve high scalability, online services like Springfield must make use of asynchronous code to further utilize hardware resources. Because this is a difficult task for programmers, language-level abstractions for asynchronous programming, which make this task easier, have recently begun to emerge in mainstream languages.
+
+F# pioneered a language-level asynchronous programming model for the .NET platform in 2007. In practice this means that F# comes out of the box with state of the art support for asynchrony in the form of [Asynchronous Workflows](https://docs.microsoft.com/en-us/dotnet/articles/fsharp/language-reference/asynchronous-workflows).
+
+In Springfield, most of the IO-bound code is wrapped inside an `async{..}` block and make us of the `let!` operator to asynchronously wait for the underlying IO operation to complete.
+
+For example, in the `delete` snippet above, we use `let!` to asynchronously wait on the delete API from the Azure SDK. Asynchronous workflows are used pervasively in our services. Our backend event processing and our REST API are all asynchronous:
+
+```Fsharp
+[<Route("customers/{customerId:guid}/jobs/{jobId}/machines/{machineName}/submit")>]
+member __.Submit(customerId:CustomerId, jobId:JobId, machineName:string) =
+    async {
+        let! machineOption = database.tryGetCustomerMachine customerId machineName
+        let! job = database.tryGetJob customerId jobId
+        match job with
+        | None ->
+            return SubmitJobResult.UnknownJob
+        | Some job ->
+            let! updateResult = database.setJobRunStatus job.Guid JobExecutionStage.Submitted
+            do! postBackendRequest <| ServiceQueueMessages.SubmitJob(header, Requested)
+            return SubmitJobResult.Success
+    } |> Async.StartAsTask
+```
+**Asynchronous REST API to submit a Springfield job**
+
+The F# asynchronous programming model is implemented entirely in the F# Core Library using [Computation Expressions](https://docs.microsoft.com/en-us/dotnet/articles/fsharp/language-reference/computation-expressions), a language construct based on [a sound theoretical foundation](https://en.wikipedia.org/wiki/Monad_(functional_programming)) used to extend the language syntax in a very generic way.
+
+Many [common pitfalls faced by C# programmers](https://blogs.msdn.microsoft.com/lucian/tag/async/)
+when writing asynchronous code aren't a concern when using the F# asynchronous programming model. To learn more, check out Tomas Petricek's wonderful blog post which explores [the differences in the C# and F# models of asynchrony]((http://tomasp.net/blog/csharp-async-gotchas.aspx/).
+
+#### Handling asynchronous exceptions with Active patterns
+
+One of the key behaviors of asynchronous and parallel programming in .NET is that exceptions sometimes get nested under, or grouped into exceptions of type `System.AggregateException`.
+In .NET languages like C#, exception handling dispatch is based solely on the type of the exception. In F#, the pattern matching construct lets you express complex conditions to filter on the exception you want to handle. For instance, in the `delete` function from the snippet above, we use pattern matching in combination with
+[Active Patterns](https://docs.microsoft.com/en-us/dotnet/articles/fsharp/language-reference/active-patterns) to concisely filter on aggregated exceptions:
+
+```Fsharp
+/// Active pattern matching any exception deeply nested under a
+/// larger aggregated exception and verifying the specified condition.
+let rec (|IsAggregateOf|_|) condition (e:System.Exception) =
+    match e with
+    | :? System.AggregateException as e ->
+        Seq.tryPick (IsAggregateOf condition) e.InnerExceptions
+    | e -> condition e
+```
+**Active pattern to match over aggregated exceptions**
+
+```Fsharp
+let SomeResourceGroupNotFoundException (e:System.Exception) =
+    match e with
+    | :? Hyak.Common.CloudException as e
+      when e.Error.Code = "ResourceGroupNotFound" -> Some e.Error
+    | _ -> None
+```
+**Pattern matching to filter over Azure SDK exception `Hyak.Common.CloudException`**
+
+### F# as a scripting language
+
+F# comes with a [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) environment that makes it a great alternative to other scripting languages like PowerShell.
+Since F# scripts are executed on the .NET Platform, they can leverage existing code from existing core assemblies. In Springfield, we have F# scripts to perform maintenance operations like usage monitoring and clean up.
+Another advantage of F# scripts is that they are statically type-checked, an unusual thing for a scripting language! In practice this yields huge saving in debugging time. Foolish errors like typos in variable names or incorrect typing are
+immediately caught by Intellisense in the IDE tooling available for F# - Visual Studio, Xamarin Studio, and Visual Studio Code with the Ionide suite of plug-ins. Refactoring code also becomes a piece of cake.
+This stands in stark contrast to the fragility of PowerShell scripts experienced by our team.
+
+These features of F# Scripting have been a huge benefit, allowing our team to replace PowerShell for our scripting needs in some components of the service.
+
+We still use PowerShell for our deployments and resource management, mainly due to our reliance on Azure, or because some tools like Service Fabric only expose certain feature through PowerShell. But whenever possible, we try to stick to F# scripting.
+
+```Fsharp
+#load "load-references-release.fsx"
+#load "Maintenance.fsx"
+
+open Springfield.Azure
+open Springfield.Storage
+open Microsoft.FSharpLu
+open Microsoft.FSharpLu.Logging
+
+Trace.info "Getting jobs in preparation..."
+Springfield.Azure.ResourceGroup.list c "purpose" "Fuzzing"
+```
+**Springfield .FSX script to list all resource groups in Azure**
+
+### Scaling with .NET and Azure
+
+Because F# is a .NET language, we can leverage the entire .NET ecosystem. In particular we use the Azure .NET SDK to access many Azure services such as the Resource Manager, Compute, Network, Files storage, Queues, KeyVault, and AppInsights.
+We also built our backend service using Service Fabric.
+
+> [TODO for David]: Link to Azure blog post. (if you want to know more about our use of Azure...)
+
+## Community libraries
+
+What's also great about F# is its vibrant community. In Springfield we leverage many open-source projects like
+[Paket](http://fsprojects.github.io/Paket/) to simplify NuGet dependency management, [FsCheck](https://github.com/fscheck/FsCheck) for automated test generation, type-providers from [FSharp.Data](http://fsharp.github.io/FSharp.Data/) and the cross-platform F# editor [Ionide](http://ionide.io/) for Visual Studio Code. We also keep a close eye on other projects. For instance, we are considering [Suave](https://suave.io/) for future web-related components.
+
+As mentioned earlier we've also contributed back to the community in the form of two F# libraries: [FSharpLu](https://github.com/Microsoft/fsharplu/wiki) and [FSharpLu.Json](https://github.com/Microsoft/fsharplu/wiki/FSharpLu.Json).
+
+## What's Next for Project Springfield
+
+This article, hopefully, gives you a good overview of some aspects of F# that helped us build Springfield.
+When we started the project, we chose F# based on positive experiences building smaller projects.
+Throughout the development of Springfield we learnt that you can use it just as well to build a full-fledge online service!
+
+The functional paradigm is now mainstream in the industry as indicated by the popularity of languages like
+F#, Scala, Swift, Elixir, and Rust; as well as the inclusion of functional programming constructs in languages such as C# and Java. Even C++ wants its own *lambdas* now!
+The reason, we believe, is that the correctness guarantees and expressivity of the functional paradigm yields a unique competitive advantage in a world where code must evolve rapidly to adapt to changing customer needs! For .NET developers, F# is the perfect language to make the jump!
+
+To conclude, we want to call out the success we've had with F# as a recruiting tool.
+When building an engineering team to work on a codebase on a less popular language like F#, one of the
+biggest concerns is that you won't be able to find enough people.
+But surprisingly, things turned out otherwise.
+Firstly, we found that many great candidates were interested in the position precisely
+due to using a functional programming language like F#. For some, it was just out of pure love
+for the language or frustration for not being able to use it in their current job (sometimes due to resistance in their current team).
+For others, it was curiosity in learning a new programming paradigm,
+ and willingness to challenge themselves and try to do things differently.
+ Secondly, we observed that, once hired, those engineers turn out to be great developers in any language, not just in F#.
+We had no trouble recruiting engineers to work on Springfield, and even found the use of F# in the codebase a boon to hiring [talented people](https://www.microsoft.com/en-us/research/project/project-springfield/)!
+
+As for Springfield, we have plenty more work in the pipeline. Among other things, we are considering porting our backend to [.NET core](https://dotnet.github.io/),
+which F# will support in the [forthcoming 4.1 release](https://blogs.msdn.microsoft.com/dotnet/2016/07/25/a-peek-into-f-4-1/)!
+
+## Learn More
+
+Learn more about Project Springfield at [https://www.microsoft.com/en-us/springfield](https://www.microsoft.com/en-us/springfield)
+
+Learn more about F# with the official [F# Guide](https://docs.microsoft.com/en-us/dotnet/articles/fsharp/), which has F# language tutorials, guides for using F# on Azure, and a comprehensive F# Language Reference.  Another great learning resource, especially for C# and Visual Basic developers, is [F# For Fun and Profit](https://swlaschin.gitbooks.io/fsharpforfunandprofit/content/).
+
+FSharpLu library: [https://github.com/Microsoft/fsharplu](https://github.com/Microsoft/fsharplu)
+
+FSharpLu.Json library: [https://github.com/Microsoft/fsharplu/wiki/fsharplu.json](https://github.com/Microsoft/fsharplu/wiki/fsharplu.json)
+
+The Springfield team: https://www.microsoft.com/en-us/research/project/project-springfield/
+
+> [TODO for David]: Springfield Azure blog post [TBD]()
