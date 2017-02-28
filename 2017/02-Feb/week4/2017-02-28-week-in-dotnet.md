@@ -40,7 +40,6 @@ The [NYC F# .NET user group](https://www.meetup.com/nyc-fsharp/) has a [hackatho
 
 * [MSTest V2 – Now and Ahead](https://blogs.msdn.microsoft.com/visualstudioalm/2017/02/25/mstest-v2-now-and-ahead/) by Pratap Lakshman.
 * [Xamarin .NET Workbooks - Interactive Computing is a stellar learning tool](https://www.hanselman.com/blog/XamarinNETWorkbooksInteractiveComputingIsAStellarLearningTool.aspx) by Scott Hanselman.
-* [Analyzing a .NET Core Core Dump on Linux](http://blogs.microsoft.co.il/sasha/2017/02/26/analyzing-a-net-core-core-dump-on-linux/) by Sasha Goldshtein.
 * [Could not load file or assembly or one of its dependencies](https://indexoutofrange.com/Could_not_load_file_or_assembly_or_one_of_its_dependencies/) by Szymon Warda.
 * [Going beyond SOS with ClrMD – Part 1](http://labs.criteo.com/2017/02/going-beyond-sos-clrmd-part-1/) by Christophe Nasarre and Kevin Gosse.
 * [Implementing and usage of INotifyPropertyChanged](https://github.com/jbe2277/waf/wiki/Implementing-and-usage-of-INotifyPropertyChanged) by jbe2277.
