@@ -35,6 +35,11 @@ User group meeting of the week: making toys in F# in NYC
 
 The [NYC F# .NET user group](https://www.meetup.com/nyc-fsharp/) has a [hackathon tonight at 6:30PM](https://www.meetup.com/nyc-fsharp/events/237917569/) where you'll explore toy making in F# with Steve Goguen.
 
+Update to last week's package of the week
+-----------------------------------------
+
+In [last week's post](https://blogs.msdn.microsoft.com/dotnet/2017/02/22/the-week-in-net-on-net-with-beth-massi-neinlinq/), I showed NeinLinq, a way to use custom code with Linq in a more general way than is possible out of the box. The next day, I got a message from Damien Guard about a better way to achieve the same thing, that he developed with David Fowler in 2009. Check out [his blog post from back then](https://damieng.com/blog/2009/06/24/client-side-properties-and-any-remote-linq-provider).
+
 .NET
 ----
 
@@ -49,9 +54,11 @@ The [NYC F# .NET user group](https://www.meetup.com/nyc-fsharp/) has a [hackatho
 ASP.NET
 -------
 
+* [WordPress Running on .NET](http://www.peachpie.io/2017/02/wordpress-announcement.html) by Benjamin Fistein.
 * [Under the hood of the Middleware Analysis package](https://andrewlock.net/under-the-hood-of-the-middleware-analysis-package/) by Andrew Lock.
 * [Get Current Route Name From ASP.NET Web API Request](https://rimdev.io/get-current-route-name-from-aspnet-web-api-request/) by Khalid Abuhakmeh.
 * [How to Send Email using .NET Core](http://benjii.me/2017/02/send-email-using-asp-net-core/) by Ben Cull.
+* [Implementing an Audit Trail using ASP.NET Core and Elasticsearch with NEST](https://damienbod.com/2017/02/28/implementing-an-audit-trail-using-asp-net-core-and-elasticsearch-with-nest/) by Damien Bod.
 
 C#
 --
@@ -121,6 +128,14 @@ Data
 Games
 -----
 
+* [The Feature Lens: Procedural Generation](https://gamelens.nyphoon.com/article.php?id=the_feature_lens_procedural_generation_21)
+* [An Introduction to Game Audio Scripting (Part 1)](https://www.asoundeffect.com/game-audio-scripting/) by Chris Tammik
+* [[SadConsole] 2/25 Major Update](https://github.com/Thraka/SadConsole/blob/engine-rewrite/ChangeLog.md) by Andy De George
+* [[Unity] Camera Shake](https://youtu.be/D3gbXAVcG-0) by Sebastian Lague
+* [[Unity 5.5] Tutorial: How to create a Fuel bar](https://youtu.be/RI8Xl1Y_cFU) by Gamad
+* [Unity 5 - Artificial Intelligence / Basic AI - Part 01](https://youtu.be/p-_QyPu1oLI) by Gabriel Aguiar Prod.
+* [Hex Map 14: Terrain Textures](http://catlikecoding.com/unity/tutorials/hex-map/part-14/) by Catlike Coding
+* [Developing a Dynamic 2D Camera in Unity](http://clutchware.co.uk/updated-developing-a-dynamic-2d-camera-in-unity/) by Harry Ryder
 * [MonoGame – Putting Text Onscreen With SpriteFonts](http://geekswithblogs.net/cwilliams/archive/2017/02/22/243041.aspx) by Chris G. Williams.
 
 And this is it for this week!
