@@ -344,7 +344,23 @@ creating projects where the name of the project matches the folder name. Most pr
 For example, earlier we created a project with the command `dotnet new sayedweb -n Netblog.Web -o Netblog.Web`. This created a new project named
 `Netblog.Web` in a folder with the same name. This can be simplified by adding `"preferNameDirectory":"true"` in the `template.json` file. 
 When a project is created using a template that has this set to true the project name will match the directory name (assuming that the `--name`
-parameter is not passed in).
+parameter is not passed in). With this approach instead of calling `dotnet new` with both `-n` and `-o` can be simplified to the
+commands below.
+
+```
+$ mkdir Netblog.Web
+$ cd Netblog.Web
+$ dotnet new sayedweb
+```
+
+When the project is created the name of the folder, `Netblog.Web` will be used as the project name and it will be generated into the
+current directory.
+
+In this post we have covered creating templates for `dotnet new` with the Template Engine. We have just scrathed the surface here. We will
+be authoring more posts here and creating some official docs in the coming months. Below you'll find some links to existing resources.
+Please share your comments below and file [issues](https://github.com/dotnet/templating) as needed. We're very excited to see the
+awesome templates that the community creates.
+
 
 Resources
 ---------
