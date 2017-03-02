@@ -102,7 +102,7 @@ The template "Sayed Starter Web" created successfully.
 
 After executing this command the project was created in a new folder named `Netblog.Web`. In additon, all the namespace elements in the .cs files
 have been updated to be `namespace Netblog.Web` instead of `namespace SayedHa.StarterWeb`. If you recall from the previous screenshot there were
-two things that needed to be updated in the app; the title and the copyright. Let's see how we can add these parameters to the template.
+two things that needed to be updated in the app: the title and the copyright. Let's see how we can add these parameters to the template.
 
 How to create a template with replacable parameters
 ---------------------------------------------------
@@ -150,7 +150,7 @@ When creating a parameter the `type` value will be `parameter`. The `replaces` e
 `Sayed Ibrahim Hashimi` will be replaced. If the user doesn't pass in a value when invoking this template, the `defaultValue` value will be applied
 to that. In this case, the default is `John Smith`.
 
-Now that we've added the two parameters we need. Lets test it with `dotnet new`. Since we changed the `template.json` file, we will need to re-invoke
+Now that we've added the two parameters we need, let's test it with `dotnet new`. Since we changed the `template.json` file, we will need to re-invoke
 `dotnet new -i` again to update the template metadata. After installing the template again, lets see what the help output looks like.
 After executing `dotnet new sayedweb -h`, in additon to the default help output we see the following.
 
@@ -210,7 +210,7 @@ In the snippet below you can see what needs to be added for this new parameter.
 
 Here we used `"dataType":"bool"` to indicate that this parameter should support `true`/`false` values. Now we will use the value of this parameter
 to determine if content will be added to the project. First let's see how we can exclude `Contact.cshtml` when `EnableContactPage` is set to false.
-To exclude a file from being processed during creation, we need to add a new element in to the `template.json` file. The required content to add is
+To exclude a file from being processed during creation, we need to add a new element into the `template.json` file. The required content to add is
 shown in the code block below.
 
 ```
