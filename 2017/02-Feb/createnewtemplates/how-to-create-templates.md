@@ -1,17 +1,17 @@
 How to create templates for dotnet new using the Template Engine
 =================================================================================
 
-A couple of weeks ago we released an update to the .NET Core SDK, and Visual Studio 2017. In the .NET Core SDK we have updated the
-experience of creating new projects with `dotnet new`. In this release we have completly replaced the guts of `dotnet new`.
+A couple of weeks ago we released an update to the .NET Core SDK, and Visual Studio 2017. In the .NET Core SDK, we have updated the
+experience of creating new projects with `dotnet new`. In this release, we have completely replaced the guts of `dotnet new`.
 This new version of `dotnet new` is now built on top of the new [Template Engine](https://github.com/dotnet/templating/), which
 is a library that we are developing as an Open Source project. To learn more about how to use `dotnet new` see 
 [Announcing .NET Core Tools Updates in VS 2017 RC](https://blogs.msdn.microsoft.com/dotnet/2017/02/07/announcing-net-core-tools-updates-in-vs-2017-rc/).
-In this article we'll show how to create some custom templates and then use them from `dotnet new`.
+In this article, we'll show how to create some custom templates and then use them from `dotnet new`.
 
-When we started working on the Template Engine, one of our goals was to make it easy to create, maintain and share templates. In this release we have a
-great story for creating and maintaing templates. We have some features for sharing templates, but we are still working in that area and will make that process
+When we started working on the Template Engine, one of our goals was to make it easy to create, maintain and share templates. In this release, we have a
+great story for creating and maintaining templates. We have some features for sharing templates, but we are still working in that area and will make that process
 much easier as we have some more time. Let's dive into the demos, and see how to create some templates.
-Everything that we cover here is in a github repository at https://github.com/sayedihashimi/dotnet-new-samples.
+Everything that we cover here is in a GitHub repository at https://github.com/sayedihashimi/dotnet-new-samples.
 
 I have a web project which I'd like to create a template out of. The original source can be found in 
 [OriginalSource](https://github.com/sayedihashimi/dotnet-new-samples/tree/master/OriginalSource/Sayedha.StarterWeb). This is a modified version of
@@ -54,7 +54,7 @@ The contents of `template.json` shown above are all pretty straight forward. One
 When a user invokes `dotnet new` and specifies a new project name, by using `--name`, the project is created, and the string value for `sourceName`
 will be replaced with the value provided for `--name`. For example, in the `template.json` here it's set to `Sayedha.StarterWeb`.
 This string is the same as the namespace used in the `.cs` files in this project.
-When the template is used, all of those values will be updated. We will discuss `preferNameDirectory` later.
+When the template is used, all those values will be updated. We will discuss `preferNameDirectory` later.
 Let's try out our template now and see that in action.
 
 Now that we have created the template, it's time to test it out. To start using this with `dotnet new` the first thing to do
@@ -87,12 +87,12 @@ not have a trailing slash_
 
 Here we can see that the new template is included in the template list as expected.
 Before moving on to create a new project using this template, there are a few important things to mention about this release.
-In this release the `--install` switch is hidden because it's currently in preview. The syntax of this command is likely to change.
+In this release, the `--install` switch is hidden because it's currently in preview. The syntax of this command is likely to change.
 We have fixed that in the latest sources.
 After running install, to reset your templates back to the default list you can run the command `dotnet new --debug:reinit`. We don't
 currently have support for `--uninstall`, but we are working on that. Now let's move on to using this template.
 
-To create a new project we can run the command below.
+To create a new project we can run the following command.
 
 ```
 $ dotnet new sayedweb -n Netblog.Web -o Netblog.Web
@@ -100,11 +100,11 @@ Content generation time: 150.1564 ms
 The template "Sayed Starter Web" created successfully.
 ```
 
-After executing this command the project was created in a new folder named `Netblog.Web`. In additon, all the namespace elements in the .cs files
+After executing this command, the project was created in a new folder named `Netblog.Web`. In addition, all the namespace elements in the .cs files
 have been updated to be `namespace Netblog.Web` instead of `namespace SayedHa.StarterWeb`. If you recall from the previous screenshot there were
 two things that needed to be updated in the app: the title and the copyright. Let's see how we can add these parameters to the template.
 
-How to create a template with replacable parameters
+How to create a template with replaceable parameters
 ---------------------------------------------------
 
 _Sources for this example are in [02-add-parameters](https://github.com/sayedihashimi/dotnet-new-samples/tree/master/02-add-parameters/SayedHa.StarterWeb)_
@@ -146,13 +146,13 @@ that we will need to modify is the `template.json` file. I've pasted the updated
 ```
 
 Here we have added a new element `symbols` with two child elements, one for each parameter. Let's look at the `copyrightName` element a bit closer.
-When creating a parameter the `type` value will be `parameter`. The `replaces` element defines the text which will be replaced. In this case 
+When creating a parameter, the `type` value will be `parameter`. The `replaces` element defines the text which will be replaced. In this case 
 `Sayed Ibrahim Hashimi` will be replaced. If the user doesn't pass in a value when invoking this template, the `defaultValue` value will be applied
 to that. In this case, the default is `John Smith`.
 
 Now that we've added the two parameters we need, let's test it with `dotnet new`. Since we changed the `template.json` file, we will need to re-invoke
-`dotnet new -i` again to update the template metadata. After installing the template again, lets see what the help output looks like.
-After executing `dotnet new sayedweb -h`, in additon to the default help output we see the following.
+`dotnet new -i` again to update the template metadata. After installing the template again, let's see what the help output looks like.
+After executing `dotnet new sayedweb -h`, in addition to the default help output we see the following.
 
 ```
 Sayed Starter Web (C#)
@@ -185,19 +185,19 @@ This will result in the `_Layout.cshtml` file being updated. The `<title>` and `
 </footer>
 ```
 
-Now that we've shown how to add a parameter which replaces some text content in the source project, lets move to a more interesting example.
+Now that we've shown how to add a parameter which replaces some text content in the source project, let's move to a more interesting example.
 
 Add optional content
 --------------------
 
-The existing template that we have created has a few pages, incluing a Contact page. Our next step is to make the Contact page an
+The existing template that we have created has a few pages, including a Contact page. Our next step is to make the Contact page an
 optional part of the template. The Contact page is integrated into the project in the following ways.
 
  - Method in `Controllers/HomeController.cs`
  - View in `Views/Home/Contact.cshtml`
  - Link in `Views/Home/Shared/_Layout.cshtml`
 
-Before we start modifiying the sources the first thing we should do is to create a new parameter, `EnableContactPage`, in the `template.json` file.
+Before we start modifying the sources the first thing we should do is to create a new parameter, `EnableContactPage`, in the `template.json` file.
 In the snippet below you can see what needs to be added for this new parameter.
 
 ```
@@ -229,7 +229,7 @@ shown in the code block below.
 ```
 
 Here we've added a modifier to the `sources` element which excludes the `Views/Home/Contact.cshtml` if `EnableContactPage` is set not `true`.
-The expression used in the condition here,`(EnableContentPage)`, is very basic but, you can create more complex conditions using operators
+The expression used in the condition here, `(EnableContentPage)`, is very basic but, you can create more complex conditions using operators
 such as `&&`,`||`,`!`,`<`,`>=`,etc. For more info see https://aka.ms/dotnetnew-template-config. Now let's see how we can modify the controller and 
 the layout page to conditionally omit the Contact specific content.
 
@@ -276,13 +276,13 @@ namespace SayedHa.StarterWeb.Controllers
 ```
 
 Here we use a C# `#if` preprocessor to define an optional section in the template. When editing template source files, the idea is that the
-files should be editable in a way that allows the files to still be "runnable". For example, in this case, instead of modifing the C# file
+files should be editable in a way that allows the files to still be "runnable". For example, in this case, instead of modifying the C# file
 by adding elements which are invalid, the `#if`/`#endif` directives are used for template regions. Because of this each file type has its
 own syntax for conditional regions. For more info on what syntax is used for each file type see https://aka.ms/dotnetnew-template-config.
 
 When this template is processed, if `EnableContactPage` is true then the `Contact` controller will be present in the `HomeController.cs` file.
-Otherwise it will not be present. In additon to the Contact method in the Controller, there is a link in the `_Layout.cshtml` file which
-be omitted if the Contact page is not created. The code fragement shows the definition of the navbar from the `_Layout.cshtml` file.
+Otherwise it will not be present. In addition to the Contact method in the Controller, there is a link in the `_Layout.cshtml` file which
+be omitted if the Contact page is not created. The code fragment shows the definition of the navbar from the `_Layout.cshtml` file.
 
 ```
     <div class="navbar-collapse collapse">
@@ -297,10 +297,10 @@ be omitted if the Contact page is not created. The code fragement shows the defi
 ```
 
 Here the tag helper element creating the Contact link is surrounded with a condition to check the value of `EnableContactPage`.
-Similar to the contoller, if `EnableContactPage` is not `true` then this link (along with `#if`/`#endif` lines) will not be present in the generated 
+Similar to the controller, if `EnableContactPage` is not `true` then this link (along with `#if`/`#endif` lines) will not be present in the generated 
 `_Layout.cshtml` file. The full config file is available at 
 [`template.config`]()https://github.com/sayedihashimi/dotnet-new-samples/blob/master/03-optional-page/SayedHa.StarterWeb/.template.config/template.json.
-Lets move on to the next example, giving the user a set of choices.
+Let's move on to the next example, giving the user a set of choices.
 
 Add a choice from a list of options
 -----------------------------------
@@ -333,7 +333,7 @@ is below.
 }
 ```
 
-Here we define the name of the paramter, the available choices, the default value (aliceblue), and the string that it replaces 'skyblue'.
+Here we define the name of the paramater, the available choices, the default value (aliceblue), and the string that it replaces 'skyblue'.
 
 How to create projects with the name matching the directory
 -----------------------------------------------------------
@@ -344,7 +344,7 @@ creating projects where the name of the project matches the folder name. Most pr
 For example, earlier we created a project with the command `dotnet new sayedweb -n Netblog.Web -o Netblog.Web`. This created a new project named
 `Netblog.Web` in a folder with the same name. This can be simplified by adding `"preferNameDirectory":"true"` in the `template.json` file. 
 When a project is created using a template that has this set to true the project name will match the directory name (assuming that the `--name`
-parameter is not passed in). With this approach instead of calling `dotnet new` with both `-n` and `-o` can be simplified to the
+parameter is not passed in). With this approach, instead of calling `dotnet new` with both `-n` and `-o` can be simplified to the
 commands below.
 
 ```
@@ -353,10 +353,10 @@ $ cd Netblog.Web
 $ dotnet new sayedweb
 ```
 
-When the project is created the name of the folder, `Netblog.Web` will be used as the project name and it will be generated into the
+When the project is created the name of the folder, `Netblog.Web` will be used as the project name, and it will be generated into the
 current directory.
 
-In this post we have covered creating templates for `dotnet new` with the Template Engine. We have just scrathed the surface here. We will
+In this post, we have covered creating templates for `dotnet new` with the Template Engine. We have just scratched the surface here. We will
 be authoring more posts here and creating some official docs in the coming months. Below you'll find some links to existing resources.
 Please share your comments below and file [issues](https://github.com/dotnet/templating) as needed. We're very excited to see the
 awesome templates that the community creates.
