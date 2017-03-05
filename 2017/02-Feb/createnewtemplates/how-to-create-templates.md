@@ -35,7 +35,7 @@ To create a template out of this we will need to add at `.template.config\templa
 of the files which should become the template. For example, in this case I'm going to add the `.template.config` directory in the `Sayedha.StarterWeb`
 folder. This is the same folder that contains the `.csproj` file itself. Let's take a look at the content of the `template.json` file.
 
-```json
+```
 {
   "author": "Sayed Ibrahim Hashimi",
   "classifications": [ "Web" ], 
