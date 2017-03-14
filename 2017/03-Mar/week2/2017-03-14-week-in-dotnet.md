@@ -67,10 +67,6 @@ var bytes = MessagePackSerializer.Serialize(mc);
 var mc2 = MessagePackSerializer.Deserialize<MyClass>(bytes);
 ```
 
-Game of the week: 
-----------------------
-
-
 User group meeting of the week: the state of .NET in Sydney
 -----------------------------------------------------------
 
@@ -118,10 +114,10 @@ F#
 
 [F# eXchange 2017](https://skillsmatter.com/conferences/8053-f-sharp-exchange-2017) is in London, April 6-7. Speakers include Don Syme, Phillip Carter, Scott Wlaschin, and many others.
 
-* [Using Elixir and F# Together - Bryan Hunter](http://www.channel64.net/2017/03/pipe-forward-using-elixir-and-f.html)
-* [Some Details about Visual F# Tools in VS 2017](https://vasily-kirichenko.github.io/fsharpblog/), by Vasily Kirichenko
-* [Creating an Azure Function in F# from the ground up (Part 2)](http://brandewinder.com/2017/03/06/fsharp-azure-function-from-the-ground-up-part-2/), by Mathias Brandewinder
-* [Magic of F# Type Providers ](https://medium.com/@maximcus/magic-of-f-type-providers-225b1169c7a0#.u6tytsm6a), by Max Fedotov
+* [Using Elixir and F# Together - Bryan Hunter](http://www.channel64.net/2017/03/pipe-forward-using-elixir-and-f.html).
+* [Some Details about Visual F# Tools in VS 2017](https://vasily-kirichenko.github.io/fsharpblog/), by Vasily Kirichenko.
+* [Creating an Azure Function in F# from the ground up (Part 2)](http://brandewinder.com/2017/03/06/fsharp-azure-function-from-the-ground-up-part-2/), by Mathias Brandewinder.
+* [Magic of F# Type Providers ](https://medium.com/@maximcus/magic-of-f-type-providers-225b1169c7a0#.u6tytsm6a), by Max Fedotov.
 * [Creating a fully functional F# microservice part 2: Azure, FSharp.Configuration](https://mnie.github.io/2017-03-11-sentimentAppPart2/), and [part 3: Quartz.Net, Net.Mail](https://mnie.github.io/2017-03-11-sentimentAppPart3/) by Michał Niegrzybowski.
 * [Contractive Functions on Streams in F#](https://medium.com/@dogwith1eye/contractive-functions-on-streams-in-f-286fca88d83f#.5bn1upjoz), by Matthew Doig.
 
@@ -175,7 +171,13 @@ Data
 Games
 -----
 
-* [MonoGame 3.6 now available](http://geekswithblogs.net/cwilliams/archive/2017/03/07/244500.aspx) by Chris G. Williams.
+* [Getting Started with MonoGame on Visual Studio 2017](https://youtu.be/zphaylhOrm0) by Simon Jackson.
+* [GDC 2017 Talks](http://www.gdcvault.com/browse/gdc-17).
+* [Project Tanks 1: Simple Fake-3D Wireframes](http://www.jfurness.uk/project-tanks-1-easy-fake-3d-wireframes/) by James Furness.
+* [Curated #UnityTips No. 36 by Devdog March 2017](http://devdog.io/blog/2017/03/11-best-unity-tips-for-game-developers-36).
+* [Fixeds, Floats and a Block Damage Effect](http://kylehalladay.com/blog/tutorial/2017/03/13/GlitchFX-In-Unity.html) by Kyle Halladay.
+* [Real Time Strategy in Unity - Making Units Construct Buildings (2)](https://youtu.be/veClc0W7dic) by Unit02Games.
+* [11.0 Unity Tower defense tutorial - Selling towers](https://youtu.be/x2iVy6piOUE?list=PLX-uZVK_0K_4uNwvKian1bscP9mVvOp1M) by inScope Studios.
 
 And this is it for this week!
 
