@@ -23,8 +23,9 @@ We have no show this week due to a last minute cancellation.
 Happy Birthday .NET!
 --------------------
 
-We have another Happy Birthday .NET video for you this week.
+Last month we got together with the Microsoft Alumni Network and threw a big .NET 15th birthday bash with former .NET team members & rock stars. We caught up with Dee Dee Walsh, who was one of the original Developer Relations and Community person starting before Visual Studio! Dee Dee was most famously known for her Geekfest parties and helped foster the Microsoft developer community and MVP program. Happy Birthday .NET!
 
+<iframe src="https://channel9.msdn.com/Blogs/funkyonex/Happy-Birthday-NET-with-Dee-Dee-Walsh/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
 Package of the week: MessagePack for C#
 ---------------------------------------
