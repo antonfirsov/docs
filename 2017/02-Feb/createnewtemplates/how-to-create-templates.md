@@ -1,8 +1,8 @@
 How to create templates for dotnet new using the Template Engine
 =================================================================================
 
-In the last release of .NET Core, we have updated `dotnet new`. You can learn more about that in the [announcment post](https://blogs.msdn.microsoft.com/dotnet/2017/02/07/announcing-net-core-tools-updates-in-vs-2017-rc/). In that release we have
-enabled some scenarios for people, and teams, interested in creating custom templates. We are still working on features to share
+In the last release of .NET Core, we have updated `dotnet new`. You can learn more about that in the [announcement post](https://blogs.msdn.microsoft.com/dotnet/2017/02/07/announcing-net-core-tools-updates-in-vs-2017-rc/). In that release, we have
+enabled some scenarios for those interested in creating custom templates. We are still working on features to share
 templates with a wide audience, but if you're excited about creating templates you can get started today. In our 2.0 release we
 are hoping to finalize the features required for end-users to acquire new templates. The goal of this post is to give template authors
 the info they need to create templates and to start the feedback loop.
