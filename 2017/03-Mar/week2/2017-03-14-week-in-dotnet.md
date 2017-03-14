@@ -18,7 +18,7 @@ In the second video, [Matt Watson](https://stackify.com/author/mwatson/) from [S
 
 <iframe src="https://channel9.msdn.com/Shows/On-NET/Matt-Watson-Prefix-and-Retrace/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
-This week, we'll have Sidarth Gupta and Hong-Seok Kim from Samsung on the show to talk about their Tizen OS and its support for .NET Core. The show won't be live this week, because of the time difference with Korea, but you may still send us your questions on [Gitter's dotnet/home channel](https://gitter.im/dotnet/home) and on Twitter. Please use the `#onnet` tag.
+We have no show this week due to a last minute cancellation.
 
 Happy Birthday .NET!
 --------------------
