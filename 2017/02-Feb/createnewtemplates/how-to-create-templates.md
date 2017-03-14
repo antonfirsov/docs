@@ -1,8 +1,13 @@
 How to create templates for dotnet new using the Template Engine
 =================================================================================
 
-A couple of weeks ago we released an update to the .NET Core SDK, and Visual Studio 2017. In the .NET Core SDK, we have updated the
-experience of creating new projects with `dotnet new`. In this release, we have completely replaced the guts of `dotnet new`.
+In the last release of .NET Core, we have updated `dotnet new`. You can learn more about that in the [announcment post](https://blogs.msdn.microsoft.com/dotnet/2017/02/07/announcing-net-core-tools-updates-in-vs-2017-rc/). In that release we have
+enabled some scenarios for people, and teams, interested in creating custom templates. We are still working on features to share
+templates with a wide audience, but if you're excited about creating templates you can get started today. In our 2.0 release we
+are hoping to finalize the features required for end-users to acquire new templates. The goal of this post is to give template authors
+the info they need to create templates and to start the feedback loop.
+
+In the last update for .NET Core, we have completely replaced the guts of `dotnet new`.
 This new version of `dotnet new` is now built on top of the new [Template Engine](https://github.com/dotnet/templating/), which
 is a library that we are developing as an Open Source project. To learn more about how to use `dotnet new` see 
 [Announcing .NET Core Tools Updates in VS 2017 RC](https://blogs.msdn.microsoft.com/dotnet/2017/02/07/announcing-net-core-tools-updates-in-vs-2017-rc/).
@@ -356,8 +361,8 @@ $ dotnet new sayedweb
 When the project is created the name of the folder, `Netblog.Web` will be used as the project name, and it will be generated into the
 current directory.
 
-In this post, we have covered creating templates for `dotnet new` with the Template Engine. We have just scratched the surface here. We will
-be authoring more posts here and creating some official docs in the coming months. Below you'll find some links to existing resources.
+In this post, we have shown how you can get started with creating your own custom templates for `dotnet new`. We are still working on 
+enabling the end user scenarios where templates are acquired and used. Below you'll find some links to existing resources.
 Please share your comments below and file [issues](https://github.com/dotnet/templating) as needed. We're very excited to see the
 awesome templates that the community creates.
 
@@ -366,7 +371,8 @@ Resources
 ---------
 
  - [Template Engine repository](https://github.com/dotnet/templating)
+ - [Templates available for `dotnet new`](https://github.com/dotnet/templating/wiki/Available-templates-for-dotnet-new)
  - [wiki](https://github.com/dotnet/templating/wiki)
  - [`template.json` reference](https://github.com/dotnet/templating/wiki/%22Runnable-Project%22-Templates)
- - [Templates available for `dotnet new`](https://github.com/dotnet/templating/wiki/Available-templates-for-dotnet-new)
+
 
