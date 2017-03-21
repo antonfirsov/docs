@@ -24,7 +24,6 @@ using (var browser = new BrowserSession(new SessionConfiguration
         SSL = true,
         Driver = typeof (SeleniumWebDriver),
         Browser = Drivers.Browser.Firefox,
-        Timeout = TimeSpan.FromSeconds(1),
         RetryInterval = TimeSpan.FromSeconds(0.1)
     })
 {
