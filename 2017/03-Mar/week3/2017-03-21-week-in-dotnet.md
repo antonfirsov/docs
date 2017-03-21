@@ -1,5 +1,5 @@
-﻿The week in .NET - 
-======================================================================================
+﻿The week in .NET - Happy birthday .NET with Mads Torgersen, Coypu
+=================================================================
 
 Previous posts:
 
@@ -11,6 +11,13 @@ On .NET
 -------
 
 This week, we'll have Sidarth Gupta and Hong-Seok Kim from Samsung on the show to talk about their Tizen OS and its support for .NET Core. The show won't be live this week, because of the time difference with Korea, but you may still send us your questions on [Gitter's dotnet/home channel](https://gitter.im/dotnet/home) and on Twitter. Please use the `#onnet` tag.
+
+Happy birthday .NET!
+--------------------
+
+Mads Torgersen is the Principal Program Manager for the C# Language. He maintains the language specification and runs the language design process for C# in the open at https://github.com/dotnet/csharplang. We caught up with Mads at the .NET 15th anniversary party where he shares his thoughts on the past, present and future of .NET.
+
+<iframe src="https://channel9.msdn.com/Blogs/funkyonex/Happy-Birthday-NET-with-Mads-Torgersen/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
 Package of the week: Coypu
 --------------------------
@@ -25,7 +32,7 @@ using (var browser = new BrowserSession(new SessionConfiguration
         Driver = typeof (SeleniumWebDriver),
         Browser = Drivers.Browser.Firefox,
         RetryInterval = TimeSpan.FromSeconds(0.1)
-    })
+    }))
 {
     browser.FillIn("Attachment").With(@"c:\coypu\bigfile.mp4");
     browser.ClickButton("Upload");
@@ -131,6 +138,16 @@ Azure
 * [Planet scale aggregates with Azure DocumentDB](https://azure.microsoft.com/en-us/blog/planet-scale-aggregates-with-azure-documentdb/) by Aravind Ramachandran.
 * [Building a simple photo album using Azure Blob Storage with .NET Core](https://blogs.msdn.microsoft.com/premier_developer/2017/03/14/building-a-simple-photo-album-using-azure-blob-storage-with-net-core/) by Chris Tjoumas.
 * [Using Azure Functions as a lightweight API Gateway](https://blogs.msdn.microsoft.com/azuredev/2017/03/14/using-azure-functions-as-a-lightweight-api-gateway/) by Andreas Helland.
+
+Game development
+----------------
+
+* [Inventory and Store System - Part 4.1 (Wiring up the UI)](https://channel9.msdn.com/Shows/dotGAME/Inventory-and-Store-System-Part-41-Wiring-up-the-UI) by Stacey Haffner.
+* [Update on Unity Multiplayer, Current and Future](https://blogs.unity3d.com/2017/03/17/update-on-unity-multiplayer-current-and-future/) by Larus Olafsson.
+* [How to Create an RPG Game in Unity – Comprehensive Guide](https://gamedevacademy.org/how-to-create-an-rpg-game-in-unity-comprehensive-guide/).
+* [Stack Overflow Documentation - Unity](http://stackoverflow.com/documentation/unity3d/topics).
+* [Unity 5 : UFPS Pickup & Drop Weapons](https://youtu.be/x1w27tM9y6w) by Jay AnAm.
+* [Shaders Case Study - Dishonored 2: A Crack in the Slab](https://youtu.be/dBsmaSJhUsc) by Makin' Stuff Look Good.
 
 And this is it for this week!
 
