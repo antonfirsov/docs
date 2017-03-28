@@ -83,6 +83,20 @@ C#
 F#
 --
 
+* [Exploring StackOverflow Data](https://www.youtube.com/watch?v=VU1ObHfDNPQ), by Evalina Gabasova
+* [Visualizing Olympic Medals with F# and Fable](https://www.youtube.com/watch?v=C4xzEudljWE), by Tomas Petricek
+* [Building a MUD with F# and Akka.NET – Part One](https://www.seventeencups.net/building-a-mud-with-f-sharp-and-akka-net-part-one/), by Joe Clay
+* [Why OO Matters (in F#)](https://eiriktsarpalis.wordpress.com/2017/03/20/why-oo-matters-in-f/), by Eirik Tsarpalis
+* [Answering “What’s for lunch?” using Azure Functions, F# and Slack](https://martinand.net/2017/03/20/what-is-for-lunch/), by  Martin Andersen
+* [Examining the F# Programming Language](http://insights.dice.com/2017/03/20/examining-f-programming-language/?utm_campaign=shareaholic&utm_medium=twitter&utm_source=socialnetwork), by David Bolton
+* [Visual F# Attributions](https://github.com/Microsoft/visualfsharp/blob/master/attributions.md)
+
+New F# Language Suggestions:
+
+- [New type: constrained type](https://github.com/fsharp/fslang-suggestions/issues/553)
+- [Flow based null check analysis for `[<AllowNullLiteralAttribute>]` types and alike](https://github.com/fsharp/fslang-suggestions/issues/552)
+
+Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
 
 Xamarin
 -------
