@@ -159,6 +159,19 @@ Data
 * [Entity Framework Query Caching](https://blogs.msdn.microsoft.com/premier_developer/2017/03/23/entity-framework-query-caching/) by Deepak Malik.
 * [Checking Up on Your Entity Framework Objects with DbEntityEntry](https://visualstudiomagazine.com/articles/2017/03/01/check-ef-objects-dbentityentry.aspx) by Peter Vogel.
 
+Game Development
+----------------
+
+* [Inventory and Store System - Part 4.2 (Populating the Data)](https://channel9.msdn.com/Shows/dotGAME/Inventory-and-Store-System-Part-42-Populating-the-Data) by Stacey Haffner.
+* [Implementing robust AI for SecondHand: Enemy Positioning](http://www.rikodu.com/implementing-robust-ai-for-secondhand-enemy-positioning/) by Radu S. Cristea.
+* [SadConsole - Engine Revision Completed](http://thraka.github.io/2017/03/18/engine-revision-completed/#more) by Andy De George.
+* [Is Early Access Worth It?](http://www.gamasutra.com/blogs/JamesBuckle/20170327/294546/Is_Early_Access_Worth_It.php) by James Buckle.
+* [[Unity 5.5] Tutorial: How to create a Mirror](https://youtu.be/Ey8MHswqzko) by Gamad.
+* [Hex Map 15: Distances](http://catlikecoding.com/unity/tutorials/hex-map/part-15/) by Catlike Coding.
+* [Unity 5: Fade Between Scenes](https://youtu.be/iV-igTT5yE4) by Dual Core Studio.
+* [Curated #UnityTips No. 38 by Devdog March 2017](http://devdog.io/blog/2017/03/9-best-unity-tips-for-game-developers-38).
+* [http://www.usgamer.net/articles/hajime-tabata-talks-about-the-transformation-of-versus-xiii-to-final-fantasy-xv](http://www.usgamer.net/articles/hajime-tabata-talks-about-the-transformation-of-versus-xiii-to-final-fantasy-xv) by  Jeremy Parish.
+
 And this is it for this week!
 
 Contribute to the week in .NET
