@@ -1,5 +1,5 @@
-﻿The week in .NET - On .NET with Sidarth Gupta on Tizen, Happy birthday .NET with Bertrand Le Roy, JSON.NET 10
-=============================================================================================================
+﻿The week in .NET - On .NET with Sidarth Gupta on Tizen, Happy birthday .NET with Bertrand Le Roy, JSON.NET 10, Gunnar Peipman
+=============================================================================================================================
 
 Previous posts:
 
@@ -49,6 +49,11 @@ using (FileStream asyncFileStream = new FileStream(@"large.json", FileMode.Open,
 
 Download [JSON.NET 10 on NuGet.org](https://www.nuget.org/packages/Newtonsoft.Json/).
 
+Blogger of the week: Gunnar Peipman
+-----------------------------------
+
+[Gunnar Peipman](http://gunnarpeipman.com/) has had at least one post a week featured here for quite a while, and this week is no exception, as you'll find three of his posts in the [ASP.NET](http://gunnarpeipman.com/2017/03/aspnet-core-websocket-chart/), [C#](http://gunnarpeipman.com/2017/03/csharp-out-variables/), and [Azure](http://gunnarpeipman.com/2017/03/aspnet-core-azure-ad/) sections. His posts are always very focused and immediately useful. Check out [his blog](http://gunnarpeipman.com/)!
+
 Meetups of the week: game development with Unity for Windows 10 in NYC
 ----------------------------------------------------------------------
 
@@ -64,11 +69,14 @@ Meetups of the week: game development with Unity for Windows 10 in NYC
 * [ClrMD Part 2 – From ClrRuntime to ClrHeap or how to traverse the managed heap](http://labs.criteo.com/2017/03/clrmd-part-2-clrruntime-clrheap-traverse-managed-heap/) by CriteoLabs.
 * [NuGet Versioning Hell](http://isolineltd.com/blog/2017/03/23/NuGet-Versioning-Hell) by Ivan Gavryliuk.
 * [Dynamically generating classes in runtime](https://nikolalukovic.com/programming/NET-Dynamically-generating-classes-in-runtime.html) by Nikola Lukovic.
+* [`dotnet new` Feature Selection](http://rehansaeed.com/dotnet-new-feature-selection/) by Muhammad Rehan Saeed.
+* [Happy LibYear!](https://stevedesmond.ca/blog/happy-libyear) by Steve Desmond.
 * [Introductie van .NET Core](http://www.dotnetflix.com/player/46), [.NET Standard](http://www.dotnetflix.com/player/47), and [Developer experience - deel 1 van 2](http://www.dotnetflix.com/player/48) (Dutch) by Sander Molenkamp and Edwin van Wijk.
 
 ASP.NET
 -------
 
+* [Real-time chart using ASP.NET Core and WebSocket](http://gunnarpeipman.com/2017/03/aspnet-core-websocket-chart/) by Gunnar Peipman.
 * [Preventing mass assignment or over posting in ASP.NET Core](https://andrewlock.net/preventing-mass-assignment-or-over-posting-in-asp-net-core/) by Andrew Lock.
 * [Step by step: Running ASP.NET Core on Raspberry Pi](https://carlos.mendible.com/2017/03/21/step-by-step-running-aspnet-core-on-raspberry-pi/), and [Raspberry Pi: Run ASP.NET Core on Startup](https://carlos.mendible.com/2017/03/26/raspberry-pi-run-aspnet-core-on-startup/) by Carlos Mendible.
 * [MVC 5 encrypt parameters](http://msprogrammer.serviciipeweb.ro/2017/03/20/mvc-5-encrypt-parameters/) by Andrei Ignat.
@@ -79,6 +87,8 @@ C#
 * [Why .NET Core Made C# Your Next Programming Language to Learn](https://stackify.com/net-core-csharp-next-programming-language/) by Matt Watson.
 * [Exploring C# 7](https://docs.microsoft.com/en-us/dotnet/articles/project-json) by David Pine.
 * [Deconstructors for non-tuple types in C# 7.0](https://andrewlock.net/deconstructors-for-non-tuple-types-in-c-7-0/) by Andrew Lock.
+* [C# 7.0: Out variables](http://gunnarpeipman.com/2017/03/csharp-out-variables/) by Gunnar Peipman.
+* [How to build a simple object graph delta comparer in C# using Structurizer](https://danielwertheim.se/how-to-build-a-simple-object-graph-delta-comparer-in-csharp-using-structurizer/) by Daniel Wertheim.
 
 F#
 --
@@ -125,23 +135,29 @@ Xamarin
 * [Xamarin.Forms: Grouping data with Tabbed page](https://almirvuk.blogspot.com/2017/03/xamarinforms-grouping-data-with-tabbed.html) by Almir Vuk.
 * [Xamarin.Forms -- Caching for the ListView](https://visualstudiomagazine.com/articles/2017/03/01/xamarinforms-ios-android-mobile-visual-studio.aspx) by Wallace McClure.
 
-UWP
-----
-
-* [Setting a custom User-Agent in the UWP WebView control](https://www.pedrolamas.com/2017/03/21/setting-a-custom-user-agent-in-the-uwp-webview-control/) by Pedro Lamas.
-
 Azure
 -----
 
+* [Service Fabric .NET SDK goes open source](https://blogs.msdn.microsoft.com/azureservicefabric/2017/03/24/service-fabric-net-sdk-goes-open-source/) by the Service Fabric team.
+* [Using Azure AD with ASP.NET Core](http://gunnarpeipman.com/2017/03/aspnet-core-azure-ad/) by Gunnar Peipman.
+* [How to deploy an ASP.NET Core 1.1 application to an Azure App Services Web App using Visual Studio 2017](https://blogs.msdn.microsoft.com/benjaminperkins/2017/03/21/how-to-deploy-an-asp-net-core-1-1-application-to-an-azure-app-services-web-app-using-visual-studio-2017/) by Benjamin Perkins.
+
+UWP
+----
+
+* [New Year, New Dev – Windows IoT Core](https://blogs.windows.com/buildingapps/2017/03/22/new-year-new-dev-windows-iot-core/) By Windows Apps Team.
+* [Project Rome for Android Update: Now with App Services Support](https://blogs.windows.com/buildingapps/2017/03/23/project-rome-android-update-now-app-services-support/) By Carmen Forsmann.
+* [How the UWP Community Toolkit helps Windows developers easily create well-designed and user-friendly apps](https://blogs.windows.com/buildingapps/2017/03/24/uwp-community-toolkit-helps-windows-developers-easily-create-well-designed-user-friendly-apps/) By Windows Apps Team.
+* [Dialing an Etch-a-Sketch](https://channel9.msdn.com/coding4fun/blog/Dialing-an-Etch-a-Sketch) By Greg Duncan.
+* [Setting a custom User-Agent in the UWP WebView control](https://www.pedrolamas.com/2017/03/21/setting-a-custom-user-agent-in-the-uwp-webview-control/) by Pedro Lamas.
 
 Data
 ----
 
 * [Quick Start EF Core Videos on Channel 9](http://thedatafarm.com/uncategorized/quick-start-ef-core-videos-on-channel-9/), [EF Core Quick Starts: ASP.NET Core in Visual Studio 2017 (video)](https://channel9.msdn.com/Blogs/MVP-VisualStudio-Dev/EF-Core-Quick-Starts-ASPNET-Core-in-Visual-Studio-2017) and [EF Core Quick Starts: Full .NET in Visual Studio 2015 (video)](https://channel9.msdn.com/Blogs/MVP-VisualStudio-Dev/EF-Core-Quick-Starts-Full-NET-in-Visual-Studio-2015) by Julie Lerman.
-
-Game development
-----------------
-
+* [Using Resilient Entity Framework Core Sql Connections and Transactions: Retries with Exponential Backoff](https://blogs.msdn.microsoft.com/cesardelatorre/2017/03/26/using-resilient-entity-framework-core-sql-connections-and-transactions-retries-with-exponential-backoff/) by Cesar de la Torre.
+* [Entity Framework Query Caching](https://blogs.msdn.microsoft.com/premier_developer/2017/03/23/entity-framework-query-caching/) by Deepak Malik.
+* [Checking Up on Your Entity Framework Objects with DbEntityEntry](https://visualstudiomagazine.com/articles/2017/03/01/check-ef-objects-dbentityentry.aspx) by Peter Vogel.
 
 And this is it for this week!
 
