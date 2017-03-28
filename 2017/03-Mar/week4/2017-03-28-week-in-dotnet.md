@@ -10,7 +10,7 @@ Previous posts:
 On .NET
 -------
 
-Last week, we spoke with Sidarth Gupta from Samsung about [Tizen](https://www.tizen.org/). Tizen is Samsung's open source OS that runs on TVs, watches, phones, and other devices. The development platform for Tizen is built on .NET Core and Xamarin Forms.
+Last week, we spoke with Sidarth Gupta from Samsung about [Tizen](https://www.tizen.org/). Tizen is Samsung's open-source OS that runs on TVs, watches, phones, and other devices. The development platform for Tizen is built on .NET Core and Xamarin Forms.
 
 <iframe src="https://channel9.msdn.com/Shows/On-NET/Sidarth-Gupta-Tizen/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
@@ -26,7 +26,7 @@ Bertrand Le Roy started using .NET with the first public betas, then proceeded t
 Package of the week: JSON.NET 10
 --------------------------------
 
-[I've featured JSON.NET before](https://blogs.msdn.microsoft.com/dotnet/2016/01/12/the-week-in-net-1122016/), and [it's the #1 package on NuGet](https://www.nuget.org/packages) with more than 50 million downloads. [Version 10 is out](http://james.newtonking.com/archive/2017/03/21/json-net-10-0-release-1-async-performance-documentation-and-more), however, with new features that make it a particularly exciting release. Specifically, the library now has full `async` support.
+[I've featured JSON.NET before](https://blogs.msdn.microsoft.com/dotnet/2016/01/12/the-week-in-net-1122016/), and [it's the #1 package on NuGet](https://www.nuget.org/packages) with more than 50 million downloads. [Version 10 is out](http://james.newtonking.com/archive/2017/03/21/json-net-10-0-release-1-async-performance-documentation-and-more), with new features that make it a particularly exciting release. Specifically, the library now has full `async` support.
 
 ```csharp
 JArray largeJson;
@@ -64,7 +64,7 @@ Meetups of the week: game development with Unity for Windows 10 in NYC
 
 * [A Hitchhikers Guide to the CoreCLR Source Code](http://mattwarren.org/2017/03/23/Hitchhikers-Guide-to-the-CoreCLR-Source-Code/) by Matt Warren.
 * [Command Line: Using dotnet watch test for continuous testing with .NET Core 1.0 and XUnit.net](https://www.hanselman.com/blog/CommandLineUsingDotnetWatchTestForContinuousTestingWithNETCore10AndXUnitnet.aspx) by Scott Hanselman.
-* [Visual Studio 2017 can automatically recommend NuGet packages for unknown types](https://www.hanselman.com/blog/VisualStudio2017CanAutomaticallyRecommendNuGetPackagesForUnknownTypes.aspx) by Scott hanselman.
+* [Visual Studio 2017 can automatically recommend NuGet packages for unknown types](https://www.hanselman.com/blog/VisualStudio2017CanAutomaticallyRecommendNuGetPackagesForUnknownTypes.aspx) by Scott Hanselman.
 * [Fast Dictionary and struct generic arguments](https://ayende.com/blog/177377/fast-dictionary-and-struct-generic-arguments) by Ayende Rahien.
 * [ClrMD Part 2 – From ClrRuntime to ClrHeap or how to traverse the managed heap](http://labs.criteo.com/2017/03/clrmd-part-2-clrruntime-clrheap-traverse-managed-heap/) by CriteoLabs.
 * [NuGet Versioning Hell](http://isolineltd.com/blog/2017/03/23/NuGet-Versioning-Hell) by Ivan Gavryliuk.
