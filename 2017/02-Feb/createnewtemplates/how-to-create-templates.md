@@ -224,7 +224,7 @@ To exclude a file from being processed during creation, you need to add a new el
   ]
 ```
 
-Here you've added a modifier to the `sources` element which excludes the `Views/Home/Contact.cshtml` if `EnableContactPage` is set not `true`.
+Here you've added a modifier to the `sources` element which excludes the `Views/Home/Contact.cshtml` if `EnableContactPage` is `false`.
 The expression used in the condition here, `(EnableContentPage)`, is very basic but, you can create more complex conditions using operators
 such as `&&`,`||`,`!`,`<`,`>=`,etc. For more info see https://aka.ms/dotnetnew-template-config. Now let's see how you can modify the controller and 
 the layout page to conditionally omit the Contact specific content.
