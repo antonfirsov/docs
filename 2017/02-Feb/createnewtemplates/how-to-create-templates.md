@@ -363,6 +363,7 @@ In this release, the `--install` switch is hidden because it's currently in prev
 In the following section, you'll find some links to existing resources.
 Please share your comments here and file [issues](https://github.com/dotnet/templating) as needed. We're very excited to see the
 awesome templates that the community creates.
+In addition to this blog, we may post `dotnet new` related posts to the [.NET Web Developer Blog](https://blogs.msdn.microsoft.com/webdev/).
 
 
 Resources
