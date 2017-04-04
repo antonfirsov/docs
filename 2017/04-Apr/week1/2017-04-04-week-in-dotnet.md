@@ -142,6 +142,17 @@ Data
 
 * [Building Better Entity Framework Applications](https://www.simple-talk.com/dotnet/net-development/building-better-entity-framework-applications/) by Jon Smith.
 
+Game Development
+----------------
+
+* [[Unity] Social Sharing Tutorial (Unity, Android)](https://youtu.be/E4E4EfkGs0Y) by Reso Coder.
+* [Why F.E.A.R.’s AI is still the best in first-person shooters](https://www.rockpapershotgun.com/2017/04/03/why-fears-ai-is-still-the-best-in-first-person-shooters/) by Samuel Horti.
+* [Designing Game Controls](http://www.gamasutra.com/blogs/AndrewDotsenko/20170329/294676/Designing_Game_Controls.php) by Andrew Dotsenko.
+* [The Stress of Game Development - Tips for Survival](https://youtu.be/XUcp2bNTwBg) by Extra Credits.
+* [Curated #UnityTips No. 39 by Devdog March 2017](http://devdog.io/blog/2017/04/16-best-unity-tips-for-game-developers-39).
+* [5.6 is now available and completes the Unity 5 cycle](https://blogs.unity3d.com/2017/03/31/5-6-is-now-available-and-completes-the-unity-5-cycle/) by Alex Lian
+* [Classic Game Postmortem: Maniac Mansion](https://youtu.be/WD64ExGHBWE).
+* [From Rational to Emotional: Designs that Increase Player Retention](https://youtu.be/_Hjm9LLSICg).
 
 And this is it for this week!
 
