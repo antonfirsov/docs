@@ -62,6 +62,7 @@ ASP.NET
 * [Migrating from project.json to csproj using Visual Studio 2017 - Moving a real world ASP.NET Core application using VS2015 project.json to VS2017 and csproj](https://www.stevejgordon.co.uk/migrating-project-json-to-csproj-visual-studio-2017) by Steve Gordon.
 * [.NET Core, ASP.NET Core logging with NLog and PostgreSQL](https://damienbod.com/2017/03/29/net-core-asp-net-core-logging-with-nlog-and-postgresql/) by Damien Bowden.
 * [Model Binding in ASP.NET Core](https://www.simple-talk.com/dotnet/asp-net/model-binding-asp-net-core/) by Dino Esposito.
+* [Adding Global Error Handling and Logging in ASP.NET Core with IExceptionHandlerPathFeature](https://scottsauber.com/2017/04/03/adding-global-error-handling-and-logging-in-asp-net-core/) by Scott Sauber.
 * [Get Started with MultiRow Data Grid for ASP.NET MVC (video)](http://our.componentone.com/2017/03/30/get-started-with-multirow-data-grid-for-asp-net-mvc/) by Jody Handley.
 
 C#
