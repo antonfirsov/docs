@@ -1,5 +1,5 @@
-﻿The week in .NET - On .NET on SonarLint and SonarQube, nopCommerce, Steve Gordon
-================================================================================
+﻿The week in .NET - On .NET on SonarLint and SonarQube, Happy birthday .NET with Dan Fernandez, nopCommerce, Steve Gordon
+========================================================================================================================
 
 Previous posts:
 
@@ -15,6 +15,13 @@ Last week, I spoke with Tamás Vajk and Olivier Gaudin about [SonarLint](http://
 <iframe src="https://channel9.msdn.com/Shows/On-NET/Tams-Vajk-and-Olivier-Gaudin-SonarLint-and-SonarQube/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
 This week, we'll have [Sébastien Ros](https://twitter.com/sebastienros) on the show to talk about modular ASP.NET applications, as they are implemented in [Orchard Core](https://github.com/orchardcms/orchard2). We'll take questions on Gitter, on [the dotnet/home channel](https://gitter.im/dotnet/home) and on Twitter. Please use the `#onnet` tag. It's OK to start sending us questions in advance if you can't do it live during the show.
+
+Happy birthday .NET with Dan Fernandez
+--------------------------------------
+
+We caught up with Dan Fernandez at the .NET birthday party last month to talk about the good old days and the crazy idea he had of giving away Visual Studio for free. Dan was also part of the original Channel9 crew and one of the best .NET evangelists out there. Happy birthday .NET!
+
+<iframe src="https://channel9.msdn.com/Blogs/funkyonex/Happy-Birthday-NET-with-Dan-Fernandez/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
 Project of the week: nopCommerce
 --------------------------------
@@ -63,7 +70,7 @@ ASP.NET
 * [.NET Core, ASP.NET Core logging with NLog and PostgreSQL](https://damienbod.com/2017/03/29/net-core-asp-net-core-logging-with-nlog-and-postgresql/) by Damien Bowden.
 * [Model Binding in ASP.NET Core](https://www.simple-talk.com/dotnet/asp-net/model-binding-asp-net-core/) by Dino Esposito.
 * [Adding Global Error Handling and Logging in ASP.NET Core with IExceptionHandlerPathFeature](https://scottsauber.com/2017/04/03/adding-global-error-handling-and-logging-in-asp-net-core/) by Scott Sauber.
-* [Await your event handlers completion with Deferred Eventss](https://www.pedrolamas.com/2017/04/04/await-your-event-handlers-completion-with-deferred-events/) by Pedro Lamas.
+* [Await your event handlers completion with Deferred Events](https://www.pedrolamas.com/2017/04/04/await-your-event-handlers-completion-with-deferred-events/) by Pedro Lamas.
 * [Get Started with MultiRow Data Grid for ASP.NET MVC (video)](http://our.componentone.com/2017/03/30/get-started-with-multirow-data-grid-for-asp-net-mvc/) by Jody Handley.
 
 C#
