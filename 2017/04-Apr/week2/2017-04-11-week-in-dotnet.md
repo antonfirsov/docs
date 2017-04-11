@@ -62,6 +62,7 @@ The [Adelaide .NET User Group](https://www.meetup.com/Adelaide-dotNET/) holds a 
 .NET
 ----
 
+* [.NET Framework April 2017 Monthly Rollup](https://blogs.msdn.microsoft.com/dotnet/2017/04/11/net-framework-april-2017-monthly-rollup/) by Rich Lander.
 * [Introducing Windows Forms HDPI Improvements in .NET Framework 4.7](https://channel9.msdn.com/Blogs/dotnet/Introducing-Windows-Forms-HDPI-Improvements-in-NET-Framework-47) by Stacey Haffner and Merrie McGaw.
 * [Contributing to Open-Source - My first Roslyn pull request - Getting the environment ready](https://blog.decayingcode.com/post/contributing-to-open-source-my-first-roslyn-pull-request-getting-the-environment-ready/) and [Fixing the bug](https://blog.decayingcode.com/post/contributing-to-open-source-my-first-roslyn-pull-request-fixing-the-bug/) by Maxime Rouiller.
 * [MSTest V2 is open source](https://blogs.msdn.microsoft.com/visualstudioalm/2017/04/05/mstest-v2-is-open-source/) by Pratap Lakshman.
