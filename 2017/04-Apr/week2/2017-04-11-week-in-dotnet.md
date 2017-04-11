@@ -99,6 +99,20 @@ C#
 F#
 --
 
+* [Getting Started with .NET Core using F# (video)](https://www.youtube.com/watch?v=2xG31sUsCdc&feature=youtu.be).
+* [Building a security testing service with F# (video)](https://www.youtube.com/watch?v=ZVvcWIjbbhk&feature=youtu.be), by William Blum.
+* [Using F# to write serverless Azure functions](https://blogs.msdn.microsoft.com/uk_faculty_connection/2017/03/24/using-f-to-write-serverless-azure-functions), by Lee Stott.
+* [Gram Schmidt in FSharp](http://jeremybellows.com/blog/Gram-Schmidt-in-FSharp), by Jeremy Bellows.
+* [Slack TypeProvider](http://rflechner.github.io/SlackTypeProvider/#/), by Flechner Romain.
+* [A Reusable ApiController Adapter](http://blog.ploeh.dk/2017/03/30/a-reusable-apicontroller-adapter/), by Mark Seemann.
+* [Creating an Azure Functions solution diagram](http://brandewinder.com/2017/04/01/azure-function-app-diagram/), by Mathias Brandewinder.
+
+New F# Language Suggestions:
+
+- [Implicit interface implementation from an object expression](https://github.com/fsharp/fslang-suggestions/issues/555)
+- [Implement `[<StructuralEquality>]` and `[<StructuralComparison>]` for simple class types](https://github.com/fsharp/fslang-suggestions/issues/554)
+
+Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
 
 VB
 --
