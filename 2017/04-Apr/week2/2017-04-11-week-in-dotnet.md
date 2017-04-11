@@ -62,6 +62,7 @@ The [Adelaide .NET User Group](https://www.meetup.com/Adelaide-dotNET/) holds a 
 .NET
 ----
 
+* [Introducing Windows Forms HDPI Improvements in .NET Framework 4.7](https://channel9.msdn.com/Blogs/dotnet/Introducing-Windows-Forms-HDPI-Improvements-in-NET-Framework-47) by Stacey Haffner and Merrie McGaw.
 * [Contributing to Open-Source - My first Roslyn pull request - Getting the environment ready](https://blog.decayingcode.com/post/contributing-to-open-source-my-first-roslyn-pull-request-getting-the-environment-ready/) and [Fixing the bug](https://blog.decayingcode.com/post/contributing-to-open-source-my-first-roslyn-pull-request-fixing-the-bug/) by Maxime Rouiller.
 * [MSTest V2 is open source](https://blogs.msdn.microsoft.com/visualstudioalm/2017/04/05/mstest-v2-is-open-source/) by Pratap Lakshman.
 * [Installing Ubuntu 16.04 on a Raspberry Pi 3, installing .NET Core 2, and running a sample .NET Core 2 app](https://jeremylindsayni.wordpress.com/2017/04/02/installing-ubuntu-16-04-on-a-raspberry-pi-3-installing-net-core-2-and-running-a-sample-net-core-2-app/) by Jeremy Lindsay.
@@ -150,6 +151,14 @@ Data
 Game Development
 ----------------
 
+* [Ludum Dare 38 Theme Slaughter](https://ldjam.com/events/ludum-dare/38/theme).
+* [[MineCraft] It's time to discover... Marketplace!](https://minecraft.net/en-us/article/its-time-discover-marketplace).
+* [How Firewatch’s UI enhances immersion](https://medium.com/the-cube/how-firewatchs-ui-enhances-immersion-18feddbc7857) by Abhishek Iyer.
+* [The Job Simulator Postmortem](https://youtu.be/G5a5VIdjiJA) by lexander Schwartz and Devin Reimer
+* ['Make me think, make me move': New Doom's deceptively simple design](http://www.gamasutra.com/view/news/295254/Make_me_think_make_me_move_New_Dooms_deceptively_simple_design.php) by Kris Graft.
+* [11.5 Unity Tower defense tutorial - Frost and Storm debuffs](https://youtu.be/HKVnQ-Dkemw) by inScope Studios.
+* [[Unity 5.5] Tutorial: How to create a Pickable Object](https://youtu.be/bi8Tm80qs5M) by Gamad.
+* [Getting Started with MonoGame using 2D](https://youtu.be/6inkDfpUxAU) by  Simon "Darkside" Jackson.
 
 And this is it for this week!
 
