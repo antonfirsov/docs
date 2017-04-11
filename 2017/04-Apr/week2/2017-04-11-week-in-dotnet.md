@@ -72,6 +72,7 @@ The [Adelaide .NET User Group](https://www.meetup.com/Adelaide-dotNET/) holds a 
 * [RyuJIT and the never-ending ThreadAbortException](http://labs.criteo.com/2017/04/ryujit-never-ending-threadabortexception/) by Christophe Nasarre and Kevin Gosse.
 * [Webinar recording: Exploring .NET’s memory management](Why VB2017 only supports consuming ref returning methods) by Maarten Balliauw.
 * [Automapper for .NET Core](http://developer.telerik.com/content-types/podcast/automapper-net-core/) by Jimmy Bogard.
+* [Implementing OpenID Implicit Flow using OpenIddict and Angular](https://damienbod.com/2017/04/11/implementing-openid-implicit-flow-using-openiddict-and-angular/) by Damien Bowden.
 
 ASP.NET
 -------
