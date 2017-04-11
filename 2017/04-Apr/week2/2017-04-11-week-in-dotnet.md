@@ -1,4 +1,4 @@
-﻿The week in .NET - .NET Framework 4.7, reference documentation, On .NET on modular ASP.NET, JustAssembly
+﻿The week in .NET - .NET Framework 4.7, reference documentation, On .NET on modular ASP.NET, Happy birthday .NET with Immo Landwerth, JustAssembly
 =============================================
 
 Previous posts:
@@ -38,9 +38,12 @@ Last week, [Sébastien Ros was back on the show](https://channel9.msdn.com/Shows
 
 <iframe src="https://channel9.msdn.com/Shows/On-NET/Sbastien-Ros-Modular-ASPNET-apps/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
-Happy birthday .NET with 
---------------------------------------
+Happy birthday .NET with Immo Landwerth
+---------------------------------------
 
+Back in February we threw a party for the 15th anniversary of .NET. We caught up with Immo Landwerth, a program manager on the .NET team at Microsoft, who joined Microsoft in 2010. He tells us about his journey from being a customer using .NET to an employee and the cultural changes he's witnessed as .NET has moved to open source.
+
+<iframe src="https://channel9.msdn.com/Blogs/funkyonex/Happy-Birthday-NET-with-Immo-Landwerth/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
 Tool of the week: JustAssembly
 ------------------------------
@@ -163,4 +166,4 @@ We'd love to hear from you, and feature your contributions on future posts:
 * Leave us a pointer in the comments section below.
 * [Send Stacey (@yecats131) tips on Twitter about .NET games](https://twitter.com/yecats131).
 
-This week's post (and future posts) also contains news I first read on [The ASP.NET Community Standup](https://blogs.msdn.microsoft.com/webdev/tag/communitystandup/), on [Weekly Xamarin](http://weeklyxamarin.com/), on [F# weekly](https://sergeytihon.wordpress.com/category/f-weekly/), and on [Chris Alcock's The Morning Brew](http://themorningbrew.net/).
+This week's post (and future posts) also contains news I first read on [The ASP.NET Community Standup](https://blogs.msdn.microsoft.com/webdev/tag/communitystandup/), on [Weekly Xamarin](http://weeklyxamarin.com/), on [F# weekly](https://sergeytihon.wordpress.com/category/f-weekly/), and on [The Morning Brew](http://themorningbrew.net/).
