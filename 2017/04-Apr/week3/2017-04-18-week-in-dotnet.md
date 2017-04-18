@@ -1,5 +1,5 @@
-﻿The week in .NET - TinyORM, 911 Operator
-=============================================
+﻿The week in .NET - Happy birthday .NET with Robin Cole, TinyORM, 911 Operator
+=============================================================================
 
 Previous posts:
 
@@ -12,9 +12,12 @@ On .NET
 
 This week on the show, we'll speak with [Don Schenck](https://twitter.com/DonSchenck) about [Red Hat](https://www.redhat.com/en). We'll take questions on Gitter, on [the dotnet/home channel](https://gitter.im/dotnet/home) and on Twitter. Please use the `#onnet` tag. It's OK to start sending us questions in advance if you can't do it live during the show.
 
-Happy birthday .NET with 
----------------------------------------
+Happy birthday .NET with Robin Cole
+-----------------------------------
 
+In February we got together with many Microsoft alumni and current employees for a huge .NET Birthday bash. We spoke to Robin Cole, who joined Microsoft in 2005 working on many projects including Expression and Visual Studio. In this quick interview, she shares her thoughts on developers and designers and exciting future ahead.
+
+<iframe src="https://channel9.msdn.com/Blogs/funkyonex/Happy-Birthday-NET-with-Robin-Cole/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
 Package of the week: TinyORM
 ----------------------------
