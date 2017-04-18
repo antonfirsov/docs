@@ -1,4 +1,4 @@
-﻿The week in .NET - 
+﻿The week in .NET - TinyORM, 911 Operator
 =============================================
 
 Previous posts:
@@ -41,6 +41,15 @@ foreach (var poco in pocoArray)
 * [NuGet](https://www.nuget.org/packages/TinyORM)
 * [GitHub](https://github.com/sdrapkin/SecurityDriven.TinyORM)
 
+Game of the Week: 911 Operator
+------------------------------
+
+[911 Operator](http://jutsugames.com/911/) is an indie simulation game. Ever wanted to see what it was like to be a 911 operator? Well, now you can! In 911 Operator, you'll manage emergency lines by answering incoming calls and reacting appropriately. Give first aid instructions, dispatch emergency respondents or even choose to ignore the call which could very well be from a prankster. In 911 Operator, you can play in any city of the world by using Free Play mode to download real maps, which of course includes real addresses, streets and emergency infrastructure.
+
+![911 Operator](https://cloud.githubusercontent.com/assets/4108756/25139964/a638f22c-2413-11e7-8955-c9d14a12c1ce.jpg)
+
+[911 Operator](http://jutsugames.com/911/) was created by [Jutsu Games](http://jutsugames.com/) using [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners) and [Unity](unity3d.com). It is available on [Steam](http://store.steampowered.com/app/503560/) for PC, Mac and Linux.
+
 Meetup of the week: Global Azure Bootcamp in Miami, FL
 ------------------------------------------------------
 
@@ -74,7 +83,24 @@ C#
 F#
 --
 
+* [Happy F# Day!](https://fsharpforfunandprofit.com/posts/happy-fsharp-day-2/), by Scott Wlaschin
+* [Visual F# Tools - Visual Studio Toolbox](https://channel9.msdn.com/Shows/Visual-Studio-Toolbox/Visual-F-Tools)
+* [Art and Neural Networking in F#](https://skillsmatter.com/skillscasts/9727-art-and-neural-network-with-f-sharp), by Robert Pickering
+* [Using F#, Azure Functions, Fable and Shell Scripts](https://skillsmatter.com/skillscasts/10049-lightning-talk-session-using-f-sharp-azure-functions-fable-and-shell-scripts), by Mark Gray
+* [Playing nice together: how to use F# in a brownfield project](https://skillsmatter.com/skillscasts/9888-playing-nice-together-how-to-use-f-sharp-in-a-brownfield-project), by Gien Verschatse
+* [Contributing to Visual F# in 2017](http://blog.ctaggart.com/2017/04/contributing-to-visual-f-in-2017.html), by Cameron Taggert
+* [Freya at FSharpX 2017](https://freya.io/blog/2017/04/10/fsharpx.html), by marcus Griep
+* [Basic implementations of 5 graph data structures in F#](https://znprojects.blogspot.com.by/2017/04/aoc-2016-day-2-alternate-solutions.html), by znProjects
 * [An interesting (if unsuccessful) look into predicting horse races via machine learning with F#](https://medium.com/@ThisisZone/an-interesting-if-unsuccessful-look-into-predicting-horse-races-via-machine-learning-with-f-7563090c7582) by Zone.
+
+New F# language SUggestions:
+
+* [Add Map.merge](https://github.com/fsharp/fslang-suggestions/issues/560)
+* [Provide an Async conversion function for `structural awaiters`](https://github.com/fsharp/fslang-suggestions/issues/559)
+
+There was a major F# conference two weeks ago, F# eXchange.  You can view all of the talks online [here](https://skillsmatter.com/conferences/8053-f-sharp-exchange-2017#skillscasts).  If you wish to see all the new and exciting areas where F# is going, please watch them.  They're entirely free.
+
+Check out [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/) for more great content from the F# community.
 
 VB
 --
@@ -123,6 +149,19 @@ UWP
 * [ICYMI – Your weekly TL;DR](http://blogs.windows.com/buildingapps/2017/04/14/icymi-weekly-tldr-10/) By Windows Apps Team.
 * [COM Server and OLE Document support for the Desktop Bridge](http://blogs.windows.com/buildingapps/2017/04/13/com-server-ole-document-support-desktop-bridge/) By Adam Braden.
 * [Monetizing your app: Advertisement placement](https://blogs.windows.com/buildingapps/2017/04/10/monetizing-app-advertisement-placement/) By Kiran Bangalore.
+
+Game Development
+----------------
+
+* [Inventory and Store System - Part 5.1 (Creating the Player Inventory)](https://channel9.msdn.com/Shows/dotGAME/Inventory-and-Store-System-Part-51-Creating-the-Player-Inventory) by Stacey Haffner.
+* [Microsoft Launches Xbox Academy, Free Xbox And PC Game Development Classes](https://www.gamespot.com/articles/microsoft-launches-xbox-academy-free-xbox-and-pc-g/1100-6449259/).
+* [Inside the next Xbox: Project Scorpio and its brand-new dev kit](http://www.gamasutra.com/view/news/295800/Inside_the_next_Xbox_Project_Scorpio_and_its_brandnew_dev_kit.php) by Alex Wawro.
+* [CRYENGINE 5.3.4 is now available for download](https://www.cryengine.com/news/cryengine-534-is-now-available-for-download).
+* [Is Horizon's UI Design good? - The UI Show](https://youtu.be/rpFmD0YgyhA) by The UI Show.
+* [[Unity 5.5] Tutorial: How to create depth of field in unity (like in GTA)](https://youtu.be/xlpHmxNtiT8) by Gamad.
+* [Unity - Loading a JSON Collection](https://youtu.be/M-r4l-OcZtw) by FirstGearGames.
+* [Asset Bundles vs. Resources: A Memory Showdown](https://blogs.unity3d.com/2017/04/12/asset-bundles-vs-resources-a-memory-showdown/) by Ryan Caltabiano.
+* [(Unity) 2017.1.0 Beta 1 is available!](https://forum.unity3d.com/threads/2017-1-0-beta-1-is-available.466064/) by Charles_Beauchemin.
 
 And this is it for this week!
 
