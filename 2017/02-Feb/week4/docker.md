@@ -40,9 +40,7 @@ How to get started
 
 You can get started using .NET Docker containers right now, on Windows, macOS or Linux. First, you need a Docker client. The best place to get that is [Docker.com](https://www.docker.com/products/docker). If you are on Windows, we recommend [Docker for Windows](https://docs.docker.com/docker-for-windows/install/). It supports both Windows and Linux containers.
 
-If you are new to Docker, I recommend that you check out the [Get Started with Docker](https://docs.docker.com/engine/getstarted/) section in the Docker documentation. That's where I started. The instructions use Linux containers, but don't let that scare you off if you are not a Linux user. There you can find instructions for using the Docker client on your OS as well as guides that focus on general Docker concepts and mechanisms.
-
-I'm a big fan of the [Docker Whalesay](https://docs.docker.com/engine/getstarted/step_three/) image that is used in the Docker getting started instructions, so wanted something similar for .NET. We already had a [dotnet-bot](https://github.com/dotnet-bot) sample that does almost the same thing, so I only needed to package it up as a Docker image. I hope you like it!
+If you are new to Docker, I recommend that you check out the [Get Started with Docker](https://docs.docker.com/get-started/) section in the Docker documentation. That's where I started. The instructions use Linux containers, but don't let that scare you off if you are not a Linux user. There you can find instructions for using the Docker client on your OS as well as guides that focus on general Docker concepts and mechanisms.
 
 Once you have basic knowledge of Docker, then try the samples we created for using .NET with Docker. They should help you get started with .NET and Docker in your environment. We created two sets of samples since there are key differences between .NET Core and .NET Framework that require different Dockerfiles and other artifacts.
 
@@ -79,7 +77,7 @@ We publish our Docker images in a few different repositories on [Docker Hub](htt
 
 - [microsoft/dotnet](https://hub.docker.com/r/microsoft/dotnet/) -- .NET Core Runtime and SDK images for Linux and Nano server.
 - [microsoft/aspnetcore](https://hub.docker.com/r/microsoft/aspnetcore/) -- ASP.NET Core images for Linux.
-- [microsoft/aspnetcore-build](https://hub.docker.com/r/microsoft/aspnetcore-build/) -- ASP.NET Core images for Linux, intending for building apps.
+- [microsoft/aspnetcore-build](https://hub.docker.com/r/microsoft/aspnetcore-build/) -- ASP.NET Core images for Linux, intended for building apps.
 - [microsoft/dotnet-framework](https://hub.docker.com/r/microsoft/dotnet-framework/) -- .NET Framework 3.5 and 4.6.2 images for Windows Server Core.
 - [microsoft/aspnet](https://hub.docker.com/r/microsoft/aspnet/) -- .NET Framework 3.5 and 4.6.2 ASP.NET images for Windows Server Core.
 
@@ -137,7 +135,7 @@ The .NET images may be updated quite often. You will want to opt into some of th
 For Windows images, the .NET Dockerfile definitions rely on a specific base image. You can see that in the first line of the [microsoft/dotnet:1.0-runtime-nanoserver](https://github.com/dotnet/dotnet-docker/blob/master/1.0/nanoserver/runtime/Dockerfile) Dockerfile definition, included below:
 
 ```
-FROM microsoft/nanoserver:10.0.14393.693
+FROM microsoft/nanoserver:10.0.14393.1066
 ```
 
 On "patch Tuesdays" (the second Tuesday of each month), the Windows Team will typically release patches and update their base images.
@@ -148,4 +146,5 @@ For Linux images, the .NET Dockerfile definitions rely on a more generic base im
 FROM debian:jessie
 ```
 
-Docker offers a service called AutoBuild that rebuilds higher-level images when base images change. The .NET Core images make use of this. For example, the [microsoft/dotnet:1.0-sdk](https://github.com/dotnet/dotnet-docker/blob/master/1.0/debian/sdk/msbuild/Dockerfile) image is automatically rebuilt when the underlying [debian:jesse](https://hub.docker.com/_/debian/) image is rebuilt.
+Docker offers a service called AutoBuild that rebuilds higher-level images when base images change. The .NET Core images make use of this. For example, the [microsoft/dotnet:1.0-sdk](https://github.com/dotnet/dotnet-docker/blob/master/1.0/debian/sdk/Dockerfile) image is automatically rebuilt when the underlying [debian:jesse](https://hub.docker.com/_/debian/) image is rebuilt.
+
