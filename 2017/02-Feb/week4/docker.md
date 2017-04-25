@@ -148,3 +148,7 @@ FROM debian:jessie
 
 Docker offers a service called AutoBuild that rebuilds higher-level images when base images change. The .NET Core images make use of this. For example, the [microsoft/dotnet:1.0-sdk](https://github.com/dotnet/dotnet-docker/blob/master/1.0/debian/sdk/Dockerfile) image is automatically rebuilt when the underlying [debian:jesse](https://hub.docker.com/_/debian/) image is rebuilt.
 
+Migrating .NET Framework Applications to Containers
+-------------------------------------------
+
+At DockerCon there was much excitement around a tool designed for migrating Windows VMs to containers called [Image2Docker](https://github.com/docker/communitytools-image2docker-win). This Powershell module can run over a given VHDX or WIM image file and generate the necessary `Dockerfile` that builds the Docker image. Again, you will need [Docker for Windows](https://www.docker.com/community-edition) installed. This tool won't build the prettiest `Dockerfile` but it is a fantastic starting place for folks eager to migrate their .NET Framework applications to containers! Docker maintains this tool so you can find it on [GitHub](https://github.com/docker/communitytools-image2docker-win). With many of our customers asking questions about how to Dockerize their .NET Framework apps, I wanted to get the word out, though I'd recommend crash course on a few Docker concepts first.
