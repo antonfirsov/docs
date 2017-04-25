@@ -1,5 +1,5 @@
-﻿The week in .NET - Happy Birthday .NET with Chris Sells, free ASP.NET Core book
-===============================================================================
+﻿The week in .NET - Happy Birthday .NET with Chris Sells, free ASP.NET Core book, We are the Dwarves
+===================================================================================================
 
 Previous posts:
 
@@ -10,23 +10,32 @@ Previous posts:
 Happy birthday .NET with Chris Sells
 ------------------------------------
 
-In February we threw a big .NET birthday bash with Microsoft Alumni and product teams. We caught up with Chris Sells who is currently a Product Manager at Google, and before that a Program Manager at Microsoft. Chris has been part of the .NET developer community since the beginning and he tells us a few great stories in this fun interview.
+In February, we threw a big .NET birthday bash with Microsoft Alumni and product teams. We caught up with Chris Sells who is currently a Product Manager at Google, and before that a Program Manager at Microsoft. Chris has been part of the .NET developer community since the beginning and he tells us a few great stories in this fun interview.
 
 <iframe src="https://channel9.msdn.com/Blogs/funkyonex/Happy-Birthday-NET-with-Chris-Sells/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
 Book of the week: ASP.NET Core succinctly, by Simone Chiaretta and Ugo Lattenzi
 -------------------------------------------------------------------------------
 
-In [ASP.NET Core Succinctly](http://codeclimber.net.nz/archive/2017/04/20/free-ebook-on-aspnet-core-is-available-for-download/), seasoned authors Simone Chiaretta and Ugo Lattanzi update you on all the advances provided by Microsoft’s landmark framework. By learning the foundations of the library and understanding the new versions of ASP.NET MVC and Web API, you’ll be equipped with everything you need to build .NET web applications on Windows, Mac, and Linux.
+In [ASP.NET Core Succinctly](http://codeclimber.net.nz/archive/2017/04/20/free-ebook-on-aspnet-core-is-available-for-download/), seasoned authors Simone Chiaretta and Ugo Lattanzi update you on all the advances provided by Microsoft’s landmark framework. Learn the foundations of the library, understand the new versions of ASP.NET MVC and Web API, and you'll have everything you need to build .NET web applications on Windows, Mac, and Linux.
 
 ![ASP.NET Core Succinctly](ASP_NET_Core_Succinctly.png)
 
 You can [get the book now, for free!](http://codeclimber.net.nz/archive/2017/04/20/free-ebook-on-aspnet-core-is-available-for-download/)
 
+Game of the Week: We are the Dwarves
+------------------------------------
+
+[We are the Dwarves](http://wearethedwarves.com/en) is a real-time tactical adventure game. Set in a world where the Dwarven stars are slowly dying, you must guide three astronauts through their expedition to find a new star in the depths of the Endless Stone. Each dwarf has individual abilities and skill trees, letting you customize to your play style. Pay close attention to the hostile environment as you lay out your tactical strategy when fighting your enemies. 
+
+![We are the Dwarves](https://cloud.githubusercontent.com/assets/4108756/25392874/b8ce96fa-298e-11e7-9127-754260da3629.jpg)
+
+[We are the Dwarves](http://wearethedwarves.com/en) was created by Whale Rock Games using [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners) and [Unity](unity3d.com). It is available [Steam](http://store.steampowered.com/app/395570/) for Windows, Mac and Linux, Xbox One and PlayStation 4.
+
 Meetup of the week: Productivity in Visual Studio 2017 with GitHub, .NET Core, and Docker in San Francisco, CA
 --------------------------------------------------------------------------------------------------------------
 
-The [Bay .NET user group](https://www.meetup.com/BayNET/) has a two-part [meeting on Thursday, April 27 at 6:30PM](https://www.meetup.com/BayNET/events/238661353/) featuring excellent speakers: [Sara Ford](https://twitter.com/saraford) will talk about the GitHub extension for Visual Studio 2017, and [Beth Massi](https://twitter.com/bethmassi) will tall you all about .NET Core, Docker, and microservices.
+The [Bay .NET user group](https://www.meetup.com/BayNET/) has a two-part [meeting on Thursday, April 27 at 6:30PM](https://www.meetup.com/BayNET/events/238661353/) featuring excellent speakers: [Sara Ford](https://twitter.com/saraford) will talk about the GitHub extension for Visual Studio 2017, and [Beth Massi](https://twitter.com/bethmassi) will tell you all about .NET Core, Docker, and microservices.
 
 .NET
 ----
@@ -47,7 +56,7 @@ ASP.NET
 
 * [ASP.NET Core 12 samples](http://piotrgankiewicz.com/2017/04/17/asp-net-core-12-samples/) by Piotr Gankiewicz.
 * [Removing the MVC Razor dependencies from the Web API template in ASP.NET Core](https://andrewlock.net/removing-the-mvc-razor-dependencies-from-the-web-api-template-in-asp-net-core/) by Andrew Lock.
-* [Creating a basic Web API template using dotnet new custom templates](https://andrewlock.net/creating-a-basic-web-api-template-using-dotnet-new-custom-templates/) by Andrew Lock.
+* [Creating a basic Web API template using `dotnet new` custom templates](https://andrewlock.net/creating-a-basic-web-api-template-using-dotnet-new-custom-templates/) by Andrew Lock.
 * [Fluent Validation Rules with ASP.NET Core](http://cecilphillip.com/fluent-validation-rules-with-asp-net-core/) by Cecil Phillip.
 * [ASP.NET Core Lazy Command Pattern](http://rehansaeed.com/asp-net-core-lazy-command-pattern/) by Muhammad Rehan Saeed.
 * [Configuring ASP.NET Core middleware](https://devblog.dymel.pl/2017/04/20/configuring-asp-net-core-middleware/) by Michał Dymel.
@@ -68,6 +77,11 @@ C#
 * [What is NullReferenceException? Object reference not set to an instance of an object](https://stackify.com/nullreferenceexception-object-reference-not-set/) by Matt Watson.
 * [Void-Free Style in C# 7.0](https://programming.lansky.name/void-free-style/) by Lukáš Lánský.
 * [A tricky bit of code](https://ayende.com/blog/177889/a-tricky-bit-of-code?Key=cf4f6f86-90ca-495c-bb4f-b686c17f8055) by Ayende Rahien.
+
+F#
+--
+
+The [F# weekly](https://sergeytihon.wordpress.com/category/f-weekly/) is taking a break this week, but F# links will be back next week.
 
 Xamarin
 -------
@@ -112,6 +126,17 @@ Data
 ----
 
 * [Using Entity Framework Core in-memory database for unit testing](http://gunnarpeipman.com/2017/04/aspnet-core-ef-inmemory/) by Gunnar Peipman.
+
+Game Development
+----------------
+
+* [[Ludum Dare] What's next? Helping you! Judging Friday](http://ldjam.com/events/ludum-dare/38/ludum-dare-dot-com/whats-next-helping-you-judging-friday)
+* [7 memorable boss fights that every developer should study](http://www.gamasutra.com/view/news/296157/7_memorable_boss_fights_that_every_developer_should_study.php) by Richard Moss.
+* [Making Horizon Zero Dawn's Machines feel like living creatures](http://www.gamasutra.com/view/news/296493/Making_Horizon_Zero_Dawns_Machines_feel_like_living_creatures.php) by Willie Clark.
+* [The Design in Narrative Design](https://youtu.be/f8VIlfTtypg) by Jurie Horneman.
+* [Level Design Basics](http://www.gamasutra.com/blogs/MuhammadAyub/20160201/264811/Level_Design_Basics.php) by Muhammad Ayub.
+* [Weapon Switching - Unity Tutorial](https://youtu.be/Dn_BUIVdAPg) by Brackeys.
+* [[Unity 5.5] Tutorial: How to create depth of field in unity (like in GTA)](https://youtu.be/xlpHmxNtiT8) by Gamad.
 
 And this is it for this week!
 
