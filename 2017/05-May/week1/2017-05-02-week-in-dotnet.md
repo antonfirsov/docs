@@ -1,5 +1,5 @@
-﻿The week in .NET - .NEt Core 2.0 status, On .NET with Don Schenck on Red Hat, Fable
-===================================================================================================
+﻿The week in .NET - .NET Core 2.0 status, Happy Birthday .NET with Matt Gertz, On .NET with Don Schenck on Red Hat, Fable
+========================================================================================================================
 
 Previous posts:
 
@@ -10,9 +10,32 @@ Previous posts:
 .NET Core 2.0 status
 --------------------
 
-Our work on .NET Core 2.0 is progressing nicely, aiming for zero active bugs for mid-May.
+2.0 bugs are mostly under control and we think we will hit our zero-bugs goal on 5/10 with the following exceptions:
 
-![.NET Core 2.0 active issues](netcoreissues.png)
+* Non-code bugs (e.g. documentation, infrastructure) which are needed for 2.0 are exempt from the zero-bugs-goal (label:Post-ZBB) – right now we have only 13 such bugs
+* The Networking team is tracking a few costly work items and will slip some of them until after 5/10
+
+Recent work includes:
+
+* Running all our test assets against .NET Framework to identify compat differences - we have found and fixed several
+* Hardening our test assets, to reduce noise in CI / PR legs validation
+* Running all our tests under "GCStress", to catch reliability issues in-house
+* Started testing on portable Linux builds (binaries that can be run on most Linux distros)
+* We reviewed all PlatformNotSupportedException in our code to ensure they are there on purpose
+* We reviewed all Linux-only disabled tests, to ensure they are by design
+* We started eliminating dead code (identified by ILLink tooling)
+* We re-enabled test runs on Windows Nano
+
+![.NET Core 2.0 active issues per team](netcoreissues.png)
+
+![.NET Core 2.0 active issues](netcoreissues2.png)
+
+Happy Birthday .NET with Matt Gertz
+-----------------------------------
+
+Matt Gertz is a group software engineering manager driving the developer experience for C#, Visual Basic, and F#. Matt has had a long, illustrious career at Microsoft starting in 1994. The amount of knowledge in his brain about .NET and languages is stunning and he still maintains a laid back, approachable attitude. In this quick interview he shares some of his fondest memories (and lots of codenames!) about .NET. 
+
+<iframe src="https://channel9.msdn.com/Blogs/funkyonex/Happy-Birthday-NET-with-Matt-Gertz/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
 On .NET: Don Schenck on Red Hat
 -------------------------------
