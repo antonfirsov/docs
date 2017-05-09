@@ -24,8 +24,9 @@ Only a few days to go before we reach zero bugs. Great progress has been made, b
 Happy birthday .NET with Eilon Lipton
 -------------------------------------
 
-Will be published tomorrow morning:
-https://channel9.msdn.com/blogs/funkyonex/Happy-Birthday-NET-with-Eilon-Lipton
+In February we took a camera crew to the Microsoft Alumni Network's big .NET 15th birthday bash and caught up with team members past and present. In this interview we chat with Eilon Lipton who's been a developer at Microsoft since 2002 working mostly on the ASP.NET web stack. He chats about his masterpiece, the update panel (eeeek!), and some of the other great moments in .NET and his career.
+
+<iframe src="https://channel9.msdn.com/Blogs/funkyonex/Happy-Birthday-NET-with-Eilon-Lipton/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
 
 On .NET: Alfonso García-Caro on Fable
 -------------------------------------
@@ -116,8 +117,19 @@ The [Triangle .NET User Group](https://www.meetup.com/TRINUG/) holds [a meeting 
 
 ## F#
 
-* [Calling F# Code in a C# Project](http://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp) by Connel Hooley.
 * [F# Survey 2017](https://docs.google.com/forms/d/e/1FAIpQLSeZ1EJe1pfztiUudIclcMU1lV-vXCUlGqECPQMZxFD6Q0zGoA/viewform) by the F# community.
+* [Tooling for Your .NET Projects](http://www.codemag.com/article/1705051), by Rachel Reese
+* [ON.NET - Alfonso García-Caro – Fable](https://channel9.msdn.com/Shows/On-NET/Alfonso-Garca-Caro-Fable)
+* [Calling F# Code in a C# Project](http://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp), by Connel Hooley
+* [Scratching a 7-Year Itch](https://pblasucci.wordpress.com/2017/05/02/seven-year-itch/), by Paulmichael Blasucci
+* [Higher Kindended Types in F# Part IV – Signature Annotations](https://robkuz.github.io/HKTs-in-fsharp-part-IV-Signature-Annotations/), by Robert Kuzelj
+
+New F# RFCs:
+
+* [F# RFC FS-1032 – Support for F# in the dotnet sdk](https://github.com/fsharp/fslang-design/blob/master/RFCs/FS-1032-fsharp-in-dotnet-sdk.md)
+* [F# RFC FS-1033 – Extend String module](https://github.com/fsharp/fslang-design/blob/master/RFCs/FS-1033-extend-string-module.md)
+
+There is more content available this week in [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/).  If you want to see more F# awesomeness, please check it out!
 
 ## Xamarin
 
