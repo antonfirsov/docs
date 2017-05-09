@@ -73,6 +73,7 @@ The [Triangle .NET User Group](https://www.meetup.com/TRINUG/) holds [a meeting 
 ## .NET
 
 * [Announcing the .NET Framework 4.7 General Availability](https://blogs.msdn.microsoft.com/dotnet/2017/05/02/announcing-the-net-framework-4-7-general-availability/) by Rich Lander.
+* [Arrays and the CLR - a Very Special Relationship](http://mattwarren.org/2017/05/08/Arrays-and-the-CLR-a-Very-Special-Relationship/) by Matt Warren.
 * [ClrMD Part 3 – Dealing with static and instance fields to list timers](http://labs.criteo.com/2017/05/clrmd-part-3-dealing-static-instance-fields-list-timers/) by Christophe Nasarre and Kevin Gosse.
 * [Use a XBox Controller to control your Angular2 App](http://lostindetails.com/blog/post/Use-a-XBox-Controller-to-control-your-Angular2-app) by Martin Kramer.
 * [Testing .NET Core with NUnit in Visual Studio 2017](http://www.alteridem.net/2017/05/04/test-net-core-nunit-vs2017/) by Rob Prouse.
