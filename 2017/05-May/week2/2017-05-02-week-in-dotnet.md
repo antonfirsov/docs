@@ -1,4 +1,4 @@
-﻿The week in .NET - Microsoft Build 2017, On .NET with Alfonso García-Caro on Fable, Stanford CoreNLP
+﻿The week in .NET - Microsoft Build 2017, .NET Core 2.0 status, Happy birthday .NET with Eilon Lipton, On .NET with Alfonso García-Caro on Fable, Stanford CoreNLP
 ========================================================================================================================
 
 Previous posts:
@@ -20,6 +20,12 @@ Only a few days to go before we reach zero bugs. Great progress has been made, b
 ![.NET Core 2.0 active issues per team](netcoreissues.png)
 
 ![.NET Core 2.0 active issues](netcoreissues2.png)
+
+Happy birthday .NET with Eilon Lipton
+-------------------------------------
+
+Will be published tomorrow morning:
+https://channel9.msdn.com/blogs/funkyonex/Happy-Birthday-NET-with-Eilon-Lipton
 
 On .NET: Alfonso García-Caro on Fable
 -------------------------------------
