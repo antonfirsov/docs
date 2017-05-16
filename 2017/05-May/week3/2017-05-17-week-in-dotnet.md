@@ -1,5 +1,5 @@
-﻿The week in .NET - Microsoft Build 2017, .NET Core 2.0 preview 1, Happy birthday .NET with 
-========================================================================================================================
+﻿The week in .NET - Microsoft Build 2017, .NET Core 2.0 preview 1, For the King
+==============================================================================
 
 Previous posts:
 
@@ -52,9 +52,14 @@ Here are the announcements:
 
 And [Mono 5](http://www.mono-project.com/docs/about-mono/releases/5.0.0/) also shipped!
 
-Happy birthday .NET with 
--------------------------------------
+Game of the Week: For the King
+------------------------------
 
+[For the King](http://www.ironoakgames.com/) is a fun and unique take on an the classic RPG adventure game genre as it blends strategy, JRPG combat and roguelike elements beautifully. In For the King, you control three adventurers who set out on a journey to help squash the chaos that is rising due to the king being murdered. Each turn, you must make critical strategic decisions that can very easily result in your entire party being wiped out. For the King is intentionally unforgiving as you are expected to learn from your mistakes after each death and come back stronger.
+
+![screenshot](https://cloud.githubusercontent.com/assets/4108756/26113108/7b44e542-3a0e-11e7-9e43-c7fd15521eae.png)
+
+[For the King](http://www.ironoakgames.com/) was created by IronOak Games using [C#](https://channel9.msdn.com/Series/C-Sharp-Fundamentals-Development-for-Absolute-Beginners) and [Unity](unity3d.com). It is in early access on [Steam](http://store.steampowered.com/app/527230/) for Windows and Mac.
 
 Meetup of the week: Introduction to Docker on Azure in Perth, Australia
 -----------------------------------------------------------------------
@@ -111,7 +116,6 @@ The [Perth MS Cloud Computing User Group](https://www.meetup.com/Perth-Cloud/eve
 * [So Many More Xamarin Dev Days!](https://blog.xamarin.com/many-xamarin-dev-days/) by Jayme Singleton.
 * [Previewing the Xamarin Live Players for Visual Studio](https://blog.xamarin.com/live-player/) by Miguel de Icaza.
 * [Visual Studio for Mac: now generally available](https://blogs.msdn.microsoft.com/visualstudio/2017/05/10/visual-studio-for-mac-now-generally-available/) by Miguel de Icaza.
-* [Unity game development with Visual Studio for Mac](https://blogs.msdn.microsoft.com/visualstudio/2017/05/10/unity-game-development-with-visual-studio-for-mac/) by Jb Evain.
 * [More Platforms, More Choices, More Power: Visual Studio Mobile Center at Build](https://blogs.msdn.microsoft.com/visualstudio/2017/05/11/more-platforms-more-choices-more-power-visual-studio-mobile-center-at-build/) by Keith Ballinger.
 * [Visual Studio Mobile Center: A Better Way To Build Mobile Apps](https://visualstudiomagazine.com/articles/2017/05/09/visual-studio-mobile-center.aspx) by Greg Shackles.
 * [Accessibility Support in Xamarin Forms](https://xamarinhelp.com/accessibility-support-xamarin-forms/) by Adam Pedley.
@@ -143,6 +147,16 @@ The [Perth MS Cloud Computing User Group](https://www.meetup.com/Perth-Cloud/eve
 * [Windows Mixed Reality Dev Kits available for pre-order](https://blogs.windows.com/buildingapps/2017/05/11/windows-mixed-reality-dev-kits-available-pre-order/) By Windows Apps Team.
 * [Cortana Skills Kit empowers developers to build intelligent experiences for millions of users](https://blogs.windows.com/buildingapps/2017/05/10/cortana-skills-kit-empowers-developers-build-intelligent-experiences-millions-users/) By Gurpreet Singh Pall.
 * [Announcing Microsoft’s Ad Mediation Service](https://blogs.windows.com/buildingapps/2017/05/08/announcing-microsofts-ad-mediation-service/) By Parth Pandya.
+
+## Game development
+
+* [Delivering world-class game experiences using Microsoft Azure: Lessons learned from titles like Halo, Hitman, and Walking Dead](https://channel9.msdn.com/events/Build/2017/P4062) by Gowtham Prasad.
+* [Unity game development with Visual Studio for Mac](https://blogs.msdn.microsoft.com/visualstudio/2017/05/10/unity-game-development-with-visual-studio-for-mac/) by Jb Evain.
+* [Introducing Standard Events](https://blogs.unity3d.com/2017/05/12/introducing-standard-events/) by Marc Tanenbaum.
+* [Unity Editor Scripting (A kick-starter guide) – Part 2](http://www.gamasutra.com/blogs/AsadSohail/20170510/297738/Unity_Editor_Scripting_A_kickstarter_guide__Part_2.php)
+* [Game Design Deep Dive: Creating a one-touch platformer in ZIP ZAP](http://www.gamasutra.com/view/news/296982/Game_Design_Deep_Dive_Creating_a_onetouch_platformer_in_ZIP_ZAP.php) by Philipp Stollenmayer.
+* [ColorGradingFilter for Monogame and XNA](https://github.com/Kosmonaut3d/ColorGradingFilter-Sample).
+* [Unity 5: Loading Screen/Bar](https://youtu.be/rXnZE8MwK-E) by Dual Core Studio.
 
 And this is it for this week!
 
