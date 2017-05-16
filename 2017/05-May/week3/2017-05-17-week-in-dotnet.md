@@ -110,9 +110,9 @@ The [Perth MS Cloud Computing User Group](https://www.meetup.com/Perth-Cloud/eve
 * [Xamarin Podcast: Exploring the Android Support Libraries & Google Play Services](https://blog.xamarin.com/podcast-exploring-android-support-libraries-google-play-services/) by James Montemagno.
 * [So Many More Xamarin Dev Days!](https://blog.xamarin.com/many-xamarin-dev-days/) by Jayme Singleton.
 * [Previewing the Xamarin Live Players for Visual Studio](https://blog.xamarin.com/live-player/) by Miguel de Icaza.
-* [Visual Studio for Mac: now generally available](https://blogs.msdn.microsoft.com/visualstudio/2017/05/10/visual-studio-for-mac-now-generally-available/) by ***FIXME***.
-* [Unity game development with Visual Studio for Mac](https://blogs.msdn.microsoft.com/visualstudio/2017/05/10/unity-game-development-with-visual-studio-for-mac/) by ***FIXME***.
-* [More Platforms, More Choices, More Power: Visual Studio Mobile Center at Build](https://blogs.msdn.microsoft.com/visualstudio/2017/05/11/more-platforms-more-choices-more-power-visual-studio-mobile-center-at-build/) by ***FIXME***.
+* [Visual Studio for Mac: now generally available](https://blogs.msdn.microsoft.com/visualstudio/2017/05/10/visual-studio-for-mac-now-generally-available/) by Miguel de Icaza.
+* [Unity game development with Visual Studio for Mac](https://blogs.msdn.microsoft.com/visualstudio/2017/05/10/unity-game-development-with-visual-studio-for-mac/) by Jb Evain.
+* [More Platforms, More Choices, More Power: Visual Studio Mobile Center at Build](https://blogs.msdn.microsoft.com/visualstudio/2017/05/11/more-platforms-more-choices-more-power-visual-studio-mobile-center-at-build/) by Keith Ballinger.
 * [Visual Studio Mobile Center: A Better Way To Build Mobile Apps](https://visualstudiomagazine.com/articles/2017/05/09/visual-studio-mobile-center.aspx) by Greg Shackles.
 * [Accessibility Support in Xamarin Forms](https://xamarinhelp.com/accessibility-support-xamarin-forms/) by Adam Pedley.
 * [How a default behavior change broke Mac App Store Submissions](https://medium.com/@donblas/how-a-default-behavior-change-broke-mac-app-store-submissions-bb92314065a0) by Chris Hamons.
