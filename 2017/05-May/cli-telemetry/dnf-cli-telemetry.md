@@ -28,32 +28,31 @@ Today, we're making that anonymous data available in CSV format:
  - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2016-12-01.csv">CLI_2016-12-01.csv</a>
  - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2017-01-01.csv">CLI_2017-01-01.csv</a>
  - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2017-02-01.csv">CLI_2017-02-01.csv</a>
- - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2017-03-01.csv">CLI_2017-03-01.csv</a>
- - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2017-04-01.csv">CLI_2017-04-01.csv</a>
- - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2017-05-01.csv">CLI_2017-05-01.csv</a>
  
- The permanent location for this data will be at http://dotnetfoundation.org/telemetry
+ > Note: The above data runs through February 2017. There's some time consuming processing and verification in place to make sure that we're not releasing any personally identifiable information. We're working on that process optimized and getting current data released right at the beginning of each month going forward.
+ 
+The permanent location for this data will be at http://dotnetfoundation.org/telemetry
  
  ## Data Insights
  
 As you'd hope, there's a ton of useful information in these logs. The development team is using the usage trends to prioritize features, drill in on common issues, etc.
 
-In addition to product development insights, the data reveals a lot of fun, interesting trends. Let's take a look at historical data (since we started collecting in April 2016):
+In addition to product development insights, the data reveals a lot of interesting trends. Let's take a look at historical data (since we started collecting in April 2016):
 
 ### Command Variations by Operating System
 ![Commands by OS](cli-commands-by-os.png)
 
-There are some revealing differences in command usage between operating systems. We can see that `build` is by far the leading command on Windows, `run` on Linux, and `restore` on OSX. I'd interpret this to say that we're seeing a lot of application development on Windows, maybe more "kicking the tires" scaffolding applications on OSX using Yeoman, while Linux is primarily being used to host applications (especially since Docker usage on all platforms will show as Linux).
+There are some revealing differences in command usage between operating systems. We can see that `build` is by far the leading command on Windows, `run` on Linux, and `restore` on OSX. I'd interpret this to say that we're seeing a lot of application development on Windows, maybe more "kicking the tires" scaffolding applications on OSX using Yeoman, while Linux is primarily being used to host applications.
 
 ### Weekly Trends
 ![Weekly cycle](cli-weekly-cycle.png)
 
-You can see that there's an obvious cycle that follows the work week. Looking closer, it's clear that the `build` and `restore` commands drop off quite a bit on the weekend, while the `run` command doesn't quite as much
+You can see that there's an obvious cycle that follows the work week. Looking closer, it's clear that the `build` and `restore` commands drop off quite a bit on the weekend, while the `run` command doesn't quite as much.
 
 ### Geographic Distributions
 ![Geographic Distribution](cli-client-os-geo.png)
 
-It's intresting to take a look at the geographic variations in client operating system usage. Most have a mix, but you can see that some areas run predominantly on single operating system.
+It's interesting to take a look at the geographic variations in client operating system usage. Most have a mix, but you can see that some areas run predominantly on a single operating system.
 
 ### Overall Operating System Distribution
 ![OS Distribution](cli-os-distribution-by-distinctip.png)
