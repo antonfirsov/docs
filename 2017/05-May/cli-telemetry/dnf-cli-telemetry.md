@@ -28,6 +28,11 @@ Today, we're making that anonymous data available in CSV format:
  - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2016-12-01.csv">CLI_2016-12-01.csv</a>
  - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2017-01-01.csv">CLI_2017-01-01.csv</a>
  - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2017-02-01.csv">CLI_2017-02-01.csv</a>
+ - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2017-03-01.csv">CLI_2017-03-01.csv</a>
+ - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2017-04-01.csv">CLI_2017-04-01.csv</a>
+ - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2017-05-01.csv">CLI_2017-05-01.csv</a>
+ 
+ The permanent location for this data will be at http://dotnetfoundation.org/telemetry
  
  ## Data Insights
  
