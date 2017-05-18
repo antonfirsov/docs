@@ -3,12 +3,12 @@
 The .NET Core tools include a [telemetry feature](https://docs.microsoft.com/en-us/dotnet/articles/core/tools/telemetry)  to allow the .NET team to understand how the tools are being used so they can improve them.
 
 The telemetry feature collects the following pieces of data:
- - The command being used (for example, “build”, “restore”)
- - The ExitCode of the command
+ - The command being used (for example, `build`, `restore`)
+ - The `ExitCode` of the command
  - For test projects, the test runner being used
  - The timestamp of invocation
  - The framework used
- - Whether runtime IDs are present in the “runtimes” node
+ - Whether runtime IDs are present in the `runtimes` node
  - The CLI version being used
 As described in the documentation, you're able to opt-out telemetry collection by setting the `DOTNET_CLI_TELEMETRY_OPTOUT` variable.
  
@@ -33,7 +33,7 @@ Today, we're making that anonymous data available in CSV format:
  
 As you'd hope, there's a ton of useful information in these logs. The development team is using the usage trends to prioritize features, drill in on common issues, etc.
 
-In addition to product development insights, the data reveals a lot of interesting trends. Taking a look at historical data (since we started collecting in April 2016), here are some things we're seeing:
+In addition to product development insights, the data reveals a lot of fun, interesting trends. Let's take a look at historical data (since we started collecting in April 2016):
 
 ### Command Variations by Operating System
 ![Commands by OS](cli-commands-by-os.png)
