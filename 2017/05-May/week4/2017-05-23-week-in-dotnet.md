@@ -1,4 +1,4 @@
-﻿The week in .NET - Happy Birthday .NET with Jan Kotas, Skyworld
+﻿The week in .NET - .NET poster, Happy Birthday .NET with Jan Kotas, Skyworld
 ===============================================================
 
 Previous posts:
@@ -6,6 +6,15 @@ Previous posts:
 * [Microsoft Build 2017, .NET Core 2.0 preview 1, For the King](https://blogs.msdn.microsoft.com/dotnet/2017/05/16/the-week-in-net-microsoft-build-2017-net-core-2-0-preview-1-for-the-king/)
 * [Microsoft Build 2017, .NET Core 2.0 status, Happy birthday .NET with Eilon Lipton, On .NET with Alfonso García-Caro on Fable, Stanford CoreNLP](https://blogs.msdn.microsoft.com/dotnet/2017/05/09/the-week-in-net-microsoft-build-2017-net-core-2-0-status-happy-birthday-net-with-eilon-lipton-on-net-with-alfonso-garca-caro-on-fable-stanford-corenlp/)
 * [.NET Architecture, .NET Core 2.0 status, Happy Birthday .NET with Matt Gertz, On .NET with Don Schenck on Red Hat, Fable](https://blogs.msdn.microsoft.com/dotnet/2017/05/02/the-week-in-net-net-core-2-0-status-happy-birthday-net-with-matt-gertz-on-net-with-don-schenck-on-red-hat-fable/)
+
+.NET Poster
+-----------
+
+Everybody likes posters, right? Well here's a modern .NET infographic to hang in your office. If you were at BUILD, you probably saw us handing thousands of these out to people. Now you can have one too!
+
+![.NET Poster](dotNET_poster.png)
+
+[Download the poster!](https://www.microsoft.com/net/images/dotNET_poster.pdf)
 
 Happy Birthday .NET with Jan Kotas
 ----------------------------------
