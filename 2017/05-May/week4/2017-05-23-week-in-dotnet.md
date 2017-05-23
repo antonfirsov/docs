@@ -116,6 +116,17 @@ The [Bay .NET user group](https://www.meetup.com/BayNET/) invites you to [a pres
 * [Mono 5.0.0 Release Notes](http://www.mono-project.com/docs/about-mono/releases/5.0.0/) by Mono Team.
 * [Segmenting Application Insights data by role](https://azure.microsoft.com/en-us/blog/app-insights-microservices/) by Dan Taylor.
 
+## UWP
+
+* [Improving the high-DPI experience in GDI based Desktop Apps](https://blogs.windows.com/buildingapps/2017/05/19/improving-high-dpi-experience-gdi-based-desktop-apps/) By Doug King
+* [Introducing XAML Standard and .NET Standard 2.0](https://blogs.windows.com/buildingapps/2017/05/19/introducing-xaml-standard-net-standard-2-0/) By Windows Apps Team
+* [Announcing Microsoft Build Tour 2017](https://blogs.windows.com/buildingapps/2017/05/17/announcing-microsoft-build-tour-2017/) By Pete Brown
+* [Monetize your app: Know the user to serve better targeted ads](https://blogs.windows.com/buildingapps/2017/05/17/monetize-app-know-user-serve-better-targeted-ads/) By Kiran Bangalore
+* [Announcing Windows Template Studio](https://blogs.windows.com/buildingapps/2017/05/16/announcing-windows-template-studio/) By Michael Crump and Clint Rutkas
+* [Announcing Project Rome iOS SDK](https://blogs.windows.com/buildingapps/2017/05/16/announcing-project-rome-ios-sdk/) By Carmen Forsmann
+* [Project Rome: Driving user engagement across devices, apps and platforms](https://blogs.windows.com/buildingapps/2017/05/16/project-rome-driving-user-engagement-across-devices-apps-platforms/) By Vikas Bhatia
+* [Windows Store: more options to manage, monetize and promote apps](https://blogs.windows.com/buildingapps/2017/05/15/windows-store-options-manage-monetize-promote-apps/) By Bernardo Zamora
+
 ## Data
 
 * [Announcing EF 6.2 beta 1](https://blogs.msdn.microsoft.com/dotnet/2017/05/23/announcing-ef-6-2-beta-1/) by Diego B Vega.
