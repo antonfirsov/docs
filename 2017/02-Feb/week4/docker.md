@@ -17,7 +17,7 @@ The following list shows the key reasons developers are moving to containers:
 - **Consistent:** Containers include the application and all of its dependencies. The application executes the same code, regardless of computer, environment or cloud.
 - **Lightweight:** Containers start quickly and use a minimal amount of RAM by using a minimal abstraction over the host operating system and sharing common resources across containers.
 - **Sharing:** Container images are easy to share via [Docker Hub](https://hub.docker.com/), the [Docker Store](https://store.docker.com/), and private Docker registries, such as the [Azure Container Registry](https://azure.microsoft.com/services/container-registry/).
-- **Simple yet powerful:** The DockerFile format (the recipe for container images) is a simple format that enables powerful scenarios: neatly marries operating-system and container-specific commands and also surfaces the creation of Docker image layer.
+- **Simple yet powerful:** The DockerFile format (the recipe for container images) is a simple format that enables powerful scenarios: neatly marries operating-system and container-specific commands and also surfaces the creation of Docker image layers.
 
 Imagine just a few years ago someone telling you in a job interview that they care so much about consistency that they always ship the operating system with their app. You probably wouldn't have hired them. Yet, that's exactly the model Docker uses!
 
@@ -93,7 +93,7 @@ These files define the set of images that we provide, their size, contents and o
 
 The Dockerfile source is stored on GitHub. You can follow the changes we make to the images, see why we're making them and participate in that conversation if you'd like.
 
-Docker Image Taging
+Docker Image Tagging
 ---------------------
 
 Docker images have cryptic IDs (for example, d99acb94e777) for identification by default. Since that's not super helpful for humans, Docker images can be given tags. That's usually a friendly name that describes what the image is for, such as "hello-world-app". That model works great locally on your machine. 
