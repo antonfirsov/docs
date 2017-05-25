@@ -91,7 +91,7 @@ Docker images (including the .NET ones) are defined by a (relatively) simple fil
 
 These files define the set of images that we provide, their size, contents and other characteristics. In many cases, we've studied what other platforms have done with their images and have tried to follow industry norms. In other cases, we've chosen to do something that works best for .NET apps that may or may not map to other platforms. In many cases Docker employees create the initial images for other platforms, so our liberal "copying" of patterns we see on Docker Hub is really just following Docker's lead. As the Docker norm changes, we'll do our best to follow it with the .NET images.
 
-You'll quickly see that the Dockerfile source is stored on GitHub. You can follow the changes we make to the images, see why we're making them and participate in that conversation if you'd like.
+The Dockerfile source is stored on GitHub. You can follow the changes we make to the images, see why we're making them and participate in that conversation if you'd like.
 
 Docker Image Taging
 ---------------------
