@@ -38,6 +38,8 @@ As you'd hope, there's a ton of useful information in these logs. The developmen
 
 In addition to product development insights, the data reveals a lot of interesting trends. Let's take a look at historical data (since we started collecting in April 2016):
 
+> Note: Remember that this data is just from the CLI. There is of course a significant amount of .NET Core usage via Visual Studio, as well.
+
 ### Command Variations by Operating System
 ![Commands by OS](cli-commands-by-os.png)
 
