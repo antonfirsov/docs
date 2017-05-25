@@ -1,6 +1,6 @@
 ## .NET Core Tools Telemetry
 
-The .NET Core tools include a [telemetry feature](https://docs.microsoft.com/en-us/dotnet/articles/core/tools/telemetry)  to allow the .NET team to understand how the tools are being used so they can improve them.
+The .NET Core tools include a [telemetry feature](https://docs.microsoft.com/en-us/dotnet/articles/core/tools/telemetry)  to help the .NET team to understand how the tools are being used so they can improve them.
 
 The telemetry feature collects the following pieces of data:
  - The command being used (for example, `build`, `restore`)
@@ -31,8 +31,6 @@ Today, we're making that anonymous data available in CSV format:
 * [February 2017](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2017-02-01.csv)
  
  > Note: The above data runs through February 2017. There's some time-consuming processing and verification in place to make sure that we're not releasing any personally identifiable information. We're working on that process optimized and getting current data released right at the beginning of each month going forward.
- 
-The permanent location for this data will be at http://dotnetfoundation.org/telemetry
  
  ## Data Insights
  
