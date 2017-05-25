@@ -1,7 +1,7 @@
 .NET and Docker
 ===============
 
-Many developers I talk to are either using Docker actively or planning to adopt containers in their environment. Containers are an important trend in our industry and .NET is part of that. [Microsoft and Docker](https://weblogs.asp.net/scottgu/docker-and-microsoft-integrating-docker-with-windows-server-and-microsoft-azure) have been working together so that you'll have a great experience using Docker with .NET apps.
+Many developers I talk to are either using [Docker](https://www.docker.com/) actively or planning to adopt containers in their environment. Containers are an important trend in our industry and .NET is part of that. [Microsoft and Docker](https://weblogs.asp.net/scottgu/docker-and-microsoft-integrating-docker-with-windows-server-and-microsoft-azure) have been working together so that you'll have a great experience using Docker with .NET apps.
 
 The Docker ecosystem started as a Linux technology. You can use a similar Docker workflow with Linux and .NET Core as you may have used with other development platforms. The .NET team publishes Debian images to the [microsoft/dotnet](https://hub.docker.com/r/microsoft/dotnet/) repository on Docker Hub frequently.
 
@@ -12,17 +12,16 @@ These options give you a lot of choices in the way you build and package your .N
 Why Containers?
 ---------------
 
-There are multiple reasons why developers have been moving to containers to model, build, package, test and distribute their applications.
+The following list shows the key reasons developers are moving to containers:
 
 - **Consistent:** Containers include the application and all of its dependencies. The application executes the same code, regardless of computer, environment or cloud.
 - **Lightweight:** Containers start quickly and use a minimal amount of RAM by using a minimal abstraction over the host operating system and sharing common resources across containers.
-- **Sharing:** Containers are easy to share via [Docker Hub](https://hub.docker.com/), the [Docker Store](https://store.docker.com/), and private Docker registries, such as the [Azure Container Registry](https://azure.microsoft.com/services/container-registry/).
+- **Sharing:** Container images are easy to share via [Docker Hub](https://hub.docker.com/), the [Docker Store](https://store.docker.com/), and private Docker registries, such as the [Azure Container Registry](https://azure.microsoft.com/services/container-registry/).
+- **Simple yet powerful:** The DockerFile format (the recipe for container images) is a simple format that enables powerful scenarios: neatly marries operating-system and container-specific commands and also surfaces the creation of Docker image layer.
 
-There are plenty of other reasons why containers are catching on. The ones listed above are the key ones.
+Imagine just a few years ago someone telling you in a job interview that they care so much about consistency that they always ship the operating system with their app. You probably wouldn't have hired them. Yet, that's exactly the model Docker uses!
 
-Imagine just a few years ago telling someone that you care so much about consistency that you always ship your preferred operating system with your app. At least in the Windows ecosystem, you would have gotten some strange looks. Yet, that's exactly the model Docker uses.
-
-As an example on the .NET Team, we realized that we needed to add test coverage for containers. Instead of "testing the container scenario", we decided to move significant parts of our engineering infrastructure to containers to get the same benefits listed above. This approach has provided us with the double benefit of developing high confidence in running .NET in containers and making our overall process more efficient and cheaper. 
+As an example, on the .NET Team, we realized that we needed to add test coverage for containers. Instead of simply "testing .NET in Docker containers", we decided to move significant parts of our engineering infrastructure to containers to get the benefits of containers. This approach has provided us with the double benefit of developing high confidence in running .NET in containers and making our overall process more efficient and cheaper. In just this one case, we are now saving about a person of time and $100k/year in machine/cloud costs in our infrastructure lab, per year. I'm really glad that we were able to container those costs.
 
 Scenarios for .NET Applications
 -------------------------------
@@ -30,7 +29,7 @@ Scenarios for .NET Applications
 The most obvious scenario for using Docker and .NET applications is for production deployment and hosting. It turns out that production is just one scenario and the other ones are equally useful. These scenarios are not specific to .NET, but should apply to most developer platforms.
 
 - **Low friction install** -- You can try out .NET without installing anything on your machine. Just download a Docker image with .NET in it.
-- **Develop in a container** -- You can develop in a consistent environment, making development and production environments very similar (avoiding issues like global state on developer machines). Visual Studio Docker Tools even enable you to start a container directly from Visual Studio.
+- **Develop in a container** -- You can develop in a consistent environment, making development and production environments very similar (avoiding issues like global state on developer machines). [Visual Studio Tools for Docker](https://docs.microsoft.com/en-us/dotnet/articles/core/docker/visual-studio-tools-for-docker) even enable you to start a container directly from Visual Studio.
 - **Test in a container** -- You can test in a container, reducing failures due to incorrectly configured environments or other changes left behind from the last test.
 - **Build in a container** -- You can build code in a container, avoiding the need to correctly configure shared build machines for multiple environments but instead move to a "BYOC" (bring your own container) approach.
 - **Deployment in test, stage, production and other environments** -- You can deploy an image through all of your environments, reducing failures due to differences in configuration, typically only changing the behavior of the image via external configuration (for example, injected environment variables).
@@ -66,7 +65,7 @@ docker run microsoft/dotnet-samples
 One of the most important aspects of using .NET with Docker is relying on the .NET base images that the .NET Team provides. There are at least four reasons why using the .NET base images is a good idea:
 
 - The .NET Team makes them so that you don't have to.
-- The .NET Team updates them regularly, for both big and small releases and security updates.
+- The .NET Team updates them regularly, including for security updates.
 - Docker shares the memory of common images when more than one application uses them on the same machine. The images have to be the same to be shared.
 - Docker scans images for security vulnerabilities, giving you more information about your environment.
 
@@ -94,7 +93,7 @@ These files define the set of images that we provide, their size, contents and o
 
 You'll quickly see that the Dockerfile source is stored on GitHub. You can follow the changes we make to the images, see why we're making them and participate in that conversation if you'd like.
 
-Docker Image Tag-ing
+Docker Image Taging
 ---------------------
 
 Docker images have cryptic IDs (for example, d99acb94e777) for identification by default. Since that's not super helpful for humans, Docker images can be given tags. That's usually a friendly name that describes what the image is for, such as "hello-world-app". That model works great locally on your machine. 
@@ -104,7 +103,7 @@ On Docker Hub, the repository name becomes the name for the image and the tags a
 .NET Core Tags
 --------------
 
-For .NET Core, [tags](https://hub.docker.com/r/microsoft/dotnet/tags/) are used to describe image differences on the following 3 axes:
+For .NET Core, [tags](https://hub.docker.com/r/microsoft/dotnet/tags/) are used to describe image differences on the following three axes:
 
 - .NET Core Version - .NET Core 1.0, 1.1 and 2.0 (at the time of writing).
 - .NET Core distribution - .NET Core Runtime, .NET Core SDK, .NET Core dependencies only
@@ -112,14 +111,14 @@ For .NET Core, [tags](https://hub.docker.com/r/microsoft/dotnet/tags/) are used 
 
 One of the key choices for the dotnet repository was the behavior of the `latest` tag. We made the choice that `latest` would always point to the latest .NET Core SDK version. For example, `latest` will be updated to point to the .NET Core SDK 2.0 when it ships as RTM. 
 
-The alternative would would have been mapping `latest` to the .NET Core Runtime. We felt that the SDK is the best image to start with and that its easier to refine your choices once you've have some experience with the larger SDK image.
+The alternative would have been mapping `latest` to the .NET Core Runtime. We felt that the SDK is the best image to start with and that is easier to refine your choices once you have some experience with the larger SDK image.
 
 We recently changed [.NET Core Docker images to use multi-arch based tags](https://github.com/dotnet/announcements/issues/14). This change reduces the number of places you need to consider the third axis above. It means that your Dockerfile files no longer have to define which operating system that you are targeting.
 
 .NET Framework Tags
 -------------------
 
-For .NET Framework, [tags](https://hub.docker.com/r/microsoft/dotnet-framework/tags/) are used to describe image differences on just 1 axis:
+For .NET Framework, [tags](https://hub.docker.com/r/microsoft/dotnet-framework/tags/) are used to describe image differences on just one axis:
 
 - .NET Framework version -- 3.5, 4.6.2
 
@@ -128,7 +127,7 @@ The `latest` tag maps to the highest .NET Framework version. `latest` will be up
 Segmenting repositories
 -----------------------
 
-There is no hard and fast rule that I've seen on how to structure repositories. I'd say that a good rule of thumb is the following:
+There is no hard and fast rule on how to structure repositories. The following is a good rule of thumb:
 
 > `docker pull` on a repository should provide a meaningful and intuitive image. The other images in the repository should pivot on a narrow set of additional concepts relative to that default image.
 
@@ -139,10 +138,10 @@ Update Model
 
 The .NET images are updated quite often, sometimes for [security updates](https://blogs.msdn.microsoft.com/dotnet/2017/05/09/net-core-may-2017-update/). You can download these updates by performing a `docker pull`. `docker build` does not request updates from the server.
 
-For Windows images, the .NET Dockerfile definitions rely on a specific base image. You can see that in the first line of the [microsoft/dotnet:1.0-runtime-nanoserver](https://github.com/dotnet/dotnet-docker/blob/master/1.0/nanoserver/runtime/Dockerfile) Dockerfile definition, included below:
+For Windows images, the .NET Dockerfile definitions rely on a specific base image. You can see that in the first line of the [microsoft/dotnet:1.0-runtime-nanoserver](https://github.com/dotnet/dotnet-docker/blob/master/1.0/runtime/nanoserver/Dockerfile) Dockerfile definition, included below:
 
 ```
-FROM microsoft/nanoserver:10.0.14393.1066
+FROM microsoft/nanoserver:10.0.14393.1198
 ```
 
 On "patch Tuesdays" (the second Tuesday of each month), the Windows Team will typically release patches and update their base images. This will result in updated .NET images.
@@ -155,8 +154,6 @@ FROM debian:jessie
 
 The [Debian repo](https://hub.docker.com/_/debian/) includes Debian Stretch (Debian 9) images. It's the next version after Debian Jessie (Debian 8). We will not automatically roll forward .NET Core tags that use Debian Jessie to Debian Stretch but will create a new tag for it. This is similar to what other platforms do.
 
-Docker offers a service called AutoBuild that rebuilds higher-level images when base images change. The .NET Core images make use of this. For example, the [microsoft/dotnet:1.0-sdk](https://github.com/dotnet/dotnet-docker/blob/master/1.0/debian/sdk/Dockerfile) image is automatically rebuilt when the underlying [debian:jesse](https://hub.docker.com/_/debian/)image is rebuilt.
-
 Migrating .NET Framework Applications to Containers
 -------------------------------------------
 
@@ -164,7 +161,7 @@ Wouldn't it be exciting if there was a tool to convert VHDs to Docker containers
 
 At [DockerCon 2017](http://2017.dockercon.com/), there was **much excitement** around a tool designed for migrating Windows VMs to containers called [Image2Docker](https://github.com/docker/communitytools-image2docker-win). This tool is maintained by Docker on GitHub.
 
-The Image2Docker Powershell module can be used with VHD, VHDX, or WIM image files and generate a high fidelity `Dockerfile` that builds a Docker image. The premise is that this tool will help you build a Docker image that is the same as your VHD but provides the benefits of Docker. This tool won't build the prettiest `Dockerfile` but it is a fantastic starting place for folks eager to migrate their .NET Framework applications to containers! 
+The Image2Docker PowerShell module can be used with VHD, VHDX, or WIM image files and generate a high fidelity `Dockerfile` that builds a Docker image. The premise is that this tool will help you build a Docker image that is the same as your VHD but provides the benefits of Docker. This tool won't build the prettiest `Dockerfile` but it is a fantastic starting place for folks eager to migrate their .NET Framework applications to containers! 
 
 You can view the [Image2Docker DockerCon talk](https://www.youtube.com/watch?v=YVfiK72Il5A) or read Docker's [Convert ASP.NET Web Servers To Docker with ImageDocker](https://blog.docker.com/2016/12/convert-asp-net-web-servers-docker-image2docker/) to learn more.
 
@@ -173,8 +170,8 @@ Note: You will need [Docker for Windows](https://www.docker.com/community-editio
 Closing
 -------
 
-As a team, we've been focussed on enabling .NET with Docker for about two years now. Our approach to Docker has changed a lot in that time, in large part due to adapting to the quick pace of change in the Docker ecosystem. We've also adopted Docker more ourselves. We'll continue to adapt our approach to ensure that .NET is one of the best platforms for containerized applications.
+As a team, we've been focused on enabling .NET with Docker for about two years now. Our approach to Docker has changed a lot in that time, in large part due to adapting to the quick pace of change in the Docker ecosystem. We've also adopted Docker more ourselves. We'll continue to adapt our approach to ensure that .NET is one of the best platforms for containerized applications.
 
 I'd like to share a "shout out" to our friends at Docker. We've been working with many of them with the goal of making .NET and Docker work great together. The Docker folks have also been very receptive when we've suggested improvements that we think would make life easier for .NET developers. Multi-arch tags and multi-stage builds are great examples of new scenarios that we've had the benefit of participating in early.
 
-Please give .NET a try with Docker. We'd appreciating hearing about your experiences. In fact, we're interesting in finding some customers that have large Docker deployments with .NET. We want to learn from your experiences and apply that in the next batch of .NET and Docker improvements. Please provide your feedback in the comments below or drop us a line at dotnet@microsoft.com.
+Please give .NET a try with Docker. We'd appreciating hearing about your experiences. In fact, we're interested in finding some customers that have large Docker deployments with .NET. We want to learn from your experiences and apply that in the next batch of .NET and Docker improvements. Please provide your feedback in the comments below or drop us a line at dotnet@microsoft.com.
