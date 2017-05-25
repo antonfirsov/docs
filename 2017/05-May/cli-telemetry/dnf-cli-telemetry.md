@@ -10,6 +10,7 @@ The telemetry feature collects the following pieces of data:
  - The framework used
  - Whether runtime IDs are present in the `runtimes` node
  - The CLI version being used
+
 As described in the documentation, you're able to opt-out telemetry collection by setting the `DOTNET_CLI_TELEMETRY_OPTOUT` variable.
  
 The data collected is anonymous, and we've promised that the it would be published in an aggregated form for use by both Microsoft and community engineers under the Creative Commons Attribution License.
@@ -17,19 +18,19 @@ The data collected is anonymous, and we've promised that the it would be publish
 ## First Release of the Raw Data
 
 Today, we're making that anonymous data available in CSV format:
- - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2016-04-01.csv">CLI_2016-04-01.csv</a>
- - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2016-05-01.csv">CLI_2016-05-01.csv</a>
- - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2016-06-01.csv">CLI_2016-06-01.csv</a>
- - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2016-07-01.csv">CLI_2016-07-01.csv</a>
- - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2016-08-01.csv">CLI_2016-08-01.csv</a>
- - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2016-09-01.csv">CLI_2016-09-01.csv</a>
- - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2016-10-01.csv">CLI_2016-10-01.csv</a>
- - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2016-11-01.csv">CLI_2016-11-01.csv</a>
- - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2016-12-01.csv">CLI_2016-12-01.csv</a>
- - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2017-01-01.csv">CLI_2017-01-01.csv</a>
- - <a href="https://netcoretelemetrydata.blob.core.windows.net/csv/CLI_2017-02-01.csv">CLI_2017-02-01.csv</a>
+* [April 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-04-01.csv)
+* [May 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-05-01.csv)
+* [June 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-06-01.csv)
+* [July 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-07-01.csv)
+* [August 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-08-01.csv)
+* [September 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-09-01.csv)
+* [October 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-10-01.csv)
+* [November 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-11-01.csv)
+* [December 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-12-01.csv)
+* [January 2017](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2017-01-01.csv)
+* [February 2017](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2017-02-01.csv)
  
- > Note: The above data runs through February 2017. There's some time consuming processing and verification in place to make sure that we're not releasing any personally identifiable information. We're working on that process optimized and getting current data released right at the beginning of each month going forward.
+ > Note: The above data runs through February 2017. There's some time-consuming processing and verification in place to make sure that we're not releasing any personally identifiable information. We're working on that process optimized and getting current data released right at the beginning of each month going forward.
  
 The permanent location for this data will be at http://dotnetfoundation.org/telemetry
  
