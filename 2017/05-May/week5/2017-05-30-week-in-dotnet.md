@@ -10,7 +10,7 @@ Previous posts:
 Package of the week: Open XML SDK
 ---------------------------------
 
-The Open XML SDK provides open-source libraries for working with Word, Excel, and PowerPoint documents. It supports scenarios such as: high-performance generation of word-processing documents, spreadsheets, and presentations, high fidelity conversion of Word documents to HTML, extraction of data from XLSX, and document modification.
+The Open XML SDK provides open-source libraries for working with Word, Excel, and PowerPoint documents. It supports scenarios such as high-performance generation of word-processing documents, spreadsheets, and presentations, high fidelity conversion of Word documents to HTML, extraction of data from XLSX, and document modification.
 
 ```csharp
 using (WordprocessingDocument doc = 
@@ -42,13 +42,13 @@ On [Wednesday, May 31 at 6PM, the Edmunton .NET User Group has an "up and runnin
 
 ## .NET
 
+* [.NET Framework May 2017 Cumulative Quality Update for Windows 10](https://blogs.msdn.microsoft.com/dotnet/2017/05/26/net-framework-may-2017-cumulative-quality-update-for-windows-10/) by Rich Lander.
+* [Using .NET and Docker Together](https://blogs.msdn.microsoft.com/dotnet/2017/05/25/using-net-and-docker-together/) by Rich Lander.
 * [Integration testing with .NET Core](https://medium.com/@dmitriy.litichevskiy/integration-testing-with-net-core-e82e0d923794) by Dmitriy Litichevskiy.
 * [An Early Look at Multi-Tenancy in Marten 2.0](https://jeremydmiller.com/2017/05/22/an-early-look-at-multi-tenancy-in-marten-2-0/) by Jeremy D. Miller.
 * [Message Handlers in the new Jasper Service Bus](https://jeremydmiller.com/2017/05/25/message-handlers-in-the-new-jasper-service-bus/) by Jeremy D. Miller.
 * [Actor model and using of Akka.NET](https://rubikscode.net/2017/05/28/actor-model-and-using-of-akka-net/) by Rubik’s Code.
 * [.NET Framework setup verification tool, cleanup tool and detection sample code now support .NET Framework 4.7](https://blogs.msdn.microsoft.com/astebner/2017/05/26/net-framework-setup-verification-tool-cleanup-tool-and-detection-sample-code-now-support-net-framework-4-7/) by Aaron Stebner.
-* [Using .NET and Docker Together](https://blogs.msdn.microsoft.com/dotnet/2017/05/25/using-net-and-docker-together/) by Rich Lander.
-* [.NET Framework May 2017 Cumulative Quality Update for Windows 10](https://blogs.msdn.microsoft.com/dotnet/2017/05/26/net-framework-may-2017-cumulative-quality-update-for-windows-10/) by Rich Lander.
 * [Managed object internals, Part 1. Layout](https://blogs.msdn.microsoft.com/seteplia/2017/05/26/managed-object-internals-part-1-layout/) by Sergey Teplyakov.
 
 ## ASP.NET
@@ -64,8 +64,7 @@ On [Wednesday, May 31 at 6PM, the Edmunton .NET User Group has an "up and runnin
 * [ASP.NET Core Sample Image Resizing Service](http://sikorsky.pro/en/blog/aspnet-core-image-resizing-service) by Dmitry Sikorsky.
 * [Precompiling razor views](https://www.meziantou.net/2017/05/29/asp-net-core-precompiling-razor-views) by Gérald Barré.
 * [Exploiting Partial and RenderPartial in ASP.NET MVC](https://visualstudiomagazine.com/articles/2017/05/26/tip-partial-renderpartial-aspnet-mvc.aspx) by Peter Vogel.
-* [Handling 404 Not Found in Asp.Net Core](https://www.devtrends.co.uk/blog/handling-404-not-found-in-asp.net-core) by DevTrends.
-* [Handling errors in an ASP.NET Core Web API](https://www.devtrends.co.uk/blog/handling-errors-in-asp.net-core-web-api) by DevTrends.
+* [Handling 404 Not Found in Asp.Net Core](https://www.devtrends.co.uk/blog/handling-404-not-found-in-asp.net-core) and [Handling errors in an ASP.NET Core Web API](https://www.devtrends.co.uk/blog/handling-errors-in-asp.net-core-web-api) by DevTrends.
 * [ASP.NET Core Correlation IDsWriting a basic middleware library to enable correlation IDs on ASP.NET Core](https://www.stevejgordon.co.uk/asp-net-core-correlation-ids) by Steve Gordon.
 
 ## C#
@@ -80,7 +79,7 @@ On [Wednesday, May 31 at 6PM, the Edmunton .NET User Group has an "up and runnin
 * [Agile Experiments in Machine Learning with F# - Mathias Brandewinder](http://www.channel64.net/2017/05/agile-experiments-in-machine-learning.html) by channel64.
 * [Xamarin Forms: MvvmCross with F#](http://www.codingwithsam.com/xamarin-forms-mvvmcross-with-f/) by sam.
 * [Introducing F# intro](http://blog.2mas.xyz/introducing-f-intro/) by Tomas Jansson.
-* [F# Works 2017 Survey Results](https://docs.google.com/forms/d/e/1FAIpQLSeZ1EJe1pfztiUudIclcMU1lV-vXCUlGqECPQMZxFD6Q0zGoA/viewanalytics) by UNKNOWN.
+* [F# Works 2017 Survey Results](https://docs.google.com/forms/d/e/1FAIpQLSeZ1EJe1pfztiUudIclcMU1lV-vXCUlGqECPQMZxFD6Q0zGoA/viewanalytics).
 * [Lambda expressions in F#](https://dotnetcodr.com/2017/05/27/lambda-expressions-in-f/) by Andras Nemes.
 * [Feeding a function result into a pattern matching lambda expression in F#](https://dotnetcodr.com/2017/05/28/feeding-a-function-result-into-a-pattern-matching-lambda-expression-in-f/) by Andras Nemes.
 
