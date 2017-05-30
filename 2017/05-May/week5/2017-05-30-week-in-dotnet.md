@@ -1,6 +1,9 @@
-﻿The week in .NET - Open XML SDK, Adventure Time
-===============================================
-
+﻿---
+title: The week in .NET - Open XML SDK, Adventure Time
+keywords: Week in .NET, .NET, community
+weblogName: .NET Blog
+postId: 10625
+---
 Previous posts:
 
 * [.NET poster, Happy Birthday .NET with Jan Kotas, Skyworld](https://blogs.msdn.microsoft.com/dotnet/2017/05/23/the-week-in-net-net-poster-happy-birthday-net-with-jan-kotas-skyworld/)
@@ -13,8 +16,7 @@ Package of the week: Open XML SDK
 The Open XML SDK provides open-source libraries for working with Word, Excel, and PowerPoint documents. It supports scenarios such as high-performance generation of word-processing documents, spreadsheets, and presentations, high fidelity conversion of Word documents to HTML, extraction of data from XLSX, and document modification.
 
 ```csharp
-using (WordprocessingDocument doc = 
-    WordprocessingDocument.Open(strDoc, true))
+using (var doc = WordprocessingDocument.Open(strDoc, true))
 {
     var p = new Paragraph(new Run(new Text(
         "This is some text in a run in a paragraph.")));
