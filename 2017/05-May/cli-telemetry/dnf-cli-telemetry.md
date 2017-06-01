@@ -1,23 +1,11 @@
-## .NET Core Tools Telemetry
+# .NET Core SDK Usage Data Release
 
-The .NET Core tools include a [telemetry feature](https://docs.microsoft.com/en-us/dotnet/articles/core/tools/telemetry)  to help the .NET team to understand how the tools are being used so they can improve them.
+We are releasing anonymous .NET Core CLI usage data that has been collected by the .NET Core SDK. It has always been our goal to release this data as part of being an open source project. We are now doing that and intend to release the data on a regular schedule going forward. The data is licensed with the [Open Data Commons Attribution License](https://opendatacommons.org/licenses/by/).
 
-The telemetry feature collects the following pieces of data:
- - The command being used (for example, `build`, `restore`)
- - The `ExitCode` of the command
- - For test projects, the test runner being used
- - The timestamp of invocation
- - The framework used
- - Whether runtime IDs are present in the `runtimes` node
- - The CLI version being used
+## .NET Core SDK Usage Data
 
-As described in the documentation, you're able to opt-out telemetry collection by setting the `DOTNET_CLI_TELEMETRY_OPTOUT` variable.
- 
-The data collected is anonymous, and we've promised that the it would be published in an aggregated form for use by both Microsoft and community engineers under the Creative Commons Attribution License.
+.NET Core SDK usage data is available, by month, in CSV format:
 
-## First Release of the Raw Data
-
-Today, we're making that anonymous data available in CSV format:
 * [April 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-04-01.csv)
 * [May 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-05-01.csv)
 * [June 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-06-01.csv)
@@ -30,42 +18,131 @@ Today, we're making that anonymous data available in CSV format:
 * [January 2017](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2017-01-01.csv)
 * [February 2017](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2017-02-01.csv)
  
- > Note: The above data runs through February 2017. There's some time-consuming processing and verification in place to make sure that we're not releasing any personally identifiable information. We're working on that process optimized and getting current data released right at the beginning of each month going forward.
- 
- ## Data Insights
- 
-As you'd hope, there's a ton of useful information in these logs. The development team is using the usage trends to prioritize features, drill in on common issues, etc.
+Note: The data runs through February 2017. There's some time-consuming processing and verification in place to make sure that we're not releasing any personally identifiable information. We're working on improving that process and getting data released in a timely fashion going forward.
 
-In addition to product development insights, the data reveals a lot of interesting trends. Let's take a look at historical data (since we started collecting in April 2016):
+## Shape of the Data
 
-> Note: Remember that this data is just from the CLI. There is of course a significant amount of .NET Core usage via Visual Studio, as well.
+The following is an example of the data you will find in the CSV files.
+
+```csv
+Occurrences,Date,EventName,CountryOrRegionISOLong,OSVersion,OSPlatform,RuntimeID,ProductVersion
+5,2017-01-31,restore,BLR,8,Linux,debian.8-x64,1.0.0-preview2-1-003177
+1,2017-01-30,restore,CZE,16.10,Linux,ubuntu.16.10-x64,1.0.0-preview2-1-003177
+1,2017-02-01,projectmodel-server,AUS,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
+1,2017-01-31,projectmodel-server,NLD,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
+2,2017-02-01,restore,AUS,10.12,Darwin,osx.10.12-x64,1.0.0-preview2-1-003177
+38,2017-02-01,build,AUS,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
+27,2017-02-01,razor-tooling,CHN,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
+3,2017-02-01,build,VNM,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
+5,2017-02-01,restore,JPN,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
+1,2017-02-01,publish-iis,CHN,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
+1,2017-02-01,razor-tooling,VNM,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
+1,2017-02-01,build,MYS,10.0.10586,Windows,win10-x64,1.0.0-preview2-1-003177
+1,2017-02-01,aspnet-codegenerator,USA,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
+102,2017-02-01,test,USA,10.0.14393,Windows,win10-x64,1.0.0-preview2-1-003177
+```
+ 
+ ## Product Findings and Decisions
+
+This data has been very useful to the .NET Core team for a year now. We have made multiple decisions based on this data. We have also coorelated it with other data, for example .NET Core download data and [Docker pull counts](https://hub.docker.com/r/microsoft/), to help validate and understand various trends.
+
+Here are some interesting findings that we have made based on this data:
+
+- .NET Core usage is growing.
+- .NET Core usage is geographically diverse.
+- The CLI scenario is at least as important as we thought it was. We should continue and increase our focus on the CLI tools and experiences.
+- Developers do not use the .NET Core SDK the same way on Windows, macOS and Linux.
+- The publishing model for .NET Core apps is likely confusing some people.
+- We have more work to do to reach out to the Linux and macOS communities.
+- Our approach to supporting Linux (one build per distro) isn't providing broad enough support.
+- There are gaps in the data that limit our understanding (for example, if the SDK is running in a container).
+
+We have immediate and longer-lead plans based on this data:
+
+- .NET Core 2.0 will ship with a single Linux build, making it easier to use .NET Core on Linux. .NET Core 1.x has nearly a dozen Linux builds for specific distros (for example, RHEL, Debian and Ubuntu are all separate) and limits support to those distros.
+- .NET Core 2.0 will be easily buildable from source so that Linux distros can include .NET Core in their package repository/archive/collection. We are talking to distros about that now.
+- .NET Core 2.0 will not require OpenSSL on macOS, with the intention of increasing adoption on macOS.
+- .NET Core 2.0 will include more data points for the SDK. More on that below.
+- We will attend and/or encourage local experts to participate in more conferences (globally) to talk about .NET Core.
+
+More forward-looking:
+
+- Fix the build and publishing model for .NET Core. The differences between `run`, `build` and `publish` are confusing people.
+- Enable more tools scenarios including distribution of tools, possibly like [npm install --global](https://docs.npmjs.com/cli/install).
+ 
+The way that the data was used is different in each case. In some cases, like looking at overall usage or at the usage of specific commands, we are very reliant on this data to make decisions. In the case of removing the OpenSSL dependency on macOS, we used the data as secondary evidence to user feedback. The findings and decisions above were influenced in a significant way, and in some cases primarily, by the data we are releasing today.
+
+## Data Insights
+ 
+As you'd hope, there's a ton of useful information in these logs. In addition to product development insights, the data reveals a lot of interesting trends. Let's take a look at historical data (since we started collecting in April 2016):
+
+Note: this data is just from direct use of the CLI. There is of course a significant amount of .NET Core usage via Visual Studio, as well.
 
 ### Command Variations by Operating System
 ![Commands by OS](cli-commands-by-os.png)
 
-There are some revealing differences in command usage between operating systems. We can see that `build` is by far the leading command on Windows, `run` on Linux, and `restore` on OSX. I'd interpret this to say that we're seeing a lot of application development on Windows, maybe more "kicking the tires" scaffolding applications on OSX using Yeoman, while Linux is primarily being used to host applications.
+There are some interesting and surprising differences in command usage between operating systems. We can see that `build` is by far the leading command on Windows, `run` on Linux, and `restore` on macOS. I'd interpret this to say that we're seeing a lot of application development on Windows, maybe more "kicking the tires" scaffolding applications on macOS using Yeoman (since `dotnet new` usage is low), while Linux is primarily being used to host applications.
+
+Note: The chart says "OSX", which is the old name for macOS.
 
 ### Weekly Trends
 ![Weekly cycle](cli-weekly-cycle.png)
 
 You can see that there's an obvious cycle that follows the work week. Looking closer, it's clear that the `build` and `restore` commands drop off quite a bit on the weekend, while the `run` command doesn't quite as much.
 
+We wonder if developers use `build` and `restore` while maybe there is some significant automation somewhere that uses `run` that doesn't take weekends off. This difference in commands usage remains an open question. 
+
 ### Geographic Distributions
 ![Geographic Distribution](cli-client-os-geo.png)
 
-It's interesting to take a look at the geographic variations in client operating system usage. Most have a mix, but you can see that some areas run predominantly on a single operating system.
+It's interesting to take a look at the geographic variations in client operating system usage. Most have a mix, but you can see that some areas run predominantly on a single operating system, at least as it relates to .NET Core usage.
+
+This data and visualization is based on the IP address seen on the server. The IP address is not stored, but converted to a city/country representation.
 
 ### Overall Operating System Distribution
 ![OS Distribution](cli-os-distribution-by-distinctip.png)
 
-Given .NET's roots, it's not surprising to see a pretty large Windows following. It's exciting to see some pretty substantial Linux and Darwin (OSX) usage as well. Keep in mind that these are distinct IP's here, so we could in some cases be seeing multiple Docker instances running under a single Linux IP, for instance.
+Given .NET's roots, it's not surprising to see a pretty large Windows following. It's exciting to see some pretty substantial Linux and Darwin (macOS) usage as well.
 
 ### Operating System Version Distribution
 
 ![Operating System Version Distribution](cli-os-versions.png)
 
-It looks like we're seeing .NET Core running mostly on the newest operating system versions at this point. I think that makes sense, since .NET Core has historically attracted the early adopter crowd who are also mostly likely to be jumping on the newest operating system releases.
+It looks like .NET Core is running mostly on the newest operating system versions at this point. This aligns with our expecation that .NET Core has been adopted mostly by "early adopters" to this point. In 2-3 years, we expect that the operating system distribution will be more varied. 
+
+## How the Data is Collected
+
+.NET Core has two primary distributions: the .NET Core SDK for development and build scenarios and the .NET Core Runtime for running apps in production. The .NET Core SDK [collects usage data](https://docs.microsoft.com/dotnet/core/tools/telemetry) while the .NET Core Runtime does not.
+
+The SDK collects the following pieces of data:
+ - The command being used (for example, `build`, `restore`).
+ - The `ExitCode` of the command.
+ - For test projects, the test runner being used.
+ - The timestamp of invocation.
+ - Whether runtime IDs are present in the `runtimes` node.
+ - The CLI version being used.
+
+The data collected is anonymous. 
+
+The data does not include Visual Studio usage since it uses msbuild directly and not the higher-level .NET Core CLI tools (which is where data collection is implemented).
+
+As described in [.NET Core documentation](https://docs.microsoft.com/dotnet/core/tools/telemetry), you can opt-out of telemetry by setting the `DOTNET_CLI_TELEMETRY_OPTOUT` variable.
+
+## Data for .NET Core 2.0
+
+The data that has been collected the .NET Core SDK 1.0 has demonstrated some important gaps in our understanding of how the product is being used. The following additional data points are planned for .NET Core SDK 2.0.
+
+- `dotnet` command arguments and options -- Determine more detailed product usage. For example, for `dotnet new`, collect the template name. For `dotnet build --framework netstandard2.0`, collect the framework specified. Only known arguments and options will be collected.
+- Containers -- Determine if the SDK is running in a container. Useful to help prioritize container-related investments.
+- Command duration --  Determine how long a command runs. Useful to identify performance problems that should be investigated.
+- Target Framework(s) -- Determine which target frameworks are used and whether multiple are specified. Useful to understand which .NET Standard versions are the most popular and whether new guidance should be written, for example.
+- Hashed project file path -- Determine how much of .NET Core SDK usage is for "kicking the tires" apps verus more serious projects. Useful for prioritizing features like interactive template creation (like Yeoman).
+- Hashed MAC -- Determine a unique ID for the machine. Useful to determine the aggregate population of active users, for example.
+
+Note: Any data that could be considered personally identifiable will not be publicly released.
 
 ## More to Come
 
-This is a beginning, and a first effort. We will continue to make this data available to you in a timely manner, and we're going to look into making it easy for you to visualize the kinds of trends we're seeing. But we don't want to hold things up, so we're starting by providing you data in raw format.
+We will continue to make this data available to you in a timely manner, and we're going to look into making it possible for you to visualize the kinds of trends we're seeing (like in the images above). For now, we're making the raw data available to you.
+
+Thanks to everyone that has been using .NET Core. The community engagement on the project has been amazing and we are making a great product together. Thanks to everyone who has telemetry enabled. This information is helping us make the product better and will become even more useful in the future. We are now doing our part to make the data collected publicly available. This makes good on a promise that we made at the start of the project. We now look forward to other developers reasoning about this data and using it as part of project decision making.
