@@ -140,7 +140,7 @@ You can opt-out of telemetry by setting the `DOTNET_CLI_TELEMETRY_OPTOUT` variab
 
 The data that has been collected the .NET Core SDK 1.0 has demonstrated some important gaps in our understanding of how the product is being used. The following additional data points are planned for .NET Core SDK 2.0.
 
-- `dotnet` command arguments and options -- Determine more detailed product usage. For example, for `dotnet new`, collect the template name. For `dotnet build --framework netstandard2.0`, collect the framework specified. Only known arguments and options will be collected.
+- `dotnet` command arguments and options -- Determine more detailed product usage. For example, for `dotnet new`, collect the template name. For `dotnet build --framework netstandard2.0`, collect the framework specified. Only known arguments and options will be collected (not arbitrary strings).
 - Containers -- Determine if the SDK is running in a container. Useful to help prioritize container-related investments.
 - Command duration --  Determine how long a command runs. Useful to identify performance problems that should be investigated.
 - Target Framework(s) -- Determine which target frameworks are used and whether multiple are specified. Useful to understand which .NET Standard versions are the most popular and whether new guidance should be written, for example.
