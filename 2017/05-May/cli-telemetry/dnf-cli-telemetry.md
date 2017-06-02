@@ -1,6 +1,14 @@
-# .NET Core SDK Usage Data Release
+# .NET Core CLI Usage Data Release
 
-We are releasing anonymous .NET Core CLI usage data that has been collected by the .NET Core SDK. It has always been our goal to release this data as part of being an open source project. We are now doing that and intend to release the data on a regular schedule going forward. The data is licensed with the [Open Data Commons Attribution License](https://opendatacommons.org/licenses/by/).
+We are releasing anonymous .NET Core CLI usage data that has been collected as part of the .NET Core SDK. As an open source application platform, we feel that it is important to release this data for three key reasons:
+
+- Provide context and motivation for product decisions that have been made.
+- Enable you and other community members to participate in decision making based on this data.
+- Highlight .NET Core CLI scenarios that are the most common and those that should be improved.
+
+We will release new data on a regular schedule going forward. The data is licensed with the [Open Data Commons Attribution License](https://opendatacommons.org/licenses/by/).
+
+Note: You can opt-out of telemetry by setting the `DOTNET_CLI_TELEMETRY_OPTOUT` variable, as described in [.NET Core documentation](https://docs.microsoft.com/dotnet/core/tools/telemetry).
 
 ## .NET Core SDK Usage Data
 
@@ -17,8 +25,8 @@ We are releasing anonymous .NET Core CLI usage data that has been collected by t
 * [December 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-12-01.csv)
 * [January 2017](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2017-01-01.csv)
 * [February 2017](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2017-02-01.csv)
- 
-Note: The data runs through February 2017. There's some time-consuming processing and verification in place to make sure that we're not releasing any personally identifiable information. We're working on improving that process and getting data released in a timely fashion going forward.
+
+Note to reviewers: More data still coming, before posting.
 
 ## Shape of the Data
 
@@ -44,18 +52,18 @@ Occurrences,Date,EventName,CountryOrRegionISOLong,OSVersion,OSPlatform,RuntimeID
  
  ## Product Findings and Decisions
 
-This data has been very useful to the .NET Core team for a year now. We have made multiple decisions based on this data. We have also coorelated it with other data, for example .NET Core download data and [Docker pull counts](https://hub.docker.com/r/microsoft/), to help validate and understand various trends.
+This data has been very useful to the .NET Core team for a year now. In some cases, like looking at overall usage or at the usage of specific commands, we are very reliant on this data to make decisions. For more specific decisions, like the case of removing the OpenSSL dependency on macOS, we used the data as secondary evidence to user feedback.
 
 Here are some interesting findings that we have made based on this data:
 
-- .NET Core usage is growing.
-- .NET Core usage is geographically diverse.
-- The CLI scenario is at least as important as we thought it was. We should continue and increase our focus on the CLI tools and experiences.
-- Developers do not use the .NET Core SDK the same way on Windows, macOS and Linux.
-- The publishing model for .NET Core apps is likely confusing some people.
-- We have more work to do to reach out to the Linux and macOS communities.
-- Our approach to supporting Linux (one build per distro) isn't providing broad enough support.
-- There are gaps in the data that limit our understanding (for example, if the SDK is running in a container).
+- .NET Core usage is growing -- >10% per month.
+- .NET Core usage is geographically diverse -- used in n countries and all continents.
+- .NET Core CLI tools are a very important part of the overall .NET Core experience -- relative to .NET Framework, the CLI tools are novel.
+- Developers do not use the .NET Core SDK the same way on Windows, macOS and Linux -- the popular commands are different per OS. 
+- The publishing model for .NET Core apps is likely confusing some people -- the difference in the popular commands suggests a use of .NET Core that differs from our guidance (more investigation needed). 
+- We have more work to do to reach out to the Linux and macOS communities -- we would like to see increased use of .NET Core on thoses OSes.
+- Our approach to supporting Linux (one build per distro) isn't providing broad enough support -- .NET Core was used on n Linux distros yet it only works well on y distros.
+- There are gaps in the data that limit our understanding -- we would like to know if the SDK is running in a container, for example.
 
 We have immediate and longer-lead plans based on this data:
 
@@ -67,14 +75,14 @@ We have immediate and longer-lead plans based on this data:
 
 More forward-looking:
 
-- Fix the build and publishing model for .NET Core. The differences between `run`, `build` and `publish` are confusing people.
-- Enable more tools scenarios including distribution of tools, possibly like [npm install --global](https://docs.npmjs.com/cli/install).
+- Fix the build and publishing model for .NET Core -- the differences between `run`, `build` and `publish` are likely confusing people.
+- Enable more CLI scenarios -- enable distribution of tools, possibly like the way [NPM does global installs](https://docs.npmjs.com/cli/install).
  
 The way that the data was used is different in each case. In some cases, like looking at overall usage or at the usage of specific commands, we are very reliant on this data to make decisions. In the case of removing the OpenSSL dependency on macOS, we used the data as secondary evidence to user feedback. The findings and decisions above were influenced in a significant way, and in some cases primarily, by the data we are releasing today.
 
 ## Data Insights
  
-As you'd hope, there's a ton of useful information in these logs. In addition to product development insights, the data reveals a lot of interesting trends. Let's take a look at historical data (since we started collecting in April 2016):
+The data reveals interesting trends in addition to product development insights. Let's take a look at historical data (since April 2016):
 
 Note: this data is just from direct use of the CLI. There is of course a significant amount of .NET Core usage via Visual Studio, as well.
 
@@ -90,19 +98,19 @@ Note: The chart says "OSX", which is the old name for macOS.
 
 You can see that there's an obvious cycle that follows the work week. Looking closer, it's clear that the `build` and `restore` commands drop off quite a bit on the weekend, while the `run` command doesn't quite as much.
 
-We wonder if developers use `build` and `restore` while maybe there is some significant automation somewhere that uses `run` that doesn't take weekends off. This difference in commands usage remains an open question. 
+We wonder if developers use `build` and `restore` while automation that doesn't take weekends off uses `run`.
 
 ### Geographic Distributions
 ![Geographic Distribution](cli-client-os-geo.png)
 
-It's interesting to take a look at the geographic variations in client operating system usage. Most have a mix, but you can see that some areas run predominantly on a single operating system, at least as it relates to .NET Core usage.
+It's interesting to take a look at the geographic variations in operating system usage. Most geographies have a mix, but you can see that some areas run predominantly on a single operating system, at least as it relates to .NET Core usage.
 
-This data and visualization is based on the IP address seen on the server. The IP address is not stored, but converted to a city/country representation.
+This data and visualization is based on the IP address seen on the server. It is not collected by the CLI. The IP address is not stored, but converted to a city/country representation.
 
 ### Overall Operating System Distribution
 ![OS Distribution](cli-os-distribution-by-distinctip.png)
 
-Given .NET's roots, it's not surprising to see a pretty large Windows following. It's exciting to see some pretty substantial Linux and Darwin (macOS) usage as well.
+Given .NET's roots, it's not surprising to see a large Windows following. It's exciting to see   substantial Linux and Darwin (macOS) usage as well.
 
 ### Operating System Version Distribution
 
@@ -124,9 +132,9 @@ The SDK collects the following pieces of data:
 
 The data collected is anonymous. 
 
-The data does not include Visual Studio usage since it uses msbuild directly and not the higher-level .NET Core CLI tools (which is where data collection is implemented).
+The data does not include Visual Studio usage since Visual Studio uses MSBuild directly and not the higher-level .NET Core CLI tools (which is where data collection is implemented).
 
-As described in [.NET Core documentation](https://docs.microsoft.com/dotnet/core/tools/telemetry), you can opt-out of telemetry by setting the `DOTNET_CLI_TELEMETRY_OPTOUT` variable.
+You can opt-out of telemetry by setting the `DOTNET_CLI_TELEMETRY_OPTOUT` variable, as described in [.NET Core documentation](https://docs.microsoft.com/dotnet/core/tools/telemetry).
 
 ## Data for .NET Core 2.0
 
@@ -137,7 +145,7 @@ The data that has been collected the .NET Core SDK 1.0 has demonstrated some imp
 - Command duration --  Determine how long a command runs. Useful to identify performance problems that should be investigated.
 - Target Framework(s) -- Determine which target frameworks are used and whether multiple are specified. Useful to understand which .NET Standard versions are the most popular and whether new guidance should be written, for example.
 - Hashed project file path -- Determine how much of .NET Core SDK usage is for "kicking the tires" apps verus more serious projects. Useful for prioritizing features like interactive template creation (like Yeoman).
-- Hashed MAC -- Determine a unique ID for the machine. Useful to determine the aggregate population of active users, for example.
+- Hashed MAC address -- Determine a unique ID for the machine. Useful to determine the aggregate population of active users, for example.
 
 Note: Any data that could be considered personally identifiable will not be publicly released.
 
