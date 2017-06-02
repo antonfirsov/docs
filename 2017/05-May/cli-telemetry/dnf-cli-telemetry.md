@@ -8,8 +8,6 @@ We are releasing anonymous .NET Core CLI usage data that has been collected as p
 
 We will release new data on a regular schedule going forward. The data is licensed with the [Open Data Commons Attribution License](https://opendatacommons.org/licenses/by/).
 
-Note: You can opt-out of telemetry by setting the `DOTNET_CLI_TELEMETRY_OPTOUT` variable, as described in [.NET Core documentation](https://docs.microsoft.com/dotnet/core/tools/telemetry).
-
 ## .NET Core SDK Usage Data
 
 .NET Core SDK usage data is available, by month, in CSV format:
@@ -27,6 +25,24 @@ Note: You can opt-out of telemetry by setting the `DOTNET_CLI_TELEMETRY_OPTOUT` 
 * [February 2017](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2017-02-01.csv)
 
 Note to reviewers: More data still coming, before posting.
+
+## The Data
+
+.NET Core has two primary distributions: the .NET Core SDK for development and build scenarios and the .NET Core Runtime for running apps in production. The .NET Core SDK [collects usage data](https://docs.microsoft.com/dotnet/core/tools/telemetry) while the .NET Core Runtime does not.
+
+The SDK collects the following pieces of data:
+ - The command being used (for example, `build`, `restore`).
+ - The `ExitCode` of the command.
+ - For test projects, the test runner being used.
+ - The timestamp of invocation.
+ - Whether runtime IDs are present in the `runtimes` node.
+ - The CLI version being used.
+
+The data collected is anonymous. 
+
+The data does not include Visual Studio usage since Visual Studio uses MSBuild directly and not the higher-level .NET Core CLI tools (which is where data collection is implemented).
+
+You can opt-out of telemetry by setting the `DOTNET_CLI_TELEMETRY_OPTOUT` variable, as described in [.NET Core documentation](https://docs.microsoft.com/dotnet/core/tools/telemetry).
 
 ## Shape of the Data
 
@@ -49,8 +65,20 @@ Occurrences,Date,EventName,CountryOrRegionISOLong,OSVersion,OSPlatform,RuntimeID
 1,2017-02-01,aspnet-codegenerator,USA,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
 102,2017-02-01,test,USA,10.0.14393,Windows,win10-x64,1.0.0-preview2-1-003177
 ```
- 
- ## Product Findings and Decisions
+## Data for .NET Core 2.0
+
+The data that has been collected the .NET Core SDK 1.0 has demonstrated some important gaps in our understanding of how the product is being used. The following additional data points are planned for .NET Core SDK 2.0.
+
+- `dotnet` command arguments and options -- Determine more detailed product usage. For example, for `dotnet new`, collect the template name. For `dotnet build --framework netstandard2.0`, collect the framework specified. Only known arguments and options will be collected (not arbitrary strings).
+- Containers -- Determine if the SDK is running in a container. Useful to help prioritize container-related investments.
+- Command duration --  Determine how long a command runs. Useful to identify performance problems that should be investigated.
+- Target Framework(s) -- Determine which target frameworks are used and whether multiple are specified. Useful to understand which .NET Standard versions are the most popular and whether new guidance should be written, for example.
+- Hashed project file path -- Determine how much of .NET Core SDK usage is for "kicking the tires" apps verus more serious projects. Useful for prioritizing features like interactive template creation (like Yeoman).
+- Hashed MAC address -- Determine a unique ID for the machine. Useful to determine the aggregate population of active users, for example.
+
+Note: Any data that could be considered personally identifiable will not be publicly released.
+
+## Product Findings and Decisions
 
 This data has been very useful to the .NET Core team for a year now. In some cases, like looking at overall usage or at the usage of specific commands, we are very reliant on this data to make decisions. For more specific decisions, like the case of removing the OpenSSL dependency on macOS, we used the data as secondary evidence to user feedback.
 
@@ -117,37 +145,6 @@ Given .NET's roots, it's not surprising to see a large Windows following. It's e
 ![Operating System Version Distribution](cli-os-versions.png)
 
 It looks like .NET Core is running mostly on the newest operating system versions at this point. This aligns with our expecation that .NET Core has been adopted mostly by "early adopters" to this point. In 2-3 years, we expect that the operating system distribution will be more varied. 
-
-## How the Data is Collected
-
-.NET Core has two primary distributions: the .NET Core SDK for development and build scenarios and the .NET Core Runtime for running apps in production. The .NET Core SDK [collects usage data](https://docs.microsoft.com/dotnet/core/tools/telemetry) while the .NET Core Runtime does not.
-
-The SDK collects the following pieces of data:
- - The command being used (for example, `build`, `restore`).
- - The `ExitCode` of the command.
- - For test projects, the test runner being used.
- - The timestamp of invocation.
- - Whether runtime IDs are present in the `runtimes` node.
- - The CLI version being used.
-
-The data collected is anonymous. 
-
-The data does not include Visual Studio usage since Visual Studio uses MSBuild directly and not the higher-level .NET Core CLI tools (which is where data collection is implemented).
-
-You can opt-out of telemetry by setting the `DOTNET_CLI_TELEMETRY_OPTOUT` variable, as described in [.NET Core documentation](https://docs.microsoft.com/dotnet/core/tools/telemetry).
-
-## Data for .NET Core 2.0
-
-The data that has been collected the .NET Core SDK 1.0 has demonstrated some important gaps in our understanding of how the product is being used. The following additional data points are planned for .NET Core SDK 2.0.
-
-- `dotnet` command arguments and options -- Determine more detailed product usage. For example, for `dotnet new`, collect the template name. For `dotnet build --framework netstandard2.0`, collect the framework specified. Only known arguments and options will be collected (not arbitrary strings).
-- Containers -- Determine if the SDK is running in a container. Useful to help prioritize container-related investments.
-- Command duration --  Determine how long a command runs. Useful to identify performance problems that should be investigated.
-- Target Framework(s) -- Determine which target frameworks are used and whether multiple are specified. Useful to understand which .NET Standard versions are the most popular and whether new guidance should be written, for example.
-- Hashed project file path -- Determine how much of .NET Core SDK usage is for "kicking the tires" apps verus more serious projects. Useful for prioritizing features like interactive template creation (like Yeoman).
-- Hashed MAC address -- Determine a unique ID for the machine. Useful to determine the aggregate population of active users, for example.
-
-Note: Any data that could be considered personally identifiable will not be publicly released.
 
 ## More to Come
 
