@@ -2,7 +2,7 @@
 title: The week in .NET - On .NET with Mattias Karlsson on Cake, Topshelf
 keywords: Week in .NET, .NET, community
 weblogName: .NET Blog
-isDraft: true
+postId: 10875
 ---
 Previous posts:
 
