@@ -2,6 +2,7 @@
 title: The week in .NET - On .NET with Mattias Karlsson on Cake, Topshelf
 keywords: Week in .NET, .NET, community
 weblogName: .NET Blog
+isDraft: true
 ---
 Previous posts:
 
@@ -116,6 +117,7 @@ The June meeting of [dotNet Miami](https://www.meetup.com/dotNetMiami/) will hav
 * [Disambiguate method trick based on generic constraint](http://metacoding.azurewebsites.net/2017/06/08/disambiguous-methods-trick-based-on-generic-constraint/) by Matthieu Mezil.
 * [Top 20 Recommended Microsoft Build 2017 Sessions for C# Developers](https://www.alvinashcraft.com/2017/06/07/top-20-recommended-microsoft-build-2017-sessions-for-c-developers/) by Alvin Ashcraft.
 * [Null checking allocations and mass refactoring with Resharper](https://surfingthecode.com/2017/06/null-checking-allocations-and-mass-refactoring-with-resharper/) by Alexander Tsvetkov.
+* [Practical C# – LINQ Set Operations](http://www.andreaangella.com/2017/06/practical-csharp-linq-set-operations/) by Andrea Angella.
 
 ## F#
 
@@ -130,9 +132,34 @@ There is more content available this week in [F# Weekly](https://sergeytihon.wor
 
 * [Building web API apps on ASP.NET Core 2 and VB.NET](http://gunnarpeipman.com/2017/06/aspnet-core2-vbnet-weather-api/) by Gunnar Peipman.
 
+## Xamarin
+
+* [Enterprise Application Patterns using Xamarin.Forms](http://www.davidbritch.com/2017/06/enterprise-application-patterns-using.html) by David Britch.
+* [Enterprise Apps Made Easy with New Authentication & Microsoft Graph Libraries](https://blog.xamarin.com/enterprise-apps-made-easy-updated-libraries-apis/) by Mayur Tendulka.
+* [Unleashed: Embedding Xamarin.Forms in Xamarin Native](https://blog.xamarin.com/unleashed-embedding-xamarin-forms-in-xamarin-native/) by David Ortinau.
+* [WWDC 2017 Recap for iOS Developers](https://blog.xamarin.com/wwdc-2017-recap-for-ios-developers/) by Pierce Boggan.
+* [Xamarin Developer Events This June](https://blog.xamarin.com/xamarin-developer-events-june/) by Jayme Singleton.
+* [Episode 24: Xamarin Live Player](https://channel9.msdn.com/Shows/XamarinShow/Episode-24-Xamarin-Live-Player) by The Xamarin Show.
+* [Getting started with MonoGame using XML](https://darkgenesis.zenithmoon.com/getting-started-with-monogame-using-xml/) by Simon Jackson.
+* [Creating Custom Controls with Bindable Properties in Xamarin.Forms](https://mindofai.github.io/Creating-Custom-Controls-with-Bindable-Properties-in-Xamarin.Forms/) by Bryan Anthony Garcia.
+* [Xamarin Forms, the MVVMLight Toolkit and I: Dependecy Injection](https://msicc.net/xamarin-forms-the-mvvmlight-toolkit-and-i-dependecy-injection/) by Marco Siccardi.
+* [Alpha Release: Xamarin Workbooks & Inspector 1.3.0-alpha2](https://releases.xamarin.com/alpha-release-xamarin-workbooks-inspector-1-3-0-alpha2/) by Bri Brothers.
+* [Common issues in the Xamarin 15.2.2 release being tracked by the Xamarin team](https://releases.xamarin.com/common-issues-in-the-xamarin-15-2-2-release-being-tracked-by-the-xamarin-team/) by Brendan Zagaeski.
+* [Optimize memory usage in Xamarin apps](https://www.chipsncookies.com/2017/optimize-memory-usage-in-xamarin-apps/) by Samuel Debruyn.
+* [Mobile Center plugin for fastlane](https://www.hockeyapp.net/blog/2017/06/06/mobile-center-fastlane.html) by Mobile Center Team.
+* [Zero to Build: Create new Xamarin apps in minutes with AppMap](https://www.infragistics.com/community/blogs/infragistics/archive/2017/06/08/zero-to-build-creating-new-apps-in-minutes-with-appmap.aspx) by Infragistics.
+* [Can't Start Android Emulator on macOS? It's Probably Conflicting with Docker](https://www.junian.net/2017/06/start-android-emulator-with-docker-on-macos.html) by Junian Triajianto.
+* [Xamarin and DevOps: Setting up your iOS CI](https://www.thewissen.io/xamarin-devops-ios-ci/) by Steven Thewissen.
+* [Xamarin and DevOps: Versioning your app](https://www.thewissen.io/xamarin-devops-versioning/) by Steven Thewissen.
+* [Getting Started with Xamarin Forms for Mac Preview](http://err2solution.com/2017/05/getting-started-with-xamarin-forms-for-mac-preview/) by S Ravi Kumar.
+* [Realm Mobile Database with Xamarin Forms Step By Step Guide](http://err2solution.com/2017/06/realm-mobile-database-with-xamarin-forms-step-by-step-guide/) by S Ravi Kumar.
+* [NuGet Support in Visual Studio for Mac 7.0](http://lastexitcode.com/blog/2017/06/04/NuGetSupportInVisualStudioMac7-0/) by Matt Ward.
+* [Xamarin.Forms & PaintCode](http://thatcsharpguy.com/post/custom-renderer-paint-code-en/) by Antonio Feregrino Bolaños.
+
 ## Azure
 
-* [Upgrade your .Net Core Service Fabric Microservices from VS 2015 to VS 2017](http://www.medic-consulting.com/2017/06/07/Upgrade-your-Net-Core-Service-Fabric-Microservices-from-VS-2015-to-VS-2017/) by Andrej Medic.
+* [Azure via C# – Delete Azure Blobs](http://www.andreaangella.com/2017/06/azure-via-csharp-delete-azure-blobs/) by Andrea Angella.
+* [Azure via C# – Download Azure Blobs](http://www.andreaangella.com/2017/06/azure-via-csharp-download-azure-blobs/) by Andrea Angella.* [Upgrade your .Net Core Service Fabric Microservices from VS 2015 to VS 2017](http://www.medic-consulting.com/2017/06/07/Upgrade-your-Net-Core-Service-Fabric-Microservices-from-VS-2015-to-VS-2017/) by Andrej Medic.
 * [Architecting Azure Functions: Function Timeouts and Work Fan-Out with Queues](http://dontcodetired.com/blog/post/Architecting-Azure-Functions-Function-Timeouts-and-Work-Fan-Out-with-Queues) by Jason Roberts.
 * [Remote debug your Azure App Service 2017 including ASP.NET Core](https://blogs.msdn.microsoft.com/benjaminperkins/2017/06/06/remote-debug-your-azure-app-service-2017-including-asp-net-core/) by Benjamin Perkins.
 
