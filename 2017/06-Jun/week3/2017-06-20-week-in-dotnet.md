@@ -1,7 +1,8 @@
 ﻿---
-title: The week in .NET - .NET Architecture: Microservices & Containers, On .NET with Omer Raviv on OzCode, Sprache
-keywords: Week in .NET, .NET, community
+title: 'The week in .NET - .NET Architecture: Microservices & Containers, On .NET with Omer Raviv on OzCode, Sprache'
+keywords: Week in .NET, community, .NET
 weblogName: .NET Blog
+postId: 12105
 ---
 Previous posts:
 
