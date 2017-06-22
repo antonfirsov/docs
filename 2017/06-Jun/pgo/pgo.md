@@ -40,17 +40,17 @@ The following results are measured on a representative ASP.NET Core application.
 
 App Startup   | .NET Core 2.0 non-PGO | .NET Core 2.0 PGO | PGO improvement
 ------------- | --------------------- | ----------------- | ---------------
-Time to Main  | 647                   | 537               | 21%
-First Request | 2322                  | 1998              | 16%
-Cold Start    | 2969                  | 2535              | 17%
+Time to Main  | 647                   | 537               | 17%
+First Request | 2322                  | 1998              | 14%
+Cold Start    | 2969                  | 2535              | 15%
 
 ### Windows x86 results
 
 App Startup   | .NET Core 2.0 non-PGO | .NET Core 2.0 PGO | PGO improvement
 ------------- | --------------------- | ----------------- | ---------------
-Time to Main  | 679                   | 550               | 23%
-First Request | 2492                  | 1923              | 30%
-Cold Start    | 3171                  | 2473              | 28%
+Time to Main  | 679                   | 550               | 19%
+First Request | 2492                  | 1923              | 23%
+Cold Start    | 3171                  | 2473              | 22%
 
 [TODO] Linux, and other metrics.
 
