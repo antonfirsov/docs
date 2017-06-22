@@ -10,20 +10,53 @@ customFields:
 
 ## What is profile-guided optimization?
 
-PGO is the usage of runtime profile data to optimize code compilation. By relying on runtime data, PGO can focus optimization work on those code paths that are most frequently used. Of course, the choice of the applications used for profiling matters, as it will determine what will get optimized. The further an application diverges from what was used to profile, the less likely it is to benefit from the optimizations. In the case of just-in-time compiled frameworks such as .NET, it's however possible to recompile code on-the-fly to optimize an application as it's running.
+PGO is the usage of runtime profile data to optimize code compilation. By relying on runtime data, PGO can focus optimization work on those code paths that are most frequently used. Of course, the choice of the applications used for profiling matters, as it will determine what will get optimized. The further an application diverges from what was used to profile, the less likely it is to benefit from the optimizations.
+
+In this release, we have applied those optimizations to the native parts of the runtime, based on profiling data from typical .NET applications.
+
+In a future release, we are planning on applying similar optimizations to the managed components of the .NET Core stack. In the case of just-in-time compiled environments such as .NET, it's also possible to recompile code on-the-fly to optimize an application while it's running. In this case, the cost of optimizing must be smaller than what it ends up saving for the application, in order for the feature to be beneficial.
 
 ## PGO in .NET Core 2
 
-*Details of the implementation, on Windows and Linux*
-*What about .NET Framework?*
+We've been using PGO on .NET Framework on Windows for many years. On Windows x64, [we had already experimented with this technique in .NET Core 1.1](https://blogs.msdn.microsoft.com/dotnet/2016/11/16/announcing-net-core-1-1/). With .NET Core 2.0, we're bringing the same optimizations to Windows x86 and Linux x64.
+
+In order to determine what components to focus on, we measured what DLLs applications were spending the most time running during startup. We observed that more than 50% of startup time was spent in only two DLLs:  `coreclr.dll` (`libcoreclr.so` on Linux) and `clrjit.dll` (`libclrjit.so` on Linux).
+
+The case of the jitter is particularly interesting. In previous releases, we had two different jitters: JIT32, and [RyuJIT](https://blogs.msdn.microsoft.com/dotnet/2013/09/30/ryujit-the-next-generation-jit-compiler-for-net/). JIT32 is the historic jitter that we used in .NET Framework, and that has seen years of optimization. It's generally faster on Win32 but the code it's producing is not as good and as fast as RyuJIT's. With 2.0, we have standardized on RyuJIT on all architectures and platforms. RuyJIT is still slower, but PGO allowed us to mitigate that performance price, and bring it close to JIT32 performance. The quality of the jitted code is what truly justifies it, however: in some cases, such as SIMD, the code quality is so much higher that its performance beats what JIT32 was producing by factors of several hundreds.
+
+On Linux, our goal is to bring parity of performance, but the fragmentation of the ecosystem makes PGO a much harder task than on Windows. The compiler tool chains are different from distro to distro, and even different versions of a tool such as LLVM can cause significant degradation in our ability to apply PGO. We want .NET to be able to target all those platforms, but we also want the versions that we ship to be all optimized equally well. It will of course always be possible for third parties to build .NET on platforms where all optimizations are not possible.
+
+[check]: what is RH doing with PGO data?
+
+A simplifying factor on Linux is that we are now building a unique "Linux" version of .NET, that we are then packaging into native installers and tarballs. This made it possible to apply the PGO optimizations to all the distributions that consume those common bits with reduced complexity.
+
+Side-by-side with PGO, we're also deploying link-time optimization (LTO, corresponding to [the `-flto` clang switch](https://clang.llvm.org/docs/ThinLTO.html)). This applies optimizations at the level of the entire linked binaries rather than module by module. We were already doing this on Windows in previous versions, and our measurements of the performance impact ([check]: how much) justified applying it to more platforms.
 
 ## Results
 
-*results and caveats, with graphs*
+The following results are measured on a representative ASP.NET Core application. Times are in milliseconds (lower is better).
+
+### Windows x64 results
+
+App Startup   | .NET Core 2.0 non-PGO | .NET Core 2.0 PGO | PGO improvement
+------------- | --------------------- | ----------------- | ---------------
+Time to Main  | 647                   | 537               | 21%
+First Request | 2322                  | 1998              | 16%
+Cold Start    | 2969                  | 2535              | 17%
+
+### Windows x86 results
+
+App Startup   | .NET Core 2.0 non-PGO | .NET Core 2.0 PGO | PGO improvement
+------------- | --------------------- | ----------------- | ---------------
+Time to Main  | 679                   | 550               | 23%
+First Request | 2492                  | 1923              | 30%
+Cold Start    | 3171                  | 2473              | 28%
+
+[TODO] Linux, and other metrics.
 
 ## How to profile and optimize your own application?
 
-*Is this something people will be reasonably able to do?*
+[TODO] command-lines for Windows and Linux for doing this yourself, with links if they exist.
 
 ## Conclusion
 
