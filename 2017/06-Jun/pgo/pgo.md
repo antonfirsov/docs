@@ -30,11 +30,11 @@ On Linux, our goal is to bring parity of performance, but the fragmentation of t
 
 A simplifying factor on Linux is that we are now building a unique "Linux" version of .NET, that we are then packaging into native installers and tarballs. This made it possible to apply the PGO optimizations to all the distributions that consume those common bits with reduced complexity.
 
-Side-by-side with PGO, we're also deploying link-time optimization (LTO, corresponding to [the `-flto` clang switch](https://clang.llvm.org/docs/ThinLTO.html)). This applies optimizations at the level of the entire linked binaries rather than module by module. We were already doing this on Windows in previous versions, and our measurements of the performance impact ([check]: how much) justified applying it to more platforms.
+Side-by-side with PGO, we're also deploying link-time optimization (LTO, corresponding to [the `-flto` clang switch](http://llvm.org/docs/LinkTimeOptimization.html)). This applies optimizations at the level of the entire linked binaries rather than module by module. We were already doing this on Windows in previous versions, and our measurements of the performance impact ([check]: how much) justified applying it to more platforms.
 
 ## Results
 
-The following results are measured on a representative ASP.NET Core application. Times are in milliseconds (lower is better).
+The following results show total startup times defined as time to main plus first request measured on a representative ASP.NET Core application after a warm-up iteration. Times are in milliseconds (lower is better).
 
 ### Windows x64 results
 
@@ -42,7 +42,7 @@ App Startup   | .NET Core 2.0 non-PGO | .NET Core 2.0 PGO | PGO improvement
 ------------- | --------------------- | ----------------- | ---------------
 Time to Main  | 647                   | 537               | 17%
 First Request | 2322                  | 1998              | 14%
-Cold Start    | 2969                  | 2535              | 15%
+Total Startup | 2969                  | 2535              | 15%
 
 ### Windows x86 results
 
@@ -50,9 +50,15 @@ App Startup   | .NET Core 2.0 non-PGO | .NET Core 2.0 PGO | PGO improvement
 ------------- | --------------------- | ----------------- | ---------------
 Time to Main  | 679                   | 550               | 19%
 First Request | 2492                  | 1923              | 23%
-Cold Start    | 3171                  | 2473              | 22%
+Total Startup | 3171                  | 2473              | 22%
 
-[TODO] Linux, and other metrics.
+### Linux x64 results
+
+App Startup   | .NET Core 2.0 non-PGO | .NET Core 2.0 PGO | PGO improvement
+------------- | --------------------- | ----------------- | ---------------
+Time to Main  | 1421                  | 1394              | 2%
+First Request | 2006                  | 1910              | 5%
+Total Startup | 3427                  | 3305              | 4%
 
 ## How to profile and optimize your own application?
 
