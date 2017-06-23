@@ -32,7 +32,7 @@ On Linux, our goal is to bring parity of performance, but the fragmentation of t
 
 A simplifying factor on Linux is that we are now building a unique "Linux" version of .NET, that we are then packaging into native installers and tarballs. This made it possible to apply the PGO optimizations to all the distributions that consume those common bits with reduced complexity.
 
-Side-by-side with PGO, we're also deploying link-time optimization (LTO, corresponding to [the `-flto` clang switch](http://llvm.org/docs/LinkTimeOptimization.html)). This applies optimizations at the level of the entire linked binaries rather than module by module. We were already doing this on Windows in previous versions, and our measurements of the performance impact justified applying it to more platforms. Interestingly, we found that on Linux, LTO on its own doesn't significantly affect the results, but together with PGO, the benefits are nearly doubled.
+Side-by-side with PGO, we're also deploying link-time optimization (LTO, corresponding to [the `-flto` clang switch](http://llvm.org/docs/LinkTimeOptimization.html)). This applies optimizations at the level of the entire linked binaries rather than module by module. We were already doing this on Windows in previous versions, and our measurements of the performance impact justified applying it to more platforms. Interestingly, we found that on Linux, LTO on its own doesn't significantly affect the results, but together with PGO, the benefits are nearly doubled from PGO on its own.
 
 ## Results
 
@@ -49,7 +49,7 @@ Total Startup | 2969                  | 2535              | 15%
 ### Windows x86 results
 
 App Startup   | .NET Core 2.0 non-PGO | .NET Core 2.0 PGO | PGO improvement
-------------- | --------------------: | ----------------: | ---------------
+------------- | --------------------: | ----------------: | --------------:
 Time to Main  | 679                   | 550               | 19%
 First Request | 2492                  | 1923              | 23%
 Total Startup | 3171                  | 2473              | 22%
@@ -57,7 +57,7 @@ Total Startup | 3171                  | 2473              | 22%
 ### Linux x64 results
 
 App Startup   | .NET Core 2.0 non-PGO | .NET Core 2.0 PGO | PGO improvement
-------------- | --------------------: | ----------------: | ---------------
+------------- | --------------------: | ----------------: | --------------:
 Time to Main  | 1421                  | 1394              | 2%
 First Request | 2006                  | 1910              | 5%
 Total Startup | 3427                  | 3305              | 4%
