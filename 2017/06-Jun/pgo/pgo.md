@@ -60,6 +60,10 @@ Time to Main  | 1421                  | 1394              | 2%
 First Request | 2006                  | 1910              | 5%
 Total Startup | 3427                  | 3305              | 4%
 
+![Windows x64, Windows x86, and Linux x64 total startup times in milliseconds for PGO and non-PGO cases](results.png)
+
+The Linux numbers leave room for improvement in future versions: the time to main is higher than it is on Windows, and the PGO wins are less important overall.
+
 ## How to profile and optimize your own application?
 
 [TODO] command-lines for Windows and Linux for doing this yourself, with links if they exist.
