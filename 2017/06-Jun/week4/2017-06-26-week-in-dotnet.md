@@ -9,7 +9,14 @@ Previous posts:
 * [On .NET with Mattias Karlsson on Cake, Topshelf](https://blogs.msdn.microsoft.com/dotnet/2017/06/14/the-week-in-net-on-net-with-mattias-karlsson-on-cake-topshelf/)
 * [On .NET with Brett Morrison, DateTime Extensions](https://blogs.msdn.microsoft.com/dotnet/2017/06/06/the-week-in-net-on-net-with-brett-morrison-datetime-extensions/)
  
+## .NET Conf, September 19-21. Call for Content is Open!
 
+![.NET Conf](DotNetConf.png)
+
+[.NET Conf](http://www.dotnetconf.net/?utm_source=dotnet&utm_medium=blog&utm_campaign=NETConfSaveDate) is a free, 3 day virtual developer event co-organized by the .NET community and Microsoft. Over the course of the three days developers have a wide selection of live sessions that feature speakers from the community and .NET product teams. These are the experts in their field and it is a chance to learn, ask questions live, and get inspired for their next software project.
+ 
+Call for content is now open! [Learn more about how you can present to the .NET community](http://www.dotnetconf.net/call-for-content?utm_source=dotnet&utm_medium=blog&utm_campaign=NETConfCFC).
+ 
 ## Package of the week: Material Design In XAML Toolkit
 
 The [Material Design In XAML Toolkit](https://github.com/ButchersBoy/MaterialDesignInXamlToolkit) theme and control library implements Google's Material Design language in XAML, for all major WPF Framework controls. It also adds new controls to support controls specific to Material Design, such as multi-action buttons and cards.
