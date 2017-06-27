@@ -1,5 +1,5 @@
 ﻿---
-title: 'The week in .NET - Material Design in XAML Toolkit
+title: 'The week in .NET - .NET Conf, Material Design in XAML Toolkit'
 keywords: Week in .NET, community, .NET
 weblogName: .NET Blog
 ---
