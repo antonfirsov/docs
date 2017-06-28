@@ -1,6 +1,10 @@
 ---
 title: Profile-guided optimization in .NET Core 2.0
+keywords: .NET Core, CLR, compiler, performance, RyuJIT
 weblogName: .NET Blog
+postId: 13336
+postStatus: draft
+dontInferFeaturedImage: true
 customFields:
   authors:
     key: authors
