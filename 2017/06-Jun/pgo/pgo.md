@@ -14,9 +14,9 @@ customFields:
 
 ## What is profile-guided optimization?
 
-PGO is a native compilation technology used by the C++ compiler to generate better optimized code. It consists of a 2 step compilation process: a training run that records information about runtime execution, and an optimized build step that feeds back the training results to generate better code. Historically, the most important benefit in performance is the improvements in laying out code in the image to have better working and reference set locality.
+PGO is a native compilation technology used by the C++ compiler to generate better optimized code. It consists of a 2 step compilation process: a training run that records information about execution, and an optimized build step that feeds back the training results to generate better code. Historically, the most important benefit in performance is the improvements in laying out code in the image to have better working and reference set locality.
 
-Because PGO only applies to the internal native compiled components of the runtime and JIT, .NET Core users do not need to take any specific action in order to realize the benefits of this work. The expected benefits will vary on various .NET applications depending upon size and make-up of your application.
+Because PGO only applies to the internal native compiled components of the runtime and JIT, .NET Core users do not need to take any specific action in order to realize the benefits of this work: all managed applications automatically get the benefit of PGO because it is applied to the runtime and JIT, which are the components that drive managed execution. The expected benefits will vary on various .NET applications depending upon size and make-up of your application.
 
 ![Compiling with PGO](pgo-process.png)
 
@@ -83,4 +83,4 @@ The CMake script used to apply these optimizations on the Core CLR is also avail
 
 ## Conclusion
 
-.NET Core 2.0 is an important performance release of [an already very fast platform](https://www.techempower.com/benchmarks/#section=data-r14&hw=ph&test=plaintext). We're committed to continuing on that trend, and to making .NET the fastest general-purpose development environment. PGO is an integral part of this, and an important tool that is going to significantly improve the performance of your .NET Core applications.
+.NET Core 2.0 is an important performance release of [an already very fast platform](https://www.techempower.com/benchmarks/#section=data-r14&hw=ph&test=plaintext). We're committed to continuing on that trend, and to making .NET the fastest general-purpose development environment. PGO is an integral part of this strategy, that automatically benefits all .NET Core 2.0 applications.
