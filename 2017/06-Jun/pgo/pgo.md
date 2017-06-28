@@ -10,25 +10,27 @@ customFields:
 
 ## What is profile-guided optimization?
 
-PGO is the usage of runtime profile data to optimize code compilation. By relying on runtime data, PGO can focus optimization work on those code paths that are most frequently used. The choice of the applications used for profiling matters, as it determines what gets optimized. The further an application diverges from what was used to profile, the less likely it is to benefit from the optimizations.
+PGO is a native compilation technology used by the C++ compiler to generate better optimized code. It consists of a 2 step compilation process: a training run that records information about runtime execution, and an optimized build step that feeds back the training results to generate better code. Historically, the most important benefit in performance is the improvements in laying out code in the image to have better working and reference set locality.
+
+Because PGO only applies to the internal native compiled components of the runtime and JIT, .NET Core users do not need to take any specific action in order to realize the benefits of this work. The expected benefits will vary on various .NET applications depending upon size and make-up of your application.
 
 ![Compiling with PGO](pgo-process.png)
 
 In this release, we've applied those optimizations to the native parts of the runtime, based on profiling data from typical .NET applications.
 
-In a future release, we're planning on applying similar optimizations to the managed components of the .NET Core stack. In the case of just-in-time compiled environments such as .NET, it's also possible to recompile code on-the-fly to optimize an application while it's running. In this case, the cost of optimizing must be smaller than what it ends up saving for the application, in order for the feature to be beneficial.
+In a future release, we're planning on applying similar optimizations to the managed components of the .NET Core stack. We'll also add new training scenarios in order to include a broader sample of representative code.
 
 ## PGO in .NET Core 2.0
 
-We've been using PGO on .NET Framework on Windows for many years. On Windows x64, [we had already experimented with this technique in .NET Core 1.1](https://blogs.msdn.microsoft.com/dotnet/2016/11/16/announcing-net-core-1-1/). With .NET Core 2.0, we're bringing the same optimizations to Windows x86 and Linux x64.
+We've been using PGO on .NET Framework on Windows for many years. On Windows x64, [we already released with PGO in .NET Core 1.1](https://blogs.msdn.microsoft.com/dotnet/2016/11/16/announcing-net-core-1-1/). With .NET Core 2.0, we're bringing the same optimizations to Windows x86 and Linux x64.
 
 In order to determine what components to focus on, we measured what native DLLs applications were spending the most time running during startup. We observed that more than 3/4 of startup time was spent in only two DLLs:  `coreclr.dll` (`libcoreclr.so` on Linux) and `clrjit.dll` (`libclrjit.so` on Linux).
 
 ![% time spent in native dlls during startup](startupdlls.png)
 
-The case of the jitter is particularly interesting. In previous releases, we had two different jitters: JIT32, and [RyuJIT](https://blogs.msdn.microsoft.com/dotnet/2013/09/30/ryujit-the-next-generation-jit-compiler-for-net/). JIT32 is the historic jitter that we used in the .NET Framework, and that has seen years of optimization. It's generally faster on Win32 but the resulting code is not as good and as fast as RyuJIT's. With 2.0, we've standardized on RyuJIT on all architectures and platforms. RuyJIT is still slower, but PGO allowed us to mitigate that performance price, and bring it close to JIT32 performance. The quality of the jitted code is what truly justifies it, however. In some cases, such as SIMD, the code quality is so much higher that its performance beats what JIT32 was producing by factors of several hundreds.
+The case of the jitter is particularly interesting. In previous releases, we had two different jitters: JIT32 for x86, and [RyuJIT](https://blogs.msdn.microsoft.com/dotnet/2013/09/30/ryujit-the-next-generation-jit-compiler-for-net/) for x64. JIT32 is also the historic jitter that we used in the .NET Framework, and that has seen years of optimization. It's generally faster at generating code at startup, but the resulting code is not as good and as fast as RyuJIT's. With 2.0, we've standardized on RyuJIT on all architectures and platforms. RuyJIT has slower startup in some scenarios, but PGO allows us to mitigate that performance price, and bring it close to JIT32 performance. The quality of the jitted code is what truly justifies it, however. In some cases, such as SIMD, the code quality is so much higher that its performance beats what JIT32 was producing by factors of several hundreds.
 
-On Linux, our goal is to bring parity of performance, but the fragmentation of the ecosystem makes PGO a much harder task than on Windows. The compiler toolchains are different from distro to distro, and even different versions of a tool such as LLVM can cause significant degradation in our ability to apply PGO. We want .NET to be able to target all those platforms, but we also want the versions that we ship to be all optimized equally well. Third parties can always build .NET on platforms where not all the optimizations are possible.
+On Linux, our goal is to bring parity of performance, but the fragmentation of the ecosystem makes PGO a much harder task than on Windows. The compiler toolchains are different from distro to distro, and even different versions of a tool such as LLVM can cause significant degradation in our ability to apply PGO. We want .NET to be able to target all those platforms, but we also want the versions that we ship to be all optimized equally well.
 
 A simplifying factor on Linux is that we're now building a unique "Linux" version of .NET, that we're then packaging into native installers and tarballs. This made it possible to apply the PGO optimizations to all the distributions that consume those common bits with reduced complexity.
 
