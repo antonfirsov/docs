@@ -22,7 +22,7 @@ Resolves a memory leak in the GUID->Type caching when multiple structs are masha
 
 ## Getting the Update
 
-The Security and Quality Rollup is available via Windows Update, Windows Server Update Services and Microsoft Update Catalog. The Security Only Update is available via Windows Server Update Services and Microsoft Update Catalog. The [Windows 10 updates](https://support.microsoft.com/en-us/help/4025338/windows-10-update-kb4025338) are integrated with the Windows 10 Monthly Update.
+The Security and Quality Rollup is available via Windows Update, Windows Server Update Services and Microsoft Update Catalog. The Security Only Update is available via Windows Server Update Services and Microsoft Update Catalog. The [updates for Windows 10](https://support.microsoft.com/en-us/help/4025338/windows-10-update-kb4025338) are integrated with the [Windows 10 Monthly Update](https://support.microsoft.com/help/4018124).
 
 You can learn more about the releases from the table below.
 
@@ -35,7 +35,7 @@ You can learn more about the releases from the table below.
 |Windows 8.1 <br> Windows Server 2012 R2|.NET Framework 3.5, 4.5.2, 4.6, 4.6.1, 4.6.2 and 4.7|[4019114](https://support.microsoft.com/kb/4019114) | [4019111](https://support.microsoft.com/kb/4019111) |
 |Windows Server 2012|.NET Framework 3.5, 4.5.2, 4.6, 4.6.1, 4.6.2 and 4.7|[4019113](https://support.microsoft.com/kb/4019113) | [4019110](https://support.microsoft.com/kb/4019110) |
 |Windows 7 <br> Windows Server 2008 R2|.NET Framework 3.5, 4.5.2, 4.6, 4.6.1, 4.6.2 and 4.7|[4019112](https://support.microsoft.com/kb/4019112) | [4019108](https://support.microsoft.com/kb/4019108) |
-|Windows Vista SP2 <br> Windows Server 2008 SP2 SP1|.NET Framework 3.5, 4.5.2, and 4.6|[4019115](https://support.microsoft.com/kb/4019115) | [4019109](https://support.microsoft.com/kb/4019109) | 
+|Windows Vista SP2 <br> Windows Server 2008 SP2 SP1|.NET Framework 3.5, 4.5.2, and 4.6|[4019115](https://support.microsoft.com/kb/4019115) | [4019109](https://support.microsoft.com/kb/4019109) |
 
 ### Docker Images
 
