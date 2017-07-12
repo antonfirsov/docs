@@ -20,14 +20,14 @@ There are no quality and reliability changes this month.
 
 ## Getting the Update
 
-The Security and Quality Rollup is available via Windows Update, Windows Server Update Services and Microsoft Update Catalog. The Security Only Update is available via Windows Server Update Services and Microsoft Update Catalog. The [updates for Windows 10](https://support.microsoft.com/en-us/help/4025338/windows-10-update-kb4025338) are integrated with the [Windows 10 Monthly Update](https://support.microsoft.com/help/4018124).
+The Security and Quality Rollup is available via Windows Update, Windows Server Update Services and Microsoft Update Catalog. The Security Only Update is not available for Windows 10. The [updates for Windows 10](https://support.microsoft.com/en-us/help/4025338/windows-10-update-kb4025338) are integrated with the [Windows 10 Monthly Update](https://support.microsoft.com/help/4018124).
 
 You can learn more about the releases from the table below.
 
 |Windows Version |.NET Version|Rollup KB |Security-only KB |
 |:---------------|:-----------|:---------|:----------------|
 |Windows 10 Update 1703 (Creators Update)|.NET Framework 3.5 and 4.7|[4025342](https://support.microsoft.com/kb/4025342) | N/A |
-|Windows 10 Update 1609 (Anniversary Update) <br> Windows Server 2016|.NET Framework 3.5, 4.6.2 and 4.7|[4025339](https://support.microsoft.com/kb/4025339) | N/A |
+|Windows 10 Update 1607 (Anniversary Update) <br> Windows Server 2016|.NET Framework 3.5, 4.6.2 and 4.7|[4025339](https://support.microsoft.com/kb/4025339) | N/A |
 |Windows 10 Update 1511 |.NET Framework 3.5 and 4.6.1|[4025344](https://support.microsoft.com/kb/4025344) | N/A |
 |Windows 10 Update 1507|.NET Framework 3.5 and 4.6|[4025338](https://support.microsoft.com/kb/4025338) | N/A |
 
