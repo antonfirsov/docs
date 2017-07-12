@@ -43,7 +43,7 @@ The .NET Framework Docker images have been updated to include the .NET Framework
 
 - [microsoft/dotnet-framework](https://hub.docker.com/r/microsoft/dotnet-framework/)
 
-Note: The update to the [microsoft/wcf](https://hub.docker.com/r/microsoft/wcf/) and  [microsoft/aspnet](https://hub.docker.com/r/microsoft/dotnet-framework/) images are still pending.
+Note: The update to the [microsoft/wcf](https://hub.docker.com/r/microsoft/wcf/) and  [microsoft/aspnet](https://hub.docker.com/r/microsoft/aspnet/) images are still pending.
 
 #### .NET Core
 
