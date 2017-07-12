@@ -16,9 +16,7 @@ More info: [Microsoft Common Vulnerabilities and Exposures CVE-2017-0248](https:
 
 ## Quality and Reliability
 
-### Issue 431586 - Memory leak in COM Interop with multiple type libs with same GUID
-
-Resolves a memory leak in the GUID->Type caching when multiple structs are mashalled with the same GUID inside a SAFEARRAY. For example, this situation can happen when marshaling multiple structs that both #include a common IDL that that contains dependent structs. Previously, the common dependent structs were cached multiple times leading to a memory leak.
+There are no quality and reliability changes this month.
 
 ## Getting the Update
 
@@ -28,14 +26,10 @@ You can learn more about the releases from the table below.
 
 |Windows Version |.NET Version|Rollup KB |Security-only KB |
 |:---------------|:-----------|:---------|:----------------|
-|Windows 10 Creators Update|.NET Framework 3.5 and 4.7|[4016871](https://support.microsoft.com/kb/4016871) | N/A |
-|Windows 10 Anniversary Update <br> Windows Server 2016|.NET Framework 3.5, 4.6.2 and 4.7|[4019472](https://support.microsoft.com/kb/4019472) | N/A |
-|Windows 10 1511 |.NET Framework 3.5 and 4.6.1|[4019473](https://support.microsoft.com/kb/4019473) | N/A |
-|Windows 10 1507|.NET Framework 3.5 and 4.6|[4019474](https://support.microsoft.com/kb/4019474) | N/A |
-|Windows 8.1 <br> Windows Server 2012 R2|.NET Framework 3.5, 4.5.2, 4.6, 4.6.1, 4.6.2 and 4.7|[4019114](https://support.microsoft.com/kb/4019114) | [4019111](https://support.microsoft.com/kb/4019111) |
-|Windows Server 2012|.NET Framework 3.5, 4.5.2, 4.6, 4.6.1, 4.6.2 and 4.7|[4019113](https://support.microsoft.com/kb/4019113) | [4019110](https://support.microsoft.com/kb/4019110) |
-|Windows 7 <br> Windows Server 2008 R2|.NET Framework 3.5, 4.5.2, 4.6, 4.6.1, 4.6.2 and 4.7|[4019112](https://support.microsoft.com/kb/4019112) | [4019108](https://support.microsoft.com/kb/4019108) |
-|Windows Vista SP2 <br> Windows Server 2008 SP2 SP1|.NET Framework 3.5, 4.5.2, and 4.6|[4019115](https://support.microsoft.com/kb/4019115) | [4019109](https://support.microsoft.com/kb/4019109) |
+|Windows 10 Update 1703 (Creators Update)|.NET Framework 3.5 and 4.7|[4025342](https://support.microsoft.com/kb/4025342) | N/A |
+|Windows 10 Update 1609 (Anniversary Update) <br> Windows Server 2016|.NET Framework 3.5, 4.6.2 and 4.7|[4025339](https://support.microsoft.com/kb/4025339) | N/A |
+|Windows 10 Update 1511 |.NET Framework 3.5 and 4.6.1|[4025344](https://support.microsoft.com/kb/4025344) | N/A |
+|Windows 10 Update 1507|.NET Framework 3.5 and 4.6|[4025338](https://support.microsoft.com/kb/4025338) | N/A |
 
 ### Docker Images
 
@@ -47,10 +41,9 @@ You must explicitly re-pull images to update your local Docker image cache, for 
 
 The .NET Framework Docker images have been updated to include the .NET Framework July Security and Quality Rollup and have been rebased on top of the latest [microsoft/windowsservercore](https://hub.docker.com/r/microsoft/windowsservercore/) base image (released today).
 
-- [microsoft/aspnet](https://hub.docker.com/r/microsoft/dotnet-framework/)
 - [microsoft/dotnet-framework](https://hub.docker.com/r/microsoft/dotnet-framework/)
 
-Note: The update to the [microsoft/wcf](https://hub.docker.com/r/microsoft/wcf/) image are still pending.
+Note: The update to the [microsoft/wcf](https://hub.docker.com/r/microsoft/wcf/) and  [microsoft/aspnet](https://hub.docker.com/r/microsoft/dotnet-framework/) images are still pending.
 
 #### .NET Core
 
