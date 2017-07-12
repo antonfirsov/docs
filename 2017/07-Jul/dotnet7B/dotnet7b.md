@@ -1,4 +1,4 @@
-# .NET Framework July Security and Quality Rollup
+# .NET Framework July 2017 Security and Quality Rollup
 
 Today, we are releasing a new Security and Quality Rollup and Security Only Update for the .NET Framework. Today's update applies to Windows 10 and Windows Server 2016.
 
