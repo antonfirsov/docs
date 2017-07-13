@@ -374,7 +374,7 @@ printfn "%A" (flip tree)
 
 Ta-da!  Armed with the power of Discriminated Unions and F#, you can pass any programming interview which requires you to flip a binary search tree.  Pretty easy to do.
 
-You may have noticed a bit of funky syntax in the `Node` case of the tree definition.  This is actually a type signature for a tuple.  That means that a BST can either be empty, or a tuple of `(value, left subtree, right subtree)`.  Read more about [Type Signatures](TODO-LINK) here.
+You may have noticed a bit of funky syntax in the `Node` case of the tree definition.  This is actually a type signature for a tuple.  That means that a BST, as we've defined it, can either be empty, or a tuple of `(value, left subtree, right subtree)`.  Read more about [Signatures](https://fsharpforfunandprofit.com/posts/function-signatures/) to learn more.
 
 ## Functional pipelines
 
@@ -390,7 +390,7 @@ let getOddSquares items =
     |> Seq.map square
 ```
 
-Pipelines actually use partial application of function parameters under the covers to re-order calls so that they are nested.  Doing those sorts of nested calls are never fun, which is why the pipeline operators exist.  In fact, use of the pipeline operators is so much fun that it's rare to see F# code which _doesn't_ make use of them.  They're usually near the top of everyone's favorite feature list.
+Use of the pipeline operator is so much fun that it's rare to see F# code which _doesn't_ make use of it.  It's usually near the top of everyone's favorite F# feature list!
 
 ## Wrapping up
 
