@@ -1,6 +1,6 @@
 # .NET Core SDK Usage Data Release
 
-We are releasing anonymous .NET Core SDK usage data that has been collected by using the  .NET Core CLI. We have been using this data to determine the most common CLI scenarios, the distribution of operating systems and to answer other questions we've had. You can use the data to answer your own questions and also get more context on how product decisions are made. The data will also help more people participate in decision making.
+We are releasing anonymous .NET Core SDK usage data that has been collected by using the .NET Core CLI. We have been using this data to determine the most common CLI scenarios, the distribution of operating systems and to answer other questions we've had. You can use the data to answer your own questions and also get more context on how product decisions are made. The data will also help more people participate in decision making.
 
 We felt that it was important to release this data as an open application platform that collects usage information via its SDK. We will release new data on a regular schedule going forward. The data is licensed with the [Open Data Commons Attribution License](https://opendatacommons.org/licenses/by/).
 
