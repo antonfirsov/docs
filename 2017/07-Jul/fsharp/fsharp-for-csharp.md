@@ -37,7 +37,7 @@ Now is the time to be curious, inquisitive, and ready to learn brand-new things.
 
 F# code looks very different from C# code.  There are some surface-level differences you'll notice right away: `let` is a keyword used everywhere, whitespace is significant, and there are no braces or semicolons.  There are also deeper differences, like type inference and partial application of function parameters, which can dramatically alter the way you write code.  But you'll learn how that stuff works as you explore the language for yourself.
 
-The following snippet of code is presented with permission from [Scott Wlaschin](https://twitter.com/ScottWlaschin), an F# community hero who rote this great overview of F# syntax.  You should be able to read through in about a minute.  It has been edited slightly.
+The following snippet of code is presented with permission from [Scott Wlaschin](https://twitter.com/ScottWlaschin), an F# community hero who wrote this great overview of F# syntax.  You should be able to read through in about a minute.  It has been edited slightly.
 
 ```fsharp
 // Single line comments use a double slash.
@@ -55,7 +55,7 @@ let myString = "hello"   // note that no types needed
 let twoToFive = [ 2; 3; 4; 5 ]        // Square brackets create a list with
                                      // semicolon delimiters.
 let oneToFive = 1 :: twoToFive   // :: creates list with new 1st element
-// The result is [1;2;3;4;5]
+// The result is [1; 2; 3; 4; 5]
 
 let zeroToFive = [0;1] @ twoToFive   // @ concats two lists
 
@@ -204,7 +204,7 @@ The following table aims to provide a basic mapping of some of the core concepts
 | Objects with Methods | Types and function |
 | Namespaces | Modules and Namespaces |
 
-It's worth noting that everything on the left-hand side is possible in F# and quite easy to accomplish.  There are also a things on the right-hand side which are possible in C#, though they are more difficult to accomplish.
+It's worth noting that everything on the left-hand side is possible in F# and quite easy to accomplish.  There are also a things on the right-hand side which are possible in C#, though they are more difficult to accomplish.  It's also worth noting that items in the left-hand column are not "bad" for F#, either.  Objects with methods are perfectly valid to use in F#, and can often be the best approach for F# depending on your scenario.
 
 ## Expressions instead of statements
 
@@ -376,6 +376,38 @@ Ta-da!  Armed with the power of Discriminated Unions and F#, you can pass any pr
 
 You may have noticed a bit of funky syntax in the `Node` case of the tree definition.  This is actually a type signature for a tuple.  That means that a BST, as we've defined it, can either be empty, or a tuple of `(value, left subtree, right subtree)`.  Read more about [Signatures](https://fsharpforfunandprofit.com/posts/function-signatures/) to learn more.
 
+## F# arrays, lists, and sequences
+
+F# comes with a few collection types, the most common of which are arrays, lists, and sequences.
+
+* F# arrays are mutable .NET arrays
+* F# lists are singly-linked lists
+* F# sequences are a type alias for `IEnumerable<'T>`
+
+F# Arrays behave just like arrays in C#.  They are mutable and their values can be changed in-place.  They are evaluated eagerly.  F# lists are singly-linked and immutable.  They can be used to form list patterns with F# pattern matching.  They are evaluated eagerly.  F# sequences are `IEnumerable<'T>` under the covers.  They are evaluated lazily.
+
+F# arrays, lists, and sequences also have array, list, and sequence expression syntax.  This is very convenient for different scenarios where you can generate one programatically.
+
+```fsharp
+// Generate 100 square values as an F# list.
+let first100Squares = [ for x in 1..100 -> x * x ]
+
+// Same as above, but as an array!
+let first100SquaresArray = [| for x in 1..100 -> x * x |]
+
+// Function which generates an infinite sequence of all odd values.
+//
+// Call in conjunction with Seq.take
+let odds = 
+    let rec loop x = // Uses a recursive inner function
+        seq { yield x
+              yield! loop (x + 2) }
+    loop 1
+
+printfn "First 3 odds: %A" (Seq.take 3 odds)
+// Prints:  "First 10 odds: seq [1; 3; 5]
+```
+
 ## Functional pipelines
 
 The last major concept we'd like to cover here is the notion of a functional pipeline.  You may have noticed the `|>` used in the above code samples.  This operator is very similar to unix pipes: it takes something on the left-hand side, and makes that the input to something on the right-hand side.  This operator (called "pipe", or "pipeline") is used to form a functional pipeline.  Here's an example:
@@ -391,6 +423,39 @@ let getOddSquares items =
 ```
 
 Use of the pipeline operator is so much fun that it's rare to see F# code which _doesn't_ make use of it.  It's usually near the top of everyone's favorite F# feature list!
+
+You may also be wondering what `Seq.filter` and `Seq.map` are.  These are known as sequence combinators, but you can think of them as being very similar to LINQ.  In fact, an F# `seq<'T>` is the same as an `IEnumerable<T>` in C#, and the functions inside the `Seq` module should look pretty similar to LINQ methods.  The F# Core library, which is auto-referenced for you in all F# code, contains a large number of functions for F# `seq<'T>`, F# lists, and F# arrays.  These functions are used extensively in functional pipelines, as you'll quickly notice when you write F# code for yourself.
+
+### Mapping common LINQ methods to F# functions
+
+If you are familiar with LINQ methods, the following table should help you undertand analogous functions in F#.  This table is, in no way, intended to be exhaustive.
+
+| LINQ | F# function |
+|------|-------------|
+| `Where` | `filter` |
+| `Select` | `map` |
+| `GroupBy` | `groupBy` |
+| `SelectMany` | `collect` |
+| `Aggregate` | `fold` or `reduce` |
+| `Sum` | `sum` |
+
+We highly encourage you to explore these functions to see what they do.  You can often see what they do by inspecting their type signature.  For example, here are the signatures for `fold` and `reduce`:
+
+```fsharp
+val fold: folder: ('State -> 'T -> 'State) -> source: seq<'T> -> 'State
+val reduce: reduction: ('T -> 'T -> 'T) -> source: seq<'T> -> 'T
+```
+
+Although both are similar in that they will collapse a source sequence into a value, `fold` is more flexible because it can produce a type which isn't the same as the parameterized type of the source sequence.  In fact, `reduce` is merely a special case of `fold`!
+
+### Seq, List, and Array functions
+
+You'll also notice that the same set of functions exist for the `Seq` module, `List` module, and `Array` module.  The `Seq` module functions can be used on F# sequences, lists, or arrays.  The array and list functions can only be used on F# arrays and F# lists, respectively.  Additionally, F# sequences are lazy, whereas F# lists and arrays use eager evaluation.  Using `Seq` functions on an F# list or F# array will incur lazy evaluation, and the type will then be an F# sequence.
+
+Although the above paragraph may be a lot to unpack, it should feel intuitive as you write more F#.  So, to summarize:
+
+* F# sequences are `IEnumerable`s under the covers, and are evaluated lazily
+* F# lists are singly-linked lists
 
 ## Wrapping up
 
