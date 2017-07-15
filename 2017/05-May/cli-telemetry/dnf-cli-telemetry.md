@@ -4,6 +4,8 @@ We are releasing anonymous .NET Core SDK usage data that has been collected by u
 
 We felt that it was important to release this data as an open application platform that collects usage information via its SDK. We will release new data on a regular schedule going forward. The data is licensed with the [Open Data Commons Attribution License](https://opendatacommons.org/licenses/by/).
 
+You can see the first mentions of .NET Core telemetry in the [.NET Core 1.0](https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/#net-core-tools-telemetry) and [.NET Core 1.0 RC2](https://blogs.msdn.microsoft.com/dotnet/2016/05/16/announcing-net-core-rc2/#net-core-tools-telemetry) blog announcments.
+
 ## .NET Core SDK Usage Data
 
 .NET Core SDK usage data is available, by month, in CSV format:
