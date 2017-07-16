@@ -211,7 +211,7 @@ Use of the pipeline operator is so much fun that it's rare to see F# code which 
 
 Because F# is a .NET language, it shares the same primitive types that C# does: `string`, `int`, etc.  It also has .NET objects, and supports the four main pillars of object-oriented programming.  F# also has two primary types not found in C#: [Records](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/records) and [Discriminated Unions](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/discriminated-unions).  There are some examples of these above, but we'll explain them a bit further here.
 
-[Records](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/records) are a named, ordered grouping of values which have equality baked in.  They are Product Types for the category theorists out there.  They have a number of uses, but one of the most obvious ones is a replacement for POCO or POJO classes.
+[Records](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/records) are a named, ordered grouping of values which have equality baked in.  And by equality, we mean in the most literal sense.  There is no need to distinguish between reference equality or some custom definition of value equality between two objects.  Records are values, and values have equality.  They are Product Types for the category theorists out there.  They have a number of uses, but one of the most obvious ones is a replacement for POCO or POJO classes.
 
 ```fsharp
 open System
