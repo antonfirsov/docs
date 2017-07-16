@@ -15,7 +15,7 @@ Before we dive deep into concepts, there are a few immediate ways that F# differ
 3. No `return` statement at the end of a function.
 4. A few more operators (e.g., `|>`).
 
-These are surface-level differences, but they're worth calling out.  For example, here is some basic F# code with two functions and a printed result:
+These are also surface-level differences in F#.  For example, here is some basic F# code with two functions and a printed result:
 
 ```fsharp
 let square x = x * x
@@ -411,7 +411,7 @@ This post covered a lot of things, but it really only began to scratch the surfa
 * Use F# and [Suave](https://suave.io/) to build [a web app](https://theimowski.gitbooks.io/suave-music-store/content/en/)
 * Use F# to explore [Azure Functions](https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-fsharp)
 
-There are many, many more things you can use F# for, so the above list is by no means exhaustive.  F# is used from something as simple as [a build script](https://www.hanselman.com/blog/ExploringFAKEAnFBuildSystemForAllOfNET.aspx) to forming the backend of a [huge, powerful set of backend services](https://tech.jet.com/blog/tag/f/).  There is no shortage of projects you can use F# for.  Give it a shot!
+There are many, many more things you can use F# for, so the above list is by no means exhaustive.  F# can be used from something as simple as [a build script](https://www.hanselman.com/blog/ExploringFAKEAnFBuildSystemForAllOfNET.aspx) to forming the backend of a [huge, powerful set of backend services](https://tech.jet.com/blog/tag/f/).  There is no shortage of projects you can use F# for.  Give it a shot!
 
 ## Additional resources
 
