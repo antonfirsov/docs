@@ -58,18 +58,20 @@ It's worth noting that everything on the left-hand side is possible in F# and qu
 
 ## Immutability values instead of variables
 
-One of the most transformative concepts in functional programming is immutability.  It's often overlooked and underrated in tutorials online, but this is often the first and biggest hump to get over if you've never used a language where immutability is the default.  Nearly all functional programming languages have immutability at their core.
+One of the most transformative concepts in functional programming is immutability.  It's often overlooked and underrated in the functional programming community, but immutability is often the first and biggest hump to get over if you've never used a language where it is the default.  Nearly all functional programming languages have immutability at their core.
 
 ```fsharp
 let x = 1
 ```
 
-In the above statement, the value of `1` is _bound_ to the name `x`.  `x` now always refers to the value `1` for its lifetime, and cannot be modified.  That is, the following code will not compile:
+In the above statement, the value of `1` is _bound_ to the name `x`.  `x` now always refers to the value `1` for its lifetime, and cannot be modified.  For example, the following code does not re-assign the value of `x`:
 
 ```fsharp
 let x = 1
-x = 2
+x = x + 1 // Does not compile!
 ```
+
+Instead, the second line is an equality comparison to see if `x` is equal to `x + 1`.  In fact, there is no way to express re-assignment of `x` unless it is explicitly defined to be `mutable`.  Although you could then re-assign the value (with the `<-` operator), you'll quickly find that it's easier to think about how to solve problems _without_ re-assigning values.  This allows you to play to the strengths of F#.
 
 We said that immutability was transformative, and that means that there are some very concrete differences in approaches to solving a problem.  For example, `for` loops and other basic imperative programming operations are not typically used in F#.
 
@@ -79,9 +81,10 @@ As a more concrete example, say you wish to compute the squares of an input arra
 // Define a function which squares a value
 let square x = x * x
 
-let getSquares items = items |> Array.map square
+let getSquares items = 
+    items |> Array.map square
 
-let arr = [| 1; 2; 3; 4; 5 |] // Create a new F# array
+let arr = [| 1; 2; 3; 4; 5 |] // Create an F# array
 
 printfn "Squares of %A are %A" arr (getSquares arr)
 ```
@@ -94,7 +97,7 @@ Furthermore, when values are immutable, concurrent programming becomes far simpl
 
 ## Expressions instead of statements
 
-As mentioned to above, F# makes use of *expressions*.  This is in contrast with C#, which uses *statements* for nearly everything.  The difference between the two can initially seem subtle, but there is one thing to always keep in mind: an expression produces a value.  Statements do not.
+As mentioned to above, F# makes use of *expressions*.  This is in contrast with C#, which uses _statements_ for nearly everything.  The difference between the two can initially seem subtle, but there is one thing to always keep in mind: an expression produces a value.  Statements do not.
 
 ```fsharp
 // 'getMessage' is a function, and `name` is an input parameter.
@@ -110,13 +113,13 @@ let alfMessage = getMessage "Alf" // This expression is bound to 'alfMessage'!
 
 In the above code sample, you'll notice a few things which are very different from imperative laguages like C#:
 
-* `if` is also an expression, not a statement!
+* `if...then...else` is an expression, not a statement
 * Each branch of the `if` expression is the return value of the `getMessage` function
 * Each invocation of `getMessage` is an expression which takes a string and produces a string
 
 Although this is very different from C#, you'll most likely find that it feels natural when writing code in F#.
 
-Diving a bit deeper, F# actually uses expressions to model statements.  These return the [`unit`](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/unit-type) type.  `unit` is roughly analagous to `void` in C#, although it is subtly different.
+Diving a bit deeper, F# actually uses expressions to model statements.  These return the [`unit`](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/unit-type) type.  `unit` is roughly analagous to `void` in C#, although it is subtly different:
 
 ```fsharp
 let names = [ "Alf"; "Vasily"; "Shreyans"; "Jin Sun"; "Moulaye" ]
@@ -135,11 +138,9 @@ The above code samples have used F# arrays and lists.  This section explains the
 
 F# comes with a few collection types, the most common of which are arrays, lists, and sequences.
 
-* F# arrays are mutable .NET arrays
-* F# lists are singly-linked lists
-* F# sequences are a type alias for `IEnumerable<'T>`
-
-F# Arrays behave just like arrays in C#.  They are mutable and their values can be changed in-place.  They are evaluated eagerly.  F# lists are singly-linked and immutable.  They can be used to form list patterns with F# pattern matching.  They are evaluated eagerly.  F# sequences are `IEnumerable<'T>` under the covers.  They are evaluated lazily.
+* F# arrays are mutable .NET arrays.  They are mutable and their values can be changed in-place.  They are evaluated eagerly.
+* F# lists are immutable singly-linked lists.  They can be used to form list patterns with F# pattern matching.  They are evaluated eagerly.
+* F# sequences are immutable `IEnumerable<'T>`s under the covers.  They are evaluated lazily.
 
 F# arrays, lists, and sequences also have array, list, and sequence expression syntax.  This is very convenient for different scenarios where you can generate one programatically.
 
