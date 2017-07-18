@@ -2,6 +2,7 @@
 title: The week in .NET - Command Line Parser Library, .NET South East
 keywords: Week in .NET, community, .NET
 weblogName: .NET Blog
+postId: 13705
 dontInferFeaturedImage: true
 ---
 Previous posts:
@@ -12,7 +13,7 @@ Previous posts:
 
 ## Package of the week: Command Line Parser Library
 
-Command-line applications typically accept arguments and options, and expose a `--help` page describing them. Parsing those arguments and options is a repetitive task that .NET provides little help for out of the box, beyond the `string[] args` argument to `main`. [Giacomo Stelluti Scala](https://github.com/gsscoder)'s [Command Line Parser Library](https://github.com/gsscoder/commandline) offers CLR applications a clean and concise API for manipulating command line arguments and related tasks, such as defining switches, options and verb commands. It allows you to display a help screen with a high degree of customization and a simple way to report syntax errors to the end user. Everything that is boring and repetitive about parsing command line arguments is delegated to the library, letting developers concentrate on core logic. It's written in C# and doesn't depend on other packages. It's also freindly to F# and VB developers.
+Command-line applications typically accept arguments and options, and expose a `--help` page describing them. Parsing those arguments and options is a repetitive task that .NET provides little help for out of the box, beyond the `string[] args` argument to `main`. [Giacomo Stelluti Scala](https://github.com/gsscoder)'s [Command Line Parser Library](https://github.com/gsscoder/commandline) offers CLR applications a clean and concise API for manipulating command line arguments and related tasks, such as defining switches, options and verb commands. It allows you to display a help screen with a high degree of customization and a simple way to report syntax errors to the end user. Everything that is boring and repetitive about parsing command line arguments is delegated to the library, letting developers concentrate on core logic. It's written in C# and doesn't depend on other packages. It's also friendly to F# and VB developers.
 
 First, define the options the application expects:
 
@@ -56,15 +57,15 @@ User groups are an essential part of the .NET Community, and none of them has ex
 
 ## .NET
 
-* [Docker for .NET Developers (Part 7) - Setting up Amazon EC2 Container Registry](https://www.stevejgordon.co.uk/docker-for-net-developers-part-7) by Steve Gordon.
-* [.NET Core Design Reviews: System.IO.Pipelines](https://www.youtube.com/watch?v=IXg58zMsPug) by Immo Landwerth.
-* [Calling a custom executable from Cake using StartProcess and ProcessSettings](https://jeremylindsayni.wordpress.com/2017/07/17/calling-a-custom-executable-from-cake-using-startprocess-and-processsettings/) by Jeremy Lindsay.
-* [How to build a .NET Core Project with VS Code ?](https://joffreykern.github.io/blog/how-to-build-dotnet-core-project-with-vs-code) by Joffrey Kern.
-* [Good citizenship - logging from .NET libraries](https://nblumhardt.com/2017/07/library-logging/) by UNKNOWN.
-* [Dotnet new templates for AWS Lambda and Raspberry Pi](https://carlos.mendible.com/2017/07/18/dotnet-new-templates-for-aws-lambda-and-raspberry-pi/) by Carlos Mendible.
-* [dotnet CLI – how to update a NuGet package and add a new NuGet package](https://codingblast.com/update-nuget-package-dotnet-cli/) by Ibrahim Šuta.
 * [.NET Framework July 2017 Security and Quality Rollup](https://blogs.msdn.microsoft.com/dotnet/2017/07/11/net-framework-july-2017-security-and-quality-rollup/) by Rich Lander.
 * [Samsung Releases 4th Preview of Visual Studio Tools for Tizen including support for .NET Core 2.0 Preview](https://blogs.msdn.microsoft.com/visualstudio/2017/07/11/samsung-releases-4th-preview-of-visual-studio-tools-for-tizen-including-support-for-net-core-2-0-preview/) by Scott Hunter.
+* [.NET Core Design Reviews: System.IO.Pipelines](https://www.youtube.com/watch?v=IXg58zMsPug) by Immo Landwerth.
+* [Docker for .NET Developers (Part 7) - Setting up Amazon EC2 Container Registry](https://www.stevejgordon.co.uk/docker-for-net-developers-part-7) by Steve Gordon.
+* [Calling a custom executable from Cake using StartProcess and ProcessSettings](https://jeremylindsayni.wordpress.com/2017/07/17/calling-a-custom-executable-from-cake-using-startprocess-and-processsettings/) by Jeremy Lindsay.
+* [How to build a .NET Core Project with VS Code ?](https://joffreykern.github.io/blog/how-to-build-dotnet-core-project-with-vs-code) by Joffrey Kern.
+* [Good citizenship - logging from .NET libraries](https://nblumhardt.com/2017/07/library-logging/) by Nicholas Blumhardt.
+* [Dotnet new templates for AWS Lambda and Raspberry Pi](https://carlos.mendible.com/2017/07/18/dotnet-new-templates-for-aws-lambda-and-raspberry-pi/) by Carlos Mendible.
+* [dotnet CLI – how to update a NuGet package and add a new NuGet package](https://codingblast.com/update-nuget-package-dotnet-cli/) by Ibrahim Šuta.
 * [Introducing Unity 2017](https://blogs.unity3d.com/2017/07/11/introducing-unity-2017/) by Alex Lian.
 * [Introduction to MSBuild in .NET Core](https://channel9.msdn.com/Shows/Code-Conversations/Introduction-to-MSBuild-in-NET-Core-with-Nate-McMaster) by Nate McMaster.
 * [Live coding an Alexa Smart Home skill from scratch in C#](http://damianblog.com/2017/06/05/live-coding-an-alexa-smart-home-skill-from-scratch-in-csharp/) by Damian Mehers.
@@ -101,8 +102,6 @@ User groups are an essential part of the .NET Community, and none of them has ex
 * [Ref, Ref Return and Ref Local In C#](https://l-paathshaala.com/2017/07/17/ref-ref-return-and-ref-local-in-c/) by Sandeep Shekhawat.
 * [Using Span<T>](http://adamsitnik.com/Span/) by Adam Sitnik.
 * [Using C# 7.1](http://blog.monstuff.com/archives/2017/07/using-Csharp-7.1.html) by Julien Couvreur.
-* [Reviewing ResinPart I](https://ayende.com/blog/178945/reviewing-resin-part-i?key=457d59ed93ed44cebbb25ace8f71d561) by Ayende Rahien.
-* [Reviewing ResinPart II](https://ayende.com/blog/178946/reviewing-resin-part-ii?Key=154eea77-6556-4292-94f5-0838c0174e89&utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+AyendeRahien+%28Ayende+%40+Rahien%29) by Ayende Rahien.
 * [C# Developers: Stop Calling .Result](http://motzcod.es/post/162870742532/c-sharp-developers-stop-calling-dot-result) by James Montemagno.
 * [Practical C# – Async Main in C# 7.1](http://www.andreaangella.com/2017/07/async-main/) by Andrea Angella.
 * [All you need to know to master C# 7](http://www.andreaangella.com/2017/07/master-csharp7/) by Andrea Angella.
@@ -162,7 +161,7 @@ There is more content available this week in [F# Weekly](https://sergeytihon.wor
 
 ## Data
 
-* [Reviewing Resin Part III](https://ayende.com/blog/178947/reviewing-resin-part-iii?Key=c73f964b-561b-4bfa-ab80-a72624d4e568) by Ayende Rahien.
+* [Reviewing Resin Part I](https://ayende.com/blog/178945/reviewing-resin-part-i?key=457d59ed93ed44cebbb25ace8f71d561), [Part II](https://ayende.com/blog/178946/reviewing-resin-part-ii?Key=154eea77-6556-4292-94f5-0838c0174e89&utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+AyendeRahien+%28Ayende+%40+Rahien%29),  and [Part III](https://ayende.com/blog/178947/reviewing-resin-part-iii?Key=c73f964b-561b-4bfa-ab80-a72624d4e568) by Ayende Rahien.
 
 ## Game development
 
