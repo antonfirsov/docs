@@ -1,21 +1,14 @@
 # Get Started with F# as a C# developer
 
-One of our previous posts, [Why You Should Use F#](https://blogs.msdn.microsoft.com/dotnet/2017/05/31/why-you-should-use-f/), listed a few reasons why F# is worth trying out today.  In this post, we'll cover some of the basics you'll need to know to be successful.  This post is intended for people who are coming from a C#, Java, or anoter object-oriented background.  The concepts covered here should seem very familiar to existing F# programmers.
+One of our previous posts, [Why You Should Use F#](https://blogs.msdn.microsoft.com/dotnet/2017/05/31/why-you-should-use-f/), listed a few reasons why F# is worth trying out today.  In this post, we'll cover some of the basics you'll need to know to be successful.  This post is intended for people who are coming from a C#, Java, or another object-oriented background.  The concepts covered here should seem very familiar to existing F# programmers.
 
-This post will not make any attempt to show you how to "translate" C# code into F#. This is because C# and F# are fundamentally a part of different programming paradigms, which makes each a tool suited for their own purposes. We think you'll find that it expands your mind and helps you be a better programmer to learn functional programming concepts.  That value will come to you the fastest if you don't think about trying to translate from one paradigm to another.
+This post will not make any attempt to show you how to "translate" C# code into F#. This is because C# and F# are different programming paradigms, which makes each suited to its own purpose. We think you'll find that it expands your mind and helps you be a better programmer to learn functional programming concepts.  That value will come to you the fastest if you don't think about trying to translate from one paradigm to another.
 
 Now is the time to be curious, inquisitive, and ready to learn brand-new things.  Let's get going!
 
 ## Four immediate differences
 
-Before we dive deep into concepts, there are a few immediate ways that F# differs from C#.
-
-1. Semicolons, braces (`{}`), and parentheses are few and far between.
-2. Type inference instead of annotating types. Think C#'s `var`, but on steroids.
-3. No `return` statement at the end of a function.
-4. A few more operators (e.g., `|>`).
-
-These are also surface-level differences in F#.  For example, here is some basic F# code with two functions and a printed result:
+Before we dive deep into concepts, there are a few very visible ways that F# differs from C#.  For example, here is some basic F# code with two functions and a printed result:
 
 ```fsharp
 let square x = x * x
@@ -30,7 +23,7 @@ printfn "Sum of the first 5 squares is %d" (sumOfSquares 12)
 
 Note that there are no type definitions, semicolons, or braces.  The only parentheses are used to disambiguate `sumOfSquares` and `12`.  The pipeline operator (`|>`) is used much like a unix-style pipe.  `square` is a function passed directly as a parameter to `List.map`.  And so on!
 
-Although there are many surface-level differences we could talk about, there are deeper things going on here which are key to understanding F#.
+Although there are many differences we could talk about, there are deeper things going on here which are key to understanding F#.
 
 ## Mapping core C# concepts to core F# concepts
 
