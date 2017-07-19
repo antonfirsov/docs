@@ -50,12 +50,12 @@ Web Files
 As they are mostly use in web applications, let's compare compression
 ratio for web files.
 
-![](media/CompressionRatioMicrosoftFrontPage.png)
+![](CompressionRatioMicrosoftFrontPage.png)
 
 We can see that Brotli compression ratio is better on Optimal level and
 the same on fastest. Let’s compare more data.
 
-![](media/CompressionRatioWebFiles.png)
+![](CompressionRatioWebFiles.png)
 
 As we can see from the graph above, even at quality level 5, Brotli
 compression ratio is higher than the optimal quality level of gzip and
@@ -84,14 +84,14 @@ Corpus](http://www.corpus.canterbury.ac.nz/descriptions/#cantrbry).
 
 
 
-![](media/CompressioRatioCanterbury.png)
+![](CompressioRatioCanterbury.png)
 
 
 
 Looking at the data, it’s clear that Brotli fares better for larger
 files.
 
-![](media/ComparisonFileSizeRatio.png)
+![](ComparisonFileSizeRatio.png)
 
 Compression time
 ================
@@ -100,12 +100,12 @@ The graph below highlights the difference between the compression times
 between various compression libraries. A large file (around 4 MB) was
 used to measure the compression time.
 
-![](media/RedditCompressionTime.png)
+![](RedditCompressionTime.png)
 
 We can see that on Fastest level, Brotli works faster, but what about
 Optimal level?
 
-![](media/RedditCompressionTimeOptimal.png)
+![](RedditCompressionTimeOptimal.png)
 
 We see that the best compression ratio takes a lot of time. Does it mean
 that Brotli is appropriate only for static files? Partly yes, but as it
@@ -116,7 +116,7 @@ modelling, which is one of the more advanced features of the format).
 Comparing Brotli compression levels
 -----------------------------------
 
-![](media/CompressionTimeOnLevels.png)
+![](CompressionTimeOnLevels.png)
 
 As we can see on this chart, Brotli can easily be used for dynamic data
 and as Content-Encoding type in ASP.NET.
@@ -131,7 +131,7 @@ speed. Clients should be able to decompress quickly, even with limited
 resources such as on browsers and mobile devices. Again, we choose a 4
 MB file for testing.
 
-![](media/DecompressionTimeReddit.png)
+![](DecompressionTimeReddit.png)
 
 We see that Brotli is very similar to Deflate in decompression speed.
 Decompression speed for small files is comparable across all algorithms.
@@ -181,7 +181,7 @@ As we can see, the css file gets compressed to 1/7^th^ of its original
 size. Therefore, if you have Brotli encoding enabled, your website will
 load faster.
 
-![](media/StyleSize.png)
+![](StyleSize.png)
 ==================================================================
 
 But how to use encoding in ASP.NET applications for dynamic files?
@@ -189,7 +189,7 @@ But how to use encoding in ASP.NET applications for dynamic files?
 Let’s create a default ASP.NET web-site and open Global.asax file.
 You’ll see something like this:
 
-![](media/Content-EncodingScreenBrowser.png)
+![](Content-EncodingScreenBrowser.png)
 
 Some files don’t have Content-Encoding attribute. We can add deflate or
 gzip Content-Encoding with the simple method.
@@ -217,7 +217,7 @@ protected void Application_PostAcquireRequestState(object sender, EventArgs e)
     }
 }
 ```
-![](media/ContentEncodingDeflate.png)
+![](ContentEncodingDeflate.png)
 
 And if you install a pre-release Brotli package(link here), you can set
 filter = BrotliStream and also configure what compression level you
@@ -282,7 +282,7 @@ as scored compressor.
 
 The formula is:
 
-![equation](media/WeissmanFormula.png)
+![equation](WeissmanFormula.png)
 
 
 
@@ -291,7 +291,7 @@ Where ‘r’ is the compression ratio, T is the time required to compress
 and the overlined ones are the same metrics for a standard compressor. Alpha
 is a scaling constant. We will use 1 as the scaling constant.
 
-![](media/WeissmanScoreBrotli.png)
+![](WeissmanScoreBrotli.png)
 
 May be Brotli is the real Pied Piper?
 
