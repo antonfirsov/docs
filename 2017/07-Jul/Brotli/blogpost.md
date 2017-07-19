@@ -255,8 +255,23 @@ protected void Application_PostAcquireRequestState(object sender, EventArgs e)
 
 Also, you can use Brotli in ASP.NET Web Applications using custom
 compression provider visit [Response Compression
-Middleware](https://docs.microsoft.com/en-us/aspnet/core/performance/response-compression)
-for details.
+Middleware](https://docs.microsoft.com/en-us/aspnet/core/performance/response-compression) for details. 
+
+Let's compare a download page results with Good 3G connection. 
+1. Create a default ASP.NET Core Application. 
+![](ASPCoreProject.PNG)
+2. Run it, open developer tools and choose Good3G in Network Tab 
+![](NetworkTabSet.png) 
+For clearer results also click on Disable cashe
+3. Results without Brotli compression 
+![](DefaultASPPageWithoutBrotli.png)
+4. Add a custom `BrotliCompressionProvider` using `BrotliStream` with Fastest level
+5. Step 2 
+6. Results with Brotli
+![](DefaultASPPageWithBrotli.png)
+
+As we can see page runs more than 2 times faster with Brotli. 
+
 
 Conclusion
 ==========
