@@ -1,4 +1,5 @@
 # Broadly about Brotli compression algorithm.  
+*This post was written by our software developer intern Denys Tsomenko([Vedin](https://github.com/Vedin)), who worked on System.IO.Compression.Brotli library during his internship*
 
 Modern web pages can often be made up of dozens of megabytes of HTML,
 CSS, and JavaScript, and that's before accounting for images, videos, or
