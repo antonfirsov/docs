@@ -414,4 +414,6 @@ It's worth noting that there is also a wealth of information online about learni
 * [F# Wiki](https://en.wikibooks.org/wiki/F_Sharp_Programming)
 * [Learn X in Y Minutes: F#](https://learnxinyminutes.com/docs/fsharp/)
 
-Additionally, the F# community is incredibly welcoming for beginners.  There is a very active slack run by the F# Software Foundation, with rooms for beginners, which you can access by [joining for free](http://foundation.fsharp.org/join).  We highly encourage you to do so!
+There are also a ton of documented ways to [get started with F#](https://docs.microsoft.com/en-us/dotnet/fsharp/get-started/).
+
+Finally, the F# community is incredibly welcoming for beginners.  There is a very active slack run by the F# Software Foundation, with rooms for beginners, which you can access by [joining for free](http://foundation.fsharp.org/join).  We highly encourage you to do so!
