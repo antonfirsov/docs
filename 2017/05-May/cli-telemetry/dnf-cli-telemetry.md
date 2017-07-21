@@ -81,7 +81,7 @@ This data has been very useful to the .NET Core team for a year now. In some cas
 
 Here are some interesting findings that we have made based on this data:
 
-* .NET Core usage is growing -- >10% per month.
+* .NET Core usage is growing -- >10% month over month.
 * .NET Core usage is geographically diverse -- used in 100s of countries and all continents.
 * .NET Core CLI tools are a very important part of the overall .NET Core experience -- relative to .NET Framework, the CLI tools are novel.
 * Developers do not use the .NET Core SDK the same way on Windows, macOS and Linux -- the popular commands are different per OS.
