@@ -1,9 +1,9 @@
-# Brotli compression algorithm preview and  why you should use it.
+# Brotli Compression Algorithm Preview and Why You Should Use It.
 *This post was written by our software developer intern Denys Tsomenko([Vedin](https://github.com/Vedin)), who worked on System.IO.Compression.Brotli library during his internship.*
 
 Brotli compression algorithm was developed and released by two Google engineers in 2015. Now it is supported by the most popular browsers Google Chrome, Mozilla Firefox, Opera, and Microsoft Edge. We understand that web-pages are getting larger and larger with huge CSS, HTML and JavaScript files. But the Internet connection isn't always good and pages can load slowly. Web pages often also contain other materials such as images, videos, etc. One solution to reduce load time is file compression. Currently, ASP.NET developers have two compression methods available to use in their web-applications: Deflate and gzip (default). They give you pretty similar results and don't allow specific configurations. Therefore, we decided to add Brotli as a new compression algorithm. We used an upcoming .NET Core feature called [Span](https://github.com/dotnet/corefxlab/blob/master/docs/specs/span.md) in the Brotli implementation to reduce memory allocations.
 
-Brotli was designed for web files at first and used by Google to create new web font format ([WOFF2](http://www.w3.org/TR/WOFF2/)), but we will see it can be easily used with other formats as well. The compression level by default is set to optimal (maximum possible compression ratio) which provides a 12-25% size reduction compared to gzip and deflate. There is a trade off between compression time and compression ratio. Size reduction is often a trade off between time spent and achieved reduction and that different algorithms can perform quite differently.
+Brotli was designed for web files at first and used by Google to create new web font format ([WOFF2](http://www.w3.org/TR/WOFF2/)), but we will see it can be easily used with other formats as well. The [compression level](https://msdn.microsoft.com/en-us/library/system.io.compression.compressionlevel(v=vs.110).aspx) by default is set to optimal (maximum possible compression ratio) which provides a 12-25% size reduction compared to gzip and deflate. There is a trade off between compression time and compression ratio. Size reduction is often a trade off between time spent and achieved reduction and that different algorithms can perform quite differently.
 
 A preview version of the Brotli compression library is available for you to try. You can use it in any .NET applications and we expect that your ASP.NET web sites will load faster by 14-30%. Please give us feedback to make Brotli more usable and efficient.
 
@@ -27,8 +27,10 @@ Fast navigation:
 
 If you want to access NuGet package: [Brotli .NET pre-release](https://dotnet.myget.org/feed/dotnet-corefxlab/package/nuget/System.IO.Compression.Brotli)
 
-Compression ratio
+Compression Ratio
 =================
+
+We will calculate compression ratio using formula : `Compession Ratio = Unocmpressed Size / Compressed Size`. So higher results is better.
 
 Web Files
 ---------
@@ -42,7 +44,7 @@ The simplest configuration for Brotli stream contains only 2 parameters:
 
 But you can configure it based of what you need. It's allowed to set:
 
-both for Compress and Decompress mode:
+Both for Compress and Decompress mode:
 1. BufferSize for stream
 2. Leave open parameter 
 
@@ -66,7 +68,7 @@ the same on fastest(the minimum compression time). Let’s compare more data.
 As we can see from the graph above, even at quality level 5, Brotli
 compression ratio is higher than the optimal quality level of gzip and
 Deflate. One more feature is that you can choose any of 11 levels of
-Brotli aside from the standard Optimal, Fastest and NoCompression
+Brotli aside from the standard `Optimal`, `Fastest` and `NoCompression`
 levels. You can do it in 2 ways: use the Brotli class or send the
 necessary quality to the BrotliStream constructor:
 ```C#
@@ -85,17 +87,15 @@ Corpus](http://www.corpus.canterbury.ac.nz/descriptions/#cantrbry). "The files w
 
 |    File           |    Abbrev    |    Category             |    Size(bytes)        |
 |-------------------|--------------|-------------------------|----------------|
-|     [alice29.txt](http://corpus.canterbury.ac.nz/descriptions/cantrbry/text.html)    |    text      |    English text         |     152089|
-|    [grammar.lsp](http://corpus.canterbury.ac.nz/descriptions/cantrbry/list.html)   |    list      |    LISP source          |     3721|
-|    [kennedy.xls](http://corpus.canterbury.ac.nz/descriptions/cantrbry/Excl.html)     |    Excl      |    Excel Spreadsheet    |     1029744    |
-|    [ptt5](http://corpus.canterbury.ac.nz/descriptions/cantrbry/fax.html)          |    fax       |    CCITT test set       |     513216     |
+|[alice29.txt](http://corpus.canterbury.ac.nz/descriptions/cantrbry/text.html)    |      text               |    English text         |     152089|
+|[grammar.lsp](http://corpus.canterbury.ac.nz/descriptions/cantrbry/list.html)   |        list      |    LISP source          |     3721|
+|[kennedy.xls](http://corpus.canterbury.ac.nz/descriptions/cantrbry/Excl.html)     |    Excl      |    Excel Spreadsheet    |     1029744    |
+|[ptt5](http://corpus.canterbury.ac.nz/descriptions/cantrbry/fax.html)          |    fax       |    CCITT test set       |     513216     |
 
 
 
 
 ![](CompressioRatioCanterbury.png)
-
-
 
 Looking at the data, it’s clear that Brotli fares better for larger
 files. This chart shows in how many times brotli compressed files is smaller than Deflate and gzip files. 
@@ -135,7 +135,7 @@ Of course, you can compress static files once and in this case compression time 
 
 ![](DecompressionTimeReddit.png)
 
-We see that Brotli "much faster than GZip and much closers to the performance of Deflate.
+We see that Brotli much faster than GZip and much closers to the performance of Deflate.
 Decompression speed for small files is comparable across all algorithms.
 
 Usage
@@ -264,7 +264,7 @@ For clearer results also click on Disable cashe
 
 As we can see page runs more than 2 times faster with Brotli. 
 
-Bonus metric
+Bonus Metric
 ============
 
 When the Brotli compression algorithm was released in 2015, the
@@ -279,9 +279,6 @@ The formula is:
 
 ![equation](WeissmanFormula.png)
 
-
-
-
 Where ‘r’ is the compression ratio, T is the time required to compress
 and the overlined ones are the same metrics for a standard compressor. Alpha
 is a scaling constant. We will use 1 as the scaling constant.
@@ -289,7 +286,7 @@ is a scaling constant. We will use 1 as the scaling constant.
 ![](WeissmanScoreBrotli.png)
 
 
-Try it out!
+Try It Out!
 ===========
 
 Hence, we can conclude that Brotli is mostly nice for clients, with
