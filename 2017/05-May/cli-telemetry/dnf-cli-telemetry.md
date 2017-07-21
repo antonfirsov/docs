@@ -130,7 +130,7 @@ We wonder if developers use `build` and `restore` while automation that doesn't 
 
 It's interesting to take a look at the geographic variations in operating system usage. Most geographies have a mix, but you can see that some areas run predominantly on a single operating system, at least as it relates to .NET Core usage.
 
-This data and visualization is based on the IP address seen on the server. It is not collected by the CLI. The IP address is not stored, but converted to a city/country representation.
+This data and visualization is based on the IP address seen on the server. It is not collected by the CLI. The IP address is not stored, but converted to a 3-octet IP address, which is effectively a city-level representation of that data.
 
 ### Overall Operating System Distribution
 
