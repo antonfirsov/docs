@@ -1,4 +1,4 @@
-# .NET Core SDK Usage Data Release
+# .NET Core SDK Usage Data Release and Update
 
 We are releasing .NET Core SDK usage data that has been collected by using the .NET Core CLI. We have been using this data to determine the most common CLI scenarios, the distribution of operating systems and to answer other questions we've had, as described below. You can use the data to answer your own questions and also get more context on how product decisions are made. The data will also help more people participate in decision making.
 
