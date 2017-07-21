@@ -90,12 +90,11 @@ Here are some interesting findings that we have made based on this data:
 * Our approach to supporting Linux (one build per distro) isn't providing broad enough support -- .NET Core was used on high 10s of Linux distros yet it only works well on 10-20 distros.
 * There are gaps in the data that limit our understanding -- we would like to know if the SDK is running in a container, for example.
 
-We have immediate and longer-lead plans based on this data:
+We made the following changes in .NET Core 2.0 based on this data:
 
-* .NET Core 2.0 will ship with a single Linux build, making it easier to use .NET Core on Linux. .NET Core 1.x has nearly a dozen Linux builds for specific distros (for example, RHEL, Debian and Ubuntu are all separate) and limits support to those distros.
+* .NET Core 2.0 ships with a single Linux build, making it easier to use .NET Core on Linux. .NET Core 1.x has nearly a dozen Linux builds for specific distros (for example, RHEL, Debian and Ubuntu are all separate) and limits support to those distros.
+* .NET Core 2.0 does not require OpenSSL on macOS, with the intention of increasing adoption on macOS.
 * .NET Core 2.0 will be easily buildable from source so that Linux distros can include .NET Core in their package repository/archive/collection. We are talking to distros about that now.
-* .NET Core 2.0 will not require OpenSSL on macOS, with the intention of increasing adoption on macOS.
-* .NET Core 2.0 will include more data points for the SDK. More on that below.
 * We will attend and/or encourage local experts to participate in more conferences (globally) to talk about .NET Core.
 
 More forward-looking:
