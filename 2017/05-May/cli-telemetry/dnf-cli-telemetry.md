@@ -2,7 +2,7 @@
 
 We are releasing .NET Core SDK usage data that has been collected by the .NET Core CLI. We have been using this data to determine the most common CLI scenarios, the distribution of operating systems and to answer other questions we've had, as described below.
 
-As an open source application platform that collects usage data via an SDK, it is important that all developers that work on the project have access to usage data in order to fully participate in and understand design choices and propose product changes. This is now the case.
+As an open source application platform that collects usage data via an SDK, it is important that all developers that work on the project have access to usage data in order to fully participate in and understand design choices and propose product changes. This is now the case with .NET Core.
 
 .NET Core telemetry was first announced in the [.NET Core 1.0 RC2](https://blogs.msdn.microsoft.com/dotnet/2016/05/16/announcing-net-core-rc2/#net-core-tools-telemetry) and [.NET Core 1.0 RTW](https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/#net-core-tools-telemetry) blog announcements. It is also documented in [.NET Core telemetry docs](https://docs.microsoft.com/dotnet/core/tools/telemetry).
 
