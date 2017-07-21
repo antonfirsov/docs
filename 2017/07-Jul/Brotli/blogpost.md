@@ -81,8 +81,7 @@ Canterbury Corpus
 -----------------
 
 A popular set of files for testing compression algorithms is the
-[Canterbury
-Corpus](http://www.corpus.canterbury.ac.nz/descriptions/#cantrbry). "The files were chosen because their results on existing compression algorithms are "typical", and so it is hoped this will also be true for new methods.""
+[Canterbury Corpus](http://www.corpus.canterbury.ac.nz/descriptions/#cantrbry). "The files were chosen because their results on existing compression algorithms are "typical", and so it is hoped this will also be true for new methods.""
 
 
 |    File           |    Abbrev    |    Category             |    Size(bytes)        |
@@ -289,11 +288,11 @@ is a scaling constant. We will use 1 as the scaling constant.
 Try It Out!
 ===========
 
-Hence, we can conclude that Brotli is mostly nice for clients, with
+Hence, we can conclude that Brotli is mostly beneficial for clients, with
 decompression performance comparable to gzip while significantly
 improving the compression ratio. These are powerful properties for
 serving static content such as fonts and html pages. Thus, if you use
-gzip or deflate as compression for you web site or have never used encoding
+gzip or deflate as compression for you web site or have never used compression
 you should try Brotli, especially if you upload a lot of static files to
 client.
 
