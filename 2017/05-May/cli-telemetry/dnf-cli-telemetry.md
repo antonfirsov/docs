@@ -37,7 +37,7 @@ The SDK collects the following pieces of data:
 * Whether runtime IDs are present in the `runtimes` node.
 * The CLI version being used.
 
-The data collected is does not contain personal information.
+The data collected does not contain personal information.
 
 The data does not include Visual Studio usage since Visual Studio uses MSBuild directly and not the higher-level .NET Core CLI tools (which is where data collection is implemented).
 
