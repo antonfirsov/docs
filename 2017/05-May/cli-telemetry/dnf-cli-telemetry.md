@@ -40,6 +40,8 @@ You can opt-out of telemetry by setting the `DOTNET_CLI_TELEMETRY_OPTOUT` variab
 
 The following is an example of the data you will find in the TSV (tab separated values) files.
 
+You will notice misspellings, like “bulid”. That’s what the user typed. It’s information. Maybe we should implement the same kind of “Did you mean this?” experience that git has. Food for thought.
+
 ```console
 C:\dotnet-core-cli-data>more dotnet-cli-usage-2016-q3.tsv
 Timestamp       Occurences      Command Geography       OSFamily        RuntimeID       OSVersion       SDKVersion
