@@ -57,7 +57,8 @@ Timestamp       Occurences      Command Geography       OSFamily        RuntimeI
 9/27/2016 12:00:00 AM   2       debug   United States   Windows win10-x64       10.0.10586      1.0.0-preview2-003121
 8/2/2016 12:00:00 AM    1       debug   Ireland Linux   ubuntu.16.04-x64        16.04   1.0.0-preview2-003121
 8/10/2016 12:00:00 AM   1       debug   United States   Windows win7-x64        6.1.7601        1.0.0-preview1-002702
-8/18/2016 12:00:00 AM   1       debug   United States   Linux   ubuntu.16.04-x64        16.04   1.0.0-preview2-003121```
+8/18/2016 12:00:00 AM   1       debug   United States   Linux   ubuntu.16.04-x64        16.04   1.0.0-preview2-003121
+```
 
 ## Data for .NET Core 2.0
 
