@@ -1,28 +1,21 @@
-# .NET Core SDK Usage Data Release and Update
+# What we've learned from .NET Core SDK Telemetry
 
-We are releasing .NET Core SDK usage data that has been collected by using the .NET Core CLI. We have been using this data to determine the most common CLI scenarios, the distribution of operating systems and to answer other questions we've had, as described below. You can use the data to answer your own questions and also get more context on how product decisions are made. The data will also help more people participate in decision making.
+We are releasing .NET Core SDK usage data that has been collected by the .NET Core CLI. We have been using this data to determine the most common CLI scenarios, the distribution of operating systems and to answer other questions we've had, as described below.
+
+As an open source application platform that collects usage data via an SDK, it is important that all developers that work on the project have access to usage data in order to fully participate in and understand design choices and propose product changes. This is now the case.
 
 .NET Core telemetry was first announced in the [.NET Core 1.0 RC2](https://blogs.msdn.microsoft.com/dotnet/2016/05/16/announcing-net-core-rc2/#net-core-tools-telemetry) and [.NET Core 1.0 RTW](https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/#net-core-tools-telemetry) blog announcements. It is also documented in [.NET Core telemetry docs](https://docs.microsoft.com/dotnet/core/tools/telemetry).
 
-We felt that it was important to release this data as an open application platform that collects usage information via its SDK. We will release new data on a quarterly schedule going forward. The data is licensed with the [Open Data Commons Attribution License](https://opendatacommons.org/licenses/by/).
+We will release new data on a quarterly schedule going forward. The data is licensed with the [Open Data Commons Attribution License](https://opendatacommons.org/licenses/by/).
 
 ## .NET Core SDK Usage Data
 
-.NET Core SDK usage data is available, by month, in CSV format:
+.NET Core SDK usage data is available by quarter in TSV (tab-separated values) format:
 
-* [April 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-04-01.csv)
-* [May 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-05-01.csv)
-* [June 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-06-01.csv)
-* [July 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-07-01.csv)
-* [August 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-08-01.csv)
-* [September 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-09-01.csv)
-* [October 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-10-01.csv)
-* [November 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-11-01.csv)
-* [December 2016](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-12-01.csv)
-* [January 2017](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2017-01-01.csv)
-* [February 2017](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2017-02-01.csv)
-
-Note to reviewers: More data still coming, before posting.
+* [2016 - Q3](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-07-01.csv)
+* [2016 - Q4](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-08-01.csv)
+* [2017 - Q1](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-07-01.csv)
+* [2017 - Q2](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-08-01.csv)
 
 ## The Data
 
@@ -45,25 +38,26 @@ You can opt-out of telemetry by setting the `DOTNET_CLI_TELEMETRY_OPTOUT` variab
 
 ## Shape of the Data
 
-The following is an example of the data you will find in the CSV files.
+The following is an example of the data you will find in the TSV (tab separated values) files.
 
-```csv
-Occurrences,Date,EventName,CountryOrRegionISOLong,OSVersion,OSPlatform,RuntimeID,ProductVersion
-5,2017-01-31,restore,BLR,8,Linux,debian.8-x64,1.0.0-preview2-1-003177
-1,2017-01-30,restore,CZE,16.10,Linux,ubuntu.16.10-x64,1.0.0-preview2-1-003177
-1,2017-02-01,projectmodel-server,AUS,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
-1,2017-01-31,projectmodel-server,NLD,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
-2,2017-02-01,restore,AUS,10.12,Darwin,osx.10.12-x64,1.0.0-preview2-1-003177
-38,2017-02-01,build,AUS,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
-27,2017-02-01,razor-tooling,CHN,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
-3,2017-02-01,build,VNM,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
-5,2017-02-01,restore,JPN,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
-1,2017-02-01,publish-iis,CHN,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
-1,2017-02-01,razor-tooling,VNM,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
-1,2017-02-01,build,MYS,10.0.10586,Windows,win10-x64,1.0.0-preview2-1-003177
-1,2017-02-01,aspnet-codegenerator,USA,10.0.14393,Windows,win10-x64,1.0.0-preview2-003131
-102,2017-02-01,test,USA,10.0.14393,Windows,win10-x64,1.0.0-preview2-1-003177
-```
+```console
+C:\dotnet-core-cli-data>more dotnet-cli-usage-2016-q3.tsv
+Timestamp       Occurences      Command Geography       OSFamily        RuntimeID       OSVersion       SDKVersion
+9/1/2016 12:00:00 AM    1       bulid   India   Windows win7-x86        6.1.7601        1.0.0-preview1-002702
+9/8/2016 12:00:00 AM    1       bulid   Republic of Korea       Windows win81-x64       6.3.9600        1.0.0-preview2-003121
+9/19/2016 12:00:00 AM   1       bulid   United States   Windows win81-x64       6.3.9600        1.0.0-preview2-003121
+9/12/2016 12:00:00 AM   1       bulid   Ukraine Windows win81-x64       6.3.9600        1.0.0-preview2-003121
+8/12/2016 12:00:00 AM   2       bulid   Netherlands     Windows win10-x64       10.0.10240      1.0.0-preview1-002702
+9/14/2016 12:00:00 AM   1       debug   Hong Kong       Windows win10-x64       10.0.14393      1.0.0-preview2-003121
+9/14/2016 12:00:00 AM   1       debug   United States   Linux   ubuntu.16.04-x64        16.04   1.0.0-preview2-003121
+8/27/2016 12:00:00 AM   1       debug   Belarus Windows win10-x64       10.0.10586      1.0.0-preview2-003121
+9/16/2016 12:00:00 AM   1       debug   India   Darwin  osx.10.11-x64   10.11   1.0.0-preview2-003131
+8/31/2016 12:00:00 AM   1       debug   Sweden  Windows win10-x64       10.0.10586      1.0.0-preview2-003121
+8/26/2016 12:00:00 AM   1       debug   Netherlands     Windows win10-x64       10.0.10586      1.0.0-preview2-003121
+9/27/2016 12:00:00 AM   2       debug   United States   Windows win10-x64       10.0.10586      1.0.0-preview2-003121
+8/2/2016 12:00:00 AM    1       debug   Ireland Linux   ubuntu.16.04-x64        16.04   1.0.0-preview2-003121
+8/10/2016 12:00:00 AM   1       debug   United States   Windows win7-x64        6.1.7601        1.0.0-preview1-002702
+8/18/2016 12:00:00 AM   1       debug   United States   Linux   ubuntu.16.04-x64        16.04   1.0.0-preview2-003121```
 
 ## Data for .NET Core 2.0
 
