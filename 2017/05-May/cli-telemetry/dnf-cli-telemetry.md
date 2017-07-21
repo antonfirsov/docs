@@ -1,10 +1,10 @@
 # .NET Core SDK Usage Data Release
 
-We are releasing anonymous .NET Core SDK usage data that has been collected by using the .NET Core CLI. We have been using this data to determine the most common CLI scenarios, the distribution of operating systems and to answer other questions we've had. You can use the data to answer your own questions and also get more context on how product decisions are made. The data will also help more people participate in decision making.
+We are releasing anonymous .NET Core SDK usage data that has been collected by using the .NET Core CLI. We have been using this data to determine the most common CLI scenarios, the distribution of operating systems and to answer other questions we've had, as described below. You can use the data to answer your own questions and also get more context on how product decisions are made. The data will also help more people participate in decision making.
 
-You can see the first mentions of [.NET Core telemetry](https://docs.microsoft.com/dotnet/core/tools/telemetry) in the [.NET Core 1.0](https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/#net-core-tools-telemetry) and [.NET Core 1.0 RC2](https://blogs.msdn.microsoft.com/dotnet/2016/05/16/announcing-net-core-rc2/#net-core-tools-telemetry) blog announcements.
+.NET Core telemetry was first announced in the [.NET Core 1.0](https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/#net-core-tools-telemetry) and [.NET Core 1.0 RC2](https://blogs.msdn.microsoft.com/dotnet/2016/05/16/announcing-net-core-rc2/#net-core-tools-telemetry) blog announcements. It is also documented in [.NET Core telemetry docs](https://docs.microsoft.com/dotnet/core/tools/telemetry).
 
-We felt that it was important to release this data as an open application platform that collects usage information via its SDK. We will release new data on a regular schedule going forward. The data is licensed with the [Open Data Commons Attribution License](https://opendatacommons.org/licenses/by/).
+We felt that it was important to release this data as an open application platform that collects usage information via its SDK. We will release new data on a quarterly schedule going forward. The data is licensed with the [Open Data Commons Attribution License](https://opendatacommons.org/licenses/by/).
 
 ## .NET Core SDK Usage Data
 
@@ -67,27 +67,27 @@ Occurrences,Date,EventName,CountryOrRegionISOLong,OSVersion,OSPlatform,RuntimeID
 
 ## Data for .NET Core 2.0
 
-The data that has been collected the .NET Core SDK 1.0 has demonstrated some important gaps in our understanding of how the product is being used. The following additional data points are planned for .NET Core SDK 2.0.
+The data that has been collected with the .NET Core SDK has demonstrated some important gaps in our understanding of how the product is being used. The following additional data points are planned for .NET Core SDK 2.0.
 
 * `dotnet` command arguments and options -- Determine more detailed product usage. For example, for `dotnet new`, collect the template name. For `dotnet build --framework netstandard2.0`, collect the framework specified. Only known arguments and options will be collected (not arbitrary strings).
 * Containers -- Determine if the SDK is running in a container. Useful to help prioritize container-related investments.
 * Command duration --  Determine how long a command runs. Useful to identify performance problems that should be investigated.
 * Target Framework(s) -- Determine which target frameworks are used and whether multiple are specified. Useful to understand which .NET Standard versions are the most popular and whether new guidance should be written, for example.
-* Hashed MAC address -- Determine an anonymous unique ID for a machine. Useful to determine the aggregate population of active users, for example.
+* Hashed MAC address -- Determine a crypographically (SHA256) anonymous and unique ID for a machine. Useful to determine the aggregate number of machines that use .NET Core.
 
 ## Product Findings and Decisions
 
-This data has been very useful to the .NET Core team for a year now. In some cases, like looking at overall usage or at the usage of specific commands, we are very reliant on this data to make decisions. For more specific decisions, like the case of removing the OpenSSL dependency on macOS, we used the data as secondary evidence to user feedback.
+This data has been very useful to the .NET Core team for a year now. In some cases, like looking at overall usage or at the usage of specific commands, we are very reliant on this data to make decisions. For more specific decisions, like the case of removing the [OpenSSL dependency on macOS](https://github.com/dotnet/announcements/issues/21), we used the data as secondary evidence to user feedback.
 
 Here are some interesting findings that we have made based on this data:
 
 * .NET Core usage is growing -- >10% per month.
-* .NET Core usage is geographically diverse -- used in n countries and all continents.
+* .NET Core usage is geographically diverse -- used in 100s of countries and all continents.
 * .NET Core CLI tools are a very important part of the overall .NET Core experience -- relative to .NET Framework, the CLI tools are novel.
 * Developers do not use the .NET Core SDK the same way on Windows, macOS and Linux -- the popular commands are different per OS.
 * The publishing model for .NET Core apps is likely confusing some people -- the difference in the popular commands suggests a use of .NET Core that differs from our guidance (more investigation needed).
 * We have more work to do to reach out to the Linux and macOS communities -- we would like to see increased use of .NET Core on thoses OSes.
-* Our approach to supporting Linux (one build per distro) isn't providing broad enough support -- .NET Core was used on n Linux distros yet it only works well on y distros.
+* Our approach to supporting Linux (one build per distro) isn't providing broad enough support -- .NET Core was used on high 10s of Linux distros yet it only works well on 10-20 distros.
 * There are gaps in the data that limit our understanding -- we would like to know if the SDK is running in a container, for example.
 
 We have immediate and longer-lead plans based on this data:
@@ -102,8 +102,6 @@ More forward-looking:
 
 * Fix the build and publishing model for .NET Core -- the differences between `run`, `build` and `publish` are likely confusing people.
 * Enable more CLI scenarios -- enable distribution of tools, possibly like the way [NPM does global installs](https://docs.npmjs.com/cli/install).
-
-The way that the data was used is different in each case. In some cases, like looking at overall usage or at the usage of specific commands, we are very reliant on this data to make decisions. In the case of removing the OpenSSL dependency on macOS, we used the data as secondary evidence to user feedback. The findings and decisions above were influenced in a significant way, and in some cases primarily, by the data we are releasing today.
 
 ## Data Insights
 
@@ -151,4 +149,4 @@ It looks like .NET Core is running mostly on the newest operating system version
 
 We will continue to make this data available to you in a timely manner, and we're going to look into making it possible for you to visualize the kinds of trends we're seeing (like in the images above). For now, we're making the raw data available to you.
 
-Thanks to everyone that has been using .NET Core. The community engagement on the project has been amazing and we are making a great product together. Thanks to everyone who has telemetry enabled. This information is helping us make the product better and will become even more useful in the future. We are now doing our part to make the data collected publicly available. This makes good on a promise that we made at the start of the project. We now look forward to other developers reasoning about this data and using it as part of project decision making.
+Thanks to everyone that has been using .NET Core. The community engagement on the project has been amazing and we are making a great product together. This information is helping us make the product better and will become even more useful in the future. We are now doing our part to make the data collected publicly available. This makes good on a statement that we made at the start of the project, that we would release the data. We now look forward to other developers reasoning about this data and using it as part of project decision making.
