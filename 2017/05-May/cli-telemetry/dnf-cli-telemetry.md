@@ -12,10 +12,10 @@ We will release new data on a quarterly schedule going forward. The data is lice
 
 .NET Core SDK usage data is available by quarter in TSV (tab-separated values) format:
 
-* [2016 - Q3](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-07-01.csv)
-* [2016 - Q4](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-08-01.csv)
-* [2017 - Q1](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-07-01.csv)
-* [2017 - Q2](https://dotnetcoredata.blob.core.windows.net/dotnetclidata/CLI_2016-08-01.csv)
+* [2016 - Q3](https://dotnetcli.blob.core.windows.net/usagedata/dotnet-cli-usage-2016-q3.tsv)
+* [2016 - Q4](https://dotnetcli.blob.core.windows.net/usagedata/dotnet-cli-usage-2016-q4.tsv)
+* [2017 - Q1](https://dotnetcli.blob.core.windows.net/usagedata/dotnet-cli-usage-2017-q1.tsv)
+* [2017 - Q2](https://dotnetcli.blob.core.windows.net/usagedata/dotnet-cli-usage-2017-q2.tsv)
 
 ## The Data
 
