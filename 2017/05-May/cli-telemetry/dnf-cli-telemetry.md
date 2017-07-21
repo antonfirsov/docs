@@ -1,6 +1,6 @@
 # .NET Core SDK Usage Data Release
 
-We are releasing anonymous .NET Core SDK usage data that has been collected by using the .NET Core CLI. We have been using this data to determine the most common CLI scenarios, the distribution of operating systems and to answer other questions we've had, as described below. You can use the data to answer your own questions and also get more context on how product decisions are made. The data will also help more people participate in decision making.
+We are releasing .NET Core SDK usage data that has been collected by using the .NET Core CLI. We have been using this data to determine the most common CLI scenarios, the distribution of operating systems and to answer other questions we've had, as described below. You can use the data to answer your own questions and also get more context on how product decisions are made. The data will also help more people participate in decision making.
 
 .NET Core telemetry was first announced in the [.NET Core 1.0](https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/#net-core-tools-telemetry) and [.NET Core 1.0 RC2](https://blogs.msdn.microsoft.com/dotnet/2016/05/16/announcing-net-core-rc2/#net-core-tools-telemetry) blog announcements. It is also documented in [.NET Core telemetry docs](https://docs.microsoft.com/dotnet/core/tools/telemetry).
 
@@ -37,7 +37,7 @@ The SDK collects the following pieces of data:
 * Whether runtime IDs are present in the `runtimes` node.
 * The CLI version being used.
 
-The data collected is anonymous.
+The data collected is does not contain personal information.
 
 The data does not include Visual Studio usage since Visual Studio uses MSBuild directly and not the higher-level .NET Core CLI tools (which is where data collection is implemented).
 
