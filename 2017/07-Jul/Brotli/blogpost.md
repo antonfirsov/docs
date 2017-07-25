@@ -1,67 +1,32 @@
 # Brotli Compression Algorithm Preview and Why You Should Use It.
 *This post was written by our software developer intern Denys Tsomenko([Vedin](https://github.com/Vedin)), who worked on System.IO.Compression.Brotli library during his internship.*
 
-Brotli compression algorithm was developed and released by two Google engineers in 2015. Now it is supported by the most popular browsers Google Chrome, Mozilla Firefox, Opera, and Microsoft Edge. We understand that web-pages are getting larger and larger with huge CSS, HTML and JavaScript files. But the Internet connection isn't always good and pages can load slowly. Web pages often also contain other materials such as images, videos, etc. One solution to reduce load time is file compression. Currently, ASP.NET developers have two compression methods available to use in their web-applications: Deflate and gzip (default). They give you pretty similar results and don't allow specific configurations. Therefore, we decided to add Brotli as a new compression algorithm. We used an upcoming .NET Core feature called [Span](https://github.com/dotnet/corefxlab/blob/master/docs/specs/span.md) in the Brotli implementation to reduce memory allocations.
-
-Brotli was designed for web files at first and used by Google to create new web font format ([WOFF2](http://www.w3.org/TR/WOFF2/)), but we will see it can be easily used with other formats as well. The [compression level](https://msdn.microsoft.com/en-us/library/system.io.compression.compressionlevel(v=vs.110).aspx) by default is set to optimal (maximum possible compression ratio) which provides a 12-25% size reduction compared to gzip and deflate. There is a trade off between compression time and compression ratio. Size reduction is often a trade off between time spent and achieved reduction and that different algorithms can perform quite differently.
-
-A preview version of the Brotli compression library is available for you to try. You can use it in any .NET applications and we expect that your ASP.NET web sites will load faster by 14-30%. Please give us feedback to make Brotli more usable and efficient.
-
-
-Let’s compare it with existing .NET compression algorithms: Deflate and
-gzip. 
-
-Fast navigation:
-
-- [Compression Ratio Results](#compression-ratio)
-
-- [Compression Time Results](#compression-time)
-
-- [Decompression Time Results](#decompression-time)
-
-- [Brotli Library Usage Code Sample](#usage)
-
-- [Bonus](#bonus-metric)
-
-- [Conclusion](#try-it-out)
+Modern web-pages are getting larger and larger with huge CSS, HTML and JavaScript files. But the Internet connection isn't always good and pages can load slowly. Web pages often also contain other materials such as images, videos, etc. One solution to make user experience better is reduce load time. File compression can help with it. Currently, ASP.NET developers have two compression methods available to use in their web-applications: Deflate and gzip (default). What is really important for compression algorithm? There is a trade off between compression time and compression ratio. Size reduction is often a trade off between time spent and achieved reduction and that different algorithms can perform quite differently. Brotli corresponds both.  Brotli compression algorithm was developed and released by two Google engineers in 2015. Now it is supported by the most popular browsers Google Chrome, Mozilla Firefox, Opera, and Microsoft Edge. Therefore, we decided to add Brotli as a new compression algorithm. [Read below](#how-good-is-brotli) to get a real power of Brotli.
 
 If you want to access NuGet package: [Brotli .NET pre-release](https://dotnet.myget.org/feed/dotnet-corefxlab/package/nuget/System.IO.Compression.Brotli)
 
-Compression Ratio
-=================
+# How good is Brotli?
+The quality and usability of every compression algorithm depends on 3 main factors: 
+[Compression Ratio](#compression-ratio) is the main value for these algorithms, because we want to reduce size as many as it possible. But if it works too slowly it makes no gain for us, so other important metrics are [Compression Time](#compression-time) and 
+[Decompression Time](#decompression-time). Let's compare them with existing .NET compression libraries Deflate and gzip. 
+
+
+
+## Compression Ratio
 
 We will calculate compression ratio using formula : `Compession Ratio = Unocmpressed Size / Compressed Size`. So higher results is better.
 
-Web Files
----------
+### Web Files
 
 See a [Usage](#usage) to know how to compress files.
 
-The simplest configuration for Brotli stream contains only 2 parameters:
-1. Base Stream
-2. [CompressionMode](https://msdn.microsoft.com/en-us/library/system.io.compression.compressionmode(v=vs.110).aspx)
-
-
-But you can configure it based of what you need. It's allowed to set:
-
-Both for Compress and Decompress mode:
-1. BufferSize for stream
-2. Leave open parameter 
-
-Only for compress mode:
-1. [Compression level](https://msdn.microsoft.com/en-us/library/system.io.compression.compressionlevel(v=vs.110).aspx)
-2. Window size for Brotli algorithm 
-
-Is it not enough for your web site? Use the Brotli Compress/Decompress static methods!
-Go to [Readme](https://github.com/dotnet/corefxlab/blob/master/src/System.IO.Compression.Brotli/README.md) for details.
-
 As they are mostly use in web applications, let's compare compression
-ratio for web files. The metrics bellow is (original file size/compressed file size) ratio. So, higher is better. 
+ratio for web files. 
 
 ![](CompressionRatioMicrosoftFrontPage.png)
 
 We can see that Brotli compression ratio is better on Optimal(maximum possible compression ration) [CompressionLevel](https://msdn.microsoft.com/en-us/library/system.io.compression.compressionlevel(v=vs.110).aspx) and
-the same on fastest(the minimum compression time). Let’s compare more data.
+the same on fastest(the minimum compression time). Let’s compare more data. First three columns show us size reduction on the Fastest level, next three on the Optimal and the last on the middle level of Brotli.
 
 ![](CompressionRatioWebFiles.png)
 
@@ -77,8 +42,8 @@ BrotliStream brotliLevel5 = new BrotliStream(baseStream, CompressionMode.Compres
 
 We will see in the next section that Brotli also provides size reductions outside the realm of web.
 
-Canterbury Corpus
------------------
+### Canterbury Corpus
+
 
 A popular set of files for testing compression algorithms is the
 [Canterbury Corpus](http://www.corpus.canterbury.ac.nz/descriptions/#cantrbry). "The files were chosen because their results on existing compression algorithms are "typical", and so it is hoped this will also be true for new methods.""
@@ -101,9 +66,11 @@ files. This chart shows in how many times brotli compressed files is smaller tha
 
 ![](ComparisonFileSizeRatio.png)
 
-Compression Time
-================
-An important characteristic of compression algorithms is execution time. If an algorithm compresses data too slow, you will not get any performance improvements for dynamic files compression, which are often used in web sites.
+As we mentioned above another important characteristic of compression algorithms is execution time. Let's check it!
+
+## Compression Time
+
+If an algorithm compresses data too slow, you will not get any performance improvements for dynamic files compression, which are often used in web sites.
 The graph below highlights the difference between the compression times
 between various compression libraries. A large file (around 4 MB) was
 used to measure the compression time.
@@ -120,27 +87,48 @@ that Brotli is appropriate only for static files? Partly yes, but as it
 was mentioned above, Brotli algorithm is better than gzip/deflate
 optimal even at level 5.
 
-Comparing Brotli Compression Levels
------------------------------------
+### Comparing Brotli Compression Levels
+
+This chart shows execution time for compress a same file on different levels. 
 
 ![](CompressionTimeOnLevels.png)
 
+
 Setting a higher quality results in higher compression ratio, but it increases compute time. So you can choose a level that best fits your scenario. As we can see on this chart, Brotli can easily be used for dynamic data and as Content-Encoding type in ASP.NET.
 
-Decompression Time
-==================
+But what about execution time in client? 
+Clients should be able to decompress files quickly, even with limited resources such as on browsers and mobile devices.
 
-Of course, you can compress static files once and in this case compression time doesn’t matter as much as ratio. Perhaps the most important performance dimension for internet formats is decompression speed. Clients should be able to decompress quickly, even with limited resources such as on browsers and mobile devices. Again, we choose a 4 MB file for testing.
+## Decompression Time
+
+Of course, you can compress static files once and in this case compression time doesn’t matter as much as ratio. Perhaps the most important performance dimension for internet formats is decompression speed.  Again, we choose a 4 MB file for testing.
 
 ![](DecompressionTimeReddit.png)
 
 We see that Brotli much faster than GZip and much closers to the performance of Deflate.
 Decompression speed for small files is comparable across all algorithms.
 
-Usage
-=====
+## Bonus Metric
+When the Brotli compression algorithm was released in 2015, the
+television series Silicon Valley was popular, and characters used
+[Weissman score](https://en.wikipedia.org/wiki/Weissman_score) to measure performance of their compression algorithm.
+The Weissman score is an efficiency metric for lossless compression
+applications, which was developed for fictional use. So, let’s try to
+calculate it for Brotli. Let use gzip as standard compressor and Brotli
+as scored compressor. We will use 1 as the scaling constant. For every particular file scored compressor(here Brotli) is better than standard(here gzip) based on compression ratio and time if Weissman score greater than 1.
 
-Firstly, let’s write a simple file compress method.
+![](WeissmanScoreBrotli.png)
+
+
+## Try It Out!
+
+If you want to try Brotli now:
+1. Download the package from [MyGet](<https://dotnet.myget.org/feed/dotnet-corefxlab/package/nuget/System.IO.Compression.Brotli>)
+2. Create a NuGet.config file next to the .csproj (or use existing)
+and add
+3. add this line `<add key="dotnet.myget.org dotnet-corefxlab" value="https://dotnet.myget.org/F/dotnet-corefxlab/" />` to NuGet.config file.
+
+And we can a simple file compress method.
 ```C#
 static void Compress(string inFile, string outFile)
 {
@@ -263,29 +251,25 @@ For clearer results also click on Disable cashe
 
 As we can see page runs more than 2 times faster with Brotli. 
 
-Bonus Metric
-============
-
-When the Brotli compression algorithm was released in 2015, the
-television series Silicon Valley was popular, and characters used
-Weissman score to measure performance of their compression algorithm.
-The Weissman score is an efficiency metric for lossless compression
-applications, which was developed for fictional use. So, let’s try to
-calculate it for Brotli. Let use gzip as standard compressor and Brotli
-as scored compressor.
-
-The formula is:
-
-![equation](WeissmanFormula.png)
-
-Where ‘r’ is the compression ratio, T is the time required to compress
-and the overlined ones are the same metrics for a standard compressor. Alpha
-is a scaling constant. We will use 1 as the scaling constant.
-
-![](WeissmanScoreBrotli.png)
+The simplest configuration for Brotli stream contains only 2 parameters:
+1. Base Stream
+2. [CompressionMode](https://msdn.microsoft.com/en-us/library/system.io.compression.compressionmode(v=vs.110).aspx)
 
 
-Try It Out!
+But you can configure it based of what you need. It's allowed to set:
+
+Both for Compress and Decompress mode:
+1. BufferSize for stream
+2. Leave open parameter 
+
+Only for compress mode:
+1. [Compression level](https://msdn.microsoft.com/en-us/library/system.io.compression.compressionlevel(v=vs.110).aspx)
+2. Window size for Brotli algorithm 
+
+Is it not enough for your web site? Use the Brotli Compress/Decompress static methods!
+Go to [Readme](https://github.com/dotnet/corefxlab/blob/master/src/System.IO.Compression.Brotli/README.md) for details.
+
+Summary
 ===========
 
 Hence, we can conclude that Brotli is mostly beneficial for clients, with
@@ -294,28 +278,12 @@ improving the compression ratio. These are powerful properties for
 serving static content such as fonts and html pages. Thus, if you use
 gzip or deflate as compression for you web site or have never used compression
 you should try Brotli, especially if you upload a lot of static files to
-client.
+client. A preview version of the Brotli compression library is available for you to try. You can use it in any .NET applications and we expect that your ASP.NET web sites will load faster by 14-30%. Please give us feedback to make Brotli more usable and efficient.
 
 Be the first to try and optimize your ASP.NET site with Brotli and let
 us know what you think. The alpha release of
 System.IO.Compression.Brotli is available on [MyGet](<https://dotnet.myget.org/feed/dotnet-corefxlab/package/nuget/System.IO.Compression.Brotli>).
-If you want to try Brotli now:
-1. Download the package
-2. Create a NuGet.config file next to the .csproj (or use existing)
-and add
-3. add this line `<add key="dotnet.myget.org dotnet-corefxlab" value="https://dotnet.myget.org/F/dotnet-corefxlab/" />` to NuGet.config file.
+
 
 Please let us know what you think by leaving a comment on this post or
 by contacting us via the (contact page).
-
-References
-==========
-
-1\. <https://opensource.com/article/17/1/brotli-compression-algorithm>
-
-2\. <https://engineering.linkedin.com/blog/2017/05/boosting-site-speed-using-brotli-compression>
- linkedin using brotli experience
-
-3\. <https://github.com/dotnet/corefxlab/blob/master/src/System.IO.Compression.Brotli/README.md> .NET Brotli README
-
-4\. <https://github.com/google/brotli>  Google Brotli repo
