@@ -3,7 +3,9 @@
 
 Modern web-pages are getting larger and larger with huge CSS, HTML and JavaScript files. But the Internet connection isn't always good and pages can load slowly. Web pages often also contain other materials such as images, videos, etc. One solution to make user experience better is reduce load time. File compression can help with it. Currently, ASP.NET developers have two compression methods available to use in their web-applications: Deflate and gzip (default). What is really important for compression algorithm? There is a trade off between compression time and compression ratio. Size reduction is often a trade off between time spent and achieved reduction and that different algorithms can perform quite differently. Brotli corresponds both.  Brotli compression algorithm was developed and released by two Google engineers in 2015. Now it is supported by the most popular browsers Google Chrome, Mozilla Firefox, Opera, and Microsoft Edge. Therefore, we decided to add Brotli as a new compression algorithm. [Read below](#how-good-is-brotli) to get a real power of Brotli.
 
-If you want to access NuGet package: [Brotli .NET pre-release](https://dotnet.myget.org/feed/dotnet-corefxlab/package/nuget/System.IO.Compression.Brotli)
+In this time Brotli available as pre-release NuGet package: [Brotli .NET pre-release](https://dotnet.myget.org/feed/dotnet-corefxlab/package/nuget/System.IO.Compression.Brotli). And you can [try it](#try-it-out!) right now! 
+
+
 
 # How good is Brotli?
 The quality and usability of every compression algorithm depends on 3 main factors: 
@@ -73,7 +75,7 @@ As we mentioned above another important characteristic of compression algorithms
 If an algorithm compresses data too slow, you will not get any performance improvements for dynamic files compression, which are often used in web sites.
 The graph below highlights the difference between the compression times
 between various compression libraries. A large file (around 4 MB) was
-used to measure the compression time.
+used to measure the compression time. Lower is better. 
 
 ![](RedditCompressionTime.png)
 
@@ -128,6 +130,7 @@ If you want to try Brotli now:
 and add
 3. add this line `<add key="dotnet.myget.org dotnet-corefxlab" value="https://dotnet.myget.org/F/dotnet-corefxlab/" />` to NuGet.config file.
 
+### Usage
 And we can a simple file compress method.
 ```C#
 static void Compress(string inFile, string outFile)
