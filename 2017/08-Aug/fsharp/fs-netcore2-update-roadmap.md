@@ -1,32 +1,18 @@
 # Update and FAQ for F# and .NET Core
 
-We've been working on F# and .NET Core for some time now.  F# has been supported on .NET Core since the initial release of .NET Core 1.0, and many people have enjoyed success with it.  The F# open source ecosystem has begun supporting .NET Core and .NET Standard.  Most impressively, you can even use F# full-stack on .NET Core 1.0 with [Fable](http://fable.io/) to write the front-end and backend of a website.
+We've been working and shipping support for F# and .NET Core for some time now.
 
-Yes, you've read that correctly.  You can use F# and .NET Core 1.0 via [Fable](http://fable.io/) to write **full-stack** applications today!  It's stable, used in real-world production systems, and is developing its own strong, healthy community.
+F# has been supported on .NET Core 1.0 and .NET Core 1.1 since their releases.  This support came initially from Microsoft - namely, getting the compiler to support .NET Core - and transitioned into a community effort involving the .NET Core SDK.  The rest of the F# open source community has embraced .NET Core and .NET Standard, porting many libraries.  The most impressive of which is [Fable](http://fable.io/), which allows you to use the entire JavaScript ecosystem to write F# code that runs in the browser!
 
-Additionally, F# support for .NET Core 1.1 has been back-ported into the .NET Core SDK and CLI.
+Since the releases of .NET Core 1.0 and .NET Core 1.1, our primary focus for F# has been in [Portable PDB](https://github.com/dotnet/core/blob/master/Documentation/diagnostics/portable_pdb.md) generation and .NET Core 2.0 support.  The former is now shipped, and enables debugging on .NET Core today.
 
 ## Current status of F# and .NET Core 2.0
 
 As many of you are aware, .NET Core 2.0 and .NET Standard 2.0 are shipping.  For us, these are the most strategically important targets for F#.  Much of the F# community has also come to the same conclusion.  Our top priority up until this point has been to ensure the quality of F# when targeting .NET Core 2.0 and .NET Standard 2.0.
 
-Starting with the release of .NET Core 2.0 Preview 3, all of the changes we have made for F# support in .NET Core 2.0 will be in the .NET Core SDK and .NET Core CLI.  We're also working with the maintainers of highly-used open source projects to ensure they work well on .NET Core 2.0.
+Starting with the release of .NET Core 2.0 Preview 3, all of the changes we have made for F# support in .NET Core 2.0 will be in-box with the .NET Core SDK and .NET Core CLI.  We're also working with the maintainers of highly-used open source projects to ensure they work well on .NET Core 2.0.  Additionally, we have backported in-box support for F# running on .NET Core 1.0.4 and .NET Core 1.1 in the version of the .NET Core SDK that will ship with Visual Studio 2017 Update 3.
 
-Finally, this is the first release of F# on .NET Core that can be built from source as a part of the .NET Core SDK and the .NET Core CLI.  This is a requirement for F# to ship on Redhat Enterprise Linux, and also meets the expectations of many linux developers.
-
-## The best way to use F# and .NET Core today
-
-The best way to use F# and .NET Core today is in Visual Studio Code with the [Ionide-FSharp extension](https://marketplace.visualstudio.com/items?itemName=Ionide.Ionide-fsharp).  This should come as no surprise to F# developers already using .NET Core.  Ionide supports many things, including project scaffolding and debugging.
-
-![Debugging F# on .NET Core with Visual Studio Code and Ionide](fs-net-core-debug.gif)
-
-There are only three dependencies required to create, build, run, and debug F# applications on .NET Core today:
-
-1. Install [Visual Studio Code](https://code.visualstudio.com/).
-2. Install the [Ionide-FSharp extension](https://marketplace.visualstudio.com/items?itemName=Ionide.Ionide-fsharp).
-3. Install the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp) (this is needed for the .NET Core debugger, which ships only in the C# plugin)
-
-Once you have configured your application for debugging, just like with C#, you can use F# in Visual Studio Code as a bona fide IDE!
+Finally, this is the first release of F# on .NET Core that can be built from source as a part of the .NET Core SDK and the .NET Core CLI.  This is a requirement for F# to ship on RedHat Enterprise Linux, and also meets the expectations of many linux developers.
 
 ## Visual Studio tooling support
 
@@ -44,6 +30,20 @@ This is still something we're working on, and we're treating it with the highest
 We had done estimates of the work needed in our language service to support .NET Core SDK projects, and determined that the amount of work on our end was relatively small.  Unfortunately, we did not anticipate the amount of work required in the low-level pieces of the Visual Studio project system that loads .NET Core SDK projects.  The crux of the issue is that MSBuild preserves file ordering in a project, but the Visual Studio project system which loads these types of projects does not.  This means that the language service receives files out of order, resulting in IntelliSense reporting errors for things that actually compile and run.  We know what needs to be fixed and are working with the relevant teams to make it happen.
 
 A follow-up question might be: "why didn't you know about this sooner?".  The answer is that we prioritized the stability and usability of the F# compiler on .NET Core over the Visual Studio tooling support for F# and .NET Core.  This unblocks people on all platforms from adopting the most strategically important version of .NET to come out in a long time.
+
+## The best way to use F# and .NET Core today
+
+The best way to use F# and .NET Core today is in Visual Studio Code with the [Ionide-FSharp extension](https://marketplace.visualstudio.com/items?itemName=Ionide.Ionide-fsharp).  This should come as no surprise to F# developers already using .NET Core today.  Ionide supports many things, including project scaffolding, IntelliSense, and debugging.
+
+![Debugging F# on .NET Core with Visual Studio Code and Ionide](fs-net-core-debug.gif)
+
+There are only three dependencies required to create, build, run, and debug F# applications on .NET Core today:
+
+1. Install [Visual Studio Code](https://code.visualstudio.com/).
+2. Install the [Ionide-FSharp extension](https://marketplace.visualstudio.com/items?itemName=Ionide.Ionide-fsharp).
+3. Install the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp) (this is needed for the .NET Core debugger, which ships only in the C# plugin)
+
+Once you have configured your application for debugging, just like with C#, you can use F# in Visual Studio Code as a bona fide IDE!
 
 ## FAQ
 
@@ -70,7 +70,7 @@ Erasing Type Providers work with [this workaround](https://github.com/Microsoft/
 
 Generative Type Providers are still unsupported and have no workaround.  They depend on APIs which are not yet available on .NET Core.
 
-### 5. What is the bar for what you consider a good experience for .NET Core and Visual Studio tooling?
+### 4. What is the bar for what you consider a good experience for .NET Core and Visual Studio tooling?
 
 Below is what we consider to be the minimal bar for shipping this tooling support:
 
@@ -82,6 +82,6 @@ Below is what we consider to be the minimal bar for shipping this tooling suppor
 
 Although we're close, we will not ship until the above six points are met.
 
-### 6. What about file ordering in Visual Studio?
+### 5. What about file ordering in Visual Studio?
 
 File ordering with the Visual Studio UI requires significant downlevel work in the underlying project system code.  We're working with that team to ensure that file ordering via the Visual Studio UI can be done in a subsequent update.
