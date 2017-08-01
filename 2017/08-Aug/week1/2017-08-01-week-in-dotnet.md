@@ -1,5 +1,5 @@
 ---
-title: The week in .NET - Nuke, Warden.NET
+title: The week in .NET - Nuke, Warden.NET, .NET in Bangalore, and links!
 keywords: Week in .NET, community, .NET
 weblogName: .NET Blog
 dontInferFeaturedImage: true
@@ -57,21 +57,21 @@ if (wardenTest != null)
 
 ## .NET
 
+* [.NET Application Architecture Guidance](https://blogs.msdn.microsoft.com/dotnet/2017/07/26/the-new-net-application-architecture-guidance/) by Cesar de la Torre.
 * [Testing a Cake Addin](https://codeopinion.com/testing-a-cake-addin/) by Derek Comartin.
 * [Using .NET Core 2 to read serial data from an Arduino UNO over USB](https://jeremylindsayni.wordpress.com/2017/07/31/using-net-core-2-to-read-serial-data-from-an-arduino-uno-over-usb/) by Jeremy Lindsay.
-* [.NET Application Architecture Guidance](https://blogs.msdn.microsoft.com/dotnet/2017/07/26/the-new-net-application-architecture-guidance/) by Cesar de la Torre.
 * [Top 5 .NET Exceptions](https://blogs.technet.microsoft.com/uktechnet/2017/07/25/top-5-net-exceptions/) by Liam Westley.
 * [Building a query parser over a weekendPart II](https://ayende.com/blog/179137/building-a-query-parser-over-a-weekend-part-ii?Key=859f407c-8753-4bd0-9f9c-359eab8484c7) by Ayende Rahien.
 * [Reflecting on performance testing](http://aakinshin.net/blog/post/reflecting-on-performance-testing/) by Andrey Akinshin.
 
 ## ASP.NET
 
+* [Introducing Support for Brotli Compression](https://blogs.msdn.microsoft.com/dotnet/2017/07/27/introducing-support-for-brotli-compression/) by Denys Tsomenko.
+* [Peachpie - Open Source PHP Compiler to .NET and WordPress under ASP.NET Core](https://www.hanselman.com/blog/PeachpieOpenSourcePHPCompilerToNETAndWordPressUnderASPNETCore.aspx) by Scott Hanselman.
 * [Creating Web API With ASP.NET Core Using Visual Studio Code](http://www.c-sharpcorner.com/article/creating-web-api-with-asp-net-core-using-visual-studio-code/) by Ahmed Abdi.
 * [In ASP.NET Core 1.1](http://www.jerriepelser.com/blog/accessing-tokens-aspnet-core-2/) by Jerrie Pelser.
 * [Customising ASP.NET Core Identity EF Core naming conventions for PostgreSQL](https://andrewlock.net/customising-asp-net-core-identity-ef-core-naming-conventions-for-postgresql/) by Andrew Lock.
-* [Introducing Support for Brotli Compression](https://blogs.msdn.microsoft.com/dotnet/2017/07/27/introducing-support-for-brotli-compression/) by Denys Tsomenko.
 * [In-Memory ASP.NET Core Integration Tests with TestServer](https://visualstudiomagazine.com/articles/2017/07/01/testserver.aspx) by Jason Roberts.
-* [Peachpie - Open Source PHP Compiler to .NET and WordPress under ASP.NET Core](https://www.hanselman.com/blog/PeachpieOpenSourcePHPCompilerToNETAndWordPressUnderASPNETCore.aspx) by Scott Hanselman.
 * [ASP.NET Core MVC – Custom Tag Helpers](https://codingblast.com/asp-net-core-mvc-custom-tag-helpers/) by Ibrahim Šuta.
 * [ASP.NET Core Razor Pages – Handler Methods](https://codingblast.com/asp-net-core-razor-pages-handlers/) by Ibrahim Šuta.
 * [Redis InMemory Cache in ASP.net MVC Core](https://garywoodfine.com/redis-inmemory-cache-asp-net-mvc-core/) by Gary Woodfine.
@@ -93,7 +93,7 @@ if (wardenTest != null)
 
 * [F# Tutorial](https://www.youtube.com/watch?v=c7eNDJN758U&feature=youtu.be) by Derek Banas.
 * [Experimenting with Partial Application](http://geekeh.com/experimenting-with-partial-application/) by Shane Charles.
-* [Getting started with F# and .NET Core](http://julienblanchard.com/2017/getting-started-with-fsharp-and-dotnet-core/) by UNKNOWN.
+* [Getting started with F# and .NET Core](http://julienblanchard.com/2017/getting-started-with-fsharp-and-dotnet-core/) by Julien Blanchard.
 * [Does it make sense to invest into the stock market at all-time highs? Answered with F# on .NET Core](http://kalapos.net/Blog/ShowPost/BackTestingWithFSharp) by Gergely Kalapos.
 * [When to use a Discriminated Union vs Record Type in F#](http://www.mindbodysouldeveloper.com/2017/07/17/when-to-use-a-discriminated-union-vs-record-type-in-f-sharp/) by Jose Gonzalez.
 * [Two Tetromino Tetris with Fable and F#](http://www.prigrammer.com/?p=489) by Tom Prior.
