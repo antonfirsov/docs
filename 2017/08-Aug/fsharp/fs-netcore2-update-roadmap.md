@@ -1,35 +1,20 @@
-# Update and FAQ for F# and .NET Core
+# F# and .NET Core Roadmap Update
 
-We've been working and shipping support for F# and .NET Core for some time now.
+As we approach the release of .NET Core 2.0 RTW we wanted to take some time to talk about how F# fits into the .NET Core and .NET Standard ecosystem.
 
-F# has been supported on .NET Core 1.0 and .NET Core 1.1 since their releases.  This support came initially from Microsoft - namely, getting the compiler to support .NET Core - and transitioned into a community effort involving the .NET Core SDK.  The rest of the F# open source community has embraced .NET Core and .NET Standard, porting many libraries.  The most impressive of which is [Fable](http://fable.io/), which allows you to use the entire JavaScript ecosystem to write F# code that runs in the browser!
+## .NET Core and .NET Standard: current status
 
-Since the releases of .NET Core 1.0 and .NET Core 1.1, our primary focus for F# has been in [Portable PDB](https://github.com/dotnet/core/blob/master/Documentation/diagnostics/portable_pdb.md) generation and .NET Core 2.0 support.  The former is now shipped, and enables debugging on .NET Core today.
+F# has been supported on .NET Core 1.0 and .NET Core 1.1 since their releases.  Once the compiler was in a stable preview, [Enrico Sada](https://github.com/enricosada) from the F# community worked with us to add support in the newly-crated .NET CLI, the .NET Core SDK once the CLI was changed, and templates.  The rest of the F# open source community has also embraced .NET Core and .NET Standard, porting many libraries and tools.  The most impressive of which is [Fable](http://fable.io/), which allows you to use the entire JavaScript ecosystem to write F# code that runs in the browser!
 
-## Current status of F# and .NET Core 2.0
+Since the releases of .NET Core 1.0 and .NET Core 1.1, our primary focus for F# and .NET Core has been in [Portable PDB](https://github.com/dotnet/core/blob/master/Documentation/diagnostics/portable_pdb.md) generation and .NET Core 2.0 support.  The former is now shipped, and enables debugging on .NET Core today.
 
-As many of you are aware, .NET Core 2.0 and .NET Standard 2.0 are shipping.  For us, these are the most strategically important targets for F#.  Much of the F# community has also come to the same conclusion.  Our top priority up until this point has been to ensure the quality of F# when targeting .NET Core 2.0 and .NET Standard 2.0.
+## F# and .NET Core 2.0
 
-Starting with the release of .NET Core 2.0 Preview 3, all of the changes we have made for F# support in .NET Core 2.0 will be in-box with the .NET Core SDK and .NET Core CLI.  We're also working with the maintainers of highly-used open source projects to ensure they work well on .NET Core 2.0.  Additionally, we have backported in-box support for F# running on .NET Core 1.0.4 and .NET Core 1.1 in the version of the .NET Core SDK that will ship with Visual Studio 2017 Update 3.
+As many of you are aware, .NET Core 2.0 and .NET Standard 2.0 are in preview.  Our top priority up until this point has been to ensure the quality of F# when targeting .NET Core 2.0 and .NET Standard 2.0.
 
-Finally, this is the first release of F# on .NET Core that can be built from source as a part of the .NET Core SDK and the .NET Core CLI.  This is a requirement for F# to ship on RedHat Enterprise Linux, and also meets the expectations of many linux developers.
+This is the first release of F# on .NET Core that can be built from source as a part of the .NET Core SDK and the .NET Core CLI.  This is a requirement for F# to ship on RedHat Enterprise Linux, and also meets the expectations of many linux developers.
 
-## Visual Studio tooling support
-
-Support for .NET Core SDK-based projects in Visual Studio is still a work in progress.  Although Visual Studio can load the F# .NET Core SDK-based projects today, we're not ready to declare these as fully supported yet.  We have also "turned off" templates for creating these projects until our quality bar is met.  Specifically, the following will still be unsupported with Visual Studio 2017 Update 3:
-
-* IntelliSense recognizing added files and their ordering
-* IntelliSense and the project UI not recognizing project or package references
-* Adding a script file from the right-click menu (fixed already, but not in the product)
-* The ability to order files using the Visual Studio UI
-
-If you load one of these projects into Visual Studio, you will likely experience these issues, even though the project will run and debug.
-
-This is still something we're working on, and we're treating it with the highest priority now that the F# compiler is stable on .NET Core 2.0.
-
-We had done estimates of the work needed in our language service to support .NET Core SDK projects, and determined that the amount of work on our end was relatively small.  Unfortunately, we did not anticipate the amount of work required in the low-level pieces of the Visual Studio project system that loads .NET Core SDK projects.  The crux of the issue is that MSBuild preserves file ordering in a project, but the Visual Studio project system which loads these types of projects does not.  This means that the language service receives files out of order, resulting in IntelliSense reporting errors for things that actually compile and run.  We know what needs to be fixed and are working with the relevant teams to make it happen.
-
-A follow-up question might be: "why didn't you know about this sooner?".  The answer is that we prioritized the stability and usability of the F# compiler on .NET Core over the Visual Studio tooling support for F# and .NET Core.  This unblocks people on all platforms from adopting the most strategically important version of .NET to come out in a long time.
+Starting with the release of .NET Core 2.0 Preview 3, all of the changes we have made for F# support in .NET Core 2.0 will be in-box with the .NET Core SDK and .NET Core CLI.  Additionally, we have backported in-box support for F# running on .NET Core 1.0.4 and .NET Core 1.1 in the version of the .NET Core SDK that will ship with Visual Studio 2017 Update 3.  We're also working with the maintainers of highly-used open source projects to ensure they work well on .NET Core 2.0.  
 
 ## The best way to use F# and .NET Core today
 
@@ -43,15 +28,15 @@ There are only three dependencies required to create, build, run, and debug F# a
 2. Install the [Ionide-FSharp extension](https://marketplace.visualstudio.com/items?itemName=Ionide.Ionide-fsharp).
 3. Install the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp) (this is needed for the .NET Core debugger, which ships only in the C# plugin)
 
-Once you have configured your application for debugging, just like with C#, you can use F# in Visual Studio Code as a bona fide IDE!
+Once you have configured your application for debugging, just like with C#, you can use F# in Visual Studio Code to do nearly anything you want with F# and .NET Core!
 
-## FAQ
+## Visual Studio tooling support
 
-### 1. What are the release dates?
+For long time .NET developers, a common question is "when will Visual Studio support F# .NET Core projects".  We're working hard to get this functionality ready, but unfortunately, we're not quite happy enough with the quality in the 15.3 update to announce that it's supported. While Visual Studio 2017 Update 3 is able to open the new F# .NET Core projects, build, and debug them, IntelliSense does not yet work correctly.
 
-There are no release dates for .NET Core 2.0 at this time.
+All .NET Core projects now share a common simplified project format that you've hopefully seen by now. This means that we share a common core component of the IDE referred to as the Common Project System (CPS). This dependency will enable us to develop at a much greater pace, rather than maintaining the large and specialized code base designed specifically for F# projects. Unfortunately, CPS does not yet support file ordering in the tree view of the Visual Studio UI.  We knew that this would prevent ordering files in the Visual Studio UI, but we did not know that this limitation also extended to the pieces of the project system which send files to our language service.  This is the part of our tooling which powers IntelliSense, that our language service isn't able to correctly reflect a project's F# code, resulting in false negative error reporting and a lack of IntelliSense in certain cases.  Our work in offering stable support for .NET Core 2.0 took us beyond the window that we were able to fix this issue in CPS for the 2017 15.3 release.  There was also no way to devise a workaround in a timely fashion.  Given this, we are not considering .NET Core SDK-based projects support for F# in Visual Studio 2017 just yet.
 
-### 2. What about F# Interactive?
+## F# Interactive and Type Providers
 
 .NET Core introduces a different model for how assemblies are laid out on disk and loaded by a process such as F# Interactive.  This model breaks `#r` in F# Interactive.  Rather than add workarounds in F# Interactive, we are going to move forward with a plan to use a package manager to resolve assemblies and change the way that you use `#r` from here on out.  
 
@@ -64,24 +49,10 @@ Our goal is to move you away from specifying assemblies on disk and towards refe
 
 We're still working out [the design and default behavior](https://github.com/fsharp/fslang-design/issues/167).  It will be backwards-compatible, but we're using .NET Core as a precedent to move towards this new way to reference things in F# scripting and F# Interactive.
 
-### 3. What about Type Providers?
-
 Erasing Type Providers work with [this workaround](https://github.com/Microsoft/visualfsharp/issues/3303) today.  In the near future, the workaround won't be necessary.
 
 Generative Type Providers are still unsupported and have no workaround.  They depend on APIs which are not yet available on .NET Core.
 
-### 4. What is the bar for what you consider a good experience for .NET Core and Visual Studio tooling?
+## Conclusion
 
-Below is what we consider to be the minimal bar for shipping this tooling support:
-
-1. Existing .NET Core projects (1.0, 1.1, and 2.0) load, without error, in Visual Studio.
-2. .NET Core SDK projects targeting .NET Framework load, without error, in Visual Studio.
-3. Existing Visual Studio features (e.g., Go to Definition, Rename, etc.) work with .NET Core SDK-based projects.
-4. There are no false negatives or false positives with IntelliSense and error reporting.
-5. You can create new .NET Core and .NET Standard projects in Visual Studio, including ASP.NET Core, MSTest, xUnit, and more.
-
-Although we're close, we will not ship until the above six points are met.
-
-### 5. What about file ordering in Visual Studio?
-
-File ordering with the Visual Studio UI requires significant downlevel work in the underlying project system code.  We're working with that team to ensure that file ordering via the Visual Studio UI can be done in a subsequent update.
+F# is stable on .NET Core, there is a great tooling experience with Visual Studio Code, and much of the F# open source ecosystem is already running on .NET Core today.  Although the entire developer experience isn't complete yet, each of the important remaining parts - Visual Studio support, F# Interactive, and Type Providers - have a way forward and are being worked on.  We're really excited about the forthcoming release of .NET Core 2.0, and we look forward to seeing more and more people use F# and .NET Core in the future.
