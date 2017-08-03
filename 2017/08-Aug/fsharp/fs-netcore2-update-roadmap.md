@@ -1,16 +1,16 @@
 # F# and .NET Core Roadmap Update
 
-As we approach the release of .NET Core 2.0 RTW we wanted to take some time to talk about how F# fits into the .NET Core and .NET Standard ecosystem.
+As we approach the release of .NET Core 2.0 RTW we wanted to take some time to talk about how F# fits into the .NET Core ecosystem.
 
-## .NET Core and .NET Standard: current status
+## .NET Core: current status
 
-F# has been supported on .NET Core 1.0 and .NET Core 1.1 since their releases.  Once the compiler was in a stable preview, [Enrico Sada](https://github.com/enricosada) from the F# community worked with us to add support in the newly-crated .NET CLI, the .NET Core SDK once the CLI was changed, and templates.  The rest of the F# open source community has also embraced .NET Core and .NET Standard, porting many libraries and tools.  The most impressive of which is [Fable](http://fable.io/), which allows you to use the entire JavaScript ecosystem to write F# code that runs in the browser!
+F# has been supported on .NET Core 1.0 and .NET Core 1.1 since their releases.  Once the compiler was in a stable preview, [Enrico Sada](https://github.com/enricosada) from the F# community worked with us to add support in the newly-crated .NET CLI, the .NET Core SDK once the CLI was changed, and templates.  The rest of the F# open source community has also embraced .NET Core , porting many libraries and tools.  The most impressive of which is [Fable](http://fable.io/), which allows you to use the entire JavaScript ecosystem to write F# code that runs in the browser!
 
 Since the releases of .NET Core 1.0 and .NET Core 1.1, our primary focus for F# and .NET Core has been in [Portable PDB](https://github.com/dotnet/core/blob/master/Documentation/diagnostics/portable_pdb.md) generation and .NET Core 2.0 support.  The former is now shipped, and enables debugging on .NET Core today.
 
 ## F# and .NET Core 2.0
 
-As many of you are aware, .NET Core 2.0 and .NET Standard 2.0 are in preview.  Our top priority up until this point has been to ensure the quality of F# when targeting .NET Core 2.0 and .NET Standard 2.0.
+As many of you are aware, .NET Core 2.0 2.0 is in preview.  Our top priority up until this point has been to ensure the quality of F# when targeting .NET Core 2.0.
 
 This is the first release of F# on .NET Core that can be built from source as a part of the .NET Core SDK and the .NET Core CLI.  This is a requirement for F# to ship on RedHat Enterprise Linux, and also meets the expectations of many linux developers.
 
