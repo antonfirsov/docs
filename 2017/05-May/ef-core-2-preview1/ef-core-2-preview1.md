@@ -8,15 +8,22 @@ Entity Framework Core (EF Core) is a lightweight, extensible, and cross-platform
 
 Applications based on ASP.NET Core 2.0 Preview 1 can already use EF Core 2.0 Preview 1. Also, existing ASP.NET Core applications can upgrade EF Core by upgrading to the 2.0 Preview 1 version of the ASP.NET Core meta-package and removing any references to older EF Core runtime packages. 
 
-Other applications can upgrade by installing a 2.0 Preview 1-compatible version of the EF Core provider. E.g. to install the SQL Server provider:
+Other applications can upgrade by installing a 2.0 Preview 1-compatible version of the EF Core provider. E.g. to install the SQL Server provider in Visual Studio:
 
+``` console
+PM> install-package Microsoft.EntityFrameworkCore.SqlServer -Version 2.0.0-preview1-final
 ```
-PM> install-package Microsoft.EntityFrameworkCore.SqlServer -Prerelease -Version 2.0.0-preview1-final
-```
+
 Or to upgrade:
 
+``` console
+PM> update-package Microsoft.EntityFrameworkCore.SqlServer -Version 2.0.0-preview1-final
 ```
-PM> update-package Microsoft.EntityFrameworkCore.SqlServer -Prerelease -Version 2.0.0-preview1-final
+
+From the command line, on an application that target .NET Core, you can use the following command:
+
+``` console
+$ dotnet add package Microsoft.EntityFrameworkCore.SqlServer -v 2.0.0-preview1-final
 ```
 
 If you are using a third party database provider, then check to see if they have released an update that depends on 2.0.0-preview1-final. If they have, then just upgrade to the new version. If not, then you will not be able to upgrade since version 2.0 contains several breaking changes and 1.* providers are not expected to work with it.
@@ -26,15 +33,16 @@ If you are using a third party database provider, then check to see if they have
 If your project references any of the tooling and design packages, then be sure to upgrade those too, e.g. in order to use the `dotnet` command line tools, your application's CSPROJ file should contain the following:
 
 ``` xml
-<ItemGroup>
-  <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0-preview1-final" />
-</ItemGroup>
+    <ItemGroup>
+       <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" 
+           Version="2.0.0-preview1-final" />
+    </ItemGroup>
 ```
 
-The Package Manager Console EF Core commands can be upgraded by issuing the following command:
+The Visual Studio Package Manager Console EF Core commands can be upgraded by issuing the following command:
 
-```
-PM> update-package Microsoft.EntityFrameworkCore.Tools -Prerelease -Version 2.0.0-preview1-final
+``` console
+PM> update-package Microsoft.EntityFrameworkCore.Tools -Version 2.0.0-preview1-final
 ```
 
 > NOTE: There is a known issue that can prevent EF Core tooling and ASP.NET Scaffolding functionality from working with the default ASP.NET Core 2.0 Preview 1 project templates. The recommended workaround is to modify the following code in `Program.cs`:
@@ -52,7 +60,8 @@ To:
 public static IWebHost BuildWebHost(string[] args) =>
     WebHost.CreateDefaultBuilder(args)
         .UseStartup<Startup>()
-        .UseDefaultServiceProvider(options => options.ValidateScopes = false)
+        .UseDefaultServiceProvider(options => 
+	    options.ValidateScopes = false)
         .Build();
 ```
 
@@ -92,7 +101,7 @@ var aCustomers =
     select c;
 ```
 
-Note that `Like()` comes with an in-memory implementation, which can be  handy when working against an in-memory database or when evaluation of the predicate needs to occur con the client side.
+Note that `Like()` comes with an in-memory implementation, which can be handy when working against an in-memory database or when evaluation of the predicate needs to occur con the client side.
 
 ### Owned entities and table splitting
 
@@ -170,7 +179,7 @@ Manual or explicitly compiled query APIs have been available in previous version
 Although in general EF Core can automatically compile and cache queries based on a hashed representation of the query expressions, this mechanism can be used to obtain a small performance gain by bypassing the computation of the hash and the cache lookup, allowing the application to use an already compiled query through the invocation of a delegate.
 
 ```C#
-private static Func<CustomerContext, int> _customerById =
+private static Func<CustomerContext, int, Customer> _customerById =
     EF.CompileQuery((CustomerContext db, int id) =>
         db.Customers
             .Include(c => c.Address)
@@ -181,6 +190,7 @@ private static Func<CustomerContext, int> _customerById =
 using (var db = new CustomerContext())
 {
    var customer = _customerById(db, 147);
+   ...
 }
 ```
 
@@ -190,4 +200,4 @@ Besides addressing important feedback from customers using this preview, we will
 
 ## Thank you!
 
-We want to take the opportunity to thank all the members of the .NET developer community who with their feedback and code contributions are helping us make EF Core 2.0 a better release. By their GitHub handles: [@BladeWise](https://github.com/BladeWise), [@ErikEJ](https://github.com/ErikEJ),  [@fitzchak](https://github.com/fitzchak), [@IvanKishchenko](https://github.com/IvanKishchenko), [@laskoviymishka](https://github.com/laskoviymishka), [@lecaillon](https://github.com/lecaillon), [@MicahZoltu](https://github.com/MicahZoltu), [@multiarc](https://github.com/multiarc), [@NickCraver](https://github.com/NickCraver), [@pmiddleton](https://github.com/pmiddleton), [@roji](https://github.com/roji), [@rpawlaszek](https://github.com/rpawlaszek), [@searus](https://github.com/searus), [@tinchou](https://github.com/tinchou), [@tuespetre](https://github.com/tuespetre), and many more.
+We want to take the opportunity to thank all the members of the .NET developer community who with their feedback and code contributions are helping us make EF Core 2.0 a better release. By their GitHub handles: [@BladeWise](https://github.com/BladeWise), [@ErikEJ](https://github.com/ErikEJ), [@fitzchak](https://github.com/fitzchak), [@IvanKishchenko](https://github.com/IvanKishchenko), [@laskoviymishka](https://github.com/laskoviymishka), [@lecaillon](https://github.com/lecaillon), [@MicahZoltu](https://github.com/MicahZoltu), [@multiarc](https://github.com/multiarc), [@NickCraver](https://github.com/NickCraver), [@pmiddleton](https://github.com/pmiddleton), [@roji](https://github.com/roji), [@rpawlaszek](https://github.com/rpawlaszek), [@searus](https://github.com/searus), [@tinchou](https://github.com/tinchou), [@tuespetre](https://github.com/tuespetre), and many more.
