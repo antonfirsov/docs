@@ -97,6 +97,35 @@ Protocol Buffers is a method of serializing structured data. It is useful in dev
 
 There is more content available this week in [F# Weekly](https://sergeytihon.wordpress.com/category/f-weekly/). If you want to see more F# awesomeness, please check it out!
 
+## Xamarin
+
+* [Exrin MVVM Operations – Write Less Code](https://xamarinhelp.com/exrin-mvvm-operations-write-less-code/) by Adam Pedley.
+* [Mobile Database Bi-Directional Synchronization with a REST API](https://xamarinhelp.com/mobile-database-bi-directional-synchronization-rest-api/) by Adam Pedley.
+* [Prism in Xamarin Forms Step by Step (Part. 3)](https://xamgirl.com/prism-in-xamarin-forms-step-by-step-part-3/) by Charlin Agramonte.
+* [Learning Xamarin.Forms – Part 5: ListView](http://jesseliberty.com/2017/07/26/learning-xamarin-forms-part-5-listview/) by Jesse Liberty.
+* [Transient Fault Handling in Xamarin.Forms using Polly](http://www.davidbritch.com/2017/07/transient-fault-handling-in.html) by David Britch.
+* [Transient Fault Handling in Xamarin.Forms](http://www.davidbritch.com/2017/07/transient-fault-handling-in-xamarinforms.html) by David Britch.
+* [MSBuild Basics](http://www.jon-douglas.com/2017/07/26/msbuild-basics/) by Jon Douglas.
+* [Being Reactive](http://www.jon-douglas.com/2017/08/01/being-more-reactive/) by Jon Douglas.
+* [LiveXAML for Xamarin Forms](http://www.livexaml.com/) by LiveXAML.
+* [Xamarin.Tip – Borderless TimePicker](https://alexdunn.org/2017/07/26/xamarin-tip-borderless-timepicker/) by Alex Dunn.
+* [Xamarin.Tip – BottomNavigationView in Xamarin.Android](https://alexdunn.org/2017/07/26/xamarin-tip-bottomnavigationview-in-xamarin-android/) by Alex Dunn.
+* [Xamarin.Tip – Borderless Editor](https://alexdunn.org/2017/07/27/xamarin-tip-borderless-editor/) by Alex Dunn.
+* [Xamarin.Tip – Playing Audio Through the Earpiece in iOS](https://alexdunn.org/2017/07/27/xamarin-tip-playing-audio-through-the-earpiece-in-ios/) by Alex Dunn.
+* [Xamarin.Tip – Borderless Inputs](https://alexdunn.org/2017/07/28/xamarin-tip-borderless-inputs/) by Alex Dunn.
+* [Xamarin.Tip – Playing Audio Through the Earpiece on Android](https://alexdunn.org/2017/07/31/xamarin-tip-playing-audio-through-the-earpiece-on-android/) by Alex Dunn.
+* [Xamarin.University – Guest Lecture Available for Free!](https://alexdunn.org/2017/08/01/xamarin-university-guest-lecture-available-for-free/) by Alex Dunn.
+* [Join Us for Upcoming Xamarin University Guest Lectures](https://blog.xamarin.com/join-us-upcoming-xamarin-university-guest-lectures/) by Rob Gibbens.
+* [Xamarin Podcast: Building Apps with iOS 11, Visual Studio for Mac, and Mobile Center](https://blog.xamarin.com/podcast-building-apps-ios-11-visual-studio-mac-mobile-center/) by Pierce Boggan.
+* [Pragma Delivers High Performance Apps Field Service Employees Love](https://blog.xamarin.com/pragma-delivers-high-performance-apps-field-service-employees-love/) by Lacey Butler.
+* [Xamarin Events in August](https://blog.xamarin.com/xamarin-events-august/) by Jayme Singleton.
+* [Working UrhoSharp with Xamarin Workbooks](https://channel9.msdn.com/coding4fun/blog/Working-UrhoSharp-with-Xamarin-Workbooks) by Greg Duncan.
+* [Building Your First .NET Core App in Visual Studio for Mac](https://channel9.msdn.com/Shows/XamarinShow/Snack-Pack-17-Building-Your-First-NET-Core-App-in-Visual-Studio-for-Mac) by The Xamarin Show.
+* [Xamarin Beta Release: 15.3 Preview 6](https://releases.xamarin.com/beta-release-15-3-preview-6/) by Bri Brothers.
+* [Xamarin Preview: Xcode 9 beta 4, iOS 11, macOS 10.13 support – Preview 2](https://releases.xamarin.com/preview-xcode-9-beta-4-ios-11-macos-10-13-support-preview-2/) by Bri Brothers.
+* [A Filtered View of Core Image](https://visualstudiomagazine.com/articles/2017/07/01/core-image.aspx) by Wallace McClure.
+* [Powershell and Azure on MacOS](https://www.devprotocol.com/powershell-and-azure-on-macos/) by Jan Tourlamain.
+
 ## Azure
 
 * [Read Azure Service Health Activity Logs with .NET Core](https://carlos.mendible.com/2017/08/04/read-azure-service-health-activity-logs-with-net-core/) by Carlos Mendible.
