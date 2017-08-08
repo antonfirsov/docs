@@ -62,6 +62,7 @@ Protocol Buffers is a method of serializing structured data. It is useful in dev
 * [ClrMD Part 6 – Manipulate memory structures like real objects](http://labs.criteo.com/2017/08/clrmd-part-6-manipulate-memory-structures-like-real-objects/) by Christophe Nasarre & Kevin Gosse.
 * [How did I reduce the docker image of SimplCommerce from 900M to 145M using multi-stage builds](http://thienn.com/aspnetcore-docker-multi-stage-builds-simplcommerce/) by Thien Nguyen.
 * [Our experience with using third-party libraries](https://blog.ndepend.com/experience-using-third-party-libraries/) by Patrick Smacchia.
+* [The Nuke command line](https://www.nuke.build/command-line.html) by Matthias Koch.
 
 ## ASP.NET
 
