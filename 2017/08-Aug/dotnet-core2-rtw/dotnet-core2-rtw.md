@@ -9,7 +9,7 @@
 * [Tutorials](https://docs.microsoft.com/dotnet/core/tutorials/)
 * [Samples](https://github.com/dotnet/dotnet-docker-samples/blob/master/README.md)
 
-At the same time we also released ASP.NET Core 2.0 and Entity Framework Core 2.0. Read the [ASP.NET Core 2.0](https://blogs.msdn.microsoft.com/webdev/2017/08/14/announcing-asp-net-core-2-0/) and the [Entity Framework Core 2.0](https://blogs.msdn.microsoft.com/dotnet/) annoucements for details. And watch the [launch video on Channel 9](https://aka.ms/dotnetcore2launchvideo) to see the new features in action.  
+At the same time we also released ASP.NET Core 2.0 and Entity Framework Core 2.0. Read the [ASP.NET Core 2.0](https://blogs.msdn.microsoft.com/webdev/2017/08/14/announcing-asp-net-core-2-0/) and the [Entity Framework Core 2.0](https://blogs.msdn.microsoft.com/dotnet/) annoucements for details. You can also watch the [launch video on Channel 9](https://aka.ms/dotnetcore2launchvideo) to see many of the new features in action.  
 
 .NET Core 2.0 includes major [improvements](https://github.com/dotnet/announcements/issues?q=is%3Aissue+is%3Aopen+label%3A%22.NET+Core+2.0%22) that make .NET Core easier to use and much more capable as a platform. The following ones are the biggest ones and others are described in the body of this post.
 
@@ -17,7 +17,7 @@ At the same time we also released ASP.NET Core 2.0 and Entity Framework Core 2.0
 
 * Implements [.NET Standard 2.0](https://github.com/dotnet/announcements/issues/24)
 * 6 new [platforms supported](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-supported-os.md), including Debian Stretch, SUSE Linux Enterprise Server 12 SP2, and macOS High Sierra.
-* Red Hat will be providing a distribution of .NET Core 2.0 on RHEL very soon. We’re excited to see our partners like Red Hat follow our release so quickly. For more information head to www.RedHatLoves.NET.
+* Red Hat provides full support for .NET Core on RHEL and will be providing a distribution of .NET Core 2.0 very soon. We’re excited to see our partners like Red Hat follow our release so quickly. For more information head to www.RedHatLoves.NET.
 
 ### SDK
 
@@ -43,7 +43,7 @@ For Visual Studio users: You need to update to the latest versions of Visual Stu
 
 ### Thanks!
 
-I want to express gratitude for [all the direct contributions that we received for .NET Core 2.0](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-contributors.md). Thanks! Some of the most prolific contributors for .NET Core 2.0 are from companies investing in .NET Core, other than Microsoft. Thanks to [Samsung](https://developer.tizen.org/development/tizen-.net-preview/introduction) and Qualcomm for your contributions to .NET Core.
+On behalf of the entire team, I want to express our gratitude for [all the direct contributions that we received for .NET Core 2.0](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-contributors.md). Thanks! Some of the most prolific contributors for .NET Core 2.0 are from companies investing in .NET Core, other than Microsoft. Thanks to [Samsung](https://developer.tizen.org/development/tizen-.net-preview/introduction) and Qualcomm for your contributions to .NET Core.
 
 The .NET Core team shipped two .NET Core 2.0 previews ([preview 1](https://blogs.msdn.microsoft.com/dotnet/2017/05/10/announcing-net-core-2-0-preview-1/) and [preview 2](https://blogs.msdn.microsoft.com/dotnet/2017/06/28/announcing-net-core-2-0-preview-2/)) leading up to today's release. Thanks to everyone who tried out those releases and gave us feedback.
 
@@ -51,7 +51,7 @@ The .NET Core team shipped two .NET Core 2.0 previews ([preview 1](https://blogs
 
 You can get started with .NET Core 2.0 in just a few minutes, on Windows macOS or Linux.
 
-You first need to install the [.NET Core SDK 2.0](https://www.microsoft.com/net/download/core).
+You first need to install the [.NET Core SDK 2.0](https://dot.net/core).
 
 You can create .NET Core 2.0 apps on the command line or in [Visual Studio](https://www.visualstudio.com/).
 
@@ -80,7 +80,7 @@ You can read more in-depth instructions in the [Migrating from ASP.NET Core 1.x 
 
 ## .NET Core Runtime Improvements
 
-The .NET Core Runtime 2.0 has the following improvements.
+The .NET Core 2.0 Runtime has the following improvements.
 
 ### Performance Improvements
 
@@ -94,7 +94,7 @@ There are many performance improvements in .NET Core 2.0. The team published a f
 
 The [.NET Standard 2.0](https://github.com/dotnet/announcements/issues/24) spec has been finalized at the same time as .NET Core 2.0.
 
-We have more than doubled the set of available APIs in .NET Standard from **13k** in .NET Standard 1.6 to **32k** in .NET Standard 2.0. Most of the added APIs are .NET Framework APIs. These additions make it much easier to port existing code to .NET Standard, and, by extension, to any .NET implementation of .NET Standard, such as .NET Core 2.0 and the upcoming version of UWP.
+We have more than doubled the set of available APIs in .NET Standard from **13k** in .NET Standard 1.6 to **32k** in .NET Standard 2.0. Most of the added APIs are .NET Framework APIs. These additions make it much easier to port existing code to .NET Standard, and, by extension, to any .NET implementation of .NET Standard, such as .NET Core 2.0 and the upcoming version of Universal Windows Platform (UWP).
 
 .NET Core 2.0 implements the .NET Standard 2.0 spec: all **32k** APIs that the spec defines.
 
@@ -224,15 +224,15 @@ The following is an example nuspec (recipe for a NuGet package) targeting .NET S
 
 Visual Studio now has the ability to recognize the install of an updated .NET Core SDK and light up corresponding tooling within Visual Studio. With 15.3, Visual Studio now provides side-by-side support for .NET Core SDKs and defaults to utilizing the highest version installed in the machine when creating new projects while giving you the flexibility to specify and use older versions if needed, via the use of global.json file. Thus, a single version of Visual Studio can now build projects that target different versions of .NET Core.
 
-### Support for VB
+### Support for Visual Basic
 
-In addition to supporting C# and F#, 15.3 now also supports using Visual Basic to develop .NET Core apps. Our aim with Visual Basic this release was to enable.NET Standard 2.0 class libraries. This means Visual Basic only offers templates for class libraries and console apps at this time, while C# and F# also include templates for ASP.NET Core 2.0 apps.
+In addition to supporting C# and F#, 15.3 now also supports using Visual Basic to develop .NET Core apps. Our aim with Visual Basic this release was to enable .NET Standard 2.0 class libraries. This means Visual Basic only offers templates for class libraries and console apps at this time, while C# and F# also include templates for ASP.NET Core 2.0 apps. Keep an eye on the [VB Team blog](https://blogs.msdn.microsoft.com/vbteam) for details. 
 
 ### Live Unit Testing Support
 
 [Live Unit Testing (LUT)](https://docs.microsoft.com/en-us/visualstudio/test/live-unit-testing) is a new feature we introduced in Visual Studio 2017 enterprise edition and with 15.3 it now supports .NET Core. Users who are passionate with Test Driven Development (TDD) will certainly love this new addition. Starting LUT is as simple as turning it ON from the menu bar: Test->Live Unit Testing->Start.
 
-When you enable LUT, you will get unit test coverage and pass/fail feedback, live in the code editor as you type code. Notice the green ticks and red x’s shown in the code editor in image below.
+When you enable LUT, you will get unit test coverage and pass/fail feedback live in the code editor as you type. Notice the green ticks and red x’s shown in the code editor in image below.
 
 ![Live Unit Testing](LUT.png)
 
@@ -257,11 +257,11 @@ We’ve added a handful of new refactorings including:
 
 ### Project System simplifications
 
-We further simplified the csproj by removing some unnecessary elements that were confusing to user and wherever possible we now derive them implicitly. Simplification trickles down to Solution Explorer view as well. Nodes in Solution Explorer are now neatly organized into categories within the Dependencies node, like NuGet, P2P references, SDK etc.
+We further simplified the .csproj project file by removing some unnecessary elements that were confusing to users and wherever possible we now derive them implicitly. Simplification trickles down to Solution Explorer view as well. Nodes in Solution Explorer are now neatly organized into categories within the Dependencies node, like NuGet, project-to-project references, SDK, etc.
 
 ![Project system simplification](proj_system_simplification.png)
 
-Another enhancement made to the .NET Core project system is that, it is now more efficient when it comes to build – if nothing changed and project appears to be update since last build, then it won’t waste build cycles.  
+Another enhancement made to the .NET Core project system is that it is now more efficient when it comes to builds. If nothing changed and the project appears to be up to date since the last build, then it won’t waste build cycles.  
 
 ## Platform Support
 
@@ -273,6 +273,6 @@ Text here.
 
 ## Closing
 
-We're very excited on this significant milestone for .NET Core. Not only is the 2.0 release is our fastest version of .NET ever, the .NET Standard 2.0 delivers on the promise of .NET everywhere. In conjunction with the Visual Studio family, .NET Core provides the most productive development platform for developers using MacOS or Linux as well as Windows. We encourage you to download the latest .NET Core SDK from https://dot.net/core and start working with this new version of .NET Core.  
+We're very excited on this significant milestone for .NET Core. Not only is the 2.0 release our fastest version of .NET ever, the .NET Standard 2.0 delivers on the promise of .NET everywhere. In conjunction with the Visual Studio family, .NET Core provides the most productive development platform for developers using MacOS or Linux as well as Windows. We encourage you to download the latest .NET Core SDK from https://dot.net/core and start working with this new version of .NET Core.  
 
 Watch the [launch video for .NET Core 2.0](https://aka.ms/dotnetcore2launchvideo) to see this new release in action. 
