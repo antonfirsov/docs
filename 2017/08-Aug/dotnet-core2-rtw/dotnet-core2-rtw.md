@@ -44,8 +44,28 @@ You first need to install the [.NET Core SDK 2.0](https://www.microsoft.com/net/
 
 You can create .NET Core 2.0 apps on the command line or in [Visual Studio](https://www.visualstudio.com/).
 
-If you are working with [Visual Studio Code](https://code.visualstudio.com/) or another text editor, you will need to update
+Creating new projects is easy. There are templates you can use in Visual Studio 2017. You can also create new application at the command line with `dotnet new`, as you can see in the following example.
 
+```console
+C:\samples>dotnet new console -o console-app
+C:\samples>cd console-app
+C:\samples\console-app>dotnet run
+Hello World!
+```
+
+You can also upgrade an existing application to .NET Core 2.0. In Visual Studio, you can change the target framework of an application to .NET Core 2.0.
+
+![Targeting .NET Core 2.0](core2-targeting.png)
+
+If you are working with [Visual Studio Code](https://code.visualstudio.com/) or another text editor, you will need to update the target framework to `netcoreapp2.0`.
+
+```xml
+ <PropertyGroup>
+      <TargetFramework>netcoreapp2.0</TargetFramework>
+ </PropertyGroup>
+```
+
+You can read more in-depth instructions in the [Migrating from ASP.NET Core 1.x to ASP.NET Core 2.0](https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/1x-to-2x) document.
 
 ## .NET Core Runtime Improvements
 
@@ -58,6 +78,16 @@ The .NET Core Runtime 2.0 has the following improvements.
 The .NET Core SDK 2.0 has the following improvements.
 
 ### .NET Core 2.0 Implements .NET Standard 2.0
+
+The [.NET Standard 2.0](https://github.com/dotnet/announcements/issues/24) spec has been finalized at the same time as .NET Core 2.0.
+
+We have more than doubled the set of available APIs in .NET Standard from **13k** in .NET Standard 1.6 to **32k** in .NET Standard 2.0. Most of the added APIs are .NET Framework APIs. These additions make it much easier to port existing code to .NET Standard, and, by extension, to any .NET implementation of .NET Standard, such as .NET Core 2.0 and the upcoming version of UWP.
+
+.NET Core 2.0 implements the .NET Standard 2.0 spec: all **32k** APIs that the spec defines.
+
+You can see a diff between .NET Core 2.0 and .NET Standard 2.0 to understand the set of APIs that .NET Core 2.0 provides beyond the set required by the .NET Standard 2.0 spec.
+
+Note: Provide diff.
 
 ### dotnet restore is implicit for commands that require it
 
