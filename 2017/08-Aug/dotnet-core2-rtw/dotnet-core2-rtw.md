@@ -3,43 +3,155 @@
 .NET Core 2.0 is available today as a final release. You can start developing with it in Visual Studio 2017 15.3, Visual Studio Code or Visual Studio for Mac. It is ready for production workloads, on your own hardware or your favorite cloud, like Microsoft Azure.
 
 * [Downloads](https://github.com/dotnet/core/blob/master/release-notes)
-* [Release Notes](https://github.com/dotnet/core/blob/master/release-notes)
+* [Release Notes](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0.0.md)
 * [Known Issues](https://github.com/dotnet/core/blob/master/release-notes)
 * [Documentation](https://docs.microsoft.com/dotnet/core/)
 * [Tutorials](https://docs.microsoft.com/dotnet/core/tutorials/)
 * [Samples](https://github.com/dotnet/dotnet-docker-samples/blob/master/README.md)
 
-.NET Core 2.0 includes major improvements relative to .NET Core 1.x that make .NET Core easier to use and much more capable as a platform. The following ones are the biggest ones and others are described in the body of this post.
+.NET Core 2.0 includes major improvements that make .NET Core easier to use and much more capable as a platform. The following ones are the biggest ones and others are described in the body of this post.
 
 ### Runtime
 
-* Implements .NET Standard 2.0.
-* n new platforms supported, including Debian Stretch, SUSE Linux Enterprise Server, and macOS High Sierra.
-* Windows, Linux and macOS are each treated as a single operating system (replaces version- and distro-specific runtime IDs).
+* Implements .NET Standard 2.0
+* 6 new [platforms supported](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-supported-os.md), including Debian Stretch, SUSE Linux Enterprise Server 12 SP2, and macOS High Sierra.
 
 ### SDK
 
-* `dotnet restore` is now an implicit command.
-* .NET Core and .NET Standard meta-package references no longer needed.
+* [`dotnet restore` is now an implicit command](https://github.com/dotnet/announcements/issues/23).
 * .NET Core and .NET Standard projects can reference .NET Framework NuGet packages and projects.
-* Visual Basic can be used for library projects.
 
 ### Visual Studio
 
-* Discovery of new .NET Core versions.
-* .NET Core support Live Unit Testing.
+* Visual Studio support for .NET Core 2.0
+* Live Unit Testing supports .NET Core.
+
+For Visual Studio users: You need to update to the latest versions of Visual Studio to use .NET Core 2.0.
+
+* [Visual Studio 2017 15.3](https://www.visualstudio.com/vs/)
+* [Visual Studio for Mac](https://www.visualstudio.com/vs/visual-studio-mac)
+* [Visual Studio Code -- C# Extension](https://code.visualstudio.com/docs/other/dotnet)
 
 I want to express gratitude for [all the direct contributions that we received for .NET Core 2.0](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-contributors.md). Thanks! Some of the most prolific contributors for .NET Core 2.0 are from companies investing in .NET Core, other than Microsoft. Thanks to [Samsung](https://developer.tizen.org/development/tizen-.net-preview/introduction) and Qualcomm for your contributions to .NET Core.
 
 The .NET Core team shipped two .NET Core 2.0 previews ([preview 1],(https://blogs.msdn.microsoft.com/dotnet/2017/05/10/announcing-net-core-2-0-preview-1/) and [preview 2](https://blogs.msdn.microsoft.com/dotnet/2017/06/28/announcing-net-core-2-0-preview-2/))leading up to today's release. Thanks to everyone who tried out those releases and gave us feedback.
 
-## .NET Core SDK Improvements
+## Using .NET Core 2.0
 
+You can get started with .NET Core 2.0 in just a few minutes, on Windows macOS or Linux.
+
+You first need to install the [.NET Core SDK 2.0](https://www.microsoft.com/net/download/core).
+
+You can create .NET Core 2.0 apps on the command line or in [Visual Studio](https://www.visualstudio.com/).
+
+If you are working with [Visual Studio Code](https://code.visualstudio.com/) or another text editor, you will need to update
 
 
 ## .NET Core Runtime Improvements
 
-Text here.
+The .NET Core Runtime 2.0 has the following improvements.
+
+* Windows, Linux and macOS are each treated as a single operating system (replaces version- and distro-specific runtime IDs).
+
+## .NET Core SDK Improvements
+
+The .NET Core SDK 2.0 has the following improvements.
+
+### .NET Core 2.0 Implements .NET Standard 2.0
+
+### dotnet restore is implicit for commands that require it
+
+The `dotnet restore` command has been a required set of keystrokes with .NET Core to date. The command installs required project dependencies and some other tasks. It's easy to forget to type it and the error messages that tell you that you need to type it are not always helpful. It is now implicitly called on your behalf for commands like `run`, `build` and `publish`.
+
+The following example workflow demonstates the absense of a required `dotnet restore` command:
+
+```console
+C:\Users\rich>dotnet new mvc -o mvcapp
+The template "ASP.NET Core Web App (Model-View-Controller)" was created successfully.
+This template contains technologies from parties other than Microsoft, see https://aka.ms/template-3pn for details.
+
+Processing post-creation actions...
+Running 'dotnet restore' on mvcapp\mvcapp.csproj...
+  Restoring packages for C:\Users\rich\mvcapp\mvcapp.csproj...
+  Restore completed in 32.3 ms for C:\Users\rich\mvcapp\mvcapp.csproj.
+  Generating MSBuild file C:\Users\rich\mvcapp\obj\mvcapp.csproj.nuget.g.props.
+  Generating MSBuild file C:\Users\rich\mvcapp\obj\mvcapp.csproj.nuget.g.targets.
+  Restore completed in 2.26 sec for C:\Users\rich\mvcapp\mvcapp.csproj.
+Restore succeeded.
+
+C:\Users\rich>cd mvcapp
+
+C:\Users\rich\mvcapp>dotnet run
+Hosting environment: Production
+Content root path: C:\Users\rich\mvcapp
+Now listening on: http://localhost:5000
+Application started. Press Ctrl+C to shut down.
+Application is shutting down...
+```
+
+### Reference .NET Framework libraries from .NET Standard
+
+You can now reference .NET Framework libraries from .NET Standard libraries using Visual Studio 2017 15.3. this scenario is more nuanced than is typical. It can be thought of as a feature that helps you migrate .NET Framework code to .NET Standard or .NET Core over time (start with binaries and then move to source). It is also useful in the case that the source code is no longer accessible or is lost for a .NET Framework library, enabling it to be still be used in new scenarios.
+
+We expect that this feature will be used most commonly from .NET Standard libraries. It also works for .NET Core apps and libraries. They can depend on .NET Framework libraries, too.
+
+The supported scenario is referencing a .NET Framework library that happens to only use types within the .NET Standard API set. Also, it is only supported for libraries that target .NET Framework 4.6.1 or earlier (even .NET Framework 1.0 is fine). If the .NET Framework library you reference relies on WPF, the library will not work (or at least not in all cases). You can use libraries that depend on additional APIs,but not for the codepaths you use. In that case, you will need to invest singificantly in testing.
+
+You can see this feature in use in the following images.
+
+![.NET Core Running app, using .NET Framework dependency](dotnet-standard-interop-with-framework-461-running-app.PNG)
+
+The call stack for this app makes the dependency from .NET Core to .NET Standard to .NET Framework more obvious.
+
+![.NET Core Running app, showing the call stack](dotnet-standard-interop-with-framework-461-call-stack.PNG)
+
+### .NET Standard NuGet Packages no longer have required dependencies
+
+.NET Standard NuGet packages no longer have any required dependencies if they target .NET Standard 2.0 or later. The .NET Standard dependency is now provided by the .NET Core SDK. It isn't necessary as a NuGet artifact.
+
+The following is an example nuspec (recipe for a NuGet package) targeting .NET Standard 2.0.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>ClassLibrary1</id>
+        <version>1.0.0</version>
+        <authors>ClassLibrary1</authors>
+        <owners>ClassLibrary1</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Package Description</description>
+        <dependencies>
+            <group targetFramework=".NETStandard2.0" />
+        </dependencies>
+    </metadata>
+</package>
+```
+
+The following is an example nuspec (recipe for a NuGet package) targeting .NET Standard 1.4.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>ClassLibrary1</id>
+        <version>1.0.0</version>
+        <authors>ClassLibrary1</authors>
+        <owners>ClassLibrary1</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Package Description</description>
+        <dependencies>
+            <group targetFramework=".NETStandard1.4">
+                <dependency id="NETStandard.Library" version="1.6.1" exclude="Build,Analyzers" />
+            </group>
+        </dependencies>
+    </metadata>
+</package>
+```
+
+* Visual Studio can target new .NET Core SDK versions you install.
+* F# and Visual Basic are supported (in addition to C#).
+* .NET Core and .NET Standard meta-package references no longer needed.
 
 ## Platform Support
 
