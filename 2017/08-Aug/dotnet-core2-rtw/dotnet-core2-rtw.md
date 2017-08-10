@@ -218,6 +218,51 @@ The following is an example nuspec (recipe for a NuGet package) targeting .NET S
 * F# and Visual Basic are supported (in addition to C#).
 * .NET Core and .NET Standard meta-package references no longer needed.
 
+## Visual Studio 2017 version 15.3 updates
+
+### Side-by-Side SDKs
+
+Visual Studio now has the ability to recognize the install of an updated .NET Core SDK and light up corresponding tooling within Visual Studio. With 15.3, Visual Studio now provides side-by-side support for .NET Core SDKs and defaults to utilizing the highest version installed in the machine when creating new projects while giving you the flexibility to specify and use older versions if needed, via the use of global.json file. Thus, a single version of Visual Studio can now build projects that target different versions of .NET Core.
+
+### Support for VB
+
+In addition to supporting C# and F#, 15.3 now also supports using Visual Basic to develop .NET Core apps. Our aim with Visual Basic this release was to enable.NET Standard 2.0 class libraries. This means Visual Basic only offers templates for class libraries and console apps at this time, while C# and F# also include templates for ASP.NET Core 2.0 apps.
+
+### Live Unit Testing Support
+
+[Live Unit Testing (LUT)](https://docs.microsoft.com/en-us/visualstudio/test/live-unit-testing) is a new feature we introduced in Visual Studio 2017 enterprise edition and with 15.3 it now supports .NET Core. Users who are passionate with Test Driven Development (TDD) will certainly love this new addition. Starting LUT is as simple as turning it ON from the menu bar: Test->Live Unit Testing->Start.
+
+When you enable LUT, you will get unit test coverage and pass/fail feedback, live in the code editor as you type code. Notice the green ticks and red x’s shown in the code editor in image below.
+
+![Live Unit Testing](LUT.png)
+
+### IDE Productivity enhancements 
+
+15.3 has several productivity enhancements to help you write better code faster. We now support [.NET naming conventions and formatting rules in EditorConfig](https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference) allowing your team to enforce and configure almost any coding convention for your codebase. 
+
+With regards to navigation improvements, we’ve added support for camelCase matching in GoToAll (Ctrl+T), so that you can navigate to any file/type/member/symbol declaration just by typing cases (e.g., “bh” for “BusHelpers.cs”). You’ll also notice suggested variable names (Fig.2) as you are typing (which will adhere to any code style configured in your team’s EditorConfig).
+
+![Variable name suggestions](var_name_suggestion.png)
+
+We’ve added a handful of new refactorings including:
+* Resolve merge conflict
+* Add parameter (from callsite)
+* Generate overrides
+* Add named argument
+* Add null-check for parameters
+* Insert digit-separators into literals
+* Change base for numeric literals (e.g., hex to binary)
+* Convert if-to-switch
+* Remove unused variable
+
+### Project System simplifications
+
+We further simplified the csproj by removing some unnecessary elements that were confusing to user and wherever possible we now derive them implicitly. Simplification trickles down to Solution Explorer view as well. Nodes in Solution Explorer are now neatly organized into categories within the Dependencies node, like NuGet, P2P references, SDK etc.
+
+![Project system simplification](proj_system_simplification.png)
+
+Another enhancement made to the .NET Core project system is that, it is now more efficient when it comes to build – if nothing changed and project appears to be update since last build, then it won’t waste build cycles.  
+
 ## Platform Support
 
 Text here.
@@ -228,6 +273,6 @@ Text here.
 
 ## Closing
 
-We're very excited on this significant milestonf for .NET Core. Not only is the 2.0 release is our fastest version of .NET ever, the .NET Standard 2.0 delivers on the promise of .NET everywhere. In conjunction with the Visual Studio family, .NET Core provides the most productive development platform for developers using MacOS or Linux as well as Windows. We encourage you to download the latest .NET Core SDK from https://dot.net/core and start working with this new version of .NET Core.  
+We're very excited on this significant milestone for .NET Core. Not only is the 2.0 release is our fastest version of .NET ever, the .NET Standard 2.0 delivers on the promise of .NET everywhere. In conjunction with the Visual Studio family, .NET Core provides the most productive development platform for developers using MacOS or Linux as well as Windows. We encourage you to download the latest .NET Core SDK from https://dot.net/core and start working with this new version of .NET Core.  
 
 Watch the [launch video for .NET Core 2.0](https://aka.ms/dotnetcore2launchvideo) to see this new release in action. 
