@@ -9,12 +9,15 @@
 * [Tutorials](https://docs.microsoft.com/dotnet/core/tutorials/)
 * [Samples](https://github.com/dotnet/dotnet-docker-samples/blob/master/README.md)
 
+At the same time we also released ASP.NET Core 2.0 and Entity Framework Core 2.0. Read the [ASP.NET Core 2.0](https://blogs.msdn.microsoft.com/webdev/2017/08/14/announcing-asp-net-core-2-0/) and the [Entity Framework Core 2.0](https://blogs.msdn.microsoft.com/dotnet/) annoucements for details. And watch the [launch video on Channel 9](https://aka.ms/dotnetcore2launchvideo) to see the new features in action.  
+
 .NET Core 2.0 includes major [improvements](https://github.com/dotnet/announcements/issues?q=is%3Aissue+is%3Aopen+label%3A%22.NET+Core+2.0%22) that make .NET Core easier to use and much more capable as a platform. The following ones are the biggest ones and others are described in the body of this post.
 
 ### Runtime
 
 * Implements [.NET Standard 2.0](https://github.com/dotnet/announcements/issues/24)
 * 6 new [platforms supported](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-supported-os.md), including Debian Stretch, SUSE Linux Enterprise Server 12 SP2, and macOS High Sierra.
+* Red Hat will be providing a distribution of .NET Core 2.0 on RHEL very soon. We’re excited to see our partners like Red Hat follow our release so quickly. For more information head to www.RedHatLoves.NET.
 
 ### SDK
 
@@ -23,20 +26,26 @@
 
 ### Visual Studio
 
-* Visual Studio support for .NET Core 2.0
-* Live Unit Testing supports .NET Core.
+Visual Studio now supports .NET Core 2.0. Read the [Visual Studio 2017 version 15.3 release announcement](https://blogs.msdn.microsoft.com/visualstudio/2017/08/14/visual-studio-2017-version-15-3-released/) for more information. Features include:
 
-For Visual Studio users: You need to update to the latest versions of Visual Studio to use .NET Core 2.0.
+* Live Unit Testing supports .NET Core
+* Simplified and portable project files across CLI, Visual Studio & Visual Studio for Mac
+* Code navigation improvements
+* C# Azure Functions support in the box
+* CI/CD support for containers
+
+For Visual Studio users: You need to update to the latest versions of Visual Studio to use .NET Core 2.0. You will need to install the [.NET Core 2.0 SDK](https://dot.net/core) separately for this update. 
 
 * [Visual Studio 2017 15.3+](https://www.visualstudio.com/vs/)
 * [Visual Studio for Mac](https://www.visualstudio.com/vs/visual-studio-mac)
 * [Visual Studio Code -- C# Extension](https://code.visualstudio.com/docs/other/dotnet)
+*  
 
 ### Thanks!
 
 I want to express gratitude for [all the direct contributions that we received for .NET Core 2.0](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-contributors.md). Thanks! Some of the most prolific contributors for .NET Core 2.0 are from companies investing in .NET Core, other than Microsoft. Thanks to [Samsung](https://developer.tizen.org/development/tizen-.net-preview/introduction) and Qualcomm for your contributions to .NET Core.
 
-The .NET Core team shipped two .NET Core 2.0 previews ([preview 1],(https://blogs.msdn.microsoft.com/dotnet/2017/05/10/announcing-net-core-2-0-preview-1/) and [preview 2](https://blogs.msdn.microsoft.com/dotnet/2017/06/28/announcing-net-core-2-0-preview-2/))leading up to today's release. Thanks to everyone who tried out those releases and gave us feedback.
+The .NET Core team shipped two .NET Core 2.0 previews ([preview 1](https://blogs.msdn.microsoft.com/dotnet/2017/05/10/announcing-net-core-2-0-preview-1/) and [preview 2](https://blogs.msdn.microsoft.com/dotnet/2017/06/28/announcing-net-core-2-0-preview-2/)) leading up to today's release. Thanks to everyone who tried out those releases and gave us feedback.
 
 ## Using .NET Core 2.0
 
@@ -99,7 +108,7 @@ There are other Linux distros that we would like to support, like those that use
 
 Please tell us if the .NET Core 2.0 Linux build doesn’t work well on your favorite Linux distro.
 
-While not nearly as critical, similar improvements have been made for Windows and macOS. You can now publish for the following "runtimes".
+Similar improvements have been made for Windows and macOS. You can now publish for the following "runtimes".
 
 * `linux-x64`, `linux-arm`
 * `win-x64`, `win-x86`
@@ -107,9 +116,9 @@ While not nearly as critical, similar improvements have been made for Windows an
 
 ### Globalization Invariant Mode
 
-.NET Core 2.0 includes a new [opt-in globalization mode](https://github.com/dotnet/announcements/issues/20) that provides basic globalization-related functionality that is uniform across operating systems and languages. The benefit of this new mode is its uniformity, distribution size, and the absence of any globalization dependencies. The downside is that it doesn't actually provide globalization functionality.
+.NET Core 2.0 includes a new [opt-in globalization mode](https://github.com/dotnet/announcements/issues/20) that provides basic globalization-related functionality that is uniform across operating systems and languages. The benefit of this new mode is its uniformity, distribution size, and the absence of any globalization dependencies. 
 
-See [.NET Core Globalization Invariant Mode](https://github.com/dotnet/announcements/issues/20) to learn more about this feature, and decide whether the new mode is a good choice for your app or if it breaks its functionality.
+See [.NET Core Globalization Invariant Mode](https://github.com/dotnet/corefx/blob/master/Documentation/architecture/globalization-invariant-mode.md) to learn more about this feature, and decide whether the new mode is a good choice for your app or if it breaks its functionality.
 
 ## .NET Core SDK Improvements
 
@@ -147,7 +156,7 @@ Application is shutting down...
 
 ### Reference .NET Framework libraries from .NET Standard
 
-You can now reference .NET Framework libraries from .NET Standard libraries using Visual Studio 2017 15.3. this scenario is more nuanced than is typical. It can be thought of as a feature that helps you migrate .NET Framework code to .NET Standard or .NET Core over time (start with binaries and then move to source). It is also useful in the case that the source code is no longer accessible or is lost for a .NET Framework library, enabling it to be still be used in new scenarios.
+You can now reference .NET Framework libraries from .NET Standard libraries using Visual Studio 2017 15.3. This feature helps you migrate .NET Framework code to .NET Standard or .NET Core over time (start with binaries and then move to source). It is also useful in the case that the source code is no longer accessible or is lost for a .NET Framework library, enabling it to be still be used in new scenarios.
 
 We expect that this feature will be used most commonly from .NET Standard libraries. It also works for .NET Core apps and libraries. They can depend on .NET Framework libraries, too.
 
@@ -219,4 +228,6 @@ Text here.
 
 ## Closing
 
-Text here.
+We're very excited on this significant milestonf for .NET Core. Not only is the 2.0 release is our fastest version of .NET ever, the .NET Standard 2.0 delivers on the promise of .NET everywhere. In conjunction with the Visual Studio family, .NET Core provides the most productive development platform for developers using MacOS or Linux as well as Windows. We encourage you to download the latest .NET Core SDK from https://dot.net/core and start working with this new version of .NET Core.  
+
+Watch the [launch video for .NET Core 2.0](https://aka.ms/dotnetcore2launchvideo) to see this new release in action. 
