@@ -73,6 +73,14 @@ You can read more in-depth instructions in the [Migrating from ASP.NET Core 1.x 
 
 The .NET Core Runtime 2.0 has the following improvements.
 
+### Performance Improvements
+
+There are many performance improvements in .NET Core 2.0. The team published a few posts describing the improvements to the .NET Core Runtime in detail.
+
+* [Performance Improvements in .NET Core](https://blogs.msdn.microsoft.com/dotnet/2017/06/07/performance-improvements-in-net-core/)
+* [Performance Improvements in RyuJIT in .NET Core and .NET Framework](https://blogs.msdn.microsoft.com/dotnet/2017/06/29/performance-improvements-in-ryujit-in-net-core-and-net-framework/)
+* [Profile-guided optimization in .NET Core 2.0](https://blogs.msdn.microsoft.com/dotnet/2017/07/20/profile-guided-optimization-in-net-core-2-0/)
+
 ### .NET Core 2.0 Implements .NET Standard 2.0
 
 The [.NET Standard 2.0](https://github.com/dotnet/announcements/issues/24) spec has been finalized at the same time as .NET Core 2.0.
@@ -97,13 +105,11 @@ While not nearly as critical, similar improvements have been made for Windows an
 * `win-x64`, `win-x86`
 * `osx-x64`
 
-### Performance Improvements
+### Globalization Invariant Mode
 
-There are many performance improvements in .NET Core 2.0. The team published a few posts describing the improvements to the .NET Core Runtime in detail.
+.NET Core 2.0 includes a new [opt-in globalization mode](https://github.com/dotnet/announcements/issues/20) that provides basic globalization-related functionality that is uniform across operating systems and languages. The benefit of this new mode is its uniformity, distribution size, and the absence of any globalization dependencies. The downside is that it doesn't actually provide globalization functionality.
 
-* [Performance Improvements in .NET Core](https://blogs.msdn.microsoft.com/dotnet/2017/06/07/performance-improvements-in-net-core/)
-* [Performance Improvements in RyuJIT in .NET Core and .NET Framework](https://blogs.msdn.microsoft.com/dotnet/2017/06/29/performance-improvements-in-ryujit-in-net-core-and-net-framework/)
-* [Profile-guided optimization in .NET Core 2.0](https://blogs.msdn.microsoft.com/dotnet/2017/07/20/profile-guided-optimization-in-net-core-2-0/)
+See [.NET Core Globalization Invariant Mode](https://github.com/dotnet/announcements/issues/20) to learn more about this feature, and decide whether the new mode is a good choice for your app or if it breaks its functionality.
 
 ## .NET Core SDK Improvements
 
