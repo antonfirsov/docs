@@ -97,6 +97,14 @@ While not nearly as critical, similar improvements have been made for Windows an
 * `win-x64`, `win-x86`
 * `osx-x64`
 
+### Performance Improvements
+
+There are many performance improvements in .NET Core 2.0. The team published a few posts describing the improvements to the .NET Core Runtime in detail.
+
+* [Performance Improvements in .NET Core](https://blogs.msdn.microsoft.com/dotnet/2017/06/07/performance-improvements-in-net-core/)
+* [Performance Improvements in RyuJIT in .NET Core and .NET Framework](https://blogs.msdn.microsoft.com/dotnet/2017/06/29/performance-improvements-in-ryujit-in-net-core-and-net-framework/)
+* [Profile-guided optimization in .NET Core 2.0](https://blogs.msdn.microsoft.com/dotnet/2017/07/20/profile-guided-optimization-in-net-core-2-0/)
+
 ## .NET Core SDK Improvements
 
 The .NET Core SDK 2.0 has the following improvements.
