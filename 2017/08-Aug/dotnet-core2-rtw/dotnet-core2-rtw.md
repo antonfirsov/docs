@@ -1,6 +1,6 @@
 # Announcing .NET Core 2.0
 
-.NET Core 2.0 is available today as a final release. You can start developing with it in Visual Studio 2017 15.3, Visual Studio Code or Visual Studio for Mac. It is ready for production workloads, on your own hardware or your favorite cloud, like Microsoft Azure.
+.NET Core 2.0 is available today as a final release. You can start developing with it at the command line, in your favorite text editor, in Visual Studio 2017 15.3, Visual Studio Code or Visual Studio for Mac. It is ready for production workloads, on your own hardware or your favorite cloud, like [Microsoft Azure](https://docs.microsoft.com/dotnet/azure/).
 
 * [Downloads](https://github.com/dotnet/core/blob/master/release-notes)
 * [Release Notes](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0.0.md)
@@ -9,11 +9,11 @@
 * [Tutorials](https://docs.microsoft.com/dotnet/core/tutorials/)
 * [Samples](https://github.com/dotnet/dotnet-docker-samples/blob/master/README.md)
 
-.NET Core 2.0 includes major improvements that make .NET Core easier to use and much more capable as a platform. The following ones are the biggest ones and others are described in the body of this post.
+.NET Core 2.0 includes major [improvements](https://github.com/dotnet/announcements/issues?q=is%3Aissue+is%3Aopen+label%3A%22.NET+Core+2.0%22) that make .NET Core easier to use and much more capable as a platform. The following ones are the biggest ones and others are described in the body of this post.
 
 ### Runtime
 
-* Implements .NET Standard 2.0
+* Implements [.NET Standard 2.0](https://github.com/dotnet/announcements/issues/24)
 * 6 new [platforms supported](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-supported-os.md), including Debian Stretch, SUSE Linux Enterprise Server 12 SP2, and macOS High Sierra.
 
 ### SDK
@@ -28,9 +28,11 @@
 
 For Visual Studio users: You need to update to the latest versions of Visual Studio to use .NET Core 2.0.
 
-* [Visual Studio 2017 15.3](https://www.visualstudio.com/vs/)
+* [Visual Studio 2017 15.3+](https://www.visualstudio.com/vs/)
 * [Visual Studio for Mac](https://www.visualstudio.com/vs/visual-studio-mac)
 * [Visual Studio Code -- C# Extension](https://code.visualstudio.com/docs/other/dotnet)
+
+### Thanks!
 
 I want to express gratitude for [all the direct contributions that we received for .NET Core 2.0](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-contributors.md). Thanks! Some of the most prolific contributors for .NET Core 2.0 are from companies investing in .NET Core, other than Microsoft. Thanks to [Samsung](https://developer.tizen.org/development/tizen-.net-preview/introduction) and Qualcomm for your contributions to .NET Core.
 
@@ -71,12 +73,6 @@ You can read more in-depth instructions in the [Migrating from ASP.NET Core 1.x 
 
 The .NET Core Runtime 2.0 has the following improvements.
 
-* Windows, Linux and macOS are each treated as a single operating system (replaces version- and distro-specific runtime IDs).
-
-## .NET Core SDK Improvements
-
-The .NET Core SDK 2.0 has the following improvements.
-
 ### .NET Core 2.0 Implements .NET Standard 2.0
 
 The [.NET Standard 2.0](https://github.com/dotnet/announcements/issues/24) spec has been finalized at the same time as .NET Core 2.0.
@@ -85,9 +81,25 @@ We have more than doubled the set of available APIs in .NET Standard from **13k*
 
 .NET Core 2.0 implements the .NET Standard 2.0 spec: all **32k** APIs that the spec defines.
 
-You can see a diff between .NET Core 2.0 and .NET Standard 2.0 to understand the set of APIs that .NET Core 2.0 provides beyond the set required by the .NET Standard 2.0 spec.
+You can see a [diff between .NET Core 2.0 and .NET Standard 2.0](https://github.com/dotnet/standard/blob/master/docs/comparisons/netstandard2.0_vs_netcoreapp2.0/README.md) to understand the set of APIs that .NET Core 2.0 provides beyond the set required by the .NET Standard 2.0 spec.
 
-Note: Provide diff.
+### Much easier to target Linux as a single operating system
+
+.NET Core 2.0 treats Linux as a single operating system. There is now a single Linux build (per chip architecture) that works on all Linux distros that we've tested. Our support so far is specific to [glibc](https://www.gnu.org/software/libc/)-based distros and more specifically Debian and Red Hat based Linux distros.
+
+There are other Linux distros that we would like to support, like those that use [musl](https://www.musl-libc.org/), such as [Alpine](https://www.alpinelinux.org/). Alpine will be supported in a later release.
+
+Please tell us if the .NET Core 2.0 Linux build doesn’t work well on your favorite Linux distro.
+
+While not nearly as critical, similar improvements have been made for Windows and macOS. You can now publish for the following "runtimes".
+
+* `linux-x64`, `linux-arm`
+* `win-x64`, `win-x86`
+* `osx-x64`
+
+## .NET Core SDK Improvements
+
+The .NET Core SDK 2.0 has the following improvements.
 
 ### dotnet restore is implicit for commands that require it
 
