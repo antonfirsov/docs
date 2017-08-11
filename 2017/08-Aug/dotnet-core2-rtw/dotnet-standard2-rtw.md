@@ -34,20 +34,99 @@ and in Visual Studio. You can start using .NET Standard 2.0 today.
     - Xamarin.Android 7.5
     - UWP is work in progress and will ship later this year.
 
-## Walkthrough
+## Creating a .NET Standard library
 
-* How do you create a .NET Standard library project
-    - dotnet new lib
-    - File | New | Project | .NET Standard | Class Library (.NET Standard)
-    - Adding a reference to .NET Framework-only NuGet package
-    - Warning & Suppression
+Let's see .NET Standard 2.0 in action by creating a new project. You can do this
+in Visual Studio by invoking **File** | **New Project**. Choose **Class Library
+(.NET Standard)** from the **.NET Standard** category:
 
-* Converting an existing class library to .NET Standard
+![](net_standard_01_new_project.png)
+
+If you're using the command line, you can use `dotnet new` to create a new
+library (which by default are targeting .NET Standard):
+
+```
+$ dotnet new lib -o mylibrary
+```
+
+## Reusing an existing .NET Framework library
+
+Now let's add a reference to a NuGet package that doesn't target .NET Standard yet, [Huitian.PowerCollections](https://www.nuget.org/packages/Huitian.PowerCollections). In Visual Studio, right click your project and choose **Manage NuGet Packages**. Then select **Browse** and search for **Huitian.PowerCollections**. Click on **Install**.
+
+On the command line, invoke `dotnet add package`:
+
+```
+$ dotnet add package Huitian.PowerCollections
+```
+
+You'll notice the following warning:
+
+> NU1701: Package 'Huitian.PowerCollections 1.0.0' was restored using
+> '.NETFramework,Version=v4.6.1' instead of the project target framework
+> '.NETStandard,Version=v2.0'. This package may not be fully compatible with
+> your project.
+
+This warning will not just appear when installing the package, but every time
+you build to ensure you don't accidentally overlook it.
+
+This is because NuGet has no way of knowing whether the .NET Framework library
+will actually work. For example, it might depend on Windows Forms. To make sure
+you don't waste your time troubleshooting something that cannot work, NuGet lets
+you know that you're potentially going off the rails. Of course, warnings you
+have to overlook are annoying. Thus, we recommend that you test your
+application/library and if you're convinced everything is working fine, you
+suppress the warning.
+
+If you're using the command line, you'll need to the edit your project file and
+add the `NoWarn` attribute on the `PackageReference` that you want to suppress
+the warning for:
+
+```xml
+<ItemGroup>
+  <PackageReference Include="Huitian.PowerCollections" Version="1.0.0" NoWarn="NU1701" />
+</ItemGroup>
+```
+
+And in Visual Studio, you can simply select the package reference in **Solution
+Explorer** and use **Properties** to add the suppression:
+
+![](net_standard_02_suppression.png)
+
+Building the project will now show zero warnings. Notice that the suppression
+wasn't global but per package reference. This ensures that just using one
+library through the compatibility mode doesn't result in a free ride for all
+future references. So if you install another library that goes through the
+compatibility mode, you'll get the warning again and you'll need to suppress it
+for that package too.
+
+## Producing a NuGet package
+
+Once you're happy with your library, you can simply make it a NuGet package. To
+do this, right click your project and choose **Properties**. On the **Package**
+tab, check the box for **Generate NuGet package on build**:
+
+![](net_standard_03_generatenupkg.png)
+
+If you're using the command line, edit the project file and set the
+`GeneratePackageOnBuild` property to `true`:
+
+```xml
+<PropertyGroup>
+  <TargetFramework>netstandard2.0</TargetFramework>
+  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+</PropertyGroup>
+```
+
+If you rebuild the project, you'll now find a NuGet package in the output
+directory as well.
 
 ## What about Portable Class Libraries?
 
-* Screenshot of the now deprecated templates
-* We no longer support using PCLs for targeting .NET Standard
+If you're sharing code between different .NET implementations today, you're
+probably aware of Portable Class Libraries (PCLs). With the release of .NET
+Standard 2.0, we're now officially deprecating PCLs:
+
+![](net_standard_04_pcls.png)
 
 ## Summary
 
