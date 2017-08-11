@@ -7,22 +7,24 @@ and in Visual Studio. You can start using .NET Standard 2.0 today.
 
 ## For the impatient: TL;DR
 
-* **.NET Standard is for sharing code**. .NET Standard is a set of APIs that all .NET
-  platforms have to implement. This unifies the .NET implementation and prevents future
-  fragmentation. It replaces Portable Class Libraries (PCLs) as the tool for building
-  .NET libraries that work everywhere.
+* **.NET Standard is for sharing code**. .NET Standard is a set of APIs that all
+  .NET implementations have to provide. This unifies the .NET implementations
+  and prevents future fragmentation. It replaces Portable Class Libraries (PCLs)
+  as the tool for building .NET libraries that work everywhere.
 * **Much bigger API Surface**: We have more than doubled the set of available APIs
   from **13k** in [.NET Standard 1.6][ns16]
   to **32k** in [.NET Standard 2.0][ns20].
-  Most of the added APIs are .NET Framework APIs. These additions make it much easier to port
-  existing code to .NET Standard, and, by extension, to any .NET implementation of .NET Standard,
-  such as .NET Core 2.0 and the upcoming version of UWP.
-* **.NET Framework compatibility mode**: The vast majority of NuGet packages are currently
-  still targeting .NET Framework. Many projects are currently blocked from moving to .NET Standard
-  because not all their dependencies are targeting .NET Standard yet. That's why we added a
-  compatibility mode that allows .NET Standard projects to depend on .NET Framework libraries as
-  if they were compiled for .NET Standard. Of course, this may not work in all cases (for instance,
-  if the .NET Framework binaries uses WPF), but we found that
+  Most of them are existing .NET Framework APIs. These additions make it much
+  easier to port existing code to .NET Standard, and, by extension, to any .NET
+  implementation of .NET Standard, such as .NET Core 2.0 and the upcoming
+  version of UWP.
+* **.NET Framework compatibility mode**: The vast majority of NuGet packages are
+  currently still targeting .NET Framework. Many projects are currently blocked
+  from moving to .NET Standard because not all their dependencies are targeting
+  .NET Standard yet. That's why we added a compatibility mode that allows .NET
+  Standard projects to depend on .NET Framework libraries as if they were
+  compiled for .NET Standard. Of course, this may not work in all cases (for
+  instance, if the .NET Framework binaries uses WPF), but we found that 
   [70% of all NuGet packages on nuget.org are API compatible][nsnuget]
   with .NET Standard 2.0, so in practice it unblocks many projects.
 * **Broad platform support**. .NET Standard 2.0 is [supported on the following platforms][nsversions]:
@@ -42,8 +44,8 @@ in Visual Studio by invoking **File** | **New Project**. Choose **Class Library
 
 ![](net_standard_01_new_project.png)
 
-If you're using the command line, you can use `dotnet new` to create a new
-library (which by default are targeting .NET Standard):
+From the command line, you can use `dotnet new` to create a new library (which
+by default is targeting .NET Standard):
 
 ```
 $ dotnet new lib -o mylibrary
@@ -51,9 +53,13 @@ $ dotnet new lib -o mylibrary
 
 ## Reusing an existing .NET Framework library
 
-Now let's add a reference to a NuGet package that doesn't target .NET Standard yet, [Huitian.PowerCollections](https://www.nuget.org/packages/Huitian.PowerCollections). In Visual Studio, right click your project and choose **Manage NuGet Packages**. Then select **Browse** and search for **Huitian.PowerCollections**. Click on **Install**.
+Now let's add a reference to a NuGet package that doesn't target .NET Standard yet,
+[Huitian.PowerCollections](https://www.nuget.org/packages/Huitian.PowerCollections).
+In Visual Studio, right click your project and choose **Manage NuGet Packages**.
+Then select **Browse** and search for **Huitian.PowerCollections**. Click on
+**Install**.
 
-On the command line, invoke `dotnet add package`:
+As a command line user, you can achieve the same by by using `dotnet add package`:
 
 ```
 $ dotnet add package Huitian.PowerCollections
@@ -67,15 +73,15 @@ You'll notice the following warning:
 > your project.
 
 This warning will not just appear when installing the package, but every time
-you build to ensure you don't accidentally overlook it.
+you build. This ensures you don't accidentally overlook it.
 
-This is because NuGet has no way of knowing whether the .NET Framework library
-will actually work. For example, it might depend on Windows Forms. To make sure
-you don't waste your time troubleshooting something that cannot work, NuGet lets
-you know that you're potentially going off the rails. Of course, warnings you
-have to overlook are annoying. Thus, we recommend that you test your
-application/library and if you're convinced everything is working fine, you
-suppress the warning.
+The reason for the warning is that NuGet has no way of knowing whether the .NET
+Framework library will actually work. For example, it might depend on Windows
+Forms. To make sure you don't waste your time troubleshooting something that
+cannot work, NuGet lets you know that you're potentially going off the rails. Of
+course, warnings you have to overlook are annoying. Thus, we recommend that you
+test your application/library and if you're convinced everything is working
+fine, you suppress the warning.
 
 If you're using the command line, you'll need to the edit your project file and
 add the `NoWarn` attribute on the `PackageReference` that you want to suppress
@@ -93,9 +99,9 @@ Explorer** and use **Properties** to add the suppression:
 ![](net_standard_02_suppression.png)
 
 Building the project will now show zero warnings. Notice that the suppression
-wasn't global but per package reference. This ensures that just using one
-library through the compatibility mode doesn't result in a free ride for all
-future references. So if you install another library that goes through the
+wasn't global but specific to the package reference. This ensures that just
+using one library through the compatibility mode doesn't result in a free ride
+for all future references. So if you install another library that needs the
 compatibility mode, you'll get the warning again and you'll need to suppress it
 for that package too.
 
@@ -132,22 +138,22 @@ Standard 2.0, we're now officially deprecating PCLs:
 
 .NET Standard 2.0 has doubled the APIs since .NET Standard 1.x which means it's
 now much easier to port existing code from .NET Framework to .NET Standard. It
-also has a compatibility mode for referencing existing .NET Framework binaries
+also adds a compatibility mode for referencing existing .NET Framework binaries
 from .NET Standard. This allows you to get started although not all of your
 dependencies have ported to .NET Standard yet.
 
 Virtually all .NET implementations have support for .NET Standard 2.0, including
 .NET Framework, .NET Core, and Xamarin. UWP support will come later this year.
-All these platform benefit from the added APIs and the compatibility mode,
+All these implementations benefit from the added APIs and the compatibility mode,
 especially .NET Core and UWP which used to have a much more constrained API set.
 
 **Are you building applications?** Then you should convert your business logic
 and UI independent code to .NET Standard. This ensures now matter where you
-business needs to go -- desktop, mobile, or cloud -- your code can largely come
-across for the ride.
+business needs to go -- desktop, mobile, or cloud -- your code can come across
+for the ride.
     
 **Are you building NuGet packages**? Then move to .NET Standard 2.0. You get a
-lot of APIs without compromising on reach. And your consumers will love it to!
+lot of APIs without compromising on reach. And your consumers will love it too!
 
 Please let us know what you think in the comments below.
 
