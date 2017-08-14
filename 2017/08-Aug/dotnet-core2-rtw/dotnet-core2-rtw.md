@@ -29,6 +29,7 @@ The [.NET Standard 2.0 spec is complete](https://blogs.msdn.microsoft.com/dotnet
 
 * [`dotnet restore` is now an implicit command](https://github.com/dotnet/announcements/issues/23).
 * .NET Core and .NET Standard projects can reference .NET Framework NuGet packages and projects.
+* The .NET Core SDK can be built from source with the source-build repo.
 
 ### Visual Studio
 
@@ -279,7 +280,18 @@ We further simplified the .csproj project file by removing some unnecessary elem
 
 ![Project system simplification](proj_system_simplification.png)
 
-Another enhancement made to the .NET Core project system is that it is now more efficient when it comes to builds. If nothing changed and the project appears to be up to date since the last build, then it won’t waste build cycles.  
+Another enhancement made to the .NET Core project system is that it is now more efficient when it comes to builds. If nothing changed and the project appears to be up to date since the last build, then it won’t waste build cycles.
+
+## Docker
+
+Several important [improvements](https://github.com/dotnet/announcements/issues?q=is%3Aissue+is%3Aopen+label%3ADocker) were made to .NET Core support for Docker during the 2.0 project.
+
+* Docker latest tag moved to .NET Core 2.0
+* [microsoft/dotnet Docker Hub README adopted segmented OS/Arch style](https://github.com/dotnet/announcements/issues/27)
+* Linux ARM32 Docker images are now available.
+* [.NET Core 2.0 multi-arch tags now use Debian Stretch](https://github.com/dotnet/announcements/issues/16)
+* [.NET Core Docker images use multi-arch based tags](https://github.com/dotnet/announcements/issues/14)
+* [.NET Core supports Multi-Stage Build](https://github.com/dotnet/announcements/issues/18)
 
 ## Support and Lifecycle
 
