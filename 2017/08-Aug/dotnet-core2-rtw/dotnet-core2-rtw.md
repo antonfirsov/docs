@@ -295,7 +295,9 @@ Microsoft has two support levels: Long Term Support (LTS) and Current release. L
 
 ### .NET Core 1.1
 
-.NET Core 1.1 has transitioned to LTS Support, adopting the same LTS timeframe as .NET Core 1.0. They will both go out of support on August 14th, 2019.
+.NET Core 1.1 has transitioned to LTS Support, adopting the same LTS timeframe as .NET Core 1.0. 
+
+.NET Core 1.0 and 1.1 will both go out of support on June 27, 2019 or 12 months after the .NET Core 2.0 LTS release, whichever is shorter.
 
 We recommend that all 1.0 customers move to 1.1, if not to 2.0. .NET Core 1.1 has important usability fixes in it that make for a significantly better development experience than 1.0.
 
@@ -307,4 +309,4 @@ Red Hat also provides full support for .NET Core on RHEL and will be providing a
 
 We're very excited on this significant milestone for .NET Core. Not only is the 2.0 release our fastest version of .NET ever, the .NET Standard 2.0 delivers on the promise of .NET everywhere. In conjunction with the Visual Studio family, .NET Core provides the most productive development platform for developers using MacOS or Linux as well as Windows. We encourage you to download the latest .NET Core SDK from https://dot.net/core and start working with this new version of .NET Core.  
 
-Watch the [launch video for .NET Core 2.0](https://aka.ms/dotnetcore2launchvideo) to see this new release in action. 
+Watch the [launch video for .NET Core 2.0](https://aka.ms/dotnetcore2launchvideo) to see this new release in action.
