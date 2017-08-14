@@ -281,10 +281,6 @@ We further simplified the .csproj project file by removing some unnecessary elem
 
 Another enhancement made to the .NET Core project system is that it is now more efficient when it comes to builds. If nothing changed and the project appears to be up to date since the last build, then it won’t waste build cycles.  
 
-## Platform Support
-
-Text here.
-
 ## Support and Lifecycle
 
 .NET Core 2.0 is a new supported release. You can start using it immediately for development and production.
