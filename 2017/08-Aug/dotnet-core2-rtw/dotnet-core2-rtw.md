@@ -1,0 +1,328 @@
+# Announcing .NET Core 2.0
+
+[.NET Core 2.0](https://www.microsoft.com/net/download/core) is available today as a final release. You can start developing with it at the command line, in your favorite text editor, in [Visual Studio 2017 15.3](https://blogs.msdn.microsoft.com/visualstudio/2017/08/14/visual-studio-2017-version-15-3-released/), Visual Studio Code or Visual Studio for Mac. It is ready for production workloads, on your own hardware or your favorite cloud, like [Microsoft Azure](https://docs.microsoft.com/dotnet/azure/).
+
+* [Downloads](https://github.com/dotnet/core/blob/master/release-notes)
+* [Release Notes](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0.0.md)
+* [Known Issues](https://github.com/dotnet/core/blob/master/release-notes)
+* [Documentation](https://docs.microsoft.com/dotnet/core/)
+* [Tutorials](https://docs.microsoft.com/dotnet/core/tutorials/)
+* [Samples](https://github.com/dotnet/dotnet-docker-samples/blob/master/README.md)
+
+We are also releasing ASP.NET Core 2.0 and Entity Framework Core 2.0. Read the [ASP.NET Core 2.0](https://blogs.msdn.microsoft.com/webdev/2017/08/14/announcing-asp-net-core-2-0/) and the [Entity Framework Core 2.0](https://blogs.msdn.microsoft.com/dotnet/) annoucements for details. You can also watch the [launch video on Channel 9](https://aka.ms/dotnetcore2launchvideo) to see many of the new features in action.
+
+The [.NET Standard 2.0 spec is complete](https://blogs.msdn.microsoft.com/dotnet/), finalized at the same time as [.NET Core 2.0](https://docs.microsoft.com/dotnet/api/?view=netcore-2.0). .NET Standard is a key effort to improve code sharing and to make the APIs available in each .NET implementation more consistent. [.NET Standard 2.0](https://docs.microsoft.com/dotnet/api/?view=netstandard-2.0) more than doubles that set of APIs that you have available for your projects.
+
+.NET Core 2.0 has been deployed to [Azure Web Apps](https://azure.microsoft.com/services/app-service/web/). It is available today in a small number of regions and will expand globally quickly.
+
+.NET Core 2.0 includes major [improvements](https://github.com/dotnet/announcements/issues?q=is%3Aissue+is%3Aopen+label%3A%22.NET+Core+2.0%22) that make .NET Core easier to use and much more capable as a platform. The following improvements are the biggest ones and others are described in the body of this post.
+
+### Runtime
+
+* Major performance improvements in the runtime and framework
+* Implements [.NET Standard 2.0](https://github.com/dotnet/announcements/issues/24)
+* 6 new [platforms supported](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-supported-os.md), including Debian Stretch, SUSE Linux Enterprise Server 12 SP2, and macOS High Sierra.
+* [RyuJIT is the x86 JIT in .NET Core 2.0](https://github.com/dotnet/announcements/issues/10)
+* Linux ARM32 is now supported, in preview.
+
+### SDK
+
+* [`dotnet restore` is now an implicit command](https://github.com/dotnet/announcements/issues/23).
+* .NET Core and .NET Standard projects can reference .NET Framework NuGet packages and projects.
+* The .NET Core SDK can be built from source with the source-build repo.
+
+### Visual Studio
+
+* Live Unit Testing supports .NET Core
+* Code navigation improvements
+* C# Azure Functions support in the box
+* CI/CD support for containers
+
+For Visual Studio users: You need to update to the latest versions of Visual Studio to use .NET Core 2.0. You will need to install the [.NET Core 2.0 SDK](https://dot.net/core) separately for this update. 
+
+* [Visual Studio 2017 15.3+](https://www.visualstudio.com/vs/)
+* [Visual Studio for Mac](https://www.visualstudio.com/vs/visual-studio-mac)
+* [Visual Studio Code -- C# Extension](https://code.visualstudio.com/docs/other/dotnet)
+
+### Thanks!
+
+On behalf of the entire team, I want to express our gratitude for [all the direct contributions that we received for .NET Core 2.0](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-contributors.md). Thanks! Some of the most prolific contributors for .NET Core 2.0 are from companies investing in .NET Core, other than Microsoft. Thanks to [Samsung](https://developer.tizen.org/development/tizen-.net-preview/introduction) and Qualcomm for your contributions to .NET Core.
+
+The .NET Core team shipped two .NET Core 2.0 previews ([preview 1](https://blogs.msdn.microsoft.com/dotnet/2017/05/10/announcing-net-core-2-0-preview-1/) and [preview 2](https://blogs.msdn.microsoft.com/dotnet/2017/06/28/announcing-net-core-2-0-preview-2/)) leading up to today's release. Thanks to everyone who tried out those releases and gave us feedback.
+
+## Using .NET Core 2.0
+
+You can get started with .NET Core 2.0 in just a few minutes, on Windows macOS or Linux.
+
+You first need to install the [.NET Core SDK 2.0](https://www.microsoft.com/net/download/core).
+
+You can create .NET Core 2.0 apps on the command line or in [Visual Studio](https://www.visualstudio.com/).
+
+Creating new projects is easy. There are templates you can use in Visual Studio 2017. You can also create new application at the command line with `dotnet new`, as you can see in the following example.
+
+```console
+C:\samples>dotnet new console -o console-app
+C:\samples>cd console-app
+C:\samples\console-app>dotnet run
+Hello World!
+```
+
+You can also upgrade an existing application to .NET Core 2.0. In Visual Studio, you can change the target framework of an application to .NET Core 2.0.
+
+![Targeting .NET Core 2.0](core2-targeting.png)
+
+If you are working with [Visual Studio Code](https://code.visualstudio.com/) or another text editor, you will need to update the target framework to `netcoreapp2.0`.
+
+```xml
+ <PropertyGroup>
+      <TargetFramework>netcoreapp2.0</TargetFramework>
+ </PropertyGroup>
+```
+
+It is not as critical to update libraries to .NET Standard 2.0. In general, libraries should target .NET Standard unless they require [APIs only in .NET Core](https://github.com/dotnet/standard/blob/master/docs/comparisons/netstandard2.0_vs_netcoreapp2.0/README.md). If you do want to update libraries, you can do it the same way, either in Visual Studio or directly in the project file, as you can see with the following project file segment that target .NET Standard 2.0.
+
+```xml
+ <PropertyGroup>
+      <TargetFramework>netstandard2.0</TargetFramework>
+ </PropertyGroup>
+```
+
+You can read more in-depth instructions in the [Migrating from ASP.NET Core 1.x to ASP.NET Core 2.0](https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/1x-to-2x) document.
+
+### Relationship to .NET Core 1.0 and 1.1 Apps
+
+You can install .NET Core 2.0 on machines with .NET Core 1.0 and 1.1. Your 1.0 and 1.1 applications will continue to use the 1.0 and 1.1 runtimes, respectively. They will not roll forward to the 2.0 runtime unless you explicitly update your apps to do so.
+
+By default, the latest SDK is always used. After installing the .NET Core 2.0 SDK, you will use it for all projects, including 1.0 and 1.1 projects. As stated above, 1.0 and 1.1 projects will still use the 1.0 and 1.1 runtimes, respectively.
+
+You can configure a directory (all the way up to a whole drive) to use a specific SDK by creating a [global.json file](https://docs.microsoft.com/dotnet/core/tools/global-json) that specifies a specific .NET Core SDK version. All `dotnet` uses "under" that file will use that version of the SDK. If you do that, make sure you have that version installed.
+
+## .NET Core Runtime Improvements
+
+The .NET Core 2.0 Runtime has the following improvements.
+
+### Performance Improvements
+
+There are many performance improvements in .NET Core 2.0. The team published a few posts describing the improvements to the .NET Core Runtime in detail.
+
+* [Performance Improvements in .NET Core](https://blogs.msdn.microsoft.com/dotnet/2017/06/07/performance-improvements-in-net-core/)
+* [Performance Improvements in RyuJIT in .NET Core and .NET Framework](https://blogs.msdn.microsoft.com/dotnet/2017/06/29/performance-improvements-in-ryujit-in-net-core-and-net-framework/)
+* [Profile-guided optimization in .NET Core 2.0](https://blogs.msdn.microsoft.com/dotnet/2017/07/20/profile-guided-optimization-in-net-core-2-0/)
+
+### .NET Core 2.0 Implements .NET Standard 2.0
+
+The [.NET Standard 2.0](https://github.com/dotnet/announcements/issues/24) spec has been finalized at the same time as .NET Core 2.0.
+
+We have more than doubled the set of available APIs in .NET Standard from **13k** in .NET Standard 1.6 to **32k** in .NET Standard 2.0. Most of the added APIs are .NET Framework APIs. These additions make it much easier to port existing code to .NET Standard, and, by extension, to any .NET implementation of .NET Standard, such as .NET Core 2.0 and the upcoming version of Universal Windows Platform (UWP).
+
+.NET Core 2.0 implements the .NET Standard 2.0 spec: all **32k** APIs that the spec defines.
+
+You can see a [diff between .NET Core 2.0 and .NET Standard 2.0](https://github.com/dotnet/standard/blob/master/docs/comparisons/netstandard2.0_vs_netcoreapp2.0/README.md) to understand the set of APIs that .NET Core 2.0 provides beyond the set required by the .NET Standard 2.0 spec.
+
+### Much easier to target Linux as a single operating system
+
+.NET Core 2.0 treats Linux as a single operating system. There is now a single Linux build (per chip architecture) that works on all Linux distros that we've tested. Our support so far is specific to [glibc](https://www.gnu.org/software/libc/)-based distros and more specifically Debian- and Red Hat-based Linux distros.
+
+There are other Linux distros that we would like to support, like those that use [musl](https://www.musl-libc.org/) C Standard library, such as [Alpine](https://www.alpinelinux.org/). Alpine will be supported in a later release.
+
+Please tell us if the .NET Core 2.0 Linux build doesn’t work well on your favorite Linux distro.
+
+Similar improvements have been made for Windows and macOS. You can now publish for the following "runtimes".
+
+* `linux-x64`, `linux-arm`
+* `win-x64`, `win-x86`
+* `osx-x64`
+
+### Linux ARM32 is now supported, in Preview
+
+The .NET Core team is now producing Linux ARM32 builds for .NET Core 2.0+. These builds are great for using on Raspberry Pi. These builds are not yet supported by Microsoft and have preview status.
+
+The team is producing Runtime and not SDK builds for .NET Core. As a result, you need to build your applications on another operating system and then copy to a Raspberry Pi (or similar device) to run.
+
+There are two good sources of .NET Core ARM32 samples that you can use to get started:
+
+* [.NET Core on Raspberry Pi](https://github.com/dotnet/core/blob/master/samples/RaspberryPiInstructions.md)
+* [.NET Core Docker Samples](https://github.com/dotnet/dotnet-docker-samples#arm32--raspberry-pi)
+
+### Globalization Invariant Mode
+
+.NET Core 2.0 includes a new [opt-in globalization mode](https://github.com/dotnet/announcements/issues/20) that provides basic globalization-related functionality that is uniform across operating systems and languages. The benefit of this new mode is its uniformity, distribution size, and the absence of any globalization dependencies. 
+
+See [.NET Core Globalization Invariant Mode](https://github.com/dotnet/corefx/blob/master/Documentation/architecture/globalization-invariant-mode.md) to learn more about this feature, and decide whether the new mode is a good choice for your app or if it breaks its functionality.
+
+## .NET Core SDK Improvements
+
+The .NET Core SDK 2.0 has the following improvements.
+
+### dotnet restore is implicit for commands that require it
+
+The `dotnet restore` command has been a required set of keystrokes with .NET Core to date. The command installs required project dependencies and some other tasks. It's easy to forget to type it and the error messages that tell you that you need to type it are not always helpful. It is now implicitly called on your behalf for commands like `run`, `build` and `publish`.
+
+The following example workflow demonstates the absense of a required `dotnet restore` command:
+
+```console
+C:\Users\rich>dotnet new mvc -o mvcapp
+The template "ASP.NET Core Web App (Model-View-Controller)" was created successfully.
+This template contains technologies from parties other than Microsoft, see https://aka.ms/template-3pn for details.
+
+Processing post-creation actions...
+Running 'dotnet restore' on mvcapp\mvcapp.csproj...
+  Restoring packages for C:\Users\rich\mvcapp\mvcapp.csproj...
+  Restore completed in 32.3 ms for C:\Users\rich\mvcapp\mvcapp.csproj.
+  Generating MSBuild file C:\Users\rich\mvcapp\obj\mvcapp.csproj.nuget.g.props.
+  Generating MSBuild file C:\Users\rich\mvcapp\obj\mvcapp.csproj.nuget.g.targets.
+  Restore completed in 2.26 sec for C:\Users\rich\mvcapp\mvcapp.csproj.
+Restore succeeded.
+
+C:\Users\rich>cd mvcapp
+
+C:\Users\rich\mvcapp>dotnet run
+Hosting environment: Production
+Content root path: C:\Users\rich\mvcapp
+Now listening on: http://localhost:5000
+Application started. Press Ctrl+C to shut down.
+Application is shutting down...
+```
+
+### Reference .NET Framework libraries from .NET Standard
+
+You can now reference .NET Framework libraries from .NET Standard libraries using Visual Studio 2017 15.3. This feature helps you migrate .NET Framework code to .NET Standard or .NET Core over time (start with binaries and then move to source). It is also useful in the case that the source code is no longer accessible or is lost for a .NET Framework library, enabling it to be still be used in new scenarios.
+
+We expect that this feature will be used most commonly from .NET Standard libraries. It also works for .NET Core apps and libraries. They can depend on .NET Framework libraries, too.
+
+The supported scenario is referencing a .NET Framework library that happens to only use types within the .NET Standard API set. Also, it is only supported for libraries that target .NET Framework 4.6.1 or earlier (even .NET Framework 1.0 is fine). If the .NET Framework library you reference relies on WPF, the library will not work (or at least not in all cases). You can use libraries that depend on additional APIs,but not for the codepaths you use. In that case, you will need to invest singificantly in testing.
+
+You can see this feature in use in the following images.
+
+![.NET Core Running app, using .NET Framework dependency](dotnet-standard-interop-with-framework-461-running-app.PNG)
+
+The call stack for this app makes the dependency from .NET Core to .NET Standard to .NET Framework more obvious.
+
+![.NET Core Running app, showing the call stack](dotnet-standard-interop-with-framework-461-call-stack.PNG)
+
+### .NET Standard NuGet Packages no longer have required dependencies
+
+.NET Standard NuGet packages no longer have any required dependencies if they target .NET Standard 2.0 or later. The .NET Standard dependency is now provided by the .NET Core SDK. It isn't necessary as a NuGet artifact.
+
+The following is an example nuspec (recipe for a NuGet package) targeting .NET Standard 2.0.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>ClassLibrary1</id>
+        <version>1.0.0</version>
+        <authors>ClassLibrary1</authors>
+        <owners>ClassLibrary1</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Package Description</description>
+        <dependencies>
+            <group targetFramework=".NETStandard2.0" />
+        </dependencies>
+    </metadata>
+</package>
+```
+
+The following is an example nuspec (recipe for a NuGet package) targeting .NET Standard 1.4.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>ClassLibrary1</id>
+        <version>1.0.0</version>
+        <authors>ClassLibrary1</authors>
+        <owners>ClassLibrary1</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Package Description</description>
+        <dependencies>
+            <group targetFramework=".NETStandard1.4">
+                <dependency id="NETStandard.Library" version="1.6.1" exclude="Build,Analyzers" />
+            </group>
+        </dependencies>
+    </metadata>
+</package>
+```
+
+## Visual Studio 2017 version 15.3 updates
+
+### Side-by-Side SDKs
+
+Visual Studio now has the ability to recognize the install of an updated .NET Core SDK and light up corresponding tooling within Visual Studio. With 15.3, Visual Studio now provides side-by-side support for .NET Core SDKs and defaults to utilizing the highest version installed in the machine when creating new projects while giving you the flexibility to specify and use older versions if needed, via the use of global.json file. Thus, a single version of Visual Studio can now build projects that target different versions of .NET Core.
+
+### Support for Visual Basic
+
+In addition to supporting C# and F#, 15.3 now also supports using Visual Basic to develop .NET Core apps. Our aim with Visual Basic this release was to enable .NET Standard 2.0 class libraries. This means Visual Basic only offers templates for class libraries and console apps at this time, while C# and F# also include templates for ASP.NET Core 2.0 apps. Keep an eye on this blog for updates.
+
+### Live Unit Testing Support
+
+[Live Unit Testing (LUT)](https://docs.microsoft.com/en-us/visualstudio/test/live-unit-testing) is a new feature we introduced in Visual Studio 2017 enterprise edition and with 15.3 it now supports .NET Core. Users who are passionate with Test Driven Development (TDD) will certainly love this new addition. Starting LUT is as simple as turning it ON from the menu bar: Test->Live Unit Testing->Start.
+
+When you enable LUT, you will get unit test coverage and pass/fail feedback live in the code editor as you type. Notice the green ticks and red x’s shown in the code editor in image below.
+
+![Live Unit Testing](LUT.png)
+
+### IDE Productivity enhancements 
+
+Visual Studio 2017 15.3 has several productivity enhancements to help you write better code faster. We now support [.NET naming conventions and formatting rules in EditorConfig](https://docs.microsoft.com/visualstudio/ide/editorconfig-code-style-settings-reference) allowing your team to enforce and configure almost any coding convention for your codebase. 
+
+With regards to navigation improvements, we’ve added support for camelCase matching in GoToAll (Ctrl+T), so that you can navigate to any file/type/member/symbol declaration just by typing cases (e.g., “bh” for “BusHelpers.cs”). You’ll also notice suggested variable names (Fig.2) as you are typing (which will adhere to any code style configured in your team’s EditorConfig).
+
+![Variable name suggestions](var_name_suggestion.png)
+
+We’ve added a handful of new refactorings including:
+
+* Resolve merge conflict
+* Add parameter (from callsite)
+* Generate overrides
+* Add named argument
+* Add null-check for parameters
+* Insert digit-separators into literals
+* Change base for numeric literals (e.g., hex to binary)
+* Convert if-to-switch
+* Remove unused variable
+
+### Project System simplifications
+
+We further simplified the .csproj project file by removing some unnecessary elements that were confusing to users and wherever possible we now derive them implicitly. Simplification trickles down to Solution Explorer view as well. Nodes in Solution Explorer are now neatly organized into categories within the Dependencies node, like NuGet, project-to-project references, SDK, etc.
+
+![Project system simplification](proj_system_simplification.png)
+
+Another enhancement made to the .NET Core project system is that it is now more efficient when it comes to builds. If nothing changed and the project appears to be up to date since the last build, then it won’t waste build cycles.
+
+## Docker
+
+Several important [improvements](https://github.com/dotnet/announcements/issues?q=is%3Aissue+is%3Aopen+label%3ADocker) were made to .NET Core support for Docker during the 2.0 project.
+
+* Docker latest tag moved to .NET Core 2.0
+* [microsoft/dotnet Docker Hub README adopted segmented OS/Arch style](https://github.com/dotnet/announcements/issues/27)
+* Linux ARM32 Docker images are now available.
+* [.NET Core 2.0 multi-arch tags now use Debian Stretch](https://github.com/dotnet/announcements/issues/16)
+* [.NET Core Docker images use multi-arch based tags](https://github.com/dotnet/announcements/issues/14)
+* [.NET Core supports Multi-Stage Build](https://github.com/dotnet/announcements/issues/18)
+
+## Support and Lifecycle
+
+.NET Core 2.0 is a new release, [supported by Microsoft](https://github.com/dotnet/core/blob/master/microsoft-support.md) . You can start using it immediately for development and production.
+
+Microsoft has two support levels: Long Term Support (LTS) and Current release. LTS releases have three years of support and Current releases are shorter, typically around a year, but potentially shorter. .NET Core 1.0 and 1.1 are LTS releases. You can read more about these support levels in the [.NET Support and Versioning](https://blogs.msdn.microsoft.com/dotnet/2016/07/26/net-support-and-versioning/) post. In that post, "Current" releases are referred to as "Fast Track Support". 
+
+.NET Core 2.0 is a Current release. We are waiting to get your feedback on quality and reliability before switching to LTS support. In general, we want to make sure that LTS releases are at the stage where we only need to provide security fixes for them. Once you deploy an app with an LTS release, you shouldn't have to update it much, at least not due to platform updates.
+
+### .NET Core 1.1
+
+.NET Core 1.1 has transitioned to LTS Support, adopting the same LTS timeframe as .NET Core 1.0. 
+
+.NET Core 1.0 and 1.1 will both go out of support on June 27, 2019 or 12 months after the .NET Core 2.0 LTS release, whichever is shorter.
+
+We recommend that all 1.0 customers move to 1.1, if not to 2.0. .NET Core 1.1 has important usability fixes in it that make for a significantly better development experience than 1.0.
+
+### Red Hat
+
+Red Hat also provides full support for .NET Core on RHEL and will be providing a distribution of .NET Core 2.0 very soon. We’re excited to see our partners like Red Hat follow our release so quickly. For more information head to [RedHatLoves.NET](http://www.RedHatLoves.NET).
+
+## Closing
+
+We're very excited on this significant milestone for .NET Core. Not only is the 2.0 release our fastest version of .NET ever, the .NET Standard 2.0 delivers on the promise of .NET everywhere. In conjunction with the Visual Studio family, .NET Core provides the most productive development platform for developers using MacOS or Linux as well as Windows. We encourage you to download the latest .NET Core SDK from https://dot.net/core and start working with this new version of .NET Core.  
+
+Watch the [launch video for .NET Core 2.0](https://aka.ms/dotnetcore2launchvideo) to see this new release in action.
