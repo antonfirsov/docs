@@ -283,7 +283,7 @@ Another enhancement made to the .NET Core project system is that it is now more 
 
 ## Support and Lifecycle
 
-.NET Core 2.0 is a new supported release. You can start using it immediately for development and production.
+.NET Core 2.0 is a new release, [supported by Microsoft](https://github.com/dotnet/core/blob/master/microsoft-support.md) . You can start using it immediately for development and production.
 
 Microsoft has two support levels: Long Term Support (LTS) and Current release. LTS releases have three years of support and Current releases are shorter, typically around a year, but potentially shorter. .NET Core 1.0 and 1.1 are LTS releases. You can read more about these support levels in the [.NET Support and Versioning](https://blogs.msdn.microsoft.com/dotnet/2016/07/26/net-support-and-versioning/) post. In that post, "Current" releases are referred to as "Fast Track Support". 
 
