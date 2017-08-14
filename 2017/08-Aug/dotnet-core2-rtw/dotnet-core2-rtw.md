@@ -1,6 +1,6 @@
 # Announcing .NET Core 2.0
 
-.NET Core 2.0 is available today as a final release. You can start developing with it at the command line, in your favorite text editor, in Visual Studio 2017 15.3, Visual Studio Code or Visual Studio for Mac. It is ready for production workloads, on your own hardware or your favorite cloud, like [Microsoft Azure](https://docs.microsoft.com/dotnet/azure/).
+[.NET Core 2.0](https://www.microsoft.com/net/download/core) is available today as a final release. You can start developing with it at the command line, in your favorite text editor, in [Visual Studio 2017 15.3](https://blogs.msdn.microsoft.com/visualstudio/2017/08/14/visual-studio-2017-version-15-3-released/), Visual Studio Code or Visual Studio for Mac. It is ready for production workloads, on your own hardware or your favorite cloud, like [Microsoft Azure](https://docs.microsoft.com/dotnet/azure/).
 
 * [Downloads](https://github.com/dotnet/core/blob/master/release-notes)
 * [Release Notes](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0.0.md)
@@ -9,15 +9,21 @@
 * [Tutorials](https://docs.microsoft.com/dotnet/core/tutorials/)
 * [Samples](https://github.com/dotnet/dotnet-docker-samples/blob/master/README.md)
 
-At the same time we also released ASP.NET Core 2.0 and Entity Framework Core 2.0. Read the [ASP.NET Core 2.0](https://blogs.msdn.microsoft.com/webdev/2017/08/14/announcing-asp-net-core-2-0/) and the [Entity Framework Core 2.0](https://blogs.msdn.microsoft.com/dotnet/) annoucements for details. You can also watch the [launch video on Channel 9](https://aka.ms/dotnetcore2launchvideo) to see many of the new features in action.  
+We are also releasing ASP.NET Core 2.0 and Entity Framework Core 2.0. Read the [ASP.NET Core 2.0](https://blogs.msdn.microsoft.com/webdev/2017/08/14/announcing-asp-net-core-2-0/) and the [Entity Framework Core 2.0](https://blogs.msdn.microsoft.com/dotnet/) annoucements for details. You can also watch the [launch video on Channel 9](https://aka.ms/dotnetcore2launchvideo) to see many of the new features in action.
 
-.NET Core 2.0 includes major [improvements](https://github.com/dotnet/announcements/issues?q=is%3Aissue+is%3Aopen+label%3A%22.NET+Core+2.0%22) that make .NET Core easier to use and much more capable as a platform. The following ones are the biggest ones and others are described in the body of this post.
+The [.NET Standard 2.0 spec is complete](https://blogs.msdn.microsoft.com/dotnet/), finalized at the same time as .NET Core 2.0. .NET Standard is a key effort to improve code sharing and to make the the APIs available in each .NET implementation much more similar. The .NET Standard 2.0 more than doubles that set of APIs that you have available for your projects.
+
+.NET Core 2.0 has been deployed to [Azure Web Apps](https://azure.microsoft.com/services/app-service/web/). It is available today in a small number of regions and will expand globally quickly.
+
+.NET Core 2.0 includes major [improvements](https://github.com/dotnet/announcements/issues?q=is%3Aissue+is%3Aopen+label%3A%22.NET+Core+2.0%22) that make .NET Core easier to use and much more capable as a platform. The following improvements are the biggest ones and others are described in the body of this post.
 
 ### Runtime
 
+* Major performance improvements in the runtime and framework
 * Implements [.NET Standard 2.0](https://github.com/dotnet/announcements/issues/24)
 * 6 new [platforms supported](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-supported-os.md), including Debian Stretch, SUSE Linux Enterprise Server 12 SP2, and macOS High Sierra.
-* Red Hat provides full support for .NET Core on RHEL and will be providing a distribution of .NET Core 2.0 very soon. We’re excited to see our partners like Red Hat follow our release so quickly. For more information head to www.RedHatLoves.NET.
+* [RyuJIT is the x86 JIT in .NET Core 2.0](https://github.com/dotnet/announcements/issues/10)
+* Linux ARM32 is now supported, in preview.
 
 ### SDK
 
@@ -26,10 +32,7 @@ At the same time we also released ASP.NET Core 2.0 and Entity Framework Core 2.0
 
 ### Visual Studio
 
-Visual Studio now supports .NET Core 2.0. Read the [Visual Studio 2017 version 15.3 release announcement](https://blogs.msdn.microsoft.com/visualstudio/2017/08/14/visual-studio-2017-version-15-3-released/) for more information. Features include:
-
 * Live Unit Testing supports .NET Core
-* Simplified and portable project files across CLI, Visual Studio & Visual Studio for Mac
 * Code navigation improvements
 * C# Azure Functions support in the box
 * CI/CD support for containers
@@ -39,7 +42,6 @@ For Visual Studio users: You need to update to the latest versions of Visual Stu
 * [Visual Studio 2017 15.3+](https://www.visualstudio.com/vs/)
 * [Visual Studio for Mac](https://www.visualstudio.com/vs/visual-studio-mac)
 * [Visual Studio Code -- C# Extension](https://code.visualstudio.com/docs/other/dotnet)
-*  
 
 ### Thanks!
 
@@ -51,7 +53,7 @@ The .NET Core team shipped two .NET Core 2.0 previews ([preview 1](https://blogs
 
 You can get started with .NET Core 2.0 in just a few minutes, on Windows macOS or Linux.
 
-You first need to install the [.NET Core SDK 2.0](https://dot.net/core).
+You first need to install the [.NET Core SDK 2.0](https://www.microsoft.com/net/download/core).
 
 You can create .NET Core 2.0 apps on the command line or in [Visual Studio](https://www.visualstudio.com/).
 
@@ -73,6 +75,14 @@ If you are working with [Visual Studio Code](https://code.visualstudio.com/) or 
 ```xml
  <PropertyGroup>
       <TargetFramework>netcoreapp2.0</TargetFramework>
+ </PropertyGroup>
+```
+
+It is not as critical to update libraries to .NET Standard 2.0. In general, libraries should target .NET Standard unless they require [APIs only in .NET Core](https://github.com/dotnet/standard/blob/master/docs/comparisons/netstandard2.0_vs_netcoreapp2.0/README.md). If you do want to update libraries, you can do it the same way, either in Visual Studio or directly in the project file, as you can see with the following project file segment that target .NET Standard 2.0.
+
+```xml
+ <PropertyGroup>
+      <TargetFramework>netstandard2.0</TargetFramework>
  </PropertyGroup>
 ```
 
@@ -102,9 +112,9 @@ You can see a [diff between .NET Core 2.0 and .NET Standard 2.0](https://github.
 
 ### Much easier to target Linux as a single operating system
 
-.NET Core 2.0 treats Linux as a single operating system. There is now a single Linux build (per chip architecture) that works on all Linux distros that we've tested. Our support so far is specific to [glibc](https://www.gnu.org/software/libc/)-based distros and more specifically Debian and Red Hat based Linux distros.
+.NET Core 2.0 treats Linux as a single operating system. There is now a single Linux build (per chip architecture) that works on all Linux distros that we've tested. Our support so far is specific to [glibc](https://www.gnu.org/software/libc/)-based distros and more specifically Debian- and Red Hat-based Linux distros.
 
-There are other Linux distros that we would like to support, like those that use [musl](https://www.musl-libc.org/), such as [Alpine](https://www.alpinelinux.org/). Alpine will be supported in a later release.
+There are other Linux distros that we would like to support, like those that use [musl](https://www.musl-libc.org/) C Standard library, such as [Alpine](https://www.alpinelinux.org/). Alpine will be supported in a later release.
 
 Please tell us if the .NET Core 2.0 Linux build doesn’t work well on your favorite Linux distro.
 
@@ -113,6 +123,17 @@ Similar improvements have been made for Windows and macOS. You can now publish f
 * `linux-x64`, `linux-arm`
 * `win-x64`, `win-x86`
 * `osx-x64`
+
+### Linux ARM32 is now supported, in Preview
+
+The .NET Core team is now producing Linux ARM32 builds for .NET Core 2.0+. These builds are great for using on Raspberry Pi. These builds are not yet supported by Microsoft and have preview status.
+
+The team is producing Runtime and not SDK builds for .NET Core. As a result, you need to build your applications on another operating system and then copy to a Raspberry Pi (or similar device) to run.
+
+There are two good sources of .NET Core ARM32 samples that you can use to get started:
+
+* [.NET Core on Raspberry Pi](https://github.com/dotnet/core/blob/master/samples/RaspberryPiInstructions.md)
+* [.NET Core Docker Samples](https://github.com/dotnet/dotnet-docker-samples#arm32--raspberry-pi)
 
 ### Globalization Invariant Mode
 
@@ -214,10 +235,6 @@ The following is an example nuspec (recipe for a NuGet package) targeting .NET S
 </package>
 ```
 
-* Visual Studio can target new .NET Core SDK versions you install.
-* F# and Visual Basic are supported (in addition to C#).
-* .NET Core and .NET Standard meta-package references no longer needed.
-
 ## Visual Studio 2017 version 15.3 updates
 
 ### Side-by-Side SDKs
@@ -226,7 +243,7 @@ Visual Studio now has the ability to recognize the install of an updated .NET Co
 
 ### Support for Visual Basic
 
-In addition to supporting C# and F#, 15.3 now also supports using Visual Basic to develop .NET Core apps. Our aim with Visual Basic this release was to enable .NET Standard 2.0 class libraries. This means Visual Basic only offers templates for class libraries and console apps at this time, while C# and F# also include templates for ASP.NET Core 2.0 apps. Keep an eye on the [VB Team blog](https://blogs.msdn.microsoft.com/vbteam) for details. 
+In addition to supporting C# and F#, 15.3 now also supports using Visual Basic to develop .NET Core apps. Our aim with Visual Basic this release was to enable .NET Standard 2.0 class libraries. This means Visual Basic only offers templates for class libraries and console apps at this time, while C# and F# also include templates for ASP.NET Core 2.0 apps. Keep an eye on this blog for updates.
 
 ### Live Unit Testing Support
 
@@ -238,13 +255,14 @@ When you enable LUT, you will get unit test coverage and pass/fail feedback live
 
 ### IDE Productivity enhancements 
 
-15.3 has several productivity enhancements to help you write better code faster. We now support [.NET naming conventions and formatting rules in EditorConfig](https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference) allowing your team to enforce and configure almost any coding convention for your codebase. 
+Visual Studio 2017 15.3 has several productivity enhancements to help you write better code faster. We now support [.NET naming conventions and formatting rules in EditorConfig](https://docs.microsoft.com/visualstudio/ide/editorconfig-code-style-settings-reference) allowing your team to enforce and configure almost any coding convention for your codebase. 
 
 With regards to navigation improvements, we’ve added support for camelCase matching in GoToAll (Ctrl+T), so that you can navigate to any file/type/member/symbol declaration just by typing cases (e.g., “bh” for “BusHelpers.cs”). You’ll also notice suggested variable names (Fig.2) as you are typing (which will adhere to any code style configured in your team’s EditorConfig).
 
 ![Variable name suggestions](var_name_suggestion.png)
 
 We’ve added a handful of new refactorings including:
+
 * Resolve merge conflict
 * Add parameter (from callsite)
 * Generate overrides
@@ -269,7 +287,21 @@ Text here.
 
 ## Support and Lifecycle
 
-Text here.
+.NET Core 2.0 is a new supported release. You can start using it immediately for development and production.
+
+Microsoft has two support levels: Long Term Support (LTS) and Current release. LTS releases have three years of support and Current releases are shorter, typically around a year, but potentially shorter. .NET Core 1.0 and 1.1 are LTS releases. You can read more about these support levels in the [.NET Support and Versioning](https://blogs.msdn.microsoft.com/dotnet/2016/07/26/net-support-and-versioning/) post. In that post, "Current" releases are referred to as "Fast Track Support". 
+
+.NET Core 2.0 is a Current release. We are waiting to get your feedback on quality and reliability before switching to LTS support. In general, we want to make sure that LTS releases are at the stage where we only need to provide security fixes for them. Once you deploy an app with an LTS release, you shouldn't have to update it much, at least not due to platform updates.
+
+### .NET Core 1.1
+
+.NET Core 1.1 has transitioned to LTS Support, adopting the same LTS timeframe as .NET Core 1.0. They will both go out of support on August 14th, 2019.
+
+We recommend that all 1.0 customers move to 1.1, if not to 2.0. .NET Core 1.1 has important usability fixes in it that make for a significantly better development experience than 1.0.
+
+### Red Hat
+
+Red Hat also provides full support for .NET Core on RHEL and will be providing a distribution of .NET Core 2.0 very soon. We’re excited to see our partners like Red Hat follow our release so quickly. For more information head to [RedHatLoves.NET](http://www.RedHatLoves.NET).
 
 ## Closing
 
