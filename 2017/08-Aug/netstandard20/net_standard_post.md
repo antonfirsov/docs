@@ -52,11 +52,80 @@ by default is targeting .NET Standard):
 $ dotnet new lib -o mylibrary
 ```
 
+To make this library a bit more interesting. Edit the file `Class1.cs` as
+follows:
+
+```C#
+using System;
+
+namespace mylibrary
+{
+    public class Class1
+    {
+        public static string GetMessage() => "Hello from .NET Standard!";
+    }
+}
+```
+
+## Consuming a .NET Standard library
+
+Before we can consume the library, we need to create a project. Let's create an
+empty ASP.NET Core application. In Visual Studio, create a new project and
+choose **ASP.NET Core Web Application** from the **.NET Core** category. Then
+choose **Empty** and make sure **ASP.NET Core 2** is selected:
+
+![](net_standard_05_aspnetcore.png)
+
+From the command-line, you can simply use `dotnet new` again:
+
+```
+$ dotnet new web -o aspnetcore
+```
+
+Consuming a .NET Standard library works the same as any other library project:
+you simply reference it. In Visual Studio, right-click your web project and
+click on **Add** | **Reference...**. Then choose **mylibrary** from the
+**Projects** tab.
+
+From the command-line, you can use `dotnet add`:
+
+```
+$ dotnet add reference ../mylibrary/mylibrary.csproj
+```
+
+Now edit the file `Startup.cs` and change the invocation of the `Run` method as
+follows:
+
+```C#
+app.Run(async (context) =>
+{
+    var message = mylibrary.Class1.GetMessage();
+    await context.Response.WriteAsync(message);
+});
+```
+
+To start the web application, you can simply press **F5** in Visual Studio. On
+the command-line, use `dotnet run`:
+
+```
+$ dotnet run
+Now listening on: http://localhost:50878
+Application started. Press Ctrl+C to shut down.
+```
+
+To see the web site, open a browser and navigate to the printed URL:
+
+![](net_standard_06_browser.png)
+
+Congratulations! Your .NET Standard 2.0 library is now running on .NET Core. You
+can also use it from the .NET Framework or a Xamarin app and the experience
+would be very similar.
+
 ## Reusing an existing .NET Framework library
 
 Now let's add a reference to a NuGet package that doesn't target .NET Standard yet,
 [Huitian.PowerCollections](https://www.nuget.org/packages/Huitian.PowerCollections).
-In Visual Studio, right-click your project and choose **Manage NuGet Packages**.
+In Visual Studio, right-click the **mylibrary** project and choose **Manage NuGet Packages**.
 Then select **Browse** and search for **Huitian.PowerCollections**. Click on
 **Install**.
 
