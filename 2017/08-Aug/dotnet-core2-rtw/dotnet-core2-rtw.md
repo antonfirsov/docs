@@ -11,7 +11,7 @@
 
 We are also releasing ASP.NET Core 2.0 and Entity Framework Core 2.0. Read the [ASP.NET Core 2.0](https://blogs.msdn.microsoft.com/webdev/2017/08/14/announcing-asp-net-core-2-0/) and the [Entity Framework Core 2.0](https://blogs.msdn.microsoft.com/dotnet/) annoucements for details. You can also watch the [launch video on Channel 9](https://aka.ms/dotnetcore2launchvideo) to see many of the new features in action.
 
-The [.NET Standard 2.0 spec is complete](https://blogs.msdn.microsoft.com/dotnet/), finalized at the same time as .NET Core 2.0. .NET Standard is a key effort to improve code sharing and to make the the APIs available in each .NET implementation much more similar. The .NET Standard 2.0 more than doubles that set of APIs that you have available for your projects.
+The [.NET Standard 2.0 spec is complete](https://blogs.msdn.microsoft.com/dotnet/), finalized at the same time as [.NET Core 2.0](https://docs.microsoft.com/dotnet/api/?view=netcore-2.0). .NET Standard is a key effort to improve code sharing and to make the APIs available in each .NET implementation more consistent. [.NET Standard 2.0](https://docs.microsoft.com/dotnet/api/?view=netstandard-2.0) more than doubles that set of APIs that you have available for your projects.
 
 .NET Core 2.0 has been deployed to [Azure Web Apps](https://azure.microsoft.com/services/app-service/web/). It is available today in a small number of regions and will expand globally quickly.
 
