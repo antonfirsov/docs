@@ -89,6 +89,14 @@ It is not as critical to update libraries to .NET Standard 2.0. In general, libr
 
 You can read more in-depth instructions in the [Migrating from ASP.NET Core 1.x to ASP.NET Core 2.0](https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/1x-to-2x) document.
 
+### Relationship to .NET Core 1.0 and 1.1 Apps
+
+You can install .NET Core 2.0 on machines with .NET Core 1.0 and 1.1. Your 1.0 and 1.1 applications will continue to use the 1.0 and 1.1 runtimes, respectively. They will not roll forward to the 2.0 runtime unless you explicitly update your apps to do so.
+
+By default, the latest SDK is always used. After installing the .NET Core 2.0 SDK, you will use it for all projects, including 1.0 and 1.1 projects. As stated above, 1.0 and 1.1 projects will still use the 1.0 and 1.1 runtimes, respectively.
+
+You can configure a directory (all the way up to a whole drive) to use a specific SDK by creating a [global.json file](https://docs.microsoft.com/dotnet/core/tools/global-json) that specifies a specific .NET Core SDK version. All `dotnet` uses "under" that file will use that version of the SDK. If you do that, make sure you have that version installed.
+
 ## .NET Core Runtime Improvements
 
 The .NET Core 2.0 Runtime has the following improvements.
