@@ -1,7 +1,8 @@
 ---
-title: The week in .NET - .NET Core 2.0, ASP.NET Core 2.0, Entity Framework 2.0, Visual Studio 2017 Update 3, and links!
+title: The week in .NET - .NET Core 2.0, ASP.NET Core 2.0, Entity Framework 2.0, Visual Studio 2017 Update 3, enterprise Entity Framework Core in Boston, and links!
 keywords: Week in .NET, community, .NET
 weblogName: .NET Blog
+postId: 14356
 dontInferFeaturedImage: true
 ---
 Previous posts:
