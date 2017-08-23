@@ -1,7 +1,8 @@
 ---
-title: The week in .NET - Project File Tools, Mixed Reality in Miami, and links!
+title: The week in .NET - Project File Tools, Maira Wenzel, Mixed Reality in Miami, and links!
 keywords: Week in .NET, community, .NET
 weblogName: .NET Blog
+postId: 14395
 dontInferFeaturedImage: true
 ---
 Previous posts:
