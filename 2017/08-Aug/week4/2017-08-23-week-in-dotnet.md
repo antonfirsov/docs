@@ -18,6 +18,12 @@ The [Project File Tools](https://marketplace.visualstudio.com/items?itemName=ms-
 
 The extension just got updated. [Get it from the Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=ms-madsk.ProjectFileTools).
 
+## Interview of the week: Maira Wenzel
+
+Maira Wenzel is a senior content developer on the .NET team. She is the content lead for .NET Core and .NET Framework documentation and she runs one of Microsoft's open source projects at <https://github.com/dotnet/docs>. Learn how she joined Microsoft and how she kept things interesting by trying new career paths.
+
+<iframe src="https://channel9.msdn.com/Shows/GALs/Interview-with-Maira-Wenzel-Senior-Content-Developer-on-the-NET-Team/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
+
 ## User group meeting of the week: mixed reality in Miami
 
 Mobile and device expert Dwight Goins will be back in Miami to introduce mixed reality. Don't miss the opportunity to learn about this awesome new technology and maybe get your hands dirty a bit.
