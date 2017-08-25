@@ -1,14 +1,15 @@
 # UWP & .NET Standard 2.0: A preview is now available!
 
 Today, we [released the first Preview of Visual Studio 2017 version 15.4][vspost].
-This includes an update to UWP that supports .NET Standard 2.0. In this post,
-I'll outline what this means for UWP development with .NET.
+This includes an update to the UWP tooling that supports .NET Standard 2.0. In
+this post, I'll outline what this means for UWP development with .NET.
 
 ## Prerequisites
 
 In order to use .NET Standard 2.0 in UWP, you need to target Fall Creators
-Update (FCU) as the minimum version of UWP. That's because .NET Standard 2.0
-contains many APIs that require FCU to make them work in the context of the UWP execution environment, specifically AppContainer.
+Update (FCU) as the minimum version of your UWP project. That's because .NET
+Standard 2.0 contains many APIs that require FCU to make them work in the
+context of the UWP execution environment, specifically AppContainer.
 
 ![](netstandard20-uwp-01-sdk.png)
 
@@ -18,11 +19,12 @@ contains many APIs that require FCU to make them work in the context of the UWP 
 implement. UWP is now adding support for .NET Standard 2.0.
 
 The key advantage of [.NET Standard 2.0][nspost] is that it makes .NET
-implementations of .NET Standard become much more similar to .NET Framework.
-With .NET Standard 2.0, [about 20,000 more APIs][ns20] become available compared
-to .NET Standard 1.6. The vast majority of them are existing .NET Framework
-APIs, which includes missing reflection APIs, non-generic collections,
-`DataSet`, binary serialization, XML Schema, and many more. For a full list, take a look at the [diff between .NET Standard 2.0 and .NET Standard 1.6][ns20].
+implementations of .NET Standard much more similar to .NET Framework. With .NET
+Standard 2.0, [about 20,000 more APIs][ns20] become available compared to .NET
+Standard 1.6. The vast majority of them are existing .NET Framework APIs, which
+includes missing reflection APIs, non-generic collections, `DataSet`, binary
+serialization, XML Schema, and many more. For a full list, take a look at the
+[diff between .NET Standard 2.0 and .NET Standard 1.6][ns20].
 
 This makes it much easier to port existing .NET Framework code to UWP. This
 includes both, copy & pasting existing code, but also extends to referencing
