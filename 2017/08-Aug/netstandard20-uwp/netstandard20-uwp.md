@@ -28,7 +28,9 @@ serialization, XML Schema, and many more. For a full list, take a look at the
 
 This makes it much easier to port existing .NET Framework code to UWP. This
 includes both, copy & pasting existing code, but also extends to referencing
-existing .NET Framework binaries, via the compatibility mode.
+existing .NET Framework binaries, via the compatibility mode. Here is an example of using `DataSet` inside a UWP application:
+
+![](netstandard20-uwp-02-dataset.png)
 
 For more details, check out my [blog post on .NET Standard 2.0][nspost].
 
