@@ -14,7 +14,7 @@ Previous posts:
 
 There's a growing consensus that all web sites should transition now to be encrypted with HTTPS. This comes at a cost, and with the friction associated with acquiring and renewing certificates. The problem of cost is now addressed by [Let's Encrypt](https://letsencrypt.org/), but the friction is still there.
 
-[Ohad Schneider](https://github.com/ohadschn) has built [Let's Encrypt WebApp Renewer, a great Azure WebJob-ready console application built in C#](https://github.com/ohadschn/letsencrypt-webapp-renewer). The application builds on an existing Azure extension, [letsencrypt-siteextension](https://github.com/sjkp/letsencrypt-siteextension), with the following advantages:
+[Ohad Schneider](https://github.com/ohadschn) has built [Let's Encrypt WebApp Renewer, a great Azure WebJob-ready console application built in C#](https://github.com/ohadschn/letsencrypt-webapp-renewer), to reduce that friction for Azure Web Apps. The application builds on an existing Azure extension, [letsencrypt-siteextension](https://github.com/sjkp/letsencrypt-siteextension), with the following advantages:
 
 * Installs on any Web App, not necessarily the same one you're managing.
 * Support for multiple Web Apps.
