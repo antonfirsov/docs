@@ -10,7 +10,25 @@ Previous posts:
 * [.NET Core 2.0, ASP.NET Core 2.0, Entity Framework 2.0, Visual Studio 2017 Update 3, enterprise Entity Framework Core in Boston](https://blogs.msdn.microsoft.com/dotnet/2017/08/15/the-week-in-net-net-core-2-0-asp-net-core-2-0-entity-framework-2-0-visual-studio-2017-update-3-enterprise-entity-framework-core-in-boston-and-links/)
 * [Rezoom.SQL, Protobuf in Orlando](https://blogs.msdn.microsoft.com/dotnet/2017/08/08/the-week-in-net-rezoom-sql-protobuf-in-orlando-and-links/)
 
-## User group meeting of the week: 
+## Open-source project of the week: Let's Encrypt Azure Web App Renewer
+
+There's a growing consensus that all web sites should transition now to be encrypted with HTTPS. This comes at a cost, and with the friction associated with acquiring and renewing certificates. The problem of cost is now addressed by [Let's Encrypt](https://letsencrypt.org/), but the friction is still there.
+
+[Ohad Schneider](https://github.com/ohadschn) has built [Let's Encrypt WebApp Renewer, a great Azure WebJob-ready console application built in C#](https://github.com/ohadschn/letsencrypt-webapp-renewer). The application builds on an existing Azure extension, [letsencrypt-siteextension](https://github.com/sjkp/letsencrypt-siteextension), with the following advantages:
+
+* Installs on any Web App, not necessarily the same one you're managing.
+* Support for multiple Web Apps.
+* Built-in email notifications.
+* No eternal dependencies other than Let's Encrypt.
+* Can be used in any environment.
+
+Check out [Let's Encrypt Web App Renewer on GitHub](https://github.com/sjkp/letsencrypt-siteextension)!
+
+## User group meeting of the week: Seattle CodeCamp 2017
+
+Code Camps are free, one day learning events for programming professionals and students embracing a wide variety of technologies. They're also "grass roots" mini application, cloud, and mobile platform developer conferences, free of charge to attendees and open to presenters of all stripes and experience levels.
+
+[Seattle CodeCamp 2017](https://www.meetup.com/NET-Developers-Association-Westside/events/242572767/) is On Saturday, September 9 from 8:00 AM to 5:45 PM.
 
 ## .NET
 
