@@ -1,7 +1,8 @@
 ---
-title: The week in .NET - 
+title: The week in .NET - Let's Encrypt Web App Renewer, Seattle CodeCamp 2017
 keywords: Week in .NET, community, .NET
 weblogName: .NET Blog
+postId: 14466
 dontInferFeaturedImage: true
 ---
 Previous posts:
