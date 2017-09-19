@@ -2,7 +2,7 @@
 
 Earlier this year, I wrote about an update to the roadmap for F# and .NET Core.  I had mentioned that there were a number of things you could build with F# and .NET Core today, such as web services.  In this post, I'll walk through building a web service with F# and .NET Core 2.0 using the [Giraffe library](https://github.com/dustinmoris/Giraffe).
 
-It's also worth noting that Giraffe is not the only technology you can use for this.  [Suave](https://suave.io/index.html) and [Freya](https://freya.io/) are two other technologies which can be used on .NET Core.  I encourage you to try each of them and see which you prefer.
+It's also worth noting that Giraffe is not the only technology you can use to build web APIs.  [Suave](https://suave.io/index.html) and [Freya](https://freya.io/) are two other great technologies which can be used on .NET Core.  I encourage you to try each of them and see which you prefer.
 
 A complete code listing is [available on GitHub](https://github.com/cartermp/GiraffeSample).
 
@@ -37,10 +37,10 @@ To get IntelliSense for this project, enter `dotnet restore` in your terminal.  
 There are a few relevant files here:
 
 * `GiraffeSample.fsproj` - This is the project file.  If you open it, you'll notice F# source files listed alongside package dependencies.  When you add a new source files, packages, or project dependencies, they are reflected here.
-* `Models/Message.fs` - This is a view model file containing a simple type that can be used to display information on a web page.  You can safely ignore or delete this, as I won't be building an application with Giraffe.
+* `Models/Message.fs` - This is a view model file containing a simple type that can be used to display information on a web page.  You can safely ignore or delete this, as I won't be building anything with Views in this post.
 * `Program.fs` - This file contains the entry point of the application, setup code to bind API routes to the Kestrel HTTP server, and the API routes themselves.
 
-Here is `Program.fs` file scaffolded by the template in its entirety:
+Here is the `Program.fs` file scaffolded by the template in its entirety:
 
 ```fsharp
 module GiraffeSample.App
@@ -123,7 +123,7 @@ Upon inspecting `Program.fs`, you'll notice three major regions:
 
 The best way to run this app while developing is by entering `dotnet watch run` in your terminal.  This will start a process which watches for changed files on your machine, recompiles the source files, and restarts the web server.  If you open your browser to `//localhost:5000"`, you'll see "Hello World, from my Giraffe App!".
 
-Let's take a look at some of the syntax.  The most important piece for this blog post is the web App.
+Let's take a look at some of the syntax.  The most important section for this blog post is the web App.
 
 ```fsharp
 let webApp =
@@ -150,7 +150,7 @@ The `choose` function is at the core of how routes are defined.  If you hover ov
 val choose : handlers:HttpHandler list -> next:HttpFunc -> HttpFunc
 ```
 
-This is saying that `choose` is a function which takes two parameters as input: an F# list of `HttpHandler`, and an `HttpFunc`.  It then produces an `HttpFunc`.  The first parameter, the F# list of `HttpHandler`, is defined after the `choose` function by `[]`.  The [behavior of `choose`](https://github.com/dustinmoris/Giraffe#choose) is simple: a running web application will interate through the list of `HttpHandler`s to find one which matches the incoming request.
+This is saying that `choose` is a function which takes two parameters as input: an F# list of `HttpHandler`, and an `HttpFunc`.  It then produces an `HttpFunc`.  The first parameter, the F# list of `HttpHandler`, is specified after the `choose` function by `[]` (an F# list), with `HttpHandler` functions inside.  The [behavior of `choose`](https://github.com/dustinmoris/Giraffe#choose) is simple: a running web application will interate through the list of `HttpHandler`s to find one which matches the incoming request.
 
 If you hover over `GET`, you'll see that is is of type `HttpHandler`.  No surprises there!  All this does is [filter all HTTP GET requests](https://github.com/dustinmoris/Giraffe#get-post-put-patch-delete) into the next `choose` function.
 
@@ -402,3 +402,10 @@ In total, this project has the following line of code statistics (including whit
 * Program.fs: 77 lines
 
 That's small enough to easily keep in your head, and there's no resorting to magic frameworks, either.  F# is ready for web services on .NET Core 2.0 today, and it's only going to get better.  [Download the sample code](https://github.com/cartermp/GiraffeSample) and play around with it to see what else you can build!
+
+## Further resources
+
+* [Giraffe project](https://github.com/dustinmoris/Giraffe)
+* [Functional-First Web APIs in F#](https://compositional-it.com/blog/2017/09-18-safe-web/index.html)
+* [F# homepage](http://fsharp.org/)
+* [Microsoft's F# documentation](https://docs.microsoft.com/dotnet/fsharp/)
