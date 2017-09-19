@@ -1,6 +1,6 @@
 # Build a web service with F# and .NET Core 2.0
 
-Earlier this year, I wrote about an update to the roadmap for F# and .NET Core.  I had mentioned that there were a number of things you could build with F# and .NET Core today, such as web services.  In this post, I'll walk through building a web service with F# and .NET Core 2.0 using the [Giraffe library](https://github.com/dustinmoris/Giraffe).
+Earlier this year, I wrote about an [update to the roadmap for F# and .NET Core](https://blogs.msdn.microsoft.com/dotnet/2017/08/14/f-and-net-core-roadmap-update/).  I had mentioned that there were a number of things you could build with F# and .NET Core today, such as web services.  In this post, I'll walk through building a web service with F# and .NET Core 2.0 using the [Giraffe library](https://github.com/dustinmoris/Giraffe).
 
 It's also worth noting that Giraffe is not the only technology you can use to build web APIs.  [Suave](https://suave.io/index.html) and [Freya](https://freya.io/) are two other great technologies which can be used on .NET Core.  I encourage you to try each of them and see which you prefer.
 
