@@ -203,7 +203,7 @@ CREATE TABLE IF NOT EXISTS "LunchSpots" (
 );
 ```
 
-The database file (I called it `Sample.db`) can then be saved in the root directory of the project.  This is ane asy place to store it.
+The database file (I called it `Sample.db`) can then be saved in the root directory of the project.  This is an easy place to store it.
 
 Next, let's define some simple types for our domain:
 
