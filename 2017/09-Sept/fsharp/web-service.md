@@ -8,7 +8,7 @@ A complete application shown in this post is [available on GitHub](https://githu
 
 ## Overview of Giraffe
 
-Giraffe allows you to write web API routes in a functional style.  This is in contrast to ASP.NET Core MVC, which is an object-oriented framework.  Although F# is fully supported in ASP.NET Core MVC, it's more convenient to use a functional framework like Giraffe, Suave, or Freya.
+Giraffe allows you to write web API routes in a functional style.  Although F# is fully supported in ASP.NET Core MVC, Giraffe has a different technical philosphy which takes advantage of multiple F# features, such as [higher-order functions](https://en.wikibooks.org/wiki/F_Sharp_Programming/Higher_Order_Functions), [partial application of arguments](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/functions/#partial-application-of-arguments), and [F# Types](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/fsharp-types).
 
 Additionally, Giraffe sits atop the Kestrel HTTP Server, which is the same underlying technology that ASP.NET Core uses.  This means that services written in Giraffe will have comparable performance to services written with ASP.NET Core MVC.
 
@@ -20,7 +20,7 @@ To get started with Giraffe on .NET Core 2.0, you'll need to ensure you have the
 dotnet new -i "giraffe-template"
 ```
 
-This will install the Giraffe template for you, and you'll see it in the list of project types when you enter `dotnet new` into the terminal.
+This will install the [Giraffe template](https://github.com/dustinmoris/Giraffe/tree/master/template) for you, and you'll see it in the list of project types when you enter `dotnet new` into the terminal.
 
 Next, create a new giraffe project:
 
@@ -187,7 +187,7 @@ As a reminder, the entire source code (and database) is [available on GitHub](ht
 
 ### Database and types used in the API
 
-First, let's establish the source of the data.  I'm choosing SQLite.  I'm a big fan of [SQLite](https://sqlite.org/).  It's perfectly suitable for a basic web API like this, extremely simple to configure and use, and easy to develop for.  It's also completely free!
+First, let's establish the source of the data.  I'm choosing SQLite.  I'm a big fan of [SQLite](https://sqlite.org/).  It's perfectly suitable for a basic web API like this, extremely simple to configure and use, and easy to develop for.  It's also completely free!  When building a more robust production system, you'll probably want to use other database technologies (such as MSSQL, MySQL, and PostgreSql), as SQLite struggles under moderate load in an environment such as a web service.  But for something which would see very little request activity, it's quite suitable.
 
 Let's create a new SQLite database with a single table:
 
@@ -228,6 +228,8 @@ type LunchFilter =
 
 The first is a [class type](https://docs.microsoft.com/dotnet/fsharp/language-reference/classes) which corresponds to the table schema in the database.  The second type is an [F# Record](https://docs.microsoft.com/dotnet/fsharp/language-reference/records), which will [optionally](https://docs.microsoft.com/dotnet/fsharp/language-reference/options) contain pieces of data that we can use to query the database with.
 
+At the time of writing, Type Providers are not yet available on .NET Core.  Once they are, the `LunchSpot` class will no longer be necessary to interact with a SQL database.
+
 ### Building the Web API
 
 Next, let's define the shape of the API:
@@ -238,19 +240,17 @@ open Giraffe.HttpContextExtensions
 open LunchTypes
 open DataAccess // I'll get to this last.
 
-let handleLunchFilter =
-    fun (next: HttpFunc) (ctx : HttpContext) ->
-        let filter = ctx.BindQueryString<LunchFilter>()
-        let lunchSpots = LunchAccess.getLunches filter
-        json lunchSpots next ctx
+let handleLunchFilter (next: HttpFunc) (ctx: HttpContext) =
+    let filter = ctx.BindQueryString<LunchFilter>()
+    let lunchSpots = LunchAccess.getLunches filter
+    json lunchSpots next ctx
 
-let handleAddLunch =
-    fun (next: HttpFunc) (ctx : HttpContext) ->
-        task {
-            let! lunch = ctx.BindJson<LunchSpot>()
-            LunchAccess.addLunch lunch
-            return! text (sprintf "Added %s to the lunch spots." lunch.Name) next ctx
-        }
+let handleAddLunch (next: HttpFunc) (ctx: HttpContext) =
+    task {
+        let! lunch = ctx.BindJson<LunchSpot>()
+        LunchAccess.addLunch lunch
+        return! text (sprintf "Added %s to the lunch spots." lunch.Name) next ctx
+    }
 
 let webApp =
     choose [
@@ -266,30 +266,28 @@ An HTTP GET will retrieve lunches (more on this later), and an HTTP POST will su
 The first handler, `handleLunchFilter`, is defined as such:
 
 ```fsharp
-let handleLunchFilter =
-    fun (next: HttpFunc) (ctx : HttpContext) ->
-        let filter = ctx.BindQueryString<LunchFilter>()
-        let lunchSpots = LunchAccess.getLunches filter
-        json lunchSpots next ctx
+let handleLunchFilter (next: HttpFunc) (ctx: HttpContext) =
+    let filter = ctx.BindQueryString<LunchFilter>()
+    let lunchSpots = LunchAccess.getLunches filter
+    json lunchSpots next ctx
 ```
 
-All it does is wrap a closure that takes in an `HttpFunc` and an `HttpContext` type.  This is how you "plug in" custom functionality in the HTTP pipeline, and it allows the handler to compose via `>=>`.
+It takes in an `HttpFunc` and an `HttpContext` as its parameters.  This is how you "plug in" custom functionality in the HTTP pipeline, and it allows the handler to compose via `>=>`.
 
 The body of the handler is quite simple.  The first line takes [values out of the query string and binds them](https://github.com/dustinmoris/Giraffe#bindquerystring) to an instance of the `LunchFilter` type defined in our domain.  The second line passes that filter to the data access layer, which will then query the database for the set of `LunchSpot`s.  The last line will serialize those into JSON, then send that JSON back as a response.  The syntax, `<function> input next ctx` is how you "align" your handler with the HTTP pipeline.
 
 The second handler, `handleAddLunch`, is defined as such:
 
 ```fsharp
-let handleAddLunch =
-    fun (next: HttpFunc) (ctx : HttpContext) ->
-        task {
-            let! lunch = ctx.BindJson<LunchSpot>()
-            LunchAccess.addLunch lunch
-            return! text (sprintf "Added %s to the lunch spots." lunch.Name) next ctx
-        }
+let handleAddLunch (next: HttpFunc) (ctx: HttpContext) =
+    task {
+        let! lunch = ctx.BindJson<LunchSpot>()
+        LunchAccess.addLunch lunch
+        return! text (sprintf "Added %s to the lunch spots." lunch.Name) next ctx
+    }
 ```
 
-Note that the "shape" of this handler is the same as `handleGetLunches`.  Because this is a handler in the HTTP pipeline, it must conform to this shape.
+Note that the "shape" of this handler is the same as `handleGetLunches` - it takes in an `HttpFunc` and `HttpContext` as its parameters.  Because this is a handler in the HTTP pipeline, it must conform to this shape.
 
 If you're not familiar with [Computation Expressions](https://docs.microsoft.com/dotnet/fsharp/language-reference/computation-expressions) in F#, don't worry!  They're quite easy to deal with.  All this one does is compute the body as a .NET Task.
 
@@ -394,14 +392,14 @@ If you've been using `dotnet watch run`, you should already have a running appli
 
 ## Wrapping up
 
-This post covered quite a bit of concepts!  Let's quickly summarize:
+This post covered quite a lot of concepts!  Let's quickly summarize:
 
 1. There are multiple technologies available for building web services with F# on .NET Core today.  I used Giraffe for this post.
 2. Giraffe has some functional idioms that differ quite a bit from ASP.NET MVC.
 3. Data access (in this case, with SQLite) is quite easy to do with F# and .NET Core.
 4. F# has some powerful features, such as Computation Expressions, that allow you to pack a lot of power into a small amount of code.
 
-Lastly, this is all very easy to put together.  All you need to do is install two packages on top of the Giraffe template (`Microsoft.Data.Sqlite` and `NPoco`), and all pieces of this application are very lightweight.  In general, F# on .NET Core has what I like to call a "Linear complexity curve".  What I mean by that is that it's simple and straightforward to get small things done, and as the problem space grows, the complexity you must deal grows linearly.  Plugging into the HTTP pipeline to add custom functionality follows a small set of [documented rules](https://github.com/dustinmoris/Giraffe#httphandler).  Adding a data access layer is just means adding a few packages and writing some functions which access the data source with SQL.  Furthermore, F# is oriented around _functions_, not objects.  Functions are very flexible in the face of change, unlike large object-oriented class heirarchies.
+Lastly, this is all very easy to put together.  All you need to do is install two packages on top of the Giraffe template (`Microsoft.Data.Sqlite` and `NPoco`), and all pieces of this application are very lightweight.  In general, F# on .NET Core has what I like to call a "Linear complexity curve".  What I mean by that is that it's simple and straightforward to get small things done, and as the problem space grows, the complexity you must deal grows linearly.  Plugging into the HTTP pipeline to add custom functionality follows a small set of [documented rules](https://github.com/dustinmoris/Giraffe#httphandler).  Adding a data access layer is just means adding a few packages and writing some functions which access the data source with SQL (Note: with a database such as MSSQL, PgSQL, or MySQL, these can be Stored Procedures).  Furthermore, F# is oriented around _functions_, not objects.  Functions are very flexible in the face of change, unlike large object-oriented class heirarchies.
 
 In total, this project has the following line of code statistics (including whitespace, formatting, and comments):
 
