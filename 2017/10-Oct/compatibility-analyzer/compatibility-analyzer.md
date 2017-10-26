@@ -1,46 +1,58 @@
-# Preview of Compatibility Analyzer
+# Choose the right APIs from now on
+# Introducing Compatibility Analyzer
 
-Today we released a preview of [Compatibility Analyzer](https://www.nuget.org/packages/) (TBD) on NuGet, a Roslyn tool that provides a very easy way of dealing with compatibility and deprecation issues.
+Have you ever wondered which APIs are deprecated and which should you use instead? Or have you ever used an API and then found out it didn't work on Mac or Linux? Have that ever happened to you too late when a major part of your code is already implemented and refactoring turns into a living hell? All those problems can be avoided now with the new [Compatibility Analyzer](https://www.nuget.org/packages/) (TBD) that allows you to get a live feedback on API usage and warnings about potential problems with compatibility and deprecation.
 
-## Reasons for Analyzer
+# What is Compatibility Analyzer
+It is a Roslyn analyzer that comes as [NuGet package](https://www.nuget.org/packages/) (TBD). After referencing it in your project it automatically starts monitoring your code and underscores "dangerous" areas with a squiggle. On the right click you can get information about possible solution and suppress some or all warnings by type or operating system. 
 
-Quite often some program elements (APIs, classes, etc.) become deprecated and there are new much better ways to achieve same results. How can we motivate developers to use new approach? Can an old member just be deleted? No, that will cause a disaster in already written code that is using it. Can we publish a documentation informing users that this member is deprecated? This approach is neither convenient nor effective since not a lot of people would be looking up the documentation unless they face unresolvable issues, and we want to avoid that situation happening at all. Another solution was to use [Obsolete] attribute. In this case there is only one error code (CS0612) for all members marked [Obsolete] that just informs it has being obsolete without any information on what should be used instead. If user decides to use the old code anyways there are no handy ways to suppress all the warnings, the code and Error List Window would be lit up like a Christmas tree making user experience not enjoyable. Another inconvenience related to [Obsolete] attribute is that when a member becomes obsolete, we need to update the code by adding the attribute and ship a new version, and users need to get this new version.
+![](Deprecated.jpg) !
 
-All this pain can be avoided by using Compatibility Analyzer that will highlight “dangerous” areas and provide recommended solution while the user is typing.
+Figuratively speaking Compatibility Analyzer is your virtual API expert who looks over your shoulder and gives you feedback as you code and then turns into your diligent assistant who does routine tasks and manages notifications.
 
-## What is Compatibility Analyzer
+Here is a demo of Compatibility Analyzer in action:
+## Demo
 
-Compatibility Analyzer is a Roslyn appication that runs at edit-time and prompts user whenever deprecated or incompatible functionality is used. Each warning here has its own error code, so it is very easy to pop up the info about what is happening with this specific member and what should be used instead. There are no other steps required to run a "spell check" of your code. Once git package is added, you can forget about it and enjoy a benefit of “virtual API expert” that “looks over your shoulder and gives you feedback" as you code.
+And now we'll take a deeper dive into the topic...
 
-## Using the Analyzer
+Two main areas where the analyzer is helpful today are compatibility of APIs with different platforms and APIs deprecation. Let's talk about deprecation first.
 
-Let’s take a closer look at the Compatibility Analyzer. To start using it you just need to add a NuGet package (TBD).
+## Discovering deprecated APIs
+The .NET Framework is a large product that is getting constantly upgraded to better serve customers needs, implement innovative approaches and address clients feedback. So deprecation of some APIs and appearance of brand new ones is a naturals process. For example, we have built v2 and v3 versions of the .NET Framework networking stack, so new HttpClient is a very different and much better API than WebClient and HttpWebRequest. Being a developer how can I know that I should use HttpClient instead of WebClient? There is a documentation, but we usually look in documentation only after we face some problems, when a part of a code is already implemented with an old API and refactoring process becomes pretty annoying. So it is very beneficial to get prompted that you're about to use a deprecated API right at the moment of its first appearance in the code.
 
-Then once you are trying to use a member that is either deprecated or might have compatibility issue, you’ll see a green squiggle line and a pop up message informing what the problem is.
+Another good example would be a developer who comes from Java experience where he was using ArrayList, he looks for the same name in C# and finds it, so he goes ahead and uses it in his code. Only later he would find out that ArrayList was a deprecated API and using List<T> was much better idea. Here being advised on which API to use right away would be a great learning experience.
 
-![](GreenSquiggle.jpg)
-
-Right now the analyzer tracks following scenarios:
-* APIs that are in .NET Standard (TBD version?) but don’t exist in .NET Framework 4.6.1 yet
-* APIs in .NET Standard/.NET Core that will throw PlatformNotSupported on some OS (Linux, macOS, Windows)
-* Deprecation
-
-In the Error List window you’ll immediately get a warning with corresponding code for this specific case (in our example DE0004) and by clicking on it you will get to a webpage with detailed problem resolution.
+So that is exactly what Compatibility Analyzer does - prompts your right away as you code if you should consider moving to a newer technology. And not only that! It also provides you with detailed information for each deprecation case. In the Error List window you’ll immediately get warnings with unique  diagnostic ID per each deprecated API (in our example DE004) and by clicking on it you will get to a webpage with detailed problem resolution.
 
 ![](Warnings.jpg)
 
-If you decide to keep using the obsolete member and suppress warnings about it, right click on the highlighted member and choose "Quick Actions and Refactorings" to get two suppression options: locally (in Source) or globally (in Suppression File).
+If you still decide to keep using the old API and suppress warnings about only this specific case, it can be easily done by right click on the highlighted member and choosing "Quick Actions and Refactorings". Here you will get two suppression options: locally (in Source) or globally (in Suppression File). We encourage developers to use global suppression since if you have decided that it is ok to use some deprecated API it should be ok to use it everywhere in your project, so you'll suppress it only once in Suppression File for all the occurrences of this API and keep your code clean.
 
-It is also possible to ignore certain platforms you don't plan to run your code on. Just edit your project file and add a property PlatformCompatIgnore that lists all platforms to be ignored:
+## Discovering cross-platform issues
+Because we’re a cross platform stack, some APIs don’t work on all the platforms. There are also types that work everywhere but certain members of that type would not be supported by each platform.  A good example is Console.WindowWidth that works on Windows but does not on Linux and MacOSX. However, we still included Console in .Net Core because of its wide usage. This way if your code has Console.WindowWidth it will crash when you try to run it on Linux or MacOSX. With Compatibility Analyzer you will get notified that the API is not supported which will help you to address the problem right away on a code composition phase. Even if you are targeting only one platform at this moment, your business goals might change in future and you will have to spend a lot of time going through your code figuring out if there are any cross-platform problems, where Compatibility Analyzer will highlight all the “dangerous” parts right away. 
+
+The experience of analyzer handling compatibility issues is very similar to deprecation, you'll see a green squiggle, diagnostic ID in Error List window and will be able to suppress warning by right click and choosing "Quick Actions and Refactorings". You also can suppress all warnings for specific platform you don't plan to run your code on. For that you just need to edit your project file and add a property PlatformCompatIgnore that lists all platforms to be ignored:
 ```
 <PropertyGroup>
     <PlatformCompatIgnore>Linux;MacOSX</PlatformCompatIgnore>
 </PropertyGroup>
 ```
-## Demo
 
-(TBD)
+## Supported diagnostics
+Right now the analyzer handles following cases:
+* Usage of a .NET Standard API that will throw PlatformNoSupportedException (PC001)
+* Usage of a .NET Standard API that aren’t available on .NET Framework 4.6.1 (PC002)
+* Usage of a native API that doesn’t exist in UWP (PC003)
+* Usage of an API that is marked as deprecated (DEXXXX)
+
+## CI machine
+All these diagnostics are available not only in the IDE, but also on the command line as part of building your project, which includes the CI server.
+
+## Configuration
+It is up to a user to decide how the diagnostics should be treated: as warnings, errors, suggestions, or to be turned off. For example as an architect you can decide that compatibility issues are errors, some deprecation are warnings and some are only suggestions. You can configure this separately by diagnostic ID and by project. To do so in your project tree -> Dependencies ->Analyzers -> (TBD...) right click on the diagnostic ID and Set Rule Set Severity and pick a desired option. 
 
 ## Summary
+Compatibility Analyzer helps developers to be prompted right away if they are about to use a deprecated or non cross-platform functionality. Being notified so fast eliminates a need of refactoring the code in future and results in a better quality applications. 
 
-Compatibility Analyzer provides a nice and easy method to notify developer about compatibility and deprecation issues and allows to suppress warnings in one click. It works on its own, no need to run extra checks or tools. In future we are planning to ship it as part of Visual Studio. Please try it out and give us your feedback here. (TBD)
+## Call for feedback
+We are still working on this analyzer and would appreciate any feedback. What we did good, what we did bad, is it useful at all, is there anything else you'd like us to add into the analyzer. Please try [it] (https://www.nuget.org/packages/) (TBD) out and leave your feedback [here] (https://)(TBD).
