@@ -10,11 +10,8 @@ API Analyzer is a Roslyn analyzer that comes as [NuGet package](https://www.nuge
 Figuratively speaking API Analyzer is your virtual API expert who looks over your shoulder and gives you feedback as you code and then turns into your diligent assistant who does routine tasks and manages notifications.
 
 Here is a demo of API Analyzer in action:
-## Demo
 
-And now we'll take a deeper dive into the topic...
-
-Two main areas where the analyzer is helpful today are compatibility of APIs with different platforms and APIs deprecation. Let's talk about deprecation first.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eeBEahYXGd0?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
 
 ## Discovering deprecated APIs
 The .NET Framework is a large product that is getting constantly upgraded to better serve customers needs, implement innovative approaches and address clients feedback. So deprecation of some APIs and appearance of brand new ones is a naturals process. For example, we have built v2 and v3 versions of the .NET Framework networking stack, so new `HttpClient` is a very different and much better API than `WebClient` and `HttpWebRequest`. Being a developer how can I know that I should use `HttpClient` instead of `WebClient`? There is a documentation, but we usually look in documentation only after we face some problems, when a part of a code is already implemented with an old API and refactoring process becomes pretty annoying. So it is very beneficial to get prompted that you're about to use a deprecated API right at the moment of its first appearance in you code.
