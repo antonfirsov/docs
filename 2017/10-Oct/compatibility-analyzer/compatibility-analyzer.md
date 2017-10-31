@@ -1,31 +1,31 @@
 # Introducing API Analyzer
 
-Have you ever wondered which APIs are deprecated and which should you use instead? Or have you ever used an API and then found out it didn't work on Mac or Linux? Have that ever happened to you too late when a major part of your code is already implemented and refactoring turns into a living hell? All those problems can be avoided now with the new [API Analyzer](https://www.nuget.org/packages/Microsoft.DotNet.Analyzers.Compatibility/) that allows you to get a live feedback on API usage and warnings about potential problems with compatibility and deprecation.
+Have you ever wondered which APIs are deprecated and which should you use instead? Or have you ever used an API and then found out it didn't work on Mac or Linux? Have that ever happened to you too late when a major part of your code is already implemented and refactoring turns into a living hell? All those problems can be avoided now with the new [API Analyzer](https://www.nuget.org/packages/Microsoft.DotNet.Analyzers.Compatibility/), which allows you to get live feedback on API usage and warns about potential compatibility issues and calls to deprecated APIs.
 
 # TL;DR You can now have a virtual API expert!
-API Analyzer is a Roslyn analyzer that comes as [NuGet package](https://www.nuget.org/packages/Microsoft.DotNet.Analyzers.Compatibility/). After referencing it in your project it automatically starts monitoring your code and underscores "dangerous" areas with a squiggle. You can get suggestions on possible fixes by clicking on the light bulb, which also includes the ability suppress the warnings.
+API Analyzer is a Roslyn analyzer that comes as [NuGet package](https://www.nuget.org/packages/Microsoft.DotNet.Analyzers.Compatibility/). After referencing it in your project, it automatically starts monitoring your code and squiggles problematic API usage. You can get suggestions on possible fixes by clicking on the light bulb, which also includes the ability suppress the warnings. Think of the API Analyzer as an expert that is looking over your shoulder and gives you feedback as you code.
 
 ![](GreenSquiggle.jpg) !
-
-Figuratively speaking API Analyzer is your virtual API expert who looks over your shoulder and gives you feedback as you code and then turns into your diligent assistant who does routine tasks and manages notifications.
 
 Here is a demo of API Analyzer in action:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/eeBEahYXGd0?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
 
+The Portability Analyzer is useful in assessing the compatibility of APIs with different platforms and in detecting calls to deprecated APIs. Let's begin with discovering deprecated APIs.
+
 ## Discovering deprecated APIs
-The .NET Framework is a large product that is getting constantly upgraded to better serve customers needs, implement innovative approaches and fix issues. So deprecation of some APIs and appearance of brand new ones is a naturals process. For example, we have built v2 and v3 versions of the .NET Framework networking stack, so new `HttpClient` is a very different and much better API than `WebClient` and `HttpWebRequest`. Being a developer how can I know that I should use `HttpClient` instead of `WebClient`? There is a documentation, but we usually look in documentation only after we face some problems, when a part of a code is already implemented with an old API and refactoring process becomes pretty annoying. So it is very beneficial to get prompted that you're about to use a deprecated API right at the moment of its first appearance in you code.
+The .NET Framework is a large product that is getting constantly upgraded to better serve customers needs, implement innovative approaches, and fix issues. So it's natural to deprecate some APIs and replace them with new ones. For example, we have build three versions of the .NET Framework networking stack. The latest version, `HttpClient`, is intended to replace `WebClient` and `HttpWebRequest`. As a developer, how do I know that I should use `HttpClient` instead of `WebClient`? There is a documentation, but we usually look in documentation only after we face some problems, when code is already implemented with an old API and refactoring is annoying. So it is very beneficial to be prompted that you're using a deprecated API at its first appearance in you code.
 
-Another good example would be a developer who comes from Java background where he was using `ArrayList`, he looks for the same name in C# and finds it, so he goes ahead and uses it in his code. Only later he would find out that `ArrayList` was a deprecated API and using `List<T>` was much better idea. Here being advised on which API to use right away would be a great learning experience.
+Similarly, a developer who comes from Java background where he was using `ArrayList` finds an `ArrayList` class in .NET and uses it in his code. Only later would he find out that `ArrayList` is deprecated, and `List<T>` is recommended. Being advised which API to use right away would be a great learning experience.
 
-So that is exactly what API Analyzer does - it prompts you right away as you code if you should consider moving to a newer technology. And not only that! It also provides you with detailed information for each deprecation case. In the Error List window you’ll immediately get warnings with unique diagnostic ID per each deprecated API (in our example DE004) and by clicking on it you will get to a webpage with detailed problem resolution.
+That is exactly what the API Analyzer does: it immediately prompts you by recommending an alternative API and provides you with detailed information about each call to a deprecated API. The Error List window immediately gives you warnings with a unique ID per deprecated API (in our example `DE004`). By clicking on it, you will go to a webpage with detailed information about why the API was deprecated and how alternative APIs should be used.
 
 ![](Warnings.jpg)
 
-There are cases when you still need to keep the existing API, for example when you can't break your own consumers or it's a large legacy code base and refactoring will be too expensive. In these cases, we recommend that you suppress the specific warnings. It can be easily done by right clicking on the highlighted member and selecting "Quick Actions and Refactorings". Here you will get two suppression options: locally (in Source) or globally (in Suppression File). We encourage developers to use global suppression since if you have decided that it is ok to use some deprecated API it should be ok to use it everywhere in your project, so you'll suppress it only once in Suppression File for all the occurrences of this API and keep your code clean.
+In some cases, such as when you can't break your customers or refactoring a large legacy code base would be too expensive, you need to keep the existing API. In these cases, we recommend that you suppress the specific warnings. It can be easily done by right clicking on the highlighted member and selecting **Quick Actions and Refactorings**. Here you will get two suppression options: locally (in source) or globally (in a suppression file). We encourage developers to use global suppression, since if you have decided that it is ok to use some deprecated API, it should be ok to use it everywhere in your project.
 
 ## Discovering cross-platform issues
-Because we’re a cross platform stack, some APIs don’t work on all the platforms. There are also types that work everywhere but certain members of that type would not be supported by each platform.  A good example is `Console.WindowWidth` that works on Windows but does not on Linux and macOS. However, we still included Console in .NET Standard because of its wide usage. This way if your code has `Console.WindowWidth` it will throw `PlatformNotSupportedException` when you try to run it on Linux or macOS. With API Analyzer you will get notified that the API is not supported which will help you to address the problem right away while you're still editing the code. Even if you are targeting only one platform at this moment, your business goals might change in future and you will have to spend a lot of time going through your code figuring out if there are any cross-platform problems, where API Analyzer will highlight all the problematic parts right away.
+Because we’re a cross platform stack, some APIs don’t work on all the platforms. There are also types that are present on all platforms, but some members are not supported by each platform. A good example is `Console.WindowWidth`, which works on Windows but not on Linux and macOS. If your app were to run on Linux or maxOS, a call to `Console.WindowWidth` would throw a `PlatformNotSupportedException`. API Analyzer will notify you that the API is not supported, which will help you to address the problem right away while you're still editing the code. Even if you are targeting only one platform at this moment, your business goals might change in the future and you will have to spend a lot of time going through your code figuring out if there are any cross-platform problems. In contrast, API Analyzer will highlight all the problematic parts right away.
 
 The experience of analyzer handling cross-platform issues is very similar to deprecation, you'll see a squiggle, diagnostic ID in Error List window and will be able to suppress warning by right click and choosing "Quick Actions and Refactorings". Unlike deprecation cases where you have two options: either keep using deprecated member and suppress warnings or not use it at all, here if you are developing your code only for certain platform you can suppress all warnings for all other  platforms you don't plan to run your code on. To do so you just need to edit your project file and add a property `PlatformCompatIgnore` that lists all platforms to be ignored:
 ```
@@ -33,7 +33,7 @@ The experience of analyzer handling cross-platform issues is very similar to dep
     <PlatformCompatIgnore>Linux;MacOSX</PlatformCompatIgnore>
 </PropertyGroup>
 ```
-If your code targets multiple platforms and you want to take advantage of API not supported on some of them, you can guard that part of the code with conditional expression like this one:
+If your code targets multiple platforms and you want to take advantage of an API not supported on some of them, you can guard that part of the code with an `if`-statement:
 
 ```CSharp
 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -42,14 +42,15 @@ if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
      // More code
 }
 ```
-In future we are considering adding a functionality to automatically generate this guarding code on a right click on the API that is not cross-platforms.
 
-You can also conditionally compile on operating system but you need to do it manually.
+In the future, we are considering automatically generating this guarding code when you right-click on an API that is not cross-platform.
+
+You can also conditionally compile per target framework/operating system, but you currently need to do that manually.
 
 ## Supported diagnostics
-Right now the analyzer handles following cases:
+Right now the analyzer handles the following cases:
 * Usage of a .NET Standard API that will throw `PlatformNoSupportedException` (PC001)
-* Usage of a .NET Standard API that aren’t available on .NET Framework 4.6.1 (PC002)
+* Usage of a .NET Standard API that isn't available on the .NET Framework 4.6.1 (PC002)
 * Usage of a native API that doesn’t exist in UWP (PC003)
 * Usage of an API that is marked as deprecated (DEXXXX)
 
@@ -62,4 +63,4 @@ It is up to a user to decide how the diagnostics should be treated: as warnings,
 ## Summary
 Compatibility Analyzer helps developers to be prompted right away if they are about to use a deprecated or non cross-platform functionality. Being notified so fast eliminates a need of refactoring the code in future and results in a better quality applications. 
 
-We are still working on this analyzer and would appreciate any feedback. What we did good, what we did bad, is it useful at all, is there anything else you'd like us to add into the analyzer. Please try [it](https://www.nuget.org/packages/Microsoft.DotNet.Analyzers.Compatibility/) out and leave your feedback [here](https://github.com/dotnet/platform-compat/issues/new).
+We are still working on this analyzer and would appreciate any feedback. What did we do well? What did we do badly? Is the Analyzer useful at all? Is there anything you'd like us to add to the Analyzer? Please try [it](https://www.nuget.org/packages/Microsoft.DotNet.Analyzers.Compatibility/) out and leave your feedback [here](https://github.com/dotnet/platform-compat/issues/new).
