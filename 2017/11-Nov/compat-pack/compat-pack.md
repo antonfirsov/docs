@@ -15,7 +15,7 @@ implementation isn't a good enough reason (unless you're a True Fan).
 
 .NET Core is optimized for building highly scalable web applications, running
 on Windows or Linux. If you're building Windows desktop applications then .NET
-Framework is still the best choice for you.
+Framework is the best choice for you.
 
 ```html
 <div style="text-align: center; width: 100%;"><iframe
@@ -38,7 +38,7 @@ these steps:
 4. Migrate to Azure
 
 The order of steps might vary, depending on your business goals and what value
-you need to realize first (for example, you might port to Azure as first). The
+you need to realize first (for example, you might deploy to Azure first). The
 primary point is that you perform one step at a time to ensure your application
 stays operational along the way. This reduces the complexity and churn you have
 to reason about at once. It also allows you to learn more about your code base
@@ -48,13 +48,13 @@ The [Porting to .NET Core from .NET Framework][porting-docs] documentation
 provides more details on the recommended process and which tools you can use.
 
 Before bringing existing .NET Framework code to a .NET Core project, I recommend
-you first add the Windows Compatibly Pack by installing the NuGet package
+you first add the Windows Compatibility Pack by installing the NuGet package
 [Microsoft.Windows.Compatibility][nuget]. This maximizes the amount of APIs you
 have at your disposal.
 
-Below a table of the components the Windows Compatibly Pack contains. Some of
-these technologies are not yet available in the preview but will come in a
-subsequent update.
+The following table describes the APIs contained in the Windows Compatibility
+Pack. Some of these technologies are not yet available in the preview but will
+come in a subsequent update.
 
 | Component                                  | Status    | Windows-Only | Component                                  | Status    | Windows-Only |
 |:-------------------------------------------|:----------|:-------------|:-------------------------------------------|:----------|:-------------|
@@ -88,10 +88,10 @@ platform support into account.
 As you can see in the table above, about half of the components in the Windows
 Compatibility Pack are Windows-only, the other half works on any platform. Your
 code can always assume all the APIs *exists* across all platform, but they *may
-throw* `PlatformNotSupportedException` if they are Windows-only. Being able to
-rely on the API being there allows you write code that calls Windows-only API
-after doing a platform check at runtime, rather than having to use conditional
-compilation using `#if`:
+throw* `PlatformNotSupportedException` if they are Windows-only. This allows you
+write code that calls Windows-only API after doing a platform check at runtime,
+rather than having to use conditional compilation using `#if`. We recommend to
+use [RuntimeInformation.IsOSPlatform()] for platform checks:
 
 ```csharp
 private static string GetLoggingPath()
@@ -140,7 +140,6 @@ You have three options to deal with Windows-only API usages:
 In the example above, the code is already written in such a way that it provides
 a default configuration when the setting isn't found in the registry, so the
 easiest solution is to guard the call to registry APIs behind a platform check.
-We recommend to use `RuntimeInformation.IsOSPlatform()` for platform checks.
 
 The Windows Compatibility Pack is designed as a meta package, meaning it doesn't
 directly contain any libraries but references other packages. This allows you to
@@ -152,8 +151,8 @@ newly written code in that project doesn't take a dependency on it again.
 ## Summary
 
 When you port existing code from .NET Framework to .NET Core, install the new
-[Windows Compatibility Pack][nuget]. It provides access to additional 20,000
-APIs, compared to what was available in .NET Core. This includes drawing,
+[Windows Compatibility Pack][nuget]. It provides access to an additional 20,000
+APIs, compared to what is available in .NET Core. This includes drawing,
 EventLog, WMI, Performance Counters, and Windows Services.
 
 If you plan to make your code cross-platform, use the new [API Analyzer][api-analyzer]
@@ -169,3 +168,4 @@ Let us know what you think!
 [nuget]: https://www.nuget.org/packages/Microsoft.Windows.Compatibility
 [api-analyzer]: https://blogs.msdn.microsoft.com/dotnet/2017/10/31/introducing-api-analyzer/
 [porting-docs]: https://docs.microsoft.com/en-us/dotnet/core/porting/
+[RuntimeInformation.IsOSPlatform()]: https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.runtimeinformation.isosplatform
