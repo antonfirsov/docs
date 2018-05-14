@@ -24,7 +24,8 @@ The update addresses the vulnerability by correcting how a .NET, and .NET core, 
 This release contains the following quality and reliability improvements. 
 
 #### CLR
-* Floating-point overflow in the thread pool’s hill climbing algorithm. [569602]* High CPU usage in a kernel lock ntoskrnl!ExpWaitForSpinLockExclusiveAndAcquire called by ntoskrnl!KiPageFault is resolved by CLR implemented write watch instead [568318]
+* Floating-point overflow in the thread pool’s hill climbing algorithm. [569602]
+* High CPU usage in a kernel lock ntoskrnl!ExpWaitForSpinLockExclusiveAndAcquire called by ntoskrnl!KiPageFault is resolved by CLR implemented write watch instead [568318]
 
 Note: Additional information on these improvements is not available. The VSTS bug number provided with each improvement is a unique ID that you can give Microsoft Customer Support, include in StackOverflow commentsor use in web searches.
 
