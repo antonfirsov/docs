@@ -15,14 +15,13 @@ Let's start with a simple problem. We want to write a TCP server that receives l
 
 ### TCP Server with NetworkStream
 
-**NOTE: As with all performance sensitive work, each of the scenarios should be measured within the context of your application. The overhead of the various techniques mentioned may not be necessary depending on the scale your networking applications need to handle.**
+**DISCLAIMER: As with all performance sensitive work, each of the scenarios should be measured within the context of your application. The overhead of the various techniques mentioned may not be necessary depending on the scale your networking applications need to handle.**
 
 The typical code you would write in .NET before pipelines looks something like this:
 
 ```C#
-async Task AcceptAsync(Socket socket)
+async Task ProcessLinesAsync(NetworkStream stream)
 {
-    var stream = new NetworkStream(socket);
     var buffer = new byte[1024];
     await stream.ReadAsync(buffer, 0, buffer.Length);
     
@@ -40,25 +39,24 @@ These are some of the common pitfalls when reading streaming data. To account fo
 - We need to parse *all* of the lines returned in the buffer.
 
 ```C#
-async Task AcceptAsync(Socket socket)
+async Task ProcessLinesAsync(NetworkStream stream)
 {
-    var stream = new NetworkStream(socket);
     var buffer = new byte[1024];
-    var read = 0;
-    while (read < buffer.Length)
+    var bytesBuffered = 0;
+    while (bytesBuffered < buffer.Length)
     {
-        var current = await stream.ReadAsync(buffer, read, buffer.Length - read);
-        if (current == 0)
+        var bytesRead = await stream.ReadAsync(buffer, bytesBuffered, buffer.Length - bytesBuffered);
+        if (bytesRead == 0)
         {
             break;
         }
-        read += current;
-        var lineLength = Array.IndexOf(buffer, (byte)'\n', 0, read);
+        bytesBuffered += bytesRead;
+        var linePosition = Array.IndexOf(buffer, (byte)'\n', 0, bytesBuffered);
 
-        if (lineLength >= 0) 
+        if (linePosition >= 0) 
         {
-            ProcessLine(buffer, 0, lineLength);
-            read = 0;
+            ProcessLine(buffer, 0, linePosition);
+            bytesBuffered = 0;
         }
     }
 }
@@ -67,37 +65,36 @@ async Task AcceptAsync(Socket socket)
 Once again, this might work in local testing but it's possible that the line is bigger than 1KiB (1024 bytes). We need to resize the input buffer until we have found a new line:
 
 ```C#
-async Task AcceptAsync(Socket socket)
+async Task ProcessLinesAsync(NetworkStream stream)
 {
-    var stream = new NetworkStream(socket);
     var buffer = new byte[1024];
-    var read = 0;
+    var bytesBuffered = 0;
     while (true)
     {
-        var remaining = buffer.Length - read;
+        var bytesRemaining = buffer.Length - bytesBuffered;
 
-        if (remaining == 0)
+        if (bytesRemaining == 0)
         {
             var newBuffer = new byte[buffer.Length * 2];
             Buffer.BlockCopy(buffer, 0, newBuffer, 0, buffer.Length);
             buffer = newBuffer;
-            read = 0;
-            remaining = buffer.Length;
+            bytesRead = 0;
+            bytesRemaining = buffer.Length;
         }
 
-        var current = await stream.ReadAsync(buffer, read, remaining);
-        if (current == 0)
+        var bytesRead = await stream.ReadAsync(buffer, bytesBuffered, bytesRemaining);
+        if (bytesRead == 0)
         {
             break;
         }
 
-        read += current;
-        var lineLength = Array.IndexOf(buffer, (byte)'\n', 0, read);
+        bytesBuffered += bytesRead;
+        var linePosition = Array.IndexOf(buffer, (byte)'\n', 0, bytesBuffered);
 
-        if (lineLength >= 0) 
+        if (linePosition >= 0) 
         {
-            ProcessLine(buffer, 0, lineLength);
-            read = 0;
+            ProcessLine(buffer, 0, linePosition);
+            bytesBuffered = 0;
         }
     }
 }
@@ -105,49 +102,48 @@ async Task AcceptAsync(Socket socket)
 
 This code works but now we're re-sizing the buffer which causes extra allocations and copies. It also potentially uses more memory as the logic doesn't shrink the buffer back to the original 1KiB after the line is processed. To avoid this, we can store a list of buffers instead of resizing each time we cross the 1KiB buffer size. 
 
-We're also re-using the 1KiB buffer until it's completely empty. This means we can end up passing smaller and smaller buffers to `ReadAsync` which will result in more calls into the operating system.
+Also, we don't grow the the 1KiB buffer until it's completely empty. This means we can end up passing smaller and smaller buffers to `ReadAsync` which will result in more calls into the operating system.
 
 To mitigate this, we'll allocate a new buffer when there's less than 512 bytes remaining in the existing buffer:
 
 ```C#
-async Task AcceptAsync(Socket socket)
+async Task ProcessLinesAsync(NetworkStream stream)
 {
     const int minimumBufferSize = 512;
-    
-    var stream = new NetworkStream(socket);
+
     var buffers = new List<ArraySegment<byte>>();
     var buffer = new byte[1024];
-    var read = 0;
+    var bytesBuffered = 0;
     while (true)
     {
-        var remaining = buffer.Length - read;
+        var bytesRemaining = buffer.Length - bytesBuffered;
 
-        if (remaining < minimumBufferSize)
+        if (bytesRemaining < minimumBufferSize)
         {
-            buffers.Add(new ArraySegment<byte>(buffer, 0, read));
+            buffers.Add(new ArraySegment<byte>(buffer, 0, bytesBuffered));
             buffer = new byte[1024];
-            read = 0;
-            remaining = buffer.Length;
+            bytesBuffered = 0;
+            bytesRemaining = buffer.Length;
         }
 
-        var current = await stream.ReadAsync(buffer, read, remaining);
-        if (current == 0)
+        var bytesRead = await stream.ReadAsync(buffer, bytesBuffered, bytesRemaining);
+        if (bytesRead == 0)
         {
             break;
         }
 
-        read += current;
-        var lineLength = Array.IndexOf(buffer, (byte)'\n', 0, read);
+        bytesBuffered += bytesRead;
+        var linePosition = Array.IndexOf(buffer, (byte)'\n', 0, bytesBuffered);
 
-        if (lineLength >= 0) 
+        if (linePosition >= 0) 
         {
-            buffers.Add(new ArraySegment<byte>(buffer, 0, lineLength));
+            buffers.Add(new ArraySegment<byte>(buffer, 0, linePosition));
 
             ProcessLine(buffers);
            
             buffers.Clear();
 
-            read = 0;
+            bytesBuffered = 0;
         }
     }
 }
@@ -160,38 +156,37 @@ There's another optimization that we need to make before we call this server com
 We can improve the allocations by using the `ArrayPool<byte>` to avoid repeated buffer allocations as we're parse more lines from the client: 
 
 ```C#
-async Task AcceptAsync(Socket socket)
+async Task ProcessLinesAsync(NetworkStream stream)
 {
     const int minimumBufferSize = 512;
-    
-    var stream = new NetworkStream(socket);
+
     var buffers = new List<ArraySegment<byte>>();
     byte[] buffer = ArrayPool<byte>.Shared.Rent(1024);
-    var read = 0;
+    var bytesBuffered = 0;
     while (true)
     {
-        var remaining = buffer.Length - read;
+        var bytesRemaining = buffer.Length - bytesBuffered;
 
-        if (remaining < minimumBufferSize)
+        if (bytesRemaining < minimumBufferSize)
         {
-            buffers.Add(new ArraySegment<byte>(buffer, 0, read));
+            buffers.Add(new ArraySegment<byte>(buffer, 0, bytesBuffered));
             buffer = ArrayPool<byte>.Shared.Rent(1024);
-            read = 0;
-            remaining = buffer.Length;
+            bytesBuffered = 0;
+            bytesRemaining = buffer.Length;
         }
 
-        var current = await stream.ReadAsync(buffer, read, remaining);
-        if (current == 0)
+        var bytesRead = await stream.ReadAsync(buffer, bytesBuffered, bytesRemaining);
+        if (bytesRead == 0)
         {
             break;
         }
 
-        read += current;
-        var lineLength = Array.IndexOf(buffer, (byte)'\n', 0, read);
+        bytesBuffered += bytesRead;
+        var linePosition = Array.IndexOf(buffer, (byte)'\n', 0, bytesBuffered);
 
-        if (lineLength >= 0) 
+        if (linePosition >= 0) 
         {
-            buffers.Add(new ArraySegment<byte>(buffer, 0, lineLength));
+            buffers.Add(new ArraySegment<byte>(buffer, 0, linePosition));
 
             ProcessLine(buffers);
 
@@ -204,7 +199,7 @@ async Task AcceptAsync(Socket socket)
             
             buffer = ArrayPool<byte>.Shared.Rent(1024);
 
-            read = 0;
+            bytesBuffered = 0;
         }
     }
 }
@@ -230,7 +225,7 @@ The complexity has gone through the roof (and we haven't even covered all of the
 Let's take a look at what this example looks like with `System.IO.Pipelines`:
 
 ```C#
-Task AcceptAsync(Socket socket)
+async Task ProcessLinesAsync(Socket socket)
 {
     var pipe = new Pipe();
     Task writing = FillPipeAsync(socket, pipe.Writer);
@@ -280,8 +275,7 @@ async Task ReadPipeAsync(PipeReader reader)
 
         ReadOnlySequence<byte> buffer = result.Buffer;
         SequencePosition? position = null;
-        
-        
+
         do 
         {
             position = buffer.PositionOf((byte)'\n');
@@ -390,7 +384,7 @@ An example of this in practice is in the Kestrel Libuv transport where IO callba
 ### Other Related types
 
 As part of making System.IO.Pipelines, we also added a number of new primitive BCL types:
-- [MemoryPool\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.buffers.memorypool-1?view=netcore-2.1), [IMemoryOwner\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.buffers.imemoryowner-1?view=netcore-2.1), [MemoryManager\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.buffers.memorymanager-1?view=netcore-2.1) - .NET Core 1.0 added [ArrayPool\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.buffers.arraypool-1?view=netcore-2.1) and in .NET Core 2.1 we now have a more general abstration for a pool that works for more than just `T[]`.
+- [MemoryPool\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.buffers.memorypool-1?view=netcore-2.1), [IMemoryOwner\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.buffers.imemoryowner-1?view=netcore-2.1), [MemoryManager\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.buffers.memorymanager-1?view=netcore-2.1) - .NET Core 1.0 added [ArrayPool\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.buffers.arraypool-1?view=netcore-2.1) and in .NET Core 2.1 we now have a more general abstraction for a pool that works for more than just `T[]`.
 - [IBufferWriter\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.buffers.ibufferwriter-1?view=netcore-2.1) - Represents a sink for writing synchronous buffered data. (`PipeWriter` implements this)
 - [IValueTaskSource<T>](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.sources.ivaluetasksource-1?view=netcore-2.1) - [ValueTask\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.valuetask-1?view=netcore-2.1) has existed since .NET Core 1.1 but has gained some super powers in .NET Core 2.1 to allow allocation-free awaitable async operations. See https://github.com/dotnet/corefx/issues/27445 for more details.
 
