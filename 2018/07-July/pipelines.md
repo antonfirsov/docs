@@ -30,9 +30,14 @@ async Task AcceptAsync(Socket socket)
 }
 ```
 
-This code might work when testing locally but it's broken because the entire message (end of line) may not have been received in a single call to `ReadAsync`. Even worse, we're failing to look at the result of `stream.ReadAsync()` which returns how much data was actually filled into the buffer. 
+This code might work when testing locally but it's has several errors:
+- The entire message (end of line) may not have been received in a single call to `ReadAsync`. 
+- It's ignoring the result of `stream.ReadAsync()` which returns how much data was actually filled into the buffer.
+- It doesn't handle the case where multiple lines come back in a single `ReadAsync` call.
 
-This is a common mistake when using `Stream` today. To account for this, we need to buffer the incoming data until we have found a new line:
+These are some of the common pitfalls when reading streaming data. To account for this we need to make a few changes:
+- We need to buffer the incoming data until we have found a new line.
+- We need to parse *all* of the lines returned in the buffer.
 
 ```C#
 async Task AcceptAsync(Socket socket)
@@ -314,7 +319,7 @@ At the end of each of the loops, we complete both the reader and the writer. Thi
 
 Besides handling the memory management, the other core pipelines feature is the ability to peek at data in the `Pipe` without actually consuming it. 
 
-`PipeReader` has 2 core APIs `ReadAsync` and `AdvanceTo`. `ReadAsync` gets the data in the `Pipe`, `AdvanceTo` does a couple of things, it tells the `PipeReader` that these buffers are no longer required by the reader so they can be discarded (for example returned to the underlying buffer pool). 
+`PipeReader` has 2 core APIs `ReadAsync` and `AdvanceTo`. `ReadAsync` gets the data in the `Pipe`, `AdvanceTo` tells the `PipeReader` that these buffers are no longer required by the reader so they can be discarded (for example returned to the underlying buffer pool). 
 
 It also allows the reader to tell the `PipeReader` "don't wake me up again until there's more data available". This is important for the performance of the reader as it means the reader won't be signalled until there's more data than was previously marked "observed".
 
@@ -376,9 +381,9 @@ An example of this in practice is in the Kestrel Libuv transport where IO callba
 ### Other Related types
 
 As part of making System.IO.Pipelines, we also added a number of new primitive BCL types:
-- `MemoryPool<T>`, `IMemoryOwner<T>`, `MemoryManager<T>` - .NET Core 1.0 added `ArrayPool<T>` and in .NET Core 2.1 we now have a more general abstration for a pool that works for more than just `T[]`.
-- `IBufferWriter<T>` - Represents a sink for writing synchronous buffered data. (`PipeWriter` implements this)
-- `IValueTaskSource<T>`, `ValueTask` (non-generic) - `ValueTask<T>` has existed since .NET Core 1.1 but has gained some super powers in .NET Core 2.1 to allow allocation-free awaitable async operations. See https://github.com/dotnet/corefx/issues/27445 for more details.
+- [MemoryPool\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.buffers.memorypool-1?view=netcore-2.1), [IMemoryOwner\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.buffers.imemoryowner-1?view=netcore-2.1), [MemoryManager\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.buffers.memorymanager-1?view=netcore-2.1) - .NET Core 1.0 added [ArrayPool\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.buffers.arraypool-1?view=netcore-2.1) and in .NET Core 2.1 we now have a more general abstration for a pool that works for more than just `T[]`.
+- [IBufferWriter\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.buffers.ibufferwriter-1?view=netcore-2.1) - Represents a sink for writing synchronous buffered data. (`PipeWriter` implements this)
+- [IValueTaskSource<T>](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.sources.ivaluetasksource-1?view=netcore-2.1) - [ValueTask\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.valuetask-1?view=netcore-2.1) has existed since .NET Core 1.1 but has gained some super powers in .NET Core 2.1 to allow allocation-free awaitable async operations. See https://github.com/dotnet/corefx/issues/27445 for more details.
 
 ## How do I use Pipelines?
 
