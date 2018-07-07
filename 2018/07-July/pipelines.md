@@ -205,22 +205,20 @@ async Task ProcessLinesAsync(NetworkStream stream)
         }
 
         // Drop fully consumed segments from the list so we don't look at them again
-        var first = true;
         for (var i = bytesConsumedBufferIndex; i >= 0; --i)
         {
-            var segment = segments[i];
-            var consumed = first ? bytesConsumed >= segment.Count : true;
-            if (consumed)
+            var consumedSegment = segments[i];
+            // Return all segments unless this is the current segment
+            if (consumedSegment != segment)
             {
-                ArrayPool<byte>.Shared.Return(segment.Array);
-                segments.Remove(i);
+                ArrayPool<byte>.Shared.Return(consumedSegment.Buffer);
+                segments.RemoveAt(i);
             }
-            first = false;
         }
     }
 }
 
-(int segmentIndex, int segmentOffest) IndexOf(List<BufferSegment> segments, int startBufferIndex, int startSegmentOffset)
+(int segmentIndex, int segmentOffest) IndexOf(List<BufferSegment> segments, byte value, int startBufferIndex, int startSegmentOffset)
 {
     var first = true;
     for (var i = startBufferIndex; i < segments.Count; ++i)
@@ -228,7 +226,7 @@ async Task ProcessLinesAsync(NetworkStream stream)
         var segment = segments[i];
         // Start from the correct offset
         var offset = first ? startSegmentOffset : 0;
-        var index = Array.IndexOf(segment.Buffer, (byte)'\n', offset, segment.Count);
+        var index = Array.IndexOf(segment.Buffer, value, offset, segment.Count);
 
         if (index >= 0)
         {
@@ -279,6 +277,7 @@ async Task FillPipeAsync(Socket socket, PipeWriter writer)
 
     while (true)
     {
+        // Allocate at least 512 bytes from the PipeWriter
         Memory<byte> memory = writer.GetMemory(minimumBufferSize);
         try 
         {
@@ -287,6 +286,7 @@ async Task FillPipeAsync(Socket socket, PipeWriter writer)
             {
                 break;
             }
+            // Tell the PipeWriter how much was read from the Socket
             writer.Advance(bytesRead);
         }
         catch (Exception ex)
@@ -295,6 +295,7 @@ async Task FillPipeAsync(Socket socket, PipeWriter writer)
             break;
         }
 
+        // Make the data available to the PipeReader
         FlushResult result = await writer.FlushAsync();
 
         if (result.IsCompleted)
@@ -303,6 +304,7 @@ async Task FillPipeAsync(Socket socket, PipeWriter writer)
         }
     }
 
+    // Tell the PipeReader that there's no more data coming
     writer.Complete();
 }
 
@@ -317,24 +319,31 @@ async Task ReadPipeAsync(PipeReader reader)
 
         do 
         {
+            // Look for a EOL in the buffer
             position = buffer.PositionOf((byte)'\n');
 
             if (position != null)
             {
+                // Process the line
                 ProcessLine(buffer.Slice(0, position.Value));
+                
+                // Skip the line + the \n character (basically position)
                 buffer = buffer.Slice(buffer.GetPosition(1, position.Value));
             }
         }
         while (position != null);
 
+        // Tell the PipeReader how much of the buffer we have consumed
         reader.AdvanceTo(buffer.Start, buffer.End);
 
+        // Stop reading if there's no more data coming
         if (result.IsCompleted)
         {
             break;
         }
     }
 
+    // Mark the PipeReader as complete
     reader.Complete();
 }
 ```
@@ -349,9 +358,9 @@ Unlike the original examples, there are no explicit buffers allocated anywhere. 
 
 In the first loop, we first call `PipeWriter.GetMemory(int)` to get some memory from the underlying writer; then we call `PipeWriter.Advance(int)` to tell the `PipeWriter` how much data we actually wrote to the buffer. We then call `PipeWriter.FlushAsync()` to make the data available to the `PipeReader`.
 
-In the second loop, we're consuming the buffers written by the `PipeWriter` which ultimately comes from the `Socket`. When the call to `PipeReader.ReadAsync()` returns, we get a `ReadResult` which contains 2 important pieces of information, the data that was read in the form of `ReadOnlySequence<byte>` and a bool `IsCompleted` that lets the reader know if the writer is done writing (EOF). After finding the end of line (EOL) delimiter and parsing the line, we slice the buffer to skip what we've already processed and then we call `PipeReader.AdvanceTo` to tell the `PipeReader` how much data we have both consumed. 
+In the second loop, we're consuming the buffers written by the `PipeWriter` which ultimately comes from the `Socket`. When the call to `PipeReader.ReadAsync()` returns, we get a `ReadResult` which contains 2 important pieces of information, the data that was read in the form of `ReadOnlySequence<byte>` and a bool `IsCompleted` that lets the reader know if the writer is done writing (EOF). After finding the end of line (EOL) delimiter and parsing the line, we slice the buffer to skip what we've already processed and then we call `PipeReader.AdvanceTo` to tell the `PipeReader` how much data we have consumed. 
 
-At the end of each of the loops, we complete both the reader and the writer. This lets the underlying `Pipe` release all of the memory it allocated.
+At the end of each of the loops, we complete both the reader and the writer. This lets the underlying `Pipe` release all of the memory it allocated. 
 
 ## System.IO.Pipelines
 
@@ -399,7 +408,7 @@ string GetAsciiString(ReadOnlySequence<byte> buffer)
 
 ### Back pressure and flow control
 
-In a perfect world, reading & parsing are work as a team: the reading thread consumes the data from the network and puts it in buffers while the parsing thread is responsible for constructing the appropriate data structures. Normally, parsing will take more time than just copying blocks of data from the network. As a result, the reading thread can easily overwhelm the parsing thread. The result is that the reading thread will have to either slow down or allocate more memory to store the data for the parsing thread. For optimal performance, there is a balance between frequent pauses and allocating more memory.
+In a perfect world, reading & parsing work as a team: the reading thread consumes the data from the network and puts it in buffers while the parsing thread is responsible for constructing the appropriate data structures. Normally, parsing will take more time than just copying blocks of data from the network. As a result, the reading thread can easily overwhelm the parsing thread. The result is that the reading thread will have to either slow down or allocate more memory to store the data for the parsing thread. For optimal performance, there is a balance between frequent pauses and allocating more memory.
 
 To solve this problem, the pipe has two settings to control the flow of data, the `PauseWriterThreshold` and the `ResumeWriterThreshold`. The `PauseWriterThreshold` determines how much data should be buffered before calls to `PipeWriter.FlushAsync` pauses. The `ResumeWriterThreshold` controls how much the reader has to consume before writing can resume.
 
@@ -411,7 +420,7 @@ To solve this problem, the pipe has two settings to control the flow of data, th
 
 Usually when using async/await, continuations are called on either on thread pool threads or on the current `SynchronizationContext`. 
 
-When doing IO it's very important to have fine-grained control over where that IO is performed so that one can take advantage of CPU caches more effectively, which is critical for high-performance oriented application, such as web servers. Pipelines exposes a `PipeScheduler` that determines where asynchronous callbacks run. This gives the caller fine-grained control over exactly what threads are used for IO. 
+When doing IO it's very important to have fine-grained control over where that IO is performed so that one can take advantage of CPU caches more effectively, which is critical for high-performance applications like web servers. Pipelines exposes a `PipeScheduler` that determines where asynchronous callbacks run. This gives the caller fine-grained control over exactly what threads are used for IO. 
 
 An example of this in practice is in the Kestrel Libuv transport where IO callbacks run on dedicated event loop threads.
 
