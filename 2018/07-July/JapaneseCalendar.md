@@ -289,8 +289,9 @@ For parsing operations, also ensure that an era is present unless you want all d
 
 ## See also
 
-[The Japanese Calendar's Y2K Moment](https://blogs.msdn.microsoft.com/shawnste/2018/04/12/the-japanese-calendars-y2k-moment/)
-[Testing for New Japanese Era](https://blogs.msdn.microsoft.com/shawnste/2018/01/12/testing-for-new-japanese-era/)
-[Japanese calendar](https://en.wikipedia.org/wiki/Japanese_calendar)
-[Japanese era name](https://en.wikipedia.org/wiki/Japanese_era_name)
-[List of Japanese era names](https://en.wikipedia.org/wiki/List_of_Japanese_era_names)
+[The Japanese Calendar's Y2K Moment](https://blogs.msdn.microsoft.com/shawnste/2018/04/12/the-japanese-calendars-y2k-moment/)  
+[Testing for New Japanese Era](https://blogs.msdn.microsoft.com/shawnste/2018/01/12/testing-for-new-japanese-era/)  
+[Japanese calendar](https://en.wikipedia.org/wiki/Japanese_calendar)  
+[Japanese era name](https://en.wikipedia.org/wiki/Japanese_era_name)  
+[List of Japanese era names](https://en.wikipedia.org/wiki/List_of_Japanese_era_names)  
+[Working with Calendars](https://docs.microsoft.com/en-us/dotnet/standard/datetime/working-with-calendars)  
