@@ -178,7 +178,9 @@ If this behavior is undesirable, you can restore strict era range checks as foll
 "runtimeOptions": {
    "configProperties": {
       "Switch.System.Globalization.EnforceJapaneseEraYearRanges": true
-},
+   },
+   <!-- additional settings -->
+}
 ```
 
 ### The first year of an era
