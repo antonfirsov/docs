@@ -174,12 +174,12 @@ If this behavior is undesirable, you can restore strict era range checks as foll
 
 - **.NET Core**: You can add the following to the .netcore.runtimeconfig.json config file:
 
-   ```json
-   "runtimeOptions": {
-    "configProperties": {
+```json
+"runtimeOptions": {
+   "configProperties": {
       "Switch.System.Globalization.EnforceJapaneseEraYearRanges": true
-   },
-   ```
+},
+```
 
 ### The first year of an era
 
