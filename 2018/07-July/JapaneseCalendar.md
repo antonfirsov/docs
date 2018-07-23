@@ -179,7 +179,7 @@ If this behavior is undesirable, you can restore strict era range checks as foll
    "configProperties": {
       "Switch.System.Globalization.EnforceJapaneseEraYearRanges": true
    },
-   <!-- additional settings -->
+   <!-- other runtimeOptions -->
 }
 ```
 
