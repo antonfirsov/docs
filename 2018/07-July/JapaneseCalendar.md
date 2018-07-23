@@ -178,8 +178,7 @@ If this behavior is undesirable, you can restore strict era range checks as foll
 "runtimeOptions": {
    "configProperties": {
       "Switch.System.Globalization.EnforceJapaneseEraYearRanges": true
-   },
-   <!-- other runtimeOptions -->
+   }
 }
 ```
 
