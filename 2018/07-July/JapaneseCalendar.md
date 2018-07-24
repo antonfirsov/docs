@@ -1,14 +1,14 @@
 # Handling a new era in the Japanese calendar in .NET
 
-Typically, calendar eras represent long time periods. In the Gregorian calendar, for example, the current era spans (as of this year) 2,018 years. In the Japanese calendar, however, a new era begins with the reign of a new emperor. On April 30, 2019, Emperor Akhito is expected to abdicate, which will bring to an end the Heisei era. On the following day, when his successor becomes emperor, a new era in the Japanese calendar will begin. It is the first transition from one era to another in the history of .NET, and the first change of eras in the Japanese calendar since Emperor Akhito's accession in January 1989.
+Typically, calendar eras represent long time periods. In the Gregorian calendar, for example, the current era spans (as of this year) 2,018 years. In the Japanese calendar, however, a new era begins with the reign of a new emperor. On April 30, 2019, Emperor Akihito is expected to abdicate, which will bring to an end the Heisei era. On the following day, when his successor becomes emperor, a new era in the Japanese calendar will begin. It is the first transition from one era to another in the history of .NET, and the first change of eras in the Japanese calendar since Emperor Akihito's accession in January 1989.
 
 ## Calendars in .NET
 
-.NET supports a number of calendar classes, all of which are derived from the base [Calendar class](http://docs.microsoft.com/dotnet/api/system.globalization.calendar). Calendars can be used in either of two ways in .NET. A *supported* calendar is a calendar that can be used by a specific culture and that defines the formatting of dates and times for that culture. One supported calendar is the *default* calendar of a particular culture; it is automatically used as that culture's calendar for culture-aware operations. *Standalone* calendars are used apart from a specific culture by calling members of that [Calendar class](http://docs.microsoft.com/dotnet/api/system.globalization.calendar) directly. All calendars can be used as standalone calendars. Not all calendars can be used as supported calendars, however.
+.NET supports a number of calendar classes, all of which are derived from the base [Calendar class](https://docs.microsoft.com/dotnet/api/system.globalization.calendar). Calendars can be used in either of two ways in .NET. A *supported* calendar is a calendar that can be used by a specific culture and that defines the formatting of dates and times for that culture. One supported calendar is the *default* calendar of a particular culture; it is automatically used as that culture's calendar for culture-aware operations. *Standalone* calendars are used apart from a specific culture by calling members of that [Calendar class](https://docs.microsoft.com/dotnet/api/system.globalization.calendar) directly. All calendars can be used as standalone calendars. Not all calendars can be used as supported calendars, however.
 
-Each [CultureInfo](http://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo) object, which represents a particular culture, has a default calendar, defined by its [Calendar property](http://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo.calendar). The [OptionalCalendars property](http://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo.OptionalCalendars) defines the set of calendars supported by the culture. Any member of this collection can become the current calendar for the culture by assigning it to the [CultureInfo.DateTimeFormat.Calendar](http://docs.microsoft.com/dotnet/api/system.globalization.datetimeformatinfo.calendar) property.
+Each [CultureInfo](https://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo) object, which represents a particular culture, has a default calendar, defined by its [Calendar property](https://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo.calendar). The [OptionalCalendars property](https://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo.OptionalCalendars) defines the set of calendars supported by the culture. Any member of this collection can become the current calendar for the culture by assigning it to the [CultureInfo.DateTimeFormat.Calendar](https://docs.microsoft.com/dotnet/api/system.globalization.datetimeformatinfo.calendar) property.
 
-Each calendar has a [minimum supported date](https://docs.microsoft.com/dotnet/api/system.globalization.calendar.minsupporteddatetime) and a [maximum supported date](https://docs.microsoft.com/dotnet/api/system.globalization.calendar.maxsupporteddatetime). The calendar classes also support eras, which divide the overall time interval supported by the calendar into two more more periods. Most .NET calendars support a single era. The [DateTime constructors](https://docs.microsoft.com/dotnet/api/system.datetime.-ctor) that create a date using a specific calendar assume that that dates belong to the current era.  You can instantiate a date in an era other than the current era by calling an overload of the [Calendar.ToDateTime method](https://docs.microsoft.com/dotnet/api/system.globalization.calendar.todatetime?System_Globalization_Calendar_ToDateTime_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_).
+Each calendar has a [minimum supported date](https://docs.microsoft.com/dotnet/api/system.globalization.calendar.minsupporteddatetime) and a [maximum supported date](https://docs.microsoft.com/dotnet/api/system.globalization.calendar.maxsupporteddatetime). The calendar classes also support eras, which divide the overall time interval supported by the calendar into two or more more periods. Most .NET calendars support a single era. The [DateTime constructors](https://docs.microsoft.com/dotnet/api/system.datetime.-ctor) that create a date using a specific calendar assume that that dates belong to the current era.  You can instantiate a date in an era other than the current era by calling an overload of the [Calendar.ToDateTime method](https://docs.microsoft.com/dotnet/api/system.globalization.calendar.todatetime?System_Globalization_Calendar_ToDateTime_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_).
 
 ## The JapaneseCalendar and JapaneseLunisolarCalendar classes
 
@@ -47,29 +47,25 @@ You can use code like the following to identify instances in which the current s
 using System;
 using System.Globalization;
 
-public class RoundTrip
+public class Example
 {
     public static void Main()
     {
         var ciJapanese = new CultureInfo("ja-JP") {
             DateTimeFormat = { Calendar = new JapaneseCalendar() } };
-
+ 
         // Original user input date string. 
-        string formattedString = "平成 32年2月1日 0:00:00";
+        string formattedString = "平成 32年2月1日 0:00:00";          
 
         // Parse the string to a DateTime object.
         DateTime dt = DateTime.Parse(formattedString, ciJapanese); 
-
-        // original date string containing "平成" era name
-        if (formattedString.IndexOf("平成") >= 0) 
+ 
+        // Get the era name of the parsed DateTime object. 
+        string roundTrippedString = dt.ToString("gg", ciJapanese);  
+        // Check whether the date is formatted using a different era than the original formatted string.
+        if (roundTrippedString.IndexOf("平成") < 0)
         {
-            // Get the era name of the parsed DateTime object. 
-            string roundTrippedString = dt.ToString("gg", ciJapanese);  
-            // Check whether the date is formatted using a different era than the original formatted string.
-            if (roundTrippedString.IndexOf("平成") < 0)
-            {
-                Console.WriteLine("Detected failure in round tripping ");
-            }  
+            Console.WriteLine("Detected failure in round tripping ");
         } 
     }
 }
@@ -188,7 +184,7 @@ Traditionally, the first year of a new Japanese calendar era is called Gannen (�
 
 As part of its enhanced support for Japanese calendar eras, .NET will adopt this convention. However, parsing operations will successfully handle strings that include "1" or "Gannen" as the year component.
 
-The following example displays a date in the first year of the Heisei era. The output from the example illustrates the difference between the current and future handling of the first year of an era by .NET.
+The following example displays a date in the first year of the Heisei era. The output from the example illustrates the difference between the current and future handling of the first year of an era by .NET. As the output from the example illustrates, the .NET formatting routine converts year 1 to Gannen only if the year is followed by the 年 symbol.
 
 ```cs
 using System;
@@ -204,11 +200,11 @@ public class Example
       jaJP.DateTimeFormat.Calendar = cal;
       CultureInfo.CurrentCulture = jaJP;
 
-      Console.WriteLine($"{dat:d}");
+      Console.WriteLine($"{dat:ggy'年'M'月'd'日'}");
    }
 }
-// If run under current .NET implementations: 平成 01/8/18
-// If run after forthcoming updates: 平成 元年 8/18
+// If run under current .NET implementations: 平成1年8月18日
+// If run after forthcoming updates: 平成元年8月18日
 ```
 
 ## Handling Japanese calendar eras effectively
@@ -225,7 +221,7 @@ You can instantiate a date using the date values of the Japanese calendar in any
   
 The .NET calendar classes include a [CurrentEra](https://docs.microsoft.com/dotnet/api/system.globalization.calendar.currentera) property, which indicates the current (or default) era used in interpreting dates expressed in a specific calendar. Its value is the constant 0. It is an index into the [Eras](https://docs.microsoft.com/dotnet/api/system.globalization.calendar.eras) property, which orders eras in reverse chronological order. In other words, the most recent era is always the default era.
 
-When eras can change unexpectedly, calling a date and time instantiation method that relies on the default era can produce an ambiguous date. For example, the following call to the [JapaneseCalendar.ToDateTime method](https://docs.microsoft.com/dotnet/api/system.globalization.calendar.todatetime?System_Globalization_Calendar_ToDateTime_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_) that uses the default era returns different dates depending on whether or not the new era has been defined in the registry:
+When eras can change unexpectedly, calling a date and time instantiation method that relies on the default era can produce an ambiguous date. In the next example, the call to the [JapaneseCalendar.ToDateTime method](https://docs.microsoft.com/dotnet/api/system.globalization.calendar.todatetime?System_Globalization_Calendar_ToDateTime_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_) that uses the default era returns different dates depending on whether or not the new era has been defined in the registry. Note that the output for this and the following example uses the [sortable date/time pattern](https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings#the-sortable-s-format-specifier).
 
 ```cs
 using System;
@@ -237,17 +233,17 @@ public class Example
    {
       var cal = new JapaneseCalendar();
       var dat = cal.ToDateTime(2, 1, 2, 0, 0, 0, 0);
-      Console.WriteLine($"{dat:d}");
+      Console.WriteLine($"{dat:s}");
       dat = new DateTime(2, 1, 2, cal);
-      Console.WriteLine($"{dat:d}");
+      Console.WriteLine($"{dat:s}");
    }
 }
 // Output with the Heisei era current:
-//      1/2/1990
-//      1/2/1990
+//      1990-01-02T00:00:00
+//      1990-01-02T00:00:00
 // Output with the new era current:
-//      1/2/2020
-//      1/2/2020
+//      2020-01-02T00:00:00
+//      2020-01-02T00:00:00
 ```
 
 You can do either of two things to avoid potential ambiguity:
@@ -264,15 +260,15 @@ public class Example
    {
       var cal = new JapaneseCalendar();
       foreach (var era in cal.Eras)
-         Console.WriteLine($"{cal.ToDateTime(2, 1, 2, 0, 0, 0, 0, era):d}");
+         Console.WriteLine($"{cal.ToDateTime(2, 1, 2, 0, 0, 0, 0, era):s}");
    }
 }
 // The example displays the following output:
-//      1/2/2020
-//      1/2/1990
-//      1/2/1927
-//      1/2/1913
-//      1/2/1869
+//      2020-01-02T00:00:00
+//      1990-01-02T00:00:00
+//      1927-01-02T00:00:00
+//      1913-01-02T00:00:00
+//      1869-01-02T00:00:00
 ```
 
 - Instantiate dates in the Gregorian calendar. Use the Japanese calendar or the Japanese Lunisolar calendar only for the string representation of dates.
