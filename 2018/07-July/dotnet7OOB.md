@@ -35,49 +35,49 @@ You can get the update via the Microsoft Update Catalog.
 <td><strong>Windows 8.1<BR>Windows Server 2012 R2</strong></td>
 </tr>
 <tr>
-<td style="padding-left:.5cm">.NET Framework 3.5</td><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346745">Catalog</a><td><a href="https://support.microsoft.com/kb/4346745">4346745</a></td>
+<td style="padding-left:.5cm">.NET Framework 3.5</td><td><strong><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346745">Catalog</a></td><BR><td><a href="https://support.microsoft.com/kb/4346745">4346745</a></td>
 </tr>
 <tr>
-<td style="padding-left:.5cm">.NET Framework 4.5.2</td><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346408">Catalog</a><td><a href="https://support.microsoft.com/kb/4346408">4346408</a></td>
+<td style="padding-left:.5cm">.NET Framework 4.5.2</td><td><strong><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346408">Catalog</a></td><BR><td><a href="https://support.microsoft.com/kb/4346408">4346408</a></td>
 </tr>
 <tr>
-<td style="padding-left:.5cm">.NET Framework 4.6, 4.6.1, 4.6.2, 4.7, 4.7.1, 4.7.1</td><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346406">Catalog</a><td><a href="https://support.microsoft.com/kb/4346406">4346406</a></td>
+<td style="padding-left:.5cm">.NET Framework 4.6, 4.6.1, 4.6.2, 4.7, 4.7.1, 4.7.1</td><td><strong><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346406">Catalog</a></td><BR><td><a href="https://support.microsoft.com/kb/4346406">4346406</a></td>
 </tr>
 <tr>
 <td><strong>Windows Server 2012</strong></td>
 </tr>
 <tr>
-<td style="padding-left:.5cm">.NET Framework 3.5</td><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346742">Catalog</a><td><a href="https://support.microsoft.com/kb/4346742">4346742</a></td>
+<td style="padding-left:.5cm">.NET Framework 3.5</td><td><strong><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346742">Catalog</a></td><BR><td><a href="https://support.microsoft.com/kb/4346742">4346742</a></td>
 </tr>
 <tr>
-<td style="padding-left:.5cm">.NET Framework 4.5.2</td><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346739">Catalog</a><td><a href="https://support.microsoft.com/kb/4346739">4346739</a></td>
+<td style="padding-left:.5cm">.NET Framework 4.5.2</td><td><strong><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346739">Catalog</a></td><BR><td><a href="https://support.microsoft.com/kb/4346739">4346739</a></td>
 </tr>
 <tr>
-<td style="padding-left:.5cm">.NET Framework 4.6, 4.6.1, 4.6.2, 4.7, 4.7.1, 4.7.1</td><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346405">Catalog</a><td><a href="https://support.microsoft.com/kb/4346405">4346405</a></td>
+<td style="padding-left:.5cm">.NET Framework 4.6, 4.6.1, 4.6.2, 4.7, 4.7.1, 4.7.1</td><td><strong><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346405">Catalog</a></td><BR><td><a href="https://support.microsoft.com/kb/4346405">4346405</a></td>
 </tr>
 <tr>
 <td><strong>Windows 7<BR>Windows Server 2008 R2</strong></td>
 </tr>
 <tr>
-<td style="padding-left:.5cm">.NET Framework 3.5.1</td><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346744">Catalog</a><td><a href="https://support.microsoft.com/kb/4346744">4346744</a></td>
+<td style="padding-left:.5cm">.NET Framework 3.5.1</td><td><strong><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346744">Catalog</a></td><BR><td><a href="https://support.microsoft.com/kb/4346744">4346744</a></td>
 </tr>
 <tr>
-<td style="padding-left:.5cm">.NET Framework 4.5.2</td><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346410">Catalog</a><td><a href="https://support.microsoft.com/kb/4346410">4346410</a></td>
+<td style="padding-left:.5cm">.NET Framework 4.5.2</td><td><strong><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346410">Catalog</a></td><BR><td><a href="https://support.microsoft.com/kb/4346410">4346410</a></td>
 </tr>
 <tr>
-<td style="padding-left:.5cm">.NET Framework 4.6, 4.6.1, 4.6.2, 4.7, 4.7.1, 4.7.1</td><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346407">Catalog</a><td><a href="https://support.microsoft.com/kb/4346407">4346407</a></td>
+<td style="padding-left:.5cm">.NET Framework 4.6, 4.6.1, 4.6.2, 4.7, 4.7.1, 4.7.1</td><td><strong><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346407">Catalog</a></td><BR><td><a href="https://support.microsoft.com/kb/4346407">4346407</a></td>
 </tr>
 <tr>
 <td><strong>Windows Server 2008</strong></td>
 </tr>
 <tr>
-<td style="padding-left:.5cm">.NET Framework 2.0</td><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346743">Catalog</a><td><a href="https://support.microsoft.com/kb/4346743">4346743</a></td>
+<td style="padding-left:.5cm">.NET Framework 2.0</td><td><strong><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346743">Catalog</a></td><BR><td><a href="https://support.microsoft.com/kb/4346743">4346743</a></td>
 </tr>
 <tr>
-<td style="padding-left:.5cm">.NET Framework 4.5.2</td><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346410">Catalog</a><td><a href="https://support.microsoft.com/kb/4346410">4346410</a></td>
+<td style="padding-left:.5cm">.NET Framework 4.5.2</td><td><strong><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346410">Catalog</a></td><BR><td><a href="https://support.microsoft.com/kb/4346410">4346410</a></td>
 </tr>
 <tr>
-<td style="padding-left:.5cm">.NET Framework 4.6</td><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346407">Catalog</a><td><a href="https://support.microsoft.com/kb/4346407">4346407</a></td>
+<td style="padding-left:.5cm">.NET Framework 4.6</td><td><strong><a href ="http://www.catalog.update.microsoft.com/Search.aspx?q=4346407">Catalog</a></td><BR><td><a href="https://support.microsoft.com/kb/4346407">4346407</a></td>
 </tr>
 </table>
 
