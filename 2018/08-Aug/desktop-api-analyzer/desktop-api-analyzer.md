@@ -23,9 +23,9 @@ Running the tool will do two things:
 
 The data we are collecting is the same as what is in the spreadsheet. None of your source code or binaries will be sent from your machine to Microsoft.
 
-In order for us to know which APIs our users need, it is useful to run our [Portability Analyzer](https://docs.microsoft.com/en-us/dotnet/standard/analyzers/portability-analyzer) on real Windows Forms and  WPF apps. So we are asking you, our Windows desktop community, to run the tool and help us provide the best possible experience in porting your apps.  You, at the same time, will see how portable your app is right now since the tool generates a list of APIs referenced in your assembly, that might not be supported in .NET Core 3.0.
+In order for us to know which APIs our users need, it is useful to run our [Portability Analyzer](https://docs.microsoft.com/en-us/dotnet/standard/analyzers/portability-analyzer) on real-world Windows Forms and  WPF apps. So we are asking you, our Windows desktop community, to run the tool and help us provide the best possible experience in porting your apps.  You, at the same time, will see how portable your app is right now since the tool generates a list of APIs referenced in your assembly, that might not be supported in .NET Core 3.0.
 
-We will prioritize adding new APIs in .NET Core 3.0 based on information we collect. Please help us help you by making sure your application’s API requirements are represented in the data that we use for prioritization. You need to run Portability Analyzer to ensure that your application is counted.
+We will prioritize adding new APIs in .NET Core 3.0 based on information we collect. Please help us help you by making sure your application’s API requirements are represented in the data that we use for prioritization. Please run the Portability Analyzer to ensure that your application is counted.
 
 ## Using Portability Analyzer
 Use the following instructions to run Portability Analyzer. Note that this tool only runs on Windows. You need to use the console application if you want to run this analysis on macOS or Linux.
