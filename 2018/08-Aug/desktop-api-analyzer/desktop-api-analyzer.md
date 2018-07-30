@@ -71,13 +71,8 @@ steps:
 3. If in Visual Studio, set the project `ApiPort.Offline` as the startup project, or if from command line, go to `bin\[Configuration]\ApiPort.Offline\net46\win7-x64` and run `ApiPort.exe` from this directory.
 4. After using the tool, please [email](mailto:netcore3modernize@microsoft.com) us your reports so we can make sure the "voice" of your applications is heard.
 
-There is a .NET Core build of the offline mode, but HTML reports will not be generated when running on .NET Core. Other than that, the functionality is expected to be the same.
-
-
-
-
 ## Summary
-Please download and use Portability Analyzer on your desktop applications. It will help you determine how compatible your apps are with .NET Core 3.0. This information will help us plan the 3.0 release with the goal of making it easy for you to adopt .NET Core 3.0 for desktop apps.
+Please [download](https://github.com/OliaG/dotnet-apiport-ui/releases/download/1.0.0/PortabilityAnalyzer.zip) and use Portability Analyzer on your desktop applications. It will help you determine how compatible your apps are with .NET Core 3.0. This information will help us plan the 3.0 release with the goal of making it easy for you to adopt .NET Core 3.0 for desktop apps.
 
 [![Download](download-icon.png)](https://github.com/OliaG/dotnet-apiport-ui/releases/download/1.0.0/PortabilityAnalyzer.zip) [**Download Portability Analyzer**](https://github.com/OliaG/dotnet-apiport-ui/releases/download/1.0.0/PortabilityAnalyzer.zip) **(2.58 MB)** 
 
