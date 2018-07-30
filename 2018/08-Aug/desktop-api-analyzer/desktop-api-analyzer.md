@@ -5,11 +5,11 @@
 
 ## TL;DR
 
-As we [announced](https://blogs.msdn.microsoft.com/dotnet/2018/05/07/net-core-3-and-support-for-windows-desktop-applications/) at Build 2018 we are enabling Windows desktop applications (Windows Forms, Windows Presentation Framework (WPF), and UWP XAML) with .NET Core 3.0. You will be able to run new and existing Windows desktop applications on .NET Core and enjoy all the benefits that .NET Core has to offer, such as application-local deployment and improved performance.
+At Build 2018 we [announced](https://blogs.msdn.microsoft.com/dotnet/2018/05/07/net-core-3-and-support-for-windows-desktop-applications/) that we are enabling Windows desktop applications (Windows Forms and Windows Presentation Framework (WPF)) with .NET Core 3.0. You will be able to run new and existing Windows desktop applications on .NET Core and enjoy all the benefits that .NET Core has to offer, such as application-local deployment and improved performance.
 
 It is important that .NET Core 3.0 includes all the APIs that your applications depend on. We are releasing a Portability Analyzer that will report the set of APIs referenced in your apps that are not yet available in NET Core 3.0. This API list will be sent to Microsoft and will help us prioritize which APIs we should incorporate to the product before it ships.
 
-Please [download](https://download.sysinternals.com/files/ProcessExplorer.zip) and run the tool (*PortabilityAnalyzer.exe*) on your Windows Forms and WPF apps to see how ready your apps are for .NET Core 3.0 and to help us shape the .NET Core 3.0 API set.
+Please [download](https://github.com/OliaG/dotnet-apiport-ui/releases/download/1.0.0/PortabilityAnalyzer.zip) and run the tool (*PortabilityAnalyzer.exe*) on your Windows Forms and WPF apps to see how ready your apps are for .NET Core 3.0 and to help us shape the .NET Core 3.0 API set.
 
 ## Introducing Portability Analyzer
 
