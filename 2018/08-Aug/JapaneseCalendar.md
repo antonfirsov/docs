@@ -1,6 +1,6 @@
 # Handling a new era in the Japanese calendar in .NET
 
-Typically, calendar eras represent long time periods. In the Gregorian calendar, for example, the current era spans (as of this year) 2,018 years. In the Japanese calendar, however, a new era begins with the reign of a new emperor. On April 30, 2019, Emperor Akihito is expected to abdicate, which will bring to an end the Heisei era. On the following day, when his successor becomes emperor, a new era in the Japanese calendar will begin. It is the first transition from one era to another in the history of .NET, and the first change of eras in the Japanese calendar since Emperor Akihito's accession in January 1989.
+Typically, calendar eras represent long time periods. In the Gregorian calendar, for example, the current era spans (as of this year) 2,018 years. In the Japanese calendar, however, a new era begins with the reign of a new emperor. On April 30, 2019, Emperor Akihito is expected to abdicate, which will bring to an end the Heisei era. On the following day, when his successor becomes emperor, a new era in the Japanese calendar will begin. It is the first transition from one era to another in the history of .NET, and the first change of eras in the Japanese calendar since Emperor Akihito's accession in January 1989. In this blog post, I'll discuss how eras work in general in .NET, how you can determine whether your application is affected by the era change, and what you as a developer have to doto make sure your application handles the upcoming Japanese era changes successfully.
 
 ## Calendars in .NET
 
@@ -25,7 +25,9 @@ Note that, with the exception of the "g" or "gg" custom format specifier, any un
 
 ## Testing era changes on Windows
 
-The best way to determine whether your applications are affected by the new era is to test them in advance with the new era in place. This is possible for .NET Framework 4.x apps and for .NET Core apps on Windows systems, where era information for the Japanese calendars is stored as a set of REG_SZ values in the HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Nls\\Calendars\\Japanese\\Eras key of the system registry. For example, the following figure shows the definition of the Heisei era in the Japanese calendar.
+The best way to determine whether your applications are affected by the new era is to test them in advance with the new era in place. You can do this immediately for .NET Framework 4.x apps and for .NET Core apps running on Windows systems. For .NET Core apps on other platforms, you'll have to wait until the ICU globalization library is updated; see the [Updating data sources](#updating-data-sources) section for more information.
+
+For .NET Framework 4.x apps and for .NET Core apps on Windows systems, era information for the Japanese calendars is stored as a set of REG_SZ values in the HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Nls\\Calendars\\Japanese\\Eras key of the system registry. For example, the following figure shows the definition of the Heisei era in the Japanese calendar.
 
 ![The Heisei era in the Windows registry](./heisei-era.png)
 
@@ -41,7 +43,7 @@ Since the new era name has not been announced, you can use question marks as a p
 "2019 05 01"="？？_？_??????_?"
 ```
 
-You can use code like the following to identify instances in which the current string representation of a date and time in a Japanese calendar will differ from its string representation after the introduction of the new era:
+Once the new era information is in place on any system running .NET, you can use code like the following to identify instances in which the current string representation of a date and time in a Japanese calendar will differ from its string representation after the introduction of the new era:
 
 ```cs
 using System;
@@ -71,7 +73,7 @@ public class Example
 }
 ```
 
-Note that the new era will begin on May 1, 2019, and the Japanese government is expected to announce the official name of the new era on about April 1, 2019. A window of approximately one month leaves very little time to test, detect bugs, troubleshoot, and address bugs. It is important that applications be adequately tested well in advance of that date.
+Note that the new era will begin on May 1, 2019, and the Japanese government is expected to announce the official name of the new era on about April 1, 2019. A window of approximately one month leaves very little time to test, detect bugs, troubleshoot, and address bugs. It is important that applications be adequately tested well in advance of the beginning of the new era.
 
 ## .NET changes to support the new era
 
@@ -282,6 +284,16 @@ A basic problem of calendars that can add new eras is that you can't be certain 
 Because dates can be ambiguous, you should always format a date value with its era. This is the default behavior of the [standard date and time format strings](https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings). If you are using a [custom date and time format string](https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings), be sure to include the ["g" or "gg"](https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings#the-g-or-gg-custom-format-specifier) custom format specifier. Conventionally, the era precedes the other date components in the string representation of a Japanese calendar date.
 
 For parsing operations, also ensure that an era is present unless you want all dates and times to default to the current era.
+
+## A call to action
+
+The introduction of a new era in the Japanese calendar poses challenges for any application that uses either the [JapaneseCalendar](https://docs.microsoft.com/dotnet/api/system.globalization.japanesecalendar) or the [JapaneseLunisolarCalendar](https://docs.microsoft.com/dotnet/api/system.globalization.japaneselunisolarcalendar). We've discussed how eras work with calendars and dates and times in .NET, how .NET applications will be updated to use the new era, how .NET APIs are changing to help you handle the Japanese era change, and what you can do as a developer to test your application and minimize the effect of future era changes. Above all, we recommend that you:
+
+- Determine whether your applications are affected by the Japanese era change. All applications that use the [JapaneseCalendar](https://docs.microsoft.com/dotnet/api/system.globalization.japanesecalendar) and the [JapaneseLunisolarCalendar](https://docs.microsoft.com/dotnet/api/system.globalization.japaneselunisolarcalendar) classes may be affected.
+
+- Test your application to determine whether it can handle all dates, and particularly dates that exceed the range of the current Japanese calendar era.
+
+- Adopt the practices outlined in the [Handling Japanese calendar eras effectively](#handling-japanese-calendar-eras-effectively) section to ensure that you can handle era changes effectively.
 
 ## See also
 
