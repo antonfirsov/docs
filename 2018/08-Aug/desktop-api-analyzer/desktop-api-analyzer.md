@@ -1,7 +1,7 @@
 # Are your Windows Forms and WPF applications ready for .NET Core 3.0?
 *By Olia Gavrysh*
 
-[![Download](download-icon.png)](https://github.com/OliaG/dotnet-apiport-ui/releases/download/1.0.0/PortabilityAnalyzer.zip) [**Download Portability Analyzer**](https://github.com/OliaG/dotnet-apiport-ui/releases/download/1.0.0/PortabilityAnalyzer.zip) **(2.58 MB)**  
+[![Download](download-icon.png)](https://github.com/OliaG/dotnet-apiport-ui/releases/download/1.0.0/PortabilityAnalyzer.zip) [**Download Portability Analyzer**](https://github.com/OliaG/dotnet-apiport-ui/releases/download/1.0.0/PortabilityAnalyzer.zip) **(2.37 MB)**  
 
 ## TL;DR
 
@@ -18,8 +18,8 @@ The Portability Analyzer is an [open source tool](https://github.com/Microsoft/d
 ![Screenshot showing Portability Analyzer UI](UI.jpg)
 
 Running the tool will do two things:
-* Generate an Excel spreadsheet that will report the level of compatibility that your project has with .NET Core 3.0, including the specific APIs that are needed.
-* Send this same data to the .NET team at Microsoft so that we can determine which APIs are needed by the most people.
+1. Generate an Excel spreadsheet that will report the level of compatibility that your project has with .NET Core 3.0, including the specific APIs that are currently unsupported.
+2. Send this same data to the .NET team at Microsoft so that we can determine which APIs are needed by the most people.
 
 The data we are collecting is the same as what is in the spreadsheet. None of your source code or binaries will be sent from your machine to Microsoft.
 
@@ -28,20 +28,22 @@ In order for us to know which APIs our users need, it is useful to run our [Port
 We will prioritize adding new APIs in .NET Core 3.0 based on information we collect. Please help us help you by making sure your application’s API requirements are represented in the data that we use for prioritization. Please run the Portability Analyzer to ensure that your application is counted.
 
 ## Using Portability Analyzer
-Use the following instructions to run Portability Analyzer. Note that this tool only runs on Windows. You need to use the console application if you want to run this analysis on macOS or Linux.
+Use the following instructions to run Portability Analyzer.
 1.	Extract archive anywhere on your local disk.
 2.	Run *PortabilityAnalyzer.exe*
 3.	In the **Path to application** text box enter the directory path to your Windows Forms or WPF app (either by inserting a path string or clicking on **Browse** button and navigating to the folder).
 4.	Click **Analyze** button.
-5.	After the analysis is complete, a report of how portable your app is right now to .NET Core 3.0 will be saved to your disc. You can open it in Excel by clicking **Open report** button.
+5.	After the analysis is complete, a report of how portable your app is right now to .NET Core 3.0 will be saved to your disc. You can open it in Excel by clicking **Open Report** button.
+
+Below is an example of the report you're getting after running the tool for the popular Paint.NET application:
 
 ![Screenshot showing portability report](port-report.jpg)
 
-## Using console version
+## Using the console-based version
 
 If you would like to run the analysis for many applications, you can either run them one by one as described above or you can use the console version of the Portability Analyzer.
 
-> *Note that in this case you will get one report. You still will see the percentage of portability per each assembly but all missing APIs will be merged in one report list*
+> *Note that you will get one report per invocation of the ApiPort.exe tool. If you prefer to get one report per application, you can automate the invocation either using `for` in Batch or the `ForEach` mechanism in PowerShell.
 
 To run the console app:
 
@@ -61,19 +63,16 @@ You can find the portability report saved as an Excel file (`.xlsx`) in your cur
 
 ## Using Portability Analyzer offline
 
-Another option is to enable full offline access. This mode will not get
-automatic updates and no official releases of it are available. In order to use
-this mode, the solution must be manually built. To do so, please follow these
-steps:
+Another option is to enable full offline access. We currently do not offer binaries for this, so in order to use the tool you'll need to build Portability Analyzer yourself from the source code that is available on [GitHub](https://github.com/Microsoft/dotnet-apiport). To do so, please follow these steps:
 
 1. Clone the project: `git clone https://github.com/Microsoft/dotnet-apiport`
-2. Compile using the `build.cmd` or `build.sh` script as normal
+2. Compile using the `build.cmd` script as normal
 3. If in Visual Studio, set the project `ApiPort.Offline` as the startup project, or if from command line, go to `bin\[Configuration]\ApiPort.Offline\net46\win7-x64` and run `ApiPort.exe` from this directory.
 4. After using the tool, please [email](mailto:netcore3modernize@microsoft.com) us your reports so we can make sure the "voice" of your applications is heard.
 
 ## Summary
 Please [download](https://github.com/OliaG/dotnet-apiport-ui/releases/download/1.0.0/PortabilityAnalyzer.zip) and use Portability Analyzer on your desktop applications. It will help you determine how compatible your apps are with .NET Core 3.0. This information will help us plan the 3.0 release with the goal of making it easy for you to adopt .NET Core 3.0 for desktop apps.
 
-[![Download](download-icon.png)](https://github.com/OliaG/dotnet-apiport-ui/releases/download/1.0.0/PortabilityAnalyzer.zip) [**Download Portability Analyzer**](https://github.com/OliaG/dotnet-apiport-ui/releases/download/1.0.0/PortabilityAnalyzer.zip) **(2.58 MB)** 
+[![Download](download-icon.png)](https://github.com/OliaG/dotnet-apiport-ui/releases/download/1.0.0/PortabilityAnalyzer.zip) [**Download Portability Analyzer**](https://github.com/OliaG/dotnet-apiport-ui/releases/download/1.0.0/PortabilityAnalyzer.zip) **(2.37 MB)** 
 
 Thank you in advance for your help!
