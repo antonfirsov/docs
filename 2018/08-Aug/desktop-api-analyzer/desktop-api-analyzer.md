@@ -37,13 +37,13 @@ Below is an example of the report you're getting after running the tool for the 
 
 ![Screenshot showing portability report](port-report.jpg)
 
-> In your report you might have a tab "Missing Assemblies". It means that the analyzer could not find the source assemblies that are referenced in your application. Make sure to find those assemblies and add them to the folder you're analyzing. Otherwise you won't get the full picture of your application.
+> *In your report you might have a tab "Missing Assemblies". It means that the analyzer could not find the source assemblies that are referenced in your application. Make sure to find those assemblies and add them to the folder you're analyzing. Otherwise you won't get the full picture of your application.*
 
 ## Using the console-based version
 
 If you would like to run the analysis for many applications, you can either run them one by one as described above or you can use the console version of the Portability Analyzer.
 
-> *Note that you will get one report per invocation of the ApiPort.exe tool. If you prefer to get one report per application, you can automate the invocation either using `for` in Batch or the `ForEach` mechanism in PowerShell.
+> *Note that you will get one report per invocation of the ApiPort.exe tool. If you prefer to get one report per application, you can automate the invocation either using `for` in Batch or the `ForEach` mechanism in PowerShell.*
 
 To run the console app:
 
