@@ -37,7 +37,7 @@ Below is an example of the report you're getting after running the tool for the 
 
 ![Screenshot showing portability report](port-report.jpg)
 
-> In your report you might have a tab "Missing Assemblies". It means that the analyzer could not find the source assemblies that are referenced in your application. It is better to resolve those conflicts. Make sure you are not forgetting to add resources or remove obsolete references.
+> In your report you might have a tab "Missing Assemblies". It means that the analyzer could not find the source assemblies that are referenced in your application. Make sure to find those assemblies and add them to the folder you're analyzing. Otherwise you won't get the full picture of your application.
 
 ## Using the console-based version
 
@@ -61,6 +61,7 @@ https://github.com/Microsoft/dotnet-apiport/releases/download/2.5.0-alpha/ApiPor
 
 You can find the portability report saved as an Excel file (`.xlsx`) in your current directory.
 
+<!--
 ## Using Portability Analyzer offline
 
 Another option is to enable full offline access. We currently do not offer binaries for this, so in order to use the tool you'll need to build Portability Analyzer yourself from the source code that is available on [GitHub](https://github.com/Microsoft/dotnet-apiport). To do so, please follow these steps:
@@ -69,6 +70,7 @@ Another option is to enable full offline access. We currently do not offer binar
 2. Compile using the `build.cmd` script as normal
 3. If in Visual Studio, set the project `ApiPort.Offline` as the startup project, or if from command line, go to `bin\[Configuration]\ApiPort.Offline\net46\win7-x64` and run `ApiPort.exe` from this directory.
 4. After using the tool, please [email](mailto:netcore3modernize@microsoft.com) us your reports so we can make sure the "voice" of your applications is heard.
+-->
 
 ## Summary
 Please [download](https://github.com/OliaG/dotnet-apiport-ui/releases/download/1.0.0/PortabilityAnalyzer.zip) and use Portability Analyzer on your desktop applications. It will help you determine how compatible your apps are with .NET Core 3.0. This information will help us plan the 3.0 release with the goal of making it easy for you to adopt .NET Core 3.0 for desktop apps.
