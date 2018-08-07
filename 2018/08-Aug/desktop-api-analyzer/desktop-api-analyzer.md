@@ -3,8 +3,6 @@
 
 [![Download](download-icon.png)](https://github.com/OliaG/dotnet-apiport-ui/releases/download/1.0.0/PortabilityAnalyzer.zip) [**Download Portability Analyzer**](https://github.com/OliaG/dotnet-apiport-ui/releases/download/1.0.0/PortabilityAnalyzer.zip) **(2.37 MB)**  
 
-## TL;DR
-
 At Build 2018 we [announced](https://blogs.msdn.microsoft.com/dotnet/2018/05/07/net-core-3-and-support-for-windows-desktop-applications/) that we are enabling Windows desktop applications (Windows Forms and Windows Presentation Framework (WPF)) with .NET Core 3.0. You will be able to run new and existing Windows desktop applications on .NET Core and enjoy all the benefits that .NET Core has to offer, such as application-local deployment and improved performance.
 
 It is important that .NET Core 3.0 includes all the APIs that your applications depend on. We are releasing a Portability Analyzer that will report the set of APIs referenced in your apps that are not yet available in NET Core 3.0. This API list will be sent to Microsoft and will help us prioritize which APIs we should incorporate to the product before it ships.
@@ -23,7 +21,7 @@ Running the tool will do two things:
 
 The data we are collecting is the same as what is in the spreadsheet. None of your source code or binaries will be sent from your machine to Microsoft.
 
-In order for us to know which APIs our users need, it is useful to run our [Portability Analyzer](https://docs.microsoft.com/en-us/dotnet/standard/analyzers/portability-analyzer) on real-world Windows Forms and  WPF apps. So we are asking you, our Windows desktop community, to run the tool and help us provide the best possible experience in porting your apps.  You, at the same time, will see how portable your app is right now since the tool generates a list of APIs referenced in your assembly, that might not be supported in .NET Core 3.0.
+In order for us to know which APIs our users need, we are asking you to run the tool which will help us to provide the best possible experience in porting your apps.  You, at the same time, will see how portable your apps are right now since the tool generates a list of APIs referenced in your assemblies, that might not be supported in .NET Core 3.0.
 
 We will prioritize adding new APIs in .NET Core 3.0 based on information we collect. Please help us help you by making sure your application’s API requirements are represented in the data that we use for prioritization. Please run the Portability Analyzer to ensure that your application is counted.
 
@@ -38,6 +36,8 @@ Use the following instructions to run Portability Analyzer.
 Below is an example of the report you're getting after running the tool for the popular Paint.NET application:
 
 ![Screenshot showing portability report](port-report.jpg)
+
+> In your report you might have a tab "Missing Assemblies". It means that the analyzer could not find the source assemblies that are referenced in your application. It is better to resolve those conflicts. Make sure you are not forgetting to add resources or remove obsolete references.
 
 ## Using the console-based version
 
