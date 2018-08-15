@@ -40,7 +40,7 @@ We use `ldftn` + `calli` in lieu of delegates (which incur an object allocation)
 
 A common operation in a front-end stack is search for ':', '/', '/' in a string to delimit portions of a URL. This special-casing improvement was beneficial throughout the codebase.
 
-In addition to the runtime changes, .NET Core 2.1 also brought [Brotli](https://github.com/google/brotli) support to the .NET Library ecosystem. Bing.com uses this capability to dynamically compress the content and deliver a fast user experience! As more users upgrade their browsers to modern verions a larger percentage of Bing.com users will receive Brotli-compressed content.
+In addition to the runtime changes, .NET Core 2.1 also brought [Brotli](https://github.com/google/brotli) support to the .NET Library ecosystem. Bing.com uses this capability to dynamically compress the content and deliver a fast user experience! As more users upgrade their browsers to modern verions a growing percentage of Bing.com users will receive Brotli-compressed content.
 
 ## Runtime Agility ##
 
