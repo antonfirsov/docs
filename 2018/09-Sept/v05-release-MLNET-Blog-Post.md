@@ -15,32 +15,57 @@ This blog post provides details about the following topics:
 
 ## Added a TensorFlow model scoring transform (TensorFlowTransform)
 
-* [TensorFlow](https://www.tensorflow.org/) is a popular machine learning
+[TensorFlow](https://www.tensorflow.org/) is a popular machine learning
       toolkit that enables training deep neural networks (and general numeric
       computations).
-* This transform enables taking an existing TensorFlow model, either
+
+The `TensorFlowTransform` enables taking an existing TensorFlow model, either
       trained by you or downloaded from somewhere else, and get the scores
       from the model in ML.NET.
-* For now, these scores can be used within a `LearningPipeline` as inputs
-      to a learner. However, with the upcoming ML.NET APIs, the scores from
-      the TensorFlow model will be directly accessible.
-* The implementation of this transform is based on code from
-      [TensorFlowSharp](https://github.com/migueldeicaza/TensorFlowSharp).
-* Example usage of the transform with the existing `LearningPipeline` API
-      can be found
-      [here](https://github.com/dotnet/machinelearning/blob/6ac380a4d3f44ee7b015461f74c4298b0ed5184b/test/Microsoft.ML.Tests/Scenarios/TensorflowTests.cs)
-* In the future, we will add functionality in ML.NET to enable identifying
-      the expected inputs and outputs of TensorFlow models. For now, the
-      TensorFlow APIs or a tool like
-      [Netron](https://github.com/lutzroeder/Netron) can be used.
+
+The implementation of this transform is based on code from [TensorFlowSharp](https://github.com/migueldeicaza/TensorFlowSharp).
 
 
+In the following code snippet you can see how you can use the TensorFlow transform in the ML.NET pipeline:
+
+```cs
+
+// ... Additional transformations in the pipeline code
+
+pipeline.Add(new TensorFlowScorer()
+{
+    ModelFile = "model/tensorflow_inception_graph.pb",   // Example using the Inception v3 TensorFlow model
+    InputColumns = new[] { "input" },                    // Name of input in the TensorFlow model
+    OutputColumn = "softmax2_pre_activation"             // Name of output in the TensorFlow model
+});
+
+// ... Additional code specifying a learner and training process for the ML.NET model
+
+```
+
+This example uses the pre-trained TensorFlow model named Inception v3, available [here](https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip). 
+
+In next releases, we will add functionality in ML.NET to enable identifying the expected inputs and outputs of TensorFlow models. For now, you can use the TensorFlow APIs or a tool like [Netron](https://github.com/lutzroeder/Netron) to explore the TensorFlow model.
+
+If you open the model with [Netron](https://github.com/lutzroeder/Netron) and explore the model's graph, you can see how it correlates the `InputColumn` with the node's `input` at the begining of the graph:
+
+![TensorFlow model's input in graph](v05-release-MLNET-Blog-Post-IMAGES/Input-Node-TF-Model.png)
+
+And how the `OutputColumn` correlates with `softmax2_pre_activation` node's output almost at the end of the graph.
+
+![TensorFlow model's input in graph](v05-release-MLNET-Blog-Post-IMAGES/Output-Node-TF-Model.png)
+
+For now, these scores (numeric vectors) can be used within a `LearningPipeline` as inputs to a learner like a classifier learner. However, with the upcoming ML.NET APIs, the scores from the TensorFlow model will be directly accessible, so you could simply score with the TensorFlow model without need to add any additional learner.
+
+Additional deeper example code usage of the transform with the existing `LearningPipeline` API can be found [here](https://github.com/dotnet/machinelearning/blob/6ac380a4d3f44ee7b015461f74c4298b0ed5184b/test/Microsoft.ML.Tests/Scenarios/TensorflowTests.cs)
 
 
 
 ## New API proposal exploration for you to provide feedback
 
 TBD
+
+
 
 
 ## Help shape ML.NET for your needs
@@ -53,6 +78,54 @@ This blog was authored by Cesar de la Torre, Gal Oshri, John Alexander and Ankit
 
 Thanks,
 ML.NET Team
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
 
 ---------------------------------------------------------
 
