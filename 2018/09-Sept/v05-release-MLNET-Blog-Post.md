@@ -46,11 +46,11 @@ pipeline.Add(new TensorFlowScorer()
 
 ```
 
-The code example above uses the pre-trained TensorFlow model named Inception v3, available [here](https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip). 
+The code example above uses the pre-trained TensorFlow model named *Inception v3*, available [here](https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip). 
 
 In next releases, we will add functionality in ML.NET to enable identifying the expected inputs and outputs of TensorFlow models. For now, you can use the TensorFlow APIs or a tool like [Netron](https://github.com/lutzroeder/Netron) to explore the TensorFlow model.
 
-If you open the model with [Netron](https://github.com/lutzroeder/Netron) and explore the model's graph, you can see how it correlates the `InputColumn` with the node's `input` at the begining of the graph:
+If you open the previous sample TensorFlow model file (`tensorflow_inception_graph.pb`) with [Netron](https://github.com/lutzroeder/Netron) and explore the model's graph, you can see how it correlates the `InputColumn` with the node's `input` at the begining of the graph:
 
 ![TensorFlow model's input in graph](v05-release-MLNET-Blog-Post-IMAGES/Input-Node-TF-Model.png)
 
@@ -58,9 +58,9 @@ And how the `OutputColumn` correlates with `softmax2_pre_activation` node's outp
 
 ![TensorFlow model's input in graph](v05-release-MLNET-Blog-Post-IMAGES/Output-Node-TF-Model.png)
 
-*Important note:* For now and when using the "pipeline" API, these scores can only be used within a `LearningPipeline` as inputs (numeric vectors)  to a learner like a classifier learner. However, with the upcoming ML.NET APIs, the scores from the TensorFlow model will be directly accessible, so you could simply score with the TensorFlow model without needing to add any additional learner.
+*Important note:* For now (when using the "pipeline" API), these scores can only be used within a `LearningPipeline` as inputs (numeric vectors)  to a learner like a classifier learner. However, with the upcoming new ML.NET APIs, the scores from the TensorFlow model will be directly accessible, so you could simply score with the TensorFlow model without needing to add any additional learner and train process.
 
-Additional deeper example code usage of the transform with the existing `LearningPipeline` API can be found [here](https://github.com/dotnet/machinelearning/blob/6ac380a4d3f44ee7b015461f74c4298b0ed5184b/test/Microsoft.ML.Tests/Scenarios/TensorflowTests.cs).
+You can find [here](https://github.com/dotnet/machinelearning/blob/6ac380a4d3f44ee7b015461f74c4298b0ed5184b/test/Microsoft.ML.Tests/Scenarios/TensorflowTests.cs) an additional and complete code example using the `TensorFlowTransform` with the existing `LearningPipeline` API.
 
 
 
