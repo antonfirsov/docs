@@ -8,9 +8,9 @@ As part of the upcoming road in ML.NET, we really want your feedback on making M
 
 This blog post provides details about the following topics in ML.NET:
 
-* Added a TensorFlow model scoring transform (TensorFlowTransform) to ML.NET v0.5
+* [Added a TensorFlow model scoring transform (TensorFlowTransform) to ML.NET v0.5](http://TBD-Set-Local-URL)
 
-* New API proposal exploration for you to provide feedback for upcoming versions
+* [New API proposal exploration for you to provide feedback for upcoming versions](http://TBD-Set-Local-URL)
 
 
 ## Added a TensorFlow model scoring transform (TensorFlowTransform)
