@@ -6,11 +6,11 @@ Today we are happy to announce the latest version: **ML.NET 0.5**. In this relea
 
 As part of the upcoming road in ML.NET, we really want your feedback on making ML.NET easier to use. We are working on a new API which improves flexibility and ease of use. When the new API is ready and good enough, we plan to deprecate the current “pipeline” API. Because this will be a significant change we want to share our proposals for the multiple API options and comparisons at the end of this blog post and start an open discussion with you where you can provide your feedback and help shape the long-term API for ML.NET.
 
-This blog post provides details about the following topics:
+This blog post provides details about the following topics in ML.NET:
 
-* Added a TensorFlow model scoring transform (TensorFlowTransform)
+* Added a TensorFlow model scoring transform (TensorFlowTransform) to ML.NET v0.5
 
-* New API proposal exploration for you to provide feedback
+* New API proposal exploration for you to provide feedback for upcoming versions
 
 
 ## Added a TensorFlow model scoring transform (TensorFlowTransform)
@@ -19,7 +19,7 @@ This blog post provides details about the following topics:
       toolkit that enables training deep neural networks (and general numeric
       computations).
 
-The `TensorFlowTransform` enables taking an existing TensorFlow model, either
+`TensorFlowTransform` enables taking an existing TensorFlow model, either
       trained by you or downloaded from somewhere else, and get the scores
       from the model in ML.NET.
 
@@ -43,7 +43,7 @@ pipeline.Add(new TensorFlowScorer()
 
 ```
 
-This example uses the pre-trained TensorFlow model named Inception v3, available [here](https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip). 
+The code example above uses the pre-trained TensorFlow model named Inception v3, available [here](https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip). 
 
 In next releases, we will add functionality in ML.NET to enable identifying the expected inputs and outputs of TensorFlow models. For now, you can use the TensorFlow APIs or a tool like [Netron](https://github.com/lutzroeder/Netron) to explore the TensorFlow model.
 
@@ -55,9 +55,9 @@ And how the `OutputColumn` correlates with `softmax2_pre_activation` node's outp
 
 ![TensorFlow model's input in graph](v05-release-MLNET-Blog-Post-IMAGES/Output-Node-TF-Model.png)
 
-For now, these scores (numeric vectors) can be used within a `LearningPipeline` as inputs to a learner like a classifier learner. However, with the upcoming ML.NET APIs, the scores from the TensorFlow model will be directly accessible, so you could simply score with the TensorFlow model without need to add any additional learner.
+For now, these scores (numeric vectors) can be used within a `LearningPipeline` as inputs to a learner like a classifier learner. However, with the upcoming ML.NET APIs, the scores from the TensorFlow model will be directly accessible, so you could simply score with the TensorFlow model without needing to add any additional learner.
 
-Additional deeper example code usage of the transform with the existing `LearningPipeline` API can be found [here](https://github.com/dotnet/machinelearning/blob/6ac380a4d3f44ee7b015461f74c4298b0ed5184b/test/Microsoft.ML.Tests/Scenarios/TensorflowTests.cs)
+Additional deeper example code usage of the transform with the existing `LearningPipeline` API can be found [here](https://github.com/dotnet/machinelearning/blob/6ac380a4d3f44ee7b015461f74c4298b0ed5184b/test/Microsoft.ML.Tests/Scenarios/TensorflowTests.cs).
 
 
 
