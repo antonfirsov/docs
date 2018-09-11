@@ -71,7 +71,7 @@ As mentioned at the begining of this blog post, we are really looking forward to
 
 ### Why ML.NET is switching from the "pipeline" API to a new API?
 
-As part of crafting process in the preview versions (remember that ML.NET is still in early previews), we've been getting feedback about the "pipeline" API and discovered quite a few limitations we need to address by creating a more flexible API.
+As part of the process of crafting the preview versions (remember that ML.NET is still in early previews), we've been getting feedback about the "pipeline" API and discovered quite a few limitations we need to address by creating a more flexible API.
 
 Specifically, new capabilities provided by the new API which are not possible with the "pipeline" API are the following: 
 
