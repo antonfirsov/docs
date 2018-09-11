@@ -1,10 +1,11 @@
-# Announcing EF Core 2.2 Preview 2 and the preview of the Cosmos DB provider and spatial extensions for EF Core
+# Announcing Entity Framework Core 2.2 Preview 2 and the preview of the Cosmos DB provider and spatial extensions for EF Core
 
-Today we are happy to make EF Core 2.2 Preview 2 available, together with a preview of our data provider for Cosmos DB and spatial extensions for the SQL Server and SQLite providers.
+Today we are making EF Core 2.2 Preview 2 available, together with a preview of our data provider for Cosmos DB and spatial extensions for our SQL Server and SQLite providers.
+The preview bits are available on NuGet, and also as part of [ASP.NET Core 2.2 Preview 2](tbd) and the [.NET Core SDK 2.2 Preview 2](tbd), also releasing today.
 
-## EF Core 2.2 Preview 2
-There are many bug fixes but only a relatively small number of new features planned for EF Core 2.2.
-You can obtain the new packages in NuGet, as part of the [ASP.NET Core 2.2 Preview 2](tbd) or with the preview version of the [.NET Core SDK](tbd).
+## Obtaining the preview
+
+If you are working on an application based on ASP.NET Core, we recommend you upgrade to ASP.NET Core 2.2 Preview 2 following the recommended steps in the [announcement](tbd). The SQL Server or the in-memory providers are included in ASP.NET Core. For other providers, you will need to install the corresponding NuGet package as described next.
 
 To add for example the 2.2 Preview 2 version of the SQL Server provider in a .NET Core library or application from the command line, use:  
 
@@ -18,35 +19,43 @@ Or from the Package Manager Console in Visual Studio:
 PM> Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 2.2.0-preview2-tbd
 ```
 
-### What is new in this preview?
+The Cosmos DB provider and the Spatial extension ship as separate new NuGet packages. We explain how to get started with them in the respective feature descriptions.  
 
-- Collections of owned entities
+For a more detailed explanation of the setup process see [Installing Entity Framework Core in our documentation](https://docs.microsoft.com/ef/core/get-started/install/).
 
-- Tagged queries
+## What is new in this preview?
+As we explained in [our roadmap annoucement](https://github.com/aspnet/Announcements/issues/308) back in June, there will be a large number of bug fixes (you can see the list of issues fixed so far [here](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aissue+milestone%3A2.2.0+is%3Aclosed+label%3Aclosed-fixed) but only a relatively small number of major new features in EF Core 2.2.
 
-## New EF Core provider for Cosmos DB
+Here are the most important new features:
+
+### New EF Core provider for Cosmos DB
 TO-DO
-### Get started
+#### Limitations
+TO-DO
+
+## Spatial extensions for SQL Server and SQLite
 TO-DO
 ### Limitations
 TO-DO
 
-## New EF Core spatial extensions for SQL Server and SQLite
+**Important: Spatial support and the Cosmos DB provider are large feature that expose a lot of new functionality and APIs. In order to make sure we get them right, we need to go through an iterative process in which your feedback is critical. On the other hand, the release schedule of EF Core 2.2 is tied other important products. If by the time we ship EF Core 2.2 we have reasons to believe that the spatial extensions or the Cosmos DB provider aren't ready, we will consider delaying them.**
+
+### Collections of owned entities
 TO-DO
-### Get started
+
+### Tagged queries
 TO-DO
-### Limitations
-TO-DO
+
+## Provider compatibility
+Although we have setup testing to make sure that existing providers will continue to work with EF Core 2.2, there might be unexpected problems and we welcome users and provider writers to report compatibility issues in [our issue tracker](https://github.com/aspnet/entityframeworcore/issues/new).
 
 ## What comes next?
 
-We are still working in some additional features for EF Core 2.2, like reverse engineering of views into query types, as well as additional bug fixing.
+We are still working in some additional features for EF Core 2.2, like reverse engineering of views into query types, as well as additional bug fixes.
+We are planning on releasing EF Core 2.2 in the last calendar quarter of 2018.
 
 A lot of our efforts are going currently going into our next major release, EF Core 3.0, including improvements in our LINQ implementation.
-
-As we explained in [our roadmap annoucement](https://github.com/aspnet/Announcements/issues/308) back in June, we are planning on releasing EF Core 2.2 in the last calendar quarter of 2018, and EF Core 3.0 next year.
-
-For the Cosmos DB provider and Spatial extensions, the release dates are not currently tied to either 2.2 or 3.0, but will depend on when we believe we have achieved the quality and feature set.
+Our team will also soon start working on making Entity Framework 6 work on .NET Core 3.0.  
 
 ## Thank you!
 
