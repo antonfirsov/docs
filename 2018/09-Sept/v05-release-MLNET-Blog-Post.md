@@ -25,11 +25,11 @@ This blog post provides details about the following topics in ML.NET:
 
 The implementation of this transform is based on code from [TensorFlowSharp](https://github.com/migueldeicaza/TensorFlowSharp).
 
-Through ML.NET you can now vey easily use TensorFlow models for scoring by simply using the ML.NET NuGet packages in your .NET Core or .NET Framework apps, as shown in the diagram.
+The ML.NET NuGet packages provide new functionality for scoring with TensorFlow models in your .NET Core or .NET Framework apps, as shown in the diagram:
 
 ![TensorFlow-ML.NET application diagram](v05-release-MLNET-Blog-Post-IMAGES/TensorFlow-MLNET-NuGet-App-Diagram.png)
 
-In the following code snippet you can see how you can use the TensorFlow transform in the ML.NET pipeline:
+The following code snippet shows how to use the TensorFlow transform in the ML.NET pipeline:
 
 ```cs
 
@@ -48,9 +48,9 @@ pipeline.Add(new TensorFlowScorer()
 
 The code example above uses the pre-trained TensorFlow model named *Inception v3*, available [here](https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip). 
 
-In next releases, we will add functionality in ML.NET to enable identifying the expected inputs and outputs of TensorFlow models. For now, you can use the TensorFlow APIs or a tool like [Netron](https://github.com/lutzroeder/Netron) to explore the TensorFlow model.
+In next releases, we will add functionality in ML.NET to enable identifying the expected inputs and outputs of TensorFlow models. For now, use the TensorFlow APIs or a tool like [Netron](https://github.com/lutzroeder/Netron) to explore the TensorFlow model.
 
-If you open the previous sample TensorFlow model file (`tensorflow_inception_graph.pb`) with [Netron](https://github.com/lutzroeder/Netron) and explore the model's graph, you can see how it correlates the `InputColumn` with the node's `input` at the begining of the graph:
+If you open the previous sample TensorFlow model file (`tensorflow_inception_graph.pb`) with [Netron](https://github.com/lutzroeder/Netron) and explore the model's graph, you can see how it correlates the `InputColumn` with the node's `input` at the beginning of the graph:
 
 ![TensorFlow model's input in graph](v05-release-MLNET-Blog-Post-IMAGES/Input-Node-TF-Model.png)
 
@@ -66,27 +66,27 @@ You can find [here](https://github.com/dotnet/machinelearning/blob/6ac380a4d3f44
 
 ## Explore the upcoming new ML.NET API and provide feedback
 
-As mentioned at the begining of this blog post, we are really looking forward to get your feedback on the new API we're creating while crafting ML.NET. This evolution in ML.NET offers much more flexible capabilities than what current "pipeline" API offers. The "pipeline" API will be deprecated when this new API is ready and good enough.  
+As mentioned at the begining of this blog post, we are really looking forward to get your feedback on the new API we're creating while crafting ML.NET. This evolution in ML.NET offers more flexible capabilities than what the current "pipeline" API offers. The "pipeline" API will be deprecated when this new API is ready and good enough.  
 
 
 ### Why ML.NET is switching from the "pipeline" API to a new API?
 
 As part of the process of crafting the preview versions (remember that ML.NET is still in early previews), we've been getting feedback about the "pipeline" API and discovered quite a few limitations we need to address by creating a more flexible API.
 
-Specifically, new capabilities provided by the new API which are not possible with the "pipeline" API are the following: 
+Specifically, the new API adds the following capabilities which aren't possible with the current "pipeline" API: 
 
-- **Strongly-typed API**: This new API takes advantage of C# capabilities and offers an Strongly-typed API in ML.NET so errors can be discovered in compilation time while being able to better use Intellisense in the editors. 
+- **Strongly-typed API**: This new Strongly-typed API takes advantage of C# capabilities so errors can be discovered in compilation time along with improved Intellisense in the editors. 
 
-- **Better flexibility:** You now have a decomposalbe tran and predict process. No more rigid and linear pipeline execution. With the new API you can run certain code and then the execution can be forked so those multiple paths can re-use the initial common execution. For example, you can share the same transforms execution and transformed data by multiple learners and trainings. 
-This ne API is based on the new `Estimators`, shown in the code below in this blog post. 
+- **Better flexibility:** This API provides a decomposable train and predict process, eliminating rigid and linear pipeline execution. With the new API, execute a certain code path and then fork the execution so multiple paths can re-use the initial common execution. For example, share a given transforms' execution and transformed data with multiple learners and trainers. 
+This new API is based on the new `Estimators`, shown in the following code in this blog post. 
 
 - **Improved usability:** Direct call to the APIs from your code, no more scaffolding or insolation layer creating an obscure separation between what the user/developer writes and the internal APIs. Entrypoints are no longer mandatory. 
 
 - **Possible to simply score with TensorFlow models.** Thanks to the mentioned flexibility in the API, you can also simply load a TensorFlow model and score by using it without needing to add any additional learner and training process.
 
-- **Better visibility of the transformed data:** You can now better visibility of the data while applying transformers.
+- **Better visibility of the transformed data:** You have better visibility of the data while applying transformers.
 
-As sample code to discuss about, the code snippet below shows how the transforms and trainign process of the "GitHub issues labelers" sample app can be implemented with the new API in ML.NET.
+The following code snippet shows how the transforms and training process of the "GitHub issues labeler" sample app can be implemented with the new API in ML.NET:
 
 **New API in ML.NET:**
 
@@ -152,7 +152,7 @@ As sample code to discuss about, the code snippet below shows how the transforms
 
 ```
 
-You can compare that with the old "pipeline" API where you don't have that flexibility because the pipeline execution is not decomposable but is a linear execution.
+Compare with the following old "pipeline" API code snippet that lacks flexibility because the pipeline execution is not decomposable but linear:
 
 **Old "pipeline" API:**
 
@@ -185,22 +185,25 @@ You can compare that with the old "pipeline" API where you don't have that flexi
         }
 ```
 
-For instance, with the "pipeline" API you can see how that code is fully linear and you cannot decompose it in multiple pieces. You cannot re-use part of its execution like you can when using the new `Estimators` coming in the new API.
+The "pipeline" API is a fully linear code path, so you can't decompose it in multiple pieces. However, the new API `Estimators` allow the re-use of execution parts.
 
 Because this will be a significant change we want to share our proposals and start an open discussion with you where you can provide your feedback and help shape the long-term API for ML.NET.
 
 
 ## Provide your feedback on the new API
 
-Feel free to provide your feedback as comments in this blog post or even better, do it in this specially made place for gathering feedback on te new API:
-
-Get involved: http://aka.ms/newapifeedback
+Want to get involved? Start by providing feedback at [this specially made place for gathering new API feedback]( http://aka.ms/newapifeedback), or in the blog post comments here!
 
 ## Get started!
 
-If you haven’t already, try out ML.NET you can [get started here](https://www.microsoft.com/net/learn/apps/machine-learning-and-ai/ml-dotnet/get-started/windows).  We look forward to your feedback and welcome you to file issues with any suggestions or enhancements in the GitHub repo.
+f you haven’t already, get started with [ML.NET here](https://www.microsoft.com/net/learn/apps/machine-learning-and-ai/ml-dotnet/get-started/windows)!
+ 
+Next, explore some other great resources:
 
-https://github.com/dotnet/machinelearning
+  * Tutorials and resources at the [Microsoft Docs ML.NET Guide](https://docs.microsoft.com/en-us/dotnet/machine-learning/)
+  * Code samples at the [machinelearning-samples GitHub repo](https://github.com/dotnet/machinelearning-samples)
+
+We look forward to your feedback and welcome you to file issues with any suggestions or enhancements in the [ML.NET GitHub repo](https://github.com/dotnet/machinelearning).
 
 
 
