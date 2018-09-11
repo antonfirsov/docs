@@ -146,7 +146,7 @@ As sample code to discuss about, the code snippet below shows how the transforms
             var prediction = predictor.PredictSdcaMultiClass(new IssueInput
                 {
                     Title = "Sample issue related to Entity Framework", 
-                    Description = "When using Entity FRamework Core I'm experiencing database connection failures when running queries or transactions. Looks like it could be related to transient faults in network communication agains the Azure SQL Database..."
+                    Description = "When using Entity Framework Core I'm experiencing database connection failures when running queries or transactions. Looks like it could be related to transient faults in network communication agains the Azure SQL Database..."
                 });
         }
 
@@ -185,7 +185,7 @@ You can compare that with the old "pipeline" API where you don't have that flexi
         }
 ```
 
-For instance, with the "pipeline" API you can see how that code is fully linear and you cannot decompose it in multiple pieces so you could re-use part of its execution like you can when using the new `Estimators`.
+For instance, with the "pipeline" API you can see how that code is fully linear and you cannot decompose it in multiple pieces. You cannot re-use part of its execution like you can when using the new `Estimators` coming in the new API.
 
 Because this will be a significant change we want to share our proposals and start an open discussion with you where you can provide your feedback and help shape the long-term API for ML.NET.
 
