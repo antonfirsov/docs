@@ -75,16 +75,16 @@ As part of the process of crafting the preview versions (remember that ML.NET is
 
 Specifically, new capabilities provided by the new API which are not possible with the "pipeline" API are the following: 
 
-- *Strongly-typed API*: This new API takes advantage of C# capabilities and offers an Strongly-typed API in ML.NET so errors can be discovered in compilation time while being able to better use Intellisense in the editors. 
+- **Strongly-typed API**: This new API takes advantage of C# capabilities and offers an Strongly-typed API in ML.NET so errors can be discovered in compilation time while being able to better use Intellisense in the editors. 
 
-- *Better flexibility:* You now have a decomposalbe tran and predict process. No more rigid and linear pipeline execution. With the new API you can run certain code and then the execution can be forked so those multiple paths can re-use the initial common execution. For example, you can share the same transforms execution and transformed data by multiple learners and trainings. 
+- **Better flexibility:** You now have a decomposalbe tran and predict process. No more rigid and linear pipeline execution. With the new API you can run certain code and then the execution can be forked so those multiple paths can re-use the initial common execution. For example, you can share the same transforms execution and transformed data by multiple learners and trainings. 
 This ne API is based on the new `Estimators`, shown in the code below in this blog post. 
 
-- *Improved usability:* Direct call to the APIs from your code, no more scaffolding or insolation layer creating an obscure separation between what the user/developer writes and the internal APIs. Entrypoints are no longer mandatory. 
+- **Improved usability:** Direct call to the APIs from your code, no more scaffolding or insolation layer creating an obscure separation between what the user/developer writes and the internal APIs. Entrypoints are no longer mandatory. 
 
-- *Possible to simply score with TensorFlow models.* Thanks to the mentioned flexibility in the API, you can also simply load a TensorFlow model and score by using it without needing to add any additional learner and training process.
+- **Possible to simply score with TensorFlow models.** Thanks to the mentioned flexibility in the API, you can also simply load a TensorFlow model and score by using it without needing to add any additional learner and training process.
 
-- *Better visibility of the transformed data:* You can now better visibility of the data while applying transformers.
+- **Better visibility of the transformed data:** You can now better visibility of the data while applying transformers.
 
 As sample code to discuss about, the code snippet below shows how the transforms and trainign process of the "GitHub issues labelers" sample app can be implemented with the new API in ML.NET.
 
