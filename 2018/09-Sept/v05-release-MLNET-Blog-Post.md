@@ -273,7 +273,7 @@ Since the data transformations to do are the same for all those models, you migh
             //...
 ```
 
-Where the BuildAndTrain() method needs to have both, the data transforms plus the different algorithm per case, as shown in the following case:
+Where the BuildAndTrain() method needs to have both, the data transforms plus the different algorithm per case, as shown in the following code:
 
 ```cs
         public PredictionModel<BikeSharingDemandSample, BikeSharingDemandPrediction> BuildAndTrain()
