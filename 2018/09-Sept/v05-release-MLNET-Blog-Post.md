@@ -140,56 +140,74 @@ public static async Task BuildAndTrainModelToClassifyGithubIssues()
 {
     var env = new MLEnvironment();
 
-    string dataPath = "corefx-issues-train.tsv";
+    string trainDataPath = @"..\..\..\Data\issues_train.tsv";
 
-    // Create reader with specific schema. 
-    // string :ID, string: Area, string:Title, string:Description
+    // Create reader
     var reader = TextLoader.CreateReader(env, ctx =>
                                     (area: ctx.LoadText(1),
                                     title: ctx.LoadText(2),
-                                    description: ctx.LoadText(3),
-                                    dataPath,
-                                    useHeader: true));
+                                    description: ctx.LoadText(3)),
+                                    new MultiFileSource(trainDataPath), 
+                                    hasHeader : true);
 
-    var estimator = reader.MakeEstimator()
+    var loss = new HingeLoss(new HingeLoss.Arguments() { Margin = 1 });
+
+    var estimator = reader.MakeNewEstimator()
         .Append(row => (
             // Convert string label to key. 
-            label: row.area.Dictionarize(),
-            // Featurizes 'description'
+            label: row.area.ToKey(),
+            // Featurize 'description'
             description: row.description.FeaturizeText(),
-            // Featurizes 'title'
+            // Featurize 'title'
             title: row.title.FeaturizeText()))
         .Append(row => (
-            // Concatenate the two features into a vector.
-            features: row.description.ConcatWith(r.title),
-            // Preserve the label
+            // Concatenate the two features into a vector and normalize.
+            features: row.description.ConcatWith(row.title).Normalize(),
+            // Preserve the label - otherwise it will be dropped
             label: row.label))
-        .Append(row => r.label.PredictSdcaMultiClass(row.features));
+        .Append(row => (
+            // Preserve the label (for evaluation)
+            row.label,
+            // Train the linear predictor (SDCA)
+            score: row.label.PredictSdcaClassification(row.features, loss: loss)))
+        .Append(row => (
+            // Want the prediction, as well as label and score which are needed for evaluation
+            predictedLabel: row.score.predictedLabel.ToValue(),
+            row.label,
+            row.score));
 
     // Read the data
-    var data = reader.Read(dataPath);
+    var data = reader.Read(new MultiFileSource(trainDataPath));
 
-    // Fit the data
+    // Fit the data to get a model
     var model = estimator.Fit(data);
 
-    string modelPath = "github-Model.zip";
+    // Use the model to get predictions on the test dataset
+    var scores = model.Transform(reader.Read(new MultiFileSource(@"..\..\..\Data\issues_test.tsv")));
+    var metrics = MultiClassClassifierEvaluator.Evaluate(scores, r => r.label, r => r.score);
+
+    Console.WriteLine("Micro-accuracy is: " + metrics.AccuracyMicro);
 
     // Save the ML.NET model into a .ZIP file
-    await model.WriteAsync(modelPath);
+    await model.WriteAsync("github-Model.zip");
 }
 
 public static async Task PredictLableForGithubIssueAsync()
 {
     // Read model from an ML.NET .ZIP model file
-    var model = await PredictionModel.ReadAsync(ModelPath);
-    var predictor = model.MakePredictionFunction<IssueInput, IssuePrediction>();
+    var model = await PredictionModel.ReadAsync("github-Model.zip");
+
+    // Create a prediction function that can be used to score incoming issues
+    var predictor = model.AsDynamic.MakePredictionFunction<GitHubIssue, IssuePrediction>(env);
 
     // This prediction will classify this particular issue in a type such as "EF and Database access"
-    var prediction = predictor.PredictSdcaMultiClass(new IssueInput
-        {
-            Title = "Sample issue related to Entity Framework", 
-            Description = "When using Entity Framework Core I'm experiencing database connection failures when running queries or transactions. Looks like it could be related to transient faults in network communication agains the Azure SQL Database..."
-        });
+    var prediction = predictor.Predict(new GitHubIssue
+    {
+        title = "Sample issue related to Entity Framework",
+        description = @"When using Entity Framework Core I'm experiencing database connection failures when running queries or transactions. Looks like it could be related to transient faults in network communication agains the Azure SQL Database."
+    });
+
+    Console.WriteLine("Predicted label is: " + prediction.predictedLabel);
 }
 
 ```
@@ -305,9 +323,9 @@ With the old `LearningPipeline` API, for every training using a different algori
 
 But with the new ML.NET API based on `Estimators` and `DataView` you will be able to re-use parts of the execution, like in this case, re-using the data transforms execution as the base for multiple models using different algorithms.
 
+For reading about definitions of concepts in this new API, check this [discussion on Estimators, Transformers and Data](https://github.com/dotnet/machinelearning/issues/581) in the ML.NET GitHub repo.
 
-
-For additional definitions of concepts in this new API, check this [discussion on Estimators, Transformers and Data](https://github.com/dotnet/machinelearning/issues/581) in the ML.NET GitHub repo.
+You can also explore other "aspirational code examples" with the new API [here](https://github.com/dotnet/machinelearning/blob/master/test/Microsoft.ML.Tests/Scenarios/Api/AspirationalExamples.cs)
 
 Because this will be a significant change in ML.NET we want to share our proposals and start an open discussion with you where you can provide your feedback and help shape the long-term API for ML.NET.
 
@@ -315,7 +333,7 @@ Because this will be a significant change in ML.NET we want to share our proposa
 ## Provide your feedback on the new API
 ![Provide feedback image with two people and a swimlane](v05-release-MLNET-Blog-Post-IMAGES/swimlane-feedback.png)
 
-Want to get involved? Start by providing feedback at [this specially made place for gathering new API feedback]( http://aka.ms/newapifeedback), or in the blog post comments below!
+Want to get involved? Start by providing feedback at [this specially made place for gathering new API feedback](http://aka.ms/newapifeedback), or in the blog post comments below!
 
 ## Get started!
 
