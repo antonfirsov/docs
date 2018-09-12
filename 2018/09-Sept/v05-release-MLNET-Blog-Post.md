@@ -347,7 +347,7 @@ Because this will be a significant change in ML.NET we want to share our proposa
 ## Provide your feedback on the new API
 ![Provide feedback image with two people and a swimlane](v05-release-MLNET-Blog-Post-IMAGES/swimlane-feedback.png)
 
-Want to get involved? Start by providing feedback at [this specially made place for gathering new API feedback](http://aka.ms/newapifeedback), or in the blog post comments below!
+Want to get involved? Start by providing feedback at this blog post comments below or through issues at the [ML.NET GitHub repo](https://github.com/dotnet/machinelearning/issues)
 
 ## Get started!
 
