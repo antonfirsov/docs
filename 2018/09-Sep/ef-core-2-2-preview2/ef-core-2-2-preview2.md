@@ -120,7 +120,6 @@ Based on this feedback, we decided to implement a new mapping convention that by
 
 The preview we are releasing today, although limited in many ways, is no longer a prototype, but the actual code we plan on keeping working on and eventually shipping.
 Our hope is that by releasing it early in development, we will enable many developers to play with it and provide more valuable feedback.
-Our ability to obtain this feedback and use it to iterate over the design will be critical in getting to a high quality release.
 
 Here are some of the known limitations we are working on overcoming for Preview 3 and RTM.
 
@@ -273,11 +272,6 @@ This will generate the following SQL output:
       ORDER BY [m].[Location].STDistance(@__currentLocation_0) DESC
 ```
 
-> **Note: The spatial extensions and the Cosmos DB provider are large features that expose a lot of new capabilities and APIs.
-In order to make sure we get them right, we need to go through an iterative process in which your feedback is critical.
-On the other hand, the release schedule of EF Core 2.2 is tied other important products.
-If by the time we ship EF Core 2.2 we have reasons to believe that the spatial extensions or the Cosmos DB provider aren't ready, we will consider delaying them to a later time.**
-
 ## Provider compatibility
 Although we have setup testing to make sure that existing providers will continue to work with EF Core 2.2, there might be unexpected problems, and we welcome users and provider writers to report compatibility issues on [our issue tracker](https://github.com/aspnet/EntityFrameworkCore/issues/new).
 
@@ -286,8 +280,12 @@ Although we have setup testing to make sure that existing providers will continu
 We are still working in some additional features we would like to include in EF Core 2.2, like reverse engineering of database views into query types, support for spatial types with SQLite, as well as additional bug fixes.
 We are planning on releasing EF Core 2.2 in the last calendar quarter of 2018.
 
-Our team is also working on the our next major release, EF Core 3.0, which will include significant improvements to our LINQ implementation, and making Entity Framework 6 compatible with .NET Core 3.0.  
+In the meantime, our team has started working on the our next major release, EF Core 3.0, which will include, among other improvements, a significant overhaul of our LINQ implementation.
 
-## Thank you!
+We will also start soon the work to make Entity Framework 6 compatible with .NET Core 3.0. [which was announced last may](https://blogs.msdn.microsoft.com/dotnet/2018/05/07/net-core-3-and-support-for-windows-desktop-applications/).
 
-We encourage you to try the new features and we thank you in advance for posting any feedback to [our issue tracker](https://github.com/aspnet/EntityFrameworkCore/issues/new).
+## More than welcome, your feedback is really needed!
+**We encourage you to play with the new features, and we thank you in advance for posting any feedback to [our issue tracker](https://github.com/aspnet/EntityFrameworkCore/issues/new).
+
+The spatial extensions and the Cosmos DB provider in particular are very large features that expose a lot of new capabilities and APIs.
+Really being able to ship these features as part of EF Core 2.2 RTM is going to depend on your valuable feedback and on our ability to use it to iterate over the design in the next few months.
