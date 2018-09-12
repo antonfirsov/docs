@@ -23,13 +23,13 @@ Deep learning models need to be trained by using very large sets of labeled data
 
 For detailed generic information about it you can read this [article on Deep Learning](https://en.wikipedia.org/wiki/Deep_learning). 
 
-With ML.NET 0.5 we are starting to add support for Deep Learning in ML.NET. Today we are introducing the first level of integration with TensorFlow in ML.NET through the new `TensorFlowTransform` which enables taking an existing TensorFlow model, either trained by you or downloaded from somewhere else, and get the scores from the model in ML.NET.
+With ML.NET 0.5 we are starting to add support for Deep Learning in ML.NET. Today we are introducing the first level of integration with TensorFlow in ML.NET through the new [TensorFlowTransform](https://docs.microsoft.com/en-us/dotnet/api/microsoft.ml.transforms.tensorflowtransform) which enables taking an existing TensorFlow model, either trained by you or downloaded from somewhere else, and get the scores from the TensorFlow model in ML.NET.
 
-Being able to use this new Tensorflow scoring capability does not require you to have a working knowledge of internal details of TensorFlow. Longer term we will be working on making the experience for performing Deep Learning with ML.NET even easier.
+Being able to use this new TensorFlow scoring capability does not require you to have a working knowledge of internal details of TensorFlow. Longer term we will be working on making the experience for performing Deep Learning with ML.NET even easier.
 
 The implementation of this transform is based on code from [TensorFlowSharp](https://github.com/migueldeicaza/TensorFlowSharp).
 
-The ML.NET NuGet packages provide new functionality for scoring with existing trained TensorFlow models in your .NET Core or .NET Framework apps, as shown in the diagram:
+As shown in the following diagram, you just need to add a reference to the ML.NET NuGet packages in your .NET Core or .NET Framework apps. Under the covers, ML.NET includes and references the native TensorFlow library which will allow you to write code that loads an existing trained TensorFlow model file for scoring.
 
 ![TensorFlow-ML.NET application diagram](v05-release-MLNET-Blog-Post-IMAGES/TensorFlow-MLNET-NuGet-App-Diagram.png)
 
@@ -71,7 +71,6 @@ Take into account that the mentioned TensorFlow code examples using ML.NET are u
 Finally, we also want to highlight the fact that ML.NET is a framework where we are surfacing TensorFlow today, but in the future we *might* look into other integrations with additional Deep Learning libraries as well, such as [Torch](http://torch.ch/) and [CNTK](https://www.microsoft.com/en-us/cognitive-toolkit/). 
 
 You can find [here](https://github.com/dotnet/machinelearning/blob/6ac380a4d3f44ee7b015461f74c4298b0ed5184b/test/Microsoft.ML.Tests/Scenarios/TensorflowTests.cs) an additional code example using the `TensorFlowTransform` with the existing `LearningPipeline` API.
-
 
 
 
