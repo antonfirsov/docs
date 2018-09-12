@@ -79,7 +79,7 @@ As mentioned at the beginning of this blog post, we are really looking forward t
 The following links to some example feedback we got in the form of GitHub issues about the limitations when using the `LearningPipeline` API:
 
 - [How to build transform-only pipelines?](https://github.com/dotnet/machinelearning/issues/642)
-- [Label and Score](https://github.com/dotnet/machinelearning/issues/158)
+- [Label and Score limitation](https://github.com/dotnet/machinelearning/issues/158)
 - [Proposal for Fluent API](https://github.com/dotnet/machinelearning/issues/474)
 - [Adding Multiple Training Files to the Pipeline?](https://github.com/dotnet/machinelearning/issues/192)
 - [Provide feature importance for random forests](https://github.com/dotnet/machinelearning/issues/210)
