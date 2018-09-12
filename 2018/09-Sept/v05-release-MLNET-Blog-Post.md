@@ -182,7 +182,7 @@ public static async Task BuildAndTrainModelToClassifyGithubIssues()
     // Fit the data to get a model
     var model = estimator.Fit(data);
 
-    // Use the model to get predictions on the test dataset
+    // Use the model to get predictions on the test dataset and evaluate the accuracy of the model
     var scores = model.Transform(reader.Read(new MultiFileSource(@"Data\issues_test.tsv")));
     var metrics = MultiClassClassifierEvaluator.Evaluate(scores, r => r.label, r => r.score);
 
