@@ -26,7 +26,7 @@ Being able to use this new Tensorflow scoring capability does not require you to
 
 The implementation of this transform is based on code from [TensorFlowSharp](https://github.com/migueldeicaza/TensorFlowSharp).
 
-The ML.NET NuGet packages provide new functionality for scoring with TensorFlow models in your .NET Core or .NET Framework apps, as shown in the diagram:
+The ML.NET NuGet packages provide new functionality for scoring with existing trained TensorFlow models in your .NET Core or .NET Framework apps, as shown in the diagram:
 
 ![TensorFlow-ML.NET application diagram](v05-release-MLNET-Blog-Post-IMAGES/TensorFlow-MLNET-NuGet-App-Diagram.png)
 
