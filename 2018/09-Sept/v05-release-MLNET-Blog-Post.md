@@ -18,7 +18,10 @@ This blog post provides details about the following topics in ML.NET:
 *[TensorFlow](https://www.tensorflow.org/)* is a popular deep learning and machine learning toolkit that enables training deep neural networks (and general numeric computations).
 
 *Deep learning* is a subset of AI and machine learning that teaches programs to do what comes naturally to humans: learn by example.
-Its main differentiator compared to traditional machine learning is that a deep learning model can learn to perform object detection and classification tasks directly from images, sound or text, or even deliver tasks such as speech recognition and language translation. In order to do so, deep learning models need to be trained by using large sets of labeled data and neural networks that contain multiple layers. For detailed generic information about it you can read this [article on Deep Learning](https://en.wikipedia.org/wiki/Deep_learning). 
+Its main differentiator compared to traditional machine learning is that a deep learning model can learn to perform object detection and classification tasks directly from images, sound or text, or even deliver tasks such as speech recognition and language translation, whereas traditional ML approaches relied heavily on feature engineering and data processing. 
+Deep learning models need to be trained by using very large sets of labeled data and neural networks that contain multiple layers. Its current popularity is caused by several reasons. First, it just performs better on some tasks like *Computer Vision* and second because it can take advantage of huge amounts of data (and requires that volume in order to perform well) that are nowadays becoming available.
+
+For detailed generic information about it you can read this [article on Deep Learning](https://en.wikipedia.org/wiki/Deep_learning). 
 
 With ML.NET 0.5 we are starting to add support for Deep Learning in ML.NET. Today we are introducing the first level of integration with TensorFlow in ML.NET through the new `TensorFlowTransform` which enables taking an existing TensorFlow model, either trained by you or downloaded from somewhere else, and get the scores from the model in ML.NET.
 
