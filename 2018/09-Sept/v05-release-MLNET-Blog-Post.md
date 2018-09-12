@@ -76,6 +76,16 @@ You can find an additional code example using the `TensorFlowTransform` with the
 
 As mentioned at the beginning of this blog post, we are really looking forward to get your feedback as we create the new ML.NET API while crafting ML.NET. This evolution in ML.NET offers more flexible capabilities than what the current `LearningPipeline` API offers. The `LearningPipeline` API will be deprecated when this new API is ready and good enough.  
 
+The following links to some example feedback we got in the form of GitHub issues about the limitations when using the `LearningPipeline` API:
+
+- [How to build transform-only pipelines?](https://github.com/dotnet/machinelearning/issues/642)
+- [Label and Score](https://github.com/dotnet/machinelearning/issues/158)
+- [Proposal for Fluent API](https://github.com/dotnet/machinelearning/issues/474)
+- [Adding Multiple Training Files to the Pipeline?](https://github.com/dotnet/machinelearning/issues/192)
+- [Provide feature importance for random forests](https://github.com/dotnet/machinelearning/issues/210)
+
+Therefore, based on feedback on the `LearningPipeline` API, quite a few weeks ago we decided to switch to a new ML.NET API that would address most of the limitations the `LearningPipeline` API currently has.
+
 ### Design principles for this new ML.NET API
 
 We are designing this new API based on the following principles of :
@@ -90,7 +100,7 @@ We have also explored API approaches like Fluent API, declarative, and imperativ
 For additional deeper discussion on principles and required scenarios, check out this [issue in GitHub](https://github.com/dotnet/machinelearning/issues/584).
 
 
-### Why ML.NET is switching from the "LearningPipeline API" to a new API?
+### Why ML.NET is switching from the `LearningPipeline` API to a new API?
 
 As part of the preview version crafting process (remember that ML.NET is still in early previews), we've been getting `LearningPipeline` API feedback and discovered quite a few limitations we need to address by creating a more flexible API.
 
@@ -108,7 +118,7 @@ This new API is based on concepts such as [`Estimators`, `Transforms` and `DataV
 
 - **Better visibility of the transformed data:** You have better visibility of the data while applying transformers.
 
-#### Comparison of strongly-typed API vs. "pipeline" API
+#### Comparison of strongly-typed API vs. `LearningPipeline` API
 
 Another important comparison is related to the **Strongly Typed API** feature in the new API.
 As an example of issues you can get when you don't have strongly typed API, the `LearningPipeline` API (as illustrated in the following code) provides access to data columns by specifying the comlumn's names as strings, so if you make a typo (i.e. you wrote "Descrption" without the 'i' instead of "Description", as the typo in the sample code), you will get a run-time exception:
