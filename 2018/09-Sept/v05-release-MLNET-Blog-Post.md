@@ -111,7 +111,7 @@ This new API is based on concepts such as [`Estimators`, `Transforms` and `DataV
 #### Comparison of strongly-typed API vs. "pipeline" API
 
 Another important comparison is related to the **Strongly Typed API** feature in the new API.
-Currently, the `LearningPipeline` API (as illustrated in the following code) provides data columns as strings, so if you make a typo (i.e. you wrote "Descrption" instead of "Description"), you will get a run-time exception:
+As an example of issues you can get when you don't have strongly typed API, the `LearningPipeline` API (as illustrated in the following code) provides access to data columns by specifying the comlumn's names as strings, so if you make a typo (i.e. you wrote "Descrption" without the 'i' instead of "Description", as the typo in the sample code), you will get a run-time exception:
 
 ```cs
 pipeline.Add(new TextFeaturizer("Description", "Descrption"));       
