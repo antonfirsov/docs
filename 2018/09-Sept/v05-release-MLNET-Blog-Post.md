@@ -47,6 +47,7 @@ pipeline.Add(new TensorFlowScorer()
 // ... Additional code specifying a learner and training process for the ML.NET model
 
 ```
+You can find [here](https://github.com/dotnet/machinelearning-samples/tree/master/samples/csharp/examples/DeepLearning_TensorFlowMLNETInceptionv3ModelScoring) the complete code example related to the above code-snippet using the `TensorFlowTransform`, the TensorFlow Inception v3 model and the existing `LearningPipeline` API.
 
 The code example above uses the pre-trained TensorFlow model named *Inception v3*, that you can download from [here](https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip). The [Inception v3](https://cloud.google.com/tpu/docs/inception-v3-advanced) is a very popular image recognition model trained on the [ImageNet dataset](http://image-net.org) where the TensorFlow model tries to classify entire images into a thousand classes, like "Umbrella", "Jersey", and "Dishwasher".
 
@@ -68,7 +69,7 @@ Take into account that the mentioned TensorFlow code examples using ML.NET are u
 
 Finally, we also want to highlight that the ML.NET framework is currently surfacing TensorFlow, but in the future we *might* look into additional Deep Learning library integrations, such as [Torch](http://torch.ch/) and [CNTK](https://www.microsoft.com/en-us/cognitive-toolkit/). 
 
-You can find an additional code example using the `TensorFlowTransform` with the existing `LearningPipeline` API [here](https://github.com/dotnet/machinelearning/blob/6ac380a4d3f44ee7b015461f74c4298b0ed5184b/test/Microsoft.ML.Tests/Scenarios/TensorflowTests.cs).
+You can find an additional code example/test using the `TensorFlowTransform` with the existing `LearningPipeline` API [here](https://github.com/dotnet/machinelearning/blob/6ac380a4d3f44ee7b015461f74c4298b0ed5184b/test/Microsoft.ML.Tests/Scenarios/TensorflowTests.cs).
 
 
 
