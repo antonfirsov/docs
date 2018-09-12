@@ -1,8 +1,8 @@
 # Announcing ML.NET 0.5
 
-It’s been a few months already since we [released ML.NET 0.1 at //Build 2018](https://blogs.msdn.microsoft.com/dotnet/2018/05/07/introducing-ml-net-cross-platform-proven-and-open-source-machine-learning-framework/), a cross-platform, open source machine learning framework for .NET developers. While we’re evolving through new preview releases, we are getting great feedback and would like to thank the community for your engagement as we continue to develop ML.NET together in the open. 
+Today, coinciding with the .NET Conf 2018, we're announcing the release of **ML.NET 0.5**. It’s been a few months already since we [released ML.NET 0.1 at //Build 2018](https://blogs.msdn.microsoft.com/dotnet/2018/05/07/introducing-ml-net-cross-platform-proven-and-open-source-machine-learning-framework/), a cross-platform, open source machine learning framework for .NET developers. While we’re evolving through new preview releases, we are getting great feedback and would like to thank the community for your engagement as we continue to develop ML.NET together in the open. 
 
-Today we are happy to announce the latest version: **ML.NET 0.5**. In this release we are adding **[TensorFlow](https://www.tensorflow.org/) model scoring** as a **transform** to ML.NET. This enables using an existing TensorFlow model within an ML.NET experiment. In this release we are also addressing a variety of issues and feedback we received from the community. We welcome feedback and contributions to the conversation: relevant issues can be found [here](https://github.com/dotnet/machinelearning/projects/4).
+In this 0.5 release we are adding **[TensorFlow](https://www.tensorflow.org/) model scoring** as a **transform** to ML.NET. This enables using an existing TensorFlow model within an ML.NET experiment. In addition we are also addressing a variety of issues and feedback we received from the community. We welcome feedback and contributions to the conversation: relevant issues can be found [here](https://github.com/dotnet/machinelearning/projects/4).
 
 As part of the upcoming road in ML.NET, we really want your feedback on making ML.NET easier to use. We are working on a new ML.NET API which improves flexibility and ease of use. When the new API is ready and good enough, we plan to deprecate the current “pipeline” API. Because this will be a significant change we want to share our proposals for the multiple API options and comparisons at the end of this blog post and start an open discussion with you where you can provide your feedback and help shape the long-term API for ML.NET.
 
@@ -61,9 +61,9 @@ And how the `OutputColumn` correlates with `softmax2_pre_activation` node's outp
 
 ![TensorFlow model's input in graph](v05-release-MLNET-Blog-Post-IMAGES/Output-Node-TF-Model.png)
 
-*Limitations:* We are currently in the process of updating the ML.NET APIs for improved flexibility, since in order to use TensorFlow ML.NET today there are a few limitations. For now (when using the "pipeline" API), these scores can only be used within a `LearningPipeline` as inputs (numeric vectors)  to a learner like a classifier learner. However, with the upcoming new ML.NET APIs, the scores from the TensorFlow model will be directly accessible, so you could simply score with the TensorFlow model without needing to add any additional learner and its related train process as implemented in this [sample](https://github.com/dotnet/machinelearning/blob/6ac380a4d3f44ee7b015461f74c4298b0ed5184b/test/Microsoft.ML.Tests/Scenarios/TensorflowTests.cs) which is creating a muti-class classification ML.NET model based on a StochasticDualCoordinateAscentClassifier using a label (object name) related to a numeric vector feature generated/scored per image file by the used TensorFlow model.
+*Limitations:* We are currently in the process of updating the ML.NET APIs for improved flexibility, since in order to use TensorFlow ML.NET today there are a few limitations. For now (when using the `LearningPipeline` API), these scores can only be used within a `LearningPipeline` as inputs (numeric vectors)  to a learner like a classifier learner. However, with the upcoming new ML.NET APIs, the scores from the TensorFlow model will be directly accessible, so you could simply score with the TensorFlow model without needing to add any additional learner and its related train process as implemented in this [sample](https://github.com/dotnet/machinelearning/blob/6ac380a4d3f44ee7b015461f74c4298b0ed5184b/test/Microsoft.ML.Tests/Scenarios/TensorflowTests.cs) which is creating a muti-class classification ML.NET model based on a StochasticDualCoordinateAscentClassifier using a label (object name) related to a numeric vector feature generated/scored per image file by the used TensorFlow model.
 
-Take into account that the mentioned TensorFlow code examples using ML.NET are using the current "pipeline" API available in v0.5. Moving forward, the ML.NET API enabling to use TensorFlow will be slightly different and not based on the "pipeline". This is related to the next section of this blog post which focuses on the new upcoming API for ML.NET. 
+Take into account that the mentioned TensorFlow code examples using ML.NET are using the current `LearningPipeline` API available in v0.5. Moving forward, the ML.NET API enabling to use TensorFlow will be slightly different and not based on the "pipeline". This is related to the next section of this blog post which focuses on the new upcoming API for ML.NET. 
 
 Finally, we also want to highlight the fact that ML.NET is a framework where we are surfacing TensorFlow today, but in the future we *might* look into other integrations with additional Deep Learning libraries as well, such as [Torch](http://torch.ch/) and [CNTK](https://www.microsoft.com/en-us/cognitive-toolkit/). 
 
@@ -74,7 +74,7 @@ You can find [here](https://github.com/dotnet/machinelearning/blob/6ac380a4d3f44
 
 ## Explore the upcoming new ML.NET API and provide feedback
 
-As mentioned at the begining of this blog post, we are really looking forward to get your feedback on the new ML.NET API we're creating while crafting ML.NET. This evolution in ML.NET offers more flexible capabilities than what the current "pipeline" API offers. The "pipeline" API will be deprecated when this new API is ready and good enough.  
+As mentioned at the begining of this blog post, we are really looking forward to get your feedback on the new ML.NET API we're creating while crafting ML.NET. This evolution in ML.NET offers more flexible capabilities than what the current `LearningPipeline` API offers. The `LearningPipeline` API will be deprecated when this new API is ready and good enough.  
 
 ### Design principles for this new ML.NET API
 
@@ -84,21 +84,21 @@ We are designing this new API based on the following principles:
 
 - Keeps simple and concise ML scenarios such as simple train and predict.
 
-- Allows advanced ML scenarios (which were not possible with the current "pipeline" API as explained in the next section). 
+- Allows advanced ML scenarios (which were not possible with the current `LearningPipeline` API as explained in the next section). 
 
 We have also explored API approaches like Fluent API, declarative, imperative etc.
 For additional deeper discussion on principles and required scenarios, check out this [issue in GitHub](https://github.com/dotnet/machinelearning/issues/584).
 
 
-### Why ML.NET is switching from the "pipeline" API to a new API?
+### Why ML.NET is switching from the "LearningPipeline API" to a new API?
 
-As part of the process of crafting the preview versions (remember that ML.NET is still in early previews), we've been getting feedback about the "pipeline" API and discovered quite a few limitations we need to address by creating a more flexible API.
+As part of the process of crafting the preview versions (remember that ML.NET is still in early previews), we've been getting feedback about the `LearningPipeline` API and discovered quite a few limitations we need to address by creating a more flexible API.
 
-Specifically, the new ML.NET API adds the following capabilities which aren't possible with the current "pipeline" API: 
+Specifically, the new ML.NET API offers features that are attractive which aren't possible with the current `LearningPipeline` API: 
 
 - **Strongly-typed API**: This new Strongly-typed API takes advantage of C# capabilities so errors can be discovered in compilation time along with improved Intellisense in the editors. 
 
-- **Better flexibility:** This API provides a *decomposable train and predict* process, eliminating rigid and linear pipeline execution. With the new API, execute a certain code path and then fork the execution so multiple paths can re-use the initial common execution. For example, share a given transforms' execution and transformed data with multiple learners and trainers. 
+- **Better flexibility:** This API provides a *decomposable train and predict* process, eliminating rigid and linear pipeline execution. With the new API, execute a certain code path and then fork the execution so multiple paths can re-use the initial common execution. For example, share a given transforms' execution and transformed data with multiple learners and trainers. Or you can basically decompose pipelines and add multiple learners.
 This new API is based on concepts such as `Estimators`, `Transformes` and `DataView`, shown in the following code in this blog post. 
 
 - **Improved usability:** Direct call to the APIs from your code, no more scaffolding or insolation layer creating an obscure separation between what the user/developer writes and the internal APIs. Entrypoints are no longer mandatory. 
@@ -110,7 +110,7 @@ This new API is based on concepts such as `Estimators`, `Transformes` and `DataV
 #### Comparison of strongly-typed API vs. "piepline" API
 
 Another important comparison is related to the **Strongly Typed API** feature in the new API.
-If you'd use the "pipeline" api you would have code like the following, where data columns are provided as strings, so if you write any typo (i.e. you wrote "Descrption" instead of "Description"), you will get a run-time exception:
+If you'd use the `LearningPipeline` API you would have code like the following, where data columns are provided as strings, so if you write any typo (i.e. you wrote "Descrption" instead of "Description"), you will get a run-time exception:
 
 ```cs
 pipeline.Add(new TextFeaturizer("Description", "Description"));       
@@ -136,7 +136,7 @@ This is our current proposal and based on your feedback this API will probably e
 
 public static async Task BuildAndTrainModelToClassifyGithubIssues()
 {
-    var env = new Environment(new SysRandom(0), verbose: true);
+    var env = new MLEnvironment();
 
     string dataPath = "corefx-issues-train.tsv";
 
@@ -192,9 +192,9 @@ public static async Task PredictLableForGithubIssueAsync()
 
 ```
 
-Compare with the following old "pipeline" API code snippet that lacks flexibility because the pipeline execution is not decomposable but linear:
+Compare with the following old `LearningPipeline` API code snippet that lacks flexibility because the pipeline execution is not decomposable but linear:
 
-**Old "pipeline" API code example:**
+**Old `LearningPipeline` API code example:**
 
 ```cs
 public static async Task BuildAndTrainModelToClassifyGithubIssuesAsync()
@@ -251,10 +251,10 @@ public static async Task<string> PredictLabelForGitHubIssueAsync()
 }
 ```
 
-The old "pipeline" API is a fully linear code path, so you can't decompose it in multiple pieces. 
-For instance, the [BikeSharing ML.NET sample](https://github.com/dotnet/machinelearning-samples/blob/master/samples/csharp/examples/Regression_BikeSharingDemand/BikeSharingDemand/Program.cs) available at the machine-lenaring-samples repo is currently using the old "pipeline" API. It performs several data transforms to the original dataset and after that it trains and creates seven different ML.NET models based on seven different regression trainers/algorithms (such as FastTreeRegressor, FastTreeTweedieRegressor, StochasticDualCoordinateAscentRegressor, etc.) in order to compare the accuracy of each learner with the evaluators API, so you would decide which one works better for your problem. 
+The old `LearningPipeline` API is a fully linear code path, so you can't decompose it in multiple pieces. 
+For instance, the [BikeSharing ML.NET sample](https://github.com/dotnet/machinelearning-samples/blob/master/samples/csharp/examples/Regression_BikeSharingDemand/BikeSharingDemand/Program.cs) available at the machine-lenaring-samples repo is currently using the old `LearningPipeline` API. It performs several data transforms to the original dataset and after that it trains and creates seven different ML.NET models based on seven different regression trainers/algorithms (such as FastTreeRegressor, FastTreeTweedieRegressor, StochasticDualCoordinateAscentRegressor, etc.) in order to compare the accuracy of each learner with the evaluators API, so you would decide which one works better for your problem. 
 
-Since the data transformations to do are the same for all those models, you might want to re-use just the code execution related to transforms. However, because the pipeline only provides a single linear execution, when using the "pipeline" API you need to run the same data transformation steps for every model you create/train, as show in the following code coming from the *BikeSharing ML.NET sample*.
+Since the data transformations to do are the same for all those models, you might want to re-use just the code execution related to transforms. However, because the pipeline only provides a single linear execution, when using the `LearningPipeline` API you need to run the same data transformation steps for every model you create/train, as show in the following code coming from the *BikeSharing ML.NET sample*.
 
 ```cs
 var fastTreeModel = new ModelBuilder(trainingDataLocation, new FastTreeRegressor()).BuildAndTrain();
@@ -297,7 +297,7 @@ public PredictionModel<BikeSharingDemandSample, BikeSharingDemandPrediction> Bui
     return pipeline.Train<BikeSharingDemandSample, BikeSharingDemandPrediction>();
 }            
 ```
-With the old "pipeline" API, for every training using a different algorithm you need to run again the same process, performing the following steps again and again:
+With the old `LearningPipeline` API, for every training using a different algorithm you need to run again the same process, performing the following steps again and again:
 - Load dataset from file
 - Make column transformations (concat, copy, or additional featurizers or dictionarizers, if needed)
 
