@@ -351,7 +351,7 @@ Want to get involved? Start by providing feedback at [this specially made place 
 
 ## Get started!
 
-f you haven’t already, get started with [ML.NET here](https://www.microsoft.com/net/learn/apps/machine-learning-and-ai/ml-dotnet/get-started/windows)!
+If you haven’t already, get started with [ML.NET here](https://www.microsoft.com/net/learn/apps/machine-learning-and-ai/ml-dotnet/get-started/windows)!
  
 Next, explore some other great resources:
 
