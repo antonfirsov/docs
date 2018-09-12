@@ -61,7 +61,7 @@ And how the `OutputColumn` correlates with `softmax2_pre_activation` node's outp
 
 ![TensorFlow model's input in graph](v05-release-MLNET-Blog-Post-IMAGES/Output-Node-TF-Model.png)
 
-*Limitations:* We are currently in the process of updating the ML.NET APIs for improved flexibility, since in order to use TensorFlow ML.NET today there are a few limitations. For now (when using the "pipeline" API), these scores can only be used within a `LearningPipeline` as inputs (numeric vectors)  to a learner like a classifier learner. However, with the upcoming new ML.NET APIs, the scores from the TensorFlow model will be directly accessible, so you could simply score with the TensorFlow model without needing to add any additional learner (such as StochasticDualCoordinateAscentClassifier) and its related train process as it happens in this [sample](https://github.com/dotnet/machinelearning/blob/6ac380a4d3f44ee7b015461f74c4298b0ed5184b/test/Microsoft.ML.Tests/Scenarios/TensorflowTests.cs).
+*Limitations:* We are currently in the process of updating the ML.NET APIs for improved flexibility, since in order to use TensorFlow ML.NET today there are a few limitations. For now (when using the "pipeline" API), these scores can only be used within a `LearningPipeline` as inputs (numeric vectors)  to a learner like a classifier learner. However, with the upcoming new ML.NET APIs, the scores from the TensorFlow model will be directly accessible, so you could simply score with the TensorFlow model without needing to add any additional learner (such as StochasticDualCoordinateAscentClassifier) and its related train process as it implements this [sample](https://github.com/dotnet/machinelearning/blob/6ac380a4d3f44ee7b015461f74c4298b0ed5184b/test/Microsoft.ML.Tests/Scenarios/TensorflowTests.cs) which is creating a muticlass classification ML.NET model based on a .
 
 Take into account that the mentioned TensorFlow code examples using ML.NET are using the current "pipeline" API available in v0.5. Moving forward, the ML.NET API enabling to use TensorFlow will be slightly different and not based on the "pipeline". This is related to the next section of this blog post which focuses on the new upcoming API for ML.NET. 
 
@@ -103,7 +103,7 @@ This new API is based on concepts such as `Estimators`, `Transformes` and `DataV
 
 - **Improved usability:** Direct call to the APIs from your code, no more scaffolding or insolation layer creating an obscure separation between what the user/developer writes and the internal APIs. Entrypoints are no longer mandatory. 
 
-- **Ability to simply score with TensorFlow models.** Thanks to the mentioned flexibility in the API, you can also simply load a TensorFlow model and score by using it without needing to add any additional learner and training process (such as adding an additional ), as explained in the previous "Limitations" topic within the TensorFlow section.
+- **Ability to simply score with TensorFlow models.** Thanks to the mentioned flexibility in the API, you can also simply load a TensorFlow model and score by using it without needing to add any additional learner and training process, as explained in the previous "Limitations" topic within the TensorFlow section.
 
 - **Better visibility of the transformed data:** You have better visibility of the data while applying transformers.
 
