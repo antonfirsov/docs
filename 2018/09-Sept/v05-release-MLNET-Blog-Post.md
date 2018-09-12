@@ -134,61 +134,61 @@ This is our current proposal and based on your feedback this API will probably e
 
 ```cs
 
-        public static async Task BuildAndTrainModelToClassifyGithubIssues()
+public static async Task BuildAndTrainModelToClassifyGithubIssues()
+{
+    var env = new Environment(new SysRandom(0), verbose: true);
+
+    string dataPath = "corefx-issues-train.tsv";
+
+    // Create reader with specific schema. 
+    // string :ID, string: Area, string:Title, string:Description
+    var reader = TextLoader.CreateReader(env, ctx =>
+                                    (area: ctx.LoadText(1),
+                                    title: ctx.LoadText(2),
+                                    description: ctx.LoadText(3),
+                                    dataPath,
+                                    useHeader: true));
+
+    var estimator = reader.MakeEstimator()
+        .Append(row => (
+            // Convert string label to key. 
+            label: row.area.Dictionarize(),
+            // Featurizes 'description'
+            description: row.description.FeaturizeText(),
+            // Featurizes 'title'
+            title: row.title.FeaturizeText()))
+        .Append(row => (
+            // Concatenate the two features into a vector.
+            features: row.description.ConcatWith(r.title),
+            // Preserve the label
+            label: row.label))
+        .Append(row => r.label.PredictSdcaMultiClass(row.features));
+
+    // Read the data
+    var data = reader.Read(dataPath);
+
+    // Fit the data
+    var model = estimator.Fit(data);
+
+    string modelPath = "github-Model.zip";
+
+    // Save the ML.NET model into a .ZIP file
+    await model.WriteAsync(modelPath);
+}
+
+public static async Task PredictLableForGithubIssueAsync()
+{
+    // Read model from an ML.NET .ZIP model file
+    var model = await PredictionModel.ReadAsync(ModelPath);
+    var predictor = model.MakePredictionFunction<IssueInput, IssuePrediction>();
+
+    // This prediction will classify this particular issue in a type such as "EF and Database access"
+    var prediction = predictor.PredictSdcaMultiClass(new IssueInput
         {
-            var env = new Environment(new SysRandom(0), verbose: true);
-
-            string dataPath = "corefx-issues-train.tsv";
-
-            // Create reader with specific schema. 
-            // string :ID, string: Area, string:Title, string:Description
-            var reader = TextLoader.CreateReader(env, ctx =>
-                                          (area: ctx.LoadText(1),
-                                            title: ctx.LoadText(2),
-                                            description: ctx.LoadText(3),
-                                            dataPath,
-                                            useHeader: true));
-
-            var estimator = reader.MakeEstimator()
-                .Append(row => (
-                    // Convert string label to key. 
-                    label: row.area.Dictionarize(),
-                    // Featurizes 'description'
-                    description: row.description.FeaturizeText(),
-                    // Featurizes 'title'
-                    title: row.title.FeaturizeText()))
-                .Append(row => (
-                    // Concatenate the two features into a vector.
-                    features: row.description.ConcatWith(r.title),
-                    // Preserve the label
-                    label: row.label))
-                .Append(row => r.label.PredictSdcaMultiClass(row.features));
-
-            // Read the data
-            var data = reader.Read(dataPath);
-
-            // Fit the data
-            var model = estimator.Fit(data);
-
-            string modelPath = "github-Model.zip";
-
-            // Save the ML.NET model into a .ZIP file
-            await model.WriteAsync(modelPath);
-        }
-
-        public static async Task PredictLableForGithubIssueAsync()
-        {
-            // Read model from an ML.NET .ZIP model file
-            var model = await PredictionModel.ReadAsync(ModelPath);
-            var predictor = model.MakePredictionFunction<IssueInput, IssuePrediction>();
-
-            // This prediction will classify this particular issue in a type such as "EF and Database access"
-            var prediction = predictor.PredictSdcaMultiClass(new IssueInput
-                {
-                    Title = "Sample issue related to Entity Framework", 
-                    Description = "When using Entity Framework Core I'm experiencing database connection failures when running queries or transactions. Looks like it could be related to transient faults in network communication agains the Azure SQL Database..."
-                });
-        }
+            Title = "Sample issue related to Entity Framework", 
+            Description = "When using Entity Framework Core I'm experiencing database connection failures when running queries or transactions. Looks like it could be related to transient faults in network communication agains the Azure SQL Database..."
+        });
+}
 
 ```
 
@@ -197,58 +197,58 @@ Compare with the following old "pipeline" API code snippet that lacks flexibilit
 **Old "pipeline" API code example:**
 
 ```cs
-        public static async Task BuildAndTrainModelToClassifyGithubIssuesAsync()
+public static async Task BuildAndTrainModelToClassifyGithubIssuesAsync()
+{
+        // Create the pipeline
+    var pipeline = new LearningPipeline();
+
+    // Read the data
+    pipeline.Add(new TextLoader(DataPath).CreateFrom<GitHubIssue>(useHeader: true));
+
+    // Dictionarize the "Area" column
+    pipeline.Add(new Dictionarizer(("Area", "Label")));
+
+    // Featurize the "Title" column
+    pipeline.Add(new TextFeaturizer("Title", "Title"));
+
+    // Featurize the "Description" column
+    pipeline.Add(new TextFeaturizer("Description", "Description"));
+    
+    // Concatenate the provided columns
+    pipeline.Add(new ColumnConcatenator("Features", "Title", "Description"));
+
+    // Set the algorithm/learner to use when training
+    pipeline.Add(new StochasticDualCoordinateAscentClassifier());
+
+    // Specify the column to predict when scoring
+    pipeline.Add(new PredictedLabelColumnOriginalValueConverter() { PredictedLabelColumn = "PredictedLabel" });
+
+    Console.WriteLine("=============== Training model ===============");
+
+    // Train the model
+    var model = pipeline.Train<GitHubIssue, GitHubIssuePrediction>();
+
+    // Save the model to a .zip file
+    await model.WriteAsync(ModelPath);
+
+    Console.WriteLine("=============== End training ===============");
+    Console.WriteLine("The model is saved to {0}", ModelPath);
+}
+
+public static async Task<string> PredictLabelForGitHubIssueAsync()
+{
+    // Read model from an ML.NET .ZIP model file
+    _model = await PredictionModel.ReadAsync<GitHubIssue, GitHubIssuePrediction>(ModelPath);
+    
+    // This prediction will classify this particular issue in a type such as "EF and Database access"
+    var prediction = _model.Predict(new GitHubIssue
         {
-             // Create the pipeline
-            var pipeline = new LearningPipeline();
+            Title = "Sample issue related to Entity Framework", 
+            Description = "When using Entity Framework Core I'm experiencing database connection failures when running queries or transactions. Looks like it could be related to transient faults in network communication agains the Azure SQL Database..."
+        });
 
-            // Read the data
-            pipeline.Add(new TextLoader(DataPath).CreateFrom<GitHubIssue>(useHeader: true));
-
-            // Dictionarize the "Area" column
-            pipeline.Add(new Dictionarizer(("Area", "Label")));
-
-            // Featurize the "Title" column
-            pipeline.Add(new TextFeaturizer("Title", "Title"));
-
-            // Featurize the "Description" column
-            pipeline.Add(new TextFeaturizer("Description", "Description"));
-            
-            // Concatenate the provided columns
-            pipeline.Add(new ColumnConcatenator("Features", "Title", "Description"));
-
-            // Set the algorithm/learner to use when training
-            pipeline.Add(new StochasticDualCoordinateAscentClassifier());
-
-            // Specify the column to predict when scoring
-            pipeline.Add(new PredictedLabelColumnOriginalValueConverter() { PredictedLabelColumn = "PredictedLabel" });
-
-            Console.WriteLine("=============== Training model ===============");
-
-            // Train the model
-            var model = pipeline.Train<GitHubIssue, GitHubIssuePrediction>();
-
-            // Save the model to a .zip file
-            await model.WriteAsync(ModelPath);
-
-            Console.WriteLine("=============== End training ===============");
-            Console.WriteLine("The model is saved to {0}", ModelPath);
-        }
-
-        public static async Task<string> PredictLabelForGitHubIssueAsync()
-        {
-            // Read model from an ML.NET .ZIP model file
-            _model = await PredictionModel.ReadAsync<GitHubIssue, GitHubIssuePrediction>(ModelPath);
-            
-            // This prediction will classify this particular issue in a type such as "EF and Database access"
-            var prediction = _model.Predict(new GitHubIssue
-                {
-                    Title = "Sample issue related to Entity Framework", 
-                    Description = "When using Entity Framework Core I'm experiencing database connection failures when running queries or transactions. Looks like it could be related to transient faults in network communication agains the Azure SQL Database..."
-                });
-
-            return prediction.Area;
-        }
+    return prediction.Area;
+}
 ```
 
 The old "pipeline" API is a fully linear code path, so you can't decompose it in multiple pieces. 
@@ -257,45 +257,45 @@ For instance, the [BikeSharing ML.NET sample](https://github.com/dotnet/machinel
 Since the data transformations to do are the same for all those models, you might want to re-use just the code execution related to transforms. However, because the pipeline only provides a single linear execution, when using the "pipeline" API you need to run the same data transformation steps for every model you create/train, as show in the following code coming from the *BikeSharing ML.NET sample*.
 
 ```cs
-            var fastTreeModel = new ModelBuilder(trainingDataLocation, new FastTreeRegressor()).BuildAndTrain();
-            var fastTreeMetrics = modelEvaluator.Evaluate(fastTreeModel, testDataLocation);
-            PrintMetrics("Fast Tree", fastTreeMetrics);
+var fastTreeModel = new ModelBuilder(trainingDataLocation, new FastTreeRegressor()).BuildAndTrain();
+var fastTreeMetrics = modelEvaluator.Evaluate(fastTreeModel, testDataLocation);
+PrintMetrics("Fast Tree", fastTreeMetrics);
 
-            var fastForestModel = new ModelBuilder(trainingDataLocation, new FastForestRegressor()).BuildAndTrain();
-            var fastForestMetrics = modelEvaluator.Evaluate(fastForestModel, testDataLocation);
-            PrintMetrics("Fast Forest", fastForestMetrics);
+var fastForestModel = new ModelBuilder(trainingDataLocation, new FastForestRegressor()).BuildAndTrain();
+var fastForestMetrics = modelEvaluator.Evaluate(fastForestModel, testDataLocation);
+PrintMetrics("Fast Forest", fastForestMetrics);
 
-            var poissonModel = new ModelBuilder(trainingDataLocation, new PoissonRegressor()).BuildAndTrain();
-            var poissonMetrics = modelEvaluator.Evaluate(poissonModel, testDataLocation);
-            PrintMetrics("Poisson", poissonMetrics);
+var poissonModel = new ModelBuilder(trainingDataLocation, new PoissonRegressor()).BuildAndTrain();
+var poissonMetrics = modelEvaluator.Evaluate(poissonModel, testDataLocation);
+PrintMetrics("Poisson", poissonMetrics);
 
-            //Other learners/algorithms
-            //...
+//Other learners/algorithms
+//...
 ```
 
 Where the BuildAndTrain() method needs to have both, the data transforms plus the different algorithm per case, as shown in the following code:
 
 ```cs
-        public PredictionModel<BikeSharingDemandSample, BikeSharingDemandPrediction> BuildAndTrain()
-        {
-            var pipeline = new LearningPipeline();
-            pipeline.Add(new TextLoader(_trainingDataLocation).CreateFrom<BikeSharingDemandSample>(useHeader: true, separator: ','));
-            pipeline.Add(new ColumnCopier(("Count", "Label")));
-            pipeline.Add(new ColumnConcatenator("Features", 
-                                                "Season", 
-                                                "Year", 
-                                                "Month", 
-                                                "Hour", 
-                                                "Weekday", 
-                                                "Weather", 
-                                                "Temperature", 
-                                                "NormalizedTemperature",
-                                                "Humidity",
-                                                "Windspeed"));
-            pipeline.Add(_algorythm);
+public PredictionModel<BikeSharingDemandSample, BikeSharingDemandPrediction> BuildAndTrain()
+{
+    var pipeline = new LearningPipeline();
+    pipeline.Add(new TextLoader(_trainingDataLocation).CreateFrom<BikeSharingDemandSample>(useHeader: true, separator: ','));
+    pipeline.Add(new ColumnCopier(("Count", "Label")));
+    pipeline.Add(new ColumnConcatenator("Features", 
+                                        "Season", 
+                                        "Year", 
+                                        "Month", 
+                                        "Hour", 
+                                        "Weekday", 
+                                        "Weather", 
+                                        "Temperature", 
+                                        "NormalizedTemperature",
+                                        "Humidity",
+                                        "Windspeed"));
+    pipeline.Add(_algorythm);
 
-            return pipeline.Train<BikeSharingDemandSample, BikeSharingDemandPrediction>();
-        }            
+    return pipeline.Train<BikeSharingDemandSample, BikeSharingDemandPrediction>();
+}            
 ```
 With the old "pipeline" API, for every training using a different algorithm you need to run again the same process, performing the following steps again and again:
 - Load dataset from file
@@ -311,7 +311,7 @@ Because this will be a significant change in ML.NET we want to share our proposa
 
 
 ## Provide your feedback on the new API
-![PRovide feedback image with two people and a swimlane](v05-release-MLNET-Blog-Post-IMAGES/swimlane-feedback.png)
+![Provide feedback image with two people and a swimlane](v05-release-MLNET-Blog-Post-IMAGES/swimlane-feedback.png)
 
 Want to get involved? Start by providing feedback at [this specially made place for gathering new API feedback]( http://aka.ms/newapifeedback), or in the blog post comments below!
 
