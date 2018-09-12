@@ -73,7 +73,7 @@ You can find an additional code example/test using the `TensorFlowTransform` wit
 
 
 
-## Explore the upcoming new ML.NET API and provide feedback
+## Explore the upcoming new ML.NET API (after 0.5) and provide feedback
 
 As mentioned at the beginning of this blog post, we are really looking forward to get your feedback as we create the new ML.NET API while crafting ML.NET. This evolution in ML.NET offers more flexible capabilities than what the current `LearningPipeline` API offers. The `LearningPipeline` API will be deprecated when this new API is ready and good enough.  
 
