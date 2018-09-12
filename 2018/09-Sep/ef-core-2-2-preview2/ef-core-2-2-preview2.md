@@ -23,7 +23,7 @@ For a more detailed explanation see [our documentation on Installing Entity Fram
 The Cosmos DB provider and the spatial extensions ship as new separate NuGet packages. We'll explain how to get started with them in the corresponding feature descriptions.
 
 ## What is new in this preview?
-As we explained in [our roadmap annoucement](https://github.com/aspnet/Announcements/issues/308) back in June, there will be a large number of bug fixes (you can see the list of issues we have fixed so far [here](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aissue+milestone%3A2.2.0+is%3Aclosed+label%3Aclosed-fixed) but only a relatively small number of new features in EF Core 2.2.
+As we explained in [our roadmap annoucement](https://github.com/aspnet/Announcements/issues/308) back in June, there will be a large number of bug fixes (you can see the list of issues we have fixed so far [here](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aissue+milestone%3A2.2.0-preview2+is%3Aclosed+label%3Aclosed-fixed) but only a relatively small number of new features in EF Core 2.2.
 
 Here are the most salient new features:
 
@@ -81,7 +81,7 @@ If you want, you can create the database programmatically, using EF Core APIs:
 await cosmosDb.Database.EnsureCreatedAsync();
 ```
 
-Once you have connected to an existing database and you have defined your entities, you can storing data in the database, for example:
+Once you have connected to an existing database and you have defined your entities, you can start storing data in the database, for example:
 
 ``` csharp
 using (var context = new BloggingContext())
