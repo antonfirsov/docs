@@ -140,7 +140,7 @@ public static async Task BuildAndTrainModelToClassifyGithubIssues()
 {
     var env = new MLEnvironment();
 
-    string trainDataPath = @"..\..\..\Data\issues_train.tsv";
+    string trainDataPath = @"Data\issues_train.tsv";
 
     // Create reader
     var reader = TextLoader.CreateReader(env, ctx =>
@@ -183,7 +183,7 @@ public static async Task BuildAndTrainModelToClassifyGithubIssues()
     var model = estimator.Fit(data);
 
     // Use the model to get predictions on the test dataset
-    var scores = model.Transform(reader.Read(new MultiFileSource(@"..\..\..\Data\issues_test.tsv")));
+    var scores = model.Transform(reader.Read(new MultiFileSource(@"Data\issues_test.tsv")));
     var metrics = MultiClassClassifierEvaluator.Evaluate(scores, r => r.label, r => r.score);
 
     Console.WriteLine("Micro-accuracy is: " + metrics.AccuracyMicro);
