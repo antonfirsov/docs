@@ -254,7 +254,7 @@ For anything else that you find, please report it [as a new issue](https://githu
 
 ### Collections of owned entities
 
-EF Core 2.2 extends the ability to express [ownership relationships](https://docs.microsoft.com/en-us/ef/core/modeling/owned-entities) to one-to-many associations. This helps constraining how entities in an owned collection can be manipulated (for example, they cannot be used without an owner) and triggers automatic behaviors such as implicit eager loading. In the case of relational database, owned collections are mapped to separate tables from the owner, just like regular one-to-many associations, but in the case of a document-oriented database such as Cosmos DB, we plan to nest owned entities (in owned collections or references) within the same JSON document as the owner. You can use the feature by invoking the new OwnsMany() API:
+EF Core 2.2 extends the ability to express [ownership relationships](https://docs.microsoft.com/en-us/ef/core/modeling/owned-entities) to one-to-many associations. This helps constraining how entities in an owned collection can be manipulated (for example, they cannot be used without an owner) and triggers automatic behaviors such as implicit eager loading. In the case of relational databases, owned collections are mapped to separate tables from the owner, just like regular one-to-many associations, but in the case of a document-oriented database such as Cosmos DB, we plan to nest owned entities (in owned collections or references) within the same JSON document as the owner. You can use the feature by invoking the new OwnsMany() API:
 
 ``` csharp
 modelBuilder.Entity<Customer>().OwnsMany(c => c.Addresses);
