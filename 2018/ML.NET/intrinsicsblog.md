@@ -55,7 +55,7 @@ To this code I added a new independent code path for CPU math operations that be
 2. a `SseIntrinsics` method which implements the operation with loops containing SSE hardware intrinsics, and
 3. a software fallback in case neither AVX nor SSE is supported.
 
-You will commonly see this pattern whenever code uses .NET Hardware Intrinsics - for example, this is what the code looks like for calculating the dot product of two dense arrays:
+You will commonly see this pattern whenever code uses .NET Hardware Intrinsics - for example, this is what the code looks like for adding a scalar to a vector:
 ```c#
         // Add scalar to each element of dst
         private static void Add(float scalar, Span<float> dst)
