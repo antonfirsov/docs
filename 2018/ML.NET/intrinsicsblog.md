@@ -53,7 +53,7 @@ To this code I added a new independent code path for CPU math operations that be
 `CpuMathUtils` is a new partial class that contains two definitions for each public API representing CPU math operation, one of which is compiled only on .NET Standard 2.0 while the other, only on .NET Core App 3.0. This conditional compilation feature creates two independent code paths for `CpuMathUtils` methods. Those function definitions compiled on .NET Standard 2.0 call their `SseUtils` counterparts directly, which essentially follow the original native code path. On the other hand, the other function definitions compiled on .NET Core App 3.0 switch to one of three implementations of the same CPU math operation, based on availability at runtime:
 1. an `AvxIntrinsics` method which implements the operation with loops containing AVX hardware intrinsics,
 2. a `SseIntrinsics` method which implements the operation with loops containing SSE hardware intrinsics, and
-3. a software fallback in case neither AVX nor SSE is supported [Figure 3].
+3. a software fallback in case neither AVX nor SSE is supported.
 
 You will commonly see this pattern whenever code uses .NET Hardware Intrinsics - for example, this is what the code looks like for calculating the dot product of two dense arrays:
 ```c#
@@ -130,27 +130,27 @@ Since the `AvxIntrinsics` and `SseIntrinsics` methods in managed code directly i
 
 After making this replacement I was able to use ML.NET to perform tasks such as train models with stochastic dual coordinate ascent, conduct hyperparameter tuning, and perform cross validation, on a Raspberry Pi, when previously an x86 CPU was required.
 
-Here's what the architecture looks like now:
+Here's what the architecture looks like now (Figure 1):
 
-**Figure 4**: ![Illustration of new code architecture](Code.png "Illustration of new code architecture")
+**Figure 1**: ![Illustration of new code architecture](Code.png "Illustration of new code architecture")
 
 ## Performance improvements
 
 I used [Benchmark.NET](https://benchmarkdotnet.org/index.html) to make all my measurements.
 
-First, I disabled the AVX code paths in order to compare the native and managed implementations while both were using the same SSE instructions. As Figure 5 shows, the performance is **closely comparable**: on the large vectors the tests operate on, the overhead added by managed code is not significant.
+First, I disabled the AVX code paths in order to compare the native and managed implementations while both were using the same SSE instructions. As Figure 2 shows, the performance is **closely comparable**: on the large vectors the tests operate on, the overhead added by managed code is not significant.
 
-**Figure 5**: ![Running time of native vs managed implementations](NativeManaged.png "Running time of native vs managed implementations")
+**Figure 2**: ![Running time of native vs managed implementations](NativeManaged.png "Running time of native vs managed implementations")
 
-Second, I enabled AVX support. Figure 6 shows that the average performance gain in microbenchmarks was about **20%**.
+Second, I enabled AVX support. Figure 3 shows that the average performance gain in microbenchmarks was about **20%**.
 
-**Figure 6**: ![Running time of managed SSE vs AVX implementations](SseAvx.png "Running time of managed SSE vs AVX implementations")
+**Figure 3**: ![Running time of managed SSE vs AVX implementations](SseAvx.png "Running time of managed SSE vs AVX implementations")
 
 Taking both together -- the upgrade from the SSE implementation in native code to the AVX implementation in managed code -- I measured an **18%** improvement in the microbenchmarks. Some operations were up to 42% faster, while some others involving sparse inputs have potential for further optimization.
 
-What ultimately matters of course is the performance for real scenarios. On .NET Core App 3.0, training models of K-means clustering and logistic regression got faster by an average of **+14%**, and memory allocation was essentially the same (Figure 8).
+What ultimately matters of course is the performance for real scenarios. On .NET Core App 3.0, training models of K-means clustering and logistic regression got faster by about **14%** (Figure 4).
 
-Figure 8: ![Training scenario](TrainTime.png "Training scenario")
+Figure 4: ![Training scenario](TrainTime.png "Training scenario")
 
 ## In closing
 
