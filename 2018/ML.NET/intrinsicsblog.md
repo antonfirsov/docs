@@ -48,11 +48,15 @@ In the original code, every trainer, learner, and transform used in machine lear
 
 These wrapper methods assumed a preference for SSE instructions, and called a corresponding method in another class `Thunk`, which serves as the interface between managed and native code and contains methods that directly invoke their native equivalents. These native methods in `.cpp` files in turn implemented the CPU math operations with loops containing SSE hardware intrinsics.
 
-## Splitting up the code-paths
+## Breaking out a managed code-path
 
 To this code I added a new independent code path for CPU math operations that becomes active on .NET Core 3.0, and by keeping the original code path running on .NET Standard 2.0. All previous call sites of `SseUtils` methods now called `CpuMathUtils` methods of the same name instead, keeping the API signatures of CPU math operations the same.
 
-`CpuMathUtils` is a new partial class that contains two definitions for each public API representing CPU math operation, one of which is compiled only on .NET Standard 2.0 while the other, only on .NET Core 3.0. This conditional compilation feature creates two independent code paths for `CpuMathUtils` methods. Those function definitions compiled on .NET Standard 2.0 call their `SseUtils` counterparts directly, which essentially follow the original native code path. On the other hand, the other function definitions compiled on .NET Core 3.0 switch to one of three implementations of the same CPU math operation, based on availability at runtime:
+`CpuMathUtils` is a new partial class that contains two definitions for each public API representing CPU math operation, one of which is compiled only on .NET Standard 2.0 while the other, only on .NET Core 3.0. This conditional compilation feature creates two independent code paths for `CpuMathUtils` methods. Those function definitions compiled on .NET Standard 2.0 call their `SseUtils` counterparts directly, which essentially follow the original native code path. 
+
+## Writing code with software fallback
+
+On the other hand, the other function definitions compiled on .NET Core 3.0 switch to one of three implementations of the same CPU math operation, based on availability at runtime:
 1. an `AvxIntrinsics` method which implements the operation with loops containing AVX hardware intrinsics,
 2. a `SseIntrinsics` method which implements the operation with loops containing SSE hardware intrinsics, and
 3. a software fallback in case neither AVX nor SSE is supported.
@@ -130,7 +134,7 @@ You can see all my code [on the dotnet/machinelearning](https://github.com/dotne
 
 Since the `AvxIntrinsics` and `SseIntrinsics` methods in managed code directly implement the CPU math operations analogous to the native methods originally in `.cpp` files, the code change not only removes native dependencies but also simplifies the levels of abstraction between public APIs and base-layer hardware intrinsics. 
 
-After making this replacement I was able to use ML.NET to perform tasks such as train models with stochastic dual coordinate ascent, conduct hyperparameter tuning, and perform cross validation, on a Raspberry Pi, when previously an x86 CPU was required.
+After making this replacement I was able to use ML.NET to perform tasks such as train models with stochastic dual coordinate ascent, conduct hyperparameter tuning, and perform cross validation, on a **Raspberry Pi**, when previously ML.NET required an x86 CPU.
 
 Here's what the architecture looks like now (Figure 1):
 
@@ -138,13 +142,15 @@ Here's what the architecture looks like now (Figure 1):
 
 ## Performance improvements
 
-I used [Benchmark.NET](https://benchmarkdotnet.org/index.html) to make all my measurements.
+So what difference did this make to performance?
 
-First, I disabled the AVX code paths in order to compare the native and managed implementations while both were using the same SSE instructions. As Figure 2 shows, the performance is **closely comparable**: on the large vectors the tests operate on, the overhead added by managed code is not significant.
+ I wrote tests using [Benchmark.NET](https://benchmarkdotnet.org/index.html) to gather measurements.
+
+First, I disabled the AVX code paths in order to fairly compare the native and managed implementations while both were using the same SSE instructions. As Figure 2 shows, the performance is **closely comparable**: on the large vectors the tests operate on, the overhead added by managed code is not significant.
 
 **Figure 2**: ![Running time of native vs managed implementations](NativeManaged.png "Running time of native vs managed implementations")
 
-Second, I enabled AVX support. Figure 3 shows that the average performance gain in microbenchmarks was about **20%**.
+Second, I enabled AVX support. Figure 3 shows that the average performance gain in microbenchmarks was about **20%** over SSE alone.
 
 **Figure 3**: ![Running time of managed SSE vs AVX implementations](SseAvx.png "Running time of managed SSE vs AVX implementations")
 
