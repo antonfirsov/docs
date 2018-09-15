@@ -2,9 +2,19 @@
 
 _This week's blog post is by Brian Lui, one of our summer interns on the .NET team, who's been hard at work. Over to Brian:_
 
-Hello everyone. This summer I interned in the .NET team, working on a project named [ML.NET](https://www.microsoft.com/net/learn/apps/machine-learning-and-ai/ml-dotnet) which is an open-source platform being introduced by Microsoft to make high performance Machine Learning more accessible from .NET apps. It's expected to ship next year, but you can [use previews already](https://github.com/dotnet/machinelearning).
+Hello everyone! This summer I interned in the .NET team, working on a project named [ML.NET](https://www.microsoft.com/net/learn/apps/machine-learning-and-ai/ml-dotnet), which is an open-source platform being introduced by Microsoft to make high performance Machine Learning more accessible from .NET apps. It's expected to ship next year, but you can [use a preview version already](https://github.com/dotnet/machinelearning).
 
-At the start of my internship, ML.NET code was already relying on vectorization for performance, using a native code library to access x86 SSE instructions. This was an opportunity to reimplement an existing codebase in managed code, using .NET Hardware Intrinsics, and compare results.
+At the start of my internship, ML.NET code was already relying on vectorization for performance, using a native code library. This was an opportunity to reimplement an existing codebase in managed code, using .NET Hardware Intrinsics for vectorization, and compare results.
+
+## What is vectorization, and what are SIMD, SSE, and AVX?
+
+Vectorization is a name used for applying the same operation to multiple elements of an array simultaneously. On the x86/x64 platform, vectorization can be achieved by using Single Instruction Multiple Data (SIMD) CPU instructions to operate on array-like objects.
+
+SSE (Streaming SIMD Extensions) and AVX (Advanced Vector Extensions) are the names for SIMD instruction set extensions to the x86 architecture. SSE has been available for a long time: the CoreCLR underlying .NET Core requires x86 platforms support at least the SSE2 instruction set. AVX is an extension to SSE that is now broadly available. Its key advantage is that it can handle 8 consecutive 32-bit elements in memory in one instruction, twice as much as SSE can.
+
+.NET Core 3.0 will expose SIMD instructions as API's that are available to managed code directly, making it unnecessary to use native code to access them.
+
+ARM based CPU's do offer a similar range of intrinsics but they are not yet supported on .NET Core (although work is [in progress](https://github.com/dotnet/corefx/issues/26179)). Therefore, it is necessary to use software fallback code paths for the case when neither AVX nor SSE are available. The JIT makes it possible to do this fallback in a very efficient way. When .NET Core does expose ARM intrinsics, the code could exploit them at which point the software fallback would rarely if ever be needed.
 
 ## Project goals
 
@@ -18,25 +28,17 @@ I was able to achieve all these goals.
 
 ## Challenges
 
-It was necessary to first familarize myself with C# and .NET, and then my work included:
-- use `Span<T>` in the base-layer implementation of CPU math operations in C# (if `Span<T>` is unfamilar to you, there is a great overview [here](https://msdn.microsoft.com/en-us/magazine/mt814808.aspx))
-- enable switching between AVX, SSE, and software implementations depending on availability
+It was necessary to first familiarize myself with C# and .NET, and then my work included:
+- use `Span<T>` in the base-layer implementation of CPU math operations in C#. If you're unfamiliar with `Span<T>`, see this great MSDN magazine article [C# - All About Span: Exploring a New .NET Mainstay].(https://msdn.microsoft.com/magazine/mt814808.aspx) and [the documentation](https://docs.microsoft.com/dotnet/api/system.span-1).
+- enable switching between AVX, SSE, and software implementations depending on availability.
 - correctly handle pointers in the managed code, and remove alignment assumptions made by some of the existing code
-- use Multitargeting to allow ML.NET continued to function on platforms that don't have .NET Hardware Intrinsics APIs.
+- use multitargeting to allow ML.NET continued to function on platforms that don't have .NET Hardware Intrinsics APIs.
 
 ## Multi-targeting
 
-.NET Hardware Intrinsics will ship in .NET Core 3.0, which is currently in development. ML.NET also needs to run on .NET Standard 2.0 compliant platforms - such as .NET Framework 4.7.2 and .NET Core 2.1. In order to support both I chose to use [multitargeting](https://docs.microsoft.com/en-us/dotnet/core/porting/project-structure#replace-existing-projects-with-a-multi-targeted-net-core-project) to create a single `.csproj` file that targets both .NET Standard 2.0 and .NET Core 3.0. 
-1. On **.NET Standard 2.0**, the system will use the original native implementation with SSE (Streaming SIMD Extensions) hardware intrinsics, while
+.NET Hardware Intrinsics will ship in .NET Core 3.0, which is currently in development. ML.NET also needs to run on .NET Standard 2.0 compliant platforms - such as .NET Framework 4.7.2 and .NET Core 2.1. In order to support both I chose to use [multitargeting](https://docs.microsoft.com/dotnet/core/porting/project-structure#replace-existing-projects-with-a-multi-targeted-net-core-project) to create a single `.csproj` file that targets both .NET Standard 2.0 and .NET Core 3.0. 
+1. On **.NET Standard 2.0**, the system will use the original native implementation with SSE hardware intrinsics
 2. On **.NET Core App 3.0**, the system will use the new managed implementation with AVX hardware intrinsics.
-
-## What is Vectorization, and what are SSE and AVX?
-
-Vectorization is a name used for applying the same operation to multiple elements of an array simultaneously. On the x86/x64 platform, vectorization can be achieved by using SIMD (single-instruction, multi-data) CPU instructions to operate on array-like objects.
-
-SSE (Streaming SIMD Extensions) and AVX (Advanced Vector Extensions) are  then names for SIMD instruction set extensions to the x86 architecture. SSE has been available for a long time: the CoreCLR underlying .NET Core requires x86 platforms support at least the SSE2 instruction set. AVX is an extension to SSE that is now broadly available. Its key advantage is that it can handle 8 consecutive 32-bit elements in memory in one instruction, twice as much as SSE can.
-
-ARM based CPU's do offer a similar range of intrinsics but they are not yet supported on .NET Core (although work is [in progress](https://github.com/dotnet/corefx/issues/26179)). Therefore I included software fallbacks for the case when neither AVX and SSE are available. The JIT makes it possible to do this fallback in a very efficient way. When .NET Core does expose ARM intrinsics, the code could exploit them at which point the a software fallback would rarely if ever be needed.
 
 ## As the code was originally
 
@@ -44,7 +46,7 @@ In the original code, every trainer, learner, and transform used in machine lear
 - `MatMulDense`, which takes the matrix multiplication of two dense arrays interpreted as matrices, and 
 - `SdcaL1UpdateSparse`, which performs the update step of the stochastic dual coordinate ascent for sparse arrays.
 
-These wrapper methods assumed a preference for SSE SIMD instructions, and called a corresponding method in another class `Thunk`, which serves as the interface between managed and native code and contains methods that directly invoke their native equivalents. These native methods in `.cpp` files in turn implemented the CPU math operations with loops containing SSE hardware intrinsics.
+These wrapper methods assumed a preference for SSE instructions, and called a corresponding method in another class `Thunk`, which serves as the interface between managed and native code and contains methods that directly invoke their native equivalents. These native methods in `.cpp` files in turn implemented the CPU math operations with loops containing SSE hardware intrinsics.
 
 ## Splitting up the code-paths
 
@@ -77,7 +79,7 @@ You will commonly see this pattern whenever code uses .NET Hardware Intrinsics -
             }
         }
 ```
-If AVX is supported, it is preferred, otherwise SSE is used if available, otherwise the software fallback path. At runtime, the JIT will actually generate code for only one of these three blocks, as appropriate.
+If AVX is supported, it is preferred, otherwise SSE is used if available, otherwise the software fallback path. At runtime, the JIT will actually generate code for only one of these three blocks, as appropriate for the platform it finds itself on.
 
 To give you an idea, here what the AVX implementation looks like that's called by the method above:
 ```c#
@@ -124,7 +126,7 @@ To give you an idea, here what the AVX implementation looks like that's called b
 ```
 You will notice that it operates on `float`s in groups of 8 using AVX, then any group of 4 using SSE, and finally a software loop for any that remain. (There are potentially more efficient ways to do this, which I won't discuss here - there will be future blog posts dedicated to .NET Hardware Intrinsics.)
 
-You can see all my code [here](https://github.com/dotnet/machinelearning/tree/master/src/Microsoft.ML.CpuMath).
+You can see all my code [on the dotnet/machinelearning](https://github.com/dotnet/machinelearning/tree/master/src/Microsoft.ML.CpuMath) repository.
 
 Since the `AvxIntrinsics` and `SseIntrinsics` methods in managed code directly implement the CPU math operations analogous to the native methods originally in `.cpp` files, the code change not only removes native dependencies but also simplifies the levels of abstraction between public APIs and base-layer hardware intrinsics. 
 
