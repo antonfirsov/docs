@@ -29,7 +29,7 @@ I was able to achieve all these goals.
 ## Challenges
 
 It was necessary to first familiarize myself with C# and .NET, and then my work included:
-- use `Span<T>` in the base-layer implementation of CPU math operations in C#. If you're unfamiliar with `Span<T>`, see this great MSDN magazine article [C# - All About Span: Exploring a New .NET Mainstay].(https://msdn.microsoft.com/magazine/mt814808.aspx) and [the documentation](https://docs.microsoft.com/dotnet/api/system.span-1).
+- use `Span<T>` in the base-layer implementation of CPU math operations in C#. If you're unfamiliar with `Span<T>`, see this great MSDN magazine article [C# - All About Span: Exploring a New .NET Mainstay](https://msdn.microsoft.com/magazine/mt814808.aspx) and also [the documentation](https://docs.microsoft.com/dotnet/api/system.span-1).
 - enable switching between AVX, SSE, and software implementations depending on availability.
 - correctly handle pointers in the managed code, and remove alignment assumptions made by some of the existing code
 - use multitargeting to allow ML.NET continued to function on platforms that don't have .NET Hardware Intrinsics APIs.
