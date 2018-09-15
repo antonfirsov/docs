@@ -38,7 +38,7 @@ It was necessary to first familiarize myself with C# and .NET, and then my work 
 
 .NET Hardware Intrinsics will ship in .NET Core 3.0, which is currently in development. ML.NET also needs to run on .NET Standard 2.0 compliant platforms - such as .NET Framework 4.7.2 and .NET Core 2.1. In order to support both I chose to use [multitargeting](https://docs.microsoft.com/dotnet/core/porting/project-structure#replace-existing-projects-with-a-multi-targeted-net-core-project) to create a single `.csproj` file that targets both .NET Standard 2.0 and .NET Core 3.0. 
 1. On **.NET Standard 2.0**, the system will use the original native implementation with SSE hardware intrinsics
-2. On **.NET Core App 3.0**, the system will use the new managed implementation with AVX hardware intrinsics.
+2. On **.NET Core 3.0**, the system will use the new managed implementation with AVX hardware intrinsics.
 
 ## As the code was originally
 
@@ -50,9 +50,9 @@ These wrapper methods assumed a preference for SSE instructions, and called a co
 
 ## Splitting up the code-paths
 
-To this code I added a new independent code path for CPU math operations that becomes active on .NET Core App 3.0, and by keeping the original code path running on .NET Standard 2.0. All previous call sites of `SseUtils` methods now called `CpuMathUtils` methods of the same name instead, keeping the API signatures of CPU math operations the same.
+To this code I added a new independent code path for CPU math operations that becomes active on .NET Core 3.0, and by keeping the original code path running on .NET Standard 2.0. All previous call sites of `SseUtils` methods now called `CpuMathUtils` methods of the same name instead, keeping the API signatures of CPU math operations the same.
 
-`CpuMathUtils` is a new partial class that contains two definitions for each public API representing CPU math operation, one of which is compiled only on .NET Standard 2.0 while the other, only on .NET Core App 3.0. This conditional compilation feature creates two independent code paths for `CpuMathUtils` methods. Those function definitions compiled on .NET Standard 2.0 call their `SseUtils` counterparts directly, which essentially follow the original native code path. On the other hand, the other function definitions compiled on .NET Core App 3.0 switch to one of three implementations of the same CPU math operation, based on availability at runtime:
+`CpuMathUtils` is a new partial class that contains two definitions for each public API representing CPU math operation, one of which is compiled only on .NET Standard 2.0 while the other, only on .NET Core 3.0. This conditional compilation feature creates two independent code paths for `CpuMathUtils` methods. Those function definitions compiled on .NET Standard 2.0 call their `SseUtils` counterparts directly, which essentially follow the original native code path. On the other hand, the other function definitions compiled on .NET Core 3.0 switch to one of three implementations of the same CPU math operation, based on availability at runtime:
 1. an `AvxIntrinsics` method which implements the operation with loops containing AVX hardware intrinsics,
 2. a `SseIntrinsics` method which implements the operation with loops containing SSE hardware intrinsics, and
 3. a software fallback in case neither AVX nor SSE is supported.
@@ -150,7 +150,7 @@ Second, I enabled AVX support. Figure 3 shows that the average performance gain 
 
 Taking both together -- the upgrade from the SSE implementation in native code to the AVX implementation in managed code -- I measured an **18%** improvement in the microbenchmarks. Some operations were up to 42% faster, while some others involving sparse inputs have potential for further optimization.
 
-What ultimately matters of course is the performance for real scenarios. On .NET Core App 3.0, training models of K-means clustering and logistic regression got faster by about **14%** (Figure 4).
+What ultimately matters of course is the performance for real scenarios. On .NET Core 3.0, training models of K-means clustering and logistic regression got faster by about **14%** (Figure 4).
 
 Figure 4: ![Training scenario](TrainTime.png "Training scenario")
 
