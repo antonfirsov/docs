@@ -4,7 +4,7 @@ Today we are making EF Core 2.2 Preview 2 available, together with a preview of 
 
 ## Obtaining the preview
 
-The preview bits are available on NuGet, and also as part of [ASP.NET Core 2.2 Preview 2](https://blogs.msdn.microsoft.com/webdev/2018/09/12/asp-net-core-2-2-0-preview2-now-available/) and the [.NET Core SDK 2.2 Preview 2](https://www.microsoft.com/net/download/dotnet-core/2.2), also releasing today.
+The preview bits are available on NuGet, and also as part of [ASP.NET Core 2.2 Preview 2](https://blogs.msdn.microsoft.com/webdev/2018/09/12/asp-net-core-2-2-0-preview2-now-available/) and the [.NET Core SDK 2.2 Preview 2](https://blogs.msdn.microsoft.com/dotnet/2018/09/12/announcing-net-core-2-2-preview-2/), also releasing today.
 
 If you are working on an application based on ASP.NET Core, we recommend you upgrade to ASP.NET Core 2.2 Preview 2 following the instructions in the [announcement](https://blogs.msdn.microsoft.com/webdev/2018/09/12/asp-net-core-2-2-0-preview2-now-available/).
 
