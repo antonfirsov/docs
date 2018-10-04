@@ -1,6 +1,5 @@
 # Announcing 'Machine Learning .NET’ 0.6
 
-
 Today, we’re announcing the release of **ML.NET 0.6**. We released ML.NET 0.1 at //Build 2018, ML.NET is a cross-platform, open source machine learning framework for .NET developers. If you haven’t tried ML.NET yet, here’s how you can get started!
 
 With this ML.NET 0.6 release we largely focused on releasing a preview version of the **new API** for building and consuming models along with adding support for scoring [ONNX](https://onnx.ai/) models. Other enhancements include improvements to ML.NET TensorFlow integration, performance speed-up for our prediction engine, more consistency with the .NET type-system and model deployment compatible for serverless workloads like Azure Functions.
@@ -65,351 +64,75 @@ Note that this case, loading your training data from a file, is the easiest way 
 
 ### Step 3: Transform your data 
 
-
-
-
-
-
-
-
-======================================================================
-
-
-
-## Added a TensorFlow model scoring transform (TensorFlowTransform)
-
-*[TensorFlow](https://www.tensorflow.org/)* is a popular deep learning and machine learning toolkit that enables training deep neural networks (and general numeric computations).
-
-[*Deep learning*](https://en.wikipedia.org/wiki/Deep_learning) is a subset of AI and machine learning that teaches programs to do what comes naturally to humans: learn by example.
-Its main differentiator compared to traditional machine learning is that a deep learning model can learn to perform object detection and classification tasks directly from images, sound or text, or even deliver tasks such as speech recognition and language translation, whereas traditional ML approaches relied heavily on feature engineering and data processing. 
-Deep learning models need to be trained by using very large sets of labeled data and neural networks that contain multiple layers. Its current popularity is caused by several reasons. First, it just performs better on some tasks like *Computer Vision* and second because it can take advantage of huge amounts of data (and requires that volume in order to perform well) that are nowadays becoming available.
-
-With ML.NET 0.5 we are starting to add support for Deep Learning in ML.NET. Today we are introducing the first level of integration with TensorFlow in ML.NET through the new [TensorFlowTransform](https://docs.microsoft.com/en-us/dotnet/api/microsoft.ml.transforms.tensorflowtransform) which enables taking an existing TensorFlow model, either trained by you or downloaded from somewhere else, and get the scores from the TensorFlow model in ML.NET.
-
-This new TensorFlow scoring capability doesn't require you to have a working knowledge of TensorFlow internal details. Longer term we will be working on making the experience for performing Deep Learning with ML.NET even easier.
-
-The implementation of this transform is based on code from [TensorFlowSharp](https://github.com/migueldeicaza/TensorFlowSharp).
-
-As shown in the following diagram, you simply add a reference to the ML.NET NuGet packages in your .NET Core or .NET Framework apps. Under the covers, ML.NET includes and references the native TensorFlow library which allows you to write code that loads an existing trained TensorFlow model file for scoring.
-
-![TensorFlow-ML.NET application diagram](v05-release-MLNET-Blog-Post-IMAGES/TensorFlow-MLNET-NuGet-App-Diagram.png)
-
-The following code snippet shows how to use the TensorFlow transform in the ML.NET pipeline:
+Machine learning algorithms understand *featurized* data, so the next step is for us to transform our textual data into a format that we can use our ML algorithms on. In order to do so we need to create an estimator and use the FeaturizeText transform as shown below.
 
 ```cs
-
-// ... Additional transformations in the pipeline code
-
-pipeline.Add(new TensorFlowScorer()
-{
-    ModelFile = "model/tensorflow_inception_graph.pb",   // Example using the Inception v3 TensorFlow model
-    InputColumns = new[] { "input" },                    // Name of input in the TensorFlow model
-    OutputColumn = "softmax2_pre_activation"             // Name of output in the TensorFlow model
-});
-
-// ... Additional code specifying a learner and training process for the ML.NET model
-
+var est = reader.MakeNewEstimator().Append(row => (label: row.label,
+                                                   text:row.text.FeaturizeText()));
 ```
-You can find [here](https://github.com/dotnet/machinelearning-samples/tree/master/samples/csharp/examples/DeepLearning_TensorFlowMLNETInceptionv3ModelScoring) the complete code example related to the above code-snippet using the `TensorFlowTransform`, the TensorFlow Inception v3 model and the existing `LearningPipeline` API.
 
-The code example above uses the pre-trained TensorFlow model named *Inception v3*, that you can download from [here](https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip). The [Inception v3](https://cloud.google.com/tpu/docs/inception-v3-advanced) is a very popular image recognition model trained on the [ImageNet dataset](http://image-net.org) where the TensorFlow model tries to classify entire images into a thousand classes, like "Umbrella", "Jersey", and "Dishwasher".
+### Step 4: Add your ML Learner 
 
-The *Inception v3* model can be classified as a deep [convolutional neural network](https://colah.github.io/posts/2014-07-Conv-Nets-Modular/) and can achieve reasonable performance on hard visual recognition tasks, matching or exceeding human performance in some domains. The model/algorithm was developed by multiple researchers and based on the original paper: ["Rethinking the Inception Architecture for Computer Vision"](https://arxiv.org/abs/1512.00567) by Szegedy, et. al.
+Now that our text has been *featurized*, the next step then is to add a learner. In this case we will use the [SDCAClassifier learner](https://docs.microsoft.com/en-us/dotnet/api/microsoft.ml.trainers.stochasticdualcoordinateascentclassifier?view=ml-dotnet).
 
-In the next ML.NET releases, we will add functionality to enable identifying the expected inputs and outputs of TensorFlow models. For now, use the TensorFlow APIs or a tool like [Netron](https://github.com/lutzroeder/Netron) to explore the TensorFlow model.
-
-If you open the previous sample TensorFlow model file (`tensorflow_inception_graph.pb`) with [Netron](https://github.com/lutzroeder/Netron) and explore the model's graph, you can see how it correlates the `InputColumn` with the node's `input` at the beginning of the graph:
-
-![TensorFlow model's input in graph](v05-release-MLNET-Blog-Post-IMAGES/Input-Node-TF-Model.png)
-
-And how the `OutputColumn` correlates with `softmax2_pre_activation` node's output almost at the end of the graph.
-
-![TensorFlow model's input in graph](v05-release-MLNET-Blog-Post-IMAGES/Output-Node-TF-Model.png)
-
-*Limitations:* We are currently updating the ML.NET APIs for improved flexibility, as there are a few limitations to use TensorFlow in ML.NET today. For now (when using the `LearningPipeline` API), these scores can only be used within a `LearningPipeline` as inputs (numeric vectors)  to a learner like a classifier learner. However, with the upcoming new ML.NET APIs, the TensorFlow model scores will be directly accessible, so you score with the TensorFlow model without the current need to add an additional learner and its related train process as implemented in this [sample](https://github.com/dotnet/machinelearning/blob/6ac380a4d3f44ee7b015461f74c4298b0ed5184b/test/Microsoft.ML.Tests/Scenarios/TensorflowTests.cs). It creates a multi-class classification ML.NET model based on a [StochasticDualCoordinateAscentClassifier](https://docs.microsoft.com/en-us/dotnet/api/microsoft.ml.trainers.stochasticdualcoordinateascentclassifier?view=ml-dotnet) using a [label](https://docs.microsoft.com/en-us/dotnet/machine-learning/resources/glossary#label) (object name) related to a [numeric vector feature](https://docs.microsoft.com/en-us/dotnet/machine-learning/resources/glossary#numerical-feature-vector) generated/scored per image file by the TensorFlow model.
-
-Take into account that the mentioned TensorFlow code examples using ML.NET are using the current `LearningPipeline` API available in v0.5. Moving forward, the ML.NET API enabling to use TensorFlow will be slightly different and not based on the "pipeline". This is related to the next section of this blog post which focuses on the new upcoming API for ML.NET. 
-
-Finally, we also want to highlight that the ML.NET framework is currently surfacing TensorFlow, but in the future we *might* look into additional Deep Learning library integrations, such as [Torch](http://torch.ch/) and [CNTK](https://www.microsoft.com/en-us/cognitive-toolkit/). 
-
-You can find an additional code example/test using the `TensorFlowTransform` with the existing `LearningPipeline` API [here](https://github.com/dotnet/machinelearning/blob/6ac380a4d3f44ee7b015461f74c4298b0ed5184b/test/Microsoft.ML.Tests/Scenarios/TensorflowTests.cs).
-
-
-
-## Explore the upcoming new ML.NET API (after 0.5) and provide feedback
-
-As mentioned at the beginning of this blog post, we are really looking forward to get your feedback as we create the new ML.NET API while crafting ML.NET. This evolution in ML.NET offers more flexible capabilities than what the current `LearningPipeline` API offers. The `LearningPipeline` API will be deprecated when this new API is ready and good enough.  
-
-The following links to some example feedback we got in the form of GitHub issues about the limitations when using the `LearningPipeline` API:
-
-- [How to build transform-only pipelines?](https://github.com/dotnet/machinelearning/issues/642)
-- [Label and Score limitation](https://github.com/dotnet/machinelearning/issues/158)
-- [Proposal for Fluent API](https://github.com/dotnet/machinelearning/issues/474)
-- [Adding Multiple Training Files to the Pipeline?](https://github.com/dotnet/machinelearning/issues/192)
-- [Provide feature importance for random forests](https://github.com/dotnet/machinelearning/issues/210)
-
-Therefore, based on feedback on the `LearningPipeline` API, quite a few weeks ago we decided to switch to a new ML.NET API that would address most of the limitations the `LearningPipeline` API currently has.
-
-### Design principles for this new ML.NET API
-
-We are designing this new API based on the following principles of :
-
-- Using parallel terminology with other well-known frameworks like Scikit-Learn, TensorFlow and Spark and we will try to be consistent in terms of naming and concepts making it easier for developers to understand and learn ML.NET Core. 
-
-- Keeping simple and concise ML scenarios such as simple train and predict.
-
-- Allowing advanced ML scenarios (not possible with the current `LearningPipeline` API as explained in the next section). 
-
-We have also explored API approaches like Fluent API, declarative, and imperative.
-For additional deeper discussion on principles and required scenarios, check out this [issue in GitHub](https://github.com/dotnet/machinelearning/issues/584).
-
-
-### Why ML.NET is switching from the "LearningPipeline" API to a new API?
-
-As part of the preview version crafting process (remember that ML.NET is still in early previews), we've been getting `LearningPipeline` API feedback and discovered quite a few limitations we need to address by creating a more flexible API.
-
-Specifically, the new ML.NET API offers attractive features which aren't possible with the current `LearningPipeline` API: 
-
-- **Strongly-typed API**: This new Strongly-typed API takes advantage of C# capabilities so errors can be discovered in compilation time along with improved Intellisense in the editors. 
-
-- **Better flexibility:** This API provides a *decomposable train and predict* process, eliminating rigid and linear pipeline execution. With the new API, execute a certain code path and then fork the execution so multiple paths can re-use the initial common execution. For example, share a given transforms' execution and transformed data with multiple learners and trainers, or decompose pipelines and add multiple learners.
-
-This new API is based on concepts such as [`Estimators`, `Transforms` and `DataView`](https://github.com/dotnet/machinelearning/issues/581), shown in the following code in this blog post. 
-
-- **Improved usability:** Direct call to the APIs from your code, no more scaffolding or insolation layer creating an obscure separation between what the user/developer writes and the internal APIs. Entrypoints are no longer mandatory. 
-
-- **Ability to simply score with TensorFlow models.** Thanks to the mentioned flexibility in the API, you can also simply load a TensorFlow model and score by using it without needing to add any additional learner and training process, as explained in the previous "Limitations" topic within the TensorFlow section.
-
-- **Better visibility of the transformed data:** You have better visibility of the data while applying transformers.
-
-#### Comparison of strongly-typed API vs. "LearningPipeline" API
-
-Another important comparison is related to the **Strongly Typed API** feature in the new API.
-As an example of issues you can get when you don't have strongly typed API, the `LearningPipeline` API (as illustrated in the following code) provides access to data columns by specifying the column's names as strings, so if you make a typo (i.e. you wrote "Descrption" without the 'i' instead of "Description", as the typo in the sample code), you will get a run-time exception:
+Adding a learner also requires us to create a context, since we are performing a binary classification ML task for our sentiment analysis we need to define an additional context. 
 
 ```cs
-pipeline.Add(new TextFeaturizer("Description", "Descrption"));       
+var bctx = new BinaryClassificationContext(env);
+
+var est = reader.MakeNewEstimator().Append(row => (label: row.label,
+                                                   text: row.text.FeaturizeText()))
+                                   .Append(row => (label: row.label,
+                                                   prediction:bctx.Trainers.Sdca(row.label,            
+                                                                                 row.text)))
 ```
 
-However, when using the new ML.NET API, it is strongly typed, so if you make a typo, it will be caught in compilation time plus you can also take advatage of Intellisense in the editor.
+The learner takes in the `label`, and the *featurized* `text` as input parameters and returns a `prediction` which contains the `predictedLabel`, probability and score field triplet, as shown in the las `.Append()` code below. 
+
+The `predictedLabel` field contains the Boolean result of the prediction. 
+
+The probability and score provide additional metrics about the prediction being made. 
 
 ```cs
-var estimator = reader.MakeEstimator()
-                .Append(row => (                    
-                    description: row.description.FeaturizeText()))          
+var est = reader.MakeNewEstimator().Append(row => (label: row.label,
+                                                   text: row.text.FeaturizeText()))
+                                   .Append(row => (label: row.label,
+                                                   prediction: bctx.Trainers.Sdca(row.label, 
+                                                                                  row.text)))
+                                   .Append(row => (label: row.label,
+                                                   prediction: row.prediction,
+                                                   predictedlabel: row.prediction.predictedLabel));
 ```
 
-#### Details on decomposable train and predict API
+### Step 5: Build and Train your Model
 
-The following code snippet shows how the transforms and training process of the "GitHub issues labeler" sample app can be implemented with the new API in ML.NET.
-
-This is our current proposal and based on your feedback this API will probably evolve accordingly.
-
-**New ML.NET API code example:**
+Once the estimator has been defined, we can go ahead and train our model using the Fit() API. This returns us back a model which we can then use for predictions.
 
 ```cs
-
-public static async Task BuildAndTrainModelToClassifyGithubIssues()
-{
-    var env = new MLEnvironment();
-
-    string trainDataPath = @"Data\issues_train.tsv";
-
-    // Create reader
-    var reader = TextLoader.CreateReader(env, ctx =>
-                                    (area: ctx.LoadText(1),
-                                    title: ctx.LoadText(2),
-                                    description: ctx.LoadText(3)),
-                                    new MultiFileSource(trainDataPath), 
-                                    hasHeader : true);
-
-    var loss = new HingeLoss(new HingeLoss.Arguments() { Margin = 1 });
-
-    var estimator = reader.MakeNewEstimator()
-        .Append(row => (
-            // Convert string label to key. 
-            label: row.area.ToKey(),
-            // Featurize 'description'
-            description: row.description.FeaturizeText(),
-            // Featurize 'title'
-            title: row.title.FeaturizeText()))
-        .Append(row => (
-            // Concatenate the two features into a vector and normalize.
-            features: row.description.ConcatWith(row.title).Normalize(),
-            // Preserve the label - otherwise it will be dropped
-            label: row.label))
-        .Append(row => (
-            // Preserve the label (for evaluation)
-            row.label,
-            // Train the linear predictor (SDCA)
-            score: row.label.PredictSdcaClassification(row.features, loss: loss)))
-        .Append(row => (
-            // Want the prediction, as well as label and score which are needed for evaluation
-            predictedLabel: row.score.predictedLabel.ToValue(),
-            row.label,
-            row.score));
-
-    // Read the data
-    var data = reader.Read(new MultiFileSource(trainDataPath));
-
-    // Fit the data to get a model
-    var model = estimator.Fit(data);
-
-    // Use the model to get predictions on the test dataset and evaluate the accuracy of the model
-    var scores = model.Transform(reader.Read(new MultiFileSource(@"Data\issues_test.tsv")));
-    var metrics = MultiClassClassifierEvaluator.Evaluate(scores, r => r.label, r => r.score);
-
-    Console.WriteLine("Micro-accuracy is: " + metrics.AccuracyMicro);
-
-    // Save the ML.NET model into a .ZIP file
-    await model.WriteAsync("github-Model.zip");
-}
-
-public static async Task PredictLableForGithubIssueAsync()
-{
-    // Read model from an ML.NET .ZIP model file
-    var model = await PredictionModel.ReadAsync("github-Model.zip");
-
-    // Create a prediction function that can be used to score incoming issues
-    var predictor = model.AsDynamic.MakePredictionFunction<GitHubIssue, IssuePrediction>(env);
-
-    // This prediction will classify this particular issue in a type such as "EF and Database access"
-    var prediction = predictor.Predict(new GitHubIssue
-    {
-        title = "Sample issue related to Entity Framework",
-        description = @"When using Entity Framework Core I'm experiencing database connection failures when running queries or transactions. Looks like it could be related to transient faults in network communication agains the Azure SQL Database."
-    });
-
-    Console.WriteLine("Predicted label is: " + prediction.predictedLabel);
-}
-
+var model = est.Fit(traindata);
 ```
 
-Compare with the following old `LearningPipeline` API code snippet that lacks flexibility because the pipeline execution is not decomposable but linear:
+### Step 6: Evaluate your model 
 
-**Old `LearningPipeline` API code example:**
+========   TBD =======
 
-```cs
-public static async Task BuildAndTrainModelToClassifyGithubIssuesAsync()
-{
-        // Create the pipeline
-    var pipeline = new LearningPipeline();
+## Ability to score pre-trained ONNX Models
 
-    // Read the data
-    pipeline.Add(new TextLoader(DataPath).CreateFrom<GitHubIssue>(useHeader: true));
+========   TBD =======
 
-    // Dictionarize the "Area" column
-    pipeline.Add(new Dictionarizer(("Area", "Label")));
+## Improvements to TensorFlow model scoring functionality
 
-    // Featurize the "Title" column
-    pipeline.Add(new TextFeaturizer("Title", "Title"));
+========   TBD =======
 
-    // Featurize the "Description" column
-    pipeline.Add(new TextFeaturizer("Description", "Description"));
-    
-    // Concatenate the provided columns
-    pipeline.Add(new ColumnConcatenator("Features", "Title", "Description"));
+## Performance and Type-system improvements
 
-    // Set the algorithm/learner to use when training
-    pipeline.Add(new StochasticDualCoordinateAscentClassifier());
+========   TBD =======
 
-    // Specify the column to predict when scoring
-    pipeline.Add(new PredictedLabelColumnOriginalValueConverter() { PredictedLabelColumn = "PredictedLabel" });
 
-    Console.WriteLine("=============== Training model ===============");
-
-    // Train the model
-    var model = pipeline.Train<GitHubIssue, GitHubIssuePrediction>();
-
-    // Save the model to a .zip file
-    await model.WriteAsync(ModelPath);
-
-    Console.WriteLine("=============== End training ===============");
-    Console.WriteLine("The model is saved to {0}", ModelPath);
-}
-
-public static async Task<string> PredictLabelForGitHubIssueAsync()
-{
-    // Read model from an ML.NET .ZIP model file
-    _model = await PredictionModel.ReadAsync<GitHubIssue, GitHubIssuePrediction>(ModelPath);
-    
-    // This prediction will classify this particular issue in a type such as "EF and Database access"
-    var prediction = _model.Predict(new GitHubIssue
-        {
-            Title = "Sample issue related to Entity Framework", 
-            Description = "When using Entity Framework Core I'm experiencing database connection failures when running queries or transactions. Looks like it could be related to transient faults in network communication agains the Azure SQL Database..."
-        });
-
-    return prediction.Area;
-}
-```
-
-The old `LearningPipeline` API is a fully linear code path, so you can't decompose it in multiple pieces. 
-For instance, the [BikeSharing ML.NET sample](https://github.com/dotnet/machinelearning-samples/blob/master/samples/csharp/examples/Regression_BikeSharingDemand/BikeSharingDemand/Program.cs) (available at the machine-learning-samples GitHub repo) is using the current `LearningPipeline` API. 
-
-This sample compares the regression learner accuracy using the evaluators API by:
-
-   * Performing several data transforms to the original dataset
-   * Training and creating seven different ML.NET models based on seven different regression trainers/algorithms (such as FastTreeRegressor, FastTreeTweedieRegressor, StochasticDualCoordinateAscentRegressor, etc.) 
-   
-The intent is to help you compare the regression learners for a given problem.
-
-Since the data transformations are the same for those models, you might want to re-use the code execution related to transforms. However, because the the `LearningPipeline` API only provides a single linear execution, you need to run the same data transformation steps for every model you create/train, as shown in the following code excerpt from the *BikeSharing ML.NET sample*.
-
-```cs
-var fastTreeModel = new ModelBuilder(trainingDataLocation, new FastTreeRegressor()).BuildAndTrain();
-var fastTreeMetrics = modelEvaluator.Evaluate(fastTreeModel, testDataLocation);
-PrintMetrics("Fast Tree", fastTreeMetrics);
-
-var fastForestModel = new ModelBuilder(trainingDataLocation, new FastForestRegressor()).BuildAndTrain();
-var fastForestMetrics = modelEvaluator.Evaluate(fastForestModel, testDataLocation);
-PrintMetrics("Fast Forest", fastForestMetrics);
-
-var poissonModel = new ModelBuilder(trainingDataLocation, new PoissonRegressor()).BuildAndTrain();
-var poissonMetrics = modelEvaluator.Evaluate(poissonModel, testDataLocation);
-PrintMetrics("Poisson", poissonMetrics);
-
-//Other learners/algorithms
-//...
-```
-
-Where the BuildAndTrain() method needs to have both data transforms plus the different algorithm per case, as shown in the following code:
-
-```cs
-public PredictionModel<BikeSharingDemandSample, BikeSharingDemandPrediction> BuildAndTrain()
-{
-    var pipeline = new LearningPipeline();
-    pipeline.Add(new TextLoader(_trainingDataLocation).CreateFrom<BikeSharingDemandSample>(useHeader: true, separator: ','));
-    pipeline.Add(new ColumnCopier(("Count", "Label")));
-    pipeline.Add(new ColumnConcatenator("Features", 
-                                        "Season", 
-                                        "Year", 
-                                        "Month", 
-                                        "Hour", 
-                                        "Weekday", 
-                                        "Weather", 
-                                        "Temperature", 
-                                        "NormalizedTemperature",
-                                        "Humidity",
-                                        "Windspeed"));
-    pipeline.Add(_algorythm);
-
-    return pipeline.Train<BikeSharingDemandSample, BikeSharingDemandPrediction>();
-}            
-```
-With the old `LearningPipeline` API, for every training using a different algorithm you need to run again the same process, performing the following steps again and again:
-- Load dataset from file
-- Make column transformations (concat, copy, or additional featurizers or dictionarizers, if needed)
-
-But with the new ML.NET API based on [`Estimators` and `DataView`](https://github.com/dotnet/machinelearning/issues/581) you will be able to re-use parts of the execution, like in this case, re-using the data transforms execution as the base for multiple models using different algorithms.
-
-You can also explore other "aspirational code examples" with the new API [here](https://github.com/dotnet/machinelearning/blob/master/test/Microsoft.ML.Tests/Scenarios/Api/AspirationalExamples.cs)
-
-Because this will be a significant change in ML.NET we want to share our proposals and start an open discussion with you where you can provide your feedback and help shape the long-term API for ML.NET.
 
 
 ## Provide your feedback on the new API
-![Provide feedback image with two people and a swimlane](v05-release-MLNET-Blog-Post-IMAGES/swimlane-feedback.png)
+![Provide feedback image with two people and a swimlane](v06-release-MLNET-Blog-Post-IMAGES/swimlane-feedback.png)
 
 Want to get involved? Start by providing feedback at this blog post comments below or through issues at the [ML.NET GitHub repo](https://github.com/dotnet/machinelearning/issues)
 
@@ -426,7 +149,7 @@ We look forward to your feedback and welcome you to file issues with any suggest
 
 
 
-*This blog was authored by Cesar de la Torre, Gal Oshri, John Alexander, and Ankit Asthana*
+*This blog was authored by Ankit Asthana and Cesar de la Torre*
 
 Thanks,
 
