@@ -1,4 +1,4 @@
-# Announcing 'Machine Learning .NET’ 0.6
+# Announcing ML.NET 0.6 (Machine Learning .NET)
 
 Today, we’re announcing the release of **ML.NET 0.6**. We released ML.NET 0.1 at //Build 2018.
 
