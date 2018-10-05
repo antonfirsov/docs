@@ -217,7 +217,7 @@ We look forward to your feedback and welcome you to file issues with any suggest
 
 
 
-*This blog was authored by Ankit Asthana and Cesar de la Torre*
+*This blog was authored by Ankit Asthana, Cesar de la Torre, Gal Oshri and Chris Lauren*
 
 Thanks,
 
