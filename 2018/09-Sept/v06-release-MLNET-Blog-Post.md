@@ -125,7 +125,8 @@ Now that you've created and trained the model, you need to evaluate it with a di
 var predictions = model.Transform(testdata);
 var metrics = bctx.Evaluate(predictions, row => row.label, row => row.prediction);
 Console.WriteLine("PredictionModel quality metrics evaluation");
-Console.WriteLine("------------------------------------------");   Console.WriteLine($"Accuracy: {metrics.Accuracy:P2}");
+Console.WriteLine("------------------------------------------");
+Console.WriteLine($"Accuracy: {metrics.Accuracy:P2}");
 ```
 Basically that codes implements the following:
 
