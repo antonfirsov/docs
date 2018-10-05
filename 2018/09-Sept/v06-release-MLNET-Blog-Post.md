@@ -1,8 +1,6 @@
 # Announcing ML.NET 0.6 (Machine Learning .NET)
 
-Today, we’re announcing the release of **ML.NET 0.6**. We released ML.NET 0.1 in May at //Build 2018 and have been releasing monthly ever since. Our goal is to enable every .NET developer to be able to train and use machine learning models so please let us know what we can do to help you be more productive with machine learning.
-
-ML.NET is a cross-platform, open source machine learning framework for .NET developers. It enables training and using custom machine learning models in your .NET applications across Windows, Mac and Linux. If you haven’t tried ML.NET yet, here’s how you can [get started](https://dot.net/ml)!
+Today we’re announcing our latest monthly release: **ML.NET 0.6**! ML.NET is a cross-platform, open source machine learning framework for .NET developers. We want to enable every .NET developer to train and use machine learning models in their applications and services.  If you haven’t tried ML.NET yet, here’s how you can [get started](https://dot.net/ml)!
 
 The ML.NET 0.6 release delivers several new exciting enhancements:
 
