@@ -1,6 +1,6 @@
 # Announcing ML.NET 0.6 (Machine Learning .NET)
 
-Today, we’re announcing the release of **ML.NET 0.6**. We released ML.NET 0.1 at //Build 2018.
+Today, we’re announcing the release of **ML.NET 0.6**. We released ML.NET 0.1 in May at //Build 2018 and have been releasing monthly ever since. Our goal is to enable every .NET developer to be able to train and use machine learning models so please let us know what we can do to help you be more productive with machine learning.
 
 ML.NET is a cross-platform, open source machine learning framework for .NET developers. It enables training and using custom machine learning models in your .NET applications across Windows, Mac and Linux. If you haven’t tried ML.NET yet, here’s how you can [get started](https://dot.net/ml)!
 
@@ -10,7 +10,7 @@ The ML.NET 0.6 release delivers several new exciting enhancements:
  
   We largely focused on releasing the first iteration of **new ML.NET APIs** for building and consuming models. These new APIs are more flexible and enable various new tasks and code workflow that weren't possible with the previous `LearningPipeline` API. We are starting to deprecate the current `LearningPipeline` API. 
   
-  This is a significant change intended to make machine learning easier and more powerful for you. We would love your feedback via an [open discussion on GitHub](http://URLNEEDED) to help shape the long term ML.NET API to maximize your productivity. flexibility and ease of use.
+  This is a significant change intended to make machine learning easier and more powerful for you. We would love your feedback via an [open discussion on GitHub](http://URLNEEDED) to help shape the long term ML.NET API to maximize your productivity, flexibility and ease of use.
 
   Learn more about the [new ML.NET API](http://TBD-Set-Local-URL)
 
