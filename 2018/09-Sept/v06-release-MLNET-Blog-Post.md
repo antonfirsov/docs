@@ -61,7 +61,7 @@ To read in this data you will use a data reader which is an ML.NET component. Th
 
 ```cs
 var reader = TextLoader.CreateReader(env, ctx => (label: ctx.LoadBool(0),
-text: ctx.LoadText(1)));
+                                                  text: ctx.LoadText(1)));
 ```
 
 The schema of your data is in this case composed by a boolean column (Toxic) which is the "label" and positioned as the first column. Then, the second is a text column (Comment) which is the feature we are going to use to predict.
