@@ -118,7 +118,22 @@ var model = est.Fit(traindata);
 
 ### Step 6: Evaluate your model 
 
-========   TBD =======
+Now that you've created and trained the model, you need to evaluate it with a different dataset for quality assurance and validation with code similar to the following:
+
+```cs
+// Evaluate the model
+var predictions = model.Transform(testdata);
+var metrics = bctx.Evaluate(predictions, row => row.label, row => row.prediction);
+Console.WriteLine("PredictionModel quality metrics evaluation");
+Console.WriteLine("------------------------------------------");   Console.WriteLine($"Accuracy: {metrics.Accuracy:P2}");
+```
+Basically that codes implements the following:
+
+* Loads the test dataset.
+* Evaluates the model and create metrics.
+* Shows the accuracy of the model from the metrics.
+
+
 
 ## Ability to score pre-trained ONNX Models
 
@@ -146,22 +161,37 @@ Further example usage can be found [here](https://github.com/dotnet/machinelearn
 
 ## Improvements to TensorFlow model scoring functionality
 
-========   TBD =======
+The [TensorFlow scoring transform](https://docs.microsoft.com/en-us/dotnet/api/microsoft.ml.transforms.tensorflowtransform?view=ml-dotnet) released in ML.NET 0.5 enabled using 'frozen' TensorFlow models. In ML.NET 0.6, 'saved' TensorFlow models can also be used.
+
+An API was added to extract information about the nodes in a TensorFlow model. This can help identifying the input and output of a TensorFlow model. Example usage can be found [here](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/src/Microsoft.ML.DnnAnalyzer/Microsoft.ML.DnnAnalyzer/DnnAnalyzer.cs).
+
 
 ## Performance and Type-system improvements
 
-========   TBD =======
+In v0.6 we have identified up to [~100x speedup](https://github.com/dotnet/machinelearning/issues/1013#issuecomment-426117666) in prediction engine performance for single records.
+
+Replaced ML.NET's Dv type system with .NET's standard type system: 
+
+* ML.NET previously had its own type system which helped it more efficiently deal with things like missing values (a common case in ML). This type system required users to work with types like DvText, DvBool, DvInt4, etc.
+
+* This update replaces the Dv type system with .NET's standard type system to make ML.NET easier to use and to take advantage of innovation in .NET.
+
+* One effect of this change is that only floats and doubles have missing values, represented by NaN. More information can be found [here](https://github.com/dotnet/machinelearning/issues/673).
+
+As further improvement, you can now use additional .NET app models such as *Azure Functions* easily without convoluted workarounds, thanks to the improved approach to dependency injection.
 
 
 ## Additional resources
 
-* The important **ML.NET concepts** for understanding the new API are introduced [here](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md).
+* The most important **ML.NET concepts** for understanding the new API are introduced [here](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md).
 
 * A **cookbook** that shows how to use these APIs for a variety of existing and new scenarios can be found [here](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetCookBook.md).
 
 
 ## Provide your feedback on the new API
 ![Provide feedback image with two people and a swimlane](v06-release-MLNET-Blog-Post-IMAGES/swimlane-feedback.png)
+
+As mentioned at the begining of the blog post, the new API is a significant change, so we also want to create an open discussion where you can provide feedback and help shape the long-term API for ML.NET.
 
 Want to get involved? Start by providing feedback at this blog post comments below or through issues at the [ML.NET GitHub repo](https://github.com/dotnet/machinelearning/issues)
 
