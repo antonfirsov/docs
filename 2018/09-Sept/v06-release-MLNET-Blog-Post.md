@@ -1,12 +1,14 @@
 # Announcing 'Machine Learning .NET’ 0.6
 
-Today, we’re announcing the release of **ML.NET 0.6**. We released ML.NET 0.1 at //Build 2018, ML.NET is a cross-platform, open source machine learning framework for .NET developers. If you haven’t tried ML.NET yet, here’s how you can get started!
+Today, we’re announcing the release of **ML.NET 0.6**. We released ML.NET 0.1 at //Build 2018.
 
-With this ML.NET 0.6 release we largely focused on releasing the first iteration of **new ML.NET APIs** for building and consuming models. These new APIs aer more flexible and enable various new tasks and code workflow that weren't possible with the previous *LearningPipeline* APIs.
+ML.NET is a cross-platform, open source machine learning framework for .NET developers. If you haven’t tried ML.NET yet, here’s how you can get started!
+
+With this ML.NET 0.6 release we largely focused on releasing the first iteration of **new ML.NET APIs** for building and consuming models. These new APIs are more flexible and enable various new tasks and code workflow that weren't possible with the previous *LearningPipeline* APIs.
 
 In addition we're also adding support for getting predictions (scoring) [ONNX](https://onnx.ai/) models. 
 
-Other enhancements include improvements to ML.NET TensorFlow scoring, performance speed-up for our prediction engine, more consistency with the .NET type-system and having a model deployment compatible for serverless workloads like Azure Functions.
+Other enhancements include improvements to ML.NET TensorFlow scoring, performance speed-up for our prediction engine, more consistency with the .NET type-system and having a model deployment suitable for serverless workloads like Azure Functions.
 
 The new API is the most important part of this release. This new ML.NET API improves flexibility and ease of use for additional scenarios not possible before. We are starting to deprecate the current `LearningPipeline` API. Because this is a significant change we also want an open discussion where you can provide feedback and help shape the long-term API for ML.NET.
 
@@ -192,7 +194,7 @@ As further improvement, you can now use additional .NET app models such as *Azur
 ## Provide your feedback on the new API
 ![Provide feedback image with two people and a swimlane](v06-release-MLNET-Blog-Post-IMAGES/swimlane-feedback.png)
 
-As mentioned at the begining of the blog post, the new API is a significant change, so we also want to create an open discussion where you can provide feedback and help shape the long-term API for ML.NET.
+As mentioned at the beginning of the blog post, the new API is a significant change, so we also want to create an open discussion where you can provide feedback and help shape the long-term API for ML.NET.
 
 Want to get involved? Start by providing feedback at this blog post comments below or through issues at the [ML.NET GitHub repo](https://github.com/dotnet/machinelearning/issues)
 
