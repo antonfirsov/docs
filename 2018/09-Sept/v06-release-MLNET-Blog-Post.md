@@ -126,7 +126,7 @@ var model = est.Fit(traindata);
 
 In ML.NET v0.3 we added the capability of [exporting ML.NET models to the ONNX-ML format](https://blogs.msdn.microsoft.com/dotnet/2018/07/09/announcing-ml-net-0-3/#onnx-section) so additional execution environments could run the model (such as *Windows ML*).
 
-Now, in this v0.6 release, ML.NET can also act as an [ONNX backend](https://github.com/onnx/onnx/blob/master/docs/ImplementingAnOnnxBackend.md#what-is-an-onnx-backend), meaning that you can score/predict trained ONNX models created somewhere else in ML.NET thanks to a new *transformer* for scoring ONNX models, as ilustrated in the following figure.
+In this new v0.6 release, ML.NET can also act as an [ONNX backend](https://github.com/onnx/onnx/blob/master/docs/ImplementingAnOnnxBackend.md#what-is-an-onnx-backend), meaning that in ML.NET you can now score/predict trained ONNX models (ONNX standard v1.2) created somewhere else thanks to a new *transformer* and runtime for scoring ONNX models, as ilustrated in the following figure.
 
 ![Process exporting and scoring ONNX models](v06-release-MLNET-Blog-Post-IMAGES/onnx-scoring-diagram.png)
 
