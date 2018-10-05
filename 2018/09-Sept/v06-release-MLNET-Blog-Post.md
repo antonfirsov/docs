@@ -134,13 +134,15 @@ There is a large [variety of ONNX models](https://github.com/onnx/models) create
 
 The ONNX *transformer* in ML.NET enables providing some data to an existing ONNX model (such as the models above) and getting the score (prediction) from it.
 
+The ONNX runtime in ML.NET currently supports only Windows on x64 CPU. Support for other platforms (Linux and macOS) are in the roadmap.
+
 The way you use an ONNX model in your estimator is by simply adding it with this line of code similar to the following:
 
 ```cs
 .Append(row => (row.name, softmaxout_1: row.data_0.ApplyOnnxModel(modelFile)));
 ```
 
-Further example usage can be found [here](https://github.com/dotnet/machinelearning/blob/76dd9235f348aee4fdf7e62a9edf27510f14769b/test/Microsoft.ML.OnnxTransformTest/OnnxTransformTests.cs#L186).
+Further example usage can be found [here](https://github.com/dotnet/machinelearning/blob/master/test/Microsoft.ML.OnnxTransformTest/OnnxTransformTests.cs#L186).
 
 ## Improvements to TensorFlow model scoring functionality
 
