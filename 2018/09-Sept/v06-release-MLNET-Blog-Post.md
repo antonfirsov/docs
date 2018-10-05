@@ -70,7 +70,7 @@ var reader = TextLoader.CreateReader(env, ctx => (label: ctx.LoadBool(0),
 
 The schema of your data is in this case composed by a boolean column (Toxic) which is the "label" and positioned as the first column. Then, the second is a text column (Comment) which is the feature we are going to use to predict.
 
-Note that this case, loading your training data from a file, is the easiest way to get started, but ML.NET also allows you to load data from databases or in-memory collections.
+Note that this case, loading your training data from a file, is the easiest way to get started, but ML.NET also allows you to load data from in-memory collections such as IEnumerable.
 
 ### Step 2: Extract features (transform your data)
 
@@ -100,7 +100,7 @@ var est = reader.MakeNewEstimator().Append(row => (label: row.label,
                                                                                  row.text)))
 ```
 
-The learner takes in the `label`, and the *featurized* `text` as input parameters and returns a `prediction` which contains the `predictedLabel`, probability and score field triplet, as shown in the las `.Append()` code below. 
+The learner takes in the `label`, and the *featurized* `text` as input parameters and returns a `prediction` which contains the `predictedLabel`, probability and score field triplet, as shown in the last `.Append()` code below. 
 
 The `predictedLabel` field contains the Boolean result of the prediction. 
 
