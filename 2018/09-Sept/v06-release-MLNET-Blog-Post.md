@@ -146,6 +146,24 @@ Basically that codes implements the following:
 
 And now you have a trained model you can use in your applications and services.
 
+### Step 5: Model Consumption
+
+Now, you can predict with test data by consuming the model you just created ad trained.
+
+This is the type of code you would write in your "production" application when predicting something by scoring with the model.
+
+```cs
+// Create the prediction function 
+var predictionFunct = model.AsDynamic.MakePredictionFunction<SentimentIssue, SentimentPrediction>(env);
+
+// Predict the sentiment!
+var resultprediction = predictionFunct.Predict(new SentimentIssue
+                                               {
+                                                  text = "This is a very rude movie"
+                                               });
+```
+In that sample, the prediction won't be very positive. ;)
+
 ## Ability to score pre-trained ONNX Models
 
 [ONNX](http://onnx.ai/) is an open and iteroperable model format that enables using models trained in one framework (ie scikit-learn, TensorFlow, xgboost, etc) and use them in another (like ML.NET).
