@@ -76,8 +76,9 @@ Machine learning algorithms understand *featurized* data, so the next step is fo
 var est = reader.MakeNewEstimator().Append(row => (label: row.label,
                                                    text:row.text.FeaturizeText()));
 ```
+An [Estimator](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md#list-of-high-level-concepts) is an object that learns from data. The result of the learning is a transformer. A particular example you can see in the next steps is when you train the model with `estimator.Fit()`, it learns on the training data and produces a machine learning model, which is a [transformer](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md#list-of-high-level-concepts)).
 
-### Step 4: Add your ML Learner 
+### Step 4: Add a selected ML Learner (Algorithm) 
 
 Now that our text has been *featurized*, the next step then is to add a learner. In this case we will use the [SDCAClassifier learner](https://docs.microsoft.com/en-us/dotnet/api/microsoft.ml.trainers.stochasticdualcoordinateascentclassifier?view=ml-dotnet).
 
