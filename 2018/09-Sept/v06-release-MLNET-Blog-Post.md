@@ -22,7 +22,7 @@ This blog post provides details about the following topics in ML.NET 0.6 release
 
 ## New API for building and consuming a Machine Learning model
 
-While the existing LearningPipeline API released with ML.NET 0.1 was easy to get started with, it did have a [few limitations](http://TBD/linktolimitations). Moving forward we have moved the LearningPipeline API into Microsoft.ML.Legacy namespace (e.g. [Sentiment Analysis based on Binary Classification with the LearningPipeline API](https://github.com/dotnet/machinelearning-samples/blob/master/samples/csharp/getting-started/BinaryClassification_SentimentAnalysis/Program.cs))
+While the existing LearningPipeline API released with ML.NET 0.1 was easy to get started with, it did have a [few limitations explained in our previous ML.NET blog post](https://blogs.msdn.microsoft.com/dotnet/2018/09/12/announcing-ml-net-0-5/#explore-the-upcoming-new-mlnet-api-and-provide-feedback). Moving forward we have moved the LearningPipeline API into Microsoft.ML.Legacy namespace (e.g. [Sentiment Analysis based on Binary Classification with the LearningPipeline API](https://github.com/dotnet/machinelearning-samples/blob/master/samples/csharp/getting-started/BinaryClassification_SentimentAnalysis/Program.cs))
 
 The new API is designed to support a wider set of scenarios and closely follows ML principles and naming from other popular ML related frameworks like Apache Spark and Scikit-Learn. 
 
