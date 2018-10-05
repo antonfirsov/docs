@@ -2,7 +2,11 @@
 
 Today, we’re announcing the release of **ML.NET 0.6**. We released ML.NET 0.1 at //Build 2018, ML.NET is a cross-platform, open source machine learning framework for .NET developers. If you haven’t tried ML.NET yet, here’s how you can get started!
 
-With this ML.NET 0.6 release we largely focused on releasing a preview version of the **new API** for building and consuming models along with adding support for scoring [ONNX](https://onnx.ai/) models. Other enhancements include improvements to ML.NET TensorFlow integration, performance speed-up for our prediction engine, more consistency with the .NET type-system and model deployment compatible for serverless workloads like Azure Functions.
+With this ML.NET 0.6 release we largely focused on releasing the first iteration of **new ML.NET APIs** for building and consuming models. These new APIs aer more flexible and enable various new tasks and code workflow that weren't possible with the previous *LearningPipeline* APIs.
+
+In addition we're also adding support for getting predictions (scoring) [ONNX](https://onnx.ai/) models. 
+
+Other enhancements include improvements to ML.NET TensorFlow scoring, performance speed-up for our prediction engine, more consistency with the .NET type-system and having a model deployment compatible for serverless workloads like Azure Functions.
 
 The new API is the most important part of this release. This new ML.NET API improves flexibility and ease of use for additional scenarios not possible before. We are starting to deprecate the current `LearningPipeline` API. Because this is a significant change we also want an open discussion where you can provide feedback and help shape the long-term API for ML.NET.
 
@@ -118,7 +122,25 @@ var model = est.Fit(traindata);
 
 ## Ability to score pre-trained ONNX Models
 
-========   TBD =======
+[ONNX](http://onnx.ai/) is an open model format that enables developers to more easily move models between different tools.
+
+In ML.NET v0.3 we added the capability of [exporting ML.NET models to the ONNX-ML format](https://blogs.msdn.microsoft.com/dotnet/2018/07/09/announcing-ml-net-0-3/#onnx-section) so additional execution environments could run the model (such as *Windows ML*).
+
+Now, in this v0.6 release, ML.NET can also act as an [ONNX backend](https://github.com/onnx/onnx/blob/master/docs/ImplementingAnOnnxBackend.md#what-is-an-onnx-backend), meaning that you can score/predict trained ONNX models created somewhere else in ML.NET thanks to a new *transformer* for scoring ONNX models, as ilustrated in the following figure.
+
+![Process exporting and scoring ONNX models](v06-release-MLNET-Blog-Post-IMAGES/onnx-scoring-diagram.png)
+
+There is a large [variety of ONNX models](https://github.com/onnx/models) created and trained in [multiple frameworks](https://github.com/onnx/tutorials#onnx-tutorials) that can export models to ONNX format. Those models can be used for tasks like image classification, emotion recognition, and object detection.
+
+The ONNX *transformer* in ML.NET enables providing some data to an existing ONNX model (such as the models above) and getting the score (prediction) from it.
+
+The way you use an ONNX model in your estimator is by simply adding it with this line of code similar to the following:
+
+```cs
+.Append(row => (row.name, softmaxout_1: row.data_0.ApplyOnnxModel(modelFile)));
+```
+
+Further example usage can be found [here](https://github.com/dotnet/machinelearning/blob/76dd9235f348aee4fdf7e62a9edf27510f14769b/test/Microsoft.ML.OnnxTransformTest/OnnxTransformTests.cs#L186).
 
 ## Improvements to TensorFlow model scoring functionality
 
@@ -129,6 +151,11 @@ var model = est.Fit(traindata);
 ========   TBD =======
 
 
+## Additional resources
+
+* The important **ML.NET concepts** for understanding the new API are introduced [here](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md).
+
+* A **cookbook** that shows how to use these APIs for a variety of existing and new scenarios can be found [here](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetCookBook.md).
 
 
 ## Provide your feedback on the new API
