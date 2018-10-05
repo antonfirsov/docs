@@ -38,8 +38,9 @@ Building an ML Model involves the following high-level steps:
 
 To go through these steps with ML.NET there are essentially five main concepts with the new API, let’s take a look with them through an example like building a Sentiment Analysis model based on a binary classification task.
 
-### Step 1: Create an ML Context 
+### Step 1: Load data 
 
+#### Get started
 When building a model with ML.NET you have to start first creating an ML Context or environment. This is comparable to using DbContext in Entity Framework, but of course, in a completely different domain. The environment provides you essentially a context for your ML job that can be used for exception tracking and logging. 
 
 ```cs
@@ -48,8 +49,7 @@ var env = new LocalEnvironment();
 
 We are working on bringing this concept/naming closer to EF and other .NET frameworks.
 
-### Step 2: Read your data 
-
+#### Load your data
 One of the most important things is, as always, your data! You need to load a Dataset into the ML pipeline to be used to train your model.
 
 In ML.NET data is similar to a SQL view. It is lazily evaluated, schematized, heterogenous. For building our sentiment analysis model this is how our sample data is going to look like:
@@ -72,7 +72,7 @@ The schema of your data is in this case composed by a boolean column (Toxic) whi
 
 Note that this case, loading your training data from a file, is the easiest way to get started, but ML.NET also allows you to load data from databases or in-memory collections.
 
-### Step 3: Transform your data 
+### Step 2: Extract features (transform your data)
 
 Machine learning algorithms understand *featurized* data, so the next step is for us to transform our textual data into a format that we can use our ML algorithms on. In order to do so we need to create an estimator and use the FeaturizeText transform as shown below.
 
@@ -82,7 +82,9 @@ var est = reader.MakeNewEstimator().Append(row => (label: row.label,
 ```
 An [Estimator](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md#list-of-high-level-concepts) is an object that learns from data. The result of the learning is a transformer. A particular example you can see in the next steps is when you train the model with `estimator.Fit()`, it learns on the training data and produces a machine learning model, which is a [transformer](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md#list-of-high-level-concepts)).
 
-### Step 4: Add a selected ML Learner (Algorithm) 
+### Step 3: Train your model
+
+#### Add a selected ML Learner (Algorithm) 
 
 Now that our text has been *featurized*, the next step then is to add a learner. In this case we will use the [SDCAClassifier learner](https://docs.microsoft.com/en-us/dotnet/api/microsoft.ml.trainers.stochasticdualcoordinateascentclassifier?view=ml-dotnet).
 
@@ -115,7 +117,7 @@ var est = reader.MakeNewEstimator().Append(row => (label: row.label,
                                                    predictedlabel: row.prediction.predictedLabel));
 ```
 
-### Step 5: Build and train your model
+#### Train your model
 
 Once the estimator has been defined, we can go ahead and train our model using the Fit() API. This returns us back a model which we can then use for predictions.
 
@@ -123,7 +125,7 @@ Once the estimator has been defined, we can go ahead and train our model using t
 var model = est.Fit(traindata);
 ```
 
-### Step 6: Evaluate your trained model
+### Step 4: Evaluate your trained model
 
 Now that you've created and trained the model, you need to evaluate it with a different dataset for quality assurance and validation with code similar to the following:
 
@@ -135,11 +137,14 @@ Console.WriteLine("PredictionModel quality metrics evaluation");
 Console.WriteLine("------------------------------------------");
 Console.WriteLine($"Accuracy: {metrics.Accuracy:P2}");
 ```
+
 Basically that codes implements the following:
 
 * Loads the test dataset.
 * Evaluates the model and create metrics.
 * Shows the accuracy of the model from the metrics.
+
+And now you have a trained model you can use in your applications and services.
 
 ## Ability to score pre-trained ONNX Models
 
