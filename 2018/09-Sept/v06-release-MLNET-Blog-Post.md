@@ -108,7 +108,7 @@ var est = reader.MakeNewEstimator().Append(row => (label: row.label,
                                                    predictedlabel: row.prediction.predictedLabel));
 ```
 
-### Step 5: Build and Train your Model
+### Step 5: Build and train your model
 
 Once the estimator has been defined, we can go ahead and train our model using the Fit() API. This returns us back a model which we can then use for predictions.
 
@@ -116,7 +116,7 @@ Once the estimator has been defined, we can go ahead and train our model using t
 var model = est.Fit(traindata);
 ```
 
-### Step 6: Evaluate your model 
+### Step 6: Evaluate your trained model 
 
 Now that you've created and trained the model, you need to evaluate it with a different dataset for quality assurance and validation with code similar to the following:
 
