@@ -6,7 +6,7 @@ The ML.NET 0.6 release delivers several new exciting enhancements:
 
 * **New API for building and using machine learning models**
  
-  We largely focused on releasing the first iteration of **new ML.NET APIs** for building and consuming models. These new APIs are more flexible and enable various new tasks and code workflow that weren't possible with the previous `LearningPipeline` API. We are starting to deprecate the current `LearningPipeline` API. 
+  Our main focus was releasing the first iteration of **new ML.NET APIs** for building and consuming models. These new, more flexible, APIs enable new tasks and code workflow that weren't possible with the previous `LearningPipeline` API. We are starting to deprecate the current `LearningPipeline` API. 
   
   This is a significant change intended to make machine learning easier and more powerful for you. We would love your feedback via an [open discussion on GitHub](http://URLNEEDED) to help shape the long term ML.NET API to maximize your productivity, flexibility and ease of use.
 
@@ -14,34 +14,40 @@ The ML.NET 0.6 release delivers several new exciting enhancements:
 
 * **Ability to score pre-trained ONNX Models**
   
-  Many scenarios like Image Classification, Speech to Text translation and more benefit from using predictions from deep learning models. In ML.NET 0.5 we added support for using TensorFlow models. Now in ML.NET 0.6 we've also added support for getting predictions from [ONNX](https://onnx.ai/) models.  
+  Many scenarios like Image Classification, Speech to Text, and translation benefit from using predictions from deep learning models. In ML.NET 0.5 we added support for using TensorFlow models. Now in ML.NET 0.6 we've added support for getting predictions from [ONNX](https://onnx.ai/) models.  
   
   Learn more about [using ONNX models in ML.NET](http://TBD-Set-Local-URL)
 
-* **Significant performance improvements for model prediction, consistency with .NET type system and more**
+ * **Significant performance improvements for model prediction, .NET type system consistency, and more**  
+ 
+  We know that application performance is critical. In this release, we've increased getting model predictions performance 100x or more. 
   
-  We know that performance is critical for your applications. In this release we've made getting model predictions 100x faster or more. Additional enhancements include improvements to ML.NET TensorFlow scoring, more consistency with the .NET type-system and having a model deployment suitable for serverless workloads like Azure Functions.
+  Additional enhancements include:
+  
+  * improvements to ML.NET TensorFlow scoring 
+  * more consistency with the .NET type-system 
+  * having a model deployment suitable for serverless workloads like Azure Functions
 
-  Learn more about [performance improvements](http://TBD-Set-Local-URL), [enhanced TensorFlow support](http://TBD-Set-Local-URL) and [type-system improvements](http://TBD-Set-Local-URL)
+  Learn more about [performance improvements](http://TBD-Set-Local-URL), [enhanced TensorFlow support](http://TBD-Set-Local-URL) and [type-system improvements](http://TBD-Set-Local-URL).
 
 ## New API for building and consuming a Machine Learning model
 
-While the existing LearningPipeline API released with ML.NET 0.1 was easy to get started with, it did have a [few limitations explained in our previous ML.NET blog post](https://blogs.msdn.microsoft.com/dotnet/2018/09/12/announcing-ml-net-0-5/#explore-the-upcoming-new-mlnet-api-and-provide-feedback). Moving forward we have moved the LearningPipeline API into Microsoft.ML.Legacy namespace (e.g. [Sentiment Analysis based on Binary Classification with the LearningPipeline API](https://github.com/dotnet/machinelearning-samples/blob/master/samples/csharp/getting-started/BinaryClassification_SentimentAnalysis/Program.cs))
+While the existing LearningPipeline API released with ML.NET 0.1 was easy to get started with, there were [some limitations explained in our previous ML.NET blog post](https://blogs.msdn.microsoft.com/dotnet/2018/09/12/announcing-ml-net-0-5/#explore-the-upcoming-new-mlnet-api-and-provide-feedback). Moving forward the LearningPipeline API has been moved into the Microsoft.ML.Legacy namespace (e.g. [Sentiment Analysis based on Binary Classification with the LearningPipeline API](https://github.com/dotnet/machinelearning-samples/blob/master/samples/csharp/getting-started/BinaryClassification_SentimentAnalysis/Program.cs)).
 
 The new API is designed to support a wider set of scenarios and closely follows ML principles and naming from other popular ML related frameworks like Apache Spark and Scikit-Learn. 
 
-Let’s walkthrough an example on how to build a sentiment analysis model with the new APIs and introduce the new concepts along the way.
+Let’s walkthrough an example to build a sentiment analysis model with the new APIs and introduce the new concepts along the way.
 
 Building an ML Model involves the following high-level steps:
 
 ![High level steps to build an ML model](v06-release-MLNET-Blog-Post-IMAGES/ml-model-high-level-steps.png)
 
-To go through these steps with ML.NET there are essentially five main concepts with the new API, let’s take a look with them through an example like building a Sentiment Analysis model based on a binary classification task.
+To go through these steps with ML.NET there are essentially five main concepts with the new API, let’s take a look with them through this example:
 
 ### Step 1: Load data 
 
 #### Get started
-When building a model with ML.NET you have to start first creating an ML Context or environment. This is comparable to using DbContext in Entity Framework, but of course, in a completely different domain. The environment provides you essentially a context for your ML job that can be used for exception tracking and logging. 
+When building a model with ML.NET you start by creating an ML Context or environment. This is comparable to using DbContext in Entity Framework, but of course, in a completely different domain. The environment provides a context for your ML job that can be used for exception tracking and logging. 
 
 ```cs
 var env = new LocalEnvironment();
@@ -50,9 +56,9 @@ var env = new LocalEnvironment();
 We are working on bringing this concept/naming closer to EF and other .NET frameworks.
 
 #### Load your data
-One of the most important things is, as always, your data! You need to load a Dataset into the ML pipeline to be used to train your model.
+One of the most important things is, as always, your data! Load a Dataset into the ML pipeline to be used to train your model.
 
-In ML.NET data is similar to a SQL view. It is lazily evaluated, schematized, heterogenous. For building our sentiment analysis model this is how our sample data is going to look like:
+In ML.NET, data is similar to a SQL view. It is lazily evaluated, schematized, heterogenous. In this example, the sample dataset looks like this:
 
 | Toxic  (label) | Comment  (text)                                      |
 |----------------|------------------------------------------------------|
@@ -68,27 +74,30 @@ var reader = TextLoader.CreateReader(env, ctx => (label: ctx.LoadBool(0),
                                                   text: ctx.LoadText(1)));
 ```
 
-The schema of your data is in this case composed by a boolean column (Toxic) which is the "label" and positioned as the first column. Then, the second is a text column (Comment) which is the feature we are going to use to predict.
+Your data schema consists of two columns:
 
-Note that this case, loading your training dataset from a file, is the easiest way to get started. But ML.NET also allows you to load data from in-memory collections such as IEnumerable that could be coming from other data sources.
+ * a boolean column (Toxic) which is the "label" and positioned as the first column. 
+ * a text column (Comment) which is the feature we use to predict.
+
+Note that this case, loading your training data from a file, is the easiest way to get started, but ML.NET also allows you to load data from databases or in-memory collections.
 
 ### Step 2: Extract features (transform your data)
 
-Machine learning algorithms understand *featurized* data, so the next step is for us to transform our textual data into a format that we can use our ML algorithms on. In order to do so we need to create an estimator and use the FeaturizeText transform as shown below.
+Machine learning algorithms understand *featurized* data, so the next step is for us to transform our textual data into a format that our ML algorithms recognize. In order to do so we create an estimator and use the FeaturizeText transform as shown in the following snippet:
 
 ```cs
 var est = reader.MakeNewEstimator().Append(row => (label: row.label,
                                                    text:row.text.FeaturizeText()));
 ```
-An [Estimator](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md#list-of-high-level-concepts) is an object that learns from data. The result of the learning is a transformer. A particular example you can see in the next steps is when you train the model with `estimator.Fit()`, it learns on the training data and produces a machine learning model, which is a [transformer](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md#list-of-high-level-concepts)).
+An [Estimator](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md#list-of-high-level-concepts) is an object that learns from data. A [transformer](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md#list-of-high-level-concepts) is the result of this learning. A good example is training the model with `estimator.Fit()`, which learns on the training data and produces a machine learning model.
 
 ### Step 3: Train your model
 
 #### Add a selected ML Learner (Algorithm) 
 
-Now that our text has been *featurized*, the next step then is to add a learner. In this case we will use the [SDCAClassifier learner](https://docs.microsoft.com/en-us/dotnet/api/microsoft.ml.trainers.stochasticdualcoordinateascentclassifier?view=ml-dotnet).
+Now that our text has been *featurized*, the next step is to add a learner. In this case we will use the [SDCAClassifier learner](https://docs.microsoft.com/en-us/dotnet/api/microsoft.ml.trainers.stochasticdualcoordinateascentclassifier?view=ml-dotnet).
 
-Adding a learner also requires us to create a context, since we are performing a binary classification ML task for our sentiment analysis we need to define an additional context.
+Adding a learner also requires us to create an additional context, since we are performing a binary classification ML task for our sentiment analysis.
 
 ```cs
 var bctx = new BinaryClassificationContext(env);
@@ -100,7 +109,7 @@ var est = reader.MakeNewEstimator().Append(row => (label: row.label,
                                                                                  row.text)))
 ```
 
-The learner takes in the `label`, and the *featurized* `text` as input parameters and returns a `prediction` which contains the `predictedLabel`, probability and score field triplet, as shown in the last `.Append()` code below. 
+The learner takes in the `label`, and the *featurized* `text` as input parameters and returns a `prediction` which contains the `predictedLabel`, probability and score field triplet, as shown in the las `.Append()` code below. 
 
 The `predictedLabel` field contains the Boolean result of the prediction. 
 
@@ -119,7 +128,7 @@ var est = reader.MakeNewEstimator().Append(row => (label: row.label,
 
 #### Train your model
 
-Once the estimator has been defined, we can go ahead and train our model using the Fit() API. This returns us back a model which we can then use for predictions.
+Once the estimator has been defined, you train your model using the Fit() API. This returns a model which to use for predictions.
 
 ```cs
 var model = est.Fit(traindata);
@@ -127,7 +136,7 @@ var model = est.Fit(traindata);
 
 ### Step 4: Evaluate your trained model
 
-Now that you've created and trained the model, you need to evaluate it with a different dataset for quality assurance and validation with code similar to the following:
+Now that you've created and trained the model, evaluate it with a different dataset for quality assurance and validation with code similar to the following:
 
 ```cs
 // Evaluate the model
@@ -138,31 +147,13 @@ Console.WriteLine("------------------------------------------");
 Console.WriteLine($"Accuracy: {metrics.Accuracy:P2}");
 ```
 
-Basically that codes implements the following:
+ The code snippet implements the following:
 
 * Loads the test dataset.
 * Evaluates the model and create metrics.
 * Shows the accuracy of the model from the metrics.
 
-And now you have a trained model you can use in your applications and services.
-
-### Step 5: Model Consumption
-
-Now, you can predict with test data by consuming the model you just created ad trained.
-
-This is the type of code you would write in your "production" application when predicting something by scoring with the model.
-
-```cs
-// Create the prediction function 
-var predictionFunct = model.AsDynamic.MakePredictionFunction<SentimentIssue, SentimentPrediction>(env);
-
-// Predict the sentiment!
-var resultprediction = predictionFunct.Predict(new SentimentIssue
-                                               {
-                                                  text = "This is a very rude movie"
-                                               });
-```
-In that sample, the prediction won't be very positive. ;)
+And now you have a trained model for use in your applications and services.
 
 ## Ability to score pre-trained ONNX Models
 
@@ -174,7 +165,7 @@ In this new v0.6 release, ML.NET can also use ONNX models to score/predict train
 
 ![Process exporting and scoring ONNX models](v06-release-MLNET-Blog-Post-IMAGES/onnx-scoring-diagram.png)
 
-There is a large [variety of ONNX models](https://github.com/onnx/models) created and trained in [multiple frameworks](https://github.com/onnx/tutorials#onnx-tutorials) that can export models to ONNX format. Those models can be used for tasks like image classification, emotion recognition, and object detection.
+There are a large [variety of ONNX models](https://github.com/onnx/models) created and trained in [multiple frameworks](https://github.com/onnx/tutorials#onnx-tutorials) that can export models to ONNX format. Those models can be used for tasks like image classification, emotion recognition, and object detection.
 
 The ONNX *transformer* in ML.NET enables providing some data to an existing ONNX model (such as the models above) and getting the score (prediction) from it.
 
@@ -190,7 +181,7 @@ Further example usage can be found [here](https://github.com/dotnet/machinelearn
 
 ## Improvements to TensorFlow model scoring functionality
 
-In this release we've made it easier to use TensorFlow models in ML.NET. Using the [TensorFlow scoring transform](https://docs.microsoft.com/en-us/dotnet/api/microsoft.ml.transforms.tensorflowtransform?view=ml-dotnet) requires knowing which node of the model you want to retrieve results from, so we've added an API to discover the nodes in the TensorFlow model to help identify the input and output of a TensorFlow model. Example usage can be found [here](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/src/Microsoft.ML.DnnAnalyzer/Microsoft.ML.DnnAnalyzer/DnnAnalyzer.cs).  
+In this release, we've made it easier to use TensorFlow models in ML.NET. Using the [TensorFlow scoring transform](https://docs.microsoft.com/en-us/dotnet/api/microsoft.ml.transforms.tensorflowtransform?view=ml-dotnet) requires knowing which node of the model you want to retrieve results from, so we've added an API to discover the nodes in the TensorFlow model to help identify the input and output of a TensorFlow model. Example usage can be found [here](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/src/Microsoft.ML.DnnAnalyzer/Microsoft.ML.DnnAnalyzer/DnnAnalyzer.cs).  
 
 Additionally, previously in ML.NET 0.5 we only enabled using 'frozen' TensorFlow models. Now in ML.NET 0.6, TensorFlow models in the [saved model format](https://www.tensorflow.org/guide/saved_model#save_and_restore_models) can also be used.
 
