@@ -174,6 +174,11 @@ var resultprediction = predictionFunct.Predict(new SentimentIssue
 
 In that sample, you can guess that the prediction won't be very positive because of the provided text.. ;)
 
+
+You can find all the code of the previous explained sentiment analisys example [here](https://github.com/dotnet/machinelearning-samples/tree/features/samples-new-api/samples/csharp/getting-started/BinaryClassification_SentimentAnalysis).
+
+
+
 ## Ability to score pre-trained ONNX Models
 
 [ONNX](http://onnx.ai/) is an open and iteroperable model format that enables using models trained in one framework (ie scikit-learn, TensorFlow, xgboost, etc) and use them in another (like ML.NET).
