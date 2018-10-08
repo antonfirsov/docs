@@ -90,8 +90,11 @@ Note that this case, loading your training data from a file, is the easiest way 
 Machine learning algorithms understand *featurized* data, so the next step is for us to transform our textual data into a format that our ML algorithms recognize. In order to do so we create an estimator and use the FeaturizeText transform as shown in the following snippet:
 
 ```cs
-var est = reader.MakeNewEstimator().Append(row => (label: row.label,
-                                                   text:row.text.FeaturizeText()));
+var est = reader.MakeNewEstimator().Append(row =>
+{
+    var featurizedText = row.text.FeaturizeText();  //Convert text to numeric vectors
+//...
+});
 ```
 An [Estimator](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md#list-of-high-level-concepts) is an object that learns from data. A [transformer](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md#list-of-high-level-concepts) is the result of this learning. A good example is training the model with `estimator.Fit()`, which learns on the training data and produces a machine learning model.
 
@@ -106,29 +109,15 @@ Adding a learner also requires us to create an additional context, since we are 
 ```cs
 var bctx = new BinaryClassificationContext(env);
 
-var est = reader.MakeNewEstimator().Append(row => (label: row.label,
-                                                   text: row.text.FeaturizeText()))
-                                   .Append(row => (label: row.label,
-                                                   prediction:bctx.Trainers.Sdca(row.label,            
-                                                                                 row.text)))
+var est = reader.MakeNewEstimator().Append(row =>
+{
+    var featurizedText = row.text.FeaturizeText();  //Convert text to numeric vectors
+    var prediction = bctx.Trainers.Sdca(row.label, featurizedText);  //Specify SDCA trainer based on the 'label' column
+    return (row.label, prediction);  //Return label and prediction columns
+});
 ```
 
-The learner takes in the `label`, and the *featurized* `text` as input parameters and returns a `prediction` which contains the `predictedLabel`, probability and score field triplet, as shown in the las `.Append()` code below. 
-
-The `predictedLabel` field contains the Boolean result of the prediction. 
-
-The probability and score provide additional metrics about the prediction being made. 
-
-```cs
-var est = reader.MakeNewEstimator().Append(row => (label: row.label,
-                                                   text: row.text.FeaturizeText()))
-                                   .Append(row => (label: row.label,
-                                                   prediction: bctx.Trainers.Sdca(row.label, 
-                                                                                  row.text)))
-                                   .Append(row => (label: row.label,
-                                                   prediction: row.prediction,
-                                                   predictedlabel: row.prediction.predictedLabel));
-```
+The learner takes in the `label`, and the *featurized* `text` as input parameters and returns a `prediction` which contains the `predictedLabel`, probability and score field triplet. 
 
 #### Train your model
 
@@ -173,9 +162,11 @@ var resultprediction = predictionFunct.Predict(new SentimentIssue
                                                {	
                                                   text = "This is a very rude movie"	
                                                });	
+
+Console.WriteLine($"Text: {sampleStatement.text} | Prediction: {(resultprediction.PredictionLabel ? "Negative" : "Positive")} sentiment");
 ```	
 
-In that sample, you can guess that the prediction won't be very positive because of the provided text.. ;)
+In that sample, you can guess that the prediction won't be positive because of the provided text.. ;)
 
 
 You can find all the code of the sentiment analisys example [here](https://github.com/dotnet/machinelearning-samples/tree/features/samples-new-api/samples/csharp/getting-started/BinaryClassification_SentimentAnalysis).
