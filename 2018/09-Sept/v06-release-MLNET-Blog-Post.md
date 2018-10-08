@@ -175,7 +175,7 @@ var resultprediction = predictionFunct.Predict(new SentimentIssue
 In that sample, you can guess that the prediction won't be very positive because of the provided text.. ;)
 
 
-You can find all the code of the previous explained sentiment analisys example [here](https://github.com/dotnet/machinelearning-samples/tree/features/samples-new-api/samples/csharp/getting-started/BinaryClassification_SentimentAnalysis).
+You can find all the code of the sentiment analisys example [here](https://github.com/dotnet/machinelearning-samples/tree/features/samples-new-api/samples/csharp/getting-started/BinaryClassification_SentimentAnalysis).
 
 
 
