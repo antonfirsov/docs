@@ -20,15 +20,16 @@ The ML.NET 0.6 release delivers several new exciting enhancements:
 
  * **Significant performance improvements for model prediction, .NET type system consistency, and more**  
  
-  We know that application performance is critical. In this release, we've increased getting model predictions performance 100x or more. 
+   We know that application performance is critical. In this release, we've increased getting model predictions performance 100x or more. 
+   
+   Additional enhancements include:
   
-  Additional enhancements include:
-  
-  * improvements to ML.NET TensorFlow scoring 
-  * more consistency with the .NET type-system 
-  * having a model deployment suitable for serverless workloads like Azure Functions
+     * improvements to ML.NET TensorFlow scoring 
+     * more consistency with the .NET type-system 
+     * having a model deployment suitable for serverless workloads like Azure Functions
 
-  Learn more about [performance improvements](http://TBD-Set-Local-URL), [enhanced TensorFlow support](http://TBD-Set-Local-URL) and [type-system improvements](http://TBD-Set-Local-URL).
+   Learn more about [performance improvements](http://TBD-Set-Local-URL), [enhanced TensorFlow support](http://TBD-Set-Local-URL) and [type-system improvements](http://TBD-Set-Local-URL).
+
 
 ## New API for building and consuming a Machine Learning model
 
@@ -155,6 +156,24 @@ Console.WriteLine($"Accuracy: {metrics.Accuracy:P2}");
 
 And now you have a trained model for use in your applications and services.
 
+### Step 5: Model Consumption	
+
+ Now, you can predict with test data by consuming the model you just created and trained.	
+
+ The following code is a sample you would write in your "production" application when predicting something by scoring with the model:	
+
+ ```cs	
+// Create the prediction function 	
+var predictionFunct = model.AsDynamic.MakePredictionFunction<SentimentIssue, SentimentPrediction>(env);	
+ // Predict the sentiment!	
+var resultprediction = predictionFunct.Predict(new SentimentIssue	
+                                               {	
+                                                  text = "This is a very rude movie"	
+                                               });	
+```	
+
+In that sample, you can guess that the prediction won't be very positive because of the provided text.. ;)
+
 ## Ability to score pre-trained ONNX Models
 
 [ONNX](http://onnx.ai/) is an open and iteroperable model format that enables using models trained in one framework (ie scikit-learn, TensorFlow, xgboost, etc) and use them in another (like ML.NET).
@@ -228,11 +247,11 @@ Next, explore some other great resources:
 We look forward to your feedback and welcome you to file issues with any suggestions or enhancements in the [ML.NET GitHub repo](https://github.com/dotnet/machinelearning).
 
 
-
-*This blog was authored by Ankit Asthana, Cesar de la Torre, Gal Oshri and Chris Lauren*
+*This blog was authored by Cesar de la Torre, Ankit Asthana, Chris Lauren plus additional reviewers in the ML.NET team*
 
 Thanks,
 
 The ML.NET Team
+
 
 
