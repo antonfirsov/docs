@@ -112,7 +112,7 @@ var bctx = new BinaryClassificationContext(env);
 var est = reader.MakeNewEstimator().Append(row =>
 {
     var featurizedText = row.text.FeaturizeText();  //Convert text to numeric vectors
-    var prediction = bctx.Trainers.Sdca(row.label, featurizedText);  //Specify SDCA trainer based on the 'label' column
+    var prediction = bctx.Trainers.Sdca(row.label, featurizedText);  //Specify SDCA trainer
     return (row.label, prediction);  //Return label and prediction columns
 });
 ```
