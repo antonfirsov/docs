@@ -30,7 +30,7 @@ The ML.NET 0.6 release delivers several new exciting enhancements:
 
    Learn more about [performance improvements](http://TBD-Set-Local-URL), [enhanced TensorFlow support](http://TBD-Set-Local-URL) and [type-system improvements](http://TBD-Set-Local-URL).
 
-Finally, we're looking forward to engaging with the open-source community in developing and growing support for machine learning in .NET further. We have already taken steps to integrate with [Infer.NET](https://www.microsoft.com/en-us/research/blog/the-microsoft-infer-net-machine-learning-framework-goes-open-source/), a project from Microsoft research which has just recently been released as open source project under the .NET Foundation. [Infer.NET](https://github.com/dotnet/infer) will extend ML.NET for statistical modelling and online learning and is available in the  `Microsoft.ML.Probabilistic` namespace.  
+Finally, we're looking forward to engaging with the open-source community in developing and growing support for machine learning in .NET further. We have already taken steps to integrate with [Infer.NET](https://www.microsoft.com/en-us/research/blog/the-microsoft-infer-net-machine-learning-framework-goes-open-source/), a project from Microsoft research which has just recently been released as open source project under the .NET Foundation. [Infer.NET](https://github.com/dotnet/infer) will extend ML.NET for statistical modelling and online learning and is available in the `Microsoft.ML.Probabilistic` namespace.  
 
 The next sections explain in deeper details the announcements listed above.
 
