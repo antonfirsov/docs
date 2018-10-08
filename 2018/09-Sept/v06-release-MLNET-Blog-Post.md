@@ -31,6 +31,10 @@ The ML.NET 0.6 release delivers several new exciting enhancements:
    Learn more about [performance improvements](http://TBD-Set-Local-URL), [enhanced TensorFlow support](http://TBD-Set-Local-URL) and [type-system improvements](http://TBD-Set-Local-URL).
 
 
+Finally, although not as part of ML.NET 0.6, we'd like to expose how the [Infer.NET](https://dotnet.github.io/infer/) team in Microsoft Research is looking forward to engaging with the open-source community in developing and growing the framework further. We have already taken steps towards integration with ML.NET – setting up the repository under the [.NET Foundation](http://www.dotnetfoundation.org/) and moving the package and namespaces to Microsoft.ML.Probabilistic. Infer.NET will extend ML.NET for statistical modelling and online learning.
+
+The next sections explain in deeper details the announcements listed above.
+
 ## New API for building and consuming a Machine Learning model
 
 While the existing LearningPipeline API released with ML.NET 0.1 was easy to get started with, there were [some limitations explained in our previous ML.NET blog post](https://blogs.msdn.microsoft.com/dotnet/2018/09/12/announcing-ml-net-0-5/#explore-the-upcoming-new-mlnet-api-and-provide-feedback). Moving forward the LearningPipeline API has been moved into the Microsoft.ML.Legacy namespace (e.g. [Sentiment Analysis based on Binary Classification with the LearningPipeline API](https://github.com/dotnet/machinelearning-samples/blob/master/samples/csharp/getting-started/BinaryClassification_SentimentAnalysis/Program.cs)).
@@ -225,6 +229,16 @@ To make ML.NET easier to use and to take advantage of innovation in .NET, in ML.
 * One effect of this change is that only floats and doubles have missing values, represented by NaN. More information can be found [here](https://github.com/dotnet/machinelearning/issues/673).
 
 Additionally, you can now also deploy ML.NET in additional scenarios using .NET app models such as *Azure Functions* easily without convoluted workarounds, thanks to the improved approach to dependency injection.
+
+## Infer.NET is now open-source and becoming part of the ML.NET family
+
+On October 5th 2018, [Microsoft Research announced](https://www.microsoft.com/en-us/research/blog/the-microsoft-infer-net-machine-learning-framework-goes-open-source/) the open-sourcing of [Infer.NET](https://dotnet.github.io/infer/) – a cross-platform framework for model-based machine learning.
+
+Infer.NET differs from traditional machine learning frameworks in that it requires users to specify a statistical model of their problem. This allows for high interpretability, incorporating domain knowledge, doing unsupervised/semi-supervised learning, as well as online inference – the ability to learn as new data arrives. The approach and many of its applications are described in our [free online book](http://mbmlbook.com/) for beginners.
+
+Places where Infer.NET is used at Microsoft include *TrueSkill* – a skill rating system for matchmaking in *Halo* and *Gears of War*, *Matchbox* – a recommender system in *Azure Machine Learning*, and *Alexandria* – automatic knowledge base construction for *Satori*, to name a few.
+
+We’re working with the Infer.NET team to make it part of the ML.NET family. Steps already taken in this direction include releasing under the .NET Foundation and changing the package name and namespaces to Microsoft.ML.Probabilistic.
 
 ## Additional resources
 
