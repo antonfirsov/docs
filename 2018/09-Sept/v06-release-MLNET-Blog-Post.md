@@ -8,7 +8,7 @@ The ML.NET 0.6 release delivers several new exciting enhancements:
  
   Our main focus was releasing the first iteration of **new ML.NET APIs** for building and consuming models. These new, more flexible, APIs enable new tasks and code workflow that weren't possible with the previous `LearningPipeline` API. We are starting to deprecate the current `LearningPipeline` API. 
   
-  This is a significant change intended to make machine learning easier and more powerful for you. We would love your feedback via an [open discussion on GitHub](http://URLNEEDED) to help shape the long term ML.NET API to maximize your productivity, flexibility and ease of use.
+  This is a significant change intended to make machine learning easier and more powerful for you. We would love your feedback via an [open discussion on GitHub](https://github.com/dotnet/machinelearning/issues) to help shape the long term ML.NET API to maximize your productivity, flexibility and ease of use.
 
   Learn more about the [new ML.NET API](http://TBD-Set-Local-URL)
 
