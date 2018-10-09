@@ -2,7 +2,7 @@
 
 _This week's blog post is by Brian Lui, one of our summer interns on the .NET team, who's been hard at work. Over to Brian:_
 
-Hello everyone! This summer I interned in the .NET team, working on a project named [ML.NET](https://www.microsoft.com/net/learn/apps/machine-learning-and-ai/ml-dotnet), which is an open-source platform being introduced by Microsoft to make high performance Machine Learning more accessible from .NET apps. It's expected to ship next year, but you can [use a preview version already](https://github.com/dotnet/machinelearning).
+Hello everyone! This summer I interned in the .NET team, working on [ML.NET](https://www.microsoft.com/net/apps/machinelearning-ai/ml-dotnet), an open-source machine learning platform which enables .NET developers to build and use machine learning models in their .NET applications. The ML.NET 0.6 release just shipped and you can [try it out today](https://www.microsoft.com/net/learn/machinelearning-ai/ml-dotnet-get-started-tutorial).
 
 At the start of my internship, ML.NET code was already relying on vectorization for performance, using a native code library. This was an opportunity to reimplement an existing codebase in managed code, using .NET Hardware Intrinsics for vectorization, and compare results.
 
