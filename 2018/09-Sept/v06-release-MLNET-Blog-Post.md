@@ -76,6 +76,8 @@ To read in this data you will use a data reader which is an ML.NET component. Th
 ```cs
 var reader = TextLoader.CreateReader(env, ctx => (label: ctx.LoadBool(0),
                                                   text: ctx.LoadText(1)));
+
+var traindata = reader.Read(new MultiFileSource(TrainDataPath));
 ```
 
 Your data schema consists of two columns:
