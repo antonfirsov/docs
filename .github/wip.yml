@@ -1,0 +1,7 @@
+- terms: WIP
+  locations:
+  - label_name
+- terms:
+  - fixup!
+  - squash!
+  locations: commit_subject
