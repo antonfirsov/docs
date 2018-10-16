@@ -31,11 +31,24 @@ Around [69 issues have been fixed](https://github.com/aspnet/EntityFrameworkCore
 ### Spatial extensions
 * We have enabled spatial extensions to work with the SQLite provider using the popular [SpatiaLite](https://www.gaia-gis.it/fossil/libspatialite/index) library.
 * We switched the default mapping of spatial properties on SQL Server from geometry to geography columns.
-* In order to use spatial extensions correctly with preview 3, it is recommended that you use the GeometryFactory  provided by NetTopologySuite instead of creating new instances directly.
+* In order to use spatial extensions correctly with preview 3, it is recommended that you use the GeometryFactory provided by NetTopologySuite instead of creating new instances directly.
 
 Here is an updated usage example:
 
 ``` csharp
+// Model class
+public class Friend
+{
+  [Key]
+  public string Name { get; set; }
+
+  [Required]
+  public IPoint Location { get; set; }
+}
+```
+
+``` csharp
+// Program
 private static void Main(string[] args)
 {
      // Create spatial factory
@@ -78,16 +91,6 @@ private static void Main(string[] args)
              Console.WriteLine($"Name: {friend.Name}.");
          }
      }
-}
-
-// model class
-public class Friend
-{
-  [Key]
-  public string Name { get; set; }
-
-  [Required]
-  public IPoint Location { get; set; }
 }
 ```
 
@@ -154,13 +157,14 @@ public class MyDbContext : DbContext
 
 ### Cosmos DB provider
 * The package name has been renamed to Microsoft.EntityFrameworkCore.Cosmos
+* The `UseCosmosSql()` method has been renamed to `UseCosmos()`
 * We now store owned entity references and collections in the same document as the owner
 * Queries can now be executed asynchronously
-* SaveChanges(), EnsureCreated(), and EsureDeleted() can now be executed synchronously
+* SaveChanges(), EnsureCreated(), and EnsureDeleted() can now be executed synchronously
 * You no longer need to manually generate unique key values for entities
 * We preserve values in non-mapped properties when we update documents
 * We added a ToCollection() API to map entity types to Cosmos DB collections explicitly
-* We enabled various existing features to work with Cosmos DB, including value converters, retrying execution strategies, and data seeding.
+* We enabled various existing features to work with Cosmos DB, including retrying execution strategies, and data seeding.
 
 In order to use the provider, install the 2.2 preview 3 version of the `Microsoft.EntityFrameworkCore.Cosmos` package.
 
@@ -174,7 +178,7 @@ public class BloggingContext : DbContext
 
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
-    optionsBuilder.UseCosmosSql(
+    optionsBuilder.UseCosmos(
       "https://localhost:8081",
       "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
       "MyDocuments");
@@ -194,7 +198,16 @@ public class Post
   public int PostId { get; set; }
   public string Title { get; set; }
   public string Content { get; set; }
+  public List<Tag> Tags { get; set; }
 }
+
+[Owned]
+public class Tag
+{
+    [Key]
+    public string Name { get; set; }
+}
+
 ```
 
 If you want, you can create the database programmatically, using EF Core APIs:
@@ -222,7 +235,18 @@ using (var context = new BloggingContext())
             new Post
             {
                 PostId = 2,
-                Title = "Welcome to this blog!"
+                Title = "Welcome to this blog!",
+                Tags = new List<Tag>
+                {
+                    new Tag
+                    {
+                        Name = "Entity Framework Core"
+                    },
+                    new Tag
+                    {
+                        Name = ".NET Core"
+                    }
+                }
             },
         }
       }
@@ -238,8 +262,8 @@ var dotNetBlog = context.Blogs.Single(b => b.Name == ".NET Blog");
 ```
 
 ### Query tags
-* We fixed several issues with multiple calls of the API and with usage with multi-line strings.
-* The API was renamed to `TagWith()`.
+* We fixed several issues with multiple calls of the API and with usage with multi-line strings
+* The API was renamed to `TagWith()`
 
 This an updated usage example:
 
