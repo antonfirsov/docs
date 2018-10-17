@@ -104,7 +104,6 @@ Machine learning algorithms understand *featurized* data, so the next step is fo
 ```cs
 var pipeline = new TextTransform(env, "Text", "Features");
 ```
-An [Estimator](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md#list-of-high-level-concepts) is an object that learns from data. A [transformer](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md#list-of-high-level-concepts) is the result of this learning. A good example is training the model with `estimator.Fit()`, which learns on the training data and produces a machine learning model.
 
 ### Step 3: Train your model
 
@@ -128,6 +127,8 @@ Once the estimator has been defined, you train your model using the Fit() API wh
 var model = pipeline.Fit(trainingDataView);
 ```
 
+Note that the pipeline is a chain of estimators. An [Estimator](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md#list-of-high-level-concepts) is an object that learns from data. A [transformer](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md#list-of-high-level-concepts) is the result of this learning. A good example is precisely when training the model with `pipeline.Fit()`, which learns on the training data and produces a machine learning model which is an special case of transformer.
+
 ### Step 4: Evaluate your trained model
 
 Now that you've created and trained the model, evaluate it with a different dataset for quality assurance and validation with code similar to the following:
@@ -138,13 +139,11 @@ Now that you've created and trained the model, evaluate it with a different data
 var testDataView = reader.Read(new MultiFileSource(TestDataPath));
 var predictions = model.Transform(testDataView);
 var binClassificationCtx = new BinaryClassificationContext(env);
-var metrics = binClassificationCtx.Evaluate(predictions, "Label", 
-                                                         "Score",
-                                                         "Probability",
-                                                         "PredictedLabel");
+var metrics = binClassificationCtx.Evaluate(predictions, "Label");
 
 Console.WriteLine($"Model's Accuracy: {metrics.Accuracy:P2}");
 ```
+
  The code snippet implements the following:
 
 * Loads the test dataset.
