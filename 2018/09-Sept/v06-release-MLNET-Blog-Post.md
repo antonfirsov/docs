@@ -40,7 +40,9 @@ While the existing LearningPipeline API released with ML.NET 0.1 was easy to get
 
 The new API is designed to support a wider set of scenarios and closely follows ML principles and naming from other popular ML related frameworks like Apache Spark and Scikit-Learn. 
 
-Let’s walkthrough an example to build a sentiment analysis model with the new APIs and introduce the new concepts along the way.
+*Update*: Note that we’re now using the ML.NET dynamic API instead of the static/typed API, both available since v0.6. The main reason for this decision is because the dynamic API offers improvements like better flexibility and code modularity so you can easily segregate code for training, evaluation/testing in different methods/functions.
+
+Let’s walk through an example to build a sentiment analysis model with the new APIs and introduce the new concepts along the way.
 
 Building an ML Model involves the following high-level steps:
 
