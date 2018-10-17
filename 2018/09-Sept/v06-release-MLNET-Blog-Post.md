@@ -143,9 +143,7 @@ var metrics = binClassificationCtx.Evaluate(predictions, "Label",
                                                          "Probability",
                                                          "PredictedLabel");
 
-Console.WriteLine("PredictionModel quality metrics evaluation");
-Console.WriteLine("------------------------------------------");
-Console.WriteLine($"Accuracy: {metrics.Accuracy:P2}");
+Console.WriteLine($"Model's Accuracy: {metrics.Accuracy:P2}");
 ```
  The code snippet implements the following:
 
