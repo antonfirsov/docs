@@ -71,7 +71,7 @@ In ML.NET, data is similar to a SQL view. It is lazily evaluated, schematized, h
 | 0              | I also found use of the word "humanists” confusing … |
 | 0              | Oooooh thank you Mr. DietLime …                      |
 
-To read in this data you will use a data reader which is an ML.NET component. The reader takes in the environment and requires you to define the schema of your data. In this case the first column (Toxic) is of type Boolean and the "label" (meaning also the prediction) and the second column (Comment) is the feature of type text/string that we are going to use to predict the sentiment on.
+To read in this data you will use a data reader which is an ML.NET component. The reader takes in the environment and requires you to define the schema of your data. In this case the first column (Toxic or Label) is of type Boolean (meaning also the prediction) and the second column (Comment or Text) is the feature of type text/string that we are going to use to predict the sentiment on.
 
 ```cs
 var reader = new TextLoader(env,
