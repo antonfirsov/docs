@@ -64,7 +64,7 @@ One of the most important things is, as always, your data! Load a Dataset into t
 
 In ML.NET, data is similar to a SQL view. It is lazily evaluated, schematized, heterogenous. In this example, the sample dataset looks like this:
 
-| Toxic  (label) | Comment  (text)                                      |
+| Toxic  (Label) | Comment  (Text)                                      |
 |----------------|------------------------------------------------------|
 | 1              | ==RUDE== Dude, you are rude …                        |
 | 1              | == OK! == IM GOING TO VANDALIZE …                    |
