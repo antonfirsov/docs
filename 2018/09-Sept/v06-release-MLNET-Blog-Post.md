@@ -74,29 +74,35 @@ In ML.NET, data is similar to a SQL view. It is lazily evaluated, schematized, h
 To read in this data you will use a data reader which is an ML.NET component. The reader takes in the environment and requires you to define the schema of your data. In this case the first column (Toxic) is of type Boolean and the "label" (meaning also the prediction) and the second column (Comment) is the feature of type text/string that we are going to use to predict the sentiment on.
 
 ```cs
-var reader = TextLoader.CreateReader(env, ctx => (label: ctx.LoadBool(0),
-                                                  text: ctx.LoadText(1)));
+var reader = new TextLoader(env,
+                            new TextLoader.Arguments()
+                            {
+                                Separator = "tab",
+                                HasHeader = true,
+                                Column = new[]
+                                {
+                                    new TextLoader.Column("Label", DataKind.Bool, 0),
+                                    new TextLoader.Column("Text", DataKind.Text, 1)
+                                }
+                            });
 
-var traindata = reader.Read(new MultiFileSource(TrainDataPath));
+//Load training data
+var trainingDataView = reader.Read(new MultiFileSource(TrainDataPath));
 ```
 
 Your data schema consists of two columns:
 
- * a boolean column (Toxic) which is the "label" and positioned as the first column. 
- * a text column (Comment) which is the feature we use to predict.
+ * A boolean column (Label) which is the sentiment (Toxic/Negative or NonToxic/Positive) and positioned as the first column. 
+ * A text column (Text) which is a comment showing certain sentiment and is the feature we use to predict.
 
 Note that this case, loading your training data from a file, is the easiest way to get started, but ML.NET also allows you to load data from databases or in-memory collections.
 
 ### Step 2: Extract features (transform your data)
 
-Machine learning algorithms understand *featurized* data, so the next step is for us to transform our textual data into a format that our ML algorithms recognize. In order to do so we create an estimator and use the FeaturizeText transform as shown in the following snippet:
+Machine learning algorithms understand *featurized* data, so the next step is for us to transform our textual data into a format that our ML algorithms recognize. In order to do so we create an estimator of type `TextTransform` which featurizes the text converting it to numeric vectors, as shown in the following snippet:
 
 ```cs
-var est = reader.MakeNewEstimator().Append(row =>
-{
-    var featurizedText = row.text.FeaturizeText();  //Convert text to numeric vectors
-//...
-});
+var pipeline = new TextTransform(env, "Text", "Features");
 ```
 An [Estimator](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md#list-of-high-level-concepts) is an object that learns from data. A [transformer](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dcf46c429ee34196163af6da/docs/code/MlNetHighLevelConcepts.md#list-of-high-level-concepts) is the result of this learning. A good example is training the model with `estimator.Fit()`, which learns on the training data and produces a machine learning model.
 
@@ -104,29 +110,22 @@ An [Estimator](https://github.com/dotnet/machinelearning/blob/3cdd3c8b32705e91dc
 
 #### Add a selected ML Learner (Algorithm) 
 
-Now that our text has been *featurized*, the next step is to add a learner. In this case we will use the [SDCAClassifier learner](https://docs.microsoft.com/en-us/dotnet/api/microsoft.ml.trainers.stochasticdualcoordinateascentclassifier?view=ml-dotnet).
-
-Adding a learner also requires us to create an additional context, since we are performing a binary classification ML task for our sentiment analysis.
+Now that our text has been *featurized*, the next step is to add a learner. In this case we will use the [LinearClassificationTrainer learner](https://docs.microsoft.com/en-us/dotnet/api/microsoft.ml.runtime.learners.linearclassificationtrainer?view=ml-dotnet).
+For this step, you just need to append the learner to the estimators chain or flexible pipeline, while specifying what column is the feature and what column is the label or goal to predict, like in the following code:
 
 ```cs
-var bctx = new BinaryClassificationContext(env);
-
-var est = reader.MakeNewEstimator().Append(row =>
-{
-    var featurizedText = row.text.FeaturizeText();  //Convert text to numeric vectors
-    var prediction = bctx.Trainers.Sdca(row.label, featurizedText);  //Specify SDCA trainer
-    return (row.label, prediction);  //Return label and prediction columns
-});
+var pipeline = new TextTransform(env, "Text", "Features")     
+                    .Append(new LinearClassificationTrainer(env, "Features", "Label"));
 ```
 
-The learner takes in the `label`, and the *featurized* `text` as input parameters and returns a `prediction` which contains the `predictedLabel`, probability and score field triplet. 
+The learner/trainer takes in the *featurized* `Text` (`Features`) and the `Label` as input parameters for learing from the historic data.
 
 #### Train your model
 
-Once the estimator has been defined, you train your model using the Fit() API. This returns a model which to use for predictions.
+Once the estimator has been defined, you train your model using the Fit() API while providing the already loaded training data. This returns a model which you can use for predictions.
 
 ```cs
-var model = est.Fit(traindata);
+var model = pipeline.Fit(trainingDataView);
 ```
 
 ### Step 4: Evaluate your trained model
@@ -135,43 +134,49 @@ Now that you've created and trained the model, evaluate it with a different data
 
 ```cs
 // Evaluate the model
-var predictions = model.Transform(testdata);
-var metrics = bctx.Evaluate(predictions, row => row.label, row => row.prediction);
+//Load evaluation/test data
+var testDataView = reader.Read(new MultiFileSource(TestDataPath));
+var predictions = model.Transform(testDataView);
+var binClassificationCtx = new BinaryClassificationContext(env);
+var metrics = binClassificationCtx.Evaluate(predictions, "Label", 
+                                                         "Score",
+                                                         "Probability",
+                                                         "PredictedLabel");
+
 Console.WriteLine("PredictionModel quality metrics evaluation");
 Console.WriteLine("------------------------------------------");
 Console.WriteLine($"Accuracy: {metrics.Accuracy:P2}");
 ```
-
  The code snippet implements the following:
 
 * Loads the test dataset.
+* Creates an additional context, since we are performing a binary classification ML task.
 * Evaluates the model and create metrics.
 * Shows the accuracy of the model from the metrics.
 
-And now you have a trained model for use in your applications and services.
+And now you have a trained and validated model for use in your applications and services.
 
 ### Step 5: Model Consumption	
 
- Now, you can predict with test data by consuming the model you just created and trained.	
+ At this point you can predict with test/sample data by consuming the model you just created and trained.	
 
  The following code is a sample you would write in your "production" application when predicting something by scoring with the model:	
 
  ```cs	
-// Create the prediction function 	
-var predictionFunct = model.AsDynamic.MakePredictionFunction<SentimentIssue, SentimentPrediction>(env);	
- // Predict the sentiment!	
+// Create the prediction function 
+var predictionFunct = model.MakePredictionFunction<SentimentIssue, SentimentPrediction>(env);
+
 var resultprediction = predictionFunct.Predict(new SentimentIssue	
                                                {	
                                                   text = "This is a very rude movie"	
-                                               });	
+                                               });
 
 Console.WriteLine($"Text: {sampleStatement.text} | Prediction: {(resultprediction.PredictionLabel ? "Negative" : "Positive")} sentiment");
 ```	
 
 In that sample, you can guess that the prediction won't be positive because of the provided text.. ;)
 
-
-You can find all the code of the sentiment analisys example [here](https://github.com/dotnet/machinelearning-samples/tree/features/samples-new-api/samples/csharp/getting-started/BinaryClassification_SentimentAnalysis).
+You can find all the code of this sentiment analisys example [here](https://github.com/dotnet/machinelearning-samples/blob/features/samples-new-api/samples/csharp/getting-started/BinaryClassification_SentimentAnalysis/Program.cs).
 
 
 
