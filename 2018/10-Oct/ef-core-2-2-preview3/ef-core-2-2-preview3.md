@@ -26,20 +26,20 @@ However, based on a reassessment of the progress we have made so far, and on new
 
 ## Obtaining the preview
 
-The preview bits are available [on NuGet](to-do), and also as part of [ASP.NET Core 2.2 Preview 3 (to-do)](https://blogs.msdn.microsoft.com/webdev/2018/10/17/asp-net-core-2-2-0-preview3-now-available/) and the [.NET Core SDK 2.2 Preview 3 (to-do)](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-net-core-2-2-preview-3/), also releasing today. If you are want to try the preview in an application based on ASP.NET Core, we recommend you upgrade to ASP.NET Core 2.2 Preview 3.
+The preview bits are available [on NuGet](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.2.0-preview3-35497), and also as part of [ASP.NET Core 2.2 Preview 3](https://blogs.msdn.microsoft.com/webdev/2018/10/17/asp-net-core-2-2-0-preview3-now-available/) and the [.NET Core SDK 2.2 Preview 3 (to-do)](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-net-core-2-2-preview-3/), also releasing today. If you are want to try the preview in an application based on ASP.NET Core, we recommend you upgrade to ASP.NET Core 2.2 Preview 3.
 
 The SQL Server and the in-memory providers are also included in ASP.NET Core, but for other providers and any other type of application, you will need to install the corresponding NuGet package.
 
 For example, to add the 2.2 Preview 3 version of the SQL Server provider in a .NET Core library or application from the command line, use:
 
 ``` console
-$ dotnet add package Microsoft.EntityFrameworkCore.SqlServer -v 2.2.0-preview3-to-do
+$ dotnet add package Microsoft.EntityFrameworkCore.SqlServer -v 2.2.0-preview3-35497
 ```
 
 Or from the Package Manager Console in Visual Studio:
 
 ``` console
-PM> Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 2.2.0-preview3-to-do
+PM> Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 2.2.0-preview3-35497
 ```
 
 For more details on how to add EF Core to your projects see [our documentation on Installing Entity Framework Core](https://docs.microsoft.com/ef/core/get-started/install/).
