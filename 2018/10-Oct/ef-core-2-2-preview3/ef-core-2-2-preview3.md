@@ -10,25 +10,25 @@ We thank you in advance for reporting any issues your find on [our issue tracker
 
 ## EF Core 2.2 roadmap update
 
-EF Core 2.2 RTM is still planned to release by the end of the 2018 calendar year, alongside ASP.NET Core 2.2 and .NET Core 2.2.
+EF Core 2.2 RTM is still planned for the end of the 2018 calendar year, alongside ASP.NET Core 2.2 and .NET Core 2.2.
 
 However, based on a reassessment of the progress we have made so far, and on new information about the work we need to complete 2.2, we are no longer trying to include the following features in the EF Core 2.2 RTM:
 
 - **Reverse engineering database views into query types:** [This feature](https://github.com/aspnet/EntityFrameworkCore/issues/1679) is postponed to EF Core 3.0.
 
-- **Cosmos DB Provider:** Although we have made a lot of progress setting up the required infrastructure for document-oriented database support in EF Core, and have been steadily adding functionality to the provider, realistically we cannot arrive to a state in which we can release the provider with adequate functionality and quality in the current timeframe for 2.2.
+- **Cosmos DB Provider:** Although we have made a lot of progress setting up the required infrastructure for document-oriented database support in EF Core, and have been steadily adding functionality to the provider, realistically we cannot arrive to a state in which we can release the provider with adequate functionality and quality in the current time frame for 2.2.
 
   Overall, we have found that the work necessary to complete the provider to be more than we initially estimated. Also, ongoing evolution in Cosmos DB is leading us to frequently revisit decisions about such things as how we use the Cosmos DB SDK, whether we map all entities to a single collection by default, etc.
 
-  We plan to maintain the focus on the provider and to continue working with the Cosmos DB team and to keep releasing previews of the provider regularly. You can expect at least one more preview by the end of this year, and RTM in 2019. We haven't decided yet if the Cosmos DB provider will release as part of EF Core 3.0 or earlier.
+  We plan to maintain the focus on the provider and to continue working with the Cosmos DB team and to keep releasing previews of the provider regularly. You can expect at least one more preview by the end of this year, and RTM sometime in 2019. We haven't decided yet if the Cosmos DB provider will release as part of EF Core 3.0 or earlier.
 
   A good way to keep track of our progress is [this checklist in our issue tracker](https://github.com/aspnet/EntityFrameworkCore/issues/12086).
 
 ## Obtaining the preview
 
-The preview bits are available [on NuGet](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.2.0-preview3-35497), and also as part of [ASP.NET Core 2.2 Preview 3](https://blogs.msdn.microsoft.com/webdev/2018/10/17/asp-net-core-2-2-0-preview3-now-available/) and the [.NET Core SDK 2.2 Preview 3 (to-do)](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-net-core-2-2-preview-3/), also releasing today. If you are want to try the preview in an application based on ASP.NET Core, we recommend you upgrade to ASP.NET Core 2.2 Preview 3.
+The preview bits are available [on NuGet](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.2.0-preview3-35497), and also as part of [ASP.NET Core 2.2 Preview 3](https://blogs.msdn.microsoft.com/webdev/2018/10/17/asp-net-core-2-2-0-preview3-now-available/) and the [.NET Core SDK 2.2 Preview 3](https://github.com/dotnet/core/blob/master/release-notes/2.2/preview/2.2.0-preview3.md), also releasing today. If you are want to try the preview in an application based on ASP.NET Core, we recommend that https://www.microsoft.com/net/download/dotnet-core/2.2 follow the instructions to upgrade to ASP.NET Core 2.2 Preview 3.
 
-The SQL Server and the in-memory providers are also included in ASP.NET Core, but for other providers and any other type of application, you will need to install the corresponding NuGet package.
+The SQL Server and in-memory providers are also included in ASP.NET Core, but for other providers and any other type of application, you will need to install the corresponding NuGet package.
 
 For example, to add the 2.2 Preview 3 version of the SQL Server provider in a .NET Core library or application from the command line, use:
 
@@ -48,7 +48,7 @@ The Cosmos DB provider and the spatial extensions ship as new separate NuGet pac
 
 ## What is new in this preview?
 
-Around [69 issues have been fixed](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aissue+milestone%3A2.2.0-preview3+is%3Aclosed+label%3Aclosed-fixed) between since we finished [Preview 2 last month](https://blogs.msdn.microsoft.com/dotnet/2018/09/12/announcing-entity-framework-core-2-2-preview-2/). This includes product bug fixes and improvements to the new features. Specifically about the new features, the most significant changes are:
+Around [69 issues have been fixed](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aissue+milestone%3A2.2.0-preview3+is%3Aclosed+label%3Aclosed-fixed) since we finished [Preview 2 last month](https://blogs.msdn.microsoft.com/dotnet/2018/09/12/announcing-entity-framework-core-2-2-preview-2/). This includes product bug fixes and improvements to the new features. Specifically about the new features, the most significant changes are:
 
 ### Spatial extensions
 * We have enabled spatial extensions to work with the SQLite provider using the popular [SpatiaLite](https://www.gaia-gis.it/fossil/libspatialite/index) library.
@@ -69,9 +69,7 @@ public class Friend
   [Required]
   public IPoint Location { get; set; }
 }
-```
 
-``` csharp
 // Program
 private static void Main(string[] args)
 {
@@ -299,21 +297,21 @@ var dotNetBlog = context.Blogs.Single(b => b.Name == ".NET Blog");
 
 This an updated usage example:
 
-    ``` csharp
-    var nearestFriends =
-        (from f in context.Friends.TagWith(@"This is my spatial query!")
-        orderby f.Location.Distance(myLocation) descending
-        select f).Take(5).ToList();
-    ```
-    This will generate the following SQL output:
+  ``` csharp
+  var nearestFriends =
+      (from f in context.Friends.TagWith(@"This is my spatial query!")
+      orderby f.Location.Distance(myLocation) descending
+      select f).Take(5).ToList();
+  ```
+  This will generate the following SQL output:
 
-    ``` sql
-    -- This is my spatial query!
+  ``` sql
+-- This is my spatial query!
 
-    SELECT TOP(@__p_1) [f].[Name], [f].[Location]
-    FROM [Friends] AS [f]
-    ORDER BY [f].[Location].STDistance(@__myLocation_0) DESC
-    ```
+SELECT TOP(@__p_1) [f].[Name], [f].[Location]
+FROM [Friends] AS [f]
+ORDER BY [f].[Location].STDistance(@__myLocation_0) DESC
+  ```
 
 ### Collections of owned entities
 
@@ -326,4 +324,4 @@ modelBuilder.Entity<Customer>().OwnsMany(c => c.Addresses);
 ```
 ## Thank you
 
-The EF team would like to thank everyone for the feedback and contributions. Once more, please try this preview and report any feedback on [our issue tracker](https://github.com/aspnet/EntityFrameworkCore/issues/new).
+The EF team would like to thank everyone for all the feedback and contributions. Once more, please try this preview and report any feedback on [our issue tracker](https://github.com/aspnet/EntityFrameworkCore/issues/new).
