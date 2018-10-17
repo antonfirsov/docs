@@ -194,9 +194,9 @@ We have made several changes and improvements since preview 2:
 
 We still have some pending work and several limitations to remove in the provider. Most of them as tracked as uncompleted tasks [on our task list](https://github.com/aspnet/EntityFrameworkCore/issues/12086). In addition to those:
 
-*	Currently, synchronous methods are much slower than the corresponding asynchronous methods
-*	The value of the 'id' property has to be specified for seeding
-* There is currently no enforcement of uniqueness of primary keys on entities saved by multiple instances of DbContext
+* Currently, synchronous methods are much slower than the corresponding asynchronous methods
+* The value of the 'id' property has to be specified for seeding
+* There is currently no enforcement of uniqueness of primary keys values on entities saved by multiple instances of the DbContext
 
 In order to use the provider, install the 2.2 preview 3 version of the `Microsoft.EntityFrameworkCore.Cosmos` package.
 
