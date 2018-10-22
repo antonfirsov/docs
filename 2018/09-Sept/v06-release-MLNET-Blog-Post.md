@@ -115,7 +115,9 @@ Now that our text has been *featurized*, the next step is to add a learner. In t
 For this step, you just need to append the learner to the estimators chain or flexible pipeline, while specifying what column is the feature and what column is the label or goal to predict, like in the following code:
 
 ```cs
-var pipeline = new TextTransform(env, "Text", "Features")     
+var pipeline = new TextTransform(env, 
+                                 new LinearClassificationTrainer.Arguments(),
+                                 "Text", "Features")     
                     .Append(new LinearClassificationTrainer(env, "Features", "Label"));
 ```
 
