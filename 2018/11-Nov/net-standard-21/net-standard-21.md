@@ -1,7 +1,7 @@
 # Announcing .NET Standard 2.1
 
 We [shipped .NET Standard 2.0][ns20-post] about a year ago. Since then, .NET
-Core has shipped one minor versions and is about to ship another one. It's time
+Core has shipped one minor version and is about to ship another one. It's time
 to update the standard to include some new concepts as well as a number of small
 improvements that make your life easier across the various implementations of
 .NET.
@@ -53,12 +53,12 @@ Here are the highlights:
   APIs in .NET Standard as the functionality requires runtime support and thus
   cannot be provided meaningfully as a NuGet package.
 
-* `ValueTask` and `ValueTask<T>`. In [.NET Core 2.1][netcore-21], the biggest
-  feature was improvements in our fundamentals to support high-performance
-  scenarios, which also included making `async`/`await` more efficient.
-  `ValueTask<T>` already exists and allows to return results if the operation
-  completed synchronously without having to allocate a new `Task<T>`. With .NET
-  Core 2.1 we've improved this further which made it useful to have a
+* **`ValueTask` and `ValueTask<T>`**. In [.NET Core 2.1][netcore-21], the
+  biggest feature was improvements in our fundamentals to support
+  high-performance scenarios, which also included making `async`/`await` more
+  efficient. `ValueTask<T>` already exists and allows to return results if the
+  operation completed synchronously without having to allocate a new `Task<T>`.
+  With .NET Core 2.1 we've improved this further which made it useful to have a
   corresponding non-generic `ValueTask` that allows reducing allocations even
   for cases where the operation has to be completed asynchronously. Exposing
   these APIs in .NET Standard 2.1 enables library authors to benefit from these
@@ -103,7 +103,7 @@ into .NET Framework we could break existing applications, and we don't want to
 do that.
 
 As you saw earlier, a large chunk of the API additions in .NET Standard 2.1
-require runtime changes in order to be meaningful. Thus, we've decided that .NET
+require runtime changes in order to be meaningful. Thus, our plan is that .NET
 Framework 4.8 will not implement .NET Standard 2.1 but will remain on .NET
 Standard 2.0. .NET Core 3.0 as well as upcoming versions of Xamarin, Mono, and
 Unity will be updated to implement .NET Standard 2.1.
@@ -159,7 +159,7 @@ ultimate tie breaker. And Miguel has a lot of expertise and experience building
 **We created a formal approval process**. The .NET Standard 1.x and 2.0 version
 were largely mechanically derived by computing which APIs existing .NET
 implementations had in common, which means the API sets were effectively a
-computational outcome. Moving forward, this won't be the case any more so we
+computational outcome. Moving forward, this won't be the case anymore so we
 needed a process that allows an editorial approach:
 
 * **Anybody can submit proposals for API additions to the .NET Standard**.
@@ -169,9 +169,9 @@ needed a process that allows an editorial approach:
   rationale here is that divergence at that the member level is not desirable
   and unless there is something wrong with the API it's likely a good addition.
 * **Acceptance requires**
-    - **A sponsorship from a board member**. That person will be assigned the
-      issue and is expected to shepherd the issue until it's either accepted or
-      rejected. If no board member is willing to sponsor the proposal, it's
+    - **A sponsorship from a review board member**. That person will be assigned
+      the issue and is expected to shepherd the issue until it's either accepted
+      or rejected. If no board member is willing to sponsor the proposal, it's
       considered rejected.
     - **A stable implementation in at least one .NET implementation**. The
       implementation must be licensed under an open source license that is
@@ -194,10 +194,10 @@ and the [.NET Standard review board][review-board].
 
 ## Summary
 
-Please download the new [.NET Core SDK][netcore30-sdk], which includes support
-for targeting .NET Standard 2.1. Take .NET Standard for a spin and give us
-feedback by filing issues in the
-[dotnet/standard GitHub rep](https://github.com/dotnet/standard).
+Please download the new [.NET Core 3.0 SDK][netcore30-sdk], which includes
+support for targeting .NET Standard 2.1. Take .NET Standard for a spin and give
+us feedback by filing issues in the [dotnet/standard GitHub
+repo](https://github.com/dotnet/standard).
 
 If you want to quickly check whether a specific API is in .NET Standard (or any
 other .NET platform), you can use [apisof.net]. You can also use the [.NET
