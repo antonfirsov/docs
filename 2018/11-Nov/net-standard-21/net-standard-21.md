@@ -1,10 +1,10 @@
 # Announcing .NET Standard 2.1
 
 We [shipped .NET Standard 2.0][ns20-post] about a year ago. Since then, .NET
-Core has shipped one minor version and is about to ship another one. It's time
-to update the standard to include some new concepts as well as a number of small
-improvements that make your life easier across the various implementations of
-.NET.
+Core has shipped one minor version (.NET Core 2.1) and is about to ship another
+one (.NET Core 2.2). So it's time to update the standard to include some new
+concepts as well as a number of small improvements that make your life easier
+across the various implementations of .NET.
 
 ## What's new in .NET Standard 2.1?
 
@@ -14,7 +14,7 @@ the standard in order to converge the .NET implementations even further.
 
 Here are the highlights:
 
-* **`Span<T>`**. In .NET Core 2.1 we've added `Span<T>` which is an array like
+* **`Span<T>`**. In .NET Core 2.1 we've added `Span<T>` which is an array-like
   type that allows representing managed and unmanaged memory in a uniform way
   and supports slicing without copying. It's at the heart of most
   performance-related improvements in .NET Core 2.1. Since it allows managing
@@ -37,7 +37,7 @@ Here are the highlights:
   types on the fly for proxying interfaces. As a result, many of you asked for
   reflection emit to be included in the .NET Standard. Previously, we've tried
   to provide this via a NuGet package but we discovered that we cannot model
-  such as core technology using a package. With .NET Standard 2.1, you'll have
+  such a core technology using a package. With .NET Standard 2.1, you'll have
   access to Lightweight Code Generation (LCG) as well as Reflection Emit. Of
   course, you might run on a runtime that doesn't support running IL via
   interpretation or compiling it with a JIT, so we also exposed two new
@@ -60,8 +60,9 @@ Here are the highlights:
   operation completed synchronously without having to allocate a new `Task<T>`.
   With .NET Core 2.1 we've improved this further which made it useful to have a
   corresponding non-generic `ValueTask` that allows reducing allocations even
-  for cases where the operation has to be completed asynchronously. Exposing
-  these APIs in .NET Standard 2.1 enables library authors to benefit from these
+  for cases where the operation has to be completed asynchronously, a feature
+  that types like `Socket` and `NetworkStream` now utilize. Exposing these APIs
+  in .NET Standard 2.1 enables library authors to benefit from these
   improvements both, as a consumer, as well as a producer.
 
 * **DbProviderFactories**. In .NET Standard 2.0 we added almost all of the
@@ -75,8 +76,9 @@ Here are the highlights:
 
 * **General Goodness**. Since .NET Core was open sourced, we've added many small
   features across the base class libraries such as `System.HashCode` for
-  combining hash codes or new overloads on `System.String`. There are about ~800
-  new members in .NET Core and virtually of them got added in .NET Standard 2.1.
+  combining hash codes or new overloads on `System.String`. There are about 800
+  new members in .NET Core and virtually all of them got added in .NET Standard
+  2.1.
 
 For more details, you might want to check out the [full API diff][ns21-diff]
 between .NET Standard 2.1 and .NET Standard 2.0. You can also use [apisof.net]
@@ -187,16 +189,19 @@ needed a process that allows an editorial approach:
 * **The version number** is subject to discussion and is generally a function of
   how significant the new version is. While we aren't planning on making
   breaking changes, we'll rev the major version if the new version adds large
-  chunks of APIs or has sizable changes in the overall developer experience.
+  chunks of APIs (like when we doubled the number of APIs in .NET Standard 2.0)
+  or has sizable changes in the overall developer experience (like the added
+  compatibility mode for consuming .NET Framework libraries we added in .NET
+  Standard 2.0).
 
 For more information, take a look at the [.NET Standard governance model][gov]
 and the [.NET Standard review board][review-board].
 
 ## Summary
 
-Please download the new [.NET Core 3.0 SDK][netcore30-sdk], which includes
-support for targeting .NET Standard 2.1. Take .NET Standard for a spin and give
-us feedback by filing issues in the [dotnet/standard GitHub
+Please download the new [.NET Core 3.0 Preview SDK][netcore30-sdk], which
+includes support for targeting .NET Standard 2.1. Take .NET Standard for a spin
+and give us feedback by filing issues in the [dotnet/standard GitHub
 repo](https://github.com/dotnet/standard).
 
 If you want to quickly check whether a specific API is in .NET Standard (or any
