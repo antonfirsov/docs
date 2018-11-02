@@ -1,10 +1,13 @@
 # Announcing .NET Standard 2.1
 
-We [shipped .NET Standard 2.0][ns20-post] about a year ago. Since then, .NET
-Core has shipped one minor version (.NET Core 2.1) and is about to ship another
-one (.NET Core 2.2). So it's time to update the standard to include some new
-concepts as well as a number of small improvements that make your life easier
-across the various implementations of .NET.
+Since we [shipped .NET Standard 2.0][ns20-post] about a year ago, we've shipped
+two updates to .NET Core 2.1 and are about to release .NET Core 2.2. It's time
+to update the standard to include some of the new concepts as well as a number
+of small improvements that make your life easier across the various
+implementations of .NET.
+
+Keep reading to learn more about what's new in this latest release, what you
+need to know about platform support, governance and coding. 
 
 ## What's new in .NET Standard 2.1?
 
@@ -67,7 +70,7 @@ Here are the highlights:
 
 * **DbProviderFactories**. In .NET Standard 2.0 we added almost all of the
   primitives in ADO<span></span>.NET to allow OR mappers and database
-  implementers to communicate. Unfortuantely, `DbProviderFactories` didn't make
+  implementers to communicate. Unfortunately, `DbProviderFactories` didn't make
   the cut for 2.0 so we're adding it now. In a nutshell, `DbProviderFactories`
   allows OR mappers to instantiate a specific provider factory without having to
   accept an instance of `DbProviderFactory`, which enables them to select the
@@ -86,8 +89,9 @@ to quickly check whether a given API will be included with .NET Standard 2.1.
 
 ## .NET platform support
 
-In [Update on .NET Core 3.0 and .NET Framework 4.8][hunters-post] we wrote the
-following:
+In case you missed our [Update on .NET Core 3.0 and .NET Framework
+4.8][hunters-post], we've described our support for .NET Framework and .NET Core
+as follows:
 
 > **.NET Framework** is the implementation of .NET that's installed on over one
 billion machines and thus needs to remain as compatible as possible. Because of
@@ -104,11 +108,11 @@ demo how the file APIs are faster on .NET Core. If we put those same changes
 into .NET Framework we could break existing applications, and we don't want to
 do that.
 
-As you saw earlier, a large chunk of the API additions in .NET Standard 2.1
-require runtime changes in order to be meaningful. Thus, our plan is that .NET
-Framework 4.8 will not implement .NET Standard 2.1 but will remain on .NET
-Standard 2.0. .NET Core 3.0 as well as upcoming versions of Xamarin, Mono, and
-Unity will be updated to implement .NET Standard 2.1.
+Given many of the API additions in .NET Standard 2.1 require runtime changes in
+order to be meaningful, .NET Framework 4.8 will remain on .NET Standard 2.0
+rather than implement .NET Standard 2.1. .NET Core 3.0 as well as upcoming
+versions of Xamarin, Mono, and Unity will be updated to implement .NET Standard
+2.1.
 
 Library authors who need to support .NET Framework customers should stay on .NET
 Standard 2.0. In fact, most libraries should be able to stay on .NET Standard
@@ -125,56 +129,39 @@ For more recommendations on targeting, check out the brand new documentation on
 
 ## Governance model
 
-The .NET Standard 1.x and 2.0 releases were mostly about exposing existing
-concepts. The bulk of the work was on the .NET Core side, as this platform
-started with a much smaller API set. Moving forward, we'll often have to
-standardize brand-new technologies, which means we need to consider the impact
-on all .NET implementations, not just .NET Core. However, some of them are
-managed outside of Microsoft, such as by the Mono community or by Unity. This
-required creating a governance model that honors these constraints.
+The .NET Standard 1.x and 2.0 releases focused on exposing existing concepts.
+The bulk of the work was on the .NET Core side, as this platform started with a
+much smaller API set. Moving forward, we'll often have to standardize brand-new
+technologies, which means we need to consider the impact on all .NET
+implementations, not just .NET Core, and including those managed in other
+communities such as Mono or Unity. Our governance model has been updated to best
+include all considerations, including: 
 
-We've made two changes:
+**A .NET Standard review board**. To ensure we don't end up adding large chunks
+of API surface that cannot be implemented, a review board will sign-off on API
+additions to the .NET Standard. The board comprises representatives from .NET
+platform, Xamarin and Mono, Unity and the .NET Foundation and will be chaired by
+Miguel de Icaza. We will continue to strive to make decisions based on consensus
+and will leverage Miguel’s extensive expertise and experience building .NET
+implementations that are supported by multiple parties when needed. 
 
-**We formed a .NET Standard review board**. To ensure we don't end up adding
-large chunks of API surface that cannot be implemented, we have a review board
-that has to sign-off on API additions to the .NET Standard. The board comprises
-representatives from the following groups:
-
-* **.NET platform**. The rationale here is that most, if not all, of the APIs
-  that are part of .NET Standard are implemented and evolved by the .NET
-  platform team.
-* **Xamarin & Mono**. While Mono mostly copies code from the .NET Framework &
-  .NET Core base class libraries, changes and extensions can impact their
-  ability to support the .NET Standard. Thus, we need to coordinate any changes
-  with Mono.
-* **Unity**. Same rationale as for Xamarin & Mono.
-* **.NET Foundation**. A set of people selected by the .NET Foundation that
-  represent the interests of the .NET community at large, which also includes
-  pure consumers of the .NET Standard.
-
-The chair of the review board is Miguel de Icaza. For the most part, we strive
-to make decisions based on consensus, but as it is with every group of
-engineers, consensus can be impossible to achieve at times so we need to have an
-ultimate tie breaker. And Miguel has a lot of expertise and experience building
-.NET implementations that are supported by multiple parties.
-
-**We created a formal approval process**. The .NET Standard 1.x and 2.0 version
-were largely mechanically derived by computing which APIs existing .NET
+**A formal approval process**. The .NET Standard 1.x and 2.0 version were
+largely mechanically derived by computing which APIs existing .NET
 implementations had in common, which means the API sets were effectively a
-computational outcome. Moving forward, this won't be the case anymore so we
-needed a process that allows an editorial approach:
+computational outcome. Moving forward, we are implementing an editorial
+approach:
 
-* **Anybody can submit proposals for API additions to the .NET Standard**.
+* **Anyone can submit proposals for API additions to the .NET Standard**.
 * **New members on standardized types are automatically considered**. To prevent
   accidental fragmentation, we'll automatically consider all members added by
   any .NET implementation on types that are already in the standard. The
   rationale here is that divergence at that the member level is not desirable
   and unless there is something wrong with the API it's likely a good addition.
-* **Acceptance requires**
+* **Acceptance requires**:
     - **A sponsorship from a review board member**. That person will be assigned
       the issue and is expected to shepherd the issue until it's either accepted
-      or rejected. If no board member is willing to sponsor the proposal, it's
-      considered rejected.
+      or rejected. If no board member is willing to sponsor the proposal, it
+      will be considered rejected.
     - **A stable implementation in at least one .NET implementation**. The
       implementation must be licensed under an open source license that is
       compatible with MIT. This will allow other .NET implementations to jump-
