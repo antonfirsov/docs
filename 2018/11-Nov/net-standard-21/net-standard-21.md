@@ -199,10 +199,8 @@ and the [.NET Standard review board][review-board].
 
 ## Summary
 
-Please download the new [.NET Core 3.0 Preview SDK][netcore30-sdk], which
-includes support for targeting .NET Standard 2.1. Take .NET Standard for a spin
-and give us feedback by filing issues in the [dotnet/standard GitHub
-repo](https://github.com/dotnet/standard).
+The definition of .NET Standard 2.1 is ongoing. You can watch [our progress on
+GitHub][ns21-ms] and still file requests.
 
 If you want to quickly check whether a specific API is in .NET Standard (or any
 other .NET platform), you can use [apisof.net]. You can also use the [.NET
@@ -214,7 +212,7 @@ Happy coding!
 [ns20-post]: https://blogs.msdn.microsoft.com/dotnet/2017/08/14/announcing-net-standard-2-0/
 [ns21-diff]: https://github.com/dotnet/standard/blob/master/docs/versions/netstandard2.1.md
 [ns21-planning]: https://github.com/dotnet/standard/tree/master/docs/planning/netstandard-2.1
-[netcore30-sdk]: https://www.microsoft.com/net/download
+[ns21-ms]: https://github.com/dotnet/standard/milestone/3
 [apisof.net]: https://apisof.net/catalog/System.Span%3CT%3E
 [span-article]: https://msdn.microsoft.com/en-us/magazine/mt814808.aspx
 [simd-post]: Pworhttps://blogs.msdn.microsoft.com/dotnet/2014/04/07/the-jit-finally-proposed-jit-and-simd-are-getting-married/
