@@ -117,7 +117,7 @@ Next, explore some other great resources:
 
 We look forward to your feedback and welcome you to file issues with any suggestions or enhancements in the [ML.NET GitHub repo](https://github.com/dotnet/machinelearning).
 
-*This blog was authored by Cesar de la Torre and Gal Oshri*
+*This blog was authored by Gal Oshri and Cesar de la Torre*
 
 Thanks,
 
