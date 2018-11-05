@@ -16,14 +16,14 @@ This blog post provides details about the following topics in the ML.NET 0.7 rel
 
 Matrix factorization (MF) is a common approach to recommendations when you have data on how users rated items in your catalog. For example, you might know how users rated some movies and want to recommend which other movies they are likely to watch next. ML.NET now includes matrix factorization (using [LIBMF](https://github.com/cjlin1/libmf)).
 
-Example usage of MF can be found [here](https://github.com/dotnet/machinelearning/blob/d68388a1c9994a5b429b194b64b2b0782834cb78/docs/samples/Microsoft.ML.Samples/Dynamic/MatrixFactorization.cs). The example is general but you can imagine that the matrix rows correspond to users, matrix columns correspond to movies, and matrix values correspond to ratings. This matrix would be quite sparse as users have only rated a small subset of the catalog.
-
 Note that [ML.NET 0.3](https://blogs.msdn.microsoft.com/dotnet/2018/07/09/announcing-ml-net-0-3/#ffm-section) included Field-Aware Factorization Machines (FFM) as a learner for binary classification. FFM is a generalization of MF, but there are a few differences:
 
 * FFM enables taking advantage of other information beyond the rating  a user assigns to an item (e.g. movie genre, movie release date,  user profile). 
 * FFM is currently limited to binary classification (the ratings needs to be converted to 0 or 1), whereas MF solves a regression problem  (the ratings can be continuous numbers).
 * If the only information available is the user-item ratings, MF is likely to be significantly faster than FFM.
 * A more in-depth discussion can be found [here](https://www.csie.ntu.edu.tw/~cjlin/talks/recsys.pdf).
+
+Example usage of MF can be found [here](https://github.com/dotnet/machinelearning/blob/d68388a1c9994a5b429b194b64b2b0782834cb78/docs/samples/Microsoft.ML.Samples/Dynamic/MatrixFactorization.cs). The example is general but you can imagine that the matrix rows correspond to users, matrix columns correspond to movies, and matrix values correspond to ratings. This matrix would be quite sparse as users have only rated a small subset of the catalog.
 
 ## Enabled anomaly detection scenarios - detecting unusual events
 
