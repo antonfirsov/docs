@@ -69,13 +69,13 @@ Here are the highlights:
   improvements both, as a consumer, as well as a producer.
 
 * **DbProviderFactories**. In .NET Standard 2.0 we added almost all of the
-  primitives in ADO<span></span>.NET to allow OR mappers and database
+  primitives in ADO<span></span>.NET to allow O/R mappers and database
   implementers to communicate. Unfortunately, `DbProviderFactories` didn't make
   the cut for 2.0 so we're adding it now. In a nutshell, `DbProviderFactories`
-  allows OR mappers to instantiate a specific provider factory without having to
-  accept an instance of `DbProviderFactory`, which enables them to select the
-  appropriate provider automatically, by, for example, reading configuration
-  settings.
+  allows libraries and applications to utilize a specific ADO.NET provider
+  without knowing any of its specific types at compile time, by selecting among
+  registered `DbProviderFactory` instances based on a name, which can be read
+  from, for example, configuration settings.
 
 * **General Goodness**. Since .NET Core was open sourced, we've added many small
   features across the base class libraries such as `System.HashCode` for
