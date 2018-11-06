@@ -1,6 +1,6 @@
 # Announcing ML.NET 0.7 - Machine Learning for .NET
 
-<table>
+<table border="0">
   <tr>
     <td width=10%>
        <img src="v07-release-MLNET-Blog-Post-images/mldotnet.svg" alt="ML.NET icon">
@@ -23,7 +23,7 @@ This blog post provides details about the following topics in the ML.NET 0.7 rel
 
 ## Enhanced recommendations use cases with Matrix Factorization
 
-<table>
+<table border="0">
   <tr>
     <td width=18%>
        <img src="v07-release-MLNET-Blog-Post-images/Recommendation.png" alt="Recommendation icon">
@@ -45,7 +45,7 @@ Example usage of MF can be found [here](https://github.com/dotnet/machinelearnin
 
 ## Enabled anomaly detection scenarios - detecting unusual events
 
-<table>
+<table border="0">
   <tr>
     <td width=18%>
        <img src="v07-release-MLNET-Blog-Post-images/Anomaly-Detection.png" alt="Anomaly detection icon">
@@ -62,7 +62,7 @@ Sample code using anomaly detection with ML.NET can be found [here](https://gith
 
 ## Improved customizability of ML.NET pipelines
 
-<table>
+<table border="0">
   <tr>
     <td width=18%>
        <img src="v07-release-MLNET-Blog-Post-images/Pipeline.png" alt="Pipeline icon">
@@ -117,7 +117,7 @@ A more complete example of the `CustomMappingEstimator` can be found [here](http
 
 ## x86 support in addition to x64
 
-<table>
+<table border="0">
   <tr>
     <td width=15%>
        <img src="v07-release-MLNET-Blog-Post-images/32bits.png" alt="Pipeline icon">
@@ -131,7 +131,7 @@ A more complete example of the `CustomMappingEstimator` can be found [here](http
 
 ## New Visual Studio ML.NET project templates preview – Easily to get started with ML
 
-<table>
+<table border="0">
   <tr>
     <td width=15%>
        <img src="v07-release-MLNET-Blog-Post-images/vs-logo.png" alt="Pipeline icon">
@@ -151,7 +151,7 @@ The templates cover the following scenarios:
 
 ## [NimbusML](https://github.com/microsoft/nimbusml) - experimental Python bindings for ML.NET
 
-<table>
+<table border="0">
   <tr>
     <td width=10%>
        <img src="v07-release-MLNET-Blog-Post-images/python-logo.png" alt="Python logo">
@@ -179,7 +179,7 @@ Want to get involved? Start by providing feedback through issues at the [ML.NET 
 
 ## Get started!
 
-<table>
+<table border="0">
   <tr>
     <td width=10%>
        <img src="v07-release-MLNET-Blog-Post-images/get-started-rocket.png" alt="Get started icon">
