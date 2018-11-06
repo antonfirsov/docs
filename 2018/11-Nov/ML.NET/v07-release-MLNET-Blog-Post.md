@@ -2,10 +2,10 @@
 
 <table border="0">
   <tr>
-    <td width=10% style='border-right:none;border-left:none;border-bottom:none;border-top:none'>
+    <td width=10%>
        <img src="v07-release-MLNET-Blog-Post-images/mldotnet.svg" alt="ML.NET icon">
     </td> 
-    <td style='border-right:none;border-left:none;border-bottom:none;border-top:none'>
+    <td>
        We're excited to announce today the release of ML.NET 0.7 - the latest release of the cross-platform and open source machine learning framework for .NET developers. This release focuses on enabling better recommendations use cases, enabling anomaly detection, enhancing the customizability of the machine learning pipelines, enabling using ML.NET in x86 apps, and more.
     </td> 
   </tr>
