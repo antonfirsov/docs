@@ -6,14 +6,14 @@
        <img src="v07-release-MLNET-Blog-Post-images/mldotnet.svg" alt="ML.NET icon">
     </td> 
     <td>
-       We're excited to announce today the release of ML.NET 0.7 - the latest release of the cross-platform and open source machine learning framework for .NET developers. This release focuses on enabling better recommendations use cases, enabling anomaly detection, enhancing the customizability of the machine learning pipelines, enabling using ML.NET in x86 apps, and more.
+       We're excited to announce today the release of ML.NET 0.7 - the latest release of the cross-platform and open source machine learning framework for .NET developers. This release focuses on enabling better recommendations, enabling anomaly detection, enhancing the customizability of the machine learning pipelines, enabling using ML.NET in x86 apps, and more.
     </td> 
   </tr>
 </table>
 
 This blog post provides details about the following topics in the ML.NET 0.7 release:
 
-* [Enhanced recommendations use cases with Matrix Factorization](http://TBD-Set-Local-URL)
+* [Enhanced recommendations with Matrix Factorization](http://TBD-Set-Local-URL)
 * [Enabled anomaly detection scenarios - detecting unusual events](http://TBD-Set-Local-URL)
 * [Improved customizability of ML pipelines](http://TBD-Set-Local-URL)
 * [x86 support](http://TBD-Set-Local-URL)
@@ -21,7 +21,7 @@ This blog post provides details about the following topics in the ML.NET 0.7 rel
 * [NimbusML - experimental Python bindings for ML.NET](http://TBD-Set-Local-URL)
 
 
-## Enhanced recommendations use cases with Matrix Factorization
+## Enhanced recommendations with Matrix Factorization
 
 <table border="0">
   <tr>
@@ -29,19 +29,16 @@ This blog post provides details about the following topics in the ML.NET 0.7 rel
        <img src="v07-release-MLNET-Blog-Post-images/Recommendation.png" alt="Recommendation icon">
     </td> 
     <td>
-       Matrix factorization (MF) is a common approach to recommendations when you have data on how users rated items in your catalog. For example, you might know how users rated some movies and want to recommend which other movies they are likely to watch next. ML.NET now includes matrix factorization (using <a href="https://github.com/cjlin1/libmf">LIBMF</a>).
+       Recommender systems enable producing a list of recommendations for products in a catalog, songs, movies, and more. We have improved support for creating recommender systems in ML.NET by adding Matrix factorization (MF), a common approach to recommendations when you have data on how users rated items in your catalog. For example, you might know how users rated some movies and want to recommend which other movies they are likely to watch next.
     </td> 
   </tr>
 </table>
 
-Note that [ML.NET 0.3](https://blogs.msdn.microsoft.com/dotnet/2018/07/09/announcing-ml-net-0-3/#ffm-section) included Field-Aware Factorization Machines (FFM) as a learner for binary classification. FFM is a generalization of MF, but there are a few differences:
+We added MF to ML.NET because it is often significantly faster than Field-Aware Factorization Machines (which we added in [ML.NET 0.3](https://blogs.msdn.microsoft.com/dotnet/2018/07/09/announcing-ml-net-0-3/#ffm-section)) and it can support ratings which are continuous number ratings (e.g. 1-5 stars) instead of boolean values ("liked" or "didn't like"). Even though we just added MF, you might still want to use FFM if you want to take advantage of other information beyond the rating  a user assigns to an item (e.g. movie genre, movie release date, user profile). A more in-depth discussion of the differences can be found [here](https://www.csie.ntu.edu.tw/~cjlin/talks/recsys.pdf).
 
-* FFM enables taking advantage of other information beyond the rating  a user assigns to an item (e.g. movie genre, movie release date,  user profile). 
-* FFM is currently limited to binary classification (the ratings needs to be converted to 0 or 1), whereas MF solves a regression problem  (the ratings can be continuous numbers).
-* If the only information available is the user-item ratings, MF is likely to be significantly faster than FFM.
-* A more in-depth discussion can be found [here](https://www.csie.ntu.edu.tw/~cjlin/talks/recsys.pdf).
+Sample usage of MF can be found [here](https://github.com/dotnet/machinelearning/blob/d68388a1c9994a5b429b194b64b2b0782834cb78/docs/samples/Microsoft.ML.Samples/Dynamic/MatrixFactorization.cs). The example is general but you can imagine that the matrix rows correspond to users, matrix columns correspond to movies, and matrix values correspond to ratings. This matrix would be quite sparse as users have only rated a small subset of the catalog.
 
-Example usage of MF can be found [here](https://github.com/dotnet/machinelearning/blob/d68388a1c9994a5b429b194b64b2b0782834cb78/docs/samples/Microsoft.ML.Samples/Dynamic/MatrixFactorization.cs). The example is general but you can imagine that the matrix rows correspond to users, matrix columns correspond to movies, and matrix values correspond to ratings. This matrix would be quite sparse as users have only rated a small subset of the catalog.
+ML.NET's MF uses <a href="https://github.com/cjlin1/libmf">LIBMF</a>.
 
 ## Enabled anomaly detection scenarios - detecting unusual events
 
