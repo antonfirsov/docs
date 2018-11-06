@@ -1,6 +1,15 @@
 # Announcing ML.NET 0.7 - Machine Learning for .NET
 
-We're excited to announce today the release of ML.NET 0.7 - the latest release of the cross-platform and open source machine learning framework for .NET developers. This release focuses on enabling better recommendations use cases, enabling anomaly detection, enhancing the customizability of the machine learning pipelines, enabling using ML.NET in x86 apps, and more.
+<table>
+  <tr>
+    <td width=10%>
+       <img src="v07-release-MLNET-Blog-Post-images/mldotnet.svg" alt="ML.NET icon">
+    </td> 
+    <td>
+       We're excited to announce today the release of ML.NET 0.7 - the latest release of the cross-platform and open source machine learning framework for .NET developers. This release focuses on enabling better recommendations use cases, enabling anomaly detection, enhancing the customizability of the machine learning pipelines, enabling using ML.NET in x86 apps, and more.
+    </td> 
+  </tr>
+</table>
 
 This blog post provides details about the following topics in the ML.NET 0.7 release:
 
@@ -14,7 +23,16 @@ This blog post provides details about the following topics in the ML.NET 0.7 rel
 
 ## Enhanced recommendations use cases with Matrix Factorization
 
-Matrix factorization (MF) is a common approach to recommendations when you have data on how users rated items in your catalog. For example, you might know how users rated some movies and want to recommend which other movies they are likely to watch next. ML.NET now includes matrix factorization (using [LIBMF](https://github.com/cjlin1/libmf)).
+<table>
+  <tr>
+    <td width=18%>
+       <img src="v07-release-MLNET-Blog-Post-images/Recommendation.png" alt="Recommendation icon">
+    </td> 
+    <td>
+       Matrix factorization (MF) is a common approach to recommendations when you have data on how users rated items in your catalog. For example, you might know how users rated some movies and want to recommend which other movies they are likely to watch next. ML.NET now includes matrix factorization (using <a href="https://github.com/cjlin1/libmf">LIBMF</a>).
+    </td> 
+  </tr>
+</table>
 
 Note that [ML.NET 0.3](https://blogs.msdn.microsoft.com/dotnet/2018/07/09/announcing-ml-net-0-3/#ffm-section) included Field-Aware Factorization Machines (FFM) as a learner for binary classification. FFM is a generalization of MF, but there are a few differences:
 
@@ -27,15 +45,34 @@ Example usage of MF can be found [here](https://github.com/dotnet/machinelearnin
 
 ## Enabled anomaly detection scenarios - detecting unusual events
 
-[Anomaly detection](https://en.wikipedia.org/wiki/Anomaly_detection) enables identifying unusual values or events. It is used in scenarios such as fraud detection (identifying suspicious credit card transactions) and server monitoring (identifying unusual activity).
+<table>
+  <tr>
+    <td width=18%>
+       <img src="v07-release-MLNET-Blog-Post-images/Anomaly-Detection.png" alt="Anomaly detection icon">
+    </td> 
+    <td>
+       <a href="https://en.wikipedia.org/wiki/Anomaly_detection">Anomaly detection</a> enables identifying unusual values or events. It is used in scenarios such as fraud detection (identifying suspicious credit card transactions) and server monitoring (identifying unusual activity).
 
 ML.NET 0.7 includes several anomaly detection techniques: SSAChangePointDetector, SSASpikeDetector, IidChangePointDetector, and IidSpikeDetector. 
+    </td> 
+  </tr>
+</table>
 
-Example usage can be found [here](https://github.com/dotnet/machinelearning/blob/7fb76b026d0035d6da4d0b46bd3f2a6e3c0ce3f1/test/Microsoft.ML.TimeSeries.Tests/TimeSeriesDirectApi.cs).
+Sample code using anomaly detection with ML.NET can be found [here](https://github.com/dotnet/machinelearning/blob/7fb76b026d0035d6da4d0b46bd3f2a6e3c0ce3f1/test/Microsoft.ML.TimeSeries.Tests/TimeSeriesDirectApi.cs).
 
-## Improved customizability of ML pipelines
+## Improved customizability of ML.NET pipelines
 
-ML.NET has a wide variety of data transformations for pre-processing and featurizing data (e.g. processing text, images, categorical features, etc.). 
+<table>
+  <tr>
+    <td width=18%>
+       <img src="v07-release-MLNET-Blog-Post-images/Pipeline.png" alt="Pipeline icon">
+    </td> 
+    <td>
+       ML.NET pipelines are very flexible and have a wide variety of data transformations for pre-processing and featurizing data (e.g. processing text, images, categorical features, etc.).
+    </td> 
+  </tr>
+</table>
+
 
 However, there might be application-specific transformations that would be useful to do within an ML.NET pipeline (as opposed to as a pre-processing step). For example, calculating [cosine similarity](https://en.wikipedia.org/wiki/Cosine_similarity) between two text columns (after featurization) or something as simple as creating a new column that adds the values in two other columns.
 
@@ -78,20 +115,54 @@ public class MyLambda
 A more complete example of the `CustomMappingEstimator` can be found [here](https://github.com/dotnet/machinelearning/blob/d68388a1c9994a5b429b194b64b2b0782834cb78/test/Microsoft.ML.Tests/Transformers/CustomMappingTests.cs#L55). 
 
 
-## x86 support
+## x86 support in addition to x64
 
-ML.NET can now be used in x86 apps. Some components that are based on external dependencies (e.g. TensorFlow) will not be available in x86. 
+<table>
+  <tr>
+    <td width=15%>
+       <img src="v07-release-MLNET-Blog-Post-images/32bits.png" alt="Pipeline icon">
+    </td> 
+    <td>
+       Until now, ML.NET only supported x64. Since this 0.7 release you can now also use ML.NET in x86 apps which provides a much broader array of supported devices when moving to some Edge devices. 
+       Some components that are based on external dependencies (e.g. TensorFlow) will not be available in x86, though. 
+    </td> 
+  </tr>
+</table>
 
-## Visual Studio extension for ML.NET
+## New Visual Studio ML.NET project templates preview – Easily to get started with ML
 
-**To be filled in**
+<table>
+  <tr>
+    <td width=15%>
+       <img src="v07-release-MLNET-Blog-Post-images/vs-logo.png" alt="Pipeline icon">
+    </td> 
+    <td>
+       Today, we are pleased to announce a preview of Visual Studio project templates for ML.NET. These templates make it very easy to get started with machine learning. You can download these templates from Visual Studio gallery <a href="https://en.wikipedia.org/wiki/Anomaly_detection">here [LINK TBD]</a>. 
+    </td> 
+  </tr>
+</table>
+
+The templates cover the following scenarios:
+-	**ML.NET Console Application** – Sample app that demonstrates how you can use a machine learning model in your application.
+-	**ML.NET Model Library** – Creates a new machine learning model library which you can consume from within your application.
+
+![VS ML.NET tempaltes screenshot](v07-release-MLNET-Blog-Post-images/vs-screenshot-templates.png)
 
 
 ## [NimbusML](https://github.com/microsoft/nimbusml) - experimental Python bindings for ML.NET
 
-Some teams at Microsoft found it useful to use ML.NET capabilities in Python environments. [NimbusML](https://github.com/microsoft/nimbusml) provides Python APIs to ML.NET and easily integrates into [scikit-learn](http://scikit-learn.org/stable/) pipelines. Models trained in NimbusML can later be deployed into a .NET app using ML.NET.
+<table>
+  <tr>
+    <td width=10%>
+       <img src="v07-release-MLNET-Blog-Post-images/python-logo.png" alt="Python logo">
+    </td> 
+    <td> 
+    Some teams at Microsoft found it useful to use ML.NET capabilities in Python environments. <a href="https://github.com/microsoft/nimbusml">NimbusML</a> provides Python APIs to ML.NET and easily integrates into <a href="http://scikit-learn.org/stable/">scikit-learn</a> pipelines. Models trained in NimbusML can later be deployed into a .NET app using ML.NET. 
+    Note that NimbusML is an experimental project without the same level of support as ML.NET.
+    </td> 
+  </tr>
+</table>
 
-Note that NimbusML is an experimental project without the same level of support as ML.NET.
 
 ## In case you missed it: provide your feedback on the new API
 
@@ -108,12 +179,22 @@ Want to get involved? Start by providing feedback through issues at the [ML.NET 
 
 ## Get started!
 
-If you haven’t already, get started with [ML.NET here](https://www.microsoft.com/net/learn/apps/machine-learning-and-ai/ml-dotnet/get-started)!
+<table>
+  <tr>
+    <td width=10%>
+       <img src="v07-release-MLNET-Blog-Post-images/get-started-rocket.png" alt="Get started icon">
+    </td> 
+    <td> 
+    If you haven’t already, get started with <a href="https://www.microsoft.com/net/learn/apps/machine-learning-and-ai/ml-dotnet/get-started">ML.NET here</a>
  
 Next, explore some other great resources:
 
   * Tutorials and resources at the [Microsoft Docs ML.NET Guide](https://docs.microsoft.com/en-us/dotnet/machine-learning/)
   * Code samples at the [machinelearning-samples GitHub repo](https://github.com/dotnet/machinelearning-samples)
+    </td> 
+    
+  </tr>
+</table>
 
 We look forward to your feedback and welcome you to file issues with any suggestions or enhancements in the [ML.NET GitHub repo](https://github.com/dotnet/machinelearning).
 
