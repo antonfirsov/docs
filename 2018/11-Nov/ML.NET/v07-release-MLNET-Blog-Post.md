@@ -117,7 +117,7 @@ A more complete example of the `CustomMappingEstimator` can be found [here](http
 
 ## x86 support in addition to x64
 
-<table border="0">
+<table rules=none border="0">
   <trborder="0">
     <td width=15% border="0">
        <img src="v07-release-MLNET-Blog-Post-images/32bits.png" alt="Pipeline icon">
