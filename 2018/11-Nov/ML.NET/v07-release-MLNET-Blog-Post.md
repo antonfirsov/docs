@@ -117,12 +117,12 @@ A more complete example of the `CustomMappingEstimator` can be found [here](http
 
 ## x86 support in addition to x64
 
-<table rules=none border="0">
+<table rules=none style='border-right:none;border-left:none;border-bottom:none;border-top:none'>
   <trborder="0">
-    <td width=15% border="0">
+    <td width=15% style='border-right:none;border-left:none;border-bottom:none;border-top:none'>
        <img src="v07-release-MLNET-Blog-Post-images/32bits.png" alt="Pipeline icon">
     </td> 
-    <td border="0">
+    <td style='border-right:none;border-left:none;border-bottom:none;border-top:none'>
        Until now, ML.NET only supported x64. Since this 0.7 release you can now also use ML.NET in x86 apps which provides a much broader array of supported devices when moving to some Edge devices. 
        Some components that are based on external dependencies (e.g. TensorFlow) will not be available in x86, though. 
     </td> 
