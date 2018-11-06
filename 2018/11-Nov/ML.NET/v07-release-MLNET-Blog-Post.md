@@ -49,11 +49,17 @@ ML.NET's MF uses <a href="https://github.com/cjlin1/libmf">LIBMF</a>.
     </td> 
     <td>
        <a href="https://en.wikipedia.org/wiki/Anomaly_detection">Anomaly detection</a> enables identifying unusual values or events. It is used in scenarios such as fraud detection (identifying suspicious credit card transactions) and server monitoring (identifying unusual activity).
-
-ML.NET 0.7 includes several anomaly detection techniques: SSAChangePointDetector, SSASpikeDetector, IidChangePointDetector, and IidSpikeDetector. 
     </td> 
   </tr>
 </table>
+
+ML.NET 0.7 enables detecting two types of anomalous behavior:
+* Spike detection: spikes are attributed to sudden yet temporary bursts in values of the input data. These could be outliers due to outages, cyber-attacks, viral web content, etc. 
+* Change point detection: change points mark the beginning of more persistent deviations in the behavior of the data. For example, if product sales are relatively consistent and become more popular (monthly sales double), there is a change point when the trend changes. 
+
+These anomalies can be detected on two types of data using different ML.NET components:
+* `IidSpikeDetector` and `IidChangePointDetector` are used on data assumed to be from one stationary distribution (each data point is independent of previous data, such as the number of retweets of each tweet).
+* `SsaSpikeDetector` and `SsaChangePointDetector` are used on data that has a season/trend components (perhaps ordered by time, such as product sales)
 
 Sample code using anomaly detection with ML.NET can be found [here](https://github.com/dotnet/machinelearning/blob/7fb76b026d0035d6da4d0b46bd3f2a6e3c0ce3f1/test/Microsoft.ML.TimeSeries.Tests/TimeSeriesDirectApi.cs).
 
@@ -65,15 +71,12 @@ Sample code using anomaly detection with ML.NET can be found [here](https://gith
        <img src="v07-release-MLNET-Blog-Post-images/Pipeline.png" alt="Pipeline icon">
     </td> 
     <td>
-       ML.NET pipelines are very flexible and have a wide variety of data transformations for pre-processing and featurizing data (e.g. processing text, images, categorical features, etc.).
+       ML.NET offers a variety of data transformations (e.g. processing text, images, categorical features, etc.). However, some use cases require application-specific transformations, such as calculating <a href="https://en.wikipedia.org/wiki/Cosine_similarity">cosine similarity</a> between two text columns. We have now added support for custom transforms so you can easily include custom business logic.
     </td> 
   </tr>
 </table>
 
-
-However, there might be application-specific transformations that would be useful to do within an ML.NET pipeline (as opposed to as a pre-processing step). For example, calculating [cosine similarity](https://en.wikipedia.org/wiki/Cosine_similarity) between two text columns (after featurization) or something as simple as creating a new column that adds the values in two other columns.
-
-This is where the `CustomMappingEstimator` comes in. It allows you to write your own methods to process data and bring them into the ML.NET pipeline. Here is what it would look like in your pipeline:
+The `CustomMappingEstimator` allows you to write your own methods to process data and bring them into the ML.NET pipeline. Here is what it would look like in the pipeline:
 
 ```csharp
 var estimator = mlContext.Transforms.CustomMapping<MyInput, MyOutput>(MyLambda.MyAction, "MyLambda")
@@ -120,13 +123,13 @@ A more complete example of the `CustomMappingEstimator` can be found [here](http
        <img src="v07-release-MLNET-Blog-Post-images/32bits.png" alt="Pipeline icon">
     </td> 
     <td>
-       Until now, ML.NET only supported x64. Since this 0.7 release you can now also use ML.NET in x86 apps which provides a much broader array of supported devices when moving to some Edge devices. 
-       Some components that are based on external dependencies (e.g. TensorFlow) will not be available in x86, though. 
+       With this release of ML.NET you can now train and use machine learning models on x86 / 32-bit architecture devices which is especially beneficial on some edge devices. Previously, ML.NET was limited to x64 devices.
+       Note that some components that are based on external dependencies (e.g. TensorFlow) will not be available in x86. 
     </td> 
   </tr>
 </table>
 
-## New Visual Studio ML.NET project templates preview – Easily to get started with ML
+## New Visual Studio ML.NET project templates preview – get started with ML easily
 
 <table border="0">
   <tr>
@@ -154,8 +157,7 @@ The templates cover the following scenarios:
        <img src="v07-release-MLNET-Blog-Post-images/python-logo.png" alt="Python logo">
     </td> 
     <td> 
-    Some teams at Microsoft found it useful to use ML.NET capabilities in Python environments. <a href="https://github.com/microsoft/nimbusml">NimbusML</a> provides Python APIs to ML.NET and easily integrates into <a href="http://scikit-learn.org/stable/">scikit-learn</a> pipelines. Models trained in NimbusML can later be deployed into a .NET app using ML.NET. 
-    Note that NimbusML is an experimental project without the same level of support as ML.NET.
+    <a href="https://github.com/microsoft/nimbusml">NimbusML</a> provides experimental Python bindings for ML.NET. We have seen feedback from the external community and internal teams regarding the use of multiple programming languages. We wanted to enable as many people as possible to benefit from ML.NET and help teams to work together more easily. ML.NET not only enables data scientists to train and use machine learning models in Python (with components that can also be used in <a href="http://scikit-learn.org/stable/">scikit-learn</a> pipelines), but it also enables saving models which can be easily used in .NET applications through ML.NET (see <a href="https://docs.microsoft.com/en-us/nimbusml/loadsavemodels">here</a> for more details). 
     </td> 
   </tr>
 </table>
