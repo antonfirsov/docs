@@ -6,14 +6,14 @@
        <img src="v07-release-MLNET-Blog-Post-images/mldotnet.svg" alt="ML.NET icon">
     </td> 
     <td>
-       We're excited to announce today the release of ML.NET 0.7 - the latest release of the cross-platform and open source machine learning framework for .NET developers. This release focuses on enabling better recommendations, enabling anomaly detection, enhancing the customizability of the machine learning pipelines, enabling using ML.NET in x86 apps, and more.
+       We're excited to announce today the release of ML.NET 0.7 - the latest release of the cross-platform and open source machine learning framework for .NET developers (<a href="https://blogs.msdn.microsoft.com/dotnet/2018/05/07/introducing-ml-net-cross-platform-proven-and-open-source-machine-learning-framework/">ML.NET 0.1 was released at //Build 2018</a>). This release focuses on enabling better support for recommendation based ML tasks, enabling anomaly detection, enhancing the customizability of the machine learning pipelines, enabling using ML.NET in x86 apps, and more.
     </td> 
   </tr>
 </table>
 
 This blog post provides details about the following topics in the ML.NET 0.7 release:
 
-* [Enhanced recommendations with Matrix Factorization](http://TBD-Set-Local-URL)
+* [Enhanced support for recommendation tasks with Matrix Factorization](http://TBD-Set-Local-URL)
 * [Enabled anomaly detection scenarios - detecting unusual events](http://TBD-Set-Local-URL)
 * [Improved customizability of ML pipelines](http://TBD-Set-Local-URL)
 * [x86 support](http://TBD-Set-Local-URL)
@@ -21,7 +21,7 @@ This blog post provides details about the following topics in the ML.NET 0.7 rel
 * [NimbusML - experimental Python bindings for ML.NET](http://TBD-Set-Local-URL)
 
 
-## Enhanced recommendations with Matrix Factorization
+## Enhanced support for recommendation tasks with Matrix Factorization
 
 <table border="0">
   <tr>
@@ -123,7 +123,7 @@ A more complete example of the `CustomMappingEstimator` can be found [here](http
        <img src="v07-release-MLNET-Blog-Post-images/32bits.png" alt="Pipeline icon">
     </td> 
     <td>
-       With this release of ML.NET you can now train and use machine learning models on x86 / 32-bit architecture devices which is especially beneficial on some edge devices. Previously, ML.NET was limited to x64 devices.
+       With this release of ML.NET you can now train and use machine learning models on x86 / 32-bit architecture devices. Previously, ML.NET was limited to x64 devices.
        Note that some components that are based on external dependencies (e.g. TensorFlow) will not be available in x86. 
     </td> 
   </tr>
