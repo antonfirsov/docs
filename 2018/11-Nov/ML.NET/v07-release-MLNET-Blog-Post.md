@@ -26,7 +26,7 @@ This blog post provides details about the following topics in the ML.NET 0.7 rel
 <table border="0">
   <tr>
     <td width=20%>
-       <img src="v07-release-MLNET-Blog-Post-images/recommendation.png" alt="Recommendation icon">
+       <img src="v07-release-MLNET-Blog-Post-images/Recommendations.png" alt="Recommendation icon">
     </td> 
     <td>
        Recommender systems enable producing a list of recommendations for products in a catalog, songs, movies, and more. We have improved support for creating recommender systems in ML.NET by adding Matrix factorization (MF), a common approach to recommendations when you have data on how users rated items in your catalog. For example, you might know how users rated some movies and want to recommend which other movies they are likely to watch next.
