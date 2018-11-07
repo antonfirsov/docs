@@ -25,8 +25,8 @@ This blog post provides details about the following topics in the ML.NET 0.7 rel
 
 <table border="0">
   <tr>
-    <td width=18%>
-       <img src="v07-release-MLNET-Blog-Post-images/Recommendation.png" alt="Recommendation icon">
+    <td width=20%>
+       <img src="v07-release-MLNET-Blog-Post-images/recommendation.png" alt="Recommendation icon">
     </td> 
     <td>
        Recommender systems enable producing a list of recommendations for products in a catalog, songs, movies, and more. We have improved support for creating recommender systems in ML.NET by adding Matrix factorization (MF), a common approach to recommendations when you have data on how users rated items in your catalog. For example, you might know how users rated some movies and want to recommend which other movies they are likely to watch next.
@@ -44,7 +44,7 @@ ML.NET's MF uses <a href="https://github.com/cjlin1/libmf">LIBMF</a>.
 
 <table border="0">
   <tr>
-    <td width=18%>
+    <td width=20%>
        <img src="v07-release-MLNET-Blog-Post-images/Anomaly-Detection.png" alt="Anomaly detection icon">
     </td> 
     <td>
@@ -153,7 +153,7 @@ The templates cover the following scenarios:
 
 <table border="0">
   <tr>
-    <td width=10%>
+    <td width=12%>
        <img src="v07-release-MLNET-Blog-Post-images/python-logo.png" alt="Python logo">
     </td> 
     <td> 
@@ -165,7 +165,7 @@ The templates cover the following scenarios:
 
 ## In case you missed it: provide your feedback on the new API
 
-[ML.NET 0.6](https://blogs.msdn.microsoft.com/dotnet/2018/10/08/announcing-ml-net-0-6-machine-learning-net/) introduced a new set of APIs for ML.NET that provide enhanced flexibility. These APIs are still evolving and we would love to get your feedback so you can help shape the long-term API for ML.NET.
+[ML.NET 0.6](https://blogs.msdn.microsoft.com/dotnet/2018/10/08/announcing-ml-net-0-6-machine-learning-net/) introduced a new set of APIs for ML.NET that provide enhanced flexibility. These APIs in 0.7 and upcoming versions are still evolving and we would love to get your feedback so you can help shape the long-term API for ML.NET.
 
 Want to get involved? Start by providing feedback through issues at the [ML.NET GitHub repo](https://github.com/dotnet/machinelearning/issues)!
 
@@ -180,7 +180,7 @@ Want to get involved? Start by providing feedback through issues at the [ML.NET 
 
 <table border="0">
   <tr>
-    <td width=10%>
+    <td width=12%>
        <img src="v07-release-MLNET-Blog-Post-images/get-started-rocket.png" alt="Get started icon">
     </td> 
     <td> 
