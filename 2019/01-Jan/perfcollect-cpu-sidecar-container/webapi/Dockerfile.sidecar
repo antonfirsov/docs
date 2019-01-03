@@ -1,0 +1,29 @@
+FROM application-base
+
+# add whatever tools you want here
+RUN apt-get update \
+    && apt-get install -y \
+       linux-tools \
+       lttng-tools liblttng-ust-dev \
+       zip \
+       curl \
+       binutils \
+       procps \
+#      gdb \
+#      strace \
+#      tcpdump \
+#      sysstat \
+#      emacs-nox \
+#      vim \
+       htop \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir /tools \
+    && cd /tools \
+    && curl -OL http://aka.ms/perfcollect \
+    && chmod a+x perfcollect
+
+# perfcollect expects to find crossgen along side libcoreclr.so
+RUN cp crossgen $(dirname `find /usr/share/dotnet/ -name libcoreclr.so`)
+
+WORKDIR /tools

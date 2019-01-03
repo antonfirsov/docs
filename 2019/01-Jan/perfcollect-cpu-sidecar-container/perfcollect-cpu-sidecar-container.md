@@ -72,7 +72,7 @@ collect CPU trace of an ASP.NET application running in a Linux container.
    webapi`. In the builder stage, `dotnet restore` is executed twice, the first
    time with `-r linux-x64` argument to download `crossgen` nuget.org.
 
-**link to Dockerfile.base to be inserted**
+   [Dockerfile.base](./webapi/Dockerfile.base)
 
 1. Run the following command to build the base image
 
@@ -83,7 +83,7 @@ docker build . -f Dockerfile.base -t application-base
 1. Build the application container image. The content of Dockerfile for the
    application is listed below.
 
-   **link to Dockerfile.app to be inserted**
+   [Dockerfile.app](./webapi/Dockerfile.app)
 
    The `COMPlus_PerfMapEnabled` environment variable is required to properly
    resolve symbols for .NET code. When it is set, .NET Core generates symbol
@@ -114,7 +114,7 @@ docker build . -f Dockerfile.app -t application_tag
    have the same installation paths for .NET Core. Add the tools that are
    required for profiling or debugging.
 
-   **link to Dockerfile.sidecar to be inserted**
+   [Dockerfile.sidecar](./webapi/Dockerfile.sidecar)
 
    In the example, the most important packages are: `linux-tools`,
    `lttng-tools`, `liblttng-ust-dev`, `zip`, `curl`, `binutils` (for

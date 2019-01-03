@@ -1,0 +1,16 @@
+FROM microsoft/dotnet:2.2-sdk AS builder
+WORKDIR /build
+COPY . .
+# Publish with `-r linux-x64` so that the runtime package that contains crossgen is downloaded
+RUN dotnet publish -c release -r linux-x64 -o /publish-temporary
+RUN cp `find ~/.nuget/packages/runtime.linux-x64.microsoft.netcore.app/ -name crossgen` /publish-temporary
+
+# Publish without `-r linux-x64` so shared framework from the runtime container is used
+RUN dotnet publish -c release -o /publish-output
+
+FROM microsoft/dotnet:2.2-aspnetcore-runtime
+WORKDIR /app
+COPY --from=builder /publish-output .
+
+# crossgen is needed by the perfcollect script
+COPY --from=builder /publish-temporary/crossgen .
