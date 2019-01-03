@@ -183,7 +183,7 @@ docker run -it --pid=container:application --net=container:application -v /home/
 
    On the host, run the following commands
 
-```shell
+```sh
 docker exec application /bin/ls -al /tmp/*.map
 ```
 
@@ -295,7 +295,7 @@ docker cp sidecar:/tools/sample.trace.zip ./
    PerfView supports analyzing `perfcollect` traces from Linux. Open
    `sample.trace.zip` then follow the usual workflow of working with PerfView.
 
-   **screenshot of PerfView opening trace from Linux to be inserted**
+   ![](./perfview-linux-trace.png)
 
    For more information on analyzing cpu traces from Linux using PerfView, see
    [this blog post](https://blogs.msdn.microsoft.com/vancem/2016/02/20/analyzing-cpu-traces-from-linux-with-perfview/)
