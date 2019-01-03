@@ -76,7 +76,7 @@ collect CPU trace of an ASP.NET application running in a Linux container.
 
 1. Run the following command to build the base image
 
-```
+```shell
 docker build . -f Dockerfile.base -t application-base
 ```
 
@@ -106,7 +106,7 @@ COMPlus_ReadyToRun=0
 
 1. Run this command to build the application container image
 
-```
+```shell
 docker build . -f Dockerfile.app -t application_tag
 ```
 
@@ -124,7 +124,7 @@ docker build . -f Dockerfile.app -t application_tag
 
 1. Build the sidecar image by running the following command
 
-```
+```shell
 docker build . -f Dockerfile.sidecar -t sidecar_tag
 ```
 
@@ -144,7 +144,7 @@ docker build . -f Dockerfile.sidecar -t sidecar_tag
    Run the application container with a name (`application` in this example); map
    the `/tmp` folder to an existing host directory `/home/core/shared_volume/tmp`.
 
-```
+```shell
 docker run -it -p 80:80 -v /home/core/shared_volume/tmp:/tmp --name application application_tag
 ```
 
@@ -171,7 +171,7 @@ docker run -it -p 80:80 -v /home/core/shared_volume/tmp:/tmp --name application 
    The `--cap-add ALL --privileged` switches grant the sidecar container
    permissions to collect performance traces.
 
-```
+```shell
 docker run -it --pid=container:application --net=container:application -v /home/core/shared_volume/tmp:/tmp --cap-add ALL --privileged --name sidecar sidecar_tag bash
 ```
 
@@ -183,7 +183,7 @@ docker run -it --pid=container:application --net=container:application -v /home/
 
    On the host, run the following commands
 
-```
+```shell
 docker exec application /bin/ls -al /tmp/*.map
 ```
 
@@ -196,14 +196,14 @@ docker exec application /bin/ls -al /tmp/*.map
 
    Copy the files from the `application` container to the host
 
-```
+```shell
 docker cp application:/tmp/perf-1.map /tmp/
 docker cp application:/tmp/perfinfo-1.map /tmp/
 ```
 
    Then copy the files from the host to the `sidecar` container's `/tmp` directory
 
-```
+```shell
 docker cp /tmp/perf-1.map sidecar:/tmp/
 docker cp /tmp/perfinfo-1.map sidecar:/tmp/
 ```
@@ -216,7 +216,7 @@ docker cp /tmp/perfinfo-1.map sidecar:/tmp/
    running in the `application` container before running the application.
 
 
-```
+```shell
 ps -aux
 ```
 
@@ -232,7 +232,7 @@ root        198  0.0  0.0  34424  2796 pts/0    R+   18:31   0:00 ps -aux
    In this example, the `dotnet` process has PID of 1 so when running the
    `perfcollect` script, pass the PID of the 1 to the `-pid` option.
 
-```
+```shell
 /tools/perfcollect collect sample -nolttng -pid 1
 ```
 
@@ -244,13 +244,13 @@ root        198  0.0  0.0  34424  2796 pts/0    R+   18:31   0:00 ps -aux
 
 1. After collection is stopped, view the report using the following command
 
-```
+```shell
 /tools/perfcollect view sample.trace.zip
 ```
 
 1. Verify that the trace includes the map files by listing contents in the zip file
 
-```
+```shell
 unzip -l sample.trace.zip
 ```
 
@@ -259,14 +259,15 @@ unzip -l sample.trace.zip
    If anything went wrong during the collection, check out `perfcollect.log` file inside the zip for more details.
 
 
-```
+```shell
 unzip sample.trace.zip sample.trace/perfcollect.log
 tail -100 sample.trace/perfcollect.log
 ```
 
    Messages like below near the end of the log file indicates that you hit
    [a known issue](https://github.com/dotnet/corefx-tools/issues/84),
-   please check out the Potential Issues section for a workaround
+   please check out the [Potential Issues](#potential-issues)
+   section for a workaround
 
 ```
 Running /usr/bin/perf_4.9 script -i perf.data.merged -F comm,pid,tid,cpu,time,period,event,ip,sym,dso,trace > perf.data.txt
@@ -284,7 +285,7 @@ Running /usr/bin/perf_4.9 script -i perf.data.merged -f comm,pid,tid,cpu,time,ev
 
 1. On the host, retrieve the trace from the sidecar container
 
-```
+```shell
 docker cp sidecar:/tools/sample.trace.zip ./
 ```
 
@@ -310,10 +311,13 @@ a. In some configurations the collected `cpu-clock` events do not have the `cpu`
    Open `perfcollect` in an editor, find the line that contains "`-F`" (capital F),
    then remove "`cpu`" from the `$perfcmd` line so it becomes
 
-```
-LogAppend "Running $perfcmd script -i $mergedFile -F comm,pid,tid,cpu,time,period,event,ip,sym,dso,trace > $outputDumpFile"
-$perfcmd script -i $mergedFile -F comm,pid,tid,time,period,event,ip,sym,dso,trace > $outputDumpFile 2>>$logFile
-LogAppend
+```diff
+-LogAppend "Running $perfcmd script -i $mergedFile -F comm,pid,tid,cpu,time,period,event,ip,sym,dso,trace > $outputDumpFile"
+-$perfcmd script -i $mergedFile -F comm,pid,tid,cpu,time,period,event,ip,sym,dso,trace > $outputDumpFile 2>>$logFile
+-LogAppend
++LogAppend "Running $perfcmd script -i $mergedFile -F comm,pid,tid,time,period,event,ip,sym,dso,trace > $outputDumpFile"
++$perfcmd script -i $mergedFile -F comm,pid,tid,time,period,event,ip,sym,dso,trace > $outputDumpFile 2>>$logFile
++LogAppend
 ```
 
    After applying the workaround and collecting the traces, please be aware of
@@ -331,7 +335,7 @@ be automated by container orchestrator or infrastructure.
 ## References and Useful Links
 
 1. Linux Container Performance Analysis, talk by Brendan Gregg, inventor of FlameGraph https://www.usenix.org/conference/lisa17/conference-program/presentation/gregg
-2. https://github.com/goldshtn/linux-tracing-workshop
+2. Examples and hands-on labs for Linux tracing tools workshops by Sasha Goldshtein https://github.com/goldshtn/linux-tracing-workshop
 3. Debugging and Profiling .NET Core Apps on Linux, slides from Sasha Goldshtein https://assets.ctfassets.net/9n3x4rtjlya6/1qV39g0tAEC2OSgok0QsQ6/fbfface3edac8da65fd380cc05a1a028/Sasha-Goldshtein_Debugging-and-profiling-NET-Core-apps-on-Linux.pdf
 4. Debugging Python Containers in Production http://blog.0x74696d.com/posts/debugging-python-containers-in-production/
 5. perfcollect source code https://github.com/dotnet/corefx-tools/blob/master/src/performance/perfcollect/perfcollect
