@@ -308,11 +308,11 @@ a. In some configurations the collected `cpu-clock` events do not have the `cpu`
    trace data. Here’s a workaround
 
    Open `perfcollect` in an editor, find the line that contains "`-F`" (capital F),
-   then remove "`cpu`" from the `$perfcmd` line
+   then remove "`cpu`" from the `$perfcmd` line so it becomes
 
 ```
 LogAppend "Running $perfcmd script -i $mergedFile -F comm,pid,tid,cpu,time,period,event,ip,sym,dso,trace > $outputDumpFile"
-$perfcmd script -i $mergedFile -F comm,pid,tid,cpu,time,period,event,ip,sym,dso,trace > $outputDumpFile 2>>$logFile
+$perfcmd script -i $mergedFile -F comm,pid,tid,time,period,event,ip,sym,dso,trace > $outputDumpFile 2>>$logFile
 LogAppend
 ```
 
@@ -330,10 +330,10 @@ be automated by container orchestrator or infrastructure.
 
 ## References and Useful Links
 
-[1] Linux Container Performance Analysis, talk by Brendan Gregg, inventor of FlameGraph https://www.usenix.org/conference/lisa17/conference-program/presentation/gregg
-[2] https://github.com/goldshtn/linux-tracing-workshop
-[3] Debugging and Profiling .NET Core Apps on Linux, slides from Sasha Goldshtein https://assets.ctfassets.net/9n3x4rtjlya6/1qV39g0tAEC2OSgok0QsQ6/fbfface3edac8da65fd380cc05a1a028/Sasha-Goldshtein_Debugging-and-profiling-NET-Core-apps-on-Linux.pdf
-[4] Debugging Python Containers in Production http://blog.0x74696d.com/posts/debugging-python-containers-in-production/
-[5] perfcollect source code https://github.com/dotnet/corefx-tools/blob/master/src/performance/perfcollect/perfcollect
-[6] Documentation on Performance Tracing on Linux for .NET Core https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md
-[7] PerfView tutorials on Channel9 https://channel9.msdn.com/Series/PerfView-Tutorial
+1. Linux Container Performance Analysis, talk by Brendan Gregg, inventor of FlameGraph https://www.usenix.org/conference/lisa17/conference-program/presentation/gregg
+2. https://github.com/goldshtn/linux-tracing-workshop
+3. Debugging and Profiling .NET Core Apps on Linux, slides from Sasha Goldshtein https://assets.ctfassets.net/9n3x4rtjlya6/1qV39g0tAEC2OSgok0QsQ6/fbfface3edac8da65fd380cc05a1a028/Sasha-Goldshtein_Debugging-and-profiling-NET-Core-apps-on-Linux.pdf
+4. Debugging Python Containers in Production http://blog.0x74696d.com/posts/debugging-python-containers-in-production/
+5. perfcollect source code https://github.com/dotnet/corefx-tools/blob/master/src/performance/perfcollect/perfcollect
+6. Documentation on Performance Tracing on Linux for .NET Core https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md
+7. PerfView tutorials on Channel9 https://channel9.msdn.com/Series/PerfView-Tutorial
