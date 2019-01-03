@@ -74,6 +74,25 @@ collect CPU trace of an ASP.NET application running in a Linux container.
 
    [Dockerfile.base](./webapi/Dockerfile.base)
 
+```Dockerfile
+FROM microsoft/dotnet:2.2-sdk AS builder
+WORKDIR /build
+COPY . .
+# Publish with `-r linux-x64` so that the runtime package that contains crossgen is downloaded
+RUN dotnet publish -c release -r linux-x64 -o /publish-temporary
+RUN cp `find ~/.nuget/packages/runtime.linux-x64.microsoft.netcore.app/ -name crossgen` /publish-temporary
+
+# Publish without `-r linux-x64` so shared framework from the runtime container is used
+RUN dotnet publish -c release -o /publish-output
+
+FROM microsoft/dotnet:2.2-aspnetcore-runtime
+WORKDIR /app
+COPY --from=builder /publish-output .
+
+# crossgen is needed by the perfcollect script
+COPY --from=builder /publish-temporary/crossgen .
+```
+
 1. Run the following command to build the base image
 
 ```shell
@@ -84,6 +103,16 @@ docker build . -f Dockerfile.base -t application-base
    application is listed below.
 
    [Dockerfile.app](./webapi/Dockerfile.app)
+
+```Dockerfile
+FROM application-base
+WORKDIR /app
+
+# COMPlus_PerfMapEnabled is set in order to resolve symbols for .NET code.
+ENV COMPlus_PerfMapEnabled=1
+
+ENTRYPOINT ["dotnet", "webapi.dll"]
+```
 
    The `COMPlus_PerfMapEnabled` environment variable is required to properly
    resolve symbols for .NET code. When it is set, .NET Core generates symbol
@@ -115,6 +144,38 @@ docker build . -f Dockerfile.app -t application_tag
    required for profiling or debugging.
 
    [Dockerfile.sidecar](./webapi/Dockerfile.sidecar)
+
+```Dockerfile
+FROM application-base
+
+# add whatever tools you want here
+RUN apt-get update \
+    && apt-get install -y \
+       linux-tools \
+       lttng-tools liblttng-ust-dev \
+       zip \
+       curl \
+       binutils \
+       procps \
+#      gdb \
+#      strace \
+#      tcpdump \
+#      sysstat \
+#      emacs-nox \
+#      vim \
+       htop \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir /tools \
+    && cd /tools \
+    && curl -OL http://aka.ms/perfcollect \
+    && chmod a+x perfcollect
+
+# perfcollect expects to find crossgen along side libcoreclr.so
+RUN cp crossgen $(dirname `find /usr/share/dotnet/ -name libcoreclr.so`)
+
+WORKDIR /tools
+```
 
    In the example, the most important packages are: `linux-tools`,
    `lttng-tools`, `liblttng-ust-dev`, `zip`, `curl`, `binutils` (for
