@@ -20,20 +20,20 @@ collect performance traces .NET Core application running in a Linux container,
 each has its cons:
 
 - Collecting from the host
-  - Process Ids and file system in the host don't match those in the containers
+  - Process Ids and file system in the host don't match those in the containers.
   - `perfcollect` cannot find container’s files under host paths (what is `/usr/share/dotnet/`?)
   - Some container operating systems (for example, CoreOS) don't support installing common
     packages/tools, for examples, `linux-tools` and `lttng` which are required by
     `perfcollect` tool.
-- Collecting from the container running the application
+- Collecting from the container running the application.
   - Installation of profiling tools bloat the container and increase the attack surface.
   - Profiling affects the application performance in the same container (for example,
-    its resource consumption is counted against quota)
+    its resource consumption is counted against quota).
   - `perf` tool needs capabilities to run from a container, which defeats the
-    security feature of containers
-- Collecting from another "sidecar" container running on the same host
+    security features of containers.
+- Collecting from another "sidecar" container running on the same host.
   - Possible environment mismatches between sidecar container and application
-    container
+    container.
 
 Tim Gross published [a blog post on debugging python containers in
 production](http://blog.0x74696d.com/posts/debugging-python-containers-in-production/).
@@ -45,7 +45,7 @@ as the application container. The idea can be applied to profiling/debugging
 - Application container images remain mostly unchanged. They are not bloated by
   tool packages that are not required to run applications.
 - Profiling doesn't consume application container resources, which are usually
-  throttled by a quota
+  throttled by a quota.
 - Sidecar container can be built as close to the application container as
   possible, so tools used by `perfcollect`, such as `crossgen` and
   `objcopy`, could operate on files of the same versions at the same paths,
@@ -57,9 +57,9 @@ automated way and/or under an orchestrator. See
 [this tutorial](https://developer.ibm.com/recipes/tutorials/profiling-applications-deployed-on-kubernetes-with-sidecar-injector/)
 for an example on profiling with a sidecar container in a Kubernetes environment.
 
-**Note**: tracing .NET Core events using `LTTng` is not supported in this sidecar
-approach due to how `LTTng` works (using shared memory and CPU buffer) so we
-cannot collect events from the .NET Core runtime using this approach.
+**Note**: tracing .NET Core events using `LTTng` is not supported in this
+sidecar approach due to how `LTTng` works (using shared memory and CPU buffer)
+so this approach cannot be used to collect events from the .NET Core runtime.
 
 The rest of this doc gives a step-by-step guide of using a sidecar container to
 collect CPU trace of an ASP.NET application running in a Linux container.
@@ -139,9 +139,9 @@ COMPlus_ReadyToRun=0
 docker build . -f Dockerfile.app -t application_tag
 ```
 
-1. Create the sidecar container image. Derive from the base image so that we
-   have the same installation paths for .NET Core. Add the tools that are
-   required for profiling or debugging.
+1. Create the sidecar container image. Derive from the base image so this
+   sidecar container has the same installation paths for .NET Core. Add the
+   tools that are required for profiling or debugging.
 
    [Dockerfile.sidecar](./webapi/Dockerfile.sidecar)
 
@@ -177,10 +177,17 @@ RUN cp crossgen $(dirname `find /usr/share/dotnet/ -name libcoreclr.so`)
 WORKDIR /tools
 ```
 
-   In the example, the most important packages are: `linux-tools`,
-   `lttng-tools`, `liblttng-ust-dev`, `zip`, `curl`, `binutils` (for
-   `objcopy`/`objdump` commands), and `procps` (for `ps` command). The
-   `perfcollect` script is downloaded and saved to `/tools` directory. Other
+   In the example, the most important packages are:
+
+   - `linux-tools`
+   - `lttng-tools`
+   - `liblttng-ust-dev`
+   - `zip`
+   - `curl`
+   - `binutils` (for `objcopy`/`objdump` commands)
+   - `procps` (for `ps` command)
+
+   The `perfcollect` script is downloaded and saved to `/tools` directory. Other
    tools can be installed as needed for diagnosing and debugging purposes.
 
 1. Build the sidecar image by running the following command
@@ -236,11 +243,11 @@ docker run -it -p 80:80 -v /home/core/shared_volume/tmp:/tmp --name application 
 docker run -it --pid=container:application --net=container:application -v /home/core/shared_volume/tmp:/tmp --cap-add ALL --privileged --name sidecar sidecar_tag bash
 ```
 
-1. (**Alternative**) if volume mount is not used in the previous two steps, we
-   need to copy the `*.map` files to sidecar container so that `perfcollect` can
-   access them. Find out the file names in the application container then copy
-   those files to the sidecar container. The point is that `perfcollect` expects
-   to find these map files under `/tmp`.
+1. (**Alternative**) if volume mount is not used in the previous two steps, an
+   alternative is to copy the `*.map` files to sidecar container so that
+   `perfcollect` can access them. Find out the file names in the application
+   container then copy those files to the sidecar container. The point is that
+   `perfcollect` expects to find these map files under `/tmp`.
 
    On the host, run the following commands
 
@@ -356,7 +363,7 @@ docker cp sidecar:/tools/sample.trace.zip ./
    PerfView supports analyzing `perfcollect` traces from Linux. Open
    `sample.trace.zip` then follow the usual workflow of working with PerfView.
 
-   ![](./perfview-linux-trace.png)
+   ![screenshot showing collected cpu traces from Linux being analyzed in PerfView](./perfview-linux-trace.png)
 
    For more information on analyzing CPU traces from Linux using PerfView, see
    [this blog post](https://blogs.msdn.microsoft.com/vancem/2016/02/20/analyzing-cpu-traces-from-linux-with-perfview/)
