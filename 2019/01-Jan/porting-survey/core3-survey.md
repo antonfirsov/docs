@@ -16,7 +16,7 @@ desktop apps, such as:
 
 In order for us to make .NET Core 3.0 viable for as many of you as possible, we need to understand the types of desktop applications you want to build with .NET Core. We'll be using the information you provide to contact some of you (if you agree) to collaborate on your .NET Core 3.0 efforts. We'll use our experiences working with you to continuously improve the documentation on how to bring desktop applications to .NET Core. 
 
-## [Sign up!][survey]
+## [Take survey!][survey]
 The survey should take about 2 minutes to complete.
 
 ## See also
