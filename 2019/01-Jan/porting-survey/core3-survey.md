@@ -1,39 +1,23 @@
-# .NET Core 3.0 - Would you like help porting your desktop apps to .NET Core 3.0?
-
-As you probably have heard, [Windows Desktop stack comes to .NET
+# Help us help you! What desktop apps are you bringing to .NET Core 3.0?
+As you have probably heard, [Windows Desktop applications are coming to .NET
 Core][core-blogpost]. The recently released .NET Core 3.0 Preview 1 version
-includes base WinForms and WPF APIs and .NET team keeps adding more and more
-every day.
+includes WinForms and WPF support.
 
 There are many reasons to consider .NET Core over .NET Framework for building
-desktop apps, such as
+desktop apps, such as:
 
-* more deployment options (like ability to install many versions of .NET Core
-  side-by-side and publish self-contained apps),
-* high DPI fixes,
-* faster updates and newer tech,
-* improved performance,
-* benefiting from open source community,
-* and many other features not available in .NET Framework.
+* more deployment options (like the ability to install multiple versions of .NET Core
+  side-by-side as well as publish self-contained apps)
+* high DPI fixes
+* more frequent updates
+* improved performance
+* benefits from the open source community
+* and new features only available on .NET Core (such as Span<T>)
 
-If you are interested in porting your desktop app to .NET Core 3.0 and would
-like some help from Microsoft engineering team, we'll gladly assist you!
+In order for us to make .NET Core 3.0 viable for as many of you as possible, we need to understand the types of desktop applications you want to build with .NET Core. We'll be using the information you provide to contact some of you (if you agree) to collaborate on your .NET Core 3.0 efforts. We'll use our experiences working with you to continuously improve the documentation on how to bring desktop applications to .NET Core. 
 
-## How it works
-
-1. Fill in the short form below providing us your contact information and brief
-   description of your app.
-2. We'll reach out to you and agree on the best way of cooperation. It can be as
-   simple or as complex as you wish, from just asking us questions via email to
-   doing calls and onsite visits with pair programming sessions.
-3. We'll try to reach to as many subscribers as we can, but might not have a
-   capacity to work with everyone. We'll keep posting (ToDo: some promise for
-   the rest)
-
-Subscription form should take about 2 minutes to complete.
-
-## [Subscribe!][survey]
-
+## [Sign up!][survey]
+The survey should take about 2 minutes to complete.
 
 ## See also
 
