@@ -1,5 +1,5 @@
 # Help us help you! What desktop apps are you bringing to .NET Core 3.0?
-As you have probably heard, [Windows Desktop applications are coming to .NET
+[Windows Desktop applications are coming to .NET
 Core][core-blogpost]. The recently released .NET Core 3.0 Preview 1 version
 includes WinForms and WPF support.
 
