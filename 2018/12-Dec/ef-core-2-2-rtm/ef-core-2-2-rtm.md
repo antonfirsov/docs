@@ -139,7 +139,9 @@ https://github.com/aspnet/EntityFrameworkCore/issues?utf8=%E2%9C%93&q=is%3Aissue
 
 ## What's next: EF Core 3.0
 
-With EF Core 2.2 out the door, our main focus is now EF Core 3.0. There are several details of the next major release that we still need to figure out, but here are some of the main themes we know so far:
+With EF Core 2.2 out the door, our main focus is now EF Core 3.0. We haven't completed any new features yet, so the EF Core 3.0 Preview 1 packages available [on the NuGet Gallery](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.0.0-preview.18572.1) today only contain [minor changes made since EF Core 2.2](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aissue+milestone%3A3.0.0+is%3Aclosed+label%3Aclosed-fixed).
+
+In fact, there are several details of the next major release still under discussion, and we plan to share more information in upcoming announcements, but here are some of the themes we know about so far:
 
 - **LINQ improvements**: LINQ enables you to write database queries without leaving your language of choice, taking advantage of rich type information to get IntelliSense and compile-time type checking. But LINQ also enables you to write an unlimited number of complicated queries, and that has always been a huge challenge for LINQ providers. In the first few versions of EF Core, we solved that in part by figuring out what portions of a query could be translated to SQL, and then by allowing the rest of the query to execute in memory on the client. This client-side execution can be desirable in some situations, but in many other cases it can result in inefficient queries that may not identified until an application is deployed to production. In EF Core 3.0, we are planning to make profound changes to how our LINQ implementation works, and how we test it. The goals are to make it more robust (for example, to avoid breaking queries in patch releases), to be able to translate more expressions correctly into SQL, to generate efficient queries in more cases, and to prevent inefficient queries from going undetected.
 
