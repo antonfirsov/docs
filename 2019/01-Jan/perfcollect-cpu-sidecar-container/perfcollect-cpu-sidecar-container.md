@@ -15,8 +15,18 @@ When there’s a performance problem, analyzing the problem often requires
 detailed information about what was happening at the time.
 [Perfcollect](https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md)
 is the recommended tool for gathering .NET Core performance data on Linux.
-Containers bring challenges in using `perfcollect`. There are several ways to
-collect performance traces .NET Core application running in a Linux container,
+The .NET Team introduced `EventPipe` feature in .NET Core 2.0 and has been
+continuously improving the usability of the feature for the end users. The goal
+of `EventPipe` is to make it very easy to profile .NET Core applications.
+However, currently `EventPipe` has limitations:
+- Only the managed parts of call stacks are collected. If a performance issue is
+  in native code, or in the .NET Core runtime it can only trace it to the
+  boundary.
+- it does not work for earlier versions of .NET Core.
+
+In these cases `perfcollect` is still the preferred tools. Containers bring
+challenges in using `perfcollect`. There are several ways to use `perfcollect`
+to gather performance traces .NET Core application running in a Linux container,
 each has its cons:
 
 - Collecting from the host
