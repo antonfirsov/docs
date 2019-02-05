@@ -23,21 +23,19 @@ get a penalty for doing both.
 
 ## Step-by-step process
 
+**Note**: The steps below are similar for porting both Windows Forms and WPF 
+applications.
+
 Before porting the application to .NET Core 3, I need to do some preparation
-steps first.
+first.
 
 ## Preparing to port
 
 1. **Install [.NET Core 3][core-installation]** and Update Visual Studio to 2019
    Preview version (Visual Studio 2017 will only support up to .NET Core 2.2).
-
-   If you experience compatibility issues after installing the preview SDK
-   project, pin your project to a particular SDK version.
-
-   ```cli
-   dotnet --list-sdks
-   dotnet new globaljson --sdk-version [version from list above]
-   ```
+   
+1. **Start from a working solution**. Ensure the solution opens, builds, and
+   runs without any issues.
 
 1. **Run [.NET Portability Analyzer][api-port]** to determine if there are any
    APIs your application depends on that are missing from .NET Core. If there
@@ -50,9 +48,6 @@ steps first.
       existing .NET Framework users; you'll only have to migrate the first
       project.
 
-1. **Start from a working solution**. Ensure the solution opens, builds, and
-   runs without any issues.
-
 1. **Replace `packages.config` with `PackageReference`**. If your project uses
    NuGet packages, you will need to add the same NuGet packages to the new .NET
    Core project. .NET Core projects support only `PackageReference` for adding
@@ -61,13 +56,15 @@ steps first.
    to PackageReference...**.
 
    You can learn more about this migration in our [docs][pkg-config].
+   **TODO: Recommend updating NuGet packages early on to .NET Standard versions**
+   **TODO: Add a note about creating a branch in source control (or create a new .csproj)**
 
 1. **Migrate to the SDK-style .csproj file**. To move my application to .NET
-   Core, I need to migrate my project file to SDK-style format because the old
+   Core, I need to change my project file to SDK-style format because the old
    format does not support .NET Core. Besides, the SDK-style format is much
    leaner and easier to work with.
 
-   You can either migrate SDK-style format by hand or using a third-party tool
+   You can either change SDK-style format by hand or using a third-party tool
    [CsprojToVs2017][sdk-tool]. After using the tool you still might need to
    delete some reference by hand, for example.
 
@@ -164,7 +161,7 @@ steps first.
 1. **Add .NET Core Windows Forms project**. Add a new .NET Core 3.0 WinForms
    project to the solution. Visual Studio templates for desktop projects are
    under development, for now I will use the console.
-
+   **TODO Project Templates in VS**
    ```cli
    dotnet new winforms -o <path-to-your-solution>\MatchingGame.Core\
    ```
@@ -230,6 +227,7 @@ available in Visual Studio. However there are ways to work around it.
    from the new .NET Core  WinForms project. You'll just have to unload and
    reload the project with corresponding project file depending on whether you
    want to use the WinForms Designer or not.
+   
 
 ## See also
 [WinForms repo][winforms]
