@@ -60,7 +60,7 @@ static State ChangeState(State current, Transition transition, bool hasKey) =>
 
 In this example, you can see you do not need to define a variable or explicit type for each of the cases. Instead, the compiler can match the tuple being testing with the tuples defined for each of the cases.
 
-All of these patterns enable you to write declarative code that captures your intent instead of procedural code that implements tests for it. The compiler becomes responsible for implementing that boring procedural code and is garanteed to always do it correctly.
+All of these patterns enable you to write declarative code that captures your intent instead of procedural code that implements tests for it. The compiler becomes responsible for implementing that boring procedural code and is guaranteed to always do it correctly.
 
 There will still be cases where *switch statements* will be a better choice than *switch expressions* and patterns can be used with both syntax styles.
 
@@ -128,11 +128,11 @@ Vector256<int> SoftwareFallback(int x)
 
 ### Async streams
 
-Async streams are another major improvement in C# 8. They have been changing with each preview and require that the compiler and the framework libraries match to work correctly. You need .NET Core 3.0 Preview 2 to use async streams if you want to develop with either Visual Studio 2019 Preview 2 or the latest preview of the [C# extension for Visual Studio Code](https://github.com/OmniSharp/omnisharp-vscode/releases/tag/v1.18.0-beta5). If you are using .NET Core 3.0 Preview 2 at the commandline, then everything will work as expected.
+Async streams are another major improvement in C# 8. They have been changing with each preview and require that the compiler and the framework libraries match to work correctly. You need .NET Core 3.0 Preview 2 to use async streams if you want to develop with either Visual Studio 2019 Preview 2 or the latest preview of the [C# extension for Visual Studio Code](https://github.com/OmniSharp/omnisharp-vscode/releases/tag/v1.18.0-beta5). If you are using .NET Core 3.0 Preview 2 at the command line, then everything will work as expected.
 
 ## IEEE Floating-point improvements
 
-Floating point APIs are in the process of being updated to comply with [IEEE 754-2008 revision](https://en.wikipedia.org/wiki/IEEE_754-2008_revision). The goal of [this floating point project](https://github.com/dotnet/corefx/issues/31901) is to expose all "required" operations and ensure that they are behaviorly compliant with the IEEE spec.
+Floating point APIs are in the process of being updated to comply with [IEEE 754-2008 revision](https://en.wikipedia.org/wiki/IEEE_754-2008_revision). The goal of [this floating point project](https://github.com/dotnet/corefx/issues/31901) is to expose all "required" operations and ensure that they are behaviorally compliant with the IEEE spec.
 
 Parsing and formatting fixes:
 
@@ -156,7 +156,7 @@ We've added APIs that allow access to certain perf-oriented CPU instructions, su
 
 The following CoreCLR PRs demonstrate a few of the intrinsics, either via implementation or use:
 
-* [Implement simple SSE2 hardware instrinsics](https://github.com/dotnet/coreclr/pull/15585)
+* [Implement simple SSE2 hardware intrinsics](https://github.com/dotnet/coreclr/pull/15585)
 * [Implement the SSE hardware intrinsics](https://github.com/dotnet/coreclr/pull/15538)
 * [Arm64 Base HW Intrinsics](https://github.com/dotnet/coreclr/pull/16822)
 * [Use TZCNT and LZCNT for Locate{First|Last}Found{Byte|Char}](https://github.com/dotnet/coreclr/pull/21073)
@@ -342,7 +342,7 @@ If you do not delete this folder, you will receive an error.
 
 ## Assembly Unloadability
 
-Assembly unloadability is a new capability of AssemblyLoaderContext. This new feature is largely transparent from an API perspective, exposed with just a few new APIs. It enables a loader context to be unloaded, releasing all memory for instantiated types, static fields and for the assembly itself. An application should be able to load and unload assemblies via this mechanism forever without experiencing a memory leak.
+Assembly unloadability is a new capability of AssemblyLoadContext. This new feature is largely transparent from an API perspective, exposed with just a few new APIs. It enables a loader context to be unloaded, releasing all memory for instantiated types, static fields and for the assembly itself. An application should be able to load and unload assemblies via this mechanism forever without experiencing a memory leak.
 
 We expect this new capability to be used for the following scenarios:
 
