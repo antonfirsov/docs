@@ -1,7 +1,7 @@
-# How to port WinForms applications to .NET Core 3.0
+# How to port desktop applications to .NET Core 3.0
 
-In this post, I will describe how to port a WinForms application from .NET
-Framework to .NET Core. I will also show how you can keep using the WinForms
+In this post, I will describe how to port a desktop application from .NET
+Framework to .NET Core. I picked a WinForms application as an example but steps for WPF applications are similar. I will also show how you can keep using the WinForms
 Designer in Visual Studio even though it is under development and is not yet
 available for .NET Core projects.
 
@@ -23,8 +23,9 @@ get a penalty for doing both.
 
 ## Step-by-step process
 
-**Note**: The steps below are similar for porting both Windows Forms and WPF 
-applications.
+>I suggest doing migration in a separate branch or, if you're not using version
+>control, creating a copy of your project so you have a clean state to go back
+>to if necessary.
 
 Before porting the application to .NET Core 3, I need to do some preparation
 first.
@@ -33,20 +34,23 @@ first.
 
 1. **Install [.NET Core 3][core-installation]** and Update Visual Studio to 2019
    Preview version (Visual Studio 2017 will only support up to .NET Core 2.2).
-   
+
 1. **Start from a working solution**. Ensure the solution opens, builds, and
    runs without any issues.
 
+1. **Update NuGet packages**. It is always a good practice to use the latest
+   versions of NuGet packages before any migration. If your application is
+   referencing any NuGet packages, update them to the latest version. Ensure
+   your application builds successfully. In case of any NuGet errors, downgrade
+   the version and find the latest one that doesn't break the application.
+
 1. **Run [.NET Portability Analyzer][api-port]** to determine if there are any
-   APIs your application depends on that are missing from .NET Core. If there
-   are, you have a few options:
-    * Remove unsupported APIs or replace them with those that are included in
-      .NET Core
-    * Split your project into two projects, one that only contains usages of
-      APIs that are available in .NET Core, the other contains the rest. This
-      way, you get the best of both worlds without losing any features for your
-      existing .NET Framework users; you'll only have to migrate the first
-      project.
+   APIs your application depends on that are missing from .NET Core. In case
+   there are, you need to refactor your code to avoid dependencies on not
+   supported in .NET Core APIs. Sometimes it's possible to find an alternative
+   APIs that provide needed functionality. Another option would be to move all
+   code containing .NET Framework-only APIs to a separate project and leave that
+   project on .NET Framework while migrating the rest to .NET Core.
 
 1. **Replace `packages.config` with `PackageReference`**. If your project uses
    NuGet packages, you will need to add the same NuGet packages to the new .NET
@@ -56,17 +60,54 @@ first.
    to PackageReference...**.
 
    You can learn more about this migration in our [docs][pkg-config].
-   **TODO: Recommend updating NuGet packages early on to .NET Standard versions**
-   **TODO: Add a note about creating a branch in source control (or create a new .csproj)**
+
+1. **Ensure your dependencies are supported in .NET Standard**. If your project
+   has any references, we recommend to check if they are supported in .NET
+   Standard before performing any porting. The easiest way to check is to create
+   a new .NET Core project with the same references and make sure it builds.
+    1. Create new console application targeting .NET Core 3.
+    1. In the project file copy all references from the old project, for example:
+
+       NuGet package reference
+
+       ```xml
+       <PackageReference Include="Microsoft.Windows.Compatibility" Version="2.0.1" />
+       ```
+
+       Project reference
+
+       ```xml
+       <ProjectReference Include="..\MatchingGame.Core\MatchingGame.Core.csproj" />
+        ```
+    1. Build.
+
+       > If you get any NuGet restore errors, some of the packages you are
+       referencing probably support only .NET Framework. In that case you can
+       use the `Contact` form on the [NuGet gallery][nuget-org] and let the
+       author know that you'd be interested in seeing the package being updated
+       to .NET Standard.
 
 1. **Migrate to the SDK-style .csproj file**. To move my application to .NET
    Core, I need to change my project file to SDK-style format because the old
    format does not support .NET Core. Besides, the SDK-style format is much
-   leaner and easier to work with.
+   leaner and easier to work with. Simply replace your current `.csproj` file
+   with the `.csproj` file from the project you created on the step above.
 
-   You can either change SDK-style format by hand or using a third-party tool
-   [CsprojToVs2017][sdk-tool]. After using the tool you still might need to
-   delete some reference by hand, for example.
+   If you did not have any dependencies and haven't performed the step above
+   (like in my case), just replace the content of your `.csproj` file with the
+   following:
+
+   ```xml
+   <Project Sdk="Microsoft.NET.Sdk">
+     <PropertyGroup>
+       <TargetFramework>net472</TargetFramework>
+     </PropertyGroup>
+   </Project>
+   ```
+
+   There is also a third-party tool [CsprojToVs2017][sdk-tool] that can perform
+   the conversion for you, but after using it you still might need to delete
+   some reference by hand, for example those.
 
    ```xml
    <Reference Include="System.Data.DataSetExtensions" />
@@ -74,54 +115,14 @@ first.
    <Reference Include="System.Net.Http" />
    ```
 
-   I will migrate by hand by just replacing all the content of `.csproj` file
-   with the following lines.
-
-   ```xml
-   <Project Sdk="Microsoft.NET.Sdk">
-     <PropertyGroup>
-       <TargetFramework>net472</TargetFramework>
-       <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-     </PropertyGroup>
-   </Project>
-   ```
-
-   If you are referencing NuGet packages or other projects in your old `.csproj` file, you'll need to add the references to the new `.csproj` file too, for example.
-
-   NuGet package reference
-
-   ```xml
-   <PackageReference Include="Microsoft.Windows.Compatibility" Version="2.0.1" />
-   ```
-
-   Project reference
-
-   ```xml
-   <ProjectReference Include="..\MatchingGame.Core\MatchingGame.Core.csproj" />
-    ```
-
-   After you've migrated to the new SDK-style format, ensure your project builds and runs successfully.
-
-## Porting the application
-
-* **Retarget class library to .NET Standard** (optional).  To do so, just
-   change the `TargetFramework` property to `netstandard2.0`:
-
-   ```xml
-   <Project Sdk="Microsoft.NET.Sdk">
-     <PropertyGroup>
-       <TargetFramework>nestandard2.0</TargetFramework>
-     </PropertyGroup>
-   </Project>
-   ```
-
+## Porting class library
 
 1. **Move from .NET Framework to .NET Standard or .NET Core**. After
-   successfully converting my library to SDK-style format now I can retarget
-   it. However, in my case I want my class library to target .NET Standard
-   instead of .NET Core. That way, it will be accessible from any .NET
-   implementation if I decide to ship the game to other platforms (such as iOS,
-   Android, or Web Assembly). To do so, in the project file I am replacing
+   successfully converting my library to SDK-style format now I can retarget it.
+   In my case I want my class library to target .NET Standard instead of .NET
+   Core. That way, it will be accessible from any .NET implementation if I
+   decide to ship the game to other platforms (such as iOS, Android, or Web
+   Assembly). To do so, in the project file I am replacing
 
     ```xml
    <TargetFramework>net472</TargetFramework>
@@ -142,9 +143,9 @@ first.
    errors on the previous step, you can check if [Compatibility
    Pack][compat-pack] can help.
 
-   I got an error "The name 'Registry' does not exist in the current context"
-   so I will add **Microsoft.Windows.Compatibility** NuGet
-   package to my project. After installing the package errors disappear.
+   I got an error "The name 'Registry' does not exist in the current context" so
+   I will add **Microsoft.Windows.Compatibility** NuGet package to my project.
+   After installing the package errors disappear.
 
 1. **Install API Analyzer**. [API Analyzer][api-analyzer], available as a NuGet
    package **Microsoft.DotNet.Analyzers.Compatibility**, will prompt you with
@@ -153,20 +154,29 @@ first.
    I recommend to add API Analyzer as well to keep track of all non
    cross-platform APIs.
 
-   At this point I am done with the class library migration to .NET Standard.
-   If you have multiple projects referencing each other, migrate them
-   "bottom-up" starting with the project that has no dependencies on other
-   projects.
+   At this point I am done with the class library migration to .NET Standard. If
+   you have multiple projects referencing each other, migrate them "bottom-up"
+   starting with the project that has no dependencies on other projects.
+
+   In my example I also have a user interface project `MemoryGame.exe`, so now I
+   will perform similar steps to migrate it to .NET Core.
+
+## Porting UI
 
 1. **Add .NET Core Windows Forms project**. Add a new .NET Core 3.0 WinForms
-   project to the solution. Visual Studio templates for desktop projects are
-   under development, for now I will use the console.
-   **TODO Project Templates in VS**
+   project to the solution. At the moment we did the demo Visual Studio
+   templates for desktop projects were under development, so I used the console.
+
    ```cli
    dotnet new winforms -o <path-to-your-solution>\MatchingGame.Core\
    ```
 
-   After the new WinForms .NET Core project is created, add it to your solution.
+   After the new WinForms .NET Core project was created I added it to my
+   solution.
+
+   Once the WinForms templates for .NET Core are added to Visual Studio, you can
+   create a new WinForms project by just right clicking on the solution ->
+   **Add** -> **New Project...**.
 
 1. **Link projects**. Delete all files from the new WinForms project (right now
    it contains  the generic Hello World code). Link all files from your existing
@@ -227,7 +237,6 @@ available in Visual Studio. However there are ways to work around it.
    from the new .NET Core  WinForms project. You'll just have to unload and
    reload the project with corresponding project file depending on whether you
    want to use the WinForms Designer or not.
-   
 
 ## See also
 [WinForms repo][winforms]
@@ -245,3 +254,4 @@ available in Visual Studio. However there are ways to work around it.
 [compat-pack]:https://blogs.msdn.microsoft.com/dotnet/2017/11/16/announcing-the-windows-compatibility-pack-for-net-core/
 [winforms]:https://github.com/dotnet/winforms
 [winforms-samples]:https://github.com/dotnet/samples/tree/master/windowsforms
+[nuget-org]: https://www.nuget.org/
