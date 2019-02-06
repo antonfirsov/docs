@@ -119,7 +119,7 @@ first.
 
 1. **Move from .NET Framework to .NET Standard or .NET Core**. After
    successfully converting my library to SDK-style format now I can retarget it.
-   In my case I want my class library to target .NET Standard instead of .NET
+   In my case I want my class library to target [.NET Standard][standard] instead of .NET
    Core. That way, it will be accessible from any .NET implementation if I
    decide to ship the game to other platforms (such as iOS, Android, or Web
    Assembly). To do so, in the project file I am replacing
@@ -255,3 +255,4 @@ available in Visual Studio. However there are ways to work around it.
 [winforms]:https://github.com/dotnet/winforms
 [winforms-samples]:https://github.com/dotnet/samples/tree/master/windowsforms
 [nuget-org]: https://www.nuget.org/
+[standard]: https://docs.microsoft.com/en-us/dotnet/standard/net-standard
