@@ -10,7 +10,7 @@ available for .NET Core projects.
 For this post, I'll be using a [Memory-style][memory-game] board game
 application. It contains a WinForms UI (`MemoryGame.exe`)
 Framework 4.5) and a class library with the game logic
-(`MemoryGame.Logic.dll`, also targeting .NET Framework 4.5). I'll be porting the
+(`MemoryGame.Logic.dll`), both targeting .NET Framework 4.5. I'll be porting the
 application project to .NET Core 3 and the class library to .NET Standard 2.0.
 Using .NET Standard instead of .NET Core allows me to reuse the game logic to
 provide the application for other platforms, such as iOS, Android or the web.
