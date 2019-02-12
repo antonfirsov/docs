@@ -248,7 +248,7 @@ available in Visual Studio. However there are ways to work around it.
 [api-port]: https://blogs.msdn.microsoft.com/dotnet/2018/08/08/are-your-windows-forms-and-wpf-applications-ready-for-net-core-3-0/
 [pkg-config]: https://docs.microsoft.com/en-us/nuget/reference/migrate-packages-config-to-package-reference
 [sdk-tool]:https://github.com/hvanbakel/CsprojToVs2017
-[compat-pack]: https://docs.microsoft.com/en-us/dotnet/core/porting/windows-compat-pack
+[compat-pack]: https://docs.microsoft.com/dotnet/core/porting/windows-compat-pack
 [wcf-supported]: https://github.com/dotnet/wcf/blob/master/release-notes/SupportedFeatures-v2.1.0.md
 [api-analyzer]:https://blogs.msdn.microsoft.com/dotnet/2017/10/31/introducing-api-analyzer/
 [compat-pack]:https://blogs.msdn.microsoft.com/dotnet/2017/11/16/announcing-the-windows-compatibility-pack-for-net-core/
