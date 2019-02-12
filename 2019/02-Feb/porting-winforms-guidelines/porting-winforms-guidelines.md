@@ -230,7 +230,7 @@ available in Visual Studio. However there are ways to work around it.
    copy them when the Designer support is available. This way you can modify the
    files in your old .NET Framework WinForms project using WinForms Designer.
    And the changes will be automatically transferred to the new .NET Core
-   WinForms project since they are linked.
+   WinForms project since they're linked.
 
 1. You can have two project files in your WinForms project: the old `.csproj`
    file from the old .NET Framework WinForms project and the new `.csproj` file
