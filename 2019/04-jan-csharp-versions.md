@@ -6,12 +6,11 @@ Starting with Visual Studio 2019 Preview 4, we'll be adjusting how C# versions a
 
 Firstly, we're adding two new Language Version (LangVersion) values: `LatestMajor` and `Preview`. Here's how they stack up to the currently supported list of values:
 
-| Language Version | Meaning |
+| LangVersion | Meaning |
 |------------------|---------|
 |**LatestMajor**|Latest supported major C# language version|
 |**Preview**|Latest available preview C# language version|
 |Latest|Latest supported C# language version (including minor version)|
-|default|Depends on target framework|
 | ISO-1 | C# 1.0/1.2 |
 | ISO-2 | C# 2.0 |
 | 3 | C# 3.0 |
@@ -24,9 +23,7 @@ Firstly, we're adding two new Language Version (LangVersion) values: `LatestMajo
 | 7.3 | C# 7.3 |
 | 8.0 | C# 8.0 |
 
-When no LangVersion is specified, `default` is implied.
-
-The meaning of `default` is now determined by the target framework of your project. When you target a preview framework that also has a corresponding preview C# version, that preview version is the default. If you do not target a preview framework, then `Latest` is chosen.
+When no LangVersion is specified, the default meaning is now determined by the target framework of your project. When you target a preview framework that also has a corresponding preview C# version, that preview version is the default. If you do not target a preview framework, then `Latest` is chosen.
 
 The following scenarios explain how this will work for .NET Core 3.0 preview and C# 8 preview:
 
@@ -52,14 +49,13 @@ Eventually, C# 8.0 and .NET Core 3.0 will ship in a GA release. Here's what the 
 
 |LangVersion|Meaning|
 |-----------|------|
-|default|8.0|
 |Latest|8.0|
 |LatestMajor|8.0|
 |Preview|Not yet determined|
 
-Projects that do not specify a LangVersion will also be treated as if they are `default`.
+Projects that do not specify a LangVersion will be treated as if they are `Latest` when C# 8.0 is GA.
 
-If you created a project for C# 8.0 preview targeting .NET Core 3.0 preview or .NET Standard 2.1 preview, and also did not specify a LangVersion, it will be as if `default` is chosen. You will not be opted into `Preview` under any scenario once C# 8.0 and .NET Core 3.0 are GA.
+If you created a project for C# 8.0 preview targeting .NET Core 3.0 preview or .NET Standard 2.1 preview, and also did not specify a LangVersion, it will be as if `Latest` is chosen. You will not be opted into `Preview` under any scenario once C# 8.0 and .NET Core 3.0 are GA.
 
 ## Rationale
 
