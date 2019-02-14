@@ -34,7 +34,7 @@ The default language version chosen in this scenario is `Preview`. The C# 8.0 fe
 
 ### Targeting .NET Framework
 
-The default language version chosen in this scenario is `Latest`. Any use of a C# 8.0 feature is a compile error. Visual Studio tooling will prompt you with a quick fix that can change the language version for the project or solution when one of these errors is encountered.
+The default language version chosen in this scenario is `Latest`. Any use of a C# 8.0 feature is a compile error. Visual Studio tooling will prompt you with a quick fix that can change the language version for the project or solution when one of these errors is encountered. Because some features require underlying types or runtime features that are not available on .NET Framework, such as Default Interface Members, you may still get an error for those features when targeting .NET Framework.
 
 ### Multitargeting netcoreapp3.0 or netstandard2.1 preview and .NET Framework
 
