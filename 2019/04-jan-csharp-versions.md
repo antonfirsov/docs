@@ -37,7 +37,7 @@ The default language version chosen in this scenario is `Latest`. Any use of a C
 
 ### Multi-targeting netcoreapp3.0 preview or netstandard2.1 preview and .NET Framework
 
-For the `netcoreapp3.0`/netstandard2.1` preview targets, the language version is `Preview`. A warning is emitted on build from the .NET SDK. For the .NET Framework target, the language version is `Latest`.
+For the netcoreapp3.0/netstandard2.1 preview targets, the language version is `Preview`. A warning is emitted on build from the .NET SDK. For the .NET Framework target, the language version is `Latest`.
 
 ### Explicit LangVersion is used
 
@@ -45,7 +45,7 @@ If you explicitly set a LangVersion value, that will be respected and the previo
 
 ## Experience when C# 8.0 and .NET Core 3.0 are GA
 
-Eventually, C# 8.0 and .NET Core 3.0 will ship in a GA release. Here's what the relvant LangVersion values will map to at that time:
+Eventually, C# 8.0 and .NET Core 3.0 will ship in a GA-quality release. Here's what the relvant LangVersion values will map to at that time:
 
 |LangVersion|Meaning|
 |-----------|------|
@@ -59,18 +59,18 @@ If you created a project for C# 8.0 preview targeting .NET Core 3.0 preview or .
 
 ## Rationale
 
-Up until this point, the default C# version used in Visual Studio was equivalent to `LatestMajor`. This has proven to be awkward for two reasons:
+Up until this point, the default C# version used in Visual Studio was equivalent to `LatestMajor`. This has been problematic for two reasons:
 
 1. C# now evolves between Visual Studio release cycles, but new projects in Visual Studio would still default to an older version.
 2. The default C# language version is 7.3, despite C# 8.0 preview being a better choice for proejcts that target .NET Core 3.0 preview.
 
 More generally, as we evolve C# and continue to release more features that align with a future .NET Core version, we want to make sure that you can use these features as seamlessly as possible. This also allows you to use features earlier in their development lifecycle, increasing the window of time that actionable feedback on a feature could influence its design.
 
-## Support and compatibility for C# 8.0 preview features
+## Support and compatibility for preview features
 
 The way to think about support is also a bit different. To allow the use of C# 8.0 preview features within a released Visual Studio 2019, support and compatibility concerns are distinguished by preview vs. released features:
 
-* Any C# 7.3 and lower feature or behavior is fully supported and fully compatibile. No change from what currently exists today.
+* Any C# 7.3 and lower feature or behavior is fully supported and fully compatible. No change from what currently exists today.
 * Any C# 8.0 preview feature is unsupported.
 * There is no compatibility guarantee from one C# 8.0 preview to another.
 
