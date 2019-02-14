@@ -37,7 +37,7 @@ The default language version chosen in this scenario is `Latest`. Any use of a C
 
 ### Multi-targeting netcoreapp3.0 preview or netstandard2.1 preview and .NET Framework
 
-For the netcoreapp3.0/netstandard2.1 preview targets, the language version is `Preview`. A warning is emitted on build from the .NET SDK. For the .NET Framework target, the language version is `Latest`.
+For the `netcoreapp3.0`/netstandard2.1` preview targets, the language version is `Preview`. A warning is emitted on build from the .NET SDK. For the .NET Framework target, the language version is `Latest`.
 
 ### Explicit LangVersion is used
 
