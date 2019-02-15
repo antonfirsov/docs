@@ -61,12 +61,12 @@ first.
 
    You can learn more about this migration in our [docs][pkg-config].
 
-1. **Ensure your dependencies are supported in .NET Standard**. If your project
-   has any references, we recommend to check if they are supported in .NET
-   Standard before performing any porting. The easiest way to check is to create
-   a new .NET Core project with the same references and make sure it builds.
+1. **Ensure your dependencies are supported in .NET Core**. If your project has
+   any references, we recommend to check if they are supported in .NET Core
+   before performing any porting. The easiest way to check is to create a new
+   .NET Core project with the same references and make sure it builds.
     1. Create new console application targeting .NET Core 3.
-    1. In the project file copy all references from the old project, for example:
+    1. In the project file copy all external references from the old project, for example:
 
        NuGet package reference
 
@@ -74,18 +74,18 @@ first.
        <PackageReference Include="Microsoft.Windows.Compatibility" Version="2.0.1" />
        ```
 
-       Project reference
-
-       ```xml
-       <ProjectReference Include="..\MatchingGame.Core\MatchingGame.Core.csproj" />
-        ```
     1. Build.
 
-       > If you get any NuGet restore errors, some of the packages you are
-       referencing probably support only .NET Framework. In that case you can
-       use the `Contact` form on the [NuGet gallery][nuget-org] and let the
-       author know that you'd be interested in seeing the package being updated
-       to .NET Standard.
+       At this point if the packages you're referencing support only .NET
+       Framework, you will get a [NuGet warning][nuget-warning]. If you have not
+       upgraded to the latest versions of NuGet packages on the step 3, try to
+       find if the latest version supporting .NET Core (.NET Standard) is
+       available and upgrade. If there are no newer version, .NET Framework
+       packages can still be used but you might get run-time errors if those
+       packages have dependencies on unsupported in .NET Core APIs. We recommend
+       to let the author of the NuGet package know that you'd be interested in
+       seeing the package being updated to .NET Standard. You can do it via
+       `Contact` form on the [NuGet gallery][nuget-org].
 
 1. **Migrate to the SDK-style .csproj file**. To move my application to .NET
    Core, I need to change my project file to SDK-style format because the old
@@ -256,3 +256,4 @@ available in Visual Studio. However there are ways to work around it.
 [winforms-samples]:https://github.com/dotnet/samples/tree/master/windowsforms
 [nuget-org]: https://www.nuget.org/
 [standard]: https://docs.microsoft.com/en-us/dotnet/standard/net-standard
+[nuget-warning]: https://docs.microsoft.com/en-us/nuget/reference/errors-and-warnings/nu1701
