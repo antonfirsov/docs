@@ -1,19 +1,21 @@
 # How to port desktop applications to .NET Core 3.0
 
 In this post, I will describe how to port a desktop application from .NET
-Framework to .NET Core. I picked a WinForms application as an example but steps for WPF applications are similar. I will also show how you can keep using the WinForms
-Designer in Visual Studio even though it is under development and is not yet
-available for .NET Core projects.
+Framework to .NET Core. I picked a WinForms application as an example. Steps for
+WPF application are similar and I'll describe what needs to be done different
+for WPF as we go. I will also show how you can keep using the WinForms Designer
+in Visual Studio even though it is under development and is not yet available
+for .NET Core projects.
 
 ## About the sample
 
 For this post, I'll be using a [Memory-style][memory-game] board game
-application. It contains a WinForms UI (`MemoryGame.exe`)
-Framework 4.5) and a class library with the game logic
-(`MemoryGame.Logic.dll`), both targeting .NET Framework 4.5. I'll be porting the
-application project to .NET Core 3.0 and the class library to .NET Standard 2.0.
-Using .NET Standard instead of .NET Core allows me to reuse the game logic to
-provide the application for other platforms, such as iOS, Android or the web.
+application. It contains a WinForms UI (`MemoryGame.exe`) Framework 4.5) and a
+class library with the game logic (`MemoryGame.Logic.dll`), both targeting .NET
+Framework 4.5. I'll be porting the application project to .NET Core 3.0 and the
+class library to .NET Standard 2.0. Using .NET Standard instead of .NET Core
+allows me to reuse the game logic to provide the application for other
+platforms, such as iOS, Android or the web.
 
 You can either watch Scott Hunter and me doing the conversion in this video, or
 you can follow the step-by-step instructions below. Of course, you don't
@@ -61,11 +63,18 @@ first.
 
    You can learn more about this migration in our [docs][pkg-config].
 
+## Porting main project
+
 1. **Ensure your dependencies are supported in .NET Core**. If your project has
    any references, we recommend to check if they are supported in .NET Core
    before performing any porting. The easiest way to check is to create a new
    .NET Core project with the same references and make sure it builds.
-    1. Create new console application targeting .NET Core 3.
+    1. Create new application of the same type (Console, WinForms, WPF, Class Library) as the application you are willing to port, targeting .NET Core 3. At the moment we did the demo Visual Studio templates for desktop projects were under development, so I used the console.
+
+        ```cli
+        dotnet new winforms -o <path-to-your-solution>\MatchingGame.Core\
+        ```
+
     1. In the project file copy all external references from the old project, for example:
 
        NuGet package reference
@@ -82,28 +91,85 @@ first.
        find if the latest version supporting .NET Core (.NET Standard) is
        available and upgrade. If there are no newer version, .NET Framework
        packages can still be used but you might get run-time errors if those
-       packages have dependencies on unsupported in .NET Core APIs. We recommend
-       to let the author of the NuGet package know that you'd be interested in
-       seeing the package being updated to .NET Standard. You can do it via
-       `Contact` form on the [NuGet gallery][nuget-org].
+       packages have dependencies on APIs not supported in .NET Core. We
+       recommend to let the author of the NuGet package know that you'd be
+       interested in seeing the package being updated to .NET Standard. You can
+       do it via `Contact` form on the [NuGet gallery][nuget-org].
+
+### Fast way
+
+**Try the fast way to port.** Make sure you have a copy of your current
+   `.csproj` file, you might need to use it in future. Replace your current
+   `.csproj` file with the `.csproj` file from the project you created on the
+   step above and add in the top `<PropertyGroup>`:
+
+   ```xml
+   <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+   ```
+
+   Build your app. If you got no errors - congrats, you've successfully migrated
+   your project to .NET Core 3. For porting a dependent (UI) project see
+   **Porting UI** section, for using the Designer, check out **Using WinForms
+   Designer for .NET Core projects** section.
+
+   If you got errors (like I would with my app), it means there are more
+   adjustments you need to make. Instead of the fast way described here, bellow
+   I'll do one change at a time and give possible fixes for each issue. Steps bellow would also help to better understand the process of the migration so if the fast way worked for you but you're curious to learn all "whys", keep on reading.
+
+### Slower way
 
 1. **Migrate to the SDK-style .csproj file**. To move my application to .NET
-   Core, I need to change my project file to SDK-style format because the old
+   Core, first I need to change my project file to SDK-style format because the old
    format does not support .NET Core. Besides, the SDK-style format is much
-   leaner and easier to work with. Simply replace your current `.csproj` file
-   with the `.csproj` file from the project you created on the step above.
+   leaner and easier to work with.
 
-   If you did not have any dependencies and haven't performed the step above
-   (like in my case), just replace the content of your `.csproj` file with the
-   following:
+   Make sure you have a copy of your current `.csproj` file. Replace the content of your `.csproj` file with following.
+
+   For WinForms application:
 
    ```xml
    <Project Sdk="Microsoft.NET.Sdk">
      <PropertyGroup>
+       <OutputType>WinExe</OutputType>
        <TargetFramework>net472</TargetFramework>
+       <UseWPF>true</UseWPF>
+       <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
      </PropertyGroup>
    </Project>
    ```
+
+   For WPF application:
+
+   ```xml
+   <Project Sdk="Microsoft.NET.Sdk">
+     <PropertyGroup>
+       <OutputType>WinExe</OutputType>
+       <TargetFramework>net472</TargetFramework>
+       <UseWindowsForms>true</UseWindowsForms>
+       <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+     </PropertyGroup>
+   </Project>
+   ```
+
+   > Note that here I set `<GenerateAssemblyInfo>` to `false`. In the new style
+   > projects `AssemblyInfo.cs` is generated automatically by default. So if you
+   > already have `AssemblyInfo.cs` file in your project, to avoid duplication
+   > you need to disable auto-generation or remove the file.
+
+   Now copy and paste in your project file all references from the old version of `.csproj` file, for example:
+
+       NuGet package reference
+
+       ```xml
+       <PackageReference Include="Microsoft.Windows.Compatibility" Version="2.0.1" />
+       ```
+
+       Project reference
+
+       ```xml
+       <ProjectReference Include="..\MatchingGame.Core\MatchingGame.Core.csproj" />
+
+   The project should build successfully since it is just a new way of writing the same thing. If you got any errors, just double check all actions on step.
 
    There is also a third-party tool [CsprojToVs2017][sdk-tool] that can perform
    the conversion for you, but after using it you still might need to delete
@@ -115,14 +181,12 @@ first.
    <Reference Include="System.Net.Http" />
    ```
 
-## Porting class library
-
 1. **Move from .NET Framework to .NET Standard or .NET Core**. After
    successfully converting my library to SDK-style format now I can retarget it.
-   In my case I want my class library to target [.NET Standard][standard] instead of .NET
-   Core. That way, it will be accessible from any .NET implementation if I
-   decide to ship the game to other platforms (such as iOS, Android, or Web
-   Assembly). To do so, in the project file I am replacing
+   In my case I want my class library to target [.NET Standard][standard]
+   instead of .NET Core. That way, it will be accessible from any .NET
+   implementation if I decide to ship the game to other platforms (such as iOS,
+   Android, or Web Assembly). To do so, in the project file I am replacing
 
     ```xml
    <TargetFramework>net472</TargetFramework>
@@ -163,25 +227,35 @@ first.
 
 ## Porting UI
 
-1. **Add .NET Core Windows Forms project**. Add a new .NET Core 3.0 WinForms
-   project to the solution. At the moment we did the demo Visual Studio
-   templates for desktop projects were under development, so I used the console.
+1. **Add .NET Core UI project**. Add a new .NET Core 3.0 UI project to the
+   solution. At the moment we did the demo Visual Studio templates for desktop
+   projects were under development, so I used the console.
 
-   ```cli
-   dotnet new winforms -o <path-to-your-solution>\MatchingGame.Core\
-   ```
+    WinForms:
 
-   After the new WinForms .NET Core project was created I added it to my
+       ```cli
+       dotnet new winforms -o <path-to-your-solution>\MatchingGame.Core\
+       ```
+
+    WPF:
+
+       ```cli
+       dotnet new wpf -o <path-to-your-solution>\MatchingGame.Core\
+       ```
+
+   After my new WinForms .NET Core project was created I added it to my
    solution.
 
-   Once the WinForms templates for .NET Core are added to Visual Studio, you can
-   create a new WinForms project by just right clicking on the solution ->
+   Once the desktop templates for .NET Core are added to Visual Studio, you can
+   create a new project by just right clicking on the solution ->
    **Add** -> **New Project...**.
 
-1. **Link projects**. Delete all files from the new WinForms project (right now
-   it contains  the generic Hello World code). Link all files from your existing
-   .NET Framework WinForms project to the .NET Core 3.0 WinForms project by
-   adding following to the `.csproj` file.
+1. **Link projects**. Delete all files from the new project (right now it
+   contains  the generic Hello World code). Link all files from your existing
+   .NET Framework UI project to the .NET Core 3.0 UI project by adding following
+   to the `.csproj` file.
+
+   For my WinForms project I will just include all `.cs` and `.resx` files on compilation:
 
     ```xml
     <ItemGroup>
@@ -189,6 +263,25 @@ first.
         <EmbeddedResource Include="..\<Your .NET Framework Project Name>\**\*.resx" />
     </ItemGroup>
     ```
+
+   If you have a WPF application you need to properly link each `.cs`,`.resx`
+   and `.xaml` files, for example:
+
+   ```xml
+   <ItemGroup>
+     <ApplicationDefinition Include="..\WpfApp1\App.xaml" Link="App.xaml">
+       <Generator>MSBuild:Compile</Generator>
+     </ApplicationDefinition>
+     <Compile Include="..\WpfApp1\App.xaml.cs" Link="App.xaml.cs" />
+   </ItemGroup>
+
+   <ItemGroup>
+     <Page Include="..\WpfApp1\MainWindow.xaml" Link="MainWindow.xaml">
+       <Generator>MSBuild:Compile</Generator>
+     </Page>
+     <Compile Include="..\WpfApp1\MainWindow.xaml.cs" Link="MainWindow.xaml.cs" />
+   </ItemGroup>
+   ```
 
 1. **Align default namespace and assembly name**. Since you're linking to
    designer generated files (for example, `Resources.Designer.cs`) you generally
@@ -203,7 +296,7 @@ first.
    </PropertyGroup>
    ```
 
-1. **Disable `AssemblyInfo` generation**. In the new style projects
+1. **Disable `AssemblyInfo` generation**. As i mentioned before, in the new style projects
    `AssemblyInfo` is generated automatically by default. At the same time the
    `AssemblyInfo` file from the old WinForms project will be copied to the new
    project too, because I linked all files `**\*.cs` in the previous step. That
@@ -218,8 +311,8 @@ first.
    run it. Make sure everything works.
 
 1. **Copy or leave linked**. Now instead of linking the files, you can actually
-   copy them from the old .NET Framework WinForms project to the new .NET Core
-   3.0 WinForms project. After that you can get rid of the old project.
+   copy them from the old .NET Framework UI project to the new .NET Core
+   3.0 UI project. After that you can get rid of the old project.
 
 ## Using WinForms Designer for .NET Core projects
 
