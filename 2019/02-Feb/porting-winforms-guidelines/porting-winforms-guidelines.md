@@ -11,23 +11,23 @@ for .NET Core projects.
 
 For this post, I'll be using a [Memory-style][memory-game] board game
 application. It contains a WinForms UI (`MemoryGame.exe`) and a class library
-with the game logic (`MemoryGame.Logic.dll`), both targeting .NET Framework 4.5. You can download the sample [here][sample]. ToDo; add link.
-I'll be porting the application project to .NET Core 3.0 and the class library
-to .NET Standard 2.0. Using .NET Standard instead of .NET Core allows me to
-reuse the game logic to provide the application for other platforms, such as
-iOS, Android or web.
+with the game logic (`MemoryGame.Logic.dll`), both targeting .NET Framework 4.5.
+You can download the sample [here][sample]. ToDo; add link. I'll be porting the
+application project to .NET Core 3.0 and the class library to .NET Standard 2.0.
+Using .NET Standard instead of .NET Core allows me to reuse the game logic to
+provide the application for other platforms, such as iOS, Android or web.
 
 You can either watch Scott Hunter and me doing the conversion in this video, or
-you can follow the step-by-step instructions below. Of course, I won't be holding it against
-you, if you were to do both.
+you can follow the step-by-step instructions below. Of course, I won't be
+holding it against you, if you were to do both.
 
 **ToDo: link to the video.**
 
 ## Step-by-step process
 
 >I suggest doing the migration in a separate branch or, if you're not using
->version control, ~~question your life choices~~ creating a copy of your project
->so you have a clean state to go back to if necessary.
+>version control, creating a copy of your project so you have a clean state to
+>go back to if necessary.
 
 Before porting the application to .NET Core 3, I need to do some preparation
 first.
@@ -122,7 +122,8 @@ reading.
    old format does not support .NET Core. Besides, the SDK-style format is much
    leaner and easier to work with.
 
-   Make sure you have a copy of your current `.csproj` file. Replace the content of your `.csproj` file with the following.
+   Make sure you have a copy of your current `.csproj` file. Replace the content
+   of your `.csproj` file with the following.
 
    For WinForms application:
 
@@ -169,7 +170,8 @@ reading.
        ```xml
        <ProjectReference Include="..\MatchingGame.Core\MatchingGame.Core.csproj" />
 
-   The project should build successfully since it is just a new way of writing the same thing. If you got any errors, double check your steps.
+   The project should build successfully since it is just a new way of writing
+   the same thing. If you got any errors, double check your steps.
 
    There is also a third-party tool [CsprojToVs2017][sdk-tool] that can perform
    the conversion for you, but after using it you still might need to delete
@@ -223,8 +225,8 @@ reading.
    "bottom-up" starting with the project that has no dependencies on other
    projects.
 
-   In my example I also have a WinForms project `MemoryGame.exe`, so now I
-   will perform similar steps to migrate that to .NET Core.
+   In my example I also have a WinForms project `MemoryGame.exe`, so now I will
+   perform similar steps to migrate that to .NET Core.
 
 ## Porting UI
 
@@ -304,8 +306,8 @@ reading.
    and run it. Make sure everything works.
 
 1. **Copy or leave linked**. Now instead of linking the files, you can actually
-   copy them from the old .NET Framework UI project to the new .NET Core
-   3.0 UI project. After that, you can get rid of the old project.
+   copy them from the old .NET Framework UI project to the new .NET Core 3.0 UI
+   project. After that, you can get rid of the old project.
 
 ## Using the WinForms designer for .NET Core projects
 
@@ -326,7 +328,12 @@ available in Visual Studio. However there are two ways to work around it:
 
 ## Summary
 
-In this blog post, I showed you how to port a desktop application containing multiple projects from .NET Framework to .NET Core. In typical cases, just retargeting your projects to .NET Core isn't enough. I described potential issues you might encounter and ways of addressing them. Also, I demonstrated how you can still use the WinForms designer for your ported apps while it's not yet available for .NET Core projects.
+In this blog post, I showed you how to port a desktop application containing
+multiple projects from .NET Framework to .NET Core. In typical cases, just
+retargeting your projects to .NET Core isn't enough. I described potential
+issues you might encounter and ways of addressing them. Also, I demonstrated how
+you can still use the WinForms designer for your ported apps while it's not yet
+available for .NET Core projects.
 
 [memory-game]: https://en.wikipedia.org/wiki/Concentration_(game)
 [core-installation]: https://dotnet.microsoft.com/download
