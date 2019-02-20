@@ -10,12 +10,15 @@ for .NET Core projects.
 ## About the sample
 
 For this post, I'll be using a [Memory-style][memory-game] board game
-application. It contains a WinForms UI (`MemoryGame.exe`) and a class library
-with the game logic (`MemoryGame.Logic.dll`), both targeting .NET Framework 4.5.
-You can download the sample [here][sample]. ToDo; add link. I'll be porting the
-application project to .NET Core 3.0 and the class library to .NET Standard 2.0.
-Using .NET Standard instead of .NET Core allows me to reuse the game logic to
-provide the application for other platforms, such as iOS, Android or web.
+application. It contains a WinForms UI (`MatchingGame.exe`) and a class library
+with the game logic (`MatchingGame.Logic.dll`), both targeting .NET Framework
+4.5. You can download the sample [here][sample] **ToDo: add link**. I'll be
+porting the application project to .NET Core 3.0 and the class library to .NET
+Standard 2.0. Using .NET Standard instead of .NET Core allows me to reuse the
+game logic to provide the application for other platforms, such as iOS, Android
+or web.
+
+![.NET Core 2.1 Incremental Build-time performance improvements](matching-game-ui.jpg)
 
 You can either watch Scott Hunter and me doing the conversion in this video, or
 you can follow the step-by-step instructions below. Of course, I won't be
@@ -225,7 +228,7 @@ reading.
    "bottom-up" starting with the project that has no dependencies on other
    projects.
 
-   In my example I also have a WinForms project `MemoryGame.exe`, so now I will
+   In my example I also have a WinForms project `MatchingGame.exe`, so now I will
    perform similar steps to migrate that to .NET Core.
 
 ## Porting UI
