@@ -76,47 +76,24 @@ collect CPU trace of an ASP.NET application running in a Linux container.
 
 ## Building Container Images
 
-1. Build the base image. This image will be used to build both the application
-   and the sidecar containers. The following `Dockerfile.base` example uses an
-   ASP.NET Web API project that is created by the command `dotnet new webapi -o
-   webapi`. In the builder stage, `dotnet restore` is executed twice, the first
-   time with `-r linux-x64` argument to download `crossgen` nuget.org.
+1. Build the application image.
 
-   [Dockerfile.base](./webapi/Dockerfile.base)
+   The following `Dockerfile.app` example uses an
+   ASP.NET Web API project that is created by the command `dotnet new webapi -o
+   webapi`.
+
+   [Dockerfile.app](./webapi/Dockerfile.app)
 
 ```Dockerfile
 FROM microsoft/dotnet:2.2-sdk AS builder
 WORKDIR /build
 COPY . .
-# Publish with `-r linux-x64` so that the runtime package that contains crossgen is downloaded
-RUN dotnet publish -c release -r linux-x64 -o /publish-temporary
-RUN cp `find ~/.nuget/packages/runtime.linux-x64.microsoft.netcore.app/ -name crossgen` /publish-temporary
 
-# Publish without `-r linux-x64` so shared framework from the runtime container is used
 RUN dotnet publish -c release -o /publish-output
 
 FROM microsoft/dotnet:2.2-aspnetcore-runtime
 WORKDIR /app
 COPY --from=builder /publish-output .
-
-# crossgen is needed by the perfcollect script
-COPY --from=builder /publish-temporary/crossgen .
-```
-
-1. Run the following command to build the base image
-
-```shell
-docker build . -f Dockerfile.base -t application-base
-```
-
-1. Build the application container image. The content of Dockerfile for the
-   application is listed below.
-
-   [Dockerfile.app](./webapi/Dockerfile.app)
-
-```Dockerfile
-FROM application-base
-WORKDIR /app
 
 # COMPlus_PerfMapEnabled is set in order to resolve symbols for .NET code.
 ENV COMPlus_PerfMapEnabled=1
@@ -134,29 +111,69 @@ ENTRYPOINT ["dotnet", "webapi.dll"]
    through `docker -e` options or setting them in the application startup
    script if there is one.
 
-   If there are problems resolving .NET symbols, you can also use two additional settings to disable JIT.
-   resolving .NET symbols. Note that this might affect the application start-up
-   performance.
+   If there are problems resolving .NET symbols, you can also use two additional
+   settings. Note that this might affect the application start-up performance.
 
 ```
 COMPlus_ZapDisable=1
 COMPlus_ReadyToRun=0
 ```
 
-1. Run the following command to build the application container image:
+   Setting `COMPlus_ZapDisabl=1` tells the .NET Core runtime to not use the
+   precompiled framework code. All the code with be Just-in-Time compiled thus
+   `crossgen` is no longer needed, which means the steps to run `dotnet restore`
+   and copy `crossgen` in the sidecar container Dockerfile at step 3 can be
+   removed. For more details, check out the relevant section at
+   [Performance Tracing on Linux](https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md#resolving-framework-symbols).
+
+2. Run the following command to build the application container image:
 
 ```shell
 docker build . -f Dockerfile.app -t application_tag
 ```
 
-1. Create the sidecar container image. Derive from the base image so this
-   sidecar container has the same installation paths for .NET Core. Add the
-   tools that are required for profiling or debugging.
+3. Create the sidecar container image. Note that the first several Dockerfile
+   steps must match those in the application container's Dockerfile. This is to
+   ensure that sidecar container has the exact same files and installation paths
+   for .NET Core and the application.
+
+   A `dotnet restore` step is used to download matching version of `crossgen`
+   from nuget.org. This step is just a convenient way to download matching
+   `crossgen`. It does adds time to the docker build process. If this becomes a
+   concern, there are other ways to add `crossgen` too, for example, copying a
+   pre-downloaded version from a cached location. However, we must ensure that
+   the cached `crossgen` is from the same version of the .NET Core runtime
+   because `crossgen` doesn't always work properly across versions. In the
+   future, the .NET team might make improvements in this area to make the
+   experience better, for example, shipping a stable `crossgen` tool that works
+   across different versions.
+
+   After that add `perfcollect` and other tools that are required for profiling
+   or debugging.
 
    [Dockerfile.sidecar](./webapi/Dockerfile.sidecar)
 
 ```Dockerfile
-FROM application-base
+FROM microsoft/dotnet:2.2-sdk AS builder
+WORKDIR /build
+COPY . .
+
+RUN dotnet publish -c release -o /publish-output
+
+# Restore with `-r linux-x64` so that the runtime package that contains crossgen is downloaded
+RUN dotnet restore -r linux-x64
+RUN mkdir /temporary
+RUN cp `find ~/.nuget/packages -name crossgen` /temporary
+
+FROM microsoft/dotnet:2.2-aspnetcore-runtime
+WORKDIR /app
+COPY --from=builder /publish-output .
+
+# crossgen is needed by the perfcollect script
+COPY --from=builder /temporary/crossgen .
+
+# perfcollect expects to find crossgen along side libcoreclr.so
+RUN cp crossgen $(dirname `find /usr/share/dotnet/ -name libcoreclr.so`)
 
 # add whatever tools you want here
 RUN apt-get update \
@@ -181,9 +198,6 @@ RUN mkdir /tools \
     && curl -OL http://aka.ms/perfcollect \
     && chmod a+x perfcollect
 
-# perfcollect expects to find crossgen along side libcoreclr.so
-RUN cp crossgen $(dirname `find /usr/share/dotnet/ -name libcoreclr.so`)
-
 WORKDIR /tools
 ```
 
@@ -200,7 +214,7 @@ WORKDIR /tools
    The `perfcollect` script is downloaded and saved to `/tools` directory. Other
    tools can be installed as needed for diagnosing and debugging purposes.
 
-1. Build the sidecar image by running the following command
+4. Build the sidecar image by running the following command
 
 ```shell
 docker build . -f Dockerfile.sidecar -t sidecar_tag
@@ -208,7 +222,7 @@ docker build . -f Dockerfile.sidecar -t sidecar_tag
 
 ## Running Docker Containers
 
-1. The Linux `perf` tool needs to access the `perf*.map` files that are
+5. The Linux `perf` tool needs to access the `perf*.map` files that are
    generated by the .NET Core application. By default, containers are isolated
    thus the `*.map` files generated inside the application container are not
    visible to `perf` tool running inside of the sidecar container. We need to make
@@ -228,11 +242,11 @@ docker run -it -p 80:80 -v /home/core/shared_volume/tmp:/tmp --name application 
 
    Volume mount might not be desirable in some cases. Another option is to run
    the application container without the `-v` options and then use `docker cp`
-   commands to copy the `/tmp/perf*.map` files from the application container to
-   the sidecar container’s `/tmp` folder before running the perfcollect tool. If this is the case, see step 9.
-   step 9) if this is the case
+   commands to copy the `/tmp/perf*.map` files from the running application
+   container to the running sidecar container’s `/tmp` folder before starting the
+   perfcollect tool. If this is the case, see step 7.
 
-1. Run the sidecar using the `pid` and `net` namespaces of the application
+6. Run the sidecar using the `pid` and `net` namespaces of the application
    container, and with /tmp mapped to the same host folder for tmp. Give this
    container a name (`sidecar` in this example) since it’s easier to refer to the
    container by using its name.
@@ -253,7 +267,7 @@ docker run -it -p 80:80 -v /home/core/shared_volume/tmp:/tmp --name application 
 docker run -it --pid=container:application --net=container:application -v /home/core/shared_volume/tmp:/tmp --cap-add ALL --privileged --name sidecar sidecar_tag bash
 ```
 
-1. (**Alternative**) if volume mount is not used in the previous two steps, an
+7. (**Alternative**) if volume mount is not used in the previous two steps, an
    alternative is to copy the `*.map` files to sidecar container so that
    `perfcollect` can access them. Find out the file names in the application
    container then copy those files to the sidecar container. The point is that
@@ -288,7 +302,7 @@ docker cp /tmp/perfinfo-1.map sidecar:/tmp/
 
 ## Collection CPU Performance Traces
 
-1. Inside the sidecar container, collect CPU traces for the `dotnet` process (or
+8. Inside the sidecar container, collect CPU traces for the `dotnet` process (or
    your .NET Core application process if it is published as self-contained),
    which usually has PID of 1, but may vary depending on what else you are
    running in the `application` container before running the application.
@@ -320,13 +334,13 @@ root        198  0.0  0.0  34424  2796 pts/0    R+   18:31   0:00 ps -aux
 
    Press `Ctrl + C` to stop collecting.
 
-1. After collection is stopped, view the report using the following command
+9. After collection is stopped, view the report using the following command
 
 ```shell
 /tools/perfcollect view sample.trace.zip
 ```
 
-1. Verify that the trace includes the map files by listing contents in the zip file
+10. Verify that the trace includes the map files by listing contents in the zip file
 
 ```shell
 unzip -l sample.trace.zip
@@ -361,13 +375,13 @@ Running /usr/bin/perf_4.9 script -i perf.data.merged -f comm,pid,tid,cpu,time,ev
  See perf script -l for available scripts.
 ```
 
-1. On the host, retrieve the trace from the sidecar container
+11. On the host, retrieve the trace from the sidecar container
 
 ```shell
 docker cp sidecar:/tools/sample.trace.zip ./
 ```
 
-1. Transfer the trace from the host machine to a Windows machine for further
+12. Transfer the trace from the host machine to a Windows machine for further
    investigation using [PerfView](https://github.com/Microsoft/perfview).
 
    PerfView supports analyzing `perfcollect` traces from Linux. Open
@@ -413,9 +427,9 @@ be automated by container orchestrator or infrastructure.
 ## References and Useful Links
 
 1. [Linux Container Performance Analysis](https://www.usenix.org/conference/lisa17/conference-program/presentation/gregg), talk by Brendan Gregg, inventor of FlameGraph
-2. Examples and hands-on labs for Linux tracing tools workshops by Sasha Goldshtein https://github.com/goldshtn/linux-tracing-workshop
+2. Examples and hands-on labs for Linux tracing tools workshops by Sasha Goldshtein https://github.com/goldshtn/linux-tracing-workshop.
 3. Debugging and Profiling .NET Core Apps on Linux, slides from Sasha Goldshtein https://assets.ctfassets.net/9n3x4rtjlya6/1qV39g0tAEC2OSgok0QsQ6/fbfface3edac8da65fd380cc05a1a028/Sasha-Goldshtein_Debugging-and-profiling-NET-Core-apps-on-Linux.pdf
 4. Debugging Python Containers in Production http://blog.0x74696d.com/posts/debugging-python-containers-in-production/
 5. perfcollect source code https://github.com/dotnet/corefx-tools/blob/master/src/performance/perfcollect/perfcollect
-6. Documentation on Performance Tracing on Linux for .NET Core https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md
+6. Documentation on Performance Tracing on Linux for .NET Core. https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md
 7. PerfView tutorials on Channel9 https://channel9.msdn.com/Series/PerfView-Tutorial
