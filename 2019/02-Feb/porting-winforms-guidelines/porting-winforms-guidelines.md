@@ -18,7 +18,7 @@ Standard 2.0. Using .NET Standard instead of .NET Core allows me to reuse the
 game logic to provide the application for other platforms, such as iOS, Android
 or web.
 
-![.NET Core 2.1 Incremental Build-time performance improvements](matching-game-ui.jpg)
+![Matching Game UI window](matching-game-ui.jpg)
 
 You can either watch Scott Hunter and me doing the conversion in this video, or
 you can follow the step-by-step instructions below. Of course, I won't be
