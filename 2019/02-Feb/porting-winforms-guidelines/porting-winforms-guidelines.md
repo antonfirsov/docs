@@ -113,8 +113,8 @@ UI** section, for using the Designer, check out **Using WinForms Designer for
 
 ### Slow way (guided porting)
 
-If you got errors (like I would with my app), it means there are more
-adjustments you need to make. Instead of the fast way described here, bellow
+If you got errors (like I did with my app), it means there are more
+adjustments you need to make. Instead of the fast way described above, here
 I'll do one change at a time and give possible fixes for each issue. Steps
 bellow would also help to better understand the process of the migration so if
 the fast way worked for you but you're curious to learn all "whys", keep on
@@ -228,8 +228,8 @@ reading.
    "bottom-up" starting with the project that has no dependencies on other
    projects.
 
-   In my example I also have a WinForms project `MatchingGame.exe`, so now I will
-   perform similar steps to migrate that to .NET Core.
+   In my example I also have a WinForms project `MatchingGame.exe`, so now I
+   will perform similar steps to migrate that to .NET Core.
 
 ## Porting UI
 
