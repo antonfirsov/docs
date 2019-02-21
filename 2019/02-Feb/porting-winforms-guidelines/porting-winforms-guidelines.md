@@ -207,9 +207,9 @@ reading.
     are not included in .NET Standard. If you did not get any errors with your
     application, you can skip the next two steps.
 
-1. **Add Compatibility Pack if needed**. Some APIs that are not included in .NET
-   Standard are available in [Compatibility Pack][compat-pack]. If you got
-   errors on the previous step, you can check if the [Compatibility
+1. **Add Windows Compatibility Pack if needed**. Some APIs that are not included
+   in .NET Standard are available in [Windows Compatibility Pack][compat-pack]. If you
+   got errors on the previous step, you can check if [Windows Compatibility
    Pack][compat-pack] can help.
 
    I got an error "The name 'Registry' does not exist in the current context" so
