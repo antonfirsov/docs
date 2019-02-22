@@ -12,11 +12,10 @@ for .NET Core projects.
 For this post, I'll be using a [Memory-style][memory-game] board game
 application. It contains a WinForms UI (`MatchingGame.exe`) and a class library
 with the game logic (`MatchingGame.Logic.dll`), both targeting .NET Framework
-4.5. You can download the sample [here][sample] **ToDo: add link**. I'll be
-porting the application project to .NET Core 3.0 and the class library to .NET
-Standard 2.0. Using .NET Standard instead of .NET Core allows me to reuse the
-game logic to provide the application for other platforms, such as iOS, Android
-or web.
+4.5. You can download the sample [here][sample]. I'll be porting the application
+project to .NET Core 3.0 and the class library to .NET Standard 2.0. Using .NET
+Standard instead of .NET Core allows me to reuse the game logic to provide the
+application for other platforms, such as iOS, Android or web.
 
 ![Matching Game UI window](matching-game-ui.jpg)
 
@@ -24,7 +23,7 @@ You can either watch Scott Hunter and me doing the conversion in this video, or
 you can follow the step-by-step instructions below. Of course, I won't be
 holding it against you, if you were to do both.
 
-**ToDo: link to the video.**
+## **Insert video link here!!!**
 
 ## Step-by-step process
 
@@ -352,4 +351,4 @@ available for .NET Core projects.
 [nuget-org]: https://www.nuget.org/
 [standard]: https://docs.microsoft.com/en-us/dotnet/standard/net-standard
 [nuget-warning]: https://docs.microsoft.com/en-us/nuget/reference/errors-and-warnings/nu1701
-[sample]:https://github.com/
+[sample]:https://github.com/OliaG/matching-game
