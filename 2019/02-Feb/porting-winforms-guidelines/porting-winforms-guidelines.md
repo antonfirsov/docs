@@ -19,9 +19,9 @@ application for other platforms, such as iOS, Android or web.
 
 ![Matching Game UI window](matching-game-ui.jpg)
 
-You can either watch Scott Hunter and me doing the conversion in this video, or
-you can follow the step-by-step instructions below. Of course, I won't be
-holding it against you, if you were to do both.
+You can either watch Scott Hunter and me doing the conversion in the following
+video, or you can follow the step-by-step instructions below. Of course, I won't
+be holding it against you, if you were to do both.
 
 ## **Insert video link here!!!**
 
@@ -31,37 +31,37 @@ holding it against you, if you were to do both.
 >version control, creating a copy of your project so you have a clean state to
 >go back to if necessary.
 
-Before porting the application to .NET Core 3, I need to do some preparation
+Before porting the application to .NET Core 3.0, I need to do some preparation
 first.
 
 ## Preparing to port
 
-1. **Install [.NET Core 3][core-installation]** and Update Visual Studio to 2019
-   Preview version (Visual Studio 2017 will only support up to .NET Core 2.2).
+1. **Install [.NET Core 3][core-installation]** and Visual Studio 2019 Preview
+   version (Visual Studio 2017 only supports up to .NET Core 2.2).
 
 1. **Start from a working solution**. Ensure the solution opens, builds, and
    runs without any issues.
 
-1. **Update NuGet packages**. It is always a good practice to use the latest
+1. **Update NuGet packages**. It's always a good practice to use the latest
    versions of NuGet packages before any migration. If your application is
    referencing any NuGet packages, update them to the latest version. Ensure
    your application builds successfully. In case of any NuGet errors, downgrade
    the version and find the latest one that doesn't break your code.
 
-1. **Run [.NET Portability Analyzer][api-port]** to determine if there are any
-   APIs your application depends on that are missing from .NET Core. In case
-   there are, you need to refactor your code to avoid dependencies on not
-   supported in .NET Core APIs. Sometimes it's possible to find an alternative
-   API that provides the needed functionality.
+1. **Run the [.NET Portability Analyzer][api-port]** to determine if there are
+   any APIs your application depends on that are missing from .NET Core. If
+   there are, you need to refactor your code to avoid dependencies on APIs, not
+   supported in .NET Core. Sometimes it's possible to find an alternative API
+   that provides the needed functionality.
 
 1. **Replace `packages.config` with `PackageReference`**. If your project uses
-   NuGet packages, you will need to add the same NuGet packages to the new .NET
+   NuGet packages, you need to add the same NuGet packages to the new .NET
    Core project. .NET Core projects support only `PackageReference` for adding
    NuGet packages. To move your NuGet references from `packages.config` to your
-   project file, right-click on `packages.config` -> **Migrate packages.config
-   to PackageReference...**.
+   project file, in the solution explorer right-click on `packages.config` ->
+   **Migrate packages.config to PackageReference...**.
 
-   You can learn more about this migration in our [docs][pkg-config].
+   You can learn more about this migration in the [Migrate from packages.config to PackageReference][pkg-config] article.
 
 ## Porting main project
 
@@ -176,7 +176,7 @@ reading.
    the same thing. If you got any errors, double check your steps.
 
    There is also a third-party tool [CsprojToVs2017][sdk-tool] that can perform
-   the conversion for you, but after using it you still might need to delete
+   the conversion for you. But after using it, you still might need to delete
    some reference by hand, such as:
 
    ```xml
@@ -211,7 +211,7 @@ reading.
    got errors on the previous step, you can check if [Windows Compatibility
    Pack][compat-pack] can help.
 
-   I got an error "The name 'Registry' does not exist in the current context" so
+   I got an error "The name 'Registry' does not exist in the current context", so
    I added the **Microsoft.Windows.Compatibility** NuGet package to my project.
    After installation, the error disappeared.
 
@@ -230,7 +230,7 @@ reading.
    In my example I also have a WinForms project `MatchingGame.exe`, so now I
    will perform similar steps to migrate that to .NET Core.
 
-## Porting UI
+## Porting the UI
 
 1. **Add .NET Core UI project**. Add a new .NET Core 3.0 UI project to the
    solution. At this moment, the Visual Studio templates for desktop projects
@@ -280,7 +280,7 @@ reading.
    ```
 
 1. **Align default namespace and assembly name**. Since you're linking to
-   designer generated files (for example, `Resources.Designer.cs`) you generally
+   designer generated files (for example, `Resources.Designer.cs`), you generally
    want to make sure that the .NET Core version of your application uses the
    same namespace and the same assembly name. Copy the following settings from
    your .NET Framework project:
@@ -316,7 +316,7 @@ reading.
 As I mentioned above, the WinForms designer for .NET Core projects is not yet
 available in Visual Studio. However there are two ways to work around it:
 
-1. You can keep your files linked (by just not performing the step above) and
+1. You can keep your files linked (by just not performing the previous step) and
    copy them when the designer support is available. This way, you can modify
    the files in your old .NET Framework WinForms project using the designer. And
    the changes will be automatically reflected in the new .NET Core WinForms
