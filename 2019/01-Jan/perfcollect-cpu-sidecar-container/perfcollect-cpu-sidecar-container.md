@@ -84,22 +84,23 @@ collect CPU trace of an ASP.NET application running in a Linux container.
 
    [Dockerfile.app](./webapi/Dockerfile.app)
 
-```Dockerfile
-FROM microsoft/dotnet:2.2-sdk AS builder
-WORKDIR /build
-COPY . .
+   ```Dockerfile
+   FROM microsoft/dotnet:2.2-sdk AS builder
+   WORKDIR /build
+   COPY . .
 
-RUN dotnet publish -c release -o /publish-output
+   RUN dotnet publish -c release -o /publish-output
 
-FROM microsoft/dotnet:2.2-aspnetcore-runtime
-WORKDIR /app
-COPY --from=builder /publish-output .
+   FROM microsoft/dotnet:2.2-aspnetcore-runtime as runtime
 
-# COMPlus_PerfMapEnabled is set in order to resolve symbols for .NET code.
-ENV COMPlus_PerfMapEnabled=1
+   # COMPlus_PerfMapEnabled is set in order to resolve symbols for .NET code.
+   ENV COMPlus_PerfMapEnabled=1
 
-ENTRYPOINT ["dotnet", "webapi.dll"]
-```
+   WORKDIR /app
+   COPY --from=builder /publish-output .
+
+   ENTRYPOINT ["dotnet", "webapi.dll"]
+   ```
 
    The `COMPlus_PerfMapEnabled` environment variable is required to properly
    resolve symbols for .NET code. When it is set, .NET Core generates symbol
@@ -108,29 +109,14 @@ ENTRYPOINT ["dotnet", "webapi.dll"]
 
    In the previous example, the environment variable is set in the Dockerfile.
    Other options of setting this environment variable include passing them
-   through `docker -e` options or setting them in the application startup
-   script if there is one.
-
-   If there are problems resolving .NET symbols, you can also use two additional
-   settings. Note that this might affect the application start-up performance.
-
-```
-COMPlus_ZapDisable=1
-COMPlus_ReadyToRun=0
-```
-
-   Setting `COMPlus_ZapDisabl=1` tells the .NET Core runtime to not use the
-   precompiled framework code. All the code with be Just-in-Time compiled thus
-   `crossgen` is no longer needed, which means the steps to run `dotnet restore`
-   and copy `crossgen` in the sidecar container Dockerfile at step 3 can be
-   removed. For more details, check out the relevant section at
-   [Performance Tracing on Linux](https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md#resolving-framework-symbols).
+   through `-e` option of `docker run` command, or setting them in the
+   application startup script if there is one.
 
 2. Run the following command to build the application container image:
 
-```shell
-docker build . -f Dockerfile.app -t application_tag
-```
+   ```shell
+   docker build . -f Dockerfile.app -t application
+   ```
 
 3. Create the sidecar container image. Note that the first several Dockerfile
    steps must match those in the application container's Dockerfile. This is to
@@ -153,72 +139,67 @@ docker build . -f Dockerfile.app -t application_tag
 
    [Dockerfile.sidecar](./webapi/Dockerfile.sidecar)
 
-```Dockerfile
-FROM microsoft/dotnet:2.2-sdk AS builder
-WORKDIR /build
-COPY . .
+   ```Dockerfile
+   FROM microsoft/dotnet:2.2-sdk AS builder
+   WORKDIR /build
+   COPY . .
 
-RUN dotnet publish -c release -o /publish-output
+   RUN dotnet publish -c release -o /publish-output
 
-# Restore with `-r linux-x64` so that the runtime package that contains crossgen is downloaded
-RUN dotnet restore -r linux-x64
-RUN mkdir /temporary
-RUN cp `find ~/.nuget/packages -name crossgen` /temporary
+   # Restore with `-r linux-x64` so that the runtime package that contains crossgen is downloaded
+   RUN dotnet restore -r linux-x64
+   RUN cp `find ~/.nuget/packages -name crossgen` /publish-output
 
-FROM microsoft/dotnet:2.2-aspnetcore-runtime
-WORKDIR /app
-COPY --from=builder /publish-output .
+   FROM microsoft/dotnet:2.2-aspnetcore-runtime as sidecar-runtime
 
-# crossgen is needed by the perfcollect script
-COPY --from=builder /temporary/crossgen .
+   # Add whatever tools you want here
+   RUN apt-get update \
+       && apt-get install -y \
+          linux-tools \
+          lttng-tools liblttng-ust-dev \
+          zip \
+          curl \
+          binutils \
+          procps \
+   #      gdb \
+   #      strace \
+   #      tcpdump \
+   #      sysstat \
+   #      emacs-nox \
+   #      vim \
+          htop \
+       && rm -rf /var/lib/apt/lists/*
 
-# perfcollect expects to find crossgen along side libcoreclr.so
-RUN cp crossgen $(dirname `find /usr/share/dotnet/ -name libcoreclr.so`)
+   WORKDIR /tools
 
-# add whatever tools you want here
-RUN apt-get update \
-    && apt-get install -y \
-       linux-tools \
-       lttng-tools liblttng-ust-dev \
-       zip \
-       curl \
-       binutils \
-       procps \
-#      gdb \
-#      strace \
-#      tcpdump \
-#      sysstat \
-#      emacs-nox \
-#      vim \
-       htop \
-    && rm -rf /var/lib/apt/lists/*
+   RUN curl -OL http://aka.ms/perfcollect \
+       && chmod a+x perfcollect
 
-RUN mkdir /tools \
-    && cd /tools \
-    && curl -OL http://aka.ms/perfcollect \
-    && chmod a+x perfcollect
+   WORKDIR /app
+   COPY --from=builder /publish-output .
 
-WORKDIR /tools
-```
+   # perfcollect expects to find crossgen along side libcoreclr.so
+   RUN cp crossgen $(dirname `find /usr/share/dotnet/ -name libcoreclr.so`)
+   ```
 
    In the example, the most important packages are:
 
-   - `linux-tools`
-   - `lttng-tools`
-   - `liblttng-ust-dev`
-   - `zip`
-   - `curl`
-   - `binutils` (for `objcopy`/`objdump` commands)
-   - `procps` (for `ps` command)
+   - `linux-tools`.
+   - `lttng-tools`.
+   - `liblttng-ust-dev`.
+   - `zip`.
+   - `curl`.
+   - `binutils` (for `objcopy`/`objdump` commands).
+   - `procps` (for `ps` command).
 
    The `perfcollect` script is downloaded and saved to `/tools` directory. Other
    tools can be installed as needed for diagnosing and debugging purposes.
 
 4. Build the sidecar image by running the following command
 
-```shell
-docker build . -f Dockerfile.sidecar -t sidecar_tag
-```
+   ```shell
+   docker build . -f Dockerfile.sidecar -t sidecar
+   ```
 
 ## Running Docker Containers
 
@@ -236,9 +217,9 @@ docker build . -f Dockerfile.sidecar -t sidecar_tag
    Run the application container with a name (`application` in this example); map
    the `/tmp` folder to an existing host directory `/home/core/shared_volume/tmp`.
 
-```shell
-docker run -it -p 80:80 -v /home/core/shared_volume/tmp:/tmp --name application application_tag
-```
+   ```shell
+   docker run -p 80:80 -v /home/core/shared_volume/tmp:/tmp --name application application
+   ```
 
    Volume mount might not be desirable in some cases. Another option is to run
    the application container without the `-v` options and then use `docker cp`
@@ -263,9 +244,9 @@ docker run -it -p 80:80 -v /home/core/shared_volume/tmp:/tmp --name application 
    The `--cap-add ALL --privileged` switches grant the sidecar container
    permissions to collect performance traces.
 
-```shell
-docker run -it --pid=container:application --net=container:application -v /home/core/shared_volume/tmp:/tmp --cap-add ALL --privileged --name sidecar sidecar_tag bash
-```
+   ```shell
+   docker run -it --pid=container:application --net=container:application -v /home/core/shared_volume/tmp:/tmp --cap-add ALL --privileged --name sidecar sidecar bash
+   ```
 
 7. (**Alternative**) if volume mount is not used in the previous two steps, an
    alternative is to copy the `*.map` files to sidecar container so that
@@ -275,30 +256,30 @@ docker run -it --pid=container:application --net=container:application -v /home/
 
    On the host, run the following commands
 
-```sh
-docker exec application /bin/ls -al /tmp/*.map
-```
+   ```shell
+   docker exec application /bin/ls -al /tmp/*.map
+   ```
 
    You should see output similar to
 
-```
--rw-r--r--. 1 root root 1215081 May 19 08:56 tmp/perf-1.map
--rw-r--r--. 1 root root   23828 May 18 17:21 tmp/perfinfo-1.map
-```
+   ```
+   -rw-r--r--. 1 root root 1215081 May 19 08:56 tmp/perf-1.map
+   -rw-r--r--. 1 root root   23828 May 18 17:21 tmp/perfinfo-1.map
+   ```
 
    Copy the files from the `application` container to the host
 
-```shell
-docker cp application:/tmp/perf-1.map /tmp/
-docker cp application:/tmp/perfinfo-1.map /tmp/
-```
+   ```shell
+   docker cp application:/tmp/perf-1.map /tmp/
+   docker cp application:/tmp/perfinfo-1.map /tmp/
+   ```
 
    Then copy the files from the host to the `sidecar` container's `/tmp` directory
 
-```shell
-docker cp /tmp/perf-1.map sidecar:/tmp/
-docker cp /tmp/perfinfo-1.map sidecar:/tmp/
-```
+   ```shell
+   docker cp /tmp/perf-1.map sidecar:/tmp/
+   docker cp /tmp/perfinfo-1.map sidecar:/tmp/
+   ```
 
 ## Collection CPU Performance Traces
 
@@ -308,25 +289,25 @@ docker cp /tmp/perfinfo-1.map sidecar:/tmp/
    running in the `application` container before running the application.
 
 
-```shell
-ps -aux
-```
+   ```shell
+   ps -aux
+   ```
 
    Output should be similar to the following
 
-```
-USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-root          1  1.1  0.5 7511164 82576 pts/0   SLsl+ 18:25   0:03 dotnet webapi.dll
-root        104  0.0  0.0  18304  3332 pts/0    Ss   18:28   0:00 bash
-root        198  0.0  0.0  34424  2796 pts/0    R+   18:31   0:00 ps -aux
-```
+   ```
+   USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+   root          1  1.1  0.5 7511164 82576 pts/0   SLsl+ 18:25   0:03 dotnet webapi.dll
+   root        104  0.0  0.0  18304  3332 pts/0    Ss   18:28   0:00 bash
+   root        198  0.0  0.0  34424  2796 pts/0    R+   18:31   0:00 ps -aux
+   ```
 
    In this example, the `dotnet` process has PID of 1 so when running the
    `perfcollect` script, pass the PID of the 1 to the `-pid` option.
 
-```shell
-/tools/perfcollect collect sample -nolttng -pid 1
-```
+   ```shell
+   /tools/perfcollect collect sample -nolttng -pid 1
+   ```
 
    By using the `-pid 1` option, `perfcollect` only captures performance data for
    the `dotnet` process. Remove it to collect performance data for the whole
@@ -336,50 +317,51 @@ root        198  0.0  0.0  34424  2796 pts/0    R+   18:31   0:00 ps -aux
 
 9. After collection is stopped, view the report using the following command
 
-```shell
-/tools/perfcollect view sample.trace.zip
-```
+   ```shell
+   /tools/perfcollect view sample.trace.zip
+   ```
 
 10. Verify that the trace includes the map files by listing contents in the zip file
 
-```shell
-unzip -l sample.trace.zip
-```
+   ```shell
+   unzip -l sample.trace.zip
+   ```
 
    You should see `perf-1.map` and `perfinfo-1.map` in the zip, along with other `*.maps` files.
 
    If anything went wrong during the collection, check out `perfcollect.log` file inside the zip for more details.
 
 
+
 ```shell
-unzip sample.trace.zip sample.trace/perfcollect.log
-tail -100 sample.trace/perfcollect.log
-```
+   unzip sample.trace.zip sample.trace/perfcollect.log
+   tail -100 sample.trace/perfcollect.log
+   ```
 
    Messages like the following near the end of the log file indicate that you hit
    [a known issue](https://github.com/dotnet/corefx-tools/issues/84),
    please check out the [Potential Issues](#potential-issues)
    section for a workaround
 
-```
-Running /usr/bin/perf_4.9 script -i perf.data.merged -F comm,pid,tid,cpu,time,period,event,ip,sym,dso,trace > perf.data.txt
-'trace' not valid for hardware events. Ignoring.
-'trace' not valid for software events. Ignoring.
-'trace' not valid for unknown events. Ignoring.
-'trace' not valid for unknown events. Ignoring.
-Samples for 'cpu-clock' event do not have CPU attribute set. Cannot print 'cpu' field.
+   ```
+   Running /usr/bin/perf_4.9 script -i perf.data.merged -F comm,pid,tid,cpu,time,period,event,ip,sym,dso,trace > perf.data.txt
+   'trace' not valid for hardware events. Ignoring.
+   'trace' not valid for software events. Ignoring.
+   'trace' not valid for unknown events. Ignoring.
+   'trace' not valid for unknown events. Ignoring.
+   Samples for 'cpu-clock' event do not have CPU attribute set. Cannot print 'cpu' field.
 
-Running /usr/bin/perf_4.9 script -i perf.data.merged -f comm,pid,tid,cpu,time,event,ip,sym,dso,trace > perf.data.txt
-  Error: Couldn't find script `comm,pid,tid,cpu,time,event,ip,sym,dso,trace'
+   Running /usr/bin/perf_4.9 script -i perf.data.merged -f comm,pid,tid,cpu,time,event,ip,sym,dso,trace > perf.data.txt
+     Error: Couldn't find script `comm,pid,tid,cpu,time,event,ip,sym,dso,trace'
 
- See perf script -l for available scripts.
-```
+    See perf script -l for available scripts.
+   ```
 
 11. On the host, retrieve the trace from the sidecar container
 
-```shell
-docker cp sidecar:/tools/sample.trace.zip ./
-```
+   ```shell
+   docker cp sidecar:/tools/sample.trace.zip ./
+   ```
 
 12. Transfer the trace from the host machine to a Windows machine for further
    investigation using [PerfView](https://github.com/Microsoft/perfview).
@@ -403,19 +385,34 @@ a. In some configurations, the collected `cpu-clock` events don't have the `cpu`
    Open `perfcollect` in an editor, find the line that contains "`-F`" (capital F),
    then remove "`cpu`" from the `$perfcmd` line so it becomes
 
-```diff
--LogAppend "Running $perfcmd script -i $mergedFile -F comm,pid,tid,cpu,time,period,event,ip,sym,dso,trace > $outputDumpFile"
--$perfcmd script -i $mergedFile -F comm,pid,tid,cpu,time,period,event,ip,sym,dso,trace > $outputDumpFile 2>>$logFile
--LogAppend
-+LogAppend "Running $perfcmd script -i $mergedFile -F comm,pid,tid,time,period,event,ip,sym,dso,trace > $outputDumpFile"
-+$perfcmd script -i $mergedFile -F comm,pid,tid,time,period,event,ip,sym,dso,trace > $outputDumpFile 2>>$logFile
-+LogAppend
-```
+   ```diff
+   -LogAppend "Running $perfcmd script -i $mergedFile -F comm,pid,tid,cpu,time,period,event,ip,sym,dso,trace > $outputDumpFile"
+   -$perfcmd script -i $mergedFile -F comm,pid,tid,cpu,time,period,event,ip,sym,dso,trace > $outputDumpFile 2>>$logFile
+   -LogAppend
+   +LogAppend "Running $perfcmd script -i $mergedFile -F comm,pid,tid,time,period,event,ip,sym,dso,trace > $outputDumpFile"
+   +$perfcmd script -i $mergedFile -F comm,pid,tid,time,period,event,ip,sym,dso,trace > $outputDumpFile 2>>$logFile
+   +LogAppend
+   ```
 
    After applying the workaround and collecting the traces, be aware of
    [a known PerfView issue](https://github.com/Microsoft/perfview/issues/806)
    when viewing the traces whose cpu field is missing.
    This issue has been fixed already and will be available in the future releases of PerfView.
+
+b.    If there are problems resolving .NET symbols, you can also use two additional
+   settings. Note that this might affect the application start-up performance.
+
+   ```
+   COMPlus_ZapDisable=1
+   COMPlus_ReadyToRun=0
+   ```
+
+   Setting `COMPlus_ZapDisabl=1` tells the .NET Core runtime to not use the
+   precompiled framework code. All the code will be Just-in-Time compiled thus
+   `crossgen` is no longer needed, which means the steps to run `dotnet restore`
+   and copy `crossgen` in the sidecar container Dockerfile at step 3 can be
+   removed. For more details, check out the relevant section at
+   [Performance Tracing on Linux](https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md#resolving-framework-symbols).
 
 ## Conclusion
 
