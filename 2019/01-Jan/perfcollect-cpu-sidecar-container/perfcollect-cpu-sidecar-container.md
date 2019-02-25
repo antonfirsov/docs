@@ -78,9 +78,9 @@ collect CPU trace of an ASP.NET application running in a Linux container.
 
 ## Building Container Images
 
-1. We will use [a single Dockerfile](./webapi/Dockerfile) and the multi-stage
-   builds feature introduced in Docker 17.05 to build the application and
-   sidecar containers.
+1. We use [a single Dockerfile](./webapi/Dockerfile) and the multi-stage builds
+   feature introduced in Docker 17.05 to build the application and sidecar
+   container images.
 
    > ```Dockerfile
    > FROM microsoft/dotnet:2.2-sdk AS builder
@@ -162,7 +162,7 @@ collect CPU trace of an ASP.NET application running in a Linux container.
 3. Build the sidecar image with the following command
 
    > ```shell
-   > user@host ~/project/webapi $ docker build . --target sidecar -f Dockerfile.sidecar -t sidecar
+   > user@host ~/project/webapi $ docker build . --target sidecar -f Dockerfile -t sidecar
    > ```
 
 ## Running Docker Containers
@@ -178,16 +178,12 @@ collect CPU trace of an ASP.NET application running in a Linux container.
    In this example, a shared docker volume is mapped to the `/tmp` directory of
    both the application container and the sidecar container. Since both of their
    `/tmp` directories are backed by the same volume, the sidecar container can
-   access files written by the application container.
+   access files written into the `tmp` directory by the application container.
 
-   Run the following docker command to create a volume.
-
-   > ```shell
-   > user@host ~/project/webapi $ docker volume create shared-tmp
-   > ```
-
-5. Run the application container with a name (`application` in this example). Map
-   the `/tmp` folder to shared volume.
+   Run the application container with a name (`application` in this example)
+   since it’s easier to refer to the container using its name. Map the `/tmp`
+   folder to a volume named `shared-tmp`. Docker will create the volume if it
+   does not exist yet.
 
    > ```shell
    > user@host ~/project/webapi $ docker run -p 80:80 -v shared-tmp:/tmp --name application application
@@ -199,10 +195,9 @@ collect CPU trace of an ASP.NET application running in a Linux container.
    container to the running sidecar container’s `/tmp` folder before starting the
    perfcollect tool.
 
-6. Run the sidecar using the `pid` and `net` namespaces of the application
+5. Run the sidecar using the `pid` and `net` namespaces of the application
    container, and with `/tmp` mapped to the same host folder for tmp. Give this
-   container a name (`sidecar` in this example) since it’s easier to refer to
-   the container using its name.
+   container a name (`sidecar` in this example).
 
    Linux namespaces isolate containers and make resources they are using
    invisible to other containers by default, however we can make docker
@@ -222,7 +217,7 @@ collect CPU trace of an ASP.NET application running in a Linux container.
 
 ## Collection CPU Performance Traces
 
-7. Inside the sidecar container, collect CPU traces for the `dotnet` process (or
+6. Inside the sidecar container, collect CPU traces for the `dotnet` process (or
    your .NET Core application process if it is published as self-contained),
    which usually has PID of 1, but may vary depending on what else you are
    running in the `application` container before running the application.
@@ -252,15 +247,23 @@ collect CPU trace of an ASP.NET application running in a Linux container.
    the `dotnet` process. Remove the option to collect performance data for the
    whole system.
 
-   Press `Ctrl+C` to stop collecting.
+   Now generate some requests to the webapi service so that it is consuming CPU.
+   This can be done manually using `curl`, or with load testing tool like Apache
+   Benchmarking from another machine.
 
-8. After collection is stopped, view the report using the following command
+   > ```shell
+   > user@another-host ~/test $ ab -n 200 -c 10 http://10.1.0.4/api/values
+   > ```
+
+   Press `Ctrl+C` to stop collecting after the service has processed some requests.
+
+7. After collection is stopped, view the report using the following command
 
    > ```shell
    > root@7eb78f190ed7:/tools# ./perfcollect view sample.trace.zip
    > ```
 
-9. Verify that the trace includes the map files by listing contents in the zip file
+8. Verify that the trace includes the map files by listing contents in the zip file
 
    > ```shell
    > root@7eb78f190ed7:/tools# unzip -l sample.trace.zip
@@ -279,27 +282,27 @@ collect CPU trace of an ASP.NET application running in a Linux container.
    hit [a known issue](https://github.com/dotnet/corefx-tools/issues/84). Please
    check out the [Potential Issues](#potential-issues) section for a workaround.
 
+   > ```
+   > Running /usr/bin/perf_4.9 script -i perf.data.merged -F comm,pid,tid,cpu,time,period,event,ip,sym,dso,trace > perf.data.txt
+   > 'trace' not valid for hardware events. Ignoring.
+   > 'trace' not valid for software events. Ignoring.
+   > 'trace' not valid for unknown events. Ignoring.
+   > 'trace' not valid for unknown events. Ignoring.
+   > Samples for 'cpu-clock' event do not have CPU attribute set. Cannot print 'cpu' field.
+   >
+   > Running /usr/bin/perf_4.9 script -i perf.data.merged -f comm,pid,tid,cpu,time,event,ip,sym,dso,trace > perf.data.txt
+   >   Error: Couldn't find script `comm,pid,tid,cpu,time,event,ip,sym,dso,trace'
+   >
+   >  See perf script -l for available scripts.
    ```
-   Running /usr/bin/perf_4.9 script -i perf.data.merged -F comm,pid,tid,cpu,time,period,event,ip,sym,dso,trace > perf.data.txt
-   'trace' not valid for hardware events. Ignoring.
-   'trace' not valid for software events. Ignoring.
-   'trace' not valid for unknown events. Ignoring.
-   'trace' not valid for unknown events. Ignoring.
-   Samples for 'cpu-clock' event do not have CPU attribute set. Cannot print 'cpu' field.
 
-   Running /usr/bin/perf_4.9 script -i perf.data.merged -f comm,pid,tid,cpu,time,event,ip,sym,dso,trace > perf.data.txt
-     Error: Couldn't find script `comm,pid,tid,cpu,time,event,ip,sym,dso,trace'
-
-    See perf script -l for available scripts.
-   ```
-
-10. On the host, retrieve the trace from the running sidecar container
+9. On the host, retrieve the trace from the running sidecar container
 
    > ```shell
    > user@host ~/project/webapi $ docker cp sidecar:/tools/sample.trace.zip ./
    > ```
 
-11. Transfer the trace from the host machine to a Windows machine for further
+10. Transfer the trace from the host machine to a Windows machine for further
    investigation using [PerfView](https://github.com/Microsoft/perfview).
 
    PerfView supports analyzing `perfcollect` traces from Linux. Open
