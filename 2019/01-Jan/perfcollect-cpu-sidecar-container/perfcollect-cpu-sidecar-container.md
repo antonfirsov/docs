@@ -14,11 +14,13 @@ blog posts for more information:
 When there’s a performance problem, analyzing the problem often requires
 detailed information about what was happening at the time.
 [Perfcollect](https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md)
-is the recommended tool for gathering .NET Core performance data on Linux.
-The .NET Team introduced `EventPipe` feature in .NET Core 2.0 and has been
+is the recommended tool for gathering .NET Core performance data on Linux. The
+.NET Team introduced `EventPipe` feature in .NET Core 2.0 and has been
 continuously improving the usability of the feature for the end users. The goal
 of `EventPipe` is to make it very easy to profile .NET Core applications.
+
 However, currently `EventPipe` has limitations:
+
 - Only the managed parts of call stacks are collected. If a performance issue is
   in native code, or in the .NET Core runtime it can only trace it to the
   boundary.
@@ -76,52 +78,55 @@ collect CPU trace of an ASP.NET application running in a Linux container.
 
 ## Building Container Images
 
-1. Build the application image.
+1. We will use [a single Dockerfile](./webapi/Dockerfile) and the multi-stage
+   builds feature introduced in Docker 17.05 to build the application and
+   sidecar containers.
 
-   The following `Dockerfile.app` example uses an
-   ASP.NET Web API project that is created by the command `dotnet new webapi -o
-   webapi`.
-
-   [Dockerfile.app](./webapi/Dockerfile.app)
-
-   ```Dockerfile
-   FROM microsoft/dotnet:2.2-sdk AS builder
-   WORKDIR /build
-   COPY . .
-
-   RUN dotnet publish -c release -o /publish-output
-
-   FROM microsoft/dotnet:2.2-aspnetcore-runtime as runtime
-
-   # COMPlus_PerfMapEnabled is set in order to resolve symbols for .NET code.
-   ENV COMPlus_PerfMapEnabled=1
-
-   WORKDIR /app
-   COPY --from=builder /publish-output .
-
-   ENTRYPOINT ["dotnet", "webapi.dll"]
-   ```
-
-   The `COMPlus_PerfMapEnabled` environment variable is required to properly
-   resolve symbols for .NET code. When it is set, .NET Core generates symbol
-   mapping files (`perf*.info`) under the `/tmp` directory, which is then used by
-   `perfcollect` to associate symbols with call stacks.
-
-   In the previous example, the environment variable is set in the Dockerfile.
-   Other options of setting this environment variable include passing them
-   through `-e` option of `docker run` command, or setting them in the
-   application startup script if there is one.
-
-2. Run the following command to build the application container image:
-
-   ```shell
-   docker build . -f Dockerfile.app -t application
-   ```
-
-3. Create the sidecar container image. Note that the first several Dockerfile
-   steps must match those in the application container's Dockerfile. This is to
-   ensure that sidecar container has the exact same files and installation paths
-   for .NET Core and the application.
+   > ```Dockerfile
+   > FROM microsoft/dotnet:2.2-sdk AS builder
+   > WORKDIR /build
+   > COPY . .
+   >
+   > RUN dotnet publish -c release -o /publish-output
+   >
+   > # Restore with `-r linux-x64` so that the runtime package that contains crossgen is downloaded
+   > RUN dotnet restore -r linux-x64
+   > RUN cp `find ~/.nuget/packages -name crossgen` /publish-output
+   >
+   > FROM microsoft/dotnet:2.2-aspnetcore-runtime as application
+   >
+   > # COMPlus_PerfMapEnabled is set in order to resolve symbols for .NET code.
+   > ENV COMPlus_PerfMapEnabled=1
+   >
+   > WORKDIR /app
+   > COPY --from=builder /publish-output .
+   >
+   > ENTRYPOINT ["dotnet", "webapi.dll"]
+   >
+   > FROM application as sidecar
+   > # Add whatever tools you want here
+   > RUN apt-get update \
+   >     && apt-get install -y \
+   >        binutils \
+   >        curl \
+   >        htop \
+   >        procps \
+   >        linux-tools \
+   >        lttng-tools \
+   >        liblttng-ust-dev \
+   >        zip \
+   >     && rm -rf /var/lib/apt/lists/*
+   >
+   > WORKDIR /tools
+   >
+   > RUN curl -OL http://aka.ms/perfcollect \
+   >     && chmod a+x perfcollect
+   >
+   > # perfcollect expects to find crossgen along side libcoreclr.so
+   > RUN cp /app/crossgen $(dirname `find /usr/share/dotnet/ -name libcoreclr.so`)
+   >
+   > ENTRYPOINT ["/bin/bash"]
+   > ```
 
    A `dotnet restore` step is used to download matching version of `crossgen`
    from nuget.org. This step is just a convenient way to download matching
@@ -134,103 +139,70 @@ collect CPU trace of an ASP.NET application running in a Linux container.
    experience better, for example, shipping a stable `crossgen` tool that works
    across different versions.
 
-   After that add `perfcollect` and other tools that are required for profiling
-   or debugging.
-
-   [Dockerfile.sidecar](./webapi/Dockerfile.sidecar)
-
-   ```Dockerfile
-   FROM microsoft/dotnet:2.2-sdk AS builder
-   WORKDIR /build
-   COPY . .
-
-   RUN dotnet publish -c release -o /publish-output
-
-   # Restore with `-r linux-x64` so that the runtime package that contains crossgen is downloaded
-   RUN dotnet restore -r linux-x64
-   RUN cp `find ~/.nuget/packages -name crossgen` /publish-output
-
-   FROM microsoft/dotnet:2.2-aspnetcore-runtime as sidecar-runtime
-
-   # Add whatever tools you want here
-   RUN apt-get update \
-       && apt-get install -y \
-          linux-tools \
-          lttng-tools liblttng-ust-dev \
-          zip \
-          curl \
-          binutils \
-          procps \
-   #      gdb \
-   #      strace \
-   #      tcpdump \
-   #      sysstat \
-   #      emacs-nox \
-   #      vim \
-          htop \
-       && rm -rf /var/lib/apt/lists/*
-
-   WORKDIR /tools
-
-   RUN curl -OL http://aka.ms/perfcollect \
-       && chmod a+x perfcollect
-
-   WORKDIR /app
-   COPY --from=builder /publish-output .
-
-   # perfcollect expects to find crossgen along side libcoreclr.so
-   RUN cp crossgen $(dirname `find /usr/share/dotnet/ -name libcoreclr.so`)
-   ```
-
    In the example, the most important packages are:
 
-   - `linux-tools`.
-   - `lttng-tools`.
-   - `liblttng-ust-dev`.
-   - `zip`.
-   - `curl`.
-   - `binutils` (for `objcopy`/`objdump` commands).
+   - `linux-tools`,
+   - `lttng-tools`,
+   - `liblttng-ust-dev`,
+   - `zip`,
+   - `curl`,
+   - `binutils` (for `objcopy`/`objdump` commands),
    - `procps` (for `ps` command).
 
    The `perfcollect` script is downloaded and saved to `/tools` directory. Other
-   tools can be installed as needed for diagnosing and debugging purposes.
+   tools (`gdb`/`vim`/`emacs-nox`/etc.) can be installed as needed for
+   diagnosing and debugging purposes.
 
-4. Build the sidecar image by running the following command
+2. Build the application image with the following command:
 
-   ```shell
-   docker build . -f Dockerfile.sidecar -t sidecar
-   ```
+   > ```shell
+   > user@host ~/project/webapi $ docker build . --target application -f Dockerfile -t application
+   > ```
+
+3. Build the sidecar image with the following command
+
+   > ```shell
+   > user@host ~/project/webapi $ docker build . --target sidecar -f Dockerfile.sidecar -t sidecar
+   > ```
 
 ## Running Docker Containers
 
-5. The Linux `perf` tool needs to access the `perf*.map` files that are
+4. Use a shared docker volume for `/tmp`
+
+   The Linux `perf` tool needs to access the `perf*.map` files that are
    generated by the .NET Core application. By default, containers are isolated
    thus the `*.map` files generated inside the application container are not
    visible to `perf` tool running inside of the sidecar container. We need to make
    these `*.map` files available to `perf` tool running inside the sidecar.
 
-   In this example, the docker volume mount is used to map a directory on the host to
-   the `/tmp` directory of both the application container and the sidecar container.
-   Since both of their `/tmp` directories are backed by the same volume, the sidecar
-   container can access files written by the application container.
+   In this example, a shared docker volume is mapped to the `/tmp` directory of
+   both the application container and the sidecar container. Since both of their
+   `/tmp` directories are backed by the same volume, the sidecar container can
+   access files written by the application container.
 
-   Run the application container with a name (`application` in this example); map
-   the `/tmp` folder to an existing host directory `/home/core/shared_volume/tmp`.
+   Run the following docker command to create a volume.
 
-   ```shell
-   docker run -p 80:80 -v /home/core/shared_volume/tmp:/tmp --name application application
-   ```
+   > ```shell
+   > user@host ~/project/webapi $ docker volume create shared-tmp
+   > ```
+
+5. Run the application container with a name (`application` in this example). Map
+   the `/tmp` folder to shared volume.
+
+   > ```shell
+   > user@host ~/project/webapi $ docker run -p 80:80 -v shared-tmp:/tmp --name application application
+   > ```
 
    Volume mount might not be desirable in some cases. Another option is to run
    the application container without the `-v` options and then use `docker cp`
    commands to copy the `/tmp/perf*.map` files from the running application
    container to the running sidecar container’s `/tmp` folder before starting the
-   perfcollect tool. If this is the case, see step 7.
+   perfcollect tool.
 
 6. Run the sidecar using the `pid` and `net` namespaces of the application
-   container, and with /tmp mapped to the same host folder for tmp. Give this
-   container a name (`sidecar` in this example) since it’s easier to refer to the
-   container by using its name.
+   container, and with `/tmp` mapped to the same host folder for tmp. Give this
+   container a name (`sidecar` in this example) since it’s easier to refer to
+   the container using its name.
 
    Linux namespaces isolate containers and make resources they are using
    invisible to other containers by default, however we can make docker
@@ -244,104 +216,68 @@ collect CPU trace of an ASP.NET application running in a Linux container.
    The `--cap-add ALL --privileged` switches grant the sidecar container
    permissions to collect performance traces.
 
-   ```shell
-   docker run -it --pid=container:application --net=container:application -v /home/core/shared_volume/tmp:/tmp --cap-add ALL --privileged --name sidecar sidecar bash
-   ```
-
-7. (**Alternative**) if volume mount is not used in the previous two steps, an
-   alternative is to copy the `*.map` files to sidecar container so that
-   `perfcollect` can access them. Find out the file names in the application
-   container then copy those files to the sidecar container. The point is that
-   `perfcollect` expects to find these map files under `/tmp`.
-
-   On the host, run the following commands
-
-   ```shell
-   docker exec application /bin/ls -al /tmp/*.map
-   ```
-
-   You should see output similar to
-
-   ```
-   -rw-r--r--. 1 root root 1215081 May 19 08:56 tmp/perf-1.map
-   -rw-r--r--. 1 root root   23828 May 18 17:21 tmp/perfinfo-1.map
-   ```
-
-   Copy the files from the `application` container to the host
-
-   ```shell
-   docker cp application:/tmp/perf-1.map /tmp/
-   docker cp application:/tmp/perfinfo-1.map /tmp/
-   ```
-
-   Then copy the files from the host to the `sidecar` container's `/tmp` directory
-
-   ```shell
-   docker cp /tmp/perf-1.map sidecar:/tmp/
-   docker cp /tmp/perfinfo-1.map sidecar:/tmp/
-   ```
+   > ```shell
+   > user@host ~/project/webapi $ docker run -it --pid=container:application --net=container:application -v shared-tmp:/tmp --cap-add ALL --privileged --name sidecar sidecar
+   > ```
 
 ## Collection CPU Performance Traces
 
-8. Inside the sidecar container, collect CPU traces for the `dotnet` process (or
+7. Inside the sidecar container, collect CPU traces for the `dotnet` process (or
    your .NET Core application process if it is published as self-contained),
    which usually has PID of 1, but may vary depending on what else you are
    running in the `application` container before running the application.
 
 
-   ```shell
-   ps -aux
-   ```
+   > ```shell
+   > root@7eb78f190ed7:/tools# ps -aux
+   > ```
 
    Output should be similar to the following
 
-   ```
-   USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-   root          1  1.1  0.5 7511164 82576 pts/0   SLsl+ 18:25   0:03 dotnet webapi.dll
-   root        104  0.0  0.0  18304  3332 pts/0    Ss   18:28   0:00 bash
-   root        198  0.0  0.0  34424  2796 pts/0    R+   18:31   0:00 ps -aux
-   ```
+   > ```
+   > USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+   > root          1  1.1  0.5 7511164 82576 pts/0   SLsl+ 18:25   0:03 dotnet webapi.dll
+   > root        104  0.0  0.0  18304  3332 pts/0    Ss   18:28   0:00 bash
+   > root        198  0.0  0.0  34424  2796 pts/0    R+   18:31   0:00 ps -aux
+   > ```
 
    In this example, the `dotnet` process has PID of 1 so when running the
    `perfcollect` script, pass the PID of the 1 to the `-pid` option.
 
-   ```shell
-   /tools/perfcollect collect sample -nolttng -pid 1
-   ```
+   > ```shell
+   > root@7eb78f190ed7:/tools# ./perfcollect collect sample -nolttng -pid 1
+   > ```
 
-   By using the `-pid 1` option, `perfcollect` only captures performance data for
-   the `dotnet` process. Remove it to collect performance data for the whole
-   system.
+   By using the `-pid 1` option `perfcollect` only captures performance data for
+   the `dotnet` process. Remove the option to collect performance data for the
+   whole system.
 
-   Press `Ctrl + C` to stop collecting.
+   Press `Ctrl+C` to stop collecting.
 
-9. After collection is stopped, view the report using the following command
+8. After collection is stopped, view the report using the following command
 
-   ```shell
-   /tools/perfcollect view sample.trace.zip
-   ```
+   > ```shell
+   > root@7eb78f190ed7:/tools# ./perfcollect view sample.trace.zip
+   > ```
 
-10. Verify that the trace includes the map files by listing contents in the zip file
+9. Verify that the trace includes the map files by listing contents in the zip file
 
-   ```shell
-   unzip -l sample.trace.zip
-   ```
+   > ```shell
+   > root@7eb78f190ed7:/tools# unzip -l sample.trace.zip
+   > ```
 
    You should see `perf-1.map` and `perfinfo-1.map` in the zip, along with other `*.maps` files.
 
    If anything went wrong during the collection, check out `perfcollect.log` file inside the zip for more details.
 
+   > ```shell
+   > root@7eb78f190ed7:/tools# unzip sample.trace.zip sample.trace/perfcollect.log
+   > root@7eb78f190ed7:/tools# tail -100 sample.trace/perfcollect.log
+   > ```
 
-
-```shell
-   unzip sample.trace.zip sample.trace/perfcollect.log
-   tail -100 sample.trace/perfcollect.log
-   ```
-
-   Messages like the following near the end of the log file indicate that you hit
-   [a known issue](https://github.com/dotnet/corefx-tools/issues/84),
-   please check out the [Potential Issues](#potential-issues)
-   section for a workaround
+   Messages like the following near the end of the log file indicate that you
+   hit [a known issue](https://github.com/dotnet/corefx-tools/issues/84). Please
+   check out the [Potential Issues](#potential-issues) section for a workaround.
 
    ```
    Running /usr/bin/perf_4.9 script -i perf.data.merged -F comm,pid,tid,cpu,time,period,event,ip,sym,dso,trace > perf.data.txt
@@ -357,13 +293,13 @@ collect CPU trace of an ASP.NET application running in a Linux container.
     See perf script -l for available scripts.
    ```
 
-11. On the host, retrieve the trace from the sidecar container
+10. On the host, retrieve the trace from the running sidecar container
 
-   ```shell
-   docker cp sidecar:/tools/sample.trace.zip ./
-   ```
+   > ```shell
+   > user@host ~/project/webapi $ docker cp sidecar:/tools/sample.trace.zip ./
+   > ```
 
-12. Transfer the trace from the host machine to a Windows machine for further
+11. Transfer the trace from the host machine to a Windows machine for further
    investigation using [PerfView](https://github.com/Microsoft/perfview).
 
    PerfView supports analyzing `perfcollect` traces from Linux. Open
@@ -402,10 +338,10 @@ a. In some configurations, the collected `cpu-clock` events don't have the `cpu`
 b.    If there are problems resolving .NET symbols, you can also use two additional
    settings. Note that this might affect the application start-up performance.
 
-   ```
-   COMPlus_ZapDisable=1
-   COMPlus_ReadyToRun=0
-   ```
+   > ```
+   > COMPlus_ZapDisable=1
+   > COMPlus_ReadyToRun=0
+   > ```
 
    Setting `COMPlus_ZapDisabl=1` tells the .NET Core runtime to not use the
    precompiled framework code. All the code will be Just-in-Time compiled thus
