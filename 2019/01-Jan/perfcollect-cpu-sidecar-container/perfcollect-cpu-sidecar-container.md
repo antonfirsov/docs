@@ -85,13 +85,16 @@ collect CPU trace of an ASP.NET application running in a Linux container.
    > ```Dockerfile
    > FROM microsoft/dotnet:2.2-sdk AS builder
    > WORKDIR /build
-   > COPY . .
    >
-   > RUN dotnet publish -c release -o /publish-output
-   >
-   > # Restore with `-r linux-x64` so that the runtime package that contains crossgen is downloaded
+   > COPY *.csproj .
+   > # Restore with `-r linux-x64` to download the runtime package containing crossgen.
    > RUN dotnet restore -r linux-x64
-   > RUN cp `find ~/.nuget/packages -name crossgen` /publish-output
+   > RUN cp `find ~/.nuget/packages -name crossgen` .
+   > # Restore without `-r` option so that the shared runtime will be used to run the app.
+   > RUN dotnet restore
+   >
+   > COPY . .
+   > RUN dotnet publish -c release -o out
    >
    > FROM microsoft/dotnet:2.2-aspnetcore-runtime as application
    >
@@ -99,7 +102,7 @@ collect CPU trace of an ASP.NET application running in a Linux container.
    > ENV COMPlus_PerfMapEnabled=1
    >
    > WORKDIR /app
-   > COPY --from=builder /publish-output .
+   > COPY --from=builder /build/out /build/crossgen ./
    >
    > ENTRYPOINT ["dotnet", "webapi.dll"]
    >
@@ -111,9 +114,9 @@ collect CPU trace of an ASP.NET application running in a Linux container.
    >        curl \
    >        htop \
    >        procps \
+   >        liblttng-ust-dev \
    >        linux-tools \
    >        lttng-tools \
-   >        liblttng-ust-dev \
    >        zip \
    >     && rm -rf /var/lib/apt/lists/*
    >
