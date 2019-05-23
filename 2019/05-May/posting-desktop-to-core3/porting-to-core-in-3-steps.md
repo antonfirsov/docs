@@ -1,5 +1,5 @@
 
-# Porting a Desktop Application to .NET Core - Simple Case
+# Porting desktop apps to .NET Core
 
 Since I've been working with the community on porting desktop applications from
 .NET Framework to .NET Core, I've noticed that there are two camps of folks:
