@@ -18,7 +18,11 @@ to publish two blog posts, one for each camp:
 If you prefer watching videos instead of reading, here is the video where I do
 everything that is described below.
 
-***[Video](https://microsoft-my.sharepoint.com/personal/oliag_microsoft_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Foliag%5Fmicrosoft%5Fcom%2FDocuments%2FPorting%5Fto%5FCore%2Emov&parent=%2Fpersonal%2Foliag%5Fmicrosoft%5Fcom%2FDocuments&cid=6cc433a3-35d3-4a9c-a966-8bc2d3a4f9d5)***
+```html
+<iframe src="https://channel9.msdn.com/Shows/On-NET/Porting-desktop-apps-to-NET-Core/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
+```
+
+***[Video](https://youtu.be/tp1EOFtnTmA)***
 
 ## Step 0 - Prerequisites
 
