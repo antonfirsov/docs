@@ -2,7 +2,7 @@
 
 Roslyn, the .NET compiler platform, helps you catch bugs even before you run your code. One example is Roslyn’s spellcheck analyzer that is built into Visual Studio. Let’s say you are creating a static method and misspelled the word *static* as *statc*. You will be able to see this spelling error before you run your code because Roslyn can produce warnings in your code as you type even before you’ve finished the line. In other words, you don’t have to build your code to find out that you made a mistake.
 
-![Roslyn Analysis to Fix Spelling Error](\roslyn-blog-pic.png)
+![Roslyn Analysis to Fix Spelling Error](roslyn-blog-pic.png)
 
 Roslyn analyzers can also surface an automatic code fix through the Visual Studio light bulb icon that allows you to fix your code immediately.
 
@@ -15,15 +15,15 @@ To Install Roslyn analyzers as a NuGet package:
 
 2. Install the package in Visual Studio, using either the Package [Manager UI](https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio).
 
-![Installing Roslyn Analyzers as a Nuget Package](\roslyn-nuget-package.png)
+![Installing Roslyn Analyzers as a Nuget Package](roslyn-nuget-package.png)
 
 Once you have Roslyn analyzers installed you can simply customize the analyzer diagnostics from the Solution Explorer. An analyzer node will appear under the References or Dependencies node in the Solution Explorer. If you expand the analyzers, and then expand one of the analyzer assemblies, you can see all the diagnostics in the assembly.
 
-![Roslyn Analyzer References](\roslyn-references.png)
+![Roslyn Analyzer References](roslyn-references.png)
 
 You can view the properties of a diagnostic, including its description and default severity, in the properties window. To view the properties, right-click on the rule and select Properties, or select the rule and then press Alt+Enter.
 
-![Roslyn Analyzer Properties](\roslyn-properties-description.png)
+![Roslyn Analyzer Properties](roslyn-properties-description.png)
 
 The icons next to each diagnostic in Solution Explorer correspond to the icons you see in the rule set when you open it in the editor:
 * the "i" in a circle indicates a severity of Info
@@ -32,15 +32,15 @@ The icons next to each diagnostic in Solution Explorer correspond to the icons y
 * the "i" in a circle on a light-colored background indicates a severity of Hidden
 * the "↓" in a circle indicates that the diagnostic is suppressed
 
-![Roslyn Analyzer Diagnostic Icons](\roslyn-diagnositc-icons.png)
+![Roslyn Analyzer Diagnostic Icons](roslyn-diagnositc-icons.png)
 
 You can then set the rule set severity from the Solution Explorer. In the Solution Explorer, expand Dependencies > Analyzers. Expand the assembly that contains the rule you want to set the severity for. Right-click on the rule and select Set Rule Set Severity and in the fly-out menu, select one of the severity options.
 
-![Roslyn Analyzer Configure Severity](\roslyn-set-severity.png)
+![Roslyn Analyzer Configure Severity](roslyn-set-severity.png)
 
 If you set the rule severity to a warning you will then receive a warning in your code for that specific rule set.
 
-![Roslyn Analyzer Preview Changes](\roslyn-preview-change.png)
+![Roslyn Analyzer Preview Changes](roslyn-preview-change.png)
 
 Now that you understand how analyzers work you can be more productive and write better code faster!
 
