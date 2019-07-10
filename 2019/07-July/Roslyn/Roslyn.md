@@ -48,7 +48,7 @@ Now that you understand how analyzers work you can be more productive and write 
 
 `Q:` I received the following warning in Visual Studio: “Run Code Analysis has been deprecated in favor of FxCop analyzers, which run during build. Refer to https://aka.ms/fxcopanalyzers to migrate to FxCop analyzers”. What does this mean?
 
-`A:` FxCop is the Code Analysis engine that predates Roslyn by almost a decade.  Just like we moved our compiler forward (e.g. introduced Roslyn), we are also moving our code analysis technology forward to the Roslyn platform. Since it is powered by the .NET Compiler Platform it can produce warnings in your code as you type even before you’ve finished the line. In other words, you don’t have to build your code to find out that you made a mistake.
+`A:` FxCop is the Code Analysis engine that predates Roslyn by almost a decade.  Just like we moved our compiler forward (e.g. introduced Roslyn), we are also moving our code analysis technology forward to the Roslyn platform. Since it is powered by the .NET Compiler Platform it can produce warnings in your code as you type. In other words, you don’t have to build your code to find out that you made a mistake.
 
 `Q:` Can I write custom analyzers?
 
