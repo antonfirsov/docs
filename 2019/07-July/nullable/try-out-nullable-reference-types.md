@@ -199,7 +199,9 @@ More formally:
 
 The `AllowNull` attribute allows callers to pass `null` even if the type doesn't allow it. The `DisallowNull` attribute disallows callers to pass `null` even if the type allows it. They can be specified on anything that takes input:
 
-* Input parameters
+* Value parameters
+* `in` parameters
+* `ref` parameters
 * `in` input parameters
 * `ref` input parameters
 * fields
@@ -248,7 +250,8 @@ More formally:
 The `MaybeNull` attribute allows for a return type to be `null`, even if its type doesn't allow it. The `NotNull` attribute disallows `null` results even if the type allows it. They can be specified on anything that produces output:
 
 * Method returns
-* `out` input parameters
+* `out` parameters
+* `ref` parameters
 * `ref` input parameters
 * fields
 * properties
