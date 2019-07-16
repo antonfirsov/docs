@@ -2,7 +2,7 @@
 
 With the release of .NET Core 3.0 Preview 7, C# 8.0 is considered "feature complete". That means that the biggest feature of them all, [Nullable Reference Types](https://docs.microsoft.com/dotnet/csharp/nullable-references), is also locked down behavior-wise for the .NET Core release. It will continue to improve after C# 8.0, but it is now considered stable with the rest of C# 8.0.
 
-At this time, our aim is to collect as much feedback about the process of adopting nullability as possible, catch some issues, and collect feedback on further improvements to the feature that we can do after .NET Core 3.0. This is one of the largest features ever built for C#, and although we've done our best to get things right, we need your help!
+At this time, our aim is to collect as much feedback about the process of adopting nullability as possible, catch any issues, and collect feedback on further improvements to the feature that we can do after .NET Core 3.0. This is one of the largest features ever built for C#, and although we've done our best to get things right, we need your help!
 
 It is at this junction that we especially call upon .NET library authors to try out the feature and begin annotating your libraries. We'd love to hear your feedback and help resolve any issues you come across.
 
@@ -28,11 +28,9 @@ If you cannot update your TFM, you can set the `LangVersion` explicitly:
 
 ```xml
 <PropertyGroup>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>8.0</LangVersion>
 </PropertyGroup>
 ```
-
-Just make sure to set this to `latest` when .NET Core 3.0 releases, or find a way to explicitly target `netcoreapp3.0` moving forward.
 
 From here, we recommend two general approaches to adopting nullability.
 
@@ -56,7 +54,7 @@ This approach is best for projects where you'll be adding new files over time. T
 
 1. Pick a file, remove the `#nullable disable` directive, and fix the warnings. Repeat until all `#nullable disable` directives are gone.
 
-This approach requires a bit more up front work, but it means that you can continue working in your library while you're porting and ensure that any new files are automatically opted into nullability. This is the approach we generally recommend, and we are currently using it in [some of our own codebases](https://github.com/dotnet/project-system/blob/master/src/Directory.Build.props#L28).
+This approach requires a bit more up front work, but it means that you can continue working in your library while you're porting and ensure that any new files are automatically opted-in to nullability. This is the approach we generally recommend, and we are currently using it in [some of our own codebases](https://github.com/dotnet/project-system/blob/master/src/Directory.Build.props#L28).
 
 Note that you can also apply the `Nullable` property to a `Directory.build.props` file if that fits your workflow better.
 
@@ -86,7 +84,7 @@ This approach requires more work at the end, but it allows you to start fixing n
 
 Note that you can also apply the `Nullable` property to a `Directory.build.props` file if that fits your workflow better.
 
-## What's new in Nullable Reference Types
+## What's new in Nullable Reference Types for Preview 7
 
 The most critical additions to the feature are tools for working with generics and more advanced API usage scenarios. These were derived from our experience annotating CoreFX.
 
@@ -154,21 +152,43 @@ var doStuffer = new DoStuff<string?, string?>();
 var doStufferRight = new DoStuff<string, string>();
 ```
 
-This constraint is useful for generic code where you want to ensure that only non-nullable reference types can be used. However, not all nullability problems with generics can be solved in this way. This is where we've added some new attributes to allow you to influence nullable analysis in the compiler.
+This constraint is useful for generic code where you want to ensure that only non-nullable reference types can be used. One prominent example is `Dictionary<TKey, TValue`, where `TKey` is now constrained to be `notnull`, which disallows using `null` as a key:
+
+```csharp
+var d1 = new Dictionary<string?, string>(10);
+// Nullability of type argument 'string?' doesn't match 'notnull' constraint
+
+
+// And as expected, using 'null' as a key for a non-nullable key type is a warning...
+var d2 = new Dictionary<string, string>(10);
+var nothing = d[null];
+// Cannot convert null literal to non-nullable reference type.
+```
+
+However, not all nullability problems with generics can be solved in this way. This is where we've added some new attributes to allow you to influence nullable analysis in the compiler.
 
 ### Nullable preconditions: AllowNull and DisallowNull
+
+TODO better examples.
 
 Consider the following example:
 
 ```csharp
 #nullable enable
 
-public interface IMyEqualityComparer<in T>
+public static class MyCollectionExtensions
 {
-    bool Equals(T x, T y);
-    int GetHashCode(T obj);
+    public static TValue GetValueOrDefault<TKey, TValue>(
+        this IReadonlyDictionary<TKey, TValue> dict,
+        TKey key TValue
+        TValue defaultValue) where TKey : notnull
+    {
+        
+    }
 }
 ```
+
+We'd like to make the entire API surface area represented by `IApi` to be `null`-safe, so we'll constrain `T` to be `notnull`. However, we'd also like to parse out a new 
 
 We'd like to allow `null` values for `Equals`, but disallow then for `GetHashCode`. We cannot solve this with the `notnull` constraint, nor can we specify a different generic type for each method (otherwise `Equals` and `GetHashCode` would not work on the same type!)
 
@@ -202,26 +222,30 @@ The `AllowNull` attribute allows callers to pass `null` even if the type doesn't
 * Value parameters
 * `in` parameters
 * `ref` parameters
-* `in` input parameters
-* `ref` input parameters
 * fields
 * properties
 * indexers
 
-**Important:** These attributes only affect nullable analysis for the _callers_ of methods that are annotated. The bodies of annotated methods (including when implementing an interface) do not respect these attributes yet.
+**Important:** These attributes only affect nullable analysis for the _callers_ of methods that are annotated. The bodies of annotated methods  and things like interface implementation do not respect these attributes. We may add support for that in the future.
 
 ### Nullable postconditions: MaybeNull and NotNull
 
-Consider the following example:
+Consider the following example API:
 
 ```csharp
-public interface IMyArray<T>
+public class MyArray
 {
-    // Result is the default of T if no match is found 
-    T Find(Predicate<T> match);
+    // Result is the default of T if no match is found
+    public static T Find<T>(T[] array, Func<T, bool> match)
+    {
+        ...
+    }
 
     // Never gives back a null when called
-    void Resize(ref T[] array, int newSize)
+    public static void Resize<T>(ref T[] array, int newSize)
+    {
+        ...
+    }
 }
 ```
 
@@ -230,34 +254,53 @@ Here we have another problem. We'd like `Find` to give back `default` if nothing
 Enter `[MaybeNull]` and `[NotNull]`. Now we can get _fancy_ with the nullability of the outputs! We can modify the example as such:
 
 ```csharp
-public interface IMyArray<T>
+public class MyArray
 {
     // Result is the default of T if no match is found
     [return: MaybeNull]
-    T Find(Predicate<T> match);
+    public static T Find<T>(T[] array, Func<T, bool> match)
+    {
+        ...
+    }
 
     // Never gives back a null when called
-    void Resize([NotNull] ref T[]? array, int newSize)
+    public static void Resize<T>([NotNull] ref T[]? array, int newSize)
+    {
+        ...
+    }
+}
+```
+
+And these can now affect call sites:
+
+```csharp
+void M(string[] testArray)
+{
+    var value = MyArray.Find<string>(testArray, s => s == "Hello!");
+    Console.WriteLine(value.Length);
+    // Cannot convert null literal to non-nullable reference type.
+
+    MyArray.Resize<string>(ref testArray, 200);
+    Console.WriteLine(testArray.Length); // Safe!
 }
 ```
 
 The first method specifies that the `T` that is returned could be a `null` value. This means that callers of this method must check for `null` when using its result.
 
-The second method has a trickier signature: `[NotNull] ref T[]? array`. This means that `array` could be `null` as an input, but when `Resize` is called, `array` will not be `null`. This means that if you "dot" into `array` after calling `Resize`, you will not get a warning.
+The second method has a trickier signature: `[NotNull] ref T[]? array`. This means that `array` could be `null` as an input, but when `Resize` is called, `array` will not be `null`. This means that if you "dot" into `array` after calling `Resize`, you will not get a warning. But after `Resize` is called, `array` will no longer be `null`.
 
 More formally:
 
 The `MaybeNull` attribute allows for a return type to be `null`, even if its type doesn't allow it. The `NotNull` attribute disallows `null` results even if the type allows it. They can be specified on anything that produces output:
 
 * Method returns
-* `out` parameters
-* `ref` parameters
-* `ref` input parameters
+* `out` parameters (after a method is called)
+* `ref` parameters (after a method is called)
 * fields
 * properties
 * indexers
 
-**Important:** These attributes only affect nullable analysis for the _callers_ of methods that are annotated. The bodies of annotated methods (including when implementing an interface) do not respect these attributes yet.
+**Important:** These attributes only affect nullable analysis for the _callers_ of methods that are annotated. The bodies of annotated methods  and things like interface implementation do not respect these attributes. We may add support for that in the future.
 
 ### Conditional postconditions: MaybeNullWhen(bool) and NotNullWhen(bool)
 
@@ -267,23 +310,40 @@ Consider the following example:
 public class MyString
 {
     // True when 'value' is null
-    public static bool IsNullOrEmpty(string? value);
+    public static bool IsNullOrEmpty(string? value)
+    {
+        ...
+    }
 }
 
 public class MyVersion
 {
     // If it parses successfully, the Version will not be null.
-    public static bool TryParse(string? input, out Version? version);
+    public static bool TryParse(string? input, out Version? version)
+    {
+        ...
+    }
 }
 
 public class MyQueue<T>
 {
     // 'result' could be null if we couldn't Dequeue it.
     public bool TryDequeue(out T result)
+    {
+        ...
+    }
 }
 ```
 
-Methods like this are everywhere in .NET, where the return value of `true` or `false` corresponds to the nullability (or possible nullability) of a parameter. However, the C# compiler does not associate the meaning of a return value with the nullability of a given parameter! Uh-oh!
+Methods like this are everywhere in .NET, where the return value of `true` or `false` corresponds to the nullability (or possible nullability) of a parameter. The `MyQueue` case is also a bit special, since it's generic. `TryDequeue` should give a `null` for `result` if the result is `false`, but only if `T` is a reference type. If `T` is a struct, then it won't be `null`.
+
+So, we want to do three things:
+
+1. Signal that if `IsNullOrEmpty` returns `true`, then `value` is non`-null`
+1. Signal that if `TryParse` returns `true`, then `version` is non-`null`
+1. Signal that if `TryDeque` returns `false`, then `result` _could_ be `null`, provided it's a reference type
+
+Unfortunately, the C# compiler does not associate the return value of a method with the nullability of one of its parameters! Uh-oh!
 
 Enter `NotNullWhen(bool)` and `MaybeNullWhen(bool)`. Now we can get _even fancier_ with parameters:
 
@@ -291,19 +351,68 @@ Enter `NotNullWhen(bool)` and `MaybeNullWhen(bool)`. Now we can get _even fancie
 public class MyString
 {
     // True when 'value' is null
-    public static bool IsNullOrEmpty([NotNullWhen(false)] string? value);
+    public static bool IsNullOrEmpty([NotNullWhen(false)] string? value)
+    {
+        ...
+    }
 }
 
 public class MyVersion
 {
     // If it parses successfully, the Version will not be null.
-    public static bool TryParse(string? input, [NotNullWhen(true)] out Version? version);
+    public static bool TryParse(string? input, [NotNullWhen(true)] out Version? version)
+    {
+        ...
+    }
 }
 
 public class MyQueue<T>
 {
     // 'result' could be null if we couldn't Dequeue it.
     public bool TryDequeue([MaybeNullWhen(false)] out T result)
+    {
+        ...
+    }
+}
+```
+
+And these can now affect call sites:
+
+```csharp
+void StringTest(string? s)
+{
+    if (MyString.IsNullOrEmpty(st))
+    {
+        // This would generate a warning:
+        // Console.WriteLine(s.Length);
+        return;
+    }
+
+    Console.WriteLine(s.Length); // Safe!
+}
+
+void VersionTest(string? s)
+{
+    if (!MyVersion.TryParse(out var version))
+    {
+        // This would generate a warning:
+        // Console.WriteLine(version.Major);
+        return;
+    }
+
+    Console.WriteLine(version.Major); // Safe!
+}
+
+void QueueTest(MyQueue<string> q)
+{
+    if (!q.TryDequeue(out var s))
+    {
+        // This would generate a warning:
+        // Console.WriteLine(s.Length);
+        return;
+    }
+
+    Console.WriteLine(s.Length); // Safe!
 }
 ```
 
@@ -324,7 +433,10 @@ Consider the following example:
 ```csharp
 class MyPath
 {
-    public static string? GetFileName(string? path);
+    public static string? GetFileName(string? path)
+    {
+        ...
+    }
 }
 ```
 
@@ -338,45 +450,58 @@ Enter `NotNullIfNotNull(string)`. This attribute can make your code the _fancies
 class MyPath
 {
     [return: NotNullIfNotNull("path")]
-    public static string? GetFileName(string? path);
+    public static string? GetFileName(string? path)
+    {
+        ...
+    }
 }
 ```
 
-This will now affect all callers of `GetFileName`:
+And this can now affect call sites:
 
-* If `GetFileName` is passed a non-`null` string for the `path` parameter, then it is safe to "dot" into the return of `GetFileName`
-* If `GetFileName` is passed a `null` for the `path` parameter, then a warning will be emitted if someone doesn't check the return of `GetFileName`
+```csharp
+void PathTest(string? path)
+{
+    var possiblyNullPath = MyPath.GetFileName(path);
+    Console.WriteLine(possiblyNullPath.Length);
+    // Cannot convert null literal to non-nullable reference type.
 
-They can be specified on the following constructs:
-
-* Method returns
-* `out` input parameters
-* `ref` input parameters
+    if (!string.IsNullOrEmpty(path))
+    {
+        var goodPath = MyPath.GetFileName(path);
+        Console.WriteLine(path.Length); // Safe!
+    }
+}
+```
 
 More formally:
 
-The `NotNullIfNotNull(string)` attribute signifies that any output value is non-`null` conditional on the nullability of a given parameter whose name is specified.
+The `NotNullIfNotNull(string)` attribute signifies that any output value is non-`null` conditional on the nullability of a given parameter whose name is specified. They can be specified on the following constructs:
+
+* Method returns
+* `out` parameters
+* `ref` parameters
 
 ## Evolving your annotations
 
 Once you annotate a public API, you'll want to consider the fact that updating an API can have downstream effects:
 
-* Adding nullable annotations where there weren't any will introduce warnings to user code
+* Adding nullable annotations where there weren't any may introduce warnings to user code
 * Removing nullable annotations can also introduce warnings (e.g., interface implementation)
 
-Although introducing further warnings is certainly better than introducing errors over time, we recommend starting with a preview release where you solicit feedback, with aims to not change any annotations after a full release. This isn't always going to be possible, but we recommend it nonetheless.
+Nullable annotations are an integral part of your public API. Adding or removing annotations introduce new warnings. We recommend starting with a preview release where you solicit feedback, with aims to not change any annotations after a full release. This isn't always going to be possible, but we recommend it nonetheless.
 
 ## Current status of Microsoft frameworks and libraries
 
 Because Nullable Reference Types are so new, the large majority of Microsoft-authored C# frameworks and libraries have not yet been appropriately annotated.
 
-That said, the "CoreLib" part of CoreFX, which represents about ~20% of the .NET Core shared framework, has been fully updated. We're looking for feedback on our decisions so that we can make appropriate tweaks as soon as possible, and before their usage becomes widespread.
+That said, the "Core Lib" part of CoreFX, which represents about ~20% of the .NET Core shared framework, has been fully updated. It includes namespaces like `System`, `System.IO`, and `System.Collections.Generic`. We're looking for feedback on our decisions so that we can make appropriate tweaks as soon as possible, and before their usage becomes widespread.
 
 Although there is still ~80% CoreFX to still annotate, the most-used APIs are fully annotated.
 
 ## Roadmap for Nullable Reference Types
 
-Over the coming year, we're going to continue to improve the feature and spread its use throughout Microsoft frameworks and libraries.
+Over the coming year or so, we're going to continue to improve the feature and spread its use throughout Microsoft frameworks and libraries.
 
 For the language, especially compiler analysis, we'll be making numerous enhancements so that we can minimize your need to do things like use the null-forgiveness (`!`) operator. Many of these enhancements are [already tracked on the Roslyn repo](https://github.com/dotnet/roslyn/issues?q=is%3Aissue+is%3Aopen+label%3A%22New+Language+Feature+-+Nullable+Reference+Types%22).
 
@@ -390,6 +515,6 @@ Finally, we're going to continue enhancing C# tooling in Visual Studio. We have 
 
 ## Next steps
 
-If you're still reading and haven't tried out the feature in your code, especially your library code, give it a try and please give us feedback on anything you feel ought to be different. The journey to make unanticipated `NullReferenceException`s in .NET go away will be lengthy, but we hope that in the long run, developers simply won't have to worry about `null` anymore.
+If you're still reading and haven't tried out the feature in your code, especially your library code, give it a try and please give us feedback on anything you feel ought to be different. The journey to make unanticipated `NullReferenceException`s in .NET go away will be lengthy, but we hope that in the long run, developers simply won't have to worry about `null` anymore. You can help us. Try out the feature and begin annotating your libraries. Feedback on your experience will help shorten that journey.
 
 Cheers, and happy hacking!
