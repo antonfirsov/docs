@@ -3,7 +3,7 @@
 It's about two years ago that [I announced .NET Standard 2.0][post-ns20]. Since
 then we've been working hard to increase the set of .NET Standard-based
 libraries for .NET. This includes many of the BCL components, such as the
-[Windows Combability Pack][post-compat-pack], but also other popular libraries,
+[Windows Compatibility Pack][post-compat-pack], but also other popular libraries,
 such as the JSON.NET, the Azure SDK, or the AWS SDK. In this blog post, I'll
 share some thoughts and numbers about the .NET ecosystem and .NET Standard.
 
@@ -19,7 +19,7 @@ packages that represent the .NET platform (e.g. `System.*`) or were built by
 Microsoft, e.g. `Microsoft.Azure.*`. Of course, we track that too, but as part
 of pushing first parties to adopt .NET Standard.
 
-This is what that the adoption looks like:
+This is what the adoption looks like:
 
 * On [nuget.org]
     - **47% of the top one thousand packages** support .NET Standard
@@ -45,7 +45,7 @@ as building blocks inside of a single application.
 In order to decide the version number, you can use the [interactive version
 picker][ns-version-picker]. But when in doubt, just start with .NET Standard
 2.0. Even when .NET Standard 2.1 will be released later this year, most
-libraries should still be on .NET Standard 2.0. That's because most libaries
+libraries should still be on .NET Standard 2.0. That's because most libraries
 won't need the API additions and [.NET Framework will never be updated to
 support .NET Standard 2.1 or higher][post-ns21].
 
