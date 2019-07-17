@@ -60,6 +60,17 @@ targeting][xplat-guidance] section):
 > 2.0. .NET Standard 2.0 is supported by all modern platforms and is the
 > recommended way to support multiple platforms with one target.
 
+There are some reasons why you may want to update to .NET Standard 2.1. The primary
+reasons would be:
+
+* Wide support for `Span<T>`
+  - We've added various new methods across the BCL to support span-based APIs
+    for writing allocation free code
+* New language features
+  - `IAsyncEnumerable<T>`
+  - `Index` and `Range` expressions
+  - [default interface methods][dim-post]
+
 ## Summary
 
 .NET Standard adoption is already quite high, but it's still growing. Please
@@ -76,3 +87,4 @@ Happy coding!
 [post-compat-pack]: https://devblogs.microsoft.com/dotnet/announcing-the-windows-compatibility-pack-for-net-core/
 [library-guidance]: https://devblogs.microsoft.com/dotnet/guidance-for-library-authors/
 [xplat-guidance]: [library-guidance]
+[dim-post]: https://devblogs.microsoft.com/dotnet/default-implementations-in-interfaces/
