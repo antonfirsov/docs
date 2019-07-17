@@ -3,9 +3,10 @@
 It's about two years ago that [I announced .NET Standard 2.0][post-ns20]. Since
 then we've been working hard to increase the set of .NET Standard-based
 libraries for .NET. This includes many of the BCL components, such as the
-[Windows Compatibility Pack][post-compat-pack], but also other popular libraries,
-such as the JSON.NET, the Azure SDK, or the AWS SDK. In this blog post, I'll
-share some thoughts and numbers about the .NET ecosystem and .NET Standard.
+[Windows Compatibility Pack][post-compat-pack], but also other popular
+libraries, such as the JSON.NET, the Azure SDK, or the AWS SDK. In this blog
+post, I'll share some thoughts and numbers about the .NET ecosystem and .NET
+Standard.
 
 ## Adoption by the numbers
 
@@ -61,10 +62,10 @@ targeting][xplat-guidance] section):
 
 ## Summary
 
-.NET Standard adoption is already quite high, but it's still growing. Please continue to
-update the packages you haven't updated yet. And when creating new packages,
-continue to start with .NET Standard 2.0, even after .NET Standard 2.1 has
-shipped.
+.NET Standard adoption is already quite high, but it's still growing. Please
+continue to update the packages you haven't updated yet. And when creating new
+packages, continue to start with .NET Standard 2.0, even after .NET Standard 2.1
+has shipped.
 
 Happy coding!
 
