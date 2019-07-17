@@ -22,7 +22,7 @@ The first step in adopting nullability for your library is to turn it on. Here's
 
 ### Make sure you're using C# 8.0
 
-If your library explicitly targets `netcoreapp3.0`, you'll get C# 8.0 by default. If not, we recommend updating your TFM to `netcoreapp3.0`.
+If your library explicitly targets `netcoreapp3.0`, you'll get C# 8.0 by default. If not, we recommend updating your Target Framework Moniker (TFM) to `netcoreapp3.0`. This is the only way to get framework annotations (i.e., CoreFX libraries).
 
 If you cannot update your TFM, you can set the `LangVersion` explicitly:
 
@@ -88,7 +88,7 @@ Note that you can also apply the `Nullable` property to a `Directory.build.props
 
 The most critical additions to the feature are tools for working with generics and more advanced API usage scenarios. These were derived from our experience annotating CoreFX.
 
-### The notnull generic constraint
+### The `notnull` generic constraint
 
 It is quite common to intend that a generic type is specifically not allowed to be nullable. For example, given the following interface:
 
@@ -99,7 +99,7 @@ interface IDoStuff<TIn, TOut>
 }
 ```
 
-It may be desirable to only allow non-nullable types. So parameterizing with `string` should be fine, but parameterizing with `string?` should not.
+It may be desirable to only allow non-nullable reference and value types types. So parameterizing with `string` or `int` should be fine, but parameterizing with `string?` or `int?` should not.
 
 This can be accomplished with the `notnull` constraint:
 
@@ -158,7 +158,6 @@ This constraint is useful for generic code where you want to ensure that only no
 var d1 = new Dictionary<string?, string>(10);
 // Nullability of type argument 'string?' doesn't match 'notnull' constraint
 
-
 // And as expected, using 'null' as a key for a non-nullable key type is a warning...
 var d2 = new Dictionary<string, string>(10);
 var nothing = d[null];
@@ -167,53 +166,102 @@ var nothing = d[null];
 
 However, not all nullability problems with generics can be solved in this way. This is where we've added some new attributes to allow you to influence nullable analysis in the compiler.
 
+### The issue with `T?`, or unconstrained nullable type
+
+So you have have wondered: why not "just" allow `T?` (called "unconstrained `T?`") when specifying a generic type that could be substituted with a nullable reference or value type? The answer is, unfortunately, complicated.
+
+Firstly, it's important to understand what `T` means for nullability. The meaning of `T` is unconstrained, including for nullability. This means that `T` could be substituted with a nullable reference type or nullable value type. In fact, it's been possible to substitute a `T` with a nullable value type prior to C# 8.0, so this is a compatibility puzzle as well!
+
+The implication of `T?` would mean that `T` does not accept a nullable reference type or nullable value type. However, this would violate the backwards compatibility point that was just established! Hence, the natural definitions people would assume about `T` and `T?` cannot hold.
+
+Currently, `T?` is allowed, but you are forced to constrain the `T` to be either `class` or `struct` to force callers to only work with one or another. This restriction may be lifted in the future.
+
+Finally, the existence of a `T?` that worked for both nullable reference types and nullable value types does not address every issue with generics. You may want to allow for nullable types in a single direction (i.e., as only an input or only an output) and that is not expressible with either `notnull` nor a `T` and `T?` split.
+
 ### Nullable preconditions: AllowNull and DisallowNull
 
-TODO better examples.
+TODO fix the example? Wait for attribute checking to do what LDM says?
 
 Consider the following example:
 
 ```csharp
-#nullable enable
-
-public static class MyCollectionExtensions
+public class MyClass
 {
-    public static TValue GetValueOrDefault<TKey, TValue>(
-        this IReadonlyDictionary<TKey, TValue> dict,
-        TKey key TValue
-        TValue defaultValue) where TKey : notnull
+    public string MyValue { get; set; }
+}
+```
+
+This might have been an API that we supported prior to C# 8.0. However, the meaning of `string` now means non-nullable `string`! We may wish to actually still allow `null` values, but always give back some `string` value with the `get`. Here's where `AllowNull` can come in and let me fancy:
+
+```
+public class MyClass
+{
+    private string _innerValue = string.Empty;
+
+    // TODO [AllowNull]
+    public string MyValue
     {
-        
+        get
+        {
+            return _innerValue;
+        }
+        set
+        {
+            _innerValue = value ?? string.Empty;
+        }
     }
 }
 ```
 
-We'd like to make the entire API surface area represented by `IApi` to be `null`-safe, so we'll constrain `T` to be `notnull`. However, we'd also like to parse out a new 
-
-We'd like to allow `null` values for `Equals`, but disallow then for `GetHashCode`. We cannot solve this with the `notnull` constraint, nor can we specify a different generic type for each method (otherwise `Equals` and `GetHashCode` would not work on the same type!)
-
-Our first, and perhaps most natural reaction would be to change the `T` on `GetHashCode` to be `T?`. However, this causes a compile error that makes me specialize `T` to be either a `class` or `struct`. That wouldn't be right, since we want `T` to apply for both classes and structs. Uh-oh!
-
-Enter `[AllowNull]` and `[DisallowNull]`. These attributes let you get _fancy_ with the nullability of input types. We can modify the example as such:
+Since I always make sure that I get no `null` with the getter, I'd like the type to remain `string`. But I want to still accept `null` values for backwards compatibility. The `AllowNull` attribute lets me specify that the setter accepts `null` values. Callers are then affected as you'd expect:
 
 ```csharp
-#nullable enable
-
-using System.Diagnostics.CodeAnalysis;
-
-public interface IMyEqualityComparer<in T>
+void M(MyClass mc)
 {
-    bool Equals([AllowNull] T x, [AllowNull] T y);
-    int GetHashCode([DisallowNull] T obj);
+    mc.MyValue = null; // Allowed
+    Console.WriteLine(mc.MyValue.Length); // Also allowed, note there is no warning
 }
 ```
 
-Both attributes are specified for illustrative purposes. We could have solved this problem two other ways:
+Consider another API:
 
-* Only specify `DisallowNull` on `GetHashCode`
-* Only specify `AllowNull` on `Equals` input types and constraint `T` to be `notnull`
+```csharp
+public static HandleMethods
+{
+    public static void DisposeAndClear(ref MyHandle handle)
+    {
+        ...
+    }
+}
+```
 
-The end result is all the same: `null` values are allowed for `Equals`, and only non-`null` values are allowed for `GetHashCode`.
+In this case, `MyHandle` refers to some handle to a resource. Typical use for this API is that I have a non-`null` instance that I pass by reference, but when it is cleared, the reference is `null`. I can get fancy and represent this in my type system with `DisallowNull`:
+
+```csharp
+public static HandleMethods
+{
+    public static void DisposeAndClear([DisallowNull] ref MyHandle? handle)
+    {
+        ...
+    }
+}
+```
+
+This will affect any caller by emitting a warning if they pass `null`, but will warn if you attempt to "dot" into the `handle` after the method is called:
+
+```csharp
+void M(MyHandle handle)
+{
+    HandleMethods.DisposeAndClear(ref null); // Warning, 'null' is not allowed to be passed here
+    
+    HandleMethods.DisposeAndClear(ref handle); // No warning!
+    
+    Console.WriteLine(handle.SomeProperty); // Warning, could be null
+}
+```
+
+These two attributes allow us single-direction nullability or non-nullability for those cases where we need them.
+
 
 More formally:
 
@@ -226,7 +274,7 @@ The `AllowNull` attribute allows callers to pass `null` even if the type doesn't
 * properties
 * indexers
 
-**Important:** These attributes only affect nullable analysis for the _callers_ of methods that are annotated. The bodies of annotated methods  and things like interface implementation do not respect these attributes. We may add support for that in the future.
+**Important:** These attributes only affect nullable analysis for the _callers_ of methods that are annotated with them. The bodies of annotated methods  and things like interface implementation do not respect these attributes. We may add support for that in the future.
 
 ### Nullable postconditions: MaybeNull and NotNull
 
@@ -300,7 +348,7 @@ The `MaybeNull` attribute allows for a return type to be `null`, even if its typ
 * properties
 * indexers
 
-**Important:** These attributes only affect nullable analysis for the _callers_ of methods that are annotated. The bodies of annotated methods  and things like interface implementation do not respect these attributes. We may add support for that in the future.
+**Important:** These attributes only affect nullable analysis for the _callers_ of methods that are annotated with them. The bodies of annotated methods  and things like interface implementation do not respect these attributes. We may add support for that in the future.
 
 ### Conditional postconditions: MaybeNullWhen(bool) and NotNullWhen(bool)
 
