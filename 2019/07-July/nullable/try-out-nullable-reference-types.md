@@ -86,7 +86,7 @@ Note that you can also apply the `Nullable` property to a `Directory.build.props
 
 ## What's new in Nullable Reference Types for Preview 7
 
-The most critical additions to the feature are tools for working with generics and more advanced API usage scenarios. These were derived from our experience annotating CoreFX.
+The most critical additions to the feature are tools for working with generics and more advanced API usage scenarios. These were derived from our experience in beginning to annotate .NET Core.
 
 ### The `notnull` generic constraint
 
@@ -152,6 +152,16 @@ var doStuffer = new DoStuff<string?, string?>();
 var doStufferRight = new DoStuff<string, string>();
 ```
 
+It also works for value types:
+
+```csharp
+// warnings!
+var doStuffer = new DoStuff<int?, int?>();
+
+// No warnings!
+var doStufferRight = new DoStuff<int, int>();
+```
+
 This constraint is useful for generic code where you want to ensure that only non-nullable reference types can be used. One prominent example is `Dictionary<TKey, TValue`, where `TKey` is now constrained to be `notnull`, which disallows using `null` as a key:
 
 ```csharp
@@ -198,7 +208,7 @@ public class MyClass
 {
     private string _innerValue = string.Empty;
 
-    // TODO [AllowNull]
+    [AllowNull]
     public string MyValue
     {
         get
@@ -213,12 +223,16 @@ public class MyClass
 }
 ```
 
-Since I always make sure that I get no `null` with the getter, I'd like the type to remain `string`. But I want to still accept `null` values for backwards compatibility. The `AllowNull` attribute lets me specify that the setter accepts `null` values. Callers are then affected as you'd expect:
+Since we always make sure that we get no `null` value with the getter, I'd like the type to remain `string`. But we want to still accept `null` values for backwards compatibility. The `AllowNull` attribute lets me specify that the setter accepts `null` values. Callers are then affected as you'd expect:
 
 ```csharp
-void M(MyClass mc)
+void M1(MyClass mc)
 {
-    mc.MyValue = null; // Allowed
+    mc.MyValue = null; // Allowed because of AllowNull
+}
+
+void M2(MyClass mc)
+{
     Console.WriteLine(mc.MyValue.Length); // Also allowed, note there is no warning
 }
 ```
@@ -235,7 +249,7 @@ public static HandleMethods
 }
 ```
 
-In this case, `MyHandle` refers to some handle to a resource. Typical use for this API is that I have a non-`null` instance that I pass by reference, but when it is cleared, the reference is `null`. I can get fancy and represent this in my type system with `DisallowNull`:
+In this case, `MyHandle` refers to some handle to a resource. Typical use for this API is that we have a non-`null` instance that we pass by reference, but when it is cleared, the reference is `null`. We can get fancy and represent this with `DisallowNull`:
 
 ```csharp
 public static HandleMethods
@@ -261,7 +275,6 @@ void M(MyHandle handle)
 ```
 
 These two attributes allow us single-direction nullability or non-nullability for those cases where we need them.
-
 
 More formally:
 
@@ -299,7 +312,7 @@ public class MyArray
 
 Here we have another problem. We'd like `Find` to give back `default` if nothing is found, which is `null` for reference types. We'd like `Resize` to accept a possibly `null` input, but we want to ensure that after `Resize` is called, the `array` value passed by reference is always non-`null`. Again, applying the `notnull` constraint doesn't solve this. Uh-oh!
 
-Enter `[MaybeNull]` and `[NotNull]`. Now we can get _fancy_ with the nullability of the outputs! We can modify the example as such:
+Enter `[MaybeNull]` and `[NotNull]`. Now we can get fancy with the nullability of the outputs! We can modify the example as such:
 
 ```csharp
 public class MyArray
@@ -543,7 +556,7 @@ Nullable annotations are an integral part of your public API. Adding or removing
 
 Because Nullable Reference Types are so new, the large majority of Microsoft-authored C# frameworks and libraries have not yet been appropriately annotated.
 
-That said, the "Core Lib" part of CoreFX, which represents about ~20% of the .NET Core shared framework, has been fully updated. It includes namespaces like `System`, `System.IO`, and `System.Collections.Generic`. We're looking for feedback on our decisions so that we can make appropriate tweaks as soon as possible, and before their usage becomes widespread.
+That said, the "Core Lib" part of .NET Core, which represents about ~20% of the .NET Core shared framework, has been fully updated. It includes namespaces like `System`, `System.IO`, and `System.Collections.Generic`. We're looking for feedback on our decisions so that we can make appropriate tweaks as soon as possible, and before their usage becomes widespread.
 
 Although there is still ~80% CoreFX to still annotate, the most-used APIs are fully annotated.
 
