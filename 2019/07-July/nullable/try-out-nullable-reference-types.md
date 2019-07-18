@@ -1,6 +1,6 @@
 # Try out Nullable Reference Types
 
-With the release of .NET Core 3.0 Preview 7, C# 8.0 is considered "feature complete". That means that the biggest feature of them all, [Nullable Reference Types](https://docs.microsoft.com/dotnet/csharp/nullable-references), is also locked down behavior-wise for the .NET Core release. It will continue to improve after C# 8.0, but it is now considered stable with the rest of C# 8.0.
+With the release of .NET Core 3.0 Preview 7, C# 8.0 is considered "feature complete". That means that the biggest feature of them all, [Nullable Reference Types](https://docs.microsoft.com/dotnet/csharp/nullable-references), is almost done as well. It will continue to improve after C# 8.0, but it is now considered stable with the rest of C# 8.0.
 
 At this time, our aim is to collect as much feedback about the process of adopting nullability as possible, catch any issues, and collect feedback on further improvements to the feature that we can do after .NET Core 3.0. This is one of the largest features ever built for C#, and although we've done our best to get things right, we need your help!
 
@@ -90,7 +90,7 @@ The most critical additions to the feature are tools for working with generics a
 
 ### The `notnull` generic constraint
 
-It is quite common to intend that a generic type is specifically not allowed to be nullable. For example, given the following interface:
+It's quite common wanting to mark a generic type as non-nullable. For example, given the following interface:
 
 ```csharp
 interface IDoStuff<TIn, TOut>
@@ -99,7 +99,7 @@ interface IDoStuff<TIn, TOut>
 }
 ```
 
-It may be desirable to only allow non-nullable reference and value types types. So parameterizing with `string` or `int` should be fine, but parameterizing with `string?` or `int?` should not.
+It may be desirable to only allow non-nullable reference- and value types types. So parameterizing with `string` or `int` should be fine, but parameterizing with `string?` or `int?` should not.
 
 This can be accomplished with the `notnull` constraint:
 
@@ -233,7 +233,7 @@ void M1(MyClass mc)
 
 void M2(MyClass mc)
 {
-    Console.WriteLine(mc.MyValue.Length); // Also allowed, note there is no warning
+    Console.WriteLine(mc.MyValue.Length); // No warning because MyValue promises to never return null
 }
 ```
 
@@ -444,7 +444,7 @@ void StringTest(string? s)
 {
     if (MyString.IsNullOrEmpty(st))
     {
-        // This would generate a warning:
+        // This will generate a warning:
         // Console.WriteLine(s.Length);
         return;
     }
@@ -456,7 +456,7 @@ void VersionTest(string? s)
 {
     if (!MyVersion.TryParse(out var version))
     {
-        // This would generate a warning:
+        // This will generate a warning:
         // Console.WriteLine(version.Major);
         return;
     }
@@ -468,7 +468,7 @@ void QueueTest(MyQueue<string> q)
 {
     if (!q.TryDequeue(out var s))
     {
-        // This would generate a warning:
+        // This will generate a warning:
         // Console.WriteLine(s.Length);
         return;
     }
@@ -556,7 +556,7 @@ Nullable annotations are an integral part of your public API. Adding or removing
 
 Because Nullable Reference Types are so new, the large majority of Microsoft-authored C# frameworks and libraries have not yet been appropriately annotated.
 
-That said, the "Core Lib" part of .NET Core, which represents about ~20% of the .NET Core shared framework, has been fully updated. It includes namespaces like `System`, `System.IO`, and `System.Collections.Generic`. We're looking for feedback on our decisions so that we can make appropriate tweaks as soon as possible, and before their usage becomes widespread.
+That said, the "Core Lib" part of .NET Core, which represents about ~20% of the .NET Core shared framework, has been fully annotated. It includes namespaces like `System`, `System.IO`, and `System.Collections.Generic`. We're looking for feedback on our decisions so that we can make appropriate tweaks as soon as possible, and before their usage becomes widespread.
 
 Although there is still ~80% CoreFX to still annotate, the most-used APIs are fully annotated.
 
