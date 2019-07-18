@@ -75,7 +75,7 @@ We really appreciate your input and will build our decision on the feedback we h
   - Web
   - Other (please specify)
 10. Do you want to build a single desktop application that works on different platforms?
-  - No, I plan to target only one platforms
+  - No, I plan to target only one platform
   - No, I prefer to build different implementations of my application for each platform
   - No, I prefer to use Web
   - Yes
