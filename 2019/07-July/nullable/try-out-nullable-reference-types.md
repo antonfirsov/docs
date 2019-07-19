@@ -1,6 +1,6 @@
 # Try out Nullable Reference Types
 
-With the release of .NET Core 3.0 Preview 7, C# 8.0 is considered "feature complete". That means that the biggest feature of them all, [Nullable Reference Types](https://docs.microsoft.com/dotnet/csharp/nullable-references), is almost done as well. It will continue to improve after C# 8.0, but it is now considered stable with the rest of C# 8.0.
+With the release of .NET Core 3.0 Preview 7, C# 8.0 is considered "feature complete". That means that the biggest feature of them all, [Nullable Reference Types](https://docs.microsoft.com/dotnet/csharp/nullable-references), is also locked down behavior-wise for the .NET Core release. It will continue to improve after C# 8.0, but it is now considered stable with the rest of C# 8.0.
 
 At this time, our aim is to collect as much feedback about the process of adopting nullability as possible, catch any issues, and collect feedback on further improvements to the feature that we can do after .NET Core 3.0. This is one of the largest features ever built for C#, and although we've done our best to get things right, we need your help!
 
@@ -90,7 +90,7 @@ The most critical additions to the feature are tools for working with generics a
 
 ### The `notnull` generic constraint
 
-It's quite common wanting to mark a generic type as non-nullable. For example, given the following interface:
+It is quite common to intend that a generic type is specifically not allowed to be nullable. For example, given the following interface:
 
 ```csharp
 interface IDoStuff<TIn, TOut>
@@ -99,7 +99,7 @@ interface IDoStuff<TIn, TOut>
 }
 ```
 
-It may be desirable to only allow non-nullable reference- and value types types. So parameterizing with `string` or `int` should be fine, but parameterizing with `string?` or `int?` should not.
+It may be desirable to only allow non-nullable reference and value types types. So parameterizing with `string` or `int` should be fine, but parameterizing with `string?` or `int?` should not.
 
 This can be accomplished with the `notnull` constraint:
 
@@ -176,17 +176,25 @@ var nothing = d[null];
 
 However, not all nullability problems with generics can be solved in this way. This is where we've added some new attributes to allow you to influence nullable analysis in the compiler.
 
-### The issue with `T?`, or unconstrained nullable type
+### The issue with `T?`
 
-So you have have wondered: why not "just" allow `T?` (called "unconstrained `T?`") when specifying a generic type that could be substituted with a nullable reference or value type? The answer is, unfortunately, complicated.
+So you have have wondered: why not "just" allow `T?` when specifying a generic type that could be substituted with a nullable reference or value type? The answer is, unfortunately, complicated.
 
-Firstly, it's important to understand what `T` means for nullability. The meaning of `T` is unconstrained, including for nullability. This means that `T` could be substituted with a nullable reference type or nullable value type. In fact, it's been possible to substitute a `T` with a nullable value type prior to C# 8.0, so this is a compatibility puzzle as well!
+A natural definition of `T?` would mean, "any nullable type". However, this would imply that `T` would mean "any non-nullable type", and that is not true! It is possible to substitute a `T` with a nullable value type today (such as `bool?`). This is because `T` is already an unconstrained generic type. This change in semantics would likely be unexpected and cause some grief for the vast amount of existing code that uses `T` as an unconstrained generic type.
 
-The implication of `T?` would mean that `T` does not accept a nullable reference type or nullable value type. However, this would violate the backwards compatibility point that was just established! Hence, the natural definitions people would assume about `T` and `T?` cannot hold.
+Next, it's important to note that a nullable reference type is _not_ the same thing as a nullable value type. Nullable value types map to a concrete class type in .NET. So `int?` is actually `Nullable<int>`. But for `string?`, it's actually the same `string` but with a compiler-generated attribute annotating it. This is done for backwards compatibility. In other words, `string?` is kind of a "fake type", whereas `int?` is not.
 
-Currently, `T?` is allowed, but you are forced to constrain the `T` to be either `class` or `struct` to force callers to only work with one or another. This restriction may be lifted in the future.
+This distinction between nullable value types and nullable reference types comes up in a pattern such as this:
 
-Finally, the existence of a `T?` that worked for both nullable reference types and nullable value types does not address every issue with generics. You may want to allow for nullable types in a single direction (i.e., as only an input or only an output) and that is not expressible with either `notnull` nor a `T` and `T?` split.
+```csharp
+void M<T>(T? t) where T: notnull
+```
+
+This would mean that the parameter is the nullable version of `T`, and `T` is constrained to be `notnull`. If `T` where a `string`, then the actual signature of `M` would be `M<string>([NullableAttribute] T t)`, but if `T` were an `int`, then `M` would be `M<int>(Nullable<int> t)`. These two signatures are fundamentally different, and this difference is reconcilable.
+
+Because of this issue between the concrete representations of nullable reference types and nullable value types, any use of `T?` must also require you to constrain the `T` to be either `class` or `struct`.
+
+Finally, the existence of a `T?` that worked for both nullable reference types and nullable value types does not address every issue with generics. You may want to allow for nullable types in a single direction (i.e., as only an input or only an output) and that is not expressible with either `notnull` nor a `T` and `T?` split unless you artificially add separate generic types for inputs and outputs.
 
 ### Nullable preconditions: AllowNull and DisallowNull
 
@@ -233,7 +241,7 @@ void M1(MyClass mc)
 
 void M2(MyClass mc)
 {
-    Console.WriteLine(mc.MyValue.Length); // No warning because MyValue promises to never return null
+    Console.WriteLine(mc.MyValue.Length); // Also allowed, note there is no warning
 }
 ```
 
@@ -444,7 +452,7 @@ void StringTest(string? s)
 {
     if (MyString.IsNullOrEmpty(st))
     {
-        // This will generate a warning:
+        // This would generate a warning:
         // Console.WriteLine(s.Length);
         return;
     }
@@ -456,7 +464,7 @@ void VersionTest(string? s)
 {
     if (!MyVersion.TryParse(out var version))
     {
-        // This will generate a warning:
+        // This would generate a warning:
         // Console.WriteLine(version.Major);
         return;
     }
@@ -468,7 +476,7 @@ void QueueTest(MyQueue<string> q)
 {
     if (!q.TryDequeue(out var s))
     {
-        // This will generate a warning:
+        // This would generate a warning:
         // Console.WriteLine(s.Length);
         return;
     }
@@ -556,7 +564,7 @@ Nullable annotations are an integral part of your public API. Adding or removing
 
 Because Nullable Reference Types are so new, the large majority of Microsoft-authored C# frameworks and libraries have not yet been appropriately annotated.
 
-That said, the "Core Lib" part of .NET Core, which represents about ~20% of the .NET Core shared framework, has been fully annotated. It includes namespaces like `System`, `System.IO`, and `System.Collections.Generic`. We're looking for feedback on our decisions so that we can make appropriate tweaks as soon as possible, and before their usage becomes widespread.
+That said, the "Core Lib" part of .NET Core, which represents about ~20% of the .NET Core shared framework, has been fully updated. It includes namespaces like `System`, `System.IO`, and `System.Collections.Generic`. We're looking for feedback on our decisions so that we can make appropriate tweaks as soon as possible, and before their usage becomes widespread.
 
 Although there is still ~80% CoreFX to still annotate, the most-used APIs are fully annotated.
 
