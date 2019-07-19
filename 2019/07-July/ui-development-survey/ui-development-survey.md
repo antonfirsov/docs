@@ -84,7 +84,7 @@ hear from you.
   - F#
   - Dart
   - Other (please specify)
-5. What frameworks are you using for desktop development?
+5. What frameworks are you using for UI application development?
   - WinFormsAngularJS
   - ASP.NET
   - ASP.NET Core
