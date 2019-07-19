@@ -1,7 +1,7 @@
 Option 1
-# Calling all NET desktop and mobile developers
+# Calling all .NET desktop and mobile developers
 
-We would love to hear about your experience with building client applications in .NET. Your feedback will greatly help us to improve the .NET experience and ensure our roadmap focuses on your needs. Participate in shaping the future of the .NET client development by taking this short [survey][survey] (3 minutes to complete).
+We would love to hear about your experience with building client applications in .NET. Your feedback will greatly help us to improve the .NET experience and ensure our roadmap focuses on your needs. Participate in shaping the future of the .NET client development by taking this short [survey][survey] (5 minutes to complete).
 
 We are also searching for developers to discuss new concepts and prototypes. If you would like .NET engineering team to reach out to you about upcoming opportunities in .NET UI development, you can opt-in to that in the survey below:
 
@@ -124,7 +124,7 @@ We really appreciate your input and will build our decision on the feedback we h
 *ToDo: Should we remove or leave the following questions?*
 
 12. Do you want to build a single desktop applications that work on different platforms?
-  - No, I plan to target only one platforms
+  - No, I plan to target only one platform
   - No, I prefer to build different implementations of my application for each platform
   - No, I prefer to use Web
   - Yes
