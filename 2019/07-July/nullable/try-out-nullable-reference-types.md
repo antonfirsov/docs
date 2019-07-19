@@ -38,21 +38,21 @@ From here, we recommend two general approaches to adopting nullability.
 
 This approach is best for projects where you'll be adding new files over time. The process is straightforward:
 
-1. Apply the following property to your project file:
+01. Apply the following property to your project file:
 
-```xml
-<PropertyGroup>
-    <Nullable>enable</Nullable>
-</PropertyGroup>
-```
+    ```xml
+    <PropertyGroup>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    ```
 
-1. Disable nullability in every file for that project by adding this to the top of every existing file in the project:
+02. Disable nullability in every file for that project by adding this to the top of every existing file in the project:
 
-```csharp
-#nullable disable
-```
+    ```csharp
+    #nullable disable
+    ```
 
-1. Pick a file, remove the `#nullable disable` directive, and fix the warnings. Repeat until all `#nullable disable` directives are gone.
+03. Pick a file, remove the `#nullable disable` directive, and fix the warnings. Repeat until all `#nullable disable` directives are gone.
 
 This approach requires a bit more up front work, but it means that you can continue working in your library while you're porting and ensure that any new files are automatically opted-in to nullability. This is the approach we generally recommend, and we are currently using it in [some of our own codebases](https://github.com/dotnet/project-system/blob/master/src/Directory.Build.props#L28).
 
@@ -62,23 +62,23 @@ Note that you can also apply the `Nullable` property to a `Directory.build.props
 
 This approach is the inverse of the previous one.
 
-1. Enable nullability in a file for a project by adding this to the top of the file:
+01. Enable nullability in a file for a project by adding this to the top of the file:
 
-```csharp
-#nullable enable
-```
+    ```csharp
+    #nullable enable
+    ```
 
-1. Continue adding this to files until all files are annotated and all nullability warnings are addressed.
+02. Continue adding this to files until all files are annotated and all nullability warnings are addressed.
 
-1. Apply the following property to your project file:
+03. Apply the following property to your project file:
 
-```xml
-<PropertyGroup>
-    <Nullable>enable</Nullable>
-</PropertyGroup>
-```
+    ```xml
+    <PropertyGroup>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    ```
 
-1. Remove all `#nullable enable` directives in source.
+04. Remove all `#nullable enable` directives in source.
 
 This approach requires more work at the end, but it allows you to start fixing nullability warnings immediately.
 
@@ -569,6 +569,10 @@ That said, the "Core Lib" part of .NET Core, which represents about ~20% of the 
 Although there is still ~80% CoreFX to still annotate, the most-used APIs are fully annotated.
 
 ## Roadmap for Nullable Reference Types
+
+Currently, we view the _full_ Nullable Reference Types experience as being in preview. It's stable, but the feature involves spreading nullable annotations throughout our own technologies and the greater .NET ecosystem. This will take some time to complete.
+
+That said, we're encouraging library authors to start annotating their libraries now. The feature will only get better as more libraries adopt nullability, helping .NET become a more `null`-safe place.
 
 Over the coming year or so, we're going to continue to improve the feature and spread its use throughout Microsoft frameworks and libraries.
 
