@@ -481,10 +481,10 @@ void VersionTest(string? s)
 
 void QueueTest(MyQueue<string> q)
 {
-    if (!q.TryDequeue(out var q))
+    if (!q.TryDequeue(out var s))
     {
         // This would generate a warning:
-        // Console.WriteLine(q.Length);
+        // Console.WriteLine(s.Length);
         return;
     }
 
