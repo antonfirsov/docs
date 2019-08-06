@@ -280,11 +280,13 @@ This will affect any caller by emitting a warning if they pass `null`, but will 
 ```csharp
 void M(MyHandle handle)
 {
-    HandleMethods.DisposeAndClear(ref null); // Warning, 'null' is not allowed to be passed here
+    MyHandle? local = null; // Create a null value here
+    HandleMethods.DisposeAndClear(ref local); // Warning: CS8601 - Possible null reference assignment
     
-    HandleMethods.DisposeAndClear(ref handle); // No warning!
+    // Now pass the non-null handle
+    HandleMethods.DisposeAndClear(ref handle); // No warning! ... But the value could be null now
     
-    Console.WriteLine(handle.SomeProperty); // Warning, could be null
+    Console.WriteLine(handle.SomeProperty); // Warning: CS8602 - Dereference of a possibly null reference
 }
 ```
 
@@ -352,8 +354,7 @@ And these can now affect call sites:
 void M(string[] testArray)
 {
     var value = MyArray.Find<string>(testArray, s => s == "Hello!");
-    Console.WriteLine(value.Length);
-    // Cannot convert null literal to non-nullable reference type.
+    Console.WriteLine(value.Length); // Warning: Dereference of a possibly null reference.
 
     MyArray.Resize<string>(ref testArray, 200);
     Console.WriteLine(testArray.Length); // Safe!
@@ -414,9 +415,9 @@ Methods like this are everywhere in .NET, where the return value of `true` or `f
 
 So, we want to do three things:
 
-1. Signal that if `IsNullOrEmpty` returns `true`, then `value` is non`-null`
+1. Signal that if `IsNullOrEmpty` returns `true`, then `value` is non-`null`
 1. Signal that if `TryParse` returns `true`, then `version` is non-`null`
-1. Signal that if `TryDeque` returns `false`, then `result` _could_ be `null`, provided it's a reference type
+1. Signal that if `TryDequeue` returns `false`, then `result` _could_ be `null`, provided it's a reference type
 
 Unfortunately, the C# compiler does not associate the return value of a method with the nullability of one of its parameters! Uh-oh!
 
@@ -456,7 +457,7 @@ And these can now affect call sites:
 ```csharp
 void StringTest(string? s)
 {
-    if (MyString.IsNullOrEmpty(st))
+    if (MyString.IsNullOrEmpty(s))
     {
         // This would generate a warning:
         // Console.WriteLine(s.Length);
@@ -468,7 +469,7 @@ void StringTest(string? s)
 
 void VersionTest(string? s)
 {
-    if (!MyVersion.TryParse(out var version))
+    if (!MyVersion.TryParse(s, out var version))
     {
         // This would generate a warning:
         // Console.WriteLine(version.Major);
@@ -480,10 +481,10 @@ void VersionTest(string? s)
 
 void QueueTest(MyQueue<string> q)
 {
-    if (!q.TryDequeue(out var s))
+    if (!q.TryDequeue(out var q))
     {
         // This would generate a warning:
-        // Console.WriteLine(s.Length);
+        // Console.WriteLine(q.Length);
         return;
     }
 
@@ -499,7 +500,7 @@ This enables callers to work with APIs using the same patterns that they've used
 
 More formally:
 
-The `NotNullWhen(bool)` signifies that a parameter is not null even if the type disallows it, conditional on the `bool` returned value of the method. The `MaybeNullWhen(bool)` signifies that a parameter could be null even if the type disallows it, conditional on the `bool` returned value of the method. They can be specified on any parameter type.
+The `NotNullWhen(bool)` signifies that a parameter is not null even if the type allows it, conditional on the `bool` returned value of the method. The `MaybeNullWhen(bool)` signifies that a parameter could be null even if the type disallows it, conditional on the `bool` returned value of the method. They can be specified on any parameter type.
 
 ### Nullness dependence between inputs and outputs: NotNullIfNotNull(string)
 
@@ -538,13 +539,12 @@ And this can now affect call sites:
 void PathTest(string? path)
 {
     var possiblyNullPath = MyPath.GetFileName(path);
-    Console.WriteLine(possiblyNullPath.Length);
-    // Cannot convert null literal to non-nullable reference type.
-
+    Console.WriteLine(possiblyNullPath.Length); // Warning: Dereference of a possibly null reference
+    
     if (!string.IsNullOrEmpty(path))
     {
         var goodPath = MyPath.GetFileName(path);
-        Console.WriteLine(path.Length); // Safe!
+        Console.WriteLine(goodPath.Length); // Safe!
     }
 }
 ```
@@ -554,7 +554,6 @@ More formally:
 The `NotNullIfNotNull(string)` attribute signifies that any output value is non-`null` conditional on the nullability of a given parameter whose name is specified. They can be specified on the following constructs:
 
 * Method returns
-* `out` parameters
 * `ref` parameters
 
 ### Flow attributes: `DoesNotReturn` and `DoesNotReturnIf(bool)`
@@ -586,7 +585,7 @@ public static class MyAssertionLibrary
 
 When `ThrowArgumentNullException` is called in a method, it throws an exception. The `DoesNotReturn` it is annotated with will signal to the compiler that no nullable analysis needs to happen after that point, since that code would be unreachable.
 
-When `MyAssert` is called and the condition passed to it is `false`, it throws an exception. The `DoesNotReturnIf(false)` that annotates the `condition` parameter lets the compiler know that program flow will not continue if that condition is false. This is helpful if you want to assert the nullability of a value. If the condition evaluates to `true`, then we know that the value is not null.
+When `MyAssert` is called and the condition passed to it is `false`, it throws an exception. The `DoesNotReturnIf(false)` that annotates the `condition` parameter lets the compiler know that program flow will not continue if that condition is false. This is helpful if you want to assert the nullability of a value. In the code path following `MyAssert(value != null);` the compiler can assume `value` is not null.
 
 `DoesNotReturn` can be used on methods. `DoesNotReturnIf(bool)` can be used on input parameters.
 
