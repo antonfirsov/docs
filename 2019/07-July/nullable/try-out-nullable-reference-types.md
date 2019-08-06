@@ -213,7 +213,7 @@ public class MyClass
 }
 ```
 
-This might have been an API that we supported prior to C# 8.0. However, the meaning of `string` now means non-nullable `string`! We may wish to actually still allow `null` values, but always give back some `string` value with the `get`. Here's where `AllowNull` can come in and let me fancy:
+This might have been an API that we supported prior to C# 8.0. However, the meaning of `string` now means non-nullable `string`! We may wish to actually still allow `null` values, but always give back some `string` value with the `get`. Here's where `AllowNull` can come in and let you get fancy:
 
 ```
 public class MyClass
@@ -235,7 +235,7 @@ public class MyClass
 }
 ```
 
-Since we always make sure that we get no `null` value with the getter, I'd like the type to remain `string`. But we want to still accept `null` values for backwards compatibility. The `AllowNull` attribute lets me specify that the setter accepts `null` values. Callers are then affected as you'd expect:
+Since we always make sure that we get no `null` value with the getter, I'd like the type to remain `string`. But we want to still accept `null` values for backwards compatibility. The `AllowNull` attribute lets you specify that the setter accepts `null` values. Callers are then affected as you'd expect:
 
 ```csharp
 void M1(MyClass mc)
