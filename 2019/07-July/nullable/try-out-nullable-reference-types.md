@@ -204,8 +204,6 @@ Finally, the existence of a `T?` that worked for both nullable reference types a
 
 ### Nullable preconditions: AllowNull and DisallowNull
 
-TODO fix the example? Wait for attribute checking to do what LDM says?
-
 Consider the following example:
 
 ```csharp
@@ -250,6 +248,8 @@ void M2(MyClass mc)
     Console.WriteLine(mc.MyValue.Length); // Also allowed, note there is no warning
 }
 ```
+
+Note: there is currently [a bug](https://github.com/dotnet/roslyn/issues/37313) where assignment of `null` conflicts with nullable analysis. This will be addressed in a future update of the compiler.
 
 Consider another API:
 
