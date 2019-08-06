@@ -22,15 +22,19 @@ The first step in adopting nullability for your library is to turn it on. Here's
 
 ### Make sure you're using C# 8.0
 
-If your library explicitly targets `netcoreapp3.0`, you'll get C# 8.0 by default. If not, we recommend updating your Target Framework Moniker (TFM) to `netcoreapp3.0`. This is the only way to get framework annotations (i.e., CoreFX libraries).
+If your library explicitly targets `netcoreapp3.0`, you'll get C# 8.0 by default. When we ship Preview 8, you'll get C# 8.0 by default if you target `netstandard2.1` too.
 
-If you cannot update your TFM, you can set the `LangVersion` explicitly:
+.NET Standard itself doesn't have any nullable annotations yet. If you're targeting .NET Standard, then you can use multi-targeting for .NET Standard and `netcoreapp3.0`, even if you don't need .NET Core specific APIs. The benefit is that the compiler will use the nullable annotations from CoreFX to help you get your own annotations right.
+
+If you cannot update your TFM for some reason, you can set the `LangVersion` explicitly:
 
 ```xml
 <PropertyGroup>
     <LangVersion>8.0</LangVersion>
 </PropertyGroup>
 ```
+
+Note that C# 8.0 is not meant for older targets, such as .NET Core 2.x or .NET Framework 4.x. So some additional language features may not work unless you are targeting .NET Core 3.0 or .NET Standard 2.1
 
 From here, we recommend two general approaches to adopting nullability.
 
@@ -99,7 +103,7 @@ interface IDoStuff<TIn, TOut>
 }
 ```
 
-It may be desirable to only allow non-nullable reference and value types types. So parameterizing with `string` or `int` should be fine, but parameterizing with `string?` or `int?` should not.
+It may be desirable to only allow non-nullable reference and value types. So substituting with `string` or `int` should be fine, but substituting with `string?` or `int?` should not.
 
 This can be accomplished with the `notnull` constraint:
 
@@ -117,10 +121,11 @@ interface IDoStuff<TIn, TOut>
 This will then generate a warning if any implementing class does not also apply the same `notnull` constraints:
 
 ```csharp
-// Warnings!
-class DoStuffer<TIn, TOut> : IDoStuff<TIn, TOut>
+// Warning: CS8714 - Nullability of type argument 'TIn' doesn't match 'notnull' constraint.
+// Warning: CS8714 - Nullability of type argument 'TOut' doesn't match 'notnull' constraint.
+public class DoStuffer<TIn, TOut> : IDoStuff<TIn, TOut>
 {
-    TOut DoStuff(TIn input)
+    public TOut DoStuff(TIn input)
     {
         ...
     }
@@ -131,7 +136,7 @@ To fix it, we need to apply the same constraints:
 
 ```csharp
 // No warnings!
-class DoStuffer<TIn, TOut> : IDoStuff<TIn, TOut>
+public class DoStuffer<TIn, TOut> : IDoStuff<TIn, TOut>
     where TIn : notnull
     where TOut : notnull
 {
@@ -142,10 +147,10 @@ class DoStuffer<TIn, TOut> : IDoStuff<TIn, TOut>
 }
 ```
 
-And when creating an instance of that class, if you parameterize it with a nullable reference type, a warning will also be generated:
+And when creating an instance of that class, if you substitute it with a nullable reference type, a warning will also be generated:
 
 ```csharp
-// warnings!
+// Warning: CS8714 - Nullability of type argument 'string?' doesn't match 'notnull' constraint
 var doStuffer = new DoStuff<string?, string?>();
 
 // No warnings!
@@ -155,7 +160,7 @@ var doStufferRight = new DoStuff<string, string>();
 It also works for value types:
 
 ```csharp
-// warnings!
+// Warning: CS8714 - Nullability of type argument 'int?' doesn't match 'notnull' constraint
 var doStuffer = new DoStuff<int?, int?>();
 
 // No warnings!
@@ -165,13 +170,14 @@ var doStufferRight = new DoStuff<int, int>();
 This constraint is useful for generic code where you want to ensure that only non-nullable reference types can be used. One prominent example is `Dictionary<TKey, TValue`, where `TKey` is now constrained to be `notnull`, which disallows using `null` as a key:
 
 ```csharp
+// Warning: CS8714 - Nullability of type argument 'string?' doesn't match 'notnull' constraint
 var d1 = new Dictionary<string?, string>(10);
-// Nullability of type argument 'string?' doesn't match 'notnull' constraint
 
 // And as expected, using 'null' as a key for a non-nullable key type is a warning...
 var d2 = new Dictionary<string, string>(10);
-var nothing = d[null];
-// Cannot convert null literal to non-nullable reference type.
+
+// Warning: CS8625 - Cannot convert to non-nullable reference type.
+var nothing = d2[null];
 ```
 
 However, not all nullability problems with generics can be solved in this way. This is where we've added some new attributes to allow you to influence nullable analysis in the compiler.
@@ -190,7 +196,7 @@ This distinction between nullable value types and nullable reference types comes
 void M<T>(T? t) where T: notnull
 ```
 
-This would mean that the parameter is the nullable version of `T`, and `T` is constrained to be `notnull`. If `T` where a `string`, then the actual signature of `M` would be `M<string>([NullableAttribute] T t)`, but if `T` were an `int`, then `M` would be `M<int>(Nullable<int> t)`. These two signatures are fundamentally different, and this difference is reconcilable.
+This would mean that the parameter is the nullable version of `T`, and `T` is constrained to be `notnull`. If `T` where a `string`, then the actual signature of `M` would be `M<string>([NullableAttribute] T t)`, but if `T` were an `int`, then `M` would be `M<int>(Nullable<int> t)`. These two signatures are fundamentally different, and this difference is not reconcilable.
 
 Because of this issue between the concrete representations of nullable reference types and nullable value types, any use of `T?` must also require you to constrain the `T` to be either `class` or `struct`.
 
