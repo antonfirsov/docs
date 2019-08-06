@@ -557,6 +557,39 @@ The `NotNullIfNotNull(string)` attribute signifies that any output value is non-
 * `out` parameters
 * `ref` parameters
 
+### Flow attributes: `DoesNotReturn` and `DoesNotReturnIf(bool)`
+
+You may work with multiple methods that affect control flow of your program. For example, an exception helper method that will throw an exception if called, or an assertion method that will throw an exception if an input is `true` or `false`.
+
+You may wish to do something like _assert_ that a value is non-null, and we think you'd also like it if the compiler could understand that.
+
+Enter `DoesNotReturn` and `DoesNotReturnIf(bool)`. Here's an example of how you could use either:
+
+```csharp
+internal static class ThrowHelper
+{
+    [DoesNotReturn]
+    public static void ThrowArgumentNullException(ExceptionArgument arg)
+    {
+        ...
+    }
+}
+
+public static class MyAssertionLibrary
+{
+    public static void MyAssert([DoesNotReturnIf(false)] bool condition)
+    {
+        ...
+    }
+}
+```
+
+When `ThrowArgumentNullException` is called in a method, it throws an exception. The `DoesNotReturn` it is annotated with will signal to the compiler that no nullable analysis needs to happen after that point, since that code would be unreachable.
+
+When `MyAssert` is called and the condition passed to it is `false`, it throws an exception. The `DoesNotReturnIf(false)` that annotates the `condition` parameter lets the compiler know that program flow will not continue if that condition is false. This is helpful if you want to assert the nullability of a value. If the condition evaluates to `true`, then we know that the value is not null.
+
+`DoesNotReturn` can be used on methods. `DoesNotReturnIf(bool)` can be used on input parameters.
+
 ## Evolving your annotations
 
 Once you annotate a public API, you'll want to consider the fact that updating an API can have downstream effects:
