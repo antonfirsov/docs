@@ -4,7 +4,7 @@ The .NET productivity team is constantly thinking of new ways to make developers
 
 ## Code Fixes and Refactorings
 
-Codefixes and refactorings are the code suggestions the compiler provides through the lightbulb and screwdriver icons. You can access these code suggestions using (Ctrl + .) or (Alt + Enter). The list below are new in Visual Studio 2019 Preview. We'd like to give a big thanks to the community for implementing and reviewing many of these!
+Codefixes and refactorings are the code suggestions the compiler provides through the lightbulb and screwdriver icons. You can access these code suggestions using (Ctrl + .) or (Alt + Enter). The list below are new in Visual Studio 2019 Preview. We'd like to give a big thanks to the community for all the feedback we've received on them!
 
 ### Wrap call chain
 
