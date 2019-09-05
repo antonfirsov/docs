@@ -96,13 +96,26 @@ With the added ability to execute migration commands against .NET Core projects 
 
 As with EF Core, any bug fixes that happened after we branched for Preview 8 are available in [our daily builds](https://github.com/aspnet/AspNetCore/blob/master/docs/DailyBuilds.md).
 
-On the tooling side, we plan to release an updated EF6 designer in an upcoming update of Visual Studio 2019 which will work with projects that target .NET Core (tracked in issue [#883](https://github.com/aspnet/EntityFramework6/issues/883)). 
+### How to work with EDMX files in .NET Core projects
+On the tooling side, we plan to release an updated EF6 designer in an upcoming update of Visual Studio 2019 which will work with projects that target .NET Core (tracked in issue [#883](https://github.com/aspnet/EntityFramework6/issues/883)).
 
-Until this new version of the designer is available, we recommend that you work with your EDMX files inside projects that target .NET Framework and then copy the final version of your EDMX and related files to your .NET Core project. Note that due to a bug in current builds of Visual Studio, copying the files from within Solution Explorer may cause hangs. Copy the files using Windows Explorer or from the command line instead.
+Until this new version of the designer is available, we recommend that you work with your EDMX files inside projects that target .NET Framework. You can then add the EDMX file and the generated classes for the entities and the DbContext as linked files to a .NET Core 3.0 or .NET Standard 2.1 project in the same solution. For example, the project file for the .NET Core project can include the linked files like this:
+
+``` csproj
+  <ItemGroup>
+    <EntityDeploy Include="..\EdmxDesignHost\Entities.edmx" Link="Model\Entities.edmx" />
+    <Compile Include="..\EdmxDesignHost\Entities.Context.cs" Link="Model\Entities.Context.cs" />
+    <Compile Include="..\EdmxDesignHost\Thing.cs" Link="Model\Thing.cs" />
+    <Compile Include="..\EdmxDesignHost\Person.cs" Link="Model\Person.cs" />
+  </ItemGroup>
+```
+Note that the EDMX file is linked with the `EntityDeploy` build action. This is a special MSBuild task (now included in the EF 6.3 package) that takes care of adding the EF model into the target assembly as embedded resources (or copying it as files in the output folder, depending on the setting on the Metadata Artifact Processing setting in the EDMX). For more details on how to get this set up, see our [EDMX .NET Core sample](https://aka.ms/EdmxDotNetCoreSample).
+
+You can choose to copy the files instead of linking them, but keep in mind that due to a bug in current builds of Visual Studio, copying the files from the .NET Framework project to the .NET Core project within Solution Explorer may cause hangs, so it is better to copy the files from the command line.
+
+### Feedback requested: Should we build a dotnet ef6 tool?
 
 We are also seeking feedback and possible contributions to enable a cross-platform command line experience for migrations commands, similar to `dotnet ef` but for EF6 (tracked in issue [#1053](https://github.com/aspnet/EntityFramework6/issues/1053)). If you would like to see this happen, or if you would like to contribute to it, please vote or comment on the issue.
-
-Again, if you find any unexpected issues with EF 6.3 preview 8, please report it to [our GitHub issue tracker](https://github.com/aspnet/entityframework6/issues/new).
 
 ## Weekly status updates
 
