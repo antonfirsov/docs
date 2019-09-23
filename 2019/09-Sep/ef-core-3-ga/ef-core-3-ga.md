@@ -200,8 +200,8 @@ EF Core 3.1 will be a [long-term support (LTS) release][14], which means it will
 
 The full set of issues fixed in 3.1 can be seen in [our issue tracker][15]. Here are some worth mentioning:
 
-*   Fixes and improvements for issues recently found in Cosmos
-*   DB provider Fixes and improvements for issues recently found in the new LINQ implementation 
+*   Fixes and improvements for issues recently found in the Cosmos DB provider 
+*   Fixes and improvements for issues recently found in the new LINQ implementation 
 *   Lots of regressions tests added for issues verified as fixed in 3.0
 *   Test stability improvements
 *   Code cleanup
