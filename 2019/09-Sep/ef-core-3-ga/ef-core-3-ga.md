@@ -179,6 +179,7 @@ Here are some of the most notable improvements:
 
 *   Support for .NET Core 3.0 
     *   The EF 6.3 runtime package now targets .NET Standard 2.1 in addition to .NET Framework 4.0 and 4.5.
+    *   This means that EF 6.3 is cross-platform and supported on other operating systems besides Windows, like Linux and macOS.
     *   The migration commands have been rewritten to execute out of process and work with SDK-style projects.
 *   Support for SQL Server hierarchyid
 *   Improved compatibility with Roslyn and NuGet PackageReference
