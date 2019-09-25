@@ -189,6 +189,7 @@ There are certain limitations when using EF 6.3 in .NET Core. For example:
 
 *   Data providers need to be also ported to .NET Core. We only ported the SQL Server provider, which is included in the EF 6.3 package.
 *   Spatial support won't be enabled with SQL Server because the spatial types aren't enabled to work with .NET Core.
+    *   Note that this limitation applies to EF 6.3 but not to EF Core 3.0. The latter continues to support spatial using the [NetTopologySuite](https://github.com/NetTopologySuite/NetTopologySuite) library.
 *   There's currently no support for using the EF designer directly on .NET Core or .NET Standard projects.
 
 For more details on the EF 6.3 release, and a workaround to the latter limitation, see [What's new in EF 6.3][13] in the product's documentation.
