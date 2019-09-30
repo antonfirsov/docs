@@ -6,7 +6,7 @@ We just released a GA version of .NET Core 3.0 that includes support for Windows
 
 For developers the .NET Core Designer (when we will release the full version of it) will look and feel the same as the old .NET Framework Designer. But for us it is a huge technical challenge to bring the designer to .NET Core because it requires the design surface that hosts the live .NET Core form to run outside the Visual Studio process. That means we need to re-architect the way the designer surface “communicates” with Visual Studio. You can watch these communications in the Output Window, where we track each request sent when the Visual Studio components are accessing properties or executing methods on the live controls in the design surface. The engineering team is still working on this technical challenge, and we will be releasing the Preview versions on regular basis to give you the early glance at the .NET Core Designer. Stay tuned! The next Preview will be coming out in early November.
 
-Because this is the very first preview of the designer, it is not yet bundled in with Visual Studio and instead is available as a Visual Studio extension ("VSIX") ([download][1]). That means if you open a Windows Forms project targeting .NET Core in Visual Studio, **it will not have the designer support by default - you need to install the .NET Core Designer first!**
+Because this is the very first preview of the designer, it isn't yet bundled with Visual Studio and instead is available as a Visual Studio extension ("VSIX") ([download][1]). That means that if you open a Windows Forms project targeting .NET Core in Visual Studio, **it won't have the designer support by default - you need to install the .NET Core Designer first!**
 
 ## Enabling the designer
 
