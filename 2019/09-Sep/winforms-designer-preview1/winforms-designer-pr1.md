@@ -49,7 +49,7 @@ What is not supported in Preview 1:
 *   Container
 *   Resources
 *   ComponentTray
-*   In-Place/Editing
+*   In-place editing
 *   SmartTag support
 *   Databinding
 *   UserControls/Inherited Controls
