@@ -1,6 +1,6 @@
 # Introducing WinForms Designer Preview 1
 
-We just released a GA version of .NET Core 3.0 that includes support for Windows Forms and WPF. And with that we are happy to announce the first preview version of the Windows Forms Designer for .NET Core projects!
+We just released a GA version of .NET Core 3.0 that includes support for Windows Forms and WPF. And along with that release, we're happy to announce the first preview version of the Windows Forms Designer for .NET Core projects!
 
 <img src="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2019/09/winforms-designer-1.png" alt="" width="1015" height="751" class="alignnone size-full wp-image-24785" />
 
