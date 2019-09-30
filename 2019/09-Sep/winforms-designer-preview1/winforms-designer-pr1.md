@@ -52,7 +52,7 @@ What is not supported in Preview 1:
 *   In-place editing
 *   SmartTag support
 *   Databinding
-*   UserControls/Inherited Controls
+*   User Controls/Inherited Controls
 
 ## Give us your feedback!
 
