@@ -72,7 +72,7 @@ We heard some question related to the Windows Forms Designer not working. Here�
 
 ![](new-project.png)
 
-2.  If you want to work with .NET Core project, don’t forget to install the .NET Core Windows Forms Designer, since it is not yet shipped inside Visual Studio by default. See the section “Enabling the designer” above.
+2.  If you want to work with .NET Core project, don’t forget to install the .NET Core Windows Forms Designer, since it isn't yet shipped inside Visual Studio by default. See the previous “Enabling the designer” section.
 
 ### If WPF Designer doesn’t work
 
