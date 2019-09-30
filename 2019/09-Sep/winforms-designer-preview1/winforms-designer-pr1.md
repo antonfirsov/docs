@@ -10,7 +10,7 @@ Because this is the very first preview of the designer, it isn't yet bundled wit
 
 ## Enabling the designer
 
-To enable the designer, download and install the [Windows Forms .NET Core Designer VSIX package][1]. You will be able to remove it from Visual Studio at any time. Once you install the .NET Core Designer, every time you work with a project Visual Studio will automatically pick the right designer (.NET Core or .NET Framework) depending on the target framework of the project.
+To enable the designer, download and install the [Windows Forms .NET Core Designer VSIX package][1]. You can remove it from Visual Studio at any time. After you install the .NET Core Designer, Visual Studio will automatically pick the right designer (.NET Core or .NET Framework) depending on the target framework of the project you're working on.
 
 *   [Download][1]
 *   [Release Notes][2]
