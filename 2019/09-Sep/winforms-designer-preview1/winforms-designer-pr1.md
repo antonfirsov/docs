@@ -18,7 +18,7 @@ To enable the designer, download and install the [Windows Forms .NET Core Design
 
 ## It is early days for the designer, here is what to expect…
 
-Please keep in mind, that this is the first preview, so the experience is limited. We supported the most commonly used controls and base operations, and will be adding more in each new Preview version. Eventually, we will bring the .NET Core Designer at parity with the Windows Forms Designer for .NET Framework, so you will have a seamless transition to .NET Core.
+Please keep in mind, that this is the first preview, so the experience is limited. We support the most commonly used controls and base operations and will be adding more in each new Preview version. Eventually, we will bring the .NET Core Designer at parity with the Windows Forms Designer for .NET Framework, so you'll have a seamless transition to .NET Core.
 
 Because many controls aren't yet supported in the .NET Core designer, **we don’t recommend porting your Windows Forms applications to .NET Core just yet** if you need to use the designer on a regular basis. The Preview 1 version is good for creating new projects with common controls.
 
