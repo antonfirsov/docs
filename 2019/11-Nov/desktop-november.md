@@ -43,6 +43,7 @@ users environment – you app has everything it needs to run on any Windows
 machine.
 * **Single .exe files**. You can package your app and the .NET Core
 platform all in one .exe file.
+* **Improved runtime performance**. .NET Core has many performance optimizations compared to .NET Framework. When you think about the history of .NET Core, built initially for web and server workloads, it helps to understand if your application may see noticeable benefits from the runtime optimizations. Specifically, desktop applications with heavy dependencies on File I/O, networking, and database operations will likely see improvements to performance *for those scenarios*. Some areas where you may not notice much change are in UI rendering performance or application startup performance. 
 * **Smaller app sizes**. In .Net Core 3 we  introduced a new feature called trimmer that will analyze your code and include in your self-contained deployment only those assemblies from .NET Core that are needed for your application. That way all platform parts that are not used for your case will be trimmed out.
 
 By setting the properties `<PublishSingleFile>`,`<RuntimeIdentifier>` and `<PublishTrimmed>` in the project file you’ll be able to deploy a trimmed self-contained application as a single .exe
@@ -57,8 +58,6 @@ file as it shown in the example below.
     <PublishTrimmed>true</PublishTrimmed>
 </PropertyGroup>
 ````
-
-**Improved runtime performance**. .NET Core has many performance optimizations compared to .NET Framework. When you think about the history of .NET Core, built initially for web and server workloads, it helps to understand if your application may see noticeable benefits from the runtime optimizations. Specifically, desktop applications with heavy dependencies on File I/O, networking, and database operations will likely see improvements to performance *for those scenarios*. Some areas where you may not notice much change are in UI rendering performance or application startup performance. 
 
 ## Differences between .NET Framework desktop and .NET Core desktop
 
