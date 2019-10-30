@@ -58,10 +58,7 @@ file as it shown in the example below.
 </PropertyGroup>
 ````
 
-Another great benefit of .NET Core is performance improvements.
-
-***ToDo: Daniel to write this part***
-*There are a ton of performance improvements in .NET Core. Do they make windows desktop apps faster?*
+**Improved runtime performance**. .NET Core has many performance optimizations compared to .NET Framework. When you think about the history of .NET Core, built initially for web and server workloads, it helps to understand if your application may see noticeable benefits from the runtime optimizations. Specifically, desktop applications with heavy dependencies on File I/O, networking, and database operations will likely see improvements to performance *for those scenarios*. Some areas where you may not notice much change are in UI rendering performance or application startup performance. 
 
 ## Differences between .NET Framework desktop and .NET Core desktop
 
