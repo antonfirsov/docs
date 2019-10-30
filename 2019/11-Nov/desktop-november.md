@@ -11,6 +11,8 @@ We constantly hear stories of .NET Windows Desktop developers powering their bus
 * UI-dense forms over data applications
 * Extreme low-latency requirements
 
+This is just the beginning for Windows application development on .NET Core. Read on to 
+learn more about the benefits of .NET Core for building Windows applications.
 
 ## Why Windows desktop on .NET Core?
 
