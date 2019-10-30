@@ -2,7 +2,7 @@
 
 ## Intro
 
-In September, we released .NET Core support for building Windows Desktop appkications, 
+In September, we released .NET Core support for building Windows Desktop applications, 
 including WPF and Windows Forms. Since then, we have been delighted to see so many 
 developers share their stories of migrating desktop applications (and controls libraries) to .NET Core. 
 We constantly hear stories of .NET Windows Desktop developers powering their business with WPF and Windows Forms, especially in scenarios where the desktop shines, including:
