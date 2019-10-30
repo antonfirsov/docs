@@ -2,17 +2,24 @@
 
 ## Intro
 
-***ToDo: Daniel to write this part***
-*Where does desktop fit within today's computing landscape?*
+In September, we released .NET Core support for building Windows Desktop appkications, 
+including WPF and Windows Forms. Since then, we have been delighted to see so many 
+developers share their stories of migrating desktop applications (and controls libraries) to .NET Core. 
+We constantly hear stories of .NET Windows Desktop developers powering their business with WPF and Windows Forms, especially in scenarios where the desktop shines, including:
+* Offline workloads
+* Applications with dependencies on custom device drivers
+* UI-dense forms over data applications
+* Extreme low-latency requirements
 
-## Why Windows desktop on .NET Core
 
-As we announced at MS Build, .NET Core (and in future .NET 5 that is built on
-top of .NET Core) will be the future of .NET. This means that while .NET
-Framework will be supported, all new updates will go only to .NET Core and .NET 5. To evolve desktop stacks and enable desktop developers to benefit from all
-the updates of the future, we brought Windows Forms and WPF to .NET Core. They
-will still remain Windows-only technologies because they are tightly coupled
-with Windows APIs. But .NET Core, besides being cross-platform, has many other
+## Why Windows desktop on .NET Core?
+
+.NET Core (and in future .NET 5 that is built on top of .NET Core) will be the future of .NET. 
+.NET Framework will be supported for a long time, but new updates will be added to .NET Core (and eventually .NET 5). 
+To improve Windows desktop stacks and enable .NET desktop developers to benefit from all
+the updates of the future, we brought Windows Forms and WPF to .NET Core. 
+They will still remain Windows-only technologies because there are tightly coupled
+dependencies to Windows APIs. But .NET Core, besides being cross-platform, has many other
 features that can enhance desktop applications. 
 
 First of all, all the runtime
