@@ -95,7 +95,7 @@ or
 C:\> try-convert -w <path to your solution>
 ````
 
-If Try Convert tool did not work for you, here are materials on how to port your application manually.
+As previously mentioned, if the try-convert tool did not work for you, here are materials on how to port your application by hand.
 
 Videos
 
