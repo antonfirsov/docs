@@ -77,7 +77,7 @@ Check out these short video tutorials:
 * [Getting started with Windows Forms on .NET Core](https://www.youtube.com/watch?v=a66wsCRSgDk&list=PLdo4fOcmZ0oV7n106SEWwWPy4WVjpl3Fj&index=3&t=12s)
 * [Differences between .NET Core and .Net Framework and what to choose for your application](https://www.youtube.com/watch?v=BPWTdQ7rh2w&list=PLdo4fOcmZ0oV7n106SEWwWPy4WVjpl3Fj&index=2&t=67s)
 
-## Porting from .NET Framework
+## Porting your WinForms or WPF app to .NET Core
 
 As a starting point, can try out a tool we created to help automate converting your .NET Framework project(s) to .NET Core – [Try Convert](https://github.com/dotnet/try-convert).
 
