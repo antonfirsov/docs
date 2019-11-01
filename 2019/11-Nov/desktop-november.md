@@ -17,7 +17,7 @@ learn more about the benefits of .NET Core for building Windows applications.
 ## Why Windows desktop on .NET Core?
 
 .NET Core (and in future .NET 5 that is built on top of .NET Core) will be the future of .NET. 
-.NET Framework will be supported for a long time, but new updates will be added to .NET Core (and eventually .NET 5). 
+We are committed to support .NET Framework for years to come, however it will not be receiving any new features, those will only be added to .NET Core (and eventually .NET 5). 
 To improve Windows desktop stacks and enable .NET desktop developers to benefit from all
 the updates of the future, we brought Windows Forms and WPF to .NET Core. 
 They will still remain Windows-only technologies because there are tightly coupled
