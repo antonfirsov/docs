@@ -2,10 +2,11 @@
 
 ## Intro
 
-In September, we released .NET Core support for building Windows Desktop applications, 
+In September, we released .NET Core support for building Windows desktop applications, 
 including WPF and Windows Forms. Since then, we have been delighted to see so many 
 developers share their stories of migrating desktop applications (and controls libraries) to .NET Core. 
-We constantly hear stories of .NET Windows Desktop developers powering their business with WPF and Windows Forms, especially in scenarios where the desktop shines, including:
+We constantly hear stories of .NET Windows desktop developers powering their business with WPF and Windows Forms, especially in scenarios where the desktop shines, including:
+
 * Offline workloads
 * Applications with dependencies on custom device drivers
 * UI-dense forms over data applications
@@ -16,20 +17,19 @@ learn more about the benefits of .NET Core for building Windows applications.
 
 ## Why Windows desktop on .NET Core?
 
-.NET Core (and in future .NET 5 that is built on top of .NET Core) will be the future of .NET. 
-We are committed to support .NET Framework for years to come, however it will not be receiving any new features, those will only be added to .NET Core (and eventually .NET 5). 
+.NET Core (and in the future .NET 5 that is built on top of .NET Core) will be the future of .NET.
+We are committed to support .NET Framework for years to come, however it will not be receiving any new features, those will only be added to .NET Core (and eventually .NET 5).
 To improve Windows desktop stacks and enable .NET desktop developers to benefit from all
-the updates of the future, we brought Windows Forms and WPF to .NET Core. 
+the updates of the future, we brought Windows Forms and WPF to .NET Core.
 They will still remain Windows-only technologies because there are tightly coupled
 dependencies to Windows APIs. But .NET Core, besides being cross-platform, has many other
-features that can enhance desktop applications. 
+features that can enhance desktop applications.
 
-First of all, all the runtime
-improvements and language features will be added only to .NET Core and in future
+First of all, all the runtime improvements and language features will be added only to .NET Core and in the future
 to .NET 5. A good example here is C# 8 that became available in .NET Core 3.0.
 Besides, the .NET Core versions of Windows Forms and WPF will become a part of
 the .NET 5 platform. So, by porting your application to .NET Core today you are
-preparing them for .NET 5 in future.
+preparing them for .NET 5.
 
 Also, .NET Core brings deployment
 flexibility for your applications with new options that are not available in
@@ -43,7 +43,7 @@ users environment – you app has everything it needs to run on any Windows
 machine.
 * **Single .exe files**. You can package your app and the .NET Core
 platform all in one .exe file.
-* **Improved runtime performance**. .NET Core has many performance optimizations compared to .NET Framework. When you think about the history of .NET Core, built initially for web and server workloads, it helps to understand if your application may see noticeable benefits from the runtime optimizations. Specifically, desktop applications with heavy dependencies on File I/O, networking, and database operations will likely see improvements to performance *for those scenarios*. Some areas where you may not notice much change are in UI rendering performance or application startup performance. 
+* **Improved runtime performance**. .NET Core has many performance optimizations compared to .NET Framework. When you think about the history of .NET Core, built initially for web and server workloads, it helps to understand if your application may see noticeable benefits from the runtime optimizations. Specifically, desktop applications with heavy dependencies on File I/O, networking, and database operations will likely see improvements to performance *for those scenarios*. Some areas where you may not notice much change are in UI rendering performance or application startup performance.
 * **Smaller app sizes**. In .Net Core 3 we  introduced a new feature called trimmer that will analyze your code and include in your self-contained deployment only those assemblies from .NET Core that are needed for your application. That way all platform parts that are not used for your case will be trimmed out.
 
 By setting the properties `<PublishSingleFile>`,`<RuntimeIdentifier>` and `<PublishTrimmed>` in the project file you’ll be able to deploy a trimmed self-contained application as a single .exe
@@ -61,13 +61,17 @@ file as it shown in the example below.
 
 ## Differences between .NET Framework desktop and .NET Core desktop
 
-While developing desktop applications, you won’t notice much difference between .NET Framework and .NET Core versions of WPF and Windows Forms. A part of our effort was to provide a functional parity between these platforms in the desktop area and enhance the .NET Core experience in future. WPF applications are fully supported on .NET Core and ready for you to use, while we are working on minor updates and improvements. For Windows Forms the runtime part is fully ported to .NET Core and the team is working on the **Windows Forms Designer**. We are planning to get it ready by summer 2020 and for now you can check out the [Preview version]() (which of course provides the limited functionality since the work on it is in progress).
+While developing desktop applications, you won’t notice much difference between .NET Framework and .NET Core versions of WPF and Windows Forms. A part of our effort was to provide a functional parity between these platforms in the desktop area and enhance the .NET Core experience in the future. WPF applications are fully supported on .NET Core and ready for you to use, while we are working on minor updates and improvements. For Windows Forms the runtime part is fully ported to .NET Core and the team is working on the **Windows Forms Designer**. We are planning to get it ready by the third quarter of 2020 and for now you can check out the [Preview version](https://aka.ms/winforms-designer) (which of course provides the limited functionality since the work on it is in progress).
 
 ### Breaking changes
 
-There are no breaking changes in WPF and Windows Forms areas between .NET Framework and .Net Core per se, but if you were using such domains as WCF Client, Code Access Security, App Domains, Interop and Remoting, you will need to refactor your code if you want to switch to .NET Core. Also, there are changes in how you configure the .NET features. In .NET Core unlike .NET Framework you cannot use app config files, because .NET Core doesn’t have a machine.config file to define common configuration sections such as system.diagnostics, system.net, or system.servicemodel, so an app config file will fail to load if it contains any of these sections. This change affects System.Diagnostics tracing and WCF client scenarios which were commonly configured using XML configuration previously. In .NET Core you’ll need to configure them in code instead. To change behaviors without recompiling, consider setting up tracing and WCF types using values loaded from a Microsoft.Extensions.Configuration source or from appSettings.
+There are a few [breaking changes](https://docs.microsoft.com/dotnet/core/compatibility/framework-core) between .NET Framework and .NET Core but most of the code related to Windows Forms and WPF  areas was ported to Core as is. If you were using such domains as WCF Client, Code Access Security, App Domains, Interop and Remoting, you will need to refactor your code if you want to switch to .NET Core.
 
-You can find more information on differences between .NET Core and .NET Framework in the [documentation](https://docs.microsoft.com/en-us/dotnet/core/porting/net-framework-tech-unavailable).  
+Another thing to keep in mind - the default output paths on .NET Core is different from on .NET Framework, so if you have some assumptions in your code about file/folder structure of the running app then it'll probably fail at runtime.
+
+Also, there are changes in how you configure the .NET features. In .NET Core unlike .NET Framework you cannot use app config files, because .NET Core doesn’t have a machine.config file to define common configuration sections such as `system.diagnostics`, `system.net`, or `system.servicemodel`, so an app config file will fail to load if it contains any of these sections. This change affects `System.Diagnostics` tracing and WCF client scenarios which were commonly configured using XML configuration previously. In .NET Core you’ll need to configure them in code instead. To change behaviors without recompiling, consider setting up tracing and WCF types using values loaded from a `Microsoft.Extensions.Configuration` source or from `appSettings`.
+
+You can find more information on differences between .NET Core and .NET Framework in the [documentation](https://docs.microsoft.com/dotnet/core/porting/net-framework-tech-unavailable).  
 
 ## Getting Started
 
@@ -79,13 +83,21 @@ Check out these short video tutorials:
 
 ## Porting your WinForms or WPF app to .NET Core
 
-As a starting point, can try out a tool we created to help automate converting your .NET Framework project(s) to .NET Core – [Try Convert](https://github.com/dotnet/try-convert).
+First of all, run the [Portability Analyzer](https://github.com/Microsoft/dotnet-apiport-ui/releases/download/1.1/PortabilityAnalyzer.zip) and if needed, update your code to get a 100% compatibility with .NET Core. Here are [instructions on using the Portability Analyzer](https://devblogs.microsoft.com/dotnet/are-your-windows-forms-and-wpf-applications-ready-for-net-core-3-0/).
+
+When your application is fully compatible with .NET Core, you are ready to port it. As a starting point, you can try out a tool we created to help automate converting your .NET Framework project(s) to .NET Core – [try-convert](https://github.com/dotnet/try-convert).
 
 It's important to remember that this tool is just a starting point in your journey to .NET Core. It is also not a supported Microsoft product. Although it can help you with some of the mechanical aspects of migration, it will not handle all scenarios or project types. If your solution has projects that the tool rejects or fails to convert, you’ll have to port by hand. No worries, we have plenty of tutorials on how to do it (in the end of this section).
 
-The try-convert tool will attempt to migrate your old-style project files to the new SDK-style and retarget applicable projects to .NET Core. For your libraries we leave it up to you to make a call regarding the platform: weather you’d like to target .NET Core or .NET Standard. You can specify it in your project file by updating the value for `<TargetFramework>`.
+The try-convert tool will attempt to migrate your old-style project files to the new SDK-style and retarget applicable projects to .NET Core. For your libraries we leave it up to you to make a call regarding the platform: weather you’d like to target .NET Core or .NET Standard. You can specify it in your project file by updating the value for `<TargetFramework>`. Libraries without .NET Core-specific dependencies like WPF or Windows Forms may benefit from targeting .NET Standard
 
-It is a global tool that you can install on your machine, the you can call from CLI:
+`<TargetFramework>netstandard2.1</TargetFramework>`
+
+ so that they can be used by callers targeting many different .NET Platforms. On the other hand, if a library uses a feature that requires .NET Core (like Windows desktop UI APIs), it's fine for the library to target .NET Core
+
+`<TargetFramework>netcoreapp3.0</TargetFramework>`
+
+try-convert is a global tool that you can install on your machine, then you can call from CLI:
 
 ````cmd
 C:\> try-convert -p <path to your project>
