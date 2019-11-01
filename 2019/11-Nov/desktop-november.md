@@ -81,7 +81,7 @@ Check out these short video tutorials:
 
 You can try out the tool we created for porting .NET Framework applications to .NET Core – [Try Convert](https://github.com/dotnet/try-convert). It is not possible to automate the porting process end-to-end for all the cases, but we were asked to at least automate the common scenarios. So, if your case is “special" the tool might not be able to port your application and you’ll have to do it by hand. No worries, we have plenty of tutorials on how to do it (in the end of this section).
 
-Try Convert will try to upgrade your old-style project files to the new SDK-style and retarget your executables to .NET Core. For your libraries we leave it up to you to make a call regarding the platform: weather you’d like to target .NET Core or .NET Standard. You can specify it in your project file by updating the value for `<TargetFramework>`.
+The try-convert tool will attempt to migrate your old-style project files to the new SDK-style and retarget applicable projects to .NET Core. For your libraries we leave it up to you to make a call regarding the platform: weather you’d like to target .NET Core or .NET Standard. You can specify it in your project file by updating the value for `<TargetFramework>`.
 
 It is a global tool that you can install on your machine, the you can call from CLI:
 
