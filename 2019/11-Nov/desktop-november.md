@@ -9,10 +9,10 @@ applications (and controls libraries) to .NET Core. We constantly hear stories
 of .NET Windows desktop developers powering their business with WPF and Windows
 Forms, especially in scenarios where the desktop shines, including:
 
-* Offline workloads
-* Applications with dependencies on custom device drivers
 * UI-dense forms over data applications
-* Extreme low-latency requirements
+* Responsive low-latency UI
+* Applications that need to run offline/disconnected
+* Applications with dependencies on custom device drivers
 
 This is just the beginning for Windows application development on .NET Core.
 Read on to learn more about the benefits of .NET Core for building Windows
@@ -44,6 +44,11 @@ options that are not available in .NET Framework, such as:
 * **Self-contained deployment**. You can deploy the .NET Core platform with your
   applications and become completely independent of your end users environment –
   you app has everything it needs to run on any Windows machine.
+* **Smaller app sizes**. In .NET Core 3 we  introduced a new feature called
+  linker (also sometimes referred as trimmer), that will analyze your code and
+  include in your self-contained deployment only those assemblies from .NET Core
+  that are needed for your application. That way all platform parts that are not
+  used for your case will be trimmed out.
 * **Single .exe files**. You can package your app and the .NET Core platform all
   in one .exe file.
 * **Improved runtime performance**. .NET Core has many performance optimizations
@@ -54,11 +59,6 @@ options that are not available in .NET Framework, such as:
   networking, and database operations will likely see improvements to
   performance *for those scenarios*. Some areas where you may not notice much
   change are in UI rendering performance or application startup performance.
-* **Smaller app sizes**. In .Net Core 3 we  introduced a new feature called
-  trimmer that will analyze your code and include in your self-contained
-  deployment only those assemblies from .NET Core that are needed for your
-  application. That way all platform parts that are not used for your case will
-  be trimmed out.
 
 By setting the properties `<PublishSingleFile>`,`<RuntimeIdentifier>` and
 `<PublishTrimmed>` in the project file you’ll be able to deploy a trimmed
@@ -84,17 +84,16 @@ area and enhance the .NET Core experience in the future. WPF applications are
 fully supported on .NET Core and ready for you to use, while we are working on
 minor updates and improvements. For Windows Forms the runtime part is fully
 ported to .NET Core and the team is working on the **Windows Forms Designer**.
-We are planning to get it ready by the third quarter of 2020 and for now you can
-check out the [Preview version](https://aka.ms/winforms-designer) (which of
-course provides the limited functionality since the work on it is in progress).
+We are planning to get it ready by the fourth quarter of 2020 and for now you can
+check out the Preview version of the designer in [Visual Studio](https://visualstudio.microsoft.com/vs/preview/ "Visual Studio Preview download page") 16.4 Preview 3 or later. Don’t forget to set the checkbox in the **Tools->Options->Preview Features->Use the Preview of Windows Forms designer for .NET Core apps** and restart the Visual Studio. Please keep in mind that the experience is limited for now since the work on it is in progress.
 
 ### Breaking changes
 
 There are a few [breaking
-changes](https://docs.microsoft.com/dotnet/core/compatibility/framework-core)
+changes](https://docs.microsoft.com/dotnet/core/compatibility/framework-core ".NET Framework and .NET Core compatibility")
 between .NET Framework and .NET Core but most of the code related to Windows
-Forms and WPF  areas was ported to Core as is. If you were using such domains as
-WCF Client, Code Access Security, App Domains, Interop and Remoting, you will
+Forms and WPF  areas was ported to Core as-is. If you were using such components
+as WCF Client, Code Access Security, App Domains, Interop and Remoting, you will
 need to refactor your code if you want to switch to .NET Core.
 
 Another thing to keep in mind - the default output paths on .NET Core is
@@ -114,30 +113,33 @@ consider setting up tracing and WCF types using values loaded from a
 `Microsoft.Extensions.Configuration` source or from `appSettings`.
 
 You can find more information on differences between .NET Core and .NET
-Framework in the
-[documentation](https://docs.microsoft.com/dotnet/core/porting/net-framework-tech-unavailable).
+Framework in the [documentation](https://docs.microsoft.com/dotnet/core/porting/net-framework-tech-unavailable ".NET Framework technologies unavailable on .NET Core").
 
 ## Getting Started
 
 Check out these short video tutorials:
 
-* [Getting started with WPF on .NET Core](https://www.youtube.com/watch?v=Y4pthq_zGvI&list=PLdo4fOcmZ0oV7n106SEWwWPy4WVjpl3Fj&index=4&t=6s)
-* [Getting started with Windows Forms on .NET Core](https://www.youtube.com/watch?v=a66wsCRSgDk&list=PLdo4fOcmZ0oV7n106SEWwWPy4WVjpl3Fj&index=3&t=12s)
+* [Getting started with WPF on .NET Core](https://www.youtube.com/watch?v=Y4pthq_zGvI&list=PLdo4fOcmZ0oV7n106SEWwWPy4WVjpl3Fj&index=4&t=6s "Creating first WPF .NET Core application")
+* [Getting started with Windows Forms on .NET Core](https://www.youtube.com/watch?v=a66wsCRSgDk&list=PLdo4fOcmZ0oV7n106SEWwWPy4WVjpl3Fj&index=3&t=12s "Creating first Windows Forms .NET Core application")
 * [Differences between .NET Core and .Net Framework and what to choose for your
-  application](https://www.youtube.com/watch?v=BPWTdQ7rh2w&list=PLdo4fOcmZ0oV7n106SEWwWPy4WVjpl3Fj&index=2&t=67s)
+  application](https://www.youtube.com/watch?v=BPWTdQ7rh2w&list=PLdo4fOcmZ0oV7n106SEWwWPy4WVjpl3Fj&index=2&t=67s "Differences between .NET Framework and .NET Core")
 
 ## Porting from .NET Framework to .NET Core
 
 First of all, run the [Portability
-Analyzer](https://github.com/Microsoft/dotnet-apiport-ui/releases/download/1.1/PortabilityAnalyzer.zip)
-and if needed, update your code to get a 100% compatibility with .NET Core. Here
-are [instructions on using the Portability
-Analyzer](https://devblogs.microsoft.com/dotnet/are-your-windows-forms-and-wpf-applications-ready-for-net-core-3-0/).
+Analyzer](https://github.com/Microsoft/dotnet-apiport-ui/releases/download/1.1/PortabilityAnalyzer.zip
+"Portability Analyzer download") and if needed, update your code to get a 100%
+compatibility with .NET Core. Here are [instructions on using the Portability
+Analyzer](https://devblogs.microsoft.com/dotnet/are-your-windows-forms-and-wpf-applications-ready-for-net-core-3-0/
+"Portability Analyzer instruction"). We recommend to use a source control or
+to backup your code before you make any changes to your application in case the
+refactoring would not go the way you want, and you decide to go back to your
+initial state.
 
 When your application is fully compatible with .NET Core, you are ready to port
 it. As a starting point, you can try out a tool we created to help automate
 converting your .NET Framework project(s) to .NET Core –
-[try-convert](https://github.com/dotnet/try-convert).
+[try-convert](https://github.com/dotnet/try-convert "try-convert tool").
 
 It's important to remember that this tool is just a starting point in your
 journey to .NET Core. It is also not a supported Microsoft product. Although it
@@ -161,7 +163,7 @@ dependencies like WPF or Windows Forms may benefit from targeting .NET Standard
 
 `<TargetFramework>netcoreapp3.0</TargetFramework>`
 
-try-convert is a global tool that you can install on your machine, then you can
+try-convert is a global tool that you can [install](https://github.com/dotnet/try-convert/releases "try-convert installation") on your machine, then you can
 call from CLI:
 
 ````cmd
@@ -179,15 +181,15 @@ materials on how to port your application by hand.
 
 Videos
 
-* [Simple porting case](https://sec.ch9.ms/ch9/beca/05683ec4-e8f8-4415-9009-046352a4beca/on.NET_porting_high.mp4)
-* [Advanced porting case](https://www.youtube.com/playlist?list=PLReL099Y5nRdG-LQ6OZSPECF-eXjgFNrW)
+* [Simple porting case](https://sec.ch9.ms/ch9/beca/05683ec4-e8f8-4415-9009-046352a4beca/on.NET_porting_high.mp4 "Video on porting to .NET Core")
+* [Advanced porting case](https://www.youtube.com/playlist?list=PLReL099Y5nRdG-LQ6OZSPECF-eXjgFNrW "Advanced video on porting to .NET Core")
 
 Documentation
 
 * [Simple porting
-  case](https://devblogs.microsoft.com/dotnet/porting-desktop-apps-to-net-core/)
+  case](https://devblogs.microsoft.com/dotnet/porting-desktop-apps-to-net-core/ "Blogpost on porting to .NET Core")
 * Advanced porting case ([Part
-  1](https://devblogs.microsoft.com/dotnet/migrating-a-sample-wpf-app-to-net-core-3-part-1/),
+  1](https://devblogs.microsoft.com/dotnet/migrating-a-sample-wpf-app-to-net-core-3-part-1/ "Advanced blogpost on porting to .NET Core - part 1"),
   [Part
-  2](https://devblogs.microsoft.com/dotnet/migrating-a-sample-wpf-app-to-net-core-3-part-2/))
-* [Overview of the porting process](https://docs.microsoft.com/en-us/dotnet/core/porting/)
+  2](https://devblogs.microsoft.com/dotnet/migrating-a-sample-wpf-app-to-net-core-3-part-2/ "Advanced blogpost on porting to .NET Core - part 2"))
+* [Overview of the porting process](https://docs.microsoft.com/en-us/dotnet/core/porting/ "Documentation on porting to .NET Core")
