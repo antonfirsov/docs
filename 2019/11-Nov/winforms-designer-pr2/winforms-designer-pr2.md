@@ -13,7 +13,7 @@ Clicking on **Enable** link will take you to the same place in  **Tools -> Optio
 * Added Designer Actions to the available controls, like for example making a `TextBox` multiline or adding items to a `CheckedListBox`.
 * Improved Undo/Redo actions.
 * Scrollbars support. If a form is bigger than the document window, scrollbars are shown.
-* Some container controls (GroupBox and Panel) and more are coming.
+* Some container controls (`GroupBox` and `Panel`) and more are coming.
 
 ![Windows Forms designer](designer.png)
 
