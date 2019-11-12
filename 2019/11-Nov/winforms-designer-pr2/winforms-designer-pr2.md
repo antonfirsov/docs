@@ -4,7 +4,7 @@ We are happy to announce the new preview version of the .NET Core Windows Forms 
 
 ![Gold bar in Visual Studio suggesting to enable the Windows Forms designer](goldbar.png)
 
-Clicking on **Enable** link will take you to the same place in  **Tools -> Options -> Environment -> Preview Features** where you can enable the designer. And yes, we make mistakes and we fixed the missing space in the gold bar caption in the next Preview version :).
+Clicking on **Enable** link will take you to the same place in  **Tools -> Options -> Environment -> Preview Features** where you can enable the designer. And yes, we make mistakes, the missing space in the gold bar will be fixed in the next Preview version :).
 
 ## New in Preview 2
 
