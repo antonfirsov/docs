@@ -10,7 +10,7 @@ Clicking on **Enable** link will take you to the same place in  **Tools -> Optio
 
 * Timer control support.
 * Added more features in the Component Tray. Now it responds to user actions.
-* Added Designer Actions to the available controls, like for example making a TextBox multi-line or adding items to a CheckedListBox.
+* Added Designer Actions to the available controls, like for example making a `TextBox` multiline or adding items to a `CheckedListBox`.
 * Improved Undo/Redo actions.
 * Scrollbars support. If a form is bigger than the document window, scrollbars are shown.
 * Some container controls (GroupBox and Panel) and more are coming.
