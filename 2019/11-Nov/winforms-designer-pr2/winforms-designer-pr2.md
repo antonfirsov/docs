@@ -32,4 +32,7 @@ Of course, the WinForms team could have made their work easy and simply "pretend
 In the new Visual Studio WinForms Core Designer, however, this will work: The Property Browser you see and use in Visual Studio is based on the classic framework, but thanks to the existence of TypeDescriptors, which allow an enormous flexibility of the extension of framework types at runtime, we are able to create ProxyObjects as a communication link between the two processes at design time to access the actual Core objects in the other (core) process via inter-process communication. That way, although the UI is still in Visual Studio and thus based on the classic framework, the users will still see and edit every single aspect of the WinForms Core objects’ functionality. 
 The downside is that this detour has to be implemented anew for practically the entire existing Windows Forms Designer, and to do this correctly and with the performance and stability that you expect, we have set ourselves the corresponding schedule.
 
-## Known issues
+## Known issues - ToDo Merrie
+
+
+## Breaking Changes - ToDo Olia
