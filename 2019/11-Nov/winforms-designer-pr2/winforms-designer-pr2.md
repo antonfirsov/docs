@@ -7,7 +7,7 @@ We are happy to announce the new preview version of the .NET Core Windows Forms 
 Just to clarify, since we get this question sometimes: ***installing the .NET Core Windows Forms Designer from separate VSIX is no longer needed***, it is built-in the Visual Studio Preview.
 
 
-You might notice a gold bar in the upper part of your Visual Studio Preview suggesting you to enable the Windows Forms designer.
+You might notice a yellow bar in the upper part of your Visual Studio Preview suggesting you to enable the Windows Forms designer.
 
 ![Gold bar in Visual Studio suggesting to enable the Windows Forms designer](goldbar.png)
 
