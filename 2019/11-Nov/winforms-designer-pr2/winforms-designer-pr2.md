@@ -2,7 +2,7 @@
 
 We are happy to announce the new preview version of the .NET Core Windows Forms Designer that is available with the  Visual Studio 16.5 Preview 1! To use the designer you need to be on a ***preview*** version of [Visual Studio](https://visualstudio.microsoft.com/vs/preview/ "Visual Studio Preview download") and enable the designer in Visual Studio: in **Tools -> Options -> Environment -> Preview Features** check **Use the preview Windows Forms designer for .NET Core apps**.
 
-![Enabling .NEt Core Windows Forms Designer in Visual Studio Settings](settings.png)
+![Enabling .NET Core Windows Forms Designer in Visual Studio Settings](settings.png)
 Just to clarify, since we get this question sometimes: ***installing the .NET Core Windows Forms Designer from separate VSIX is no longer needed***, it is built-in the Visual Studio Preview.
 
 
