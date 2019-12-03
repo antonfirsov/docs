@@ -62,7 +62,7 @@ That's why we turned down this idea and proceeded with the described above "out-
 
 The downside for this approach is that this implementation requires to re-write in a new manner basically the entire existing Windows Forms Designer. And to do this correctly, with the performance and stability that you expect, we had to set out some significant time. The WPF team started working on the designer prototype that would work well outside of the Visual Studio process more than 3 years ago and now the WPF designer is released and ready for .NET Core developers. Of course we cannot leave Windows Forms developers for another 3 years without the designer. The engineering team is working very hard to get the mature version of the .NET Core Windows Forms designer in May 2020 and we are looking at completing the work on it by the fourth quarter of 2020.
 
-From all the team we want to say **THANK YOU!** to those who is already testing the Preview versions of the designer, [reporting the issues](https://github.com/microsoft/dotnet-blog/pull/393/files?short_path=d4cfaac#diff-d4cfaac5c85a83f2e6e56de116ffd8d9) and contributing to the [Windows Forms](https://github.com/dotnet/winforms)! We know the experience is "buggy" and appreciate your desire to help us! :)
+From all the team we want to say **THANK YOU!** to those who is already testing the Preview versions of the designer, reporting the issues and contributing to the [Windows Forms](https://github.com/dotnet/winforms)! We know the experience is "buggy" and appreciate your desire to help us! :)
 
 ## How to report issues
 
