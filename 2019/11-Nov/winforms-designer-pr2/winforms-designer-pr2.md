@@ -17,16 +17,16 @@ Clicking on **Enable** link will take you to the same place in  **Tools -> Optio
 
 In this preview version of the designer we've added following features:
 
-* Timer control support.
+* Timer control support
 * Added Designer Actions to the available controls, like for example making a `TextBox` multiline or adding items to a `CheckedListBox`.
-* Improved Undo/Redo actions.
-* Scrollbars support. If a form is bigger than the document window, scrollbars are shown.
-* Some container controls (`GroupBox` and `Panel`) and more are coming.
-* Started Component Tray.
-* Local resources support.
-* Copy-paste between containers.
-* Various bug fixes and improvements.
-* Shipping as a part of Visual Studio: you no longer need to install .NET Core Windows Forms designer separately, now it is a part of Visual Studio and is released and available with each Visual Studio Preview version.
+* Improved Undo/Redo actions
+* Scrollbars support: if a form is bigger than the document window, scrollbars are shown
+* Some container controls (`GroupBox` and `Panel`) and more are coming
+* Started Component Tray
+* Local resources support
+* Copy-paste between containers
+* Various bug fixes and improvements
+* Shipping as a part of Visual Studio: you no longer need to install .NET Core Windows Forms designer separately, now it is a part of Visual Studio and is released and available with each Visual Studio Preview version
 
 ![Windows Forms designer](designer.png)
 
