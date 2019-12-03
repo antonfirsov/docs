@@ -30,9 +30,25 @@ In this preview version of the designer we've added following features:
 
 ![Windows Forms designer](designer.png)
 
-## Known issues - ToDo Merrie
+## Features currently under development
 
-## Breaking Changes
+These features are not yet implemented:
+
+* Localization of your own Windows Forms applications
+* Data-related scenarios including data binding and data-related controls
+* Tab order dialog
+* Document outline
+* Container controls: we have implementations for Panel Control and GroupBox Container and the rest are coming soon.
+* MenuStrip and ToolStrip are expected in the next preview.
+* Inherited forms
+* Tools -> Options page for the designer
+* Third-party controls and UserControls
+
+## Known issues - ToDO Merrie
+
+
+
+## Upgrade to .NET Core 3.1 LTS version!
 
 In .NET Core 3.1 some outdated Windows Forms controls (DataGrid, ToolBar, ContextMenu, Menu, MainMenu, MenuItem and their child components) were removed. These controls were replaced with newer and more powerful ones in .NET Framework 2.0 in 2005 and have not been available by default in the designer Toolbox. Moving forward with .NET Core we finally had to cut them out from the runtime as well in order to be able to maintain support for areas like high DPI, accessibility, and reliability.
 
