@@ -18,7 +18,7 @@ Clicking on **Enable** link will take you to the same place in  **Tools -> Optio
 
 ## What's new
 
-In this preview version of the designer we've added following features:
+In this preview version of the designer, we've added the following features:
 
 * Timer control support
 * Added Designer Actions to the available controls, like for example making a `TextBox` multiline or adding items to a `CheckedListBox`.
