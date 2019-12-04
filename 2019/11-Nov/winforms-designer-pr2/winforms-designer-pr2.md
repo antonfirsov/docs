@@ -53,7 +53,7 @@ These features are not yet implemented:
 
 ## Upgrade to .NET Core 3.1
 
-In .NET Core 3.1 some outdated Windows Forms controls (DataGrid, ToolBar, ContextMenu, Menu, MainMenu, MenuItem and their child components) were removed. These controls were replaced with newer and more powerful ones in .NET Framework 2.0 in 2005 and have not been available by default in the designer Toolbox. Moving forward with .NET Core we finally had to cut them out from the runtime as well in order to be able to maintain support for areas like high DPI, accessibility, and reliability.
+In .NET Core 3.1, some outdated Windows Forms controls (DataGrid, ToolBar, ContextMenu, Menu, MainMenu, MenuItem, and their child components) were removed. These controls were replaced with newer and more powerful ones in .NET Framework 2.0 in 2005 and haven't been available by default in the designer Toolbox. Moving forward with .NET Core, we had to cut them out of the runtime as well in order to maintain support for areas like high DPI, accessibility, and reliability.
 
 We recommend to upgrade to the .NET Core 3.1 version because this is the long term support version that has many improvement and bug fixes. In future versions of the Windows Forms Designer you might see some issues with .NET Core 3.0 applications because of the removed functionality related to the outdated controls. Except for this deleted controls the upgrade from .NET Core 3.0 to 3.1 should be very smooth. And even if you are using any of the old controls, it will be easy to upgrade your application to their new alternatives:
 
