@@ -7,7 +7,7 @@ We are happy to announce the new preview version of the .NET Core Windows Forms 
 
 ![Enabling .NET Core Windows Forms Designer in Visual Studio Settings](settings.png)
 
-Just to clarify, since we get this question sometimes: ***installing the .NET Core Windows Forms Designer from separate VSIX is no longer needed***, it is built-in the Visual Studio Preview.
+Just to clarify, since we get this question sometimes: ***installing the .NET Core Windows Forms Designer from separate VSIX is no longer needed***. It is now built into the Visual Studio Preview.
 
 
 You might notice a yellow bar in the upper part of your Visual Studio Preview suggesting you to enable the Windows Forms designer.
