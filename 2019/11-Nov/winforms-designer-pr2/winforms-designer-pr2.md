@@ -29,7 +29,7 @@ In this preview version of the designer, we've added the following features:
 * Local resources support
 * Copy-paste between containers
 * Various bug fixes and improvements
-* Shipping as a part of Visual Studio: you no longer need to install .NET Core Windows Forms designer separately, now it is a part of Visual Studio and is released and available with each Visual Studio Preview version
+* Shipping with Visual Studio: you no longer need to install .NET Core Windows Forms designer separately. It is now a part of Visual Studio and a new version is released with each Visual Studio Preview version.
 
 ![Windows Forms designer](designer.png)
 
