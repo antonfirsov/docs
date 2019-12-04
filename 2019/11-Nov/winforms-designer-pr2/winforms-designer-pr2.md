@@ -85,6 +85,6 @@ From all the team we want to say **THANK YOU!** to those who is already testing 
 
 ## How to report issues
 
-Your feedback and help is very welcome! You can report an issue or a feature request via Visual Studio Feedback channel. To do so, click on Send Feedback icon in Visual Studio top right corner as it is shown on the picture below and specify that it is related to the "WinForms .NET Core" area.
+Your feedback and help are welcome! You can report an issue or a feature request via the Visual Studio Feedback channel. To do so, click on **Send Feedback** icon in Visual Studio top-right corner as shown in the following picture and specify that it is related to the "WinForms .NET Core" area.
 
 ![Visual Studio Feedback channel](feedback.png)
