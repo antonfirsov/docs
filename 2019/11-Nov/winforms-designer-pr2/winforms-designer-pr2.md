@@ -65,7 +65,7 @@ We recommend to upgrade to the .NET Core 3.1 version because this is the long-te
 
 ## Under the hood of the new Windows Forms Core Designer (or why it takes us so much time)
 
-We know that you’ve noticed: although the Windows Forms .NET Core Designer Preview has basic functionalities, it is not mature enough for providing the full Windows Forms experience and we need a little more time to get there. In his chapter we wanted to give you a glance on how we are implementing the designer for .NET Core and explain some of the time frames.
+We know that you’ve noticed: although the Windows Forms .NET Core Designer Preview has basic functionalities, it is not mature enough for providing the full Windows Forms experience and we need a little more time to get there. In this chapter we wanted to give you a glimpse into how we are implementing the designer for .NET Core and explain some of the time frames.
 
 ***The concept***
 
