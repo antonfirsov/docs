@@ -25,7 +25,7 @@ In this preview version of the designer, we've improved reliability and enhanced
 * Designer Actions for available controls, such as making a `TextBox` multiline or adding items to a `CheckedListBox`.
 * Improved Undo/Redo actions to prevent hangs or incomplete undos.
 * Scrollbars now appear when the form is larger than the visible document window and on Forms with the `AutoScroll` property set to `True` and controls outside the visible area of the form.
-* Added `GroupBox` and `Panel` container control support.
+* `GroupBox` and `Panel` container control support.
 * Copy-paste is supported between container controls.
 * Limited Component Tray support.
 * Local resources support.
