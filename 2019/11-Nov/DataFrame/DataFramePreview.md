@@ -2,18 +2,18 @@ Last month, we announced .NET support for Jupyter notebooks, and showed how to u
 
 ## How to use DataFrame?
 
-`DataFrame` stores data as a collection of columns. Let's populate a `DataFrame` with some sample data and go over the major features. The full sample can be found on Github([C#](https://github.com/dotnet/try/tree/master/NotebookExamples/csharp/Samples) and [F#](https://github.com/dotnet/try/tree/master/NotebookExamples/csharp/Samples)). To get started, let's import the [Microsoft.Data.Analysis](https://www.nuget.org/packages/Microsoft.Data.Analysis/) package and namespace into our .NET Jupyter Notebook(make sure you're using a .NET (C# or F#) kernel):
+`DataFrame` stores data as a collection of columns. Let's populate a `DataFrame` with some sample data and go over the major features. The full sample can be found on Github([C#](https://github.com/dotnet/try/blob/master/NotebookExamples/csharp/Samples/DataFrame-Getting%20Started.ipynb) and [F#](https://github.com/dotnet/try/blob/master/NotebookExamples/fsharp/Samples/DataFrame-Getting%20Started.ipynb)). To get started, let's import the [Microsoft.Data.Analysis](https://www.nuget.org/packages/Microsoft.Data.Analysis/) package and namespace into our .NET Jupyter Notebook(make sure you're using a .NET (C# or F#) kernel):
 
 ![](Microsoft.Data.Analysis.PNG)
 
-Let's make 3 columns to hold values of types `DateTime`, `int` and `string`. 
+Let's make three columns to hold values of types `DateTime`, `int` and `string`. 
 ``` csharp
 PrimitiveDataFrameColumn<DateTime> dateTimes = new PrimitiveDataFrameColumn<DateTime>("DateTimes"); // Default length is 0.
 PrimitiveDataFrameColumn<int> ints = new PrimitiveDataFrameColumn<int>("Ints", 3); // Makes a column of length 3. Filled with nulls initially
 StringDataFrameColumn strings = new StringDataFrameColumn("Strings", 3); // Makes a column of length 3. Filled with nulls initially
 ```
 
-`PrimitiveDataFrameColumn` is a generic type that can hold primitive types such as `int`, `float`, `decimal` etc. A `StringDataFrameColumn` is a specialized column that holds `string` values. Both the column types can take a `length` parameter in their contructors to indicate their initial capacity. The constructors fill the columns with `null` values initially. Before we can add these columns to a `DataFrame` though, we need to append 3 values to our `dateTimes` column. This is because the `DataFrame` constructor expects all its columns to have the same length. 
+`PrimitiveDataFrameColumn` is a generic column that can hold primitive types such as `int`, `float`, `decimal` etc. A `StringDataFrameColumn` is a specialized column that holds `string` values. Both the column types can take a `length` parameter in their contructors to indicate their initial capacity. The constructors fill the columns with `null` values initially. Before we can add these columns to a `DataFrame` though, we need to append three values to our `dateTimes` column. This is because the `DataFrame` constructor expects all its columns to have the same length. 
 
 ``` csharp
 // Append 3 values to dateTimes
@@ -22,17 +22,17 @@ dateTimes.Append(DateTime.Parse("2019/01/01"));
 dateTimes.Append(DateTime.Parse("2019/01/02"));
 ```
 
-Now we're ready to create a `DataFrame` with 3 columns.
+Now we're ready to create a `DataFrame` with three columns.
 
 ``` csharp
-DataFrame df = new DataFrame(new List<DataFrameColumn> { dateTimes, ints, strings }); // This will throw if the columns are of different lengths
+DataFrame df = new DataFrame(dateTimes, ints, strings); // This will throw if the columns are of different lengths
 ```
 
 One of the benefits of using a notebook for data exploration is the interactive REPL. We can enter `df` into a new cell to see what data it contains.
 
 ![Array Print](ArrayPrint.PNG)
 
-We can immediately see that the formatting of the output can be improved. Each column is printed as an array of values and we don't see the names of the columns. If `df` had more rows and columns, the output would be hard to read. Fortunately, in a Jupyter environment, we can write a custom formatter for our `DataFrame`. 
+We immediately see that the formatting of the output can be improved. Each column is printed as an array of values and we don't see the names of the columns. If `df` had more rows and columns, the output would be hard to read. Fortunately, in a Jupyter environment, we can write custom formatters for types. Let's write a formatter for `DataFrame`. 
 
 ```csharp
 using Microsoft.AspNetCore.Html;
@@ -65,18 +65,18 @@ Formatter<DataFrame>.Register((df, writer) =>
 }, "text/html");
 ```
 
-This snippet of code register a new `DataFrame` formatter. All subsequent evaluations of `df` in a notebook will now output the first 20 rows of a `DataFrame` along with the column names.
+This snippet of code register a new `DataFrame` formatter. All subsequent evaluations of `df` in a notebook will now output the first 20 rows of a `DataFrame` along with the column names. In the future, the `DataFrame` type and other libraries that target Jupyter as one of their environments will be able to ship with formatters by default. 
 
 ![PrintDataFrame](PrintDataFrame.PNG)
 
-Sure enough, when we re-evaluate `df`, we see that it contains the 3 columns we created previously. The formatting makes it much easier to inspect our values. There's also a helpful `index` column in the output to quickly see which row we're looking at. Let's modify our data by indexing into `df`:
+Sure enough, when we re-evaluate `df`, we see that it contains the three columns we created previously. The formatting makes it much easier to inspect our values. There's also a helpful `index` column in the output to quickly see which row we're looking at. Let's modify our data by indexing into `df`:
 
 ``` csharp
 df[0, 1] = 10; // 0 is the rowIndex, and 1 is the columnIndex. This sets the 0th value in the Ints columns to 10
 ```
 ![DataFrameIndexing](DataFrameIndexing.PNG)
 
-We can also modify the values in the columns through indexers defined on `PrimitiveDataFrameColumn` and `StringColumn`:
+We can also modify the values in the columns through indexers defined on `PrimitiveDataFrameColumn` and `StringDataFrameColumn`:
 
 ``` csharp
 // Modify ints and strings columns by indexing
@@ -92,7 +92,7 @@ One caveat to keep in mind here is the data type of the value passed in to the i
 
 The `DataFrame` and `DataFrameColumn` classes expose a number of useful APIs: binary operations, computations, joins, merges, handling missing values and more. Let's look at some of them:
 ``` csharp
-// Add 5 to ints through the DataFrame
+// Add 5 to Ints through the DataFrame
 df["Ints"].Add(5, inPlace: true);
 ```
 ``` csharp
@@ -117,25 +117,44 @@ df["Strings"].FillNulls("Bar", inPlace: true);
 
 ![Fill Nulls](FillNulls.PNG)
 
-One of the design decisions we made early on was to use a column major backing store for `PrimitiveDataFrameColumn`. The column is held in memory as a collection of `Memory<byte>`. One consequence of this decision is that columns can have a length greater than `int.MaxValue`. The more important consequence is the ability to perform SIMD operations on our columns(we won't go through it in this sample, but the [unit tests](https://github.com/dotnet/corefxlab/blob/master/tests/Microsoft.Data.Analysis.Tests/BufferTests.cs#L200) show how to access the `Memory<byte>`). Indexing into our columns is therefore cheap, however, accessing our data row-wise is not.
-
-
-`DataFrame` exposes a `Columns` property that we can enumerate over to access our columns. The `0.1.0` release does not expose a `Rows` property yet. Instead, we can directly index into our `DataFrame` to access our rows. Here's an example that accesses the first row:
+One of the design decisions we made early on was to use a column major backing store for `PrimitiveDataFrameColumn`. `DataFrame` exposes a `Columns` property that we can enumerate over to access our columns and a `Rows` property to acess our rows. We can index `Rows` to access each row. Here's an example that accesses the first row:
 ```csharp
-IList<object> row0 = df[0];
+DataFrameRow row0 = df.Rows[0];
 ```
+![Access Rows](BadRowAccess.PNG)
+
+To inspect our values better, let's write a formatter for `DataFrameRow` that displays values in a single line.
+``` csharp
+using Microsoft.AspNetCore.Html;
+Formatter<DataFrameRow>.Register((dataFrameRow, writer) =>
+{
+    var cells = new List<IHtmlContent>();
+    cells.Add(td(i));
+    foreach (var obj in dataFrameRow)
+    {
+        cells.Add(td(obj));
+    }
+    
+    var t = table(
+        tbody(
+            cells));
+    
+    writer.Write(t);
+}, "text/html");
+```
+
 ![Access Rows](RowAccess.PNG)
 
-To enumerate over all the rows in a `DataFrame`, we can write a simple for loop. `DataFrame.RowCount` returns the length of a `DataFrame` and we can use the loop index to access each row. 
+To enumerate over all the rows in a `DataFrame`, we can write a simple for loop. `DataFrame.Rows.Count` returns the number of rows in a `DataFrame` and we can use the loop index to access each row. 
 ```csharp
 for (long i = 0; i < df.RowCount; i++)
 {
-       IList<object> row = df[i];
+       DataFrameRow row = df[i];
 }
 ```
-Note that each row is returned as an `IList<object>`. Modifying the returned row does not modify the values in the `DataFrame` (use indexers for this instead). We also lose type information on the returned row object. This is a consequence of `DataFrame` being a loosely typed data structure. 
+Note that each row is a view of the values in the `DataFrame`. Modifying the values in the `row` object modifies the values in the `DataFrame`. We do however lose type information on the returned `row` object. This is a consequence of `DataFrame` being a loosely typed data structure. 
 
- Finally, let's wrap up by looking at the `Filter`, `Sort` and `GroupBy` methods:
+Finally, let's wrap up by looking at the `Filter`, `Sort` and `GroupBy` methods:
 
 ``` csharp
 // Filter rows based on equality
@@ -166,9 +185,10 @@ DataFrame intsGroupSum = groupBy.Sum("Ints");
 
 The `GroupBy` object exposes a set of methods that can called on each group. Some examples are `Max()`, `Min()`, `Count()` etc. The `Count()` method counts the number of values in each group and return them in a new `DataFrame`. The `Sum("Ints")` method sums up the values in each group. 
 
-## Parting Thoughts
+## Summary
 
 We've only explored a subset of the features that `DataFrame` exposes. `Joins`, `Merges`, and `Aggregations` are supported. Each column also implements `IEnumerable<T>`, so users can write LINQ queries on columns. The custom `DataFrame` formatting code we wrote has a simple example. `ApplyElementwise` is a method that is defined on `PrimitiveDataFrameColumn` that can take in a lambda to apply to each value. The complete source code(and documentation) for `Microsoft.Data.Analysis` lives [here](https://github.com/dotnet/corefxlab/tree/master/src/Microsoft.Data.Analysis). In a follow up post, I'll go over how to use `DataFrame` with ML.NET and .NET for Spark. The decision to use column major backing stores (the Arrow format in particular) allows for zero-copy in .NET for Spark User Defined Functions (UDFs)!
 
-We always welcome the community's feedback! In fact, please feel free to contribute to the [source code](https://github.com/dotnet/corefxlab/tree/master/src/Microsoft.Data.Analysis). We've made it easy for users to create new column types that derive from `DataFrameColumn` to add new functionality. Support for structs such as `DateTime` and user defined structs is also not as complete as primitive types such as `int`, `float` etc. We believe this preview package allows the community to do data analysis in .NET. Give it a [try](https://github.com/dotnet/try/tree/master/NotebookExamples/csharp/Samples) and let us know your thoughts!
+We always welcome the community's feedback! In fact, please feel free to contribute to the [source code](https://github.com/dotnet/corefxlab/tree/master/src/Microsoft.Data.Analysis). We've made it easy for users to create new column types that derive from `DataFrameColumn` to add new functionality. Support for structs such as `DateTime` and user defined structs is also not as complete as primitive types such as `int`, `float` etc. We believe this preview package allows the community to do data analysis in .NET. Give it a [try here](
+https://github.com/dotnet/try/blob/master/NotebookExamples/csharp/Samples/DataFrame-Getting%20Started.ipynb) and let us know your thoughts!
 
