@@ -158,12 +158,12 @@ Finally, let's wrap up by looking at the `Filter`, `Sort` and `GroupBy` methods:
 
 ``` csharp
 // Filter rows based on equality
-PrimitiveDataFrameColumn<bool> boolFilter = strings.ElementwiseEquals("Bar");
+PrimitiveDataFrameColumn<bool> boolFilter = df["Strings"].ElementwiseEquals("Bar");
 DataFrame filtered = df.Filter(boolFilter);
 ```
  ![DataFrame Filter](DataFrameFilter.PNG)
 
-`ElementwiseEquals` returns a `PrimitiveDataFrameColumn<bool>` where each value in `strings` that equals `"Bar"` is set to `true`. In the `df.Filter` call, each row corresponding to a `true` value in `boolFilter` selects a row out of `df`. The resulting `DataFrame` contains only these rows.
+`ElementwiseEquals` returns a `PrimitiveDataFrameColumn<bool>` where each value in `Strings` that equals `"Bar"` is set to `true`. In the `df.Filter` call, each row corresponding to a `true` value in `boolFilter` selects a row out of `df`. The resulting `DataFrame` contains only these rows.
 
 ```csharp
 // Sort our dataframe using the Ints column
