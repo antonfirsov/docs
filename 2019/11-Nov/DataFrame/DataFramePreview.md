@@ -13,7 +13,7 @@ PrimitiveDataFrameColumn<int> ints = new PrimitiveDataFrameColumn<int>("Ints", 3
 StringDataFrameColumn strings = new StringDataFrameColumn("Strings", 3); // Makes a column of length 3. Filled with nulls initially
 ```
 
-`PrimitiveDataFrameColumn` is a generic column that can hold primitive types such as `int`, `float`, `decimal` etc. A `StringDataFrameColumn` is a specialized column that holds `string` values. Both the column types can take a `length` parameter in their contructors to indicate their initial capacity. The constructors fill the columns with `null` values initially. Before we can add these columns to a `DataFrame` though, we need to append three values to our `dateTimes` column. This is because the `DataFrame` constructor expects all its columns to have the same length. 
+`PrimitiveDataFrameColumn` is a generic column that can hold primitive types such as `int`, `float`, `decimal` etc. A `StringDataFrameColumn` is a specialized column that holds `string` values. Both the column types can take a `length` parameter in their contructors and are filled with `null` values initially. Before we can add these columns to a `DataFrame` though, we need to append three values to our `dateTimes` column. This is because the `DataFrame` constructor expects all its columns to have the same length. 
 
 ``` csharp
 // Append 3 values to dateTimes
@@ -28,7 +28,7 @@ Now we're ready to create a `DataFrame` with three columns.
 DataFrame df = new DataFrame(dateTimes, ints, strings); // This will throw if the columns are of different lengths
 ```
 
-One of the benefits of using a notebook for data exploration is the interactive REPL. We can enter `df` into a new cell to see what data it contains.
+One of the benefits of using a notebook for data exploration is the interactive REPL. We can enter `df` into a new cell and run it to see what data it contains. For the rest of this post, we'll work in a .NET Jupyter environment. All the sample code will work in a regular console app as well though.
 
 ![Array Print](ArrayPrint.PNG)
 
@@ -65,7 +65,7 @@ Formatter<DataFrame>.Register((df, writer) =>
 }, "text/html");
 ```
 
-This snippet of code register a new `DataFrame` formatter. All subsequent evaluations of `df` in a notebook will now output the first 20 rows of a `DataFrame` along with the column names. In the future, the `DataFrame` type and other libraries that target Jupyter as one of their environments will be able to ship with formatters by default. 
+This snippet of code register a new `DataFrame` formatter. All subsequent evaluations of `df` in a notebook will now output the first 20 rows of a `DataFrame` along with the column names. In the future, the `DataFrame` type and other libraries that target Jupyter as one of their environments will be able to ship with their formatters. 
 
 ![PrintDataFrame](PrintDataFrame.gif)
 
@@ -101,7 +101,7 @@ df["Ints"] = (ints / 5) * 100;
 ```
 ![Binary Operations](BinaryOperations.PNG)
 
-All binary operators are backed by functions that produces a copy by default. The `+` operator, for example, calls the `Add` method and passes in `false` for the `inPlace` parameter. This lets us elegantly perform data manipulation using operators without worrying about modifying our existing values. For when in place semantics are desired, we can set the `inPlace` parameter to `true` in the binary functions.  
+All binary operators are backed by functions that produces a copy by default. The `+` operator, for example, calls the `Add` method and passes in `false` for the `inPlace` parameter. This lets us elegantly manipulate data using operators without worrying about modifying our existing values. For when in place semantics are desired, we can set the `inPlace` parameter to `true` in the binary functions.  
 
 Often, we read in data from an existing dataset that may contain `null` values. `DataFrame` has the `LoadCsv` method to read in csv files. 
 ``` csharp
@@ -117,7 +117,7 @@ df["Strings"].FillNulls("Bar", inPlace: true);
 
 ![Fill Nulls](FillNulls.PNG)
 
-One of the design decisions we made early on was to use a column major backing store for `PrimitiveDataFrameColumn`. `DataFrame` exposes a `Columns` property that we can enumerate over to access our columns and a `Rows` property to acess our rows. We can index `Rows` to access each row. Here's an example that accesses the first row:
+`DataFrame` exposes a `Columns` property that we can enumerate over to access our columns and a `Rows` property to acess our rows. We can index `Rows` to access each row. Here's an example that accesses the first row:
 ```csharp
 DataFrameRow row0 = df.Rows[0];
 ```
@@ -143,7 +143,7 @@ Formatter<DataFrameRow>.Register((dataFrameRow, writer) =>
 }, "text/html");
 ```
 
-![Access Rows](RowAccess.PNG)
+![Access Rows](RowAccess.gif)
 
 To enumerate over all the rows in a `DataFrame`, we can write a simple for loop. `DataFrame.Rows.Count` returns the number of rows in a `DataFrame` and we can use the loop index to access each row. 
 ```csharp
@@ -154,7 +154,7 @@ for (long i = 0; i < df.RowCount; i++)
 ```
 Note that each row is a view of the values in the `DataFrame`. Modifying the values in the `row` object modifies the values in the `DataFrame`. We do however lose type information on the returned `row` object. This is a consequence of `DataFrame` being a loosely typed data structure. 
 
-Finally, let's wrap up by looking at the `Filter`, `Sort` and `GroupBy` methods:
+Finally, let's wrap up our `DataFrame` API tour by looking at the `Filter`, `Sort` and `GroupBy` methods:
 
 ``` csharp
 // Filter rows based on equality
@@ -173,17 +173,20 @@ GroupBy groupBy = df.GroupBy("DateTimes");
 ```
 ![Sort and GroupBy](SortAndGroupBy.PNG)
 
-The `GroupBy` method takes in the name of a column and creates groups based on unique values in the column. In our sample, the `DateTimes` column has 2 unique values, so we expect only 1 group to be created for `2019-01-01 00:00:00Z` and 1 for `2019-01-02 00:00:00Z`. 
+The `GroupBy` method takes in the name of a column and creates groups based on unique values in the column. In our sample, the `DateTimes` column has two unique values, so we expect only one group to be created for `2019-01-01 00:00:00Z` and one for `2019-01-02 00:00:00Z`. 
 
 ``` csharp
 // Count of values in each group
 DataFrame groupCounts = groupBy.Count();
 // Alternatively find the sum of the values in each group in Ints
-DataFrame intsGroupSum = groupBy.Sum("Ints");
+DataFrame intGroupSum = groupBy.Sum("Ints");
 ```
 ![GroupBy Sum](GroupBySum.PNG)
 
 The `GroupBy` object exposes a set of methods that can called on each group. Some examples are `Max()`, `Min()`, `Count()` etc. The `Count()` method counts the number of values in each group and return them in a new `DataFrame`. The `Sum("Ints")` method sums up the values in each group. 
+
+## Plotting
+Add a normal distribution here and plot it in XPlot.
 
 ## Summary
 
