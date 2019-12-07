@@ -67,7 +67,7 @@ Formatter<DataFrame>.Register((df, writer) =>
 
 This snippet of code register a new `DataFrame` formatter. All subsequent evaluations of `df` in a notebook will now output the first 20 rows of a `DataFrame` along with the column names. In the future, the `DataFrame` type and other libraries that target Jupyter as one of their environments will be able to ship with formatters by default. 
 
-![PrintDataFrame](PrintDataFrame.PNG)
+![PrintDataFrame](PrintDataFrame.gif)
 
 Sure enough, when we re-evaluate `df`, we see that it contains the three columns we created previously. The formatting makes it much easier to inspect our values. There's also a helpful `index` column in the output to quickly see which row we're looking at. Let's modify our data by indexing into `df`:
 
