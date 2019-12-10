@@ -173,7 +173,7 @@ GroupBy groupBy = df.GroupBy("DateTimes");
 ```
 ![Sort and GroupBy](SortAndGroupBy.PNG)
 
-The `GroupBy` method takes in the name of a column and creates groups based on unique values in the column. In our sample, the `DateTimes` column has two unique values, so we expect only one group to be created for `2019-01-01 00:00:00Z` and one for `2019-01-02 00:00:00Z`. 
+The `GroupBy` method takes in the name of a column and creates groups based on unique values in the column. In our sample, the `DateTimes` column has two unique values, so we expect one group to be created for `2019-01-01 00:00:00Z` and one for `2019-01-02 00:00:00Z`. 
 
 ``` csharp
 // Count of values in each group
@@ -185,12 +185,36 @@ DataFrame intGroupSum = groupBy.Sum("Ints");
 
 The `GroupBy` object exposes a set of methods that can called on each group. Some examples are `Max()`, `Min()`, `Count()` etc. The `Count()` method counts the number of values in each group and return them in a new `DataFrame`. The `Sum("Ints")` method sums up the values in each group. 
 
-## Plotting
-Add a normal distribution here and plot it in XPlot.
+## Charting
+Another cool feature of using a `DataFrame` in a .NET Jupyter environment is charting. Charts are rendered using [Xplot.Plotly](https://fslab.org/XPlot/). We can import the `XPlot.Plotly` namespace into our notebook and create interactive visualizations of the data in our `DataFrame`. Let's populate a `PrimitiveDataFrameColumn<int>` with a normal distribution and plot a histogram of the samples:
+
+``` csharp
+#r "nuget:MathNet.Numerics,4.9.0"
+using XPlot.Plotly;
+using System.Linq;
+using MathNet.Numerics.Distributions;
+
+double mean = 0;
+double stdDev = 0.1;
+MathNet.Numerics.Distributions.Normal normalDist = new Normal(mean, stdDev);
+
+PrimitiveDataFrameColumn<double> doubles = new PrimitiveDataFrameColumn<double>("Normal Distribution", normalDist.Samples().Take(1000));
+display(Chart.Plot(
+    new Graph.Histogram()
+    {
+        x = doubles,
+        nbinsx = 30
+    }
+));
+```
+
+![Chart](Chart.gif)
+
+We first create a `PrimitiveDataFrameColumn<double>` by drawing 1000 samples from a normal distribution and then plot a histogram with 30 bins. The resulting chart is interactive! Hovering over the chart reveals the underlying data and lets us inspect each value precisely.
 
 ## Summary
 
-We've only explored a subset of the features that `DataFrame` exposes. `Joins`, `Merges`, and `Aggregations` are supported. Each column also implements `IEnumerable<T>`, so users can write LINQ queries on columns. The custom `DataFrame` formatting code we wrote has a simple example. `ApplyElementwise` is a method that is defined on `PrimitiveDataFrameColumn` that can take in a lambda to apply to each value. The complete source code(and documentation) for `Microsoft.Data.Analysis` lives [here](https://github.com/dotnet/corefxlab/tree/master/src/Microsoft.Data.Analysis). In a follow up post, I'll go over how to use `DataFrame` with ML.NET and .NET for Spark. The decision to use column major backing stores (the Arrow format in particular) allows for zero-copy in .NET for Spark User Defined Functions (UDFs)!
+We've only explored a subset of the features that `DataFrame` exposes. `Append`, `Joins`, `Merges`, and `Aggregations` are supported. Each column also implements `IEnumerable<T?>`, so users can write LINQ queries on columns. The custom `DataFrame` formatting code we wrote has a simple example. The complete source code(and documentation) for `Microsoft.Data.Analysis` lives [here](https://github.com/dotnet/corefxlab/tree/master/src/Microsoft.Data.Analysis). In a follow up post, I'll go over how to use `DataFrame` with ML.NET and .NET for Spark. The decision to use column major backing stores (the Arrow format in particular) allows for zero-copy in .NET for Spark User Defined Functions (UDFs)!
 
 We always welcome the community's feedback! In fact, please feel free to contribute to the [source code](https://github.com/dotnet/corefxlab/tree/master/src/Microsoft.Data.Analysis). We've made it easy for users to create new column types that derive from `DataFrameColumn` to add new functionality. Support for structs such as `DateTime` and user defined structs is also not as complete as primitive types such as `int`, `float` etc. We believe this preview package allows the community to do data analysis in .NET. Give it a [try here](
 https://mybinder.org/v2/gh/dotnet/try/master?urlpath=lab) and let us know your thoughts!
