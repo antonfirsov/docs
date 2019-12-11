@@ -1,4 +1,4 @@
-Last month, we announced .NET support for Jupyter notebooks, and showed how to use them to work with .NET for Apache Spark and ML.NET. Today, we're announcing the preview of a [DataFrame](https://www.nuget.org/packages/Microsoft.Data.Analysis/) type for .NET to make data exploration easy. If you've used Python to manipulate data in notebooks, you'll already be familiar with the concept of a DataFrame. At a high level, it is an in-memory representation of structured data. First, let's fire up a .NET Jupyter Notebook in a [browser](https://mybinder.org/v2/gh/dotnet/try/master?urlpath=lab).
+Last month, we announced .NET support for Jupyter notebooks, and showed how to use them to work with .NET for Apache Spark and ML.NET. Today, we're announcing the preview of a [DataFrame](https://www.nuget.org/packages/Microsoft.Data.Analysis/) type for .NET to make data exploration easy. If you've used Python to manipulate data in notebooks, you'll already be familiar with the concept of a DataFrame. At a high level, it is an in-memory representation of structured data. In this blog post, I'm going to give an overview of this new type and how you can use it from Jupyter notebooks. To play along, fire up a .NET Jupyter Notebook in a [browser](https://mybinder.org/v2/gh/dotnet/try/master?urlpath=lab).
 
 ## How to use DataFrame?
 
@@ -218,4 +218,3 @@ We've only explored a subset of the features that `DataFrame` exposes. `Append`,
 
 We always welcome the community's feedback! In fact, please feel free to contribute to the [source code](https://github.com/dotnet/corefxlab/tree/master/src/Microsoft.Data.Analysis). We've made it easy for users to create new column types that derive from `DataFrameColumn` to add new functionality. Support for structs such as `DateTime` and user defined structs is also not as complete as primitive types such as `int`, `float` etc. We believe this preview package allows the community to do data analysis in .NET. Give it a [try here](
 https://mybinder.org/v2/gh/dotnet/try/master?urlpath=lab) and let us know your thoughts!
-
