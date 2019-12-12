@@ -86,7 +86,7 @@ strings[1] = "Foo!";
 
 ![ColumnIndexers](ColumnIndexers.PNG)
 
-One caveat to keep in mind here is the data type of the value passed in to the indexers. We passed in the right data types to the column indexers in our sample: an integer value of `100` to `ints[1]` and a string `"Foo!"` to `string[1]`. If the data types don't match, an exception will be thrown. For cases where the type of data in the columns is not obvious, there is a handy `DataType` property defined on each column. 
+One caveat to keep in mind here is the data type of the value passed in to the indexers. We passed in the right data types to the column indexers in our sample: an integer value of `100` to `ints[1]` and a string `"Foo!"` to `string[1]`. If the data types don't match, an exception will be thrown. For cases where the type of data in the columns is not obvious, there is a handy `DataType` property defined on each column. The `Info` method displays the `DataType` and `Length` properties of each column:
 
 ![DataType](DataType.PNG)
 
@@ -95,6 +95,7 @@ The `DataFrame` and `DataFrameColumn` classes expose a number of useful APIs: bi
 // Add 5 to Ints through the DataFrame
 df["Ints"].Add(5, inPlace: true);
 ```
+![Add](Add.PNG)
 ``` csharp
 // We can also use binary operators. Binary operators produce a copy, so assign it back to our Ints column 
 df["Ints"] = (ints / 5) * 100;
@@ -103,10 +104,6 @@ df["Ints"] = (ints / 5) * 100;
 
 All binary operators are backed by functions that produces a copy by default. The `+` operator, for example, calls the `Add` method and passes in `false` for the `inPlace` parameter. This lets us elegantly manipulate data using operators without worrying about modifying our existing values. For when in place semantics are desired, we can set the `inPlace` parameter to `true` in the binary functions.  
 
-Often, we read in data from an existing dataset that may contain `null` values. `DataFrame` has the `LoadCsv` method to read in csv files. 
-``` csharp
-DataFrame csvDataFrame = DataFrame.LoadCsv("path/to/file.csv");
-```
 
 In our sample, `df` has `null` values in its columns. `DataFrame` and `DataFrameColumn` offer an API to fill `nulls` with values.
 
@@ -117,7 +114,7 @@ df["Strings"].FillNulls("Bar", inPlace: true);
 
 ![Fill Nulls](FillNulls.PNG)
 
-`DataFrame` exposes a `Columns` property that we can enumerate over to access our columns and a `Rows` property to acess our rows. We can index `Rows` to access each row. Here's an example that accesses the first row:
+`DataFrame` exposes a `Columns` property that we can enumerate over to access our columns and a `Rows` property to access our rows. We can index `Rows` to access each row. Here's an example that accesses the first row:
 ```csharp
 DataFrameRow row0 = df.Rows[0];
 ```
@@ -154,7 +151,7 @@ for (long i = 0; i < df.RowCount; i++)
 ```
 Note that each row is a view of the values in the `DataFrame`. Modifying the values in the `row` object modifies the values in the `DataFrame`. We do however lose type information on the returned `row` object. This is a consequence of `DataFrame` being a loosely typed data structure. 
 
-Finally, let's wrap up our `DataFrame` API tour by looking at the `Filter`, `Sort` and `GroupBy` methods:
+Let's wrap up our `DataFrame` API tour by looking at the `Filter`, `Sort`, `GroupBy` methods:
 
 ``` csharp
 // Filter rows based on equality
@@ -163,7 +160,7 @@ DataFrame filtered = df.Filter(boolFilter);
 ```
  ![DataFrame Filter](DataFrameFilter.PNG)
 
-`ElementwiseEquals` returns a `PrimitiveDataFrameColumn<bool>` where each value in `Strings` that equals `"Bar"` is set to `true`. In the `df.Filter` call, each row corresponding to a `true` value in `boolFilter` selects a row out of `df`. The resulting `DataFrame` contains only these rows.
+`ElementwiseEquals` returns a `PrimitiveDataFrameColumn<bool>` filled with a `true` for every row that equals `"Bar"` in the `Strings` column, and a `false` when it doesn't equal `"Bar"`. In the `df.Filter` call, each row corresponding to a `true` value in `boolFilter` selects a row out of `df`. The resulting `DataFrame` contains only these rows.
 
 ```csharp
 // Sort our dataframe using the Ints column
@@ -185,8 +182,13 @@ DataFrame intGroupSum = groupBy.Sum("Ints");
 
 The `GroupBy` object exposes a set of methods that can called on each group. Some examples are `Max()`, `Min()`, `Count()` etc. The `Count()` method counts the number of values in each group and return them in a new `DataFrame`. The `Sum("Ints")` method sums up the values in each group. 
 
+Finally, when we want to work with existing datasets, `DataFrame` exposes a `LoadCsv` method. 
+``` csharp
+DataFrame csvDataFrame = DataFrame.LoadCsv("path/to/file.csv");
+```
+
 ## Charting
-Another cool feature of using a `DataFrame` in a .NET Jupyter environment is charting. Charts are rendered using [Xplot.Plotly](https://fslab.org/XPlot/). We can import the `XPlot.Plotly` namespace into our notebook and create interactive visualizations of the data in our `DataFrame`. Let's populate a `PrimitiveDataFrameColumn<int>` with a normal distribution and plot a histogram of the samples:
+Another cool feature of using a `DataFrame` in a .NET Jupyter environment is charting. [XPlot.Plotly](https://fslab.org/XPlot/) is one option to render charts. We can import the `XPlot.Plotly` namespace into our notebook and create interactive visualizations of the data in our `DataFrame`. Let's populate a `PrimitiveDataFrameColumn<int>` with a normal distribution and plot a histogram of the samples:
 
 ``` csharp
 #r "nuget:MathNet.Numerics,4.9.0"
@@ -214,7 +216,7 @@ We first create a `PrimitiveDataFrameColumn<double>` by drawing 1000 samples fro
 
 ## Summary
 
-We've only explored a subset of the features that `DataFrame` exposes. `Append`, `Joins`, `Merges`, and `Aggregations` are supported. Each column also implements `IEnumerable<T?>`, so users can write LINQ queries on columns. The custom `DataFrame` formatting code we wrote has a simple example. The complete source code(and documentation) for `Microsoft.Data.Analysis` [lives on GitHub](https://github.com/dotnet/corefxlab/tree/master/src/Microsoft.Data.Analysis). In a follow up post, I'll go over how to use `DataFrame` with ML.NET and .NET for Spark. The decision to use column major backing stores (the Arrow format in particular) allows for zero-copy in .NET for Spark User Defined Functions (UDFs)!
+We've only explored a subset of the features that `DataFrame` exposes. `Append`, `Join`, `Merge`, and `Aggregations` are supported. Each column also implements `IEnumerable<T?>`, so users can write LINQ queries on columns. The custom `DataFrame` formatting code we wrote has a simple example. The complete source code(and documentation) for `Microsoft.Data.Analysis` [lives on GitHub](https://github.com/dotnet/corefxlab/tree/master/src/Microsoft.Data.Analysis). In a follow up post, I'll go over how to use `DataFrame` with ML.NET and .NET for Spark. The decision to use column major backing stores (the Arrow format in particular) allows for zero-copy in .NET for Spark User Defined Functions (UDFs)!
 
 
 We always welcome the community's feedback! In fact, please feel free to contribute to the [source code](https://github.com/dotnet/corefxlab/tree/master/src/Microsoft.Data.Analysis). We've made it easy for users to create new column types that derive from `DataFrameColumn` to add new functionality. Support for structs such as `DateTime` and user defined structs is also not as complete as primitive types such as `int`, `float` etc. We believe this preview package allows the community to do data analysis in .NET. Try out [DataFrame](https://www.nuget.org/packages/Microsoft.Data.Analysis/) in a [.NET Jupyter Notebook](
