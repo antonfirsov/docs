@@ -50,3 +50,7 @@ In the bottom pane, the Paths to Root tree displays the objects that reference t
 In addition to the memory analysis report of just a single GC dump, Visual Studio also allows you to compare two gc dumps. To view details of the difference between the current snapshot and the previous snapshot, navigate to the `Compare To` section of the report and select another GC dump to serve as the baseline.
 
 ![Memory analysis comparison in Visual Studio 2019](memory_analysis_comparison.png)
+
+## Closing
+
+Thanks for trying out the new diagnostics tools in .NET Core 3.0. Please continue to give us feedback, either in the comments or on [GitHub](https://github.com/dotnet/diagnostics). We are listening carefully and will continue to make changes based on your feedback.
