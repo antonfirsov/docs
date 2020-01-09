@@ -37,6 +37,8 @@ Once you’ve installed `dotnet gcdump`, you can capture a GC dump by running th
 dotnet gcdump collect -p <target-process-PID>
 ```
 
+The resulting `.gcdump` file can be analyzed in Visual Studio and [Perfview](https://github.com/microsoft/perfview) on Windows.
+
 ### Analyzing GC dumps in Visual Studio
 
 The collected GC dumps can be analyzed by opening the `.gcdump` files in Visual Studio. Upon opening in Visual Studio, you are greeted with the Memory Analysis Report page.
