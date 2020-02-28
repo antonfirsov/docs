@@ -1,6 +1,6 @@
 # How to write a Roslyn Analyzer
 
-Roslyn analyzers inspect your code for style, quality, maintainability, design and other issues. Because they are powered by the . NET Compiler Platform, they can produce warnings in your code as you type even before you’ve finished the line. In other words, you don’t have to build your code to find out that you made a mistake. Analyzers can also surface an automatic code fix through the Visual Studio light bulb prompt that allows you to clean up your code immediately. With live, project-based code analyzers in Visual Studio, API authors can ship domain-specific code analysis as part of their NuGet packages.
+Roslyn analyzers inspect your code for style, quality, maintainability, design and other issues. Because they are powered by the .NET Compiler Platform, they can produce warnings in your code as you type even before you’ve finished the line. In other words, you don’t have to build your code to find out that you made a mistake. Analyzers can also surface an automatic code fix through the Visual Studio light bulb prompt that allows you to clean up your code immediately. With live, project-based code analyzers in Visual Studio, API authors can ship domain-specific code analysis as part of their NuGet packages.
 
 You don’t have to be a professional API author to write an analyzer. In this post I will show you how to write your very first analyzer.
 
@@ -29,29 +29,29 @@ Install using the Visual Studio Installer - Individual components tab:
 
 ## Writing an analyzer
 
-Let’s begin by creating a syntax tree analyzer. This analyzer generates a syntax warning for any statement that is not enclosed in a block that has curly braces { and }. For example, the following code generates a warning for both the if statement and the ```System.Console.WriteLine``` invocation statement, but the while statement is not flagged:
+Let’s begin by creating a syntax tree analyzer. This analyzer generates a syntax warning for any statement that is not enclosed in a block that has curly braces `{` and `}`. For example, the following code generates a warning for both the `if`-statement and the ```System.Console.WriteLine``` invocation statement, but the `while` statement is not flagged:
 
 ![Brace diagnostic](brace-diagnostic.png)
 
 1. Open Visual Studio.
-2. On the Create a new project dialog search VSIX and select the Analyzer with Code Fix (.NET Standard) in C# and click Next.
+2. On the **Create a new project** dialog search VSIX and select **Analyzer with Code Fix (.NET Standard)** in C# and click **Next**.
 
     ![Create New Project Dialog](create-new-project-dialog.png)
 
-3. Name your project BraceAnalyzer and click OK. The solution should contain 3 projects: BraceAnalyzer, BraceAnalyzer.Test, BraceAnalyzer.Vsix.
+3. Name your project **BraceAnalyzer** and click OK. The solution should contain 3 projects: BraceAnalyzer, BraceAnalyzer.Test, BraceAnalyzer.Vsix.
 
     ![Analyzer Solution Layout](analyzer-solution-layout.png)
 
     * BraceAnalyzer: This is the core analyzer project that contains the default analyzer implementation that reports a diagnostic for all type names that contain any lowercase letter.
-    * BraceAnalyzer. Test: This is a unit test project that lets you make sure your analyzer is producing the right diagnostics and fixes.
-    * BraceAnalyzer. Vsix: The VSIX project bundles the analyzer into an extension package (. Vsix file). This is the startup project in the solution.
+    * BraceAnalyzer.Test: This is a unit test project that lets you make sure your analyzer is producing the right diagnostics and fixes.
+    * BraceAnalyzer. Vsix: The VSIX project bundles the analyzer into an extension package (.vsix file). This is the startup project in the solution.
 
-4. In the Solution Explorer, open the Resources.resx file in the BraceAnalyzer project. This displays the resource editor.
+4. In the Solution Explorer, open **Resources.resx** in the BraceAnalyzer project. This displays the resource editor.
 5. Replace the existing resource string values for AnalyzerDescription, AnalyzerMessageFormat and AnalyzerTitle with the following strings:
 
-    * Change AnalyzerDescription to `Enclose statement with curly braces` .
-    * Change AnalyzerMessageFormat to `"{" brace expected` .
-    * Change AnalyzerTitle to `Enclose statement with curly braces` .
+    * Change AnalyzerDescription to `Enclose statement with curly braces`.
+    * Change AnalyzerMessageFormat to `"{" brace expected`.
+    * Change AnalyzerTitle to `Enclose statement with curly braces`.
 
     ![Resources.resx File](resources-resx.png)
 
@@ -83,13 +83,13 @@ Let’s begin by creating a syntax tree analyzer. This analyzer generates a synt
         }
     ```
 
-7. Check your progress by pressing F5 to run your analyzer. Make sure that the BraceAnalyzer. Vsix project is the startup project before pressing F5. Running the Vsix project loads an experimental instance copy of Visual Studio, which lets Visual Studio keep track of a separate set of Visual Studio extensions.
+7. Check your progress by pressing F5 to run your analyzer. Make sure that the BraceAnalyzer.Vsix project is the startup project before pressing F5. Running the VSIX project loads an experimental instance of Visual Studio, which lets Visual Studio keep track of a separate set of Visual Studio extensions.
 
-8. In the Visual Studio instance, create a new C# class library with the following code to verify that the analyzer diagnostic is neither reported for the method block nor the while statement, but is reported for the if statement and System. Console. WriteLine invocation statement:
+8. In the Visual Studio instance, create a new C# class library with the following code to verify that the analyzer diagnostic is neither reported for the method block nor the `while` statement, but is reported for the `if` statement and `System.Console.WriteLine` invocation statement:
 
     ![Brace Diagnostic](brace-diagnostic.png)
 
-9. Now, add curly braces around the System. Console. WriteLine invocation statement and verify that the only single warning is now reported for the if statement:
+9. Now, add curly braces around the `System.Console.WriteLine` invocation statement and verify that the only single warning is now reported for the `if` statement:
 
     ![Brace Diagnostic for If Statement](brace-diagnostic-for-if-statement.png)
 
@@ -111,7 +111,7 @@ An analyzer can provide one or more code fixes. A code fix defines an edit that 
     var editor = new SyntaxEditor(root, context.Document.Project.Solution.Workspace);
     ```
 
-4. You’ll notice a red squiggle under SyntaxEditor. That’s because you’re missing a using directive for the SyntaxEditor type. Be sure to add the following using directive to the top of your file:
+4. You’ll notice a red squiggle under `SyntaxEditor`. That’s because you’re missing a using directive for the `SyntaxEditor` type. Be sure to add the following using directive to the top of your file:
 
     ``` csharp
     using Microsoft.CodeAnalysis.Editing;
@@ -128,7 +128,7 @@ An analyzer can provide one or more code fixes. A code fix defines an edit that 
         diagnostic);
     ```
 
-6. You'll notice red squiggles in the code you just added on the AddBracesAsync symbol. Add a declaration for AddBracesAsync replacing the MakeUpperCaseAsync method with the following code:
+6. You'll notice red squiggles in the code you just added on the `AddBracesAsync` symbol. Add a declaration for `AddBracesAsync` by replacing the `MakeUpperCaseAsync` method with the following code:
 
     ``` csharp
     Task<Document> AddBracesAsync(Document document, Diagnostic diagnostic, SyntaxEditor editor)
@@ -144,7 +144,7 @@ An analyzer can provide one or more code fixes. A code fix defines an edit that 
             }
     ```
 
-7. Press F5 to run the analyzer project in a second instance of Visual Studio. Place your cursor on the diagnostic and press (Ctrl+.) to trigger the Quick Actions and Refactorings menu. Notice your code fix to add a brace!
+7. Press F5 to run the analyzer project in a second instance of Visual Studio. Place your cursor on the diagnostic and press (**Ctrl+.**) to trigger the **Quick Actions and Refactorings** menu. Notice your code fix to add a brace!
 
     ![Brace Analyzer Code Fix](brace-analyzer-code-fix.png)
 
