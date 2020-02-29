@@ -4,10 +4,10 @@ Roslyn analyzers inspect your code for style, quality, maintainability, design a
 
 You don’t have to be a professional API author to write an analyzer. In this post, I'll show you how to write your very first analyzer.
 
-## Getting Started
+## Getting started
 
 In order to create a Roslyn Analyzer project, you need to install the . NET Compiler Platform SDK via the Visual Studio Installer.
-There are two different ways to find the . NET Compiler Platform SDK in the Visual Studio Installer:
+There are two different ways to find the .NET Compiler Platform SDK in the Visual Studio Installer:
 
 Install using the Visual Studio Installer – Workloads view:
 
@@ -47,7 +47,7 @@ Let’s begin by creating a syntax tree analyzer. This analyzer generates a synt
     * BraceAnalyzer. Vsix: The VSIX project bundles the analyzer into an extension package (.vsix file). This is the startup project in the solution.
 
 4. In the Solution Explorer, open **Resources.resx** in the BraceAnalyzer project. This displays the resource editor.
-5. Replace the existing resource string values for AnalyzerDescription, AnalyzerMessageFormat and AnalyzerTitle with the following strings:
+5. Replace the existing resource string values for AnalyzerDescription, AnalyzerMessageFormat, and AnalyzerTitle with the following strings:
 
     * Change AnalyzerDescription to `Enclose statement with curly braces`.
     * Change AnalyzerMessageFormat to `"{" brace expected`.
@@ -150,4 +150,4 @@ An analyzer can provide one or more code fixes. A code fix defines an edit that 
 
 ## Conclusion
 
-Congratulations! You've created your first Roslyn analyzer that performs on-the-fly code analysis to detect an issue and provides a code fix to correct it. Along the way, you've learned many of the code APIs that are part of the [.NET Compiler Platform SDK]("https://docs.microsoft.com/dotnet/csharp/roslyn-sdk/") (Roslyn APIs). Next, you can learn how to publish your analyzer as a NuGet package which will enable your analyzer for every developer on the team and can be enforced on build. Documentation on how to publish to NuGet is found [here]("https://docs.microsoft.com/archive/msdn-magazine/2015/october/code-analysis-build-and-deploy-libraries-with-integrated-roslyn-code-analysis-to-nuget").
+Congratulations! You've created your first Roslyn analyzer that performs on-the-fly code analysis to detect an issue and provides a code fix to correct it. Along the way, you've learned many of the code APIs that are part of the [.NET Compiler Platform SDK]("https://docs.microsoft.com/dotnet/csharp/roslyn-sdk/") (Roslyn APIs). Next, you can learn how to publish your analyzer as a NuGet package, which will enable your analyzer for every developer on the team and can be enforced on build. For information on how to publish to NuGet, see [Code Analysis - Build and Deploy Libraries with Integrated Roslyn Code Analysis to NuGet](https://docs.microsoft.com/archive/msdn-magazine/2015/october/code-analysis-build-and-deploy-libraries-with-integrated-roslyn-code-analysis-to-nuget).
