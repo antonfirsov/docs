@@ -2,7 +2,7 @@
 
 Roslyn analyzers inspect your code for style, quality, maintainability, design and other issues. Because they are powered by the .NET Compiler Platform, they can produce warnings in your code as you type even before you’ve finished the line. In other words, you don’t have to build your code to find out that you made a mistake. Analyzers can also surface an automatic code fix through the Visual Studio light bulb prompt that allows you to clean up your code immediately. With live, project-based code analyzers in Visual Studio, API authors can ship domain-specific code analysis as part of their NuGet packages.
 
-You don’t have to be a professional API author to write an analyzer. In this post I will show you how to write your very first analyzer.
+You don’t have to be a professional API author to write an analyzer. In this post, I'll show you how to write your very first analyzer.
 
 ## Getting Started
 
