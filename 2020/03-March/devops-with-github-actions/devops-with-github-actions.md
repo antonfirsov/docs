@@ -7,7 +7,7 @@ From speaking to desktop developers, we’ve heard that you want to learn how to
 * Faster release rate by deploying new features quickly and safely
 * Issues can be fixed quickly by rolling forward new deployments
  
-That's why we created a sample application in GitHub to showcase DevOps for your applications using the recently released [GitHub Actions](https://github.com/features/actions "GitHub Actions page").
+That's why we created [a sample application in GitHub](https://github.com/microsoft/github-actions-for-desktop-apps) to showcase DevOps for your applications using the recently released [GitHub Actions](https://github.com/features/actions "GitHub Actions page").
 With GitHub Actions, you can quickly and easily automate your software workflows with CI/CD.
 * Integrate code changes directly into GitHub to speed up development cycles
 * Trigger builds to quickly identify breaking changes and create testable debug builds
