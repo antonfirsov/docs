@@ -1,4 +1,4 @@
-# Here's How Desktop Developers Can Quickly Setup DevOps Workflows On GitHub With GitHub Actions
+# Using DevOps in your desktop apps with GitHub Actions
 
 From speaking to desktop developers, we’ve heard that you want to learn how to quickly set up a DevOps workflow for your WPF and Windows Forms applications in order to take advantage of the many benefits of continuous integration and continuous delivery pipelines, such as:
 * Greater test reliability
