@@ -29,7 +29,7 @@ Install using the Visual Studio Installer - Individual components tab:
 
 ## Writing an analyzer
 
-Let’s begin by creating a syntax tree analyzer. This analyzer generates a syntax warning for any statement that is not enclosed in a block that has curly braces `{` and `}`. For example, the following code generates a warning for both the `if`-statement and the ```System.Console.WriteLine``` invocation statement, but the `while` statement is not flagged:
+Let’s begin by creating a syntax tree analyzer. This analyzer generates a syntax warning for any statement that is not enclosed in a block that has curly braces `{` and `}`. For example, the following code generates a warning for both the `if`-statement and the `System.Console.WriteLine` invocation statement, but the `while` statement is not flagged:
 
 ![Brace diagnostic](brace-diagnostic.png)
 
@@ -38,15 +38,15 @@ Let’s begin by creating a syntax tree analyzer. This analyzer generates a synt
 
     ![Create New Project Dialog](create-new-project-dialog.png)
 
-3. Name your project **BraceAnalyzer** and click OK. The solution should contain 3 projects: BraceAnalyzer, BraceAnalyzer.Test, BraceAnalyzer.Vsix.
+3. Name your project **BraceAnalyzer** and click OK. The solution should contain 3 projects: BraceAnalyzer, BraceAnalyzer.Test, and BraceAnalyzer.Vsix.
 
     ![Analyzer Solution Layout](analyzer-solution-layout.png)
 
     * BraceAnalyzer: This is the core analyzer project that contains the default analyzer implementation that reports a diagnostic for all type names that contain any lowercase letter.
     * BraceAnalyzer.Test: This is a unit test project that lets you make sure your analyzer is producing the right diagnostics and fixes.
-    * BraceAnalyzer. Vsix: The VSIX project bundles the analyzer into an extension package (.vsix file). This is the startup project in the solution.
+    * BraceAnalyzer.Vsix: The VSIX project bundles the analyzer into an extension package (.vsix file). This is the startup project in the solution.
 
-4. In the Solution Explorer, open **Resources.resx** in the BraceAnalyzer project. This displays the resource editor.
+4. In the **Solution Explorer**, open **Resources.resx** in the BraceAnalyzer project. This displays the resource editor.
 5. Replace the existing resource string values for AnalyzerDescription, AnalyzerMessageFormat, and AnalyzerTitle with the following strings:
 
     * Change AnalyzerDescription to `Enclose statement with curly braces`.
