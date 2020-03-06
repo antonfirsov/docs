@@ -2,7 +2,7 @@
 
 From speaking to desktop developers, we’ve heard that you want to learn how to quickly set up a DevOps workflow for your WPF and Windows Forms applications in order to take advantage of the many benefits of continuous integration and continuous delivery pipelines, such as:
 * Improved test reliability
-* Catch bugs early in the dev cycle, reducing costs
+* Catch bugs early in the development cycle, thus reducing costs
 * Ensure consistent quality of builds
 * Faster release rate by deploying new features quickly and safely
 * Issues can be fixed quickly by rolling forward new deployments
