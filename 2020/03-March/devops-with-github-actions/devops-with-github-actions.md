@@ -1,4 +1,4 @@
-# Here's How Desktop Developers Can Quickly Setup DevOps Workflows On GitHub With GitHub Actions
+# Using DevOps in your desktop apps with GitHub Actions
 
 From speaking to desktop developers, we’ve heard that you want to learn how to quickly set up a DevOps workflow for your WPF and Windows Forms applications in order to take advantage of the many benefits of continuous integration and continuous delivery pipelines, such as:
 * Catch bugs early in the dev cycle
@@ -20,6 +20,6 @@ You'll learn how to author these files to take advantage of multiple channels, s
 
 You'll learn best-practices for securely storing passwords and other secrets in GitHub, ensuring you protect your valuable assets.
 
-Finally, you'll learn how to enable Publish Profiles in your WPF application, files that store information about your publish targets such as the deployment location, target framework, and target runtime. Publish Profiles are referenced by the Windows Application Packaging project and simplify the build and packaging steps of your DevOps pipeline making the authoring process much easier.
+Finally, you'll learn how to enable Publish Profiles in your WPF and Windows Forms applications, files that store information about your publish targets such as the deployment location, target framework, and target runtime. Publish Profiles are referenced by the Windows Application Packaging project and simplify the build and packaging steps of your DevOps pipeline making the authoring process much easier.
 
 To start learning how to quickly set up a DevOps workflow for your project, take a look at the repo here:  https://github.com/microsoft/github-actions-for-desktop-apps
