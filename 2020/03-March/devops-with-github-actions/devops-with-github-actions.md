@@ -4,8 +4,8 @@ From speaking to desktop developers, we’ve heard that you want to learn how to
 * Catch bugs early in the dev cycle
 * Improve software quality and reliability
 * Ensure consistent quality of builds
-* Faster release rate by deploying new features quickly and safely
-* Issues can be fixed quickly by rolling forward new deployments
+* Deploy new features quickly and safely, creating faster release rates
+* Fix issues quickly in production by rolling forward new deployments
  
 That's why we created [a sample application in GitHub](https://github.com/microsoft/github-actions-for-desktop-apps) to showcase DevOps for your applications using the recently released [GitHub Actions](https://github.com/features/actions "GitHub Actions page").
 With GitHub Actions, you can quickly and easily automate your software workflows with CI/CD.
