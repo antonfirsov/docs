@@ -1,8 +1,8 @@
 # Here's How Desktop Developers Can Quickly Setup DevOps Workflows On GitHub With GitHub Actions
 
 From speaking to desktop developers, we’ve heard that you want to learn how to quickly set up a DevOps workflow for your WPF and Windows Forms applications in order to take advantage of the many benefits of continuous integration and continuous delivery pipelines, such as:
-* Greater test reliability
-* Catch bugs early in the dev cycle, reducing costs
+* Catch bugs early in the dev cycle
+* Improve software quality and reliability
 * Ensure consistent quality of builds
 * Faster release rate by deploying new features quickly and safely
 * Issues can be fixed quickly by rolling forward new deployments
@@ -10,8 +10,8 @@ From speaking to desktop developers, we’ve heard that you want to learn how to
 That's why we created a sample application in GitHub to showcase DevOps for your applications using the recently released [GitHub Actions](https://github.com/features/actions "GitHub Actions page").
 With GitHub Actions, you can quickly and easily automate your software workflows with CI/CD.
 * Integrate code changes directly into GitHub to speed up development cycles
-* Trigger builds to quickly identify breaking changes and create testable debug builds
-* Continuously run tests to identify and eliminate bugs, improving code quality 
+* Trigger builds to quickly identify build breaks and create testable debug builds
+* Continuously run tests to identify and eliminate bugs
 * Automatically build, sign, package and deploy branches that pass CI 
  
 The sample application demonstrates how to author the YAML files that comprise the DevOps workflow in GitHub.
