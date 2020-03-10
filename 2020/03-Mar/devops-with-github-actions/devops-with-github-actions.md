@@ -4,7 +4,7 @@ From speaking to desktop developers, we’ve heard that you want to learn how to
 * Catch bugs early in the dev cycle
 * Improve software quality and reliability
 * Ensure consistent quality of builds
-* Deploy new features quickly and safely, creating faster release rates
+* Deploy new features quickly and safely, improving release cadence
 * Fix issues quickly in production by rolling forward new deployments
  
 That's why we created [a sample application in GitHub](https://github.com/microsoft/github-actions-for-desktop-apps) to showcase DevOps for your applications using the recently released [GitHub Actions](https://github.com/features/actions "GitHub Actions page").
