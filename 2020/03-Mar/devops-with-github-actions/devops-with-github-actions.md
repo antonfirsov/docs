@@ -23,3 +23,5 @@ You'll learn best-practices for securely storing passwords and other secrets in 
 Finally, you'll learn how to enable Publish Profiles in your WPF and Windows Forms applications, files that store information about your publish targets such as the deployment location, target framework, and target runtime. Publish Profiles are referenced by the Windows Application Packaging project and simplify the build and packaging steps of your DevOps pipeline making the authoring process much easier.
 
 To start learning how to quickly set up a DevOps workflow for your project, take a look at the repo here:  https://github.com/microsoft/github-actions-for-desktop-apps
+
+![DevOps With GitHub Actions](devops-with-github-actions.png)
