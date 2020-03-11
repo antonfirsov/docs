@@ -1,7 +1,7 @@
-# Using DevOps in your desktop apps with GitHub Actions
+# Continuous integration and deployment for desktop apps with GitHub Actions
 
-From speaking to desktop developers, we’ve heard that you want to learn how to quickly set up a DevOps workflow for your WPF and Windows Forms applications in order to take advantage of the many benefits of continuous integration and continuous delivery pipelines, such as:
-* Catch bugs early in the dev cycle
+From speaking to desktop developers, we’ve heard that you want to learn how to quickly set up continuous integration and continuous deployment (CI/CD) workflows for your WPF and Windows Forms applications in order to take advantage of the many benefits CI/CD pipelines have to offer, such as:
+* Catch bugs early in the development cycle
 * Improve software quality and reliability
 * Ensure consistent quality of builds
 * Deploy new features quickly and safely, improving release cadence
