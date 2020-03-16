@@ -45,6 +45,13 @@ Here is the workflow:
 
 4. Create a pull request
 
+## Requesting Access
+
+In order for folks to get access to this repo, they can request access via this
+link:
+
+    https://repos.opensource.microsoft.com/microsoft/teams/dotnet/join/
+
 ## Planning
 
 We use a [Trello Board](https://trello.com/b/6gKEIeAB/blog-schedule) for managing the blog schedule.
