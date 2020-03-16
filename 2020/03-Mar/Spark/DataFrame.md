@@ -13,23 +13,21 @@ In this blog post, we’ll explore:
 
 ### <a id="implement"></a>Implementation goals and details
 
-#### Goal
-
-The main goal of this work is to improve UDF creation in .NET for Spark through a set of convenience APIs introducing the Microsoft.Data.Analysis DataFrame. 
+#### Context and Goals
 
 Let's start off with some context about data-sharing in Spark UDFs. Apache Spark streams data to most modern UDFs in the [Apache Arrow][10] format. Apache Arrow provides a standardized, language-independent format for working with data in-memory. It's designed for high-performance, efficient analysis through its columnar memory format, and it provides libraries and zero-copy messaging for communication across processes.
 
 Because Spark streams data to UDFs in the Arrow format, a user writing a UDF needs to understand the Arrow format when working with their data, such as how to read Arrow columns, write to Arrow columns, and unwrap an Arrow RecordBatch (which is a set of rows of equal-length columns that holds data we wish to analyze). Using Arrow can involve lengthy code and taking the time to learn about Arrow formatting and RecordBatches to integrate them correctly in an application. 
 
-Our integration of Microsoft.Data.Analysis DataFrames provides support for Arrow-formatted data out-of-the-box. Now developers no longer need to work with the Apache Arrow format or RecordBatches directly and can instead stick with the data formats they already understand!
+The main goal of the work described in this blog post is to improve UDF creation in .NET for Spark through a set of convenience APIs introducing the Microsoft.Data.Analysis DataFrame. Our convenience APIs provide support for Arrow-formatted data out-of-the-box by using Microsoft.Data.Analysis DataFrames rather than traditional Spark DataFrames. Now developers no longer need to work with the Apache Arrow format or RecordBatches directly and can instead stick with the data formats they already understand!
 
 #### Details
 
-Prior to this work, users often needed to enumerate an Arrow RecordBatch to work with columns in a UDF. RecordBatch creation and usage can be quite lengthy and disrupt the flow of a user's app since a RecordBatch is an Arrow-based object, not a standard Spark object. But now, our convenience APIs automatically wrap data that would've been stored in a RecordBatch in a Microsoft.Data.Analysis DataFrame instead. Our wrapping doesn’t involve copying data, ensuring performance remains high as our ease of coding also improves. We can use the newly introduced convenience APIs to start reading, writing, and manipulating our data all through DataFrames rather than RecordBatches!
+Prior to this work, users needed to enumerate an Arrow RecordBatch to work with columns in a UDF. RecordBatch creation and usage can disrupt the flow of a user's app since it can be lengthy and involves an Arrow-based object, not a standard Spark object. But now, our convenience APIs automatically wrap data that would've been stored in a RecordBatch in a Microsoft.Data.Analysis DataFrame instead. Our wrapping doesn’t involve copying data, thus ensuring performance remains high as our ease of coding also improves. We can use the newly introduced convenience APIs to start reading, writing, and manipulating our data all through DataFrames rather than RecordBatches.
 
-In the goals section above, we mentioned that Spark streams data to most UDFs in the Arrow format. There are a few kinds of Spark UDFs: pickling, scalar, and vector, and our convenience APIs specifically apply to the latter two.
+In the goals section above, we mentioned that Spark streams data to *most* UDFs in the Arrow format. There are a few kinds of Spark UDFs: pickling, scalar, and vector, and our convenience APIs specifically apply to the latter two.
 
-Pickling UDFs are an older, traditional Spark UDF. They leverage pickle serialization to convert data between a JVM object to a Spark-usable pickle object. Once a column is specified for processing, a pickling UDF will take each of its rows, apply the given functionality, and then add a new column, resulting in quite a bit of overhead.
+Pickling UDFs are an older version of Spark UDFs. They leverage pickle serialization to convert data between a JVM object to a Spark-usable pickle object. Once a column is specified for processing, a pickling UDF will take each of its rows, apply the given functionality, and then add a new column, resulting in quite a bit of overhead.
 
 By contrast, scalar and vector UDFs leverage Arrow serialization rather than pickling. By using Arrow, these UDFs can reap the benefits of an in-memory columnar format for data analysis, and the data transfer is more efficient. 
 
@@ -45,11 +43,11 @@ There is currently 1 scenario in which you will not use these convenience APIs a
 
 As a gentle introduction, let’s start with a common example. Let’s say we have a UDF that adds 2 columns and returns the result. Traditionally, we’d be required to work with a RecordBatch. An Arrow RecordBatch is immutable, so adding 2 columns using the traditional Spark DataFrames would require allocating a new column in the Arrow format and writing for loops to perform the computation. 
 
-If we instead used the Microsoft.Data.Analysis DataFrame, we can write something along the lines of: <pre class="prettyprint">dataframe.ColumnA + dataframe.ColumnB</pre>
+If we instead used the Microsoft.Data.Analysis DataFrame, we can write something along the lines of: `dataframe.ColumnA + dataframe.ColumnB`.
 
-Data reading and conversion steps will be taken care of internally by the API behind-the-scenes, thus shortening and improving the readability of your code.
+Data reading and conversion steps will be taken care of internally by the convenience API behind-the-scenes, thus shortening and improving the readability of your code.
 
-As another example, we often use UDFs that need to return a set of columns. With the traditional Spark DataFrames, these columns must be returned as an Arrow RecordBatch, which can involve lengthy or somewhat challenging code. With our new convenience APIs, we can just return a DataFrame, and everything else is handled internally!
+As another example, we often create UDFs that return a set of columns. With the traditional Spark DataFrames, these columns must be returned as an Arrow RecordBatch. But with our new convenience APIs, we can just return a DataFrame, and everything else is handled internally!
 
 #### Detailed Examples
 
