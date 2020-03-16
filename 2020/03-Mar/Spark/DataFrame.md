@@ -19,9 +19,9 @@ The main goal of this work is to improve UDF creation in .NET for Spark through 
 
 Let's start off with some context about data-sharing in Spark UDFs. Apache Spark streams data to most modern UDFs in the [Apache Arrow][10] format. Apache Arrow provides a standardized, language-independent format for working with data in-memory. It's designed for high-performance, efficient analysis through its columnar memory format, and it provides libraries and zero-copy messaging for communication across processes.
 
-Because Spark streams data to UDFs in the Arrow format, a user writing a UDF would need to understand the Arrow format, such as how to read Arrow columns, write to Arrow columns, and unwrap an Arrow RecordBatch, which is a batch of rows of columns of equal length that holds data we wish to analyze. Using Arrow can involved lengthy code and require additional learning so that developers understand how to integrate it correctly in their applications. 
+Because Spark streams data to UDFs in the Arrow format, a user writing a UDF needs to understand the Arrow format when working with their data, such as how to read Arrow columns, write to Arrow columns, and unwrap an Arrow RecordBatch (which is a set of rows of equal-length columns that holds data we wish to analyze). Using Arrow can involve lengthy code and taking the time to learn about Arrow formatting and RecordBatches to integrate them correctly in an application. 
 
-Our integration of Microsoft.Data.Analysis DataFrames provides support for Arrow-formatted data out-of-the-box. Now developers no longer need to work with the Apache Arrow format directly and can instead stick with the data formats they already understand.
+Our integration of Microsoft.Data.Analysis DataFrames provides support for Arrow-formatted data out-of-the-box. Now developers no longer need to work with the Apache Arrow format or RecordBatches directly and can instead stick with the data formats they already understand!
 
 #### Details
 
