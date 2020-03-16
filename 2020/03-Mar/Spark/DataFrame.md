@@ -1,4 +1,4 @@
-The New .NET for Apache® Spark™ Take on DataFrame
+# The New .NET for Apache® Spark™ Take on DataFrame
 
 [.NET for Apache Spark][1] is aimed at making [Apache® Spark™][2], and thus the exciting world of big data analytics, accessible to .NET developers. .NET for Spark can be used for processing batches of data, real-time streams, machine learning, and ad-hoc query.
 
