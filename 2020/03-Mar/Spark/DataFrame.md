@@ -17,7 +17,7 @@ In this blog post, we’ll explore:
 
 The main goal of this work is to improve UDF creation in .NET for Spark through a set of convenience APIs introducing the Microsoft.Data.Analysis DataFrame. 
 
-Let's start off with some context about data-sharing in Spark UDFs. Apache Spark streams data to most modern UDFs in the [Apache Arrow][10] format. Apache Arrow provides a standardized, language-dependent format for working with data in-memory. It's designed for high-performance, efficient analysis through its columnar memory format, and it provides libraries and zero-copy messaging for communication across processes.
+Let's start off with some context about data-sharing in Spark UDFs. Apache Spark streams data to most modern UDFs in the [Apache Arrow][10] format. Apache Arrow provides a standardized, language-independent format for working with data in-memory. It's designed for high-performance, efficient analysis through its columnar memory format, and it provides libraries and zero-copy messaging for communication across processes.
 
 Because Spark streams data to UDFs in the Arrow format, a user writing a UDF would need to understand the Arrow format, such as how to read Arrow columns, write to Arrow columns, and unwrap an Arrow RecordBatch, which is a batch of rows of columns of equal length that holds data we wish to analyze. Using Arrow can involved lengthy code and require additional learning so that developers understand how to integrate it correctly in their applications. 
 
