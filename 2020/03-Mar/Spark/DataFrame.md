@@ -7,13 +7,13 @@ The [DataFrame][3] is one of the core data structures in Spark programming. A Da
 In December 2019, the [.NET team announced][4] the preview of the [Microsoft.Data.Analysis][5] DataFrame type to make data exploration easy in .NET. Now in March 2020, we have [introduced convenience APIs][6] to the .NET for Spark codebase for using Microsoft.Data.Analysis DataFrames with UDFs in Spark. These convenience APIs make data manipulation and analysis with UDFs much more convenient and concise in .NET for Spark.
 
 In this blog post, we’ll explore:
-*   [Implementation goals and details][7]
+*   [Implementation goal and details][7]
 *   [Coding examples and DataFrame comparisons][8]
 *   [Wrap Up][9]
 
 ### <a id="implement"></a>Implementation goals and details
 
-#### Goals
+#### Goal
 
 The main goal of this work is to improve UDF creation in .NET for Spark through a set of convenience APIs introducing Microsoft.Data.Analysis DataFrames to .NET for Spark. 
 
