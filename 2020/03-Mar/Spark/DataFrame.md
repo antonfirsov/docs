@@ -76,10 +76,7 @@ Both programs implement a `CountCharacters` method to determine the length of th
 `CountCharacters` is also implemented differently in each program. In VectorUdfs.cs, the definition is:
 
 <pre class="prettyprint">
-private static RecordBatch CountCharacters(
-            RecordBatch records,
-            string groupFieldName,
-            string stringFieldName)
+private static RecordBatch CountCharacters(RecordBatch records, string groupFieldName, string stringFieldName)
 {
     int stringFieldIndex = records.Schema.GetFieldIndex(stringFieldName);
     StringArray stringValues = records.Column(stringFieldIndex) as StringArray;
@@ -115,8 +112,7 @@ private static RecordBatch CountCharacters(
 In VectorDataFrameUdfs.cs, the method is:
 
 <pre class="prettyprint">
-private static FxDataFrame CountCharacters(
-            FxDataFrame dataFrame)
+private static FxDataFrame CountCharacters(FxDataFrame dataFrame)
 {
     int characterCount = 0;
 
