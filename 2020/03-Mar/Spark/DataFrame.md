@@ -151,7 +151,7 @@ By contrast, the new VectorDataFrameUdfs.cs sample is able to dive almost immedi
 
 Thank you to Prashanth Govindarajan, Eric Erhardt, Terry Kim, and the other members of the .NET and .NET for Apache Spark teams for their contributions to this outstanding work.
 
-We’d love to help you get started with .NET for Apache Spark and hear your feedback. You can [Request a Demo][1] from our landing page and check out the [].NET for Spark GitHub repo][14] to get involved with our effort to make .NET a great tech stack for building big data applications.
+We’d love to help you get started with .NET for Apache Spark and hear your feedback. You can [Request a Demo][1] from our landing page and check out the [.NET for Spark GitHub repo][14] to get involved with our effort to make .NET a great tech stack for building big data applications.
 
 [1]: https://dot.net/spark
 [2]: https://spark.apache.org/
