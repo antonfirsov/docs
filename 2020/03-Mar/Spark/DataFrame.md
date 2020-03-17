@@ -20,23 +20,23 @@ Let's start off with some context about data-sharing in Spark UDFs. Apache Spark
 ![Diagram of the benefits of Apache Arrow][logo]
 > Diagram credit: https://arrow.apache.org/.
 
-Because Spark streams data to UDFs in the Arrow format, a user writing a UDF needs to understand the Arrow format when working with their data, such as how to read Arrow columns, write to Arrow columns, and unwrap an Arrow RecordBatch (which is a set of rows of equal-length columns that holds data we wish to analyze). Using Arrow can involve lengthy code and taking the time to learn about Arrow formatting and RecordBatches to integrate them correctly in an application. 
+Because Spark streams data to UDFs in the Arrow format, you need to understand the Arrow format when working with UDFs, such as how to read Arrow columns, write to Arrow columns, and unwrap a RecordBatch, which is a 2D data type in Arrow consisting of a set of rows of equal-length columns. 
 
-The main goal of the work described in this blog post is to improve UDF creation in .NET for Spark through a set of convenience APIs introducing the Microsoft.Data.Analysis DataFrame. Our convenience APIs provide support for Arrow-formatted data out-of-the-box by using Microsoft.Data.Analysis DataFrames rather than traditional Spark DataFrames. Now developers no longer need to work with the Apache Arrow format or RecordBatches directly and can instead stick with the data formats they already understand!
+The main goal of the work described in this blog post is to improve UDFs in .NET for Spark through a set of convenience APIs introducing the Microsoft.Data.Analysis DataFrame. Our convenience APIs provide support for Arrow-formatted data out-of-the-box by using Microsoft.Data.Analysis DataFrames rather than traditional Spark SQL DataFrames. You can now avoid working with the Apache Arrow format directly as that's taken care of behind-the-scenes.
 
 #### Details
 
-Prior to this work, users needed to enumerate an Arrow RecordBatch to work with columns in a UDF. RecordBatch creation and usage can disrupt the flow of a user's app since it can be lengthy and involves an Arrow-based object, not a standard Spark object. But now, our convenience APIs automatically wrap data that would've been stored in a RecordBatch in a Microsoft.Data.Analysis DataFrame instead. Our wrapping doesn’t involve copying data, thus ensuring performance remains high as our ease of coding also improves. We can use the newly introduced convenience APIs to start reading, writing, and manipulating our data all through DataFrames rather than RecordBatches.
+Prior to this work, you needed to enumerate an Arrow RecordBatch to work with columns in a UDF. RecordBatch creation and usage can disrupt the flow of a user's app as it involves an Arrow-based object, not a standard Spark object. But now, our convenience APIs automatically wrap data that would've been stored in a RecordBatch in a Microsoft.Data.Analysis DataFrame. The wrapping doesn’t involve copying data, thus ensuring performance remains high as our ease of coding also improves. We can use the newly introduced convenience APIs to start reading, writing, and manipulating our data all through DataFrames rather than RecordBatches.
 
 In the goals section above, we mentioned that Spark streams data to *most* UDFs in the Arrow format. There are a few kinds of Spark UDFs: pickling, scalar, and vector, and our convenience APIs specifically apply to the latter two.
 
-Pickling UDFs are an older version of Spark UDFs. They leverage pickle serialization to convert data between a JVM object to a Spark-usable pickle object. Once a column is specified for processing, a pickling UDF will take each of its rows, apply the given functionality, and then add a new column, resulting in quite a bit of overhead.
+Pickling UDFs are an older version of Spark UDFs. They leverage pickle serialization to convert data between the JVM object and .NET for Spark processes. Once a column is specified for processing, a pickling UDF will take each of its rows, apply the given functionality, and then add a new column, resulting in quite a bit of overhead.
 
-By contrast, scalar and vector UDFs leverage Arrow serialization rather than pickling. By using Arrow, these UDFs can reap the benefits of an in-memory columnar format for data analysis, and the data transfer is more efficient. 
+By contrast, scalar and vector UDFs leverage Arrow serialization rather than pickling. By using Arrow, these UDFs can reap the benefits of an in-memory columnar format for data analysis, and the data transfer to and from the JVM is more efficient. 
 
 Our new .NET for Apache Spark convenience APIs specifically apply to scalar and vector UDFs since they leverage the Arrow format.
 
-You’ll likely use both traditional Spark DataFrames and the new convenience APIs for Microsoft.Data.Analysis DataFrames in your programs. The traditional DataFrame will be used for the entire dataset in the parts of the Spark driver program outside of UDFs. When you create a UDF, the data in the traditional DataFrame will be streamed to the UDFs in the worker machines in the Arrow format. Once inside the UDF, you’ll now work with the Microsoft.Data.Analysis DataFrame (rather than RecordBatches).
+You’ll likely use both traditional Spark DataFrames and the new convenience APIs for Microsoft.Data.Analysis DataFrames in your programs. The traditional DataFrame distributes data across your Spark cluster. It will be used for the entire dataset in the Spark driver program (outside of UDFs). Once you create a UDF, the data in the traditional DataFrame will be streamed to the UDFs in the worker machines in the Arrow format. Once inside the UDF, you’ll now work with the Microsoft.Data.Analysis DataFrame (rather than RecordBatches), which are in-memory on a single machine. The Microsoft.Data.Analysis DataFrame is similar to the [Python Pandas DataFrame][15].
 
 There is currently 1 scenario in which you will not use these convenience APIs and will need to stick with the traditional DataFrames: intrinsics. As shown in [VectorFunctions.intrinsics.cs][11], we can use hardware intrinsics in Spark DataFrames to further boost performance. However, the Microsoft.Data.Analysis DataFrame does not yet support intrinsics. For all other cases, you can choose to use the traditional Arrow-based APIs or the Microsoft.Data.Analysis DataFrame, and the latter will typically be the optimal choice for UDFs with more concise, user-friendly code.  
 
@@ -169,3 +169,4 @@ We’d love to help you get started with .NET for Apache Spark and hear your fee
 [13]: https://github.com/dotnet/spark/blob/master/examples/Microsoft.Spark.CSharp.Examples/Sql/Batch/VectorDataFrameUdfs.cs
 [14]: https://github.com/dotnet/spark
 [logo]: Arrow.png
+[15]: https://pandas.pydata.org/pandas-docs/stable/getting_started/10min.html
