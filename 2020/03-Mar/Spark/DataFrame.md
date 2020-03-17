@@ -60,7 +60,8 @@ Let’s take a look at a more detailed, concrete example. [VectorUdfs.cs][12] is
 
 Both programs use a Grouped Map Vector UDF and apply it very similarly. In VectorUdfs.cs, the code is as follows:
 
-<pre class="prettyprint">df.GroupBy("age")
+<pre class="prettyprint">
+df.GroupBy("age")
     .Apply(
     new StructType(new[]
     {
@@ -74,65 +75,67 @@ Both programs implement a `CountCharacters` method to determine the length of th
 
 `CountCharacters` is also implemented differently in each program. In VectorUdfs.cs, the definition is:
 
-<pre class="prettyprint">private static RecordBatch CountCharacters(
+<pre class="prettyprint">
+private static RecordBatch CountCharacters(
             RecordBatch records,
             string groupFieldName,
             string stringFieldName)
+{
+    int stringFieldIndex = records.Schema.GetFieldIndex(stringFieldName);
+    StringArray stringValues = records.Column(stringFieldIndex) as StringArray;
+
+    int characterCount = 0;
+
+    for (int i = 0; i < stringValues.Length; ++i)
+    {
+        string current = stringValues.GetString(i);
+        characterCount += current.Length;
+    }
+
+    int groupFieldIndex = records.Schema.GetFieldIndex(groupFieldName);
+    Field groupField = records.Schema.GetFieldByIndex(groupFieldIndex);
+
+    // Return 1 record, if we were given any. 0, otherwise.
+    int returnLength = records.Length > 0 ? 1 : 0;
+
+    return new RecordBatch(
+        new Schema.Builder()
+            .Field(groupField)
+            .Field(f => f.Name(stringFieldName + "_CharCount").DataType(Int32Type.Default))
+            .Build(),
+        new IArrowArray[]
         {
-            int stringFieldIndex = records.Schema.GetFieldIndex(stringFieldName);
-            StringArray stringValues = records.Column(stringFieldIndex) as StringArray;
-
-            int characterCount = 0;
-
-            for (int i = 0; i < stringValues.Length; ++i)
-            {
-                string current = stringValues.GetString(i);
-                characterCount += current.Length;
-            }
-
-            int groupFieldIndex = records.Schema.GetFieldIndex(groupFieldName);
-            Field groupField = records.Schema.GetFieldByIndex(groupFieldIndex);
-
-            // Return 1 record, if we were given any. 0, otherwise.
-            int returnLength = records.Length > 0 ? 1 : 0;
-
-            return new RecordBatch(
-                new Schema.Builder()
-                    .Field(groupField)
-                    .Field(f => f.Name(stringFieldName + "_CharCount").DataType(Int32Type.Default))
-                    .Build(),
-                new IArrowArray[]
-                {
-                    records.Column(groupFieldIndex),
-                    new Int32Array.Builder().Append(characterCount).Build()
-                },
-                returnLength);
-        }
+            records.Column(groupFieldIndex),
+            new Int32Array.Builder().Append(characterCount).Build()
+        },
+        returnLength);
+}
 </pre>
 
 In VectorDataFrameUdfs.cs, the method is:
 
-<pre class="prettyprint">private static FxDataFrame CountCharacters(
+<pre class="prettyprint">
+private static FxDataFrame CountCharacters(
             FxDataFrame dataFrame)
-        {
-            int characterCount = 0;
+{
+    int characterCount = 0;
 
-            var characterCountColumn = new PrimitiveDataFrameColumn<int>("name" + "CharCount");
-            var ageColumn = new PrimitiveDataFrameColumn<int>("age");
-            ArrowStringDataFrameColumn nameColumn = dataFrame["name"] as ArrowStringDataFrameColumn;
-            for (long i = 0; i < dataFrame.Rows.Count; ++i)
-            {
-                characterCount += nameColumn[i].Length;
-            }
+    var characterCountColumn = new PrimitiveDataFrameColumn<int>("name" + "CharCount");
+    var ageColumn = new PrimitiveDataFrameColumn<int>("age");
+    ArrowStringDataFrameColumn nameColumn = dataFrame["name"] as ArrowStringDataFrameColumn;
+    for (long i = 0; i < dataFrame.Rows.Count; ++i)
+    {
+        characterCount += nameColumn[i].Length;
+    }
 
-            if (dataFrame.Rows.Count > 0)
-            {
-                characterCountColumn.Append(characterCount);
-                ageColumn.Append((int?)dataFrame["age"][0]);
-            }
+    if (dataFrame.Rows.Count > 0)
+    {
+        characterCountColumn.Append(characterCount);
+        ageColumn.Append((int?)dataFrame["age"][0]);
+    }
 
-            return new FxDataFrame(ageColumn, characterCountColumn);
-        }
+    return new FxDataFrame(ageColumn, characterCountColumn);
+}
 </pre>
 
 Note that the `FxDataFrame` type represents the Microsoft.Data.Analysis DataFrame, while `DataFrame` represents the traditional Spark DataFrame. This is signified in the latter sample at the top of the program:
