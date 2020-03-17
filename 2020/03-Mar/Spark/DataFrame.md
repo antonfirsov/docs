@@ -15,48 +15,44 @@ In this blog post, we’ll explore:
 
 #### Context and Goals
 
-Let's start off with some context about data-sharing in Spark UDFs. Apache Spark streams data to most modern UDFs in the [Apache Arrow][10] format. Apache Arrow provides a standardized, language-independent format for working with data in-memory. It's designed for high-performance, efficient analysis through its columnar memory format, and it provides libraries and zero-copy messaging for communication across processes.
+Let's start off with some context about data-sharing in Spark UDFs. Apache Spark streams data to scalar and vector UDFs in the [Apache Arrow][10] format. Apache Arrow provides a standardized, language-independent format for working with data in-memory. It's designed for high-performance, efficient analysis through its columnar memory format, and it provides libraries and zero-copy messaging for communication across processes.
 
 ![Diagram of the benefits of Apache Arrow][logo]
 > Diagram credit: https://arrow.apache.org/.
 
 Because Spark streams data to UDFs in the Arrow format, you need to understand the Arrow format when working with UDFs, such as how to read Arrow columns, write to Arrow columns, and unwrap a RecordBatch, which is a 2D data type in Arrow consisting of a set of rows of equal-length columns. 
 
-The main goal of the work described in this blog post is to improve UDFs in .NET for Spark through a set of convenience APIs introducing the Microsoft.Data.Analysis DataFrame. Our convenience APIs provide support for Arrow-formatted data out-of-the-box by using Microsoft.Data.Analysis DataFrames rather than traditional Spark SQL DataFrames. You can now avoid working with the Apache Arrow format directly as that's taken care of behind-the-scenes.
+The main goal of the work described in this blog post is to improve scalar and vector UDFs in .NET for Spark through a set of convenience APIs introducing the Microsoft.Data.Analysis DataFrame. Using Microsoft.Data.Analysis DataFrames provides support for Arrow-formatted data out-of-the-box- you can now avoid working with the Apache Arrow format directly as that's taken care of behind-the-scenes.
 
 #### Details
 
-Prior to this work, you needed to enumerate an Arrow RecordBatch to work with columns in a UDF. RecordBatch creation and usage can disrupt the flow of a user's app as it involves an Arrow-based object, not a standard Spark object. But now, our convenience APIs automatically wrap data that would've been stored in a RecordBatch in a Microsoft.Data.Analysis DataFrame. The wrapping doesn’t involve copying data, thus ensuring performance remains high as our ease of coding also improves. We can use the newly introduced convenience APIs to start reading, writing, and manipulating our data all through DataFrames rather than RecordBatches.
+Prior to this work, you needed to enumerate an Arrow RecordBatch to work with columns in a UDF. RecordBatches are Arrow-based objects, not standard Spark objects, and can thus disrupt the flow or familiarity of code in your program. But now, our convenience APIs automatically wrap data that would've been stored in a RecordBatch in a Microsoft.Data.Analysis DataFrame. The wrapping doesn’t involve copying data, thus ensuring performance remains high as our ease of coding also improves. We can use the APIs to start reading, writing, and manipulating our data all through DataFrames rather than RecordBatches.
 
 In the goals section above, we mentioned that Spark streams data to *most* UDFs in the Arrow format. There are a few kinds of Spark UDFs: pickling, scalar, and vector, and our convenience APIs specifically apply to the latter two.
 
-Pickling UDFs are an older version of Spark UDFs. They leverage pickle serialization to convert data between the JVM object and .NET for Spark processes. Once a column is specified for processing, a pickling UDF will take each of its rows, apply the given functionality, and then add a new column, resulting in quite a bit of overhead.
+Pickling UDFs are an older version of Spark UDFs. They leverage pickle serialization to convert data between the JVM and .NET for Spark processes. Once a column is specified for processing, a pickling UDF will take each of its rows, apply the given functionality, and then add a new column, resulting in quite a bit of overhead.
 
-By contrast, scalar and vector UDFs leverage Arrow serialization rather than pickling. By using Arrow, these UDFs can reap the benefits of an in-memory columnar format for data analysis, and the data transfer to and from the JVM is more efficient. 
+By contrast, scalar and vector UDFs leverage Arrow serialization rather than pickling. By using Arrow, these UDFs can reap the benefits of an in-memory columnar format for data analysis, and the data transfer to and from the JVM is more efficient. Our new .NET for Apache Spark convenience APIs specifically apply to scalar and vector UDFs since they leverage the Arrow format.
 
-Our new .NET for Apache Spark convenience APIs specifically apply to scalar and vector UDFs since they leverage the Arrow format.
+You can use both kinds of DataFrames in your programs. The traditional Spark SQL DataFrame distributes data across your Spark cluster. It will be used for the entire dataset in the Spark driver program (outside of UDFs). Once you create a UDF, the data in the traditional DataFrame will be streamed to the UDFs in the worker machines in the Arrow format. Once inside the UDF, you’ll now work with the Microsoft.Data.Analysis DataFrame (rather than RecordBatches), which are in-memory on a single machine. The concept of the Microsoft.Data.Analysis DataFrame is similar to the [Python Pandas DataFrame][15].
 
-You’ll likely use both traditional Spark DataFrames and the new convenience APIs for Microsoft.Data.Analysis DataFrames in your programs. The traditional DataFrame distributes data across your Spark cluster. It will be used for the entire dataset in the Spark driver program (outside of UDFs). Once you create a UDF, the data in the traditional DataFrame will be streamed to the UDFs in the worker machines in the Arrow format. Once inside the UDF, you’ll now work with the Microsoft.Data.Analysis DataFrame (rather than RecordBatches), which are in-memory on a single machine. The Microsoft.Data.Analysis DataFrame is similar to the [Python Pandas DataFrame][15].
-
-There is currently 1 scenario in which you will not use these convenience APIs and will need to stick with the traditional DataFrames: intrinsics. As shown in [VectorFunctions.intrinsics.cs][11], we can use hardware intrinsics in Spark DataFrames to further boost performance. However, the Microsoft.Data.Analysis DataFrame does not yet support intrinsics. For all other cases, you can choose to use the traditional Arrow-based APIs or the Microsoft.Data.Analysis DataFrame, and the latter will typically be the optimal choice for UDFs with more concise, user-friendly code.  
+There is currently 1 scenario in which you will not use these convenience APIs and will need to stick with the traditional DataFrames: intrinsics. As shown in [VectorFunctions.intrinsics.cs][11], we can use hardware intrinsics in Spark to further boost performance. However, the Microsoft.Data.Analysis DataFrame does not yet support intrinsics. 
 
 ### <a id="example"></a>Example
 
 #### Simple Examples
 
-As a gentle introduction, let’s start with a common example. Let’s say we have a UDF that adds 2 columns and returns the result. Traditionally, we’d be required to work with a RecordBatch. An Arrow RecordBatch is immutable, so adding 2 columns using the traditional Spark DataFrames would require allocating a new column in the Arrow format and writing for loops to perform the computation. 
+Let’s start with a basic example. Suppose we have a vector UDF that adds 2 columns and returns the result. Traditionally, we’d have to use an Arrow RecordBatch. A RecordBatch is immutable, so adding 2 columns would require allocating a new column in the Arrow format and writing for loops to perform the computation. 
 
-If we instead used the Microsoft.Data.Analysis DataFrame, we can write something along the lines of: `dataframe.ColumnA + dataframe.ColumnB`.
-
-Data reading and conversion steps will be taken care of internally by the convenience API behind-the-scenes, thus shortening and improving the readability of your code.
+If we instead used the Microsoft.Data.Analysis DataFrame, we can write something along the lines of: `dataframe.ColumnA + dataframe.ColumnB`. Isn't that convenient!
 
 As another example, we often create UDFs that return a set of columns. With the traditional Spark DataFrames, these columns must be returned as an Arrow RecordBatch. But with our new convenience APIs, we can just return a DataFrame, and everything else is handled internally!
 
 #### Detailed Examples
 
-Let’s take a look at a more detailed, concrete example. [VectorUdfs.cs][12] is a program using traditional Spark vector UDFs. It reads in a Json file with people’s names and ages as input, stores the data in a DataFrame, and then uses a UDF to count the number of characters in each name, finally returning a set of ages + the number of characters in each respective age’s name. 
+Let’s take a look at a more detailed, concrete example. [VectorUdfs.cs][12] is a program using the traditional Spark DataFrame. It reads in a Json file with people’s names and ages as input, stores the data in a DataFrame, and then uses a vector UDF to count the number of characters in each name, finally returning a set of ages + the number of characters in each respective age’s name. 
 
-[VectorDataFrameUdfs.cs][13] is an updated program that accomplishes the same task with Microsoft.Data.Analysis DataFrames. 
+[VectorDataFrameUdfs.cs][13] is an updated program that accomplishes the same task with the Microsoft.Data.Analysis DataFrame. 
 
 Both programs use a Grouped Map Vector UDF and apply it very similarly. In VectorUdfs.cs, the code is as follows:
 
@@ -71,9 +67,9 @@ df.GroupBy("age")
 r => CountCharacters(r, "age", "name"))
 </pre>
 
-Both programs implement a `CountCharacters` method to determine the length of the names. By contrast to the snippet above, VectorDataFrameUdfs.cs concludes the UDF by calling CountCharacters with the code `r => CountCharacters(r))`, thus demonstrating the convenience APIs already make data processing in UDFs more concise. 
+By contrast, VectorDataFrameUdfs.cs concludes the UDF by calling CountCharacters with the code `r => CountCharacters(r))`. Both programs implement a `CountCharacters` method to determine the length of the names, but VectorDataFrameUdfs.cs is already able to make that method call more concise by only requiring 1 input parameter.
 
-`CountCharacters` is also implemented differently in each program. In VectorUdfs.cs, the definition is:
+`CountCharacters` is implemented differently in each program. In VectorUdfs.cs, the definition is:
 
 <pre class="prettyprint">
 private static RecordBatch CountCharacters(RecordBatch records, string groupFieldName, string stringFieldName)
@@ -143,9 +139,7 @@ using FxDataFrame = Microsoft.Data.Analysis.DataFrame;
 
 As you can see, the latter `CountCharacters` implementation deals completely with DataFrames rather than RecordBatches. It is also half the length of the first implementation!
 
-The traditional VectorUdfs.cs sample requires us to convert to and from the RecordBatch type. We have to spend many lines of code to just be able to read our data and to write it in a format our UDF can understand. 
-
-By contrast, the new VectorDataFrameUdfs.cs sample is able to dive almost immediately into getting the length of our input data, appending it appropriately to our output, and then returning an actual DataFrame as a result. We can still harness the tremendous benefits of Apache Arrow without the extra code overhead or confusion – awesome! 
+In this single comparison, we can see where these APIs add a great deal of convenience to our .NET for Spark apps. VectorUdfs.cs requires us to convert to and from the RecordBatch type. We have to spend many lines of code to just be able to read our data and to write it in a format our UDF can understand. By contrast, the new VectorDataFrameUdfs.cs sample is able to dive almost immediately into getting the length of our input data, appending it appropriately to our output, and then returning an actual DataFrame as a result. We can still harness the tremendous benefits of Apache Arrow without the extra code overhead or confusion – awesome! 
 
 ### <a id="wrapup"></a>Wrap Up
 
