@@ -78,8 +78,6 @@ df.GroupBy("age")
 r => CountCharacters(r, "age", "name"))
 </pre>
 
-By contrast, VectorDataFrameUdfs.cs concludes the UDF by calling CountCharacters with the code `r => CountCharacters(r))`. Both programs implement `CountCharacters` to determine the length of names, but VectorDataFrameUdfs.cs makes that method call more concise by only requiring 1 input parameter.
-
 `CountCharacters` is implemented differently in each program. In VectorUdfs.cs, the definition is:
 
 <pre class="prettyprint">
