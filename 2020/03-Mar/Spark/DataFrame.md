@@ -46,7 +46,7 @@ There is currently 1 scenario in which you will not use these convenience APIs a
 
 #### Simple Examples
 
-Let’s start with a basic example. Suppose we have a vector UDF that adds 2 columns and returns the result. Traditionally, we’d have to use a RecordBatch. A RecordBatch is immutable, so adding 2 columns would require allocating a new column in the Arrow format and writing for loops to perform the computation. 
+Let’s start with a basic example. Suppose we have a vector UDF that adds 2 columns and returns the result. Traditionally, the UDF would take in 2 ArrowArrays (for example, DoubleArray) and return a new ArrowArray. You would unfortunately need to create the new array, and then loop over each row in the data. In addition to the loop, you'd also need to deal with Builder objects in the Arrow library to create the new array, resulting in more allocations than necessary.
 
 If we instead used the Microsoft.Data.Analysis DataFrame, we can write something along the lines of: `dataframe.ColumnA + dataframe.ColumnB`. Isn't that convenient!
 
