@@ -28,9 +28,11 @@ The main goal of the work described in this blog post is to improve scalar and v
 
 There are a few kinds of Spark UDFs: pickling, scalar, and vector. Our convenience APIs specifically apply to scalar and vector UDFs.
 
-Pickling UDFs are an older version of Spark UDFs. They leverage pickle serialization, rather than Arrow, to convert data between the JVM and .NET for Spark processes. Once a column is specified for processing, a pickling UDF will take each of its rows, apply the given functionality, and then add a new column, resulting in quite a bit of overhead. 
+[Python pickling UDFs][16] are an older version of Spark UDFs. They leverage the Python pickling format of serialization, rather than Arrow, to convert data between the JVM and .NET for Spark processes. Once a column is specified for processing, a pickling UDF will take each of its rows, apply the given functionality, and then add a new column, resulting in quite a bit of overhead.
 
-By contrast, scalar and vector UDFs leverage Arrow serialization, enabling them to reap the benefits of an in-memory columnar format and making data transfers more efficient. Our new .NET for Apache Spark convenience APIs specifically apply to scalar and vector UDFs since they use Arrow.
+By contrast, scalar and vector UDFs leverage Arrow serialization, enabling them to reap the benefits of an in-memory columnar format and making data transfers more efficient. Once data is serialized to the Arrow format, it can be used directly in the Spark processes and doesn't need to be serialized or deserialized anymore, which is a major improvement over the Python pickling format. Arrow can create DataFrames using zero-copy methods across chunks of data (multiple rows and columns all at once) rather than row-by-row. Furthermore, converting data to the Arrow format can be performed in parallel across Spark executors, improving performance even more.
+
+Our new .NET for Apache Spark convenience APIs specifically apply to scalar and vector UDFs since they use Arrow.
 
 Prior to these convenience APIs, you needed to enumerate an Arrow RecordBatch to work with columns in an Arrow-based UDF. RecordBatches are Arrow-based objects, not standard Spark objects, and can thus disrupt the flow or familiarity of code in your program.
 
@@ -167,3 +169,4 @@ We’d love to help you get started with .NET for Apache Spark and hear your fee
 [14]: https://github.com/dotnet/spark
 [logo]: Arrow.png
 [15]: https://pandas.pydata.org/pandas-docs/stable/getting_started/10min.html
+[16]: https://docs.python.org/3/library/pickle.html
