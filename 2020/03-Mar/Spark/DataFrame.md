@@ -54,7 +54,14 @@ As another example, we often create UDFs that return a set of columns. With the 
 
 #### Detailed Examples
 
-Let’s take a look at a more detailed, concrete example. [VectorUdfs.cs][12] is a program using the traditional Spark DataFrame. It reads in a Json file with people’s names and ages as input, stores the data in a DataFrame, and then uses a vector UDF to count the number of characters in each name, finally returning a set of ages + the number of characters in each respective age’s name. 
+Let’s take a look at a more detailed, concrete example. [VectorUdfs.cs][12] is a program using the traditional Spark DataFrame. It reads in a Json file with people’s names and ages as input and stores the data in a DataFrame. The program then groups records by the same age. 
+
+Let's say you have 2 people with the same age:
+
+<pre class="prettyprint">21 | John
+21 | Sally</pre>
+
+The program will count the number of characters in all the names that have the same age. So in this case, you'd get 1 row back: `21 | 9`, where 9 is the result of John.Length + Sally.Length.
 
 [VectorDataFrameUdfs.cs][13] is an updated program that accomplishes the same task with both a traditional DataFrame and the Microsoft.Data.Analysis DataFrame. 
 
