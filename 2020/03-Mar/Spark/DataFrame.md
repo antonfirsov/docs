@@ -4,7 +4,7 @@
 
 The [DataFrame][3] is one of the core data structures in Spark programming. A DataFrame is a distributed collection of data organized into named columns. In a Spark application, we typically start off by reading input data from a data source, storing it in a DataFrame, and then leveraging functionality like Spark SQL to transform and gain insights from our data. User-defined functions, or UDFs, are column-based functions that allow us to manipulate data stored in DataFrames.
 
-In December 2019, the [.NET team announced][4] the preview of the [Microsoft.Data.Analysis][5] DataFrame type to make data exploration easy in .NET. Now in March 2020, we have [introduced convenience APIs][6] to the .NET for Spark codebase for using Microsoft.Data.Analysis DataFrames with UDFs in Spark. These convenience APIs make data manipulation and analysis with UDFs much more convenient and concise in .NET for Spark.
+In December 2019, the [.NET team announced][4] the preview of the [Microsoft.Data.Analysis.DataFrame][5] type to make data exploration easy in .NET. Now in March 2020, we have [introduced convenience APIs][6] to the .NET for Spark codebase for using Microsoft.Data.Analysis.DataFrames with UDFs in Spark. These convenience APIs make data manipulation and analysis with UDFs much more convenient and concise in .NET for Spark.
 
 In this blog post, we’ll explore:
 *   [Implementation goal and details][7]
@@ -22,7 +22,7 @@ Let's start off with some context about data-sharing in Spark UDFs. Apache Spark
 
 Because Spark streams data to UDFs in the Arrow format, you need to understand the Arrow format when working with UDFs, such as how to read Arrow columns, write to Arrow columns, and unwrap a RecordBatch, which is a 2D data type in Arrow consisting of a set of rows of equal-length columns. 
 
-The main goal of the work described in this blog post is to improve scalar and vector UDFs in .NET for Spark through a set of convenience APIs. You can now use Microsoft.Data.Analysis DataFrames in your .NET for Spark apps, which take care of working with Arrow-formatted data for you behind-the-scenes of your UDFs.
+The main goal of the work described in this blog post is to improve scalar and vector UDFs in .NET for Spark through a set of convenience APIs. You can now use Microsoft.Data.Analysis.DataFrames in your .NET for Spark apps, which take care of working with Arrow-formatted data for you behind-the-scenes of your UDFs.
 
 #### Details
 
@@ -36,11 +36,11 @@ Our new .NET for Apache Spark convenience APIs specifically apply to scalar and 
 
 Prior to these convenience APIs, you needed to enumerate an Arrow RecordBatch to work with columns in an Arrow-based UDF. RecordBatches are Arrow-based objects, not standard Spark objects, and can thus disrupt the flow or familiarity of code in your program.
 
-Our new APIs automatically wrap data in a Microsoft.Data.Analysis DataFrame instead of a RecordBatch. The wrapping doesn’t involve copying data, thus ensuring performance remains high as our ease of coding also improves. 
+Our new APIs automatically wrap data in a Microsoft.Data.Analysis.DataFrame instead of a RecordBatch. The wrapping doesn’t involve copying data, thus ensuring performance remains high as our ease of coding also improves. 
 
-You can use both traditional Spark SQL and Microsoft.Data.Analysis DataFrames in your programs. The traditional Spark DataFrame distributes data across your Spark cluster. It's used for the entire dataset in your Spark driver program. Once you create a UDF, the data in the traditional DataFrame will be streamed to the UDF on the worker machines in the Arrow format. Once inside the UDF, you’ll now work with the Microsoft.Data.Analysis DataFrame (rather than RecordBatches)- it will be in-memory on a single machine. The concept of the Microsoft.Data.Analysis DataFrame is similar to the [Python Pandas DataFrame][15].
+You can use both traditional Spark SQL and Microsoft.Data.Analysis.DataFrames in your programs. The traditional Spark DataFrame distributes data across your Spark cluster. It's used for the entire dataset in your Spark driver program. Once you create a UDF, the data in the traditional DataFrame will be streamed to the UDF on the worker machines in the Arrow format. Once inside the UDF, you’ll now work with the Microsoft.Data.Analysis.DataFrame (rather than RecordBatches)- it will be in-memory on a single machine. The concept of the Microsoft.Data.Analysis.DataFrame is similar to the [Python Pandas DataFrame][15].
 
-There is currently 1 scenario in which you will not use these convenience APIs and will need to stick with the traditional DataFrames: intrinsics. As shown in [VectorFunctions.intrinsics.cs][11], we can use hardware intrinsics in Spark to further boost performance. However, the Microsoft.Data.Analysis DataFrame does not yet support intrinsics. 
+There is currently 1 scenario in which you will not use these convenience APIs and will need to stick with the traditional DataFrames: intrinsics. As shown in [VectorFunctions.intrinsics.cs][11], we can use hardware intrinsics in Spark to further boost performance. However, the Microsoft.Data.Analysis.DataFrame does not yet support intrinsics. 
 
 ### <a id="example"></a>Example
 
@@ -48,7 +48,7 @@ There is currently 1 scenario in which you will not use these convenience APIs a
 
 Let’s start with a basic example. Suppose we have a vector UDF that adds 2 columns and returns the result. Traditionally, the UDF would take in 2 ArrowArrays (for example, DoubleArray) and return a new ArrowArray. You would unfortunately need to create the new array, and then loop over each row in the data. In addition to the loop, you'd also need to deal with Builder objects in the Arrow library to create the new array, resulting in more allocations than necessary.
 
-If we instead used the Microsoft.Data.Analysis DataFrame, we can write something along the lines of: `dataframe.ColumnA + dataframe.ColumnB`. Isn't that convenient!
+If we instead used the Microsoft.Data.Analysis.DataFrame, we can write something along the lines of: `dataframe.ColumnA + dataframe.ColumnB`. Isn't that convenient!
 
 As another example, we often create UDFs that return a set of columns. With the traditional Spark DataFrames, these columns must be returned as an Arrow RecordBatch. But with our new convenience APIs, we can just return a DataFrame, and everything else is handled internally!
 
@@ -63,7 +63,7 @@ Let's say you have 2 people with the same age:
 
 The UDF will count the number of characters in all the names that have the same age. So in this case, you'd get 1 row back: `21 | 9`, where 9 is the result of John.Length + Sally.Length.
 
-[VectorDataFrameUdfs.cs][13] is an updated program that accomplishes the same task with both a traditional DataFrame and the Microsoft.Data.Analysis DataFrame. 
+[VectorDataFrameUdfs.cs][13] is an updated program that accomplishes the same task with both a traditional DataFrame and the Microsoft.Data.Analysis.DataFrame. 
 
 Both programs use a Grouped Map Vector UDF and apply it very similarly. In VectorUdfs.cs, the code is as follows:
 
@@ -141,7 +141,7 @@ private static FxDataFrame CountCharacters(FxDataFrame dataFrame)
 }
 </pre>
 
-Note that the `FxDataFrame` type represents the Microsoft.Data.Analysis DataFrame, while `DataFrame` represents the traditional Spark DataFrame. This is signified in the latter sample at the top of the program:
+Note that the `FxDataFrame` type represents the Microsoft.Data.Analysis.DataFrame, while `DataFrame` represents the traditional Spark DataFrame. This is signified in the latter sample at the top of the program:
 
 <pre class="prettyprint">
 using DataFrame = Microsoft.Spark.Sql.DataFrame;
