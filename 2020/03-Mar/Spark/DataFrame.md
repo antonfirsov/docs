@@ -151,11 +151,9 @@ In this single comparison, we can see where these new APIs add a great deal of c
 
 <b><i>TPC-H Vector Functions</i></b>
 
-.NET for Apache Spark is designed for high performance and performs well on the [TPC-H benchmark][17].
+.NET for Apache Spark is designed for high performance and performs well on the [TPC-H benchmark][17]. The TPC-H benchmark consists of a suite of business-oriented ad hoc queries and concurrent data modifications. The queries and the data populating the database have been chosen to have broad industry-wide relevance.
 
-The TPC-H benchmark consists of a suite of business-oriented ad hoc queries and concurrent data modifications. The queries and the data populating the database have been chosen to have broad industry-wide relevance.
-
-When we compare [VectorFunctions.cs][18] with [VectorDataFrameFunctions.cs][19], we can see another example of the benefits of the Microsoft.Data.Analysis.DataFrame. Both programs perform the same `ComputeTotal` TPC-H function where prices are calculated based on taxes and discounts. However, VectorFunctions.cs requires 10 lines of code to perform the logic, whereas VectorDataFrameFunctions.cs requires only 1!
+[VectorFunctions.cs][18] and [VectorDataFrameFunctions.cs][19] both perform the same `ComputeTotal` TPC-H function where prices are calculated based on taxes and discounts. However, only the latter program leverages Microsoft.Data.Analysis.DataFrame. 
 
 `ComputeTotal` in VectorFunctions.cs:
 
