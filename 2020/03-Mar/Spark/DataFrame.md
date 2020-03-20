@@ -38,9 +38,7 @@ Prior to these convenience APIs, you needed to enumerate an Arrow RecordBatch to
 
 Our new APIs automatically wrap data in a Microsoft.Data.Analysis.DataFrame instead of a RecordBatch. The wrapping doesn’t involve copying data, thus ensuring performance remains high as our ease of coding also improves. 
 
-You can use both traditional Spark SQL and Microsoft.Data.Analysis.DataFrames in your programs. The traditional Spark DataFrame distributes data across your Spark cluster. It's used for the entire dataset in your Spark driver program. Once you create a UDF, the data in the traditional DataFrame will be streamed to the UDF on the worker machines in the Arrow format. Once inside the UDF, you’ll now work with the Microsoft.Data.Analysis.DataFrame (rather than RecordBatches)- it will be in-memory on a single machine. The concept of the Microsoft.Data.Analysis.DataFrame is similar to the [Python Pandas DataFrame][15].
-
-There is currently 1 scenario in which you will not use these convenience APIs and will need to stick with the traditional DataFrames: intrinsics. As shown in [VectorFunctions.intrinsics.cs][11], we can use hardware intrinsics in Spark to further boost performance. However, the Microsoft.Data.Analysis.DataFrame does not yet support intrinsics. 
+You can use both traditional Spark SQL and Microsoft.Data.Analysis.DataFrames in your programs. The traditional Spark DataFrame distributes data across your Spark cluster. It's used for the entire dataset in your Spark driver program. Once you create a UDF, the data in the traditional DataFrame will be streamed to the UDF on the worker machines in the Arrow format. Once inside the UDF, you’ll now work with the Microsoft.Data.Analysis.DataFrame (rather than RecordBatches)- it will be in-memory on a single machine. The concept of the Microsoft.Data.Analysis.DataFrame is similar to the [Python Pandas DataFrame][15]. 
 
 ### <a id="example"></a>Example
 
