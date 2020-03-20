@@ -52,6 +52,8 @@ As another example, we often create UDFs that return a set of columns. With the 
 
 #### Detailed Examples
 
+<b><i>Vector Udfs</i></b>
+
 Let’s take a look at a more detailed, concrete example. [VectorUdfs.cs][12] is a program using the traditional Spark DataFrame. It reads in a Json file with people’s names and ages as input and stores the data in a DataFrame. The program leverages Spark to group records by the same age, and then applies a custom UDF over each age group. 
 
 Let's say you have 2 people with the same age:
@@ -147,6 +149,42 @@ As you can see, the latter `CountCharacters` implementation deals completely wit
 
 In this single comparison, we can see where these new APIs add a great deal of convenience to our .NET for Spark apps. VectorUdfs.cs requires us to convert to and from the RecordBatch type, requiring many extra lines of code. By contrast, the new VectorDataFrameUdfs.cs sample can dive immediately into our data processing. 
 
+<b><i>TPC-H Vector Functions</i></b>
+
+.NET for Apache Spark is designed for high performance and performs well on the [TPC-H benchmark][17].
+
+The TPC-H benchmark consists of a suite of business-oriented ad hoc queries and concurrent data modifications. The queries and the data populating the database have been chosen to have broad industry-wide relevance.
+
+When we compare [VectorFunctions.cs][18] with [VectorDataFrameFunctions.cs][19], we can see another example of the benefits of the Microsoft.Data.Analysis.DataFrame. Both programs perform the same `ComputeTotal` TPC-H function where prices are calculated based on taxes and discounts. However, VectorFunctions.cs requires 10 lines of code to perform the logic, whereas VectorDataFrameFunctions.cs requires only 1!
+
+`ComputeTotal` in VectorFunctions.cs:
+
+<pre class="prettyprint">
+internal static DoubleArray ComputeTotal(DoubleArray price, DoubleArray discount, DoubleArray tax)
+{
+    if ((price.Length != discount.Length) || (price.Length != tax.Length))
+    {
+        throw new ArgumentException("Arrays need to be the same length");
+    }
+
+    int length = price.Length;
+    var builder = new DoubleArray.Builder().Reserve(length);
+    ReadOnlySpan<double> prices = price.Values;
+    ReadOnlySpan<double> discounts = discount.Values;
+    ReadOnlySpan<double> taxes = tax.Values;
+    for (int i = 0; i < length; ++i)
+    {
+        builder.Append(prices[i] * (1 - discounts[i]) * (1 + taxes[i]));
+    }
+
+    return builder.Build();
+}
+</pre>
+
+Whereas the logic in `ComputeTotal` in VectorDataFrameFunctions.cs (not including the initial array length check) is just 1 line!
+
+<pre class="prettyprint">return (PrimitiveDataFrameColumn<double>)(price * (1 - discount) * (1 + tax));</pre>
+
 Now we can harness the tremendous benefits of Apache Arrow without extra code overhead or confusion – awesome! 
 
 ### <a id="wrapup"></a>Wrap Up
@@ -172,3 +210,6 @@ We’d love to help you get started with .NET for Apache Spark and hear your fee
 [logo]: Arrow.png
 [15]: https://pandas.pydata.org/pandas-docs/stable/getting_started/10min.html
 [16]: https://docs.python.org/3/library/pickle.html
+[17]: http://www.tpc.org/tpch/
+[18]: https://github.com/dotnet/spark/blob/master/benchmark/csharp/Tpch/VectorFunctions.cs#L12
+[19]: https://github.com/dotnet/spark/blob/master/benchmark/csharp/Tpch/VectorDataFrameFunctions.cs#L12
