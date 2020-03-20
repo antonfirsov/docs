@@ -73,39 +73,38 @@ df.GroupBy("age")
         new StructField("age", new IntegerType()),
         new StructField("nameCharCount", new IntegerType())
     }),
-r => CountCharacters(r, "age", "name"))
+r => CountCharacters(r))
 </pre>
 
 `CountCharacters` is implemented differently in each program. In VectorUdfs.cs, the definition is:
 
 <pre class="prettyprint">
-private static RecordBatch CountCharacters(RecordBatch records, string groupFieldName, string stringFieldName)
+private static RecordBatch CountCharacters(RecordBatch records)
 {
-    int stringFieldIndex = records.Schema.GetFieldIndex(stringFieldName);
-    StringArray stringValues = records.Column(stringFieldIndex) as StringArray;
+    StringArray nameColumn = records.Column("name") as StringArray;
 
     int characterCount = 0;
 
-    for (int i = 0; i < stringValues.Length; ++i)
+    for (int i = 0; i < nameColumn.Length; ++i)
     {
-        string current = stringValues.GetString(i);
+        string current = nameColumn.GetString(i);
         characterCount += current.Length;
     }
 
-    int groupFieldIndex = records.Schema.GetFieldIndex(groupFieldName);
-    Field groupField = records.Schema.GetFieldByIndex(groupFieldIndex);
+    int ageFieldIndex = records.Schema.GetFieldIndex("age");
+    Field ageField = records.Schema.GetFieldByIndex(ageFieldIndex);
 
     // Return 1 record, if we were given any. 0, otherwise.
     int returnLength = records.Length > 0 ? 1 : 0;
 
     return new RecordBatch(
         new Schema.Builder()
-            .Field(groupField)
-            .Field(f => f.Name(stringFieldName + "_CharCount").DataType(Int32Type.Default))
+            .Field(ageField)
+            .Field(f => f.Name("name_CharCount").DataType(Int32Type.Default))
             .Build(),
         new IArrowArray[]
         {
-            records.Column(groupFieldIndex),
+            records.Column(ageFieldIndex),
             new Int32Array.Builder().Append(characterCount).Build()
         },
         returnLength);
@@ -119,7 +118,7 @@ private static FxDataFrame CountCharacters(FxDataFrame dataFrame)
 {
     int characterCount = 0;
 
-    var characterCountColumn = new PrimitiveDataFrameColumn<int>("name" + "CharCount");
+    var characterCountColumn = new PrimitiveDataFrameColumn<int>("nameCharCount");
     var ageColumn = new PrimitiveDataFrameColumn<int>("age");
     ArrowStringDataFrameColumn nameColumn = dataFrame["name"] as ArrowStringDataFrameColumn;
     for (long i = 0; i < dataFrame.Rows.Count; ++i)
