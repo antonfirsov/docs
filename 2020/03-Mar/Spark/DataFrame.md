@@ -143,7 +143,7 @@ using DataFrame = Microsoft.Spark.Sql.DataFrame;
 using FxDataFrame = Microsoft.Data.Analysis.DataFrame;
 </pre>
 
-As you can see, the latter `CountCharacters` implementation deals completely with DataFrames rather than RecordBatches. It is also half the length of the first implementation!
+As you can see, the latter `CountCharacters` implementation deals completely with DataFrames rather than RecordBatches. It is also almost half the length of the first implementation!
 
 In this single comparison, we can see where these new APIs add a great deal of convenience to our .NET for Spark apps. VectorUdfs.cs requires us to convert to and from the RecordBatch type, requiring many extra lines of code. By contrast, the new VectorDataFrameUdfs.cs sample can dive immediately into our data processing. 
 
