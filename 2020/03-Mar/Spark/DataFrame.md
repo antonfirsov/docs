@@ -181,7 +181,7 @@ internal static DoubleArray ComputeTotal(DoubleArray price, DoubleArray discount
 
 Whereas the logic in `ComputeTotal` in VectorDataFrameFunctions.cs (not including the initial array length check) is just 1 line!
 
-<pre class="prettyprint">return (PrimitiveDataFrameColumn<double>)(price * (1 - discount) * (1 + tax));</pre>
+<pre class="prettyprint">return price * (1 - discount) * (1 + tax);</pre>
 
 Now we can harness the tremendous benefits of Apache Arrow without extra code overhead or confusion – awesome! 
 
