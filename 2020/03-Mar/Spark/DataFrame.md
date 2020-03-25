@@ -18,7 +18,7 @@ In this blog post, we’ll explore:
 Let's start off with some context about data-sharing in Spark UDFs. Apache Spark streams data to Arrow-based UDFs in the [Apache Arrow][10] format. Apache Arrow provides a standardized, language-independent format for working with data in-memory. It's designed for high-performance, efficient analysis through its columnar memory format, and it provides libraries and zero-copy messaging for communication across processes.
 
 ![Diagram of the benefits of Apache Arrow][logo]
-> Diagram credit: https://arrow.apache.org/.
+###### Diagram credit: https://arrow.apache.org/.
 
 Because Spark streams data to UDFs in the Arrow format, you need to understand the Arrow format when working with UDFs, such as how to read Arrow columns, write to Arrow columns, and unwrap a RecordBatch, which is a 2D data type in Arrow consisting of a set of rows of equal-length columns. 
 
