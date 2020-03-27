@@ -193,7 +193,7 @@ We’d love to help you get started with .NET for Apache Spark and hear your fee
 
 [1]: https://dot.net/spark
 [2]: https://spark.apache.org/
-[3]: https://docs.microsoft.com/en-us/dotnet/api/microsoft.spark.sql.dataframe?view=spark-dotnet
+[3]: https://docs.microsoft.com/dotnet/api/microsoft.spark.sql.dataframe?view=spark-dotnet
 [4]: https://devblogs.microsoft.com/dotnet/an-introduction-to-dataframe/
 [5]: https://www.nuget.org/packages/Microsoft.Data.Analysis/
 [6]: https://github.com/dotnet/spark/pull/277
