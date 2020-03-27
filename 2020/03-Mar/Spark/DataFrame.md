@@ -61,7 +61,7 @@ Let's say you have 2 people with the same age:
 <pre class="prettyprint">21 | John
 21 | Sally</pre>
 
-The UDF will count the number of characters in all the names that have the same age. So in this case, you'd get 1 row back: `21 | 9`, where 9 is the result of "John".Length + "Sally".Length.
+The UDF will count the number of characters in all the names that have the same age. So, in this case, you'd get 1 row back: `21 | 9`, where 9 is the result of "John".Length + "Sally".Length.
 
 [VectorDataFrameUdfs.cs][13] is an updated program that accomplishes the same task with both a traditional DataFrame and the Microsoft.Data.Analysis.DataFrame. 
 
