@@ -22,7 +22,7 @@ Let's start off with some context about data-sharing in Spark UDFs. Apache Spark
 
 Because Spark streams data to UDFs in the Arrow format, you need to understand the Arrow format when working with UDFs, such as how to read Arrow columns, write to Arrow columns, and unwrap a RecordBatch, which is a 2D data type in Arrow consisting of a set of rows of equal-length columns. 
 
-The main goal of the work described in this blog post is to improve scalar and vector UDFs in .NET for Spark through a set of convenience APIs. You can now use Microsoft.Data.Analysis.DataFrames in your .NET for Spark apps, which take care of working with Arrow-formatted data for you behind-the-scenes of your UDFs.
+The main goal of the work described in this blog post is to improve scalar and vector UDFs in .NET for Spark through a set of convenience APIs. You can now use Microsoft.Data.Analysis.DataFrame objects in your .NET for Spark apps, which take care of working with Arrow-formatted data for you behind-the-scenes of your UDFs.
 
 #### Details
 
