@@ -4,7 +4,7 @@
 
 The [DataFrame][3] is one of the core data structures in Spark programming. A DataFrame is a distributed collection of data organized into named columns. In a Spark application, we typically start off by reading input data from a data source, storing it in a DataFrame, and then leveraging functionality like Spark SQL to transform and gain insights from our data. User-defined functions, or UDFs, are column-based functions that allow us to manipulate data stored in DataFrames.
 
-In December 2019, the [.NET team announced][4] the preview of the [Microsoft.Data.Analysis.DataFrame][5] type to make data exploration easy in .NET. Now in March 2020, we have [introduced convenience APIs][6] to the .NET for Spark codebase for using Microsoft.Data.Analysis.DataFrames with UDFs in Spark. These convenience APIs make data manipulation and analysis with UDFs much more convenient and concise in .NET for Spark.
+In December 2019, the [.NET team announced][4] the preview of the [Microsoft.Data.Analysis.DataFrame][5] type to make data exploration easy in .NET. Now in March 2020, we have [introduced convenience APIs][6] to the .NET for Spark codebase for using Microsoft.Data.Analysis.DataFrame objects with UDFs in Spark. These convenience APIs make data manipulation and analysis with UDFs much more convenient and concise in .NET for Spark.
 
 In this blog post, we’ll explore:
 *   [Implementation goal and details][7]
