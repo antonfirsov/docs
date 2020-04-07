@@ -1,6 +1,6 @@
 # Using .NET Core to provide Power Query for Excel on Mac
 
-Power Query is a data connection technology that enables you to discover, connect, combine, and refine data sources to meet your analysis needs. Features in Power Query are available in Excel and Power BI Desktop. Power Query was developed for windows and is written in C# targeting .net framework. 
+Power Query is a data connection technology that enables you to discover, connect, combine, and refine data sources to meet your analysis needs. Features in Power Query are available in Excel and Power BI Desktop. Power Query was developed for windows and is written in C# targeting .NET Framework. 
 
 Originally Power Query was developed as an Excel 2013 Add-In, however as part of Excel 2016 it was natively integrated into Excel. Due to the dependency on .net framework, Power Query has been traditionally a windows only feature of Excel and has been the source for frustration and numerous feature requests by our [Mac community](https://excel.uservoice.com/forums/304933-excel-for-mac/suggestions/8995483-add-support-for-get-transform-formerly-power-qu).
 
