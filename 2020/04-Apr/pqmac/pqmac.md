@@ -23,7 +23,7 @@ Making this cross platform came with a set of challenges:
 1.	The Power Query codebase is written in C# and targets .NET Framework 3.5.
 2.	The UI framework is based on WinForms, Internet Explorer, and COM interop.
 3.	The Data Access layer uses COM based OLEDB as the means to move data between PQ and Excel.
-4.	PowerQuery provides a large set of connectors to external data sources. Many of these connectors use native Windows libraries (for example Microsoft Access connector) and may be extremely hard to make cross platform.
+4.	Power Query provides a large set of connectors to external data sources. Many of these connectors use native Windows libraries (for example Microsoft Access connector) and may be extremely hard to make cross platform.
 5.	The build and testing infrastructure were developed to run on Windows machines. For RPC it depends on Remoting, and some WCF features which are not natively supported by .NET Core. 
 
 It is quite obvious this turned out to be quite an undertaking and would require multiple man years to get done. Thus, we made a project management decision to split the project into two major sub projects:
