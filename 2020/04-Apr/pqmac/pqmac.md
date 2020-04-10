@@ -65,7 +65,7 @@ Eventually, we use partial classes following this pattern in most cases:
 
 Following the pattern above, allows us to share code inside Foo.cs while still making platform or framework specific adjustments inside the separate partial classes. Special care needs to be made not to eagerly use this pattern. It can make the code quite messy.
 
-Alternatively, another approach we took where we could, was to re-implement things completely using APIs available both for net35 and core. Once example was our native interop layer between Power Query and Excel. This was using SafeArrays and other Marshalling types not supported by .net core. Same was done to replace our OLEDB provider which was COM based. We replaced that with a p/invoke based implementation and C++ wrappers in the native code to hide the fact that we are not using COM.
+Alternatively, another approach we took where we could, was to re-implement things completely using APIs available both for .NET 3.5 and .NET Core. One example was our native interop layer between Power Query and Excel. This was using SafeArrays and other Marshalling types not supported by .NET Core. Same was done to replace our OLEDB provider which was COM based. We replaced that with a p/invoke based implementation and C++ wrappers in the native code to hide the fact that we are not using COM.
 
 In cases where we replaced the implementation completely, we usually use a different pattern - work against interfaces.
 
