@@ -4,7 +4,7 @@ _Today's guest post is by Oded Hanson, Principal Software Engineer on the Excel 
 
 Power Query is a data connection technology that enables you to discover, connect, combine, and refine data sources to meet your analysis needs. Features in Power Query are available in Excel and Power BI Desktop. Power Query was developed for windows and is written in C# targeting .NET Framework. 
 
-Originally Power Query was developed as an Excel 2013 Add-In, however as part of Excel 2016 it was natively integrated into Excel. Due to the dependency on .NET Framework, Power Query has been traditionally a windows only feature of Excel and has been the source for frustration and numerous feature requests by our [Mac community](https://excel.uservoice.com/forums/304933-excel-for-mac/suggestions/8995483-add-support-for-get-transform-formerly-power-qu).
+Originally Power Query was developed as an Excel 2013 Add-In, however as part of Excel 2016 it was natively integrated into Excel. Due to the dependency on .NET Framework, Power Query has been traditionally a Windows only feature of Excel and has been the source for frustration and numerous feature requests by our [Mac community](https://excel.uservoice.com/forums/304933-excel-for-mac/suggestions/8995483-add-support-for-get-transform-formerly-power-qu).
 
 ![Excel For Mac](ExcelForMac.png)
 
@@ -28,15 +28,15 @@ Making this cross platform came with a set of challenges:
 
 It is quite obvious this turned out to be quite an undertaking and would require multiple man years to get done. Thus, we made a project management decision to split the project into two major sub projects:
 
-1. Refresh only: Use windows to author Excel workbooks with Power Query queries inside them, and then allow our Mac users to refresh these workbooks using Excel for Mac. This covers a large use case, as it allows data analysts to create workbooks once, and have Mac users consume these workbooks and refresh the data as it updates.
+1. Refresh only: Use Windows to author Excel workbooks with Power Query queries inside them, and then allow our Mac users to refresh these workbooks using Excel for Mac. This covers a large use case, as it allows data analysts to create workbooks once, and have Mac users consume these workbooks and refresh the data as it updates.
 2. Authoring: Port the authoring UI to Mac.
 This blog will focus on the refresh scenario leaving the authoring (UI) parts for future posts.
 
 ## Power Query Refresh
 
 The refresh project requires minimal user interface and would lay the groundwork needed for the rest of the project. We set for ourselves two major requirements:
-1.	Whatever we do, do not break our existing Windows users :). This basically means we need to maintain the old legacy 3.5 build side by side to the .net core version.
-2.	Keep the work cross platform. Our long term goal is to have a single cross platform codebase, running on the same .net version for all platforms, with minimal platform specific code.
+1.	Whatever we do, do not break our existing Windows users :). This basically means we need to maintain the old legacy .NET Framework 3.5 build side by side to the .Net Core version.
+2.	Keep the work cross platform. Our long term goal is to have a single cross platform codebase, running on the same .NET on all platforms, with minimal platform specific code.
 
 ## The .NET API Portability analyzer
 
@@ -84,7 +84,7 @@ If possible, you should convert each project, together with its corresponding un
 
 ## MS.DotNet.Analyzers.Compatibility
 
-One thing the .NET API Portability analyzer does not tell you, is which APIs you are using that are not supported in platforms other than windows. This is really important and not something which was obvious to our team from the start. Turns out that some of the APIs are only implemented for Windows and while they compile, when you try running your app on Mac or Linux, they will throw a runtime PlatformNotSupported Exception. We only found out about this once we completed the entire porting of the code and started to test on Mac.
+One thing the .NET API Portability analyzer does not tell you, is which APIs you are using that are not supported in platforms other than Windows. This is really important and not something which was obvious to our team from the start. Turns out that some of the APIs are only implemented for Windows and while they compile, when you try running your app on Mac or Linux, they will throw a runtime PlatformNotSupported Exception. We only found out about this once we completed the entire porting of the code and started to test on Mac.
 
 Turns out there is another tool that can be used - [MS.DotNet.Analyzers.Compatibility](https://www.nuget.org/packages/Microsoft.DotNet.Analyzers.Compatibility/). This is a Roslyn based analyzer that runs while compiling your code. It will flag APIs used that do not support the platform you are targeting. Once integrated into our build system, this helped us identify many cases that would have thrown exceptions at runtime.
 
@@ -92,9 +92,9 @@ Although this analyzer is super important, it does have some caveats. It runs as
 
 ## Cross platform IPC
 
-The Power Query application relies heavily on Inter Process Communication (IPC) objects to synchronize between multiple engine containers that perform the data crunching and the Excel host. These include (the named variants for) Mutex, Event, Semaphore, Shared Memory, and pipes. Due to the need for a standard .NET API, the .NET team made the decision to keep the existing .NET APIs. The problem is that these APIs are truly designed around windows. It was virtually impossible to create a robust implementation for all platforms around the .NET Standard 2.0 APIs, and eventually, the .NET team decided not to support these on platforms other than Windows.
+The Power Query application relies heavily on Inter Process Communication (IPC) objects to synchronize between multiple engine containers that perform the data crunching and the Excel host. These include (the named variants for) Mutex, Event, Semaphore, Shared Memory, and pipes. Due to the need for a standard .NET API, the .NET team made the decision to keep the existing .NET APIs. The problem is that these APIs are truly designed around Windows. It was virtually impossible to create a robust implementation for all platforms around the .NET Standard 2.0 APIs, and eventually, the .NET team decided not to support these on platforms other than Windows.
 
-Fortunately, although creating a general purpose robust implementation of these APIs is very hard, once you bring in application specific constraints, it was possible for us to come up with a cross platform API that allows us to implement all the required IPC constructs. This means that we had to create our own cross platform IPC library with implementations for windows and Mac/Unix.
+Fortunately, although creating a general purpose robust implementation of these APIs is very hard, once you bring in application specific constraints, it was possible for us to come up with a cross platform API that allows us to implement all the required IPC constructs. This means that we had to create our own cross platform IPC library with implementations for Windows and Mac/Unix.
 
 ## Mac Sandbox and MHR
 
@@ -104,11 +104,11 @@ One of the main issues was debugging. The .NET debugger assumes that there will 
 
 A similar issue was with the implementation of named Mutex files. These would store files in the /tmp folder too, and we needed to make fixes to the runtime PAL layer for Mac to be configured to work inside an application group shared folder.
 
-We also had to update our own application to take sandboxing into account. For example, the Process class in .net uses fork/exec to spawn new processes. This way of launching applications works great for console apps but is not how macOS launches sandboxed applications. Instead we needed to use the [NSWorkspace launchAtApplicationUrl] objective C API. Obviously, this required adding a native interop layer. We also needed to deal with [security scoped bookmarks](https://developer.apple.com/library/archive/documentation/Security/Conceptual/AppSandboxDesignGuide/AppSandboxInDepth/AppSandboxInDepth.html#//apple_ref/doc/uid/TP40011183-CH3-SW16) so would could share file permissions between the main Excel process and the child engine processes.
+We also had to update our own application to take sandboxing into account. For example, the Process class in .NET uses fork/exec to spawn new processes. This way of launching applications works great for console apps but is not how macOS launches sandboxed applications. Instead we needed to use the [NSWorkspace launchAtApplicationUrl] objective C API. Obviously, this required adding a native interop layer. We also needed to deal with [security scoped bookmarks](https://developer.apple.com/library/archive/documentation/Security/Conceptual/AppSandboxDesignGuide/AppSandboxInDepth/AppSandboxInDepth.html#//apple_ref/doc/uid/TP40011183-CH3-SW16) so would could share file permissions between the main Excel process and the child engine processes.
 
 ![Sandbox Architecture](Sandbox.png).
 
-Supporting the Mojave Hardening runtime also required additional changes to the .NET Core runtime. These are mainly on how memory pages are allocated. Since .net uses JIT compiling, we need to marge these pages as such with MMAP_JIT when allocating them. Fortunately, .NET Core 3.1 was released with support for this and we can accommodate our Mac customers with the extra security MHR provides.
+Supporting the Mojave Hardening runtime also required additional changes to the .NET Core runtime. These are mainly on how memory pages are allocated. Since .NET uses JIT compiling, we need to marge these pages as such with MMAP_JIT when allocating them. Fortunately, .NET Core 3.1 was released with support for this and we can accommodate our Mac customers with the extra security MHR provides.
 
 ## Future plans and Conclusion
 
