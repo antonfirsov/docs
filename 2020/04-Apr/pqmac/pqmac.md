@@ -2,9 +2,9 @@
 
 _Today's guest post is by Oded Hanson, Principal Software Engineer on the Excel team_
 
-Power Query is a data connection technology that enables you to discover, connect, combine, and refine data sources to meet your analysis needs. Features in Power Query are available in Excel and Power BI Desktop. Power Query was developed for windows and is written in C# targeting .NET Framework. The Power Query product has been in development for many years, a considerably large codebase, and is being used by millions of existing customers.
+Power Query is a data connection technology that enables you to discover, connect, combine, and refine data sources to meet your analysis needs. Features in Power Query are available in Excel and Power BI Desktop. Power Query was developed for windows and is written in C# targeting .NET Framework. The Power Query product has been in development for many years, it has a considerably large codebase, and is being used by millions of existing customers.
 
-Originally Power Query was developed as an Excel 2013 Add-In, however as part of Excel 2016 it was natively integrated into Excel. Due to the dependency on .NET Framework, Power Query has been traditionally a Windows only feature of Excel and has been the source for frustration and numerous feature requests by our [Mac community](https://excel.uservoice.com/forums/304933-excel-for-mac/suggestions/8995483-add-support-for-get-transform-formerly-power-qu).
+Originally Power Query was distributed as an Excel 2013 Add-In, however as part of Excel 2016 it was natively integrated into Excel. Due to the dependency on .NET Framework, Power Query has been traditionally a Windows only feature of Excel and has been the source for frustration and numerous feature requests by our [Mac community](https://excel.uservoice.com/forums/304933-excel-for-mac/suggestions/8995483-add-support-for-get-transform-formerly-power-qu).
 
 ![Excel For Mac](ExcelForMac.png)
 
