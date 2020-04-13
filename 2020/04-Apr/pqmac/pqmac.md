@@ -30,6 +30,7 @@ It is quite obvious this turned out to be quite an undertaking and would require
 
 1. Refresh only: Use Windows to author Excel workbooks with Power Query queries inside them, and then allow our Mac users to refresh these workbooks using Excel for Mac. This covers a large use case, as it allows data analysts to create workbooks once, and have Mac users consume these workbooks and refresh the data as it updates.
 2. Authoring: Port the authoring UI to Mac.
+
 This blog will focus on the refresh scenario leaving the authoring (UI) parts for future posts.
 
 ## Power Query Refresh
