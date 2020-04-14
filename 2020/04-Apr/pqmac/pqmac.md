@@ -36,7 +36,7 @@ This blog will focus on the refresh scenario leaving the authoring (UI) parts fo
 ## Power Query Refresh
 
 The refresh project requires minimal user interface and would lay the groundwork needed for the rest of the project. We set for ourselves two major requirements:
-1.	Whatever we do, do not break our existing Windows users :). This basically means we need to maintain the old legacy .NET Framework 3.5 build side by side to the .Net Core version.
+1.	Whatever we do, do not break our existing Windows users :). This basically means we need to maintain the existing .NET Framework 3.5 build side by side to the .NET Core version.
 2.	Keep the work cross platform. Our long term goal is to have a single cross platform codebase, running on the same .NET on all platforms, with minimal platform specific code.
 
 ## The .NET API Portability analyzer
