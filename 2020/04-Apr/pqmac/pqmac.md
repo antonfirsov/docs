@@ -54,17 +54,25 @@ Based on all this, we needed to come up with a plan to fix all the non-portable 
 ## Porting the code
 
 One of the biggest challenges porting such a large codebase, was maintaining our existing .NET Framework 3.5 version side by side with the new code. In addition, we wanted our .NET Core implementation to target both Windows and Mac. We wanted to achieve this in a clean and maintainable way, with minimal risk to our existing customers.
-We used two types of techniques throughout the project to achieve these requirements:
+
+We used two types of techniques throughout the project to achieve these requirements: Partial Classes and Safe Re-implementation.
+
 ### Partial Classes
 Many of our classes use platform specific code. In such cases we needed to write our own alternatives for Mac. Our hope was to minimize these cases. We also tried to move a lot of such code into a PAL assembly and hide these details from the rest of the application. This was not all ways possible though.
 In some cases, we also needed to use different APIs for .NET Framework 3.5 and .NET Core. One example would be the use of System.Web.Script.Serialization for .NET Framework 3.5 vs the use of System.Text.Json for .NET Core.
+
 Eventually, we use partial classes following this pattern in most cases:
+
 ![Partial Classes for multi-targeting](PartialClasses.png).
+
 Following the pattern above, allows us to share code inside Foo.cs while still making platform or framework specific adjustments inside the separate partial classes. Special care needs to be made not to eagerly use this pattern. It can make the code quite messy.
-### Safely Reimplement
+
+### Safe Re-implementation
 Another approach we took where we could, was to re-implement things completely using APIs available both for .NET Framework 3.5 and .NET Core. One example was our native interop layer between Power Query and Excel. This was using SafeArrays and other Marshalling types not supported by .NET Core. Same was done to replace our OLEDB provider which was COM based. We replaced that with a p/invoke based implementation and C++ wrappers in the native code to hide the fact that we are not using COM.
+
 In cases where we replaced the implementation completely, we needed to make sure we do this safely, without breaking our existing customers. We abstracted the public API of the component with an interface. We then implemented both the old and new implementations and choose at runtime, based on a feature switch, which to use. This allows us to gradually release and test the new implementation with our existing Windows customers. A great additional value here is that it allowed us to test our ideas way before we released to Mac using our Windows audience.
-![Work against interfaces for runtime DI](AbstractByInterface.png).
+
+![Work against interfaces for runtime DI](AbstractByInterface.png)
 
 ## Porting large codebases
 
