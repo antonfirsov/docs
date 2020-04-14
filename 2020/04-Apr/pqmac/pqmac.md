@@ -63,7 +63,7 @@ In some cases, we also needed to use different APIs for .NET Framework 3.5 and .
 
 Eventually, we use partial classes following this pattern in most cases:
 
-![Partial Classes for multi-targeting](PartialClasses.png).
+![Partial Classes for multi-targeting](PartialClasses.png)
 
 Following the pattern above, allows us to share code inside Foo.cs while still making platform or framework specific adjustments inside the separate partial classes. Special care needs to be made not to eagerly use this pattern. It can make the code quite messy.
 
@@ -107,7 +107,7 @@ A similar issue was with the implementation of named Mutex files. These would st
 
 We also had to update our own application to take sandboxing into account. For example, the Process class in .NET uses fork/exec to spawn new processes. This way of launching applications works great for console apps but is not how macOS launches sandboxed applications. Instead we needed to use the [NSWorkspace launchAtApplicationUrl] objective C API. Obviously, this required adding a native interop layer. We also needed to deal with [security scoped bookmarks](https://developer.apple.com/library/archive/documentation/Security/Conceptual/AppSandboxDesignGuide/AppSandboxInDepth/AppSandboxInDepth.html#//apple_ref/doc/uid/TP40011183-CH3-SW16) so would could share file permissions between the main Excel process and the child engine processes.
 
-![Sandbox Architecture](Sandbox.png).
+![Sandbox Architecture](Sandbox.png)
 
 Supporting the Mojave Hardening runtime also required additional changes to the .NET Core runtime. These are mainly on how memory pages are allocated. Since .NET uses JIT compiling, we need to marge these pages as such with MMAP_JIT when allocating them. Fortunately, .NET Core 3.1 was released with support for this and we can accommodate our Mac customers with the extra security MHR provides.
 
