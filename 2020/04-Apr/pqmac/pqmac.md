@@ -115,6 +115,6 @@ Supporting the Mojave Hardening runtime also required additional changes to the 
 
 The introduction of .NET Core enabled us to have a path for making Power Query cross platform. While it was not a small project and the porting effort posed many challenges, the other alternatives would have been much more expensive.
 
-With the introduction of .NET 5 and consolidation efforts of the different frameworks, porting to .NET core (now just .NET 5) is not a question of when - it is just a question of how. I hope this post shed some light on the things you need to consider when choosing to port your Windows desktop app and make them cross platform.
+With the introduction of .NET 5 and consolidation efforts of the different frameworks, porting to .NET Core (now just .NET 5.0) is not a question of when - it is just a question of how. I hope this post shed some light on the things you need to consider when choosing to port your Windows desktop app and make them cross platform.
 
 The initial refresh feature is now in production and can be used by installing the Office 365 version of Excel. We are now actively working on adding the UI layer for this so we can support authoring. This is a huge effort and definitely requires a separate blog post - so stay tuned.
