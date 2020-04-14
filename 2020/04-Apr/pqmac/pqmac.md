@@ -58,8 +58,8 @@ One of the biggest challenges porting such a large codebase, was maintaining our
 We used two types of techniques throughout the project to achieve these requirements: Partial Classes and Safe Re-implementation.
 
 ### Partial Classes
-Many of our classes use platform specific code. In such cases we needed to write our own alternatives for Mac. Our hope was to minimize these cases. We also tried to move a lot of such code into a PAL assembly and hide these details from the rest of the application. This was not all ways possible though.
-In some cases, we also needed to use different APIs for .NET Framework 3.5 and .NET Core. One example would be the use of System.Web.Script.Serialization for .NET Framework 3.5 vs the use of System.Text.Json for .NET Core.
+Many of our classes use platform specific code. In such cases we needed to write our own alternatives for Mac. Our hope was to minimize these cases. We also tried to move a lot of such code into a PAL assembly and hide these details from the rest of the application. This was not always possible though.
+In some cases, we also needed to use different APIs for .NET Framework 3.5 and .NET Core. One example would be the use of System.Web.Script.Serialization for .NET Framework 3.5 while using System.Text.Json for .NET Core.
 
 Eventually, we use partial classes following this pattern in most cases:
 
@@ -99,7 +99,7 @@ Fortunately, although creating a general purpose robust implementation of these 
 
 ## Mac Sandbox and MHR
 
-At the time we started this project, the .NET Core runtime was mainly being used for services and did not have any support for running from within a Sandbox in Mac. Office is released to the Apple App store and has the Mojave Hardening runtime enabled so it can be notarized by Apple. These posed additional requirements which needed to be addressed for our application to work properly. Most of the limitations and requirements were able to be addressed from within our codebase. However, some of the issues stemmed from the runtime itself, and required us to contribute changes back to the project in GitHub.
+At the time we started this project, the .NET Core runtime was mainly being used for services and did not have any support for running from within a [Sandbox](https://developer.apple.com/app-sandboxing/) in Mac. Office is released to the [Apple App store](https://www.apple.com/ios/app-store/) and has the [Mojave Hardened runtime](https://developer.apple.com/documentation/security/hardened_runtime?language=objc) enabled so it can be notarized by Apple. These posed additional requirements which needed to be addressed for our application to work properly. Most of the limitations and requirements were able to be addressed from within our codebase. However, some of the issues stemmed from the runtime itself, and required us to contribute changes back to the project in GitHub.
 
 One of the main issues was debugging. The .NET debugger assumes that there will be semaphore files and a pipe inside the /tmp directory which will be used to communicate between the application and the debugger host. The problem is, that applications running inside the sandbox, don't have access to the /tmp folder. We needed to move these files into a shared (application group) folder which our application does have access. We also needed to be able to tell the Visual Studio debugger host where this folder is located and to use this instead.
 
