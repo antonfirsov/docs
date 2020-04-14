@@ -4,7 +4,7 @@ _Today's guest post is by Oded Hanson, Principal Software Engineer on the Excel 
 
 Power Query is a data connection technology that enables you to discover, connect, combine, and refine data sources to meet your analysis needs. Features in Power Query are available in Excel and Power BI Desktop. Power Query was developed for windows and is written in C# targeting .NET Framework. The Power Query product has been in development for many years, it has a considerably large codebase, and is being used by millions of existing customers.
 
-Originally Power Query was distributed as an Excel 2013 Add-In, however as part of Excel 2016 it was natively integrated into Excel. Due to the dependency on .NET Framework, Power Query has been traditionally a Windows only feature of Excel and has been the source for frustration and numerous feature requests by our [Mac community](https://excel.uservoice.com/forums/304933-excel-for-mac/suggestions/8995483-add-support-for-get-transform-formerly-power-qu).
+Originally Power Query was distributed as an Excel 2013 Add-In, however as part of Excel 2016 it was natively integrated into Excel. Due to the dependency on .NET Framework, Power Query has been traditionally a Windows only feature of Excel and has been one of the top requests by our [Mac community](https://excel.uservoice.com/forums/304933-excel-for-mac/suggestions/8995483-add-support-for-get-transform-formerly-power-qu).
 
 ![Excel For Mac](ExcelForMac.png)
 
@@ -55,24 +55,18 @@ Based on all this, we needed to come up with a plan to fix all the non-portable 
 
 ## Porting the code
 
-For each and every component of work identified, the following questions needed to be answered:
-
-* Is this platform specific code? If yes, we most probably will need to write our own alternative for Mac. Our hope was to minimize these cases. We also tried to move a lot of such code into a PAL assembly and hide these details from the rest of the application.
-* Can we write shared code that will compile both with .NET 3.5 and .NET Core? Or should we split the implementations? There is always a trade-off between needing to rewrite stuff and between having two separate implementations which might get us faster to our goal but will harder to maintain. The answer is usually somewhere in the middle.
-
+One of the biggest challenges porting such a large codebase, was maintaining our existing .NET Framework 3.5 version side by side with the new code. In addition, we wanted our .NET Core implementation to target both Windows and Mac. We wanted to achieve this in a clean and maintainable way, with minimal risk to our existing customers.
+We used two types of techniques throughout the project to achieve these requirements:
+### Partial Classes
+Many of our classes use platform specific code. In such cases we needed to write our own alternatives for Mac. Our hope was to minimize these cases. We also tried to move a lot of such code into a PAL assembly and hide these details from the rest of the application. This was not all ways possible though.
+In some cases, we also needed to use different APIs for .NET Framework 3.5 and .NET Core. One example would be the use of System.Web.Script.Serialization for .NET Framework 3.5 vs the use of System.Text.Json for .NET Core.
 Eventually, we use partial classes following this pattern in most cases:
-
 ![Partial Classes for multi-targeting](PartialClasses.png).
-
 Following the pattern above, allows us to share code inside Foo.cs while still making platform or framework specific adjustments inside the separate partial classes. Special care needs to be made not to eagerly use this pattern. It can make the code quite messy.
-
-Alternatively, another approach we took where we could, was to re-implement things completely using APIs available both for .NET 3.5 and .NET Core. One example was our native interop layer between Power Query and Excel. This was using SafeArrays and other Marshalling types not supported by .NET Core. Same was done to replace our OLEDB provider which was COM based. We replaced that with a p/invoke based implementation and C++ wrappers in the native code to hide the fact that we are not using COM.
-
-In cases where we replaced the implementation completely, we usually use a different pattern - work against interfaces.
-
+### Safely Reimplement
+Another approach we took where we could, was to re-implement things completely using APIs available both for .NET Framework 3.5 and .NET Core. One example was our native interop layer between Power Query and Excel. This was using SafeArrays and other Marshalling types not supported by .NET Core. Same was done to replace our OLEDB provider which was COM based. We replaced that with a p/invoke based implementation and C++ wrappers in the native code to hide the fact that we are not using COM.
+In cases where we replaced the implementation completely, we needed to make sure we do this safely, without breaking our existing customers. We abstracted the public API of the component with an interface. We then implemented both the old and new implementations and choose at runtime, based on a feature switch, which to use. This allows us to gradually release and test the new implementation with our existing Windows customers. A great additional value here is that it allowed us to test our ideas way before we released to Mac using our Windows audience.
 ![Work against interfaces for runtime DI](AbstractByInterface.png).
-
-We abstracted the public API of the component with an interface. We then implemented both the old and new implementations and choose at runtime, based on a feature switch, which to use. This allows us to gradually release and test the new implementation with our existing Windows customers. A great additional value here is that it allowed us to test our ideas way before we released to Mac using our Windows audience.
 
 ## Porting large codebases
 
