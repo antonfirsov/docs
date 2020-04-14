@@ -83,7 +83,7 @@ We all agree that having good test coverage is really important. However, in thi
 If possible, you should convert each project, together with its corresponding unit test project and make sure these tests are passing. This is important so you catch runtime issues sooner rather than later.
 
 
-## MS.DotNet.Analyzers.Compatibility
+## Microsoft.DotNet.Analyzers.Compatibility
 
 One thing the .NET API Portability analyzer does not tell you, is which APIs you are using that are not supported in platforms other than Windows. This is really important and not something which was obvious to our team from the start. Turns out that some of the APIs are only implemented for Windows and while they compile, when you try running your app on Mac or Linux, they will throw a runtime PlatformNotSupported Exception. We only found out about this once we completed the entire porting of the code and started to test on Mac.
 
