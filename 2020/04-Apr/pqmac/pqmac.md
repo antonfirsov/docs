@@ -6,11 +6,11 @@ Power Query is a data connection technology that enables you to discover, connec
 
 Originally Power Query was distributed as an Excel 2013 Add-In, however as part of Excel 2016 it was natively integrated into Excel. Due to the dependency on .NET Framework, Power Query has been traditionally a Windows only feature of Excel and has been one of the top requests by our [Mac community](https://excel.uservoice.com/forums/304933-excel-for-mac/suggestions/8995483-add-support-for-get-transform-formerly-power-qu).
 
+When .NET Core 2.1 was released it became a perfect opportunity for us to add Mac support for Power Query.
+
+In this article I will share with you our journey from a Windows only to a cross platform product:
+
 ![Excel For Mac](ExcelForMac.png)
-
-When .NET Core 2.1 was released it became a perfect opportunity for us to try accommodating our Mac customers.
-
-In this article I will share with you our journey from a Windows only to a cross platform product.
 
 ## Requirements and constraints
 
