@@ -4,7 +4,7 @@ We're pleased to introduce the first preview of Source Generators, a new C# comp
 
 ## What is a Source Generator?
 
-Unless you've been closely following every prototype and proposal related to the C# language and compiler, then there's a good chance you're asking, "What is a Source Generator" right now. I'll explain the high-level stuff.
+Unless you've been closely following every prototype and proposal related to the C# language and compiler, then there's a good chance you're asking, "What is a Source Generator" right now. Here's a high level overview:
 
 A Source Generator is a new kind of component that C# developers can write that lets you do two major things:
 
@@ -25,7 +25,7 @@ Now that you know what a Source Generator is, let's go through some of the scena
 
 The most important aspect of a Source Generator isn't what it is, but what it can enable.
 
-Today, there are three general approaches to inspecting user code and generating information or code based on that analysis used by technologies today: runtime reflection, IL weaving, and juggling MSBuild tasks. I'll explain how Source Generators can be an improvement over both approaches.
+Today, there are three general approaches to inspecting user code and generating information or code based on that analysis used by technologies today: runtime reflection, IL weaving, and juggling MSBuild tasks. Source Generators can be an improvement over each approach.
 
 Runtime reflection is a powerful technology that was added to .NET a long time ago. There are countless scenarios for using it. A very common scenario is to perform some analysis of user code when an app starts up and use that data to generate things.
 
@@ -199,7 +199,7 @@ As mentioned earlier in this post, this is the first preview of Source Generator
 
 If you own a .NET library written in C#, now is a great time to evaluate Source Generators and see if they're a good fit. There's a good chance that if your library makes heavy use of reflection, you'll benefit in some way.
 
-To help with that, I recommend reading the following docs:
+To help with that, we recommend reading the following docs:
 
 * [Source Generators design document](https://github.com/dotnet/roslyn/blob/master/docs/features/source-generators.md), which explains the Source Generator API and current capabilities
 * [Source Generators cookbook](https://github.com/dotnet/roslyn/blob/master/docs/features/source-generators.cookbook.md), which provides examples of different Source Generators that enable different scenarios
