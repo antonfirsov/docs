@@ -3,3 +3,4 @@ syntax: glob
 .vs
 .DS_Store
 
+.ionide/
