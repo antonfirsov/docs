@@ -242,7 +242,7 @@ We intend on shipping Source Generators with C# 9. However, in the event that th
 
 ### Can I change the TFM in a Source Generator?
 
-Source Generators are .NET Standard 2.0 components, and like any project you can change the TFM. However, they are only supported as .NET Standard 2.0 and .NET 5 components. Changing the TFM to a .NET Framework version is not guaranteed to work.
+Source Generators are .NET Standard 2.0 components, and like any project you can change the TFM. However, they are only supported if you target .NET Standard 2.0 or .NET 5. Changing the TFM to a .NET Framework version is not guaranteed to work.
 
 ### Will Source Generators come to Visual Basic? What about F#?
 
