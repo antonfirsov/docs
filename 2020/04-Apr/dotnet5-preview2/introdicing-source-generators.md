@@ -8,8 +8,8 @@ Unless you've been closely following every prototype and proposal related to the
 
 A Source Generator is a new kind of component that C# developers can write that lets you do two major things:
 
-1. Retrieve a `Compilation` object that represents all user code that is being compiled. You can think of this as the "active compilation" You can then use the Roslyn APIs to analyze that source code.
-2. Generate C# source files that can be added to a `Compilation` object during the course of compilation. In other words, you can provide additional source files as input to a compilation _while the code is being compiled_.
+1. Retrieve a `Compilation` object that represents all user code that is being compiled. This object can be inspected and you can write code that works with the syntax and semantic models for the code being compiled, just like with analyzers today.
+2. Generate C# source files that can be added to a `Compilation` object during the course of compilation. In other words, you can provide additional source code as input to a compilation _while the code is being compiled_.
 
 When combined, these two things are what make Source Generators so useful. You can inspect user code with all of the rich metadata that the compiler builds up during compilation, then emit source C# code back into the same compilation that is based on the data you've analyzed!
 
@@ -47,14 +47,14 @@ We've also identified that many of the top [NuGet packages](https://www.nuget.or
 
 All the previous examples of source generators mentioned earlier are pretty complex. Let's go through a very basic one to show some of the key pieces you'll need to write your own Source Generator.
 
-The goal is to let users who have installed this Source Generator always have access to a friendly "Hello World" message. They could invoke it like this:
+The goal is to let users who have installed this Source Generator always have access to a friendly "Hello World" message and all syntax trees available during compilation. They could invoke it like this:
 
 ```csharp
 public class SomeClassInMyCode
 {
     public void SomeMethodIHave()
     {
-        HelloWorldNameSpace.GeneratedHelloWorld.HelloWorld(); // calls Console.WriteLine("Hello World!")
+        HelloWorldGenerator.HelloWorld.SayHello(); // calls Console.WriteLine("Hello World!") and then prints out syntax trees
     }
 }
 ```
@@ -71,7 +71,7 @@ Over time, we'll make getting started a lot easier in tools with templates. For 
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -116,6 +116,11 @@ namespace MyGenerator
         {
             // TODO - actual source generator goes here!
         }
+
+        public void Initialize(InitializationContext context)
+        {
+            // No initialization required for this one
+        }
     }
 }
 ```
@@ -125,46 +130,60 @@ You'll need to apply the `[Generator]` attribute and implement the `ISourceGener
 3. Add generated source code to the compilation!
 
 ```cs
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Text;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Xml;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Text;
 
-namespace MyGenerator
+namespace SourceGeneratorSamples
 {
-    // Add a string literal representing the source to generate
-    private const string helloWorldSource = @"
-namespace HelloWorldNameSpace
-{
-    public class GeneratedHelloWorld
-    {
-        public static void HelloWorld()
-        {
-            Console.WriteLine(""Hello, World!"");
-        }
-    }
-}
-";
     [Generator]
-    public class MySourceGenerator : ISourceGenerator
+    public class HelloWorldGenerator : ISourceGenerator
     {
         public void Execute(SourceGeneratorContext context)
         {
-            // Create a file name for the source to be emitted to
-            var generatedSourceName = "HelloWorldMessage.cs";
+            // begin creating the source we'll inject into the users compilation
+            var sourceBuilder = new StringBuilder(@"
+using System;
+namespace HelloWorldGenerator
+{
+    public static class HelloWorld
+    {
+        public static void SayHello() 
+        {
+            Console.WriteLine(""Hello from generated code!"");
+            Console.WriteLine(""The following syntax trees existed in the compilation that created this program:"");
+");
 
-            // Add the generated source to the compilation
-            context.AddSource(generatedSourceName, helloWorldSource);
+            // using the context, get a list of syntax trees in the users compilation
+            var syntaxTrees = context.Compilation.SyntaxTrees;
+
+            // add the filepath of each tree to the class we're building
+            foreach (SyntaxTree tree in syntaxTrees)
+            {
+                sourceBuilder.AppendLine($@"Console.WriteLine(@"" - {tree.FilePath}"");");
+            }
+
+            // finish creating the source to inject
+            sourceBuilder.Append(@"
+        }
+    }
+}");
+
+            // inject the created source into the users compilation
+            context.AddSource("helloWorldGenerator", SourceText.From(sourceBuilder.ToString(), Encoding.UTF8));
+        }
+
+        public void Initialize(InitializationContext context)
+        {
+            // No initialization required for this one
         }
     }
 }
 ```
 
-4. Reference the source generator from your project (TODO - add any caveats here)
+4. Reference the source generator from a project and add `<LangVersion>preview</LangVersion>` to the project file.
 
 When you write your code in Visual Studio, you'll see that the Source Generator runs and the generated source file is added to your project. You can now access it as if you had created it yourself:
 
@@ -173,7 +192,7 @@ public class SomeClassInMyCode
 {
     public void SomeMethodIHave()
     {
-        HelloWorldNameSpace.GeneratedHelloWorld.HelloWorld(); // calls Console.WriteLine("Hello World!")
+        HelloWorldGenerator.HelloWorld.SayHello(); // calls Console.WriteLine("Hello World!") and then prints syntax trees
     }
 }
 ```
@@ -208,7 +227,7 @@ Give us your feedback and let us know what you need! We'd love to learn more abo
 
 ## What's next for Source Generators
 
-This first preview is somewhat "raw". There is a basic editing experience in Visual Studio, but it is not what we would consider "1.0 quality" right now. One of the biggest areas of focus between now and the .NET 5 release will be improving the editing experience for Source Generators. Additionally, we expect to modify the API to accomodate feedback from partner teams and our OSS community.
+This first preview is is exactly that: a first preview. There is a basic editing experience in Visual Studio, but it is not what we would consider "1.0 quality" right now. In fact, we intend on exploring a few different designs over time before we commit to a particular one. One of the biggest areas of focus between now and the .NET 5 release will be improving the editing experience for Source Generators. Additionally, we expect to modify the API to accomodate feedback from partner teams and our OSS community.
 
 Additionally, we'll work out how Source Generators are distributed. We're currently designing them to be very similar to Analyzers that can be shipped alongside a package. They currently use the Analyzer infrastructure to handle configuration in editor tooling.
 
@@ -248,12 +267,8 @@ Source Generators are .NET Standard 2.0 components, and like any project you can
 
 Source Generators are currently a C# only feature. Because this is the first preview, there are many things that can change between now and the released version. We do not intend on adding Source Generators to Visual Basic. If you're an F# developer and want to see this feature added, please search the suggestions or file a new one in the [F# language suggestion repository](https://github.com/fsharp/fslang-suggestions/).
 
-### Will Visual Basic and F# developers be able to use libraries that rely on Source Generators?
-
-Currently, no. Because Source Generators emit C# source code, they require the C# compiler.
-
 ### Do Source Generators introduce compatibility concerns for libraries?
 
-Potentially. If a library or framework author _replaces_ all mechanisms that use reflection today with Source Generators, then this would be a breaking change because the library would not be usable in VB or F#. This is something that library authors will need to careful consider before adopting Source Generators.
+Potentially yes, but realistically no. For example, we're keeping all of the reflection-based APIs that exist today for compatibility. We may add a source generator that augments them for C# developers as needed. We expect most library authors to do the same, and simply use Source Generators to augment current experiences for C# developers. If a library or framework author _replaces_ mechanisms that use reflection today with Source Generators, then this would be a breaking change because the library would not be usable in VB or F#. This is something that library authors will need to careful consider before adopting Source Generators.
 
 Cheers, and happy source generation!
