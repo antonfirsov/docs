@@ -13,11 +13,11 @@ A Source Generator is a new kind of component that C# developers can write that 
 
 When combined, these two things are what make Source Generators so useful. You can inspect user code with all of the rich metadata that the compiler builds up during compilation, then emit source C# code back into the same compilation that is based on the data you've analyzed!
 
-Source generators run in a new phase of compilation, visualized below:
+Source generators run as a phase of compilation visualized below:
 
 ![Source Generators diagram](srcgen.png)
 
-A Source Generator is a .NET Standard 2.0 assembly that is loaded by the compiler along with any [analyzers](https://docs.microsoft.com/visualstudio/code-quality/roslyn-analyzers-overview).
+A Source Generator is a .NET Standard 2.0 assembly that is loaded by the compiler along with any [analyzers](https://docs.microsoft.com/visualstudio/code-quality/roslyn-analyzers-overview). It is usable in environments where .NET Standard components can be loaded and ran.
 
 Now that you know what a Source Generator is, let's go through some of the scenarios they can improve.
 
@@ -29,9 +29,9 @@ Today, there are three general approaches to inspecting user code and generating
 
 Runtime reflection is a powerful technology that was added to .NET a long time ago. There are countless scenarios for using it. A very common scenario is to perform some analysis of user code when an app starts up and use that data to generate things.
 
-For example, ASP.NET Core uses reflection when your web service first runs to discover things you've defined so that it can "wire up" things like web API routes and dependencies passed via Dependency Injection. Although this enables you to write straightforward code with powerful abstractions, it comes with a performance penalty at runtime: when your web service or app firs starts up, it cannot accept any requests until all the runtime reflection code that discovers information about your code is finished running!
+For example, ASP.NET Core uses reflection when your web service first runs to discover things you've defined so that it can "wire up" things like web API routes and dependencies passed via Dependency Injection. Although this enables you to write straightforward code with powerful abstractions, it comes with a performance penalty at runtime: when your web service or app first starts up, it cannot accept any requests until all the runtime reflection code that discovers information about your code is finished running!
 
-With a Source Generator, ASP.NET Core could instead discover what it needs to know about user code during compile time, by analyzing your source code and emitting the code it needs to "wire up" your app. Instead of determining things at runtime, it could do so at publish time. The end result would be faster startup times for you ASP.NET Core apps and services since it has less work to do before it can start accepting requests.
+With a Source Generator, this "discover things about user code" phase of startup could instead happen at compile time by analyzing your source code and emitting the code it needs to "wire up" your app. The end result would be faster startup times for you ASP.NET Core apps and services since it has less work to do before it can start accepting requests.
 
 Improving performance isn't just limited reflection at runtime to discover types, either. Some scenarios involve calling the MSbuild C# task (called `CSC`) multiple so they can inspect data from a compilation. As you might imagine, calling the compiler more than once affects the total time it takes to build you app! We're investigating how Source Generators can be used to obviate the need for juggling MSBuild tasks like this, since this doesn't just offer some performance benefits, but also allows tools like this to operate at the right level of abstraction.
 
@@ -218,7 +218,7 @@ Below is a list of questions we anticipate some people might have. We'll update 
 
 ### How do Source Generators compare to other metaprogramming features like macros or compiler plugins?
 
-Source Generators are a form of metaprogramming, so it's natural to compare them to similar features in other langauges. The key difference is that Source Generators don't allow you _rewrite_ user code. We view this limitation as a significant benefit, since it keeps user code predicatible with respect to what it actually does at runtime. We recognize that rewriting user code is a very powerful feature, but we're unlikely to enable Source Generators to do that.
+Source Generators are a form of metaprogramming, so it's natural to compare them to similar features in other langauges like macros. The key difference is that Source Generators don't allow you _rewrite_ user code. We view this limitation as a significant benefit, since it keeps user code predicatible with respect to what it actually does at runtime. We recognize that rewriting user code is a very powerful feature, but we're unlikely to enable Source Generators to do that.
 
 ### How do Source Generators compare with Type Providers in F#?
 
