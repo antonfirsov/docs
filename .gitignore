@@ -161,22 +161,6 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 
-# ===================================================
-# Exclude F# project specific directories and files
-# ===================================================
-
-# NuGet Packages Directory
-packages/
-
-# Generated documentation folder
-docs/output/
-
-# Temp folder used for publishing docs
-temp/
-
-# Test results produced by build
-TestResults.xml
-
 # Nuget outputs
 nuget/*.nupkg
 
@@ -188,26 +172,5 @@ nuget/*.nupkg
 .idea/
 .ionide/
 
-# ===================================================
-# Exclude generated lexer/parser source files
-# ===================================================
-src/FsLex/fslexlex.fs
-src/FsLex/fslexpars.fs
-src/FsLex/fslexpars.fsi
-src/FsYacc/fsyacclex.fs
-src/FsYacc/fsyaccpars.fs
-src/FsYacc/fsyaccpars.fsi
-tests/fsyacc/test1-unicode.exe.config
-tests/fsyacc/test1.exe.config
-tests/fsyacc/test1.input1.bsl.err
-tests/fsyacc/test1compat.exe.config
-tests/fsyacc/test2.exe.config
-tests/fsyacc/test2compat.exe.config
-tests/fsyacc/Test1/test1.fs
-tests/fsyacc/Test1/test1lex.fs
-
+# In case we use paket for some reason
 .paket
-
-.idea/
-.vs/
-.ionide/
