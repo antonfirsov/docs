@@ -1,23 +1,23 @@
-# Introducing Source Generators
+# Introducing C# Source Generators
 
 We're pleased to introduce the first preview of Source Generators, a new C# compiler feature that lets C# developers inspect user code and generate new C# source files that can be added to a compilation. This is done via a new kind of component that we're calling a Source Generator.
 
 ## What is a Source Generator?
 
-Unless you've been closely following every prototype and proposal related to the C# language and compiler, then there's a good chance you're asking, "What is a Source Generator" right now. Here's a high level overview:
+Unless you've been closely following every prototype and proposal related to the C# language and compiler, then there's a good chance you're asking, "What is a Source Generator" right now. A Source Generator is a piece of code that runs during compilation and can inspect your program to produce additional files that are compiled together with the rest of your code.
 
 A Source Generator is a new kind of component that C# developers can write that lets you do two major things:
 
 1. Retrieve a `Compilation` object that represents all user code that is being compiled. This object can be inspected and you can write code that works with the syntax and semantic models for the code being compiled, just like with analyzers today.
 2. Generate C# source files that can be added to a `Compilation` object during the course of compilation. In other words, you can provide additional source code as input to a compilation _while the code is being compiled_.
 
-When combined, these two things are what make Source Generators so useful. You can inspect user code with all of the rich metadata that the compiler builds up during compilation, then emit source C# code back into the same compilation that is based on the data you've analyzed!
+When combined, these two things are what make Source Generators so useful. You can inspect user code with all of the rich metadata that the compiler builds up during compilation, then emit C# code back into the same compilation that is based on the data you've analyzed!
 
 Source generators run as a phase of compilation visualized below:
 
 ![Source Generators diagram](srcgen.png)
 
-A Source Generator is a .NET Standard 2.0 assembly that is loaded by the compiler along with any [analyzers](https://docs.microsoft.com/visualstudio/code-quality/roslyn-analyzers-overview). It is usable in environments where .NET Standard components can be loaded and ran.
+A Source Generator is a .NET Standard 2.0 assembly that is loaded by the compiler along with any [analyzers](https://docs.microsoft.com/visualstudio/code-quality/roslyn-analyzers-overview). It is usable in environments where .NET Standard components can be loaded and run.
 
 Now that you know what a Source Generator is, let's go through some of the scenarios they can improve.
 
@@ -71,7 +71,6 @@ Over time, we'll make getting started a lot easier in tools with templates. For 
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -269,6 +268,6 @@ Source Generators are currently a C# only feature. Because this is the first pre
 
 ### Do Source Generators introduce compatibility concerns for libraries?
 
-Potentially yes, but realistically no. For example, we're keeping all of the reflection-based APIs that exist today for compatibility. We may add a source generator that augments them for C# developers as needed. We expect most library authors to do the same, and simply use Source Generators to augment current experiences for C# developers. If a library or framework author _replaces_ mechanisms that use reflection today with Source Generators, then this would be a breaking change because the library would not be usable in VB or F#. This is something that library authors will need to careful consider before adopting Source Generators.
+It depends on how libraries are being authored. Since VB and F# currently don't support Source Generators, library authors should avoid designing their features such that they *require* a Source Generator. Ideally, features have fallbacks to runtime reflection and/or reflection emit. This is something that library authors will need to careful consider before adopting Source Generators. We expect most library authors will use Source Generators to augment current experiences for C# developers. 
 
 Cheers, and happy source generation!
