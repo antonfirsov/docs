@@ -62,8 +62,3 @@ link:
 
 1. Request access to the [dotnet team in microsoft org](https://repos.opensource.microsoft.com/microsoft/teams/dotnet/join/)
 2. Leave feedback on the PR
-
-## Planning
-
-We use a [Trello Board](https://trello.com/b/6gKEIeAB/blog-schedule) for managing the blog schedule.
-In order to get access, please send mail to <atdotnet@microsoft.com>.
