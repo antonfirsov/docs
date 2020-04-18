@@ -5,18 +5,16 @@ should be authored in text, ideally Markdown.
 
 The directory structure should look like this:
 
-```
-2014
-└───08-Aug
-    └───interns-at-microsoft
-        interns-at-microsoft.md
-        CharlesLovell.png
-        ChristianSalgadoPacheco.png
-        IanHays.png
-        SantiagoFernandezMadero.png
-        ShaunArora.png
-        ZachMontoya.png
-```
+    2014
+    └───08-Aug
+        └───interns-at-microsoft
+            interns-at-microsoft.md
+            CharlesLovell.png
+            ChristianSalgadoPacheco.png
+            IanHays.png
+            SantiagoFernandezMadero.png
+            ShaunArora.png
+            ZachMontoya.png
 
 In other words:
 
