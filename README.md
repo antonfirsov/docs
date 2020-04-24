@@ -1,7 +1,7 @@
 # .NET Blog
 
 This repository is for reviewing and authoring our blog posts. The blogs posts
-should be authored in text, ideally Markdown.
+should be authored in Markdown.
 
 The directory structure should look like this:
 
@@ -25,15 +25,21 @@ In other words:
 
 ## Instructions for bloggers
 
-1. Request access to the [dotnet team in microsoft org](https://repos.opensource.microsoft.com/microsoft/teams/dotnet/join/)
-2. Submit a PR to [.NET Blog](https://github.com/microsoft/dotnet-blog)
-    * We author in Markdown
+1. Request access to the [dotnet team in the microsoft org](https://repos.opensource.microsoft.com/microsoft/teams/dotnet/join/)
+2. Submit a PR to [dotnet-blog](https://github.com/microsoft/dotnet-blog)
+    * Author post in Markdown
+    * Add subject matter experts (SMEs) from your engineering team/partner team as reviewers
+    * Don't merge until `dotnet-blog-owners` and your SMEs sign off
 3. [Sign in to the .NET blog](https://devblogs.microsoft.com/dotnet/wp-login.php?redirect_to=https%3A%2F%2Fdevblogs.microsoft.com%2Fdotnet%2F)
     * Use your `alias@microsoft.com` email
-    * This allows us to mark you as the author for the post
-4. [Setup a profile picture](https://devblogs.microsoft.com/dotnet/wp-admin/profile.php)  
+    * [Send mail to netblogowners@microsoft.com](mailto:netblogowners@microsoft.com?subject=Request+access+to+blog&body=Hey+.NET+blog+owners%2C%0A%0APlease+give+me+author+permissions+for+the+.NET+blog.%0A%0AEmail+I+used+for+WordPress%3A+____%0A%0AThanks!)
+4. [Setup a profile picture](https://devblogs.microsoft.com/dotnet/wp-admin/profile.php)
     * It's showcased at the top of every post
     * If you're not comfortable using an actual photograph, choose something else
+5. [Create a new post](https://devblogs.microsoft.com/dotnet/wp-admin/post-new.php)
+    * Copy & paste the Markdown
+    * Upload pictures
+    * Ensure all pictures are accessible by using the `alt` tag
 
 ## Instructions for reviewers
 
