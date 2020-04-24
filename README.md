@@ -32,7 +32,7 @@ In other words:
     * Don't merge until `dotnet-blog-owners` and your SMEs sign off
 3. [Sign in to the .NET blog](https://devblogs.microsoft.com/dotnet/wp-login.php?redirect_to=https%3A%2F%2Fdevblogs.microsoft.com%2Fdotnet%2F)
     * Use your `alias@microsoft.com` email
-    * [Send mail to netblogowners@microsoft.com](mailto:netblogowners@microsoft.com?subject=Request+access+to+blog&body=Hey+.NET+blog+owners%2C%0A%0APlease+give+me+author+permissions+for+the+.NET+blog.%0A%0AEmail+I+used+for+WordPress%3A+____%0A%0AThanks!)
+    * [Request being added as an author](mailto:netblogowners@microsoft.com?subject=Requesting%20access%20to%20the%20.NET%20blog&body=Hey%20.NET%20blog%20owners%2C%0A%0APlease%20add%20me%20to%20the%20.NET%20blog%20as%20an%20author.%0A%0AE-mail%20address%20I%20used%20in%20WordPress%3A%20______%0A%0AThanks%21)
 4. [Setup a profile picture](https://devblogs.microsoft.com/dotnet/wp-admin/profile.php)
     * It's showcased at the top of every post
     * If you're not comfortable using an actual photograph, choose something else
