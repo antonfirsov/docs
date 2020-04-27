@@ -41,7 +41,7 @@ As we flesh out the API and experience writing Source Generators more, we antici
 
 ## Source Generators and Ahead of Time (AOT) Compilation
 
-Another characteristic of Source Generators is that they can help remove major barriers to linker-based and AOT compilation optimizations. Many frameworks and libraries make heavy use of reflection, such as `System.Text.Json`, `System.Text.RegularExpressions`, and frameworks like ASP.NET Core and WPF that discover types from user code at runtime.
+Another characteristic of Source Generators is that they can help remove major barriers to linker-based and AOT (ahead-of-time) compilation optimizations. Many frameworks and libraries make heavy use of reflection, such as `System.Text.Json`, `System.Text.RegularExpressions`, and frameworks like ASP.NET Core and WPF that discover types from user code at runtime.
 
 We've also identified that many of the top [NuGet packages](https://www.nuget.org/) people make heavy use of reflection to discover types at runtime. Incorporating these packages is essential for most .NET apps, so the "linkability" and ability for your code to make use of AOT compiler optimizations is greatly affected. We're looking forward to working with our wonderful OSS community to see how these packages could use source generators and improve the overall .NET ecosystem.
 
@@ -184,7 +184,22 @@ namespace HelloWorldGenerator
 }
 ```
 
-4. Reference the source generator from a project and add `<LangVersion>preview</LangVersion>` to the project file.
+4. Add the source generator from a project as an analyzer and add `<LangVersion>preview</LangVersion>` to the project file like this:
+
+```xml
+<!-- This goes in the top-level property group -->
+<PropertyGroup>
+  <LangVersion>preview</LangVersion>
+</PropertyGroup>
+
+<!-- Add this as a new ItemGroup, replacing paths and names appropriately -->
+<ItemGroup>
+  <Analyzer Include="path-to-source-genertor/Debug/netstandard2.0/SourceGeneratorName.dll" />
+</ItemGroup>
+
+```
+
+If you've written Roslyn Analyzers before, the local development experience should be similar.
 
 When you write your code in Visual Studio, you'll see that the Source Generator runs and the generated source file is added to your project. You can now access it as if you had created it yourself:
 
@@ -198,6 +213,8 @@ public class SomeClassInMyCode
 }
 ```
 
+**Note: you will currently need to restart Visual Studio to see IntelliSense and get rid of errors with the early tooling experience**
+
 There are many more things you can do with Source Generators than just something simple like this:
 
 * Automatically implement interfaces for classes with an attribute attached to them, such as `INotifyPropertyChanged`
@@ -209,7 +226,7 @@ The [Source Generators Cookbook](https://github.com/dotnet/roslyn/blob/master/do
 
 Additionally, we have a set of samples available on GitHub that you can try on your own: https://github.com/dotnet/roslyn-sdk/tree/source-generator-samples/samples/CSharp/SourceGenerators (TODO - wait for these to be reviewed and merged)
 
-As mentioned earlier, we're working on making the experience authoring and using Source Generators better in tooling, such as adding templates and improving responsiveness and performance in Visual Studio when generating source files.
+As mentioned earlier, we're working on making the experience authoring and using Source Generators better in tooling, such as adding templates, allowing for seamless IntelliSense and navigation, debugging, and improving responsiveness and performance in Visual Studio when generating source files.
 
 ## Source Generators are in preview
 
@@ -270,6 +287,14 @@ Source Generators are currently a C# only feature. Because this is the first pre
 
 ### Do Source Generators introduce compatibility concerns for libraries?
 
-It depends on how libraries are being authored. Since VB and F# currently don't support Source Generators, library authors should avoid designing their features such that they *require* a Source Generator. Ideally, features have fallbacks to runtime reflection and/or reflection emit. This is something that library authors will need to careful consider before adopting Source Generators. We expect most library authors will use Source Generators to augment current experiences for C# developers. 
+It depends on how libraries are being authored. Since VB and F# currently don't support Source Generators, library authors should avoid designing their features such that they *require* a Source Generator. Ideally, features have fallbacks to runtime reflection and/or reflection emit. This is something that library authors will need to careful consider before adopting Source Generators. We expect most library authors will use Source Generators to augment current experiences for C# developers.
+
+### Why do I not get IntelliSense for generated code? Why does Visual Studio say there's an error even though it builds?
+
+Currently, Visual Studio integration is very early on. You will need to restart Visual Studio after building the source generator to make errors go away and IntelliSense appear. After you do that, things will work. This current behavior will change in the future so that you don't need to restart Visual Studio.
+
+### Can I debug or navigate to generated source in Visual Studio?
+
+Eventually, we'll support navigation and debugging of generated source in Visual Studio. It is not yet supported in this early preview stage. We consider features like these table stakes for the full release.
 
 Cheers, and happy source generation!
