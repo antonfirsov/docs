@@ -259,11 +259,11 @@ Source Generators are a form of metaprogramming, so it's natural to compare them
 
 ### How do Source Generators compare with Type Providers in F#?
 
-If you're an F# programmer (or familiar with the language), then you might have heard of [Type Providers](https://docs.microsoft.com/dotnet/fsharp/tutorials/type-providers/). Source Generators were inspired in part by Type Providers, but there are several differences. The main difference is that Type Providers are a part of the F# language proper and emit types, properties, and methods in-memory; whereas Source Generators are a _compiler_ feature that emits C# source code.
+If you're an F# programmer (or familiar with the language), then you might have heard of [Type Providers](https://docs.microsoft.com/dotnet/fsharp/tutorials/type-providers/). Source Generators were inspired in part by Type Providers, but there are several differences that make them distinct. The main difference is that Type Providers are a part of the F# language proper and emit types, properties, and methods in-memory; whereas Source Generators are a _compiler_ feature that emits C# source code.
 
 ### Should I delete all my reflection code?
 
-No! Reflection is an incredibly useful tool. However, it does present some performance and "linkability" challenges that can be solvable with Source Generators in some scenarios. Carefully evaluate if your use of reflection could benefit if it were moved to compile-time.
+No! Reflection is an incredibly useful tool to use. Reflection does present some performance and "linkability" challenges that can be solvable with Source Generators in some scenarios. We recommend carefully evaluating if Source Generators fit your scenario.
 
 ### How are Source Generators this different from analyzers?
 
@@ -271,7 +271,7 @@ Source Generators are similar to analyzers, since both are compiler features tha
 
 ### Can I modify/rewrite existing code with a Source Generator?
 
-No. As mentioned earlier, Source Generators do not allow you to rewrite user source code. We do not intend on allowing them to this. They can only augment a compilation by adding C# source files.
+No. As mentioned earlier, Source Generators do not allow you to rewrite user source code. We do not intend on allowing them to this. They can only augment a compilation by adding C# source files to it.
 
 ### When will Source Generators be out of preview?
 
@@ -279,7 +279,7 @@ We intend on shipping Source Generators with C# 9. However, in the event that th
 
 ### Can I change the TFM in a Source Generator?
 
-Source Generators are .NET Standard 2.0 components, and like any project you can change the TFM. However, they are only supported if you target .NET Standard 2.0 or .NET 5. Changing the TFM to a .NET Framework version is not guaranteed to work.
+Source Generators are .NET Standard 2.0 components, and like any project you can change the TFM. However, they are only supported if you target .NET Standard 2.0 or .NET 5. Changing the TFM to a .NET Framework version is not guaranteed to work now or in the future.
 
 ### Will Source Generators come to Visual Basic or F#?
 
@@ -287,15 +287,15 @@ Source Generators are currently a C# only feature. Because this is the first pre
 
 ### Do Source Generators introduce compatibility concerns for libraries?
 
-It depends on how libraries are being authored. Since VB and F# currently don't support Source Generators, library authors should avoid designing their features such that they *require* a Source Generator. Ideally, features have fallbacks to runtime reflection and/or reflection emit. This is something that library authors will need to careful consider before adopting Source Generators. We expect most library authors will use Source Generators to augment - rather than replace - current experiences for C# developers.
+This depends on how libraries are authored. Since VB and F# currently don't support Source Generators, library authors should avoid designing their features such that they *require* a Source Generator. Ideally, features have fallbacks to runtime reflection and/or reflection emit. This is something that library authors will need to careful consider before adopting Source Generators. We expect most library authors will use Source Generators to augment - rather than replace - current experiences for C# developers.
 
 ### Why do I not get IntelliSense for generated code? Why does Visual Studio say there's an error even though it builds?
 
-Currently, Visual Studio integration is very early on. You will need to restart Visual Studio after building the source generator to make errors go away and IntelliSense appear. After you do that, things will work. This current behavior will change in the future so that you don't need to restart Visual Studio.
+You will need to restart Visual Studio after building the source generator to make errors go away and IntelliSense appear. After you do that, things will work. Currently, Visual Studio integration is very early on. This current behavior will change in the future so that you don't need to restart Visual Studio.
 
 ### Can I debug or navigate to generated source in Visual Studio?
 
-Eventually, we'll support navigation and debugging of generated source in Visual Studio. It is not yet supported in this early preview stage. We consider features like these table stakes for the full release.
+Eventually, we'll support navigation and debugging of generated source in Visual Studio. It is not yet supported in this early preview stage.
 
 ### How do I ship my own Source Generator?
 
@@ -307,6 +307,6 @@ Eventually, yes. But this is still the first preview of the technology, and a lo
 
 ### Why do I need to use the Preview LangVersion to consume a Source Generator?
 
-
+Although Source Generators are not technically a C# language feature, they are in preview. Rather than introduce a new setting just for Source Generators, we decided it would be easier to just use the existing switch that enables preview language features for the C# compiler.
 
 Cheers, and happy source generation!
