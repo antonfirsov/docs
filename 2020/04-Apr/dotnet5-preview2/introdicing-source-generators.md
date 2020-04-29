@@ -126,7 +126,7 @@ namespace MyGenerator
 }
 ```
 
-You'll need to apply the `[Generator]` attribute and implement the `ISourceGenerator` interface.
+You'll need to apply the `Microsoft.CodeAnalysis.Generator` attribute and implement the `Microsoft.CodeAnalysis.ISourceGenerator` interface.
 
 3. Add generated source code to the compilation!
 
