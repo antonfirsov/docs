@@ -1,4 +1,4 @@
-# Continuous integration workflow template for desktop apps with GitHub Actions
+# Continuous integration workflow template for .NET Core desktop apps with GitHub Actions
 
 We know how time consuming it can be to quickly set up continuous integration and continuous deployment workflows (CI/CD) for your WPF and Windows Forms desktop applications.
 
@@ -8,7 +8,7 @@ With GitHub Actions, you can quickly and easily automate your software workflows
 * Integrate code changes directly into GitHub to speed up development cycles
 * Trigger builds to quickly identify build breaks and create testable debug builds
 * Continuously run tests to identify and eliminate bugs
-* Automatically build, sign, package and deploy branches that pass tests 
+* Automatically sign, package and deploy branches that pass tests 
  
 The starter workflow template can be added directly to your project in a few simple steps, and with minimal configuration, allowing you to quickly set up a DevOps workflow in GitHub.
 
