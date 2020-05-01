@@ -12,7 +12,7 @@ With GitHub Actions, you can quickly and easily automate your software workflows
  
 The starter workflow template can be added directly to your project in a few simple steps, and with minimal configuration, allowing you to quickly set up a DevOps workflow in GitHub.
 
-Like the [.NET Core starter workflow template](https://github.com/actions/starter-workflows/blob/master/ci/dotnet-core.yml "GitHub Actions .NET Core Starter Workflow Template"), this WPF .NET Core template provides the commands to build and test your application on any of [GitHub's avilable hosted runner types](https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on), such as Windows, Mac OS or Ubuntu. 
+Like the [.NET Core starter workflow template](https://github.com/actions/starter-workflows/blob/master/ci/dotnet-core.yml "GitHub Actions .NET Core Starter Workflow Template"), this WPF .NET Core template provides the commands to build and test your application on any of [GitHub's available hosted runner types](https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on), such as Windows, Mac OS or Ubuntu. 
 
 However, the WPF .NET Core starter workflow takes things a few steps further. For example, in addition to providing the steps to build and test your app, this workflow template details the steps necessary to securely use your signing certificate in a GitHub continuous integration pipeline. Furthermore, with this template, you will be able to generate a package of your app for testing or release, by leveraging a [Windows Application Packaging Project](https://docs.microsoft.com/en-us/windows/msix/desktop/desktop-to-uwp-packaging-dot-net, "Set up your desktop app for packaging in Visual Studio").
 
