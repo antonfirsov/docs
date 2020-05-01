@@ -40,6 +40,7 @@ In other words:
     * Copy & paste the Markdown
     * Upload pictures
     * Ensure all pictures are accessible by using the `alt` tag
+6. Coordinate publishing with [.NET Blog Owners](mailto:netblogowners@microsoft.com)
 
 ## Instructions for reviewers
 
