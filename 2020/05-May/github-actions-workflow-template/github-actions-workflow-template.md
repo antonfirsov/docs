@@ -2,7 +2,7 @@
 
 We know how time consuming it can be to quickly set up continuous integration and continuous deployment workflows (CI/CD) for your WPF and Windows Forms desktop applications.
 
-That's why, in cooperation with the GitHub Actions team, we have released [a starter workflow in GitHub](https://github.com/actions/starter-workflows/blob/master/ci/wpf-dotnet-core.yml, "GitHub Actions WPF .NET Core Starter Workflow Template page") to help you quickly set up and showcase DevOps for your applications using the recently released [GitHub Actions](https://github.com/features/actions "GitHub Actions page").
+That's why, in cooperation with the GitHub Actions team, we have released [a starter workflow in GitHub](https://github.com/actions/starter-workflows/blob/master/ci/wpf-dotnet-core.yml "GitHub Actions WPF .NET Core Starter Workflow Template") to help you quickly set up and showcase DevOps for your applications using the recently released [GitHub Actions](https://github.com/features/actions "GitHub Actions page").
 
 With GitHub Actions, you can quickly and easily automate your software workflows with CI/CD.
 * Integrate code changes directly into GitHub to speed up development cycles
