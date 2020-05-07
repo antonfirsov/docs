@@ -6,7 +6,7 @@ Last year, [we laid out our vision for one .NET and .NET 5](https://devblogs.mic
 
 .NET 5 will have several cloud & web investments, such as smaller, faster, single file EXEs that use less memory which are appropriate for microservices and containerized applications across operating systems. We'll continue to build on the work we've done so far.
 
-We are still committed to one .NET platform and delivering a quality .NET 5 release to our millions of users in November this year. You will continue to see a wave of innovation happening with multiple previews on the journey to one .NET.  
+We are still committed to one .NET platform and delivering a quality .NET 5 release to our millions of users in November this year. You'll continue to see a wave of innovation happening with multiple previews on the journey to one .NET.  
 
 ## Download Preview 4
 
@@ -49,7 +49,7 @@ Placeholder
 
 ## Support for cgroup v2 (for containers)
 
-.NET now has support for cgroup v2, which is we expect will become an important container-related API in 2020 and beyond. Docker currently uses cgroup v1. In comparison, cgroup v2 is simpler, more efficient and more secure than cgroup v1. You can learn more about [cgroup and Docker resource limits](https://devblogs.microsoft.com/dotnet/using-net-and-docker-together-dockercon-2019-update/) from our 2019 Docker update. Linux distros and containers runtimes are in the [process of adding support for cgroup v2](https://medium.com/nttlabs/cgroup-v2-596d035be4d7). .NET 5.0 will work correctly in cgroup v2 environments, once they become more common. Credit to [Omair Majid](https://github.com/omajid), who supports .NET at Red Hat.
+.NET now has support for cgroup v2, which we expect will become an important container-related API in 2020 and beyond. Docker currently uses cgroup v1. In comparison, cgroup v2 is simpler, more efficient and more secure than cgroup v1. You can learn more about [cgroup and Docker resource limits](https://devblogs.microsoft.com/dotnet/using-net-and-docker-together-dockercon-2019-update/) from our 2019 Docker update. Linux distros and containers runtimes are in the [process of adding support for cgroup v2](https://medium.com/nttlabs/cgroup-v2-596d035be4d7). .NET 5.0 will work correctly in cgroup v2 environments, once they become more common. Credit to [Omair Majid](https://github.com/omajid), who supports .NET at Red Hat.
 
 ## Reducing the size of container images
 
@@ -77,11 +77,11 @@ Multi-stage build costs with **Debian 10 Buster**:
 
 This change helps multi-stage builds, where the `sdk` and the `aspnet` or `runtime` image you are targeting are the same version (we expect that this is the common case). With this change, the `aspnet` pull (for example), will be a no-op, because you will have pulled the `aspnet` layers via the initial `sdk` pull.
 
-If you want a bit more context, keep reading. For 3.1 and prior, the SDK is based on the [buildpack-deps](https://hub.docker.com/_/buildpack-deps) image. When we started producing container images, we noticed other development platforms using buildpack-deps as the base of their tools/SDK images, so we followed the established pattern. We have specifically relied on the [`scm` layer](https://github.com/docker-library/buildpack-deps/blob/1bf287b61b2c02d8890f4806a9bfb2c7042b308d/focal/scm/Dockerfile), which includes source-control tools, and is based on the [`curl` layer](https://github.com/docker-library/buildpack-deps/blob/1bf287b61b2c02d8890f4806a9bfb2c7042b308d/focal/curl/Dockerfile), which includes curl and similar network tools. That means that all those tools have been available to you in the SDK images. Unfortuantely, this approach has come with a big tradeoff. Since Docker only allows for a single line of inheritance (each image can only have one parent), the `sdk` image needs to carry its own copy of ASP.NET, and Docker doesn't see the actually identical ASP.NET bytes in the `sdk` image as the same as the ones in the `aspnet` image. That situation requires a lot of wasted bytes to be stores and tranfered. On the other hand, people don't want to give up using the tools provided by `buildpack-deps`. 
+If you want a bit more context, keep reading. For 3.1 and prior, the SDK is based on the [buildpack-deps](https://hub.docker.com/_/buildpack-deps) image. When we started producing container images, we noticed other development platforms using buildpack-deps as the base of their tools/SDK images, so we followed the established pattern. We have specifically relied on the [`scm` layer](https://github.com/docker-library/buildpack-deps/blob/1bf287b61b2c02d8890f4806a9bfb2c7042b308d/focal/scm/Dockerfile), which includes source-control tools, and is based on the [`curl` layer](https://github.com/docker-library/buildpack-deps/blob/1bf287b61b2c02d8890f4806a9bfb2c7042b308d/focal/curl/Dockerfile), which includes curl and similar network tools. That means that all those tools have been available to you in the SDK images. Unfortunately, this approach has come with a big tradeoff. Since Docker only allows for a single line of inheritance (each image can only have one parent), the `sdk` image needs to carry its own copy of ASP.NET, and Docker doesn't see the actually identical ASP.NET bytes in the `sdk` image as the same as the ones in the `aspnet` image. That situation requires a lot of wasted bytes to be stores and tranfered. On the other hand, people don't want to give up using the tools provided by `buildpack-deps`. 
 
 As a compromise position, we re-based the `sdk` on `aspnet`, added [some of the tools back](https://github.com/dotnet/dotnet-docker/pull/1848#issue-404674130), and retained 90+% of the size savings.
 
-This explanation is descriptive of what we did for Ubuntu. The story with Debian is more complicated, and responsible for the larger size win. In short, the Debian variants of `aspnet` and `runtime` are based on the `-slim` Debian variant, while `buildpack-deps` is based on the non-slim Debian images. That means that for muti-stage builds with Debian, that you pull Debian twice! Even the distro layer hasn't been shared until now.
+This explanation is descriptive of what we did for Ubuntu. The story with Debian is more complicated, and responsible for the larger size win. In short, the Debian variants of `aspnet` and `runtime` are based on the `-slim` Debian variant, while `buildpack-deps` is based on the non-slim Debian images. That means that for multi-stage builds with Debian, that you pull Debian twice! Even the distro layer hasn't been shared until now.
 
 We made similar changes for [Alpine and Nano Server](https://github.com/dotnet/dotnet-docker/pull/1832). There is no `buildpack-deps` image for either Alpine or Nano Server. However, the `sdk` images for Alpine and Nano Server were not previously built on top of the ASP.NET image. We fixed that. You will see significant size wins for Alpine and Nano Server as well with 5.0, for multi-stage builds.
 
@@ -90,7 +90,7 @@ We've known about these problems for a long time, but they were never been the n
 
 ## .NET 5.0 will switch to the `dotnet` container repo
 
-As part of the move to ".NET" as the product name, we are now pubishing .NET 5.0 and later images to the [`mcr.microsoft.com/dotnet`](https://hub.docker.com/_/microsoft-dotnet) family of repos, instead of [`mcr.microsoft.com/dotnet/core`](https://hub.docker.com/_/microsoft-dotnet-core). Please update your `FROM` statements and scripts accordingly. .NET Core 3.1 and 2.1 will continue to be published to [`mcr.microsoft.com/dotnet/core`](https://hub.docker.com/_/microsoft-dotnet-core).
+As part of the move to ".NET" as the product name, we are now publishing .NET 5.0 and later images to the [`mcr.microsoft.com/dotnet`](https://hub.docker.com/_/microsoft-dotnet) family of repos, instead of [`mcr.microsoft.com/dotnet/core`](https://hub.docker.com/_/microsoft-dotnet-core). Please update your `FROM` statements and scripts accordingly. .NET Core 3.1 and 2.1 will continue to be published to [`mcr.microsoft.com/dotnet/core`](https://hub.docker.com/_/microsoft-dotnet-core).
 
 ## Closing
 
