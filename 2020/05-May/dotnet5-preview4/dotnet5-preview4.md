@@ -75,7 +75,7 @@ Multi-stage build costs with **Debian 10 Buster**:
 
 *Net download savings*: 146 MB (-40%)
 
-See [SDK Layer Sharing](https://gist.github.com/mthalman/9193b085d087d93751fe938c69dd8c71) for more detailed information.
+See [dotnet/dotnet-docker #1814](https://github.com/dotnet/dotnet-docker/issues/1814#issuecomment-625294750) for more detailed information.
 
 This change helps multi-stage builds, where the `sdk` and the `aspnet` or `runtime` image you are targeting are the same version (we expect that this is the common case). With this change, the `aspnet` pull (for example), will be a no-op, because you will have pulled the `aspnet` layers via the initial `sdk` pull.
 
