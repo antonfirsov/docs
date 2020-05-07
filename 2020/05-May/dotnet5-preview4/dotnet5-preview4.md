@@ -4,13 +4,13 @@
 
 Last year, [we laid out our vision for one .NET and .NET 5](https://devblogs.microsoft.com/dotnet/introducing-net-5/), we said we would take .NET Core and Mono/Xamarin implementations and unify them into one base class library (BCL) and toolchain (SDK). In the wake of the global health pandemic, we have had to adapt to the changing needs of our customers and provide the support needed to assist with smooth operations. Our efforts continue to be anchored in helping our customers address their most urgent needs. As a result, we expect these features to be available in preview by Nov 2020 but the unification will be truly completed with .NET 6, our Long-Term Support (LTS) release. Our vision has not changed, but our timeline has. 
 
-.NET 5 will have several cloud & web investments, such as smaller, faster, single file EXEs that use less memory which are appropriate for microservices and containerized applications across operating systems. We will continue to build on the work we have done.
+.NET 5 will have several cloud & web investments, such as smaller, faster, single file EXEs that use less memory which are appropriate for microservices and containerized applications across operating systems. We'll continue to build on the work we've done so far.
 
 We are still committed to one .NET platform and delivering a quality .NET 5 release to our millions of users in November this year. You will continue to see a wave of innovation happening with multiple previews on the journey to one .NET.  
 
 ## Download Preview 4
 
-You can [download .NET 5.0 Preview 4](https://dotnet.microsoft.com/download/dotnet-core/5.0), for Windows, macOS, and Linux:
+You can [download .NET 5.0 Preview 4](https://dotnet.microsoft.com/download/dotnet/5.0), for Windows, macOS, and Linux:
 
 * [MSIs, PKGs and .zip/tar.gz](https://dotnet.microsoft.com/download/dotnet-core/5.0)
 * [Docker images](https://hub.docker.com/_/microsoft-dotnet-core)
@@ -18,7 +18,7 @@ You can [download .NET 5.0 Preview 4](https://dotnet.microsoft.com/download/dotn
 
 ASP.NET Core and EF Core are also being released today.
 
-You need to use Visual Studio 2019 16.6 to use .NET 5.0. Install the latest version of the [C# extension](https://code.visualstudio.com/Docs/languages/csharp), to use .NET 5.0 with Visual Studio Code. .NET 5.0 isn't yet supported with Visual Studio for Mac.
+You need Visual Studio 2019 16.6 or later versions to use .NET 5.0. To use .NET 5.0 with Visual Studio Code, install the latest version of the [C# extension](https://code.visualstudio.com/Docs/languages/csharp). .NET 5.0 isn't supported yet with Visual Studio for Mac.
 
 Release notes:
 
@@ -36,7 +36,7 @@ We are adding support for .NET to run natively on Windows ARM64. This is in addi
 
 You can download and use the .NET 5.0 SDK on ARM64 with today's release. At present, you need to download and expand a zip, and it doesn't yet include Windows Forms or WPF. We're working on filling the gaps so that using .NET on Windows Forms on ARM64 is just like x64. We intend to backport the same functionality to .NET Core 3.1.
 
-You can following our progress at [.NET 5.0 ARM64 tracking issue](https://gist.github.com/tommcdon/6a250a1caa621892a14ea42bf1f87b4a). We're also working to [improve ARM64 performance](https://github.com/dotnet/runtime/issues/35853), generally.
+You can follow our progress at [.NET 5.0 ARM64 tracking issue](https://gist.github.com/tommcdon/6a250a1caa621892a14ea42bf1f87b4a). We're also working to generally [improve ARM64 performance](https://github.com/dotnet/runtime/issues/35853).
 
 ## BCL
 
