@@ -1,6 +1,8 @@
+# ML.NET Model Builder is now a part of Visual Studio
+
 [ML.NET](https://dot.net/ml) is a cross-platform, machine learning framework for .NET developers. Model Builder is the UI tooling in Visual Studio that uses Automated Machine Learning (AutoML) to train and consume custom ML.NET models in your .NET apps. You can use ML.NET and Model Builder to create custom machine learning models without having prior machine learning experience and without leaving the .NET ecosystem.
 
-# Model Builder in VS
+# Model Builder in Visual Studio
 Previously, Model Builder was a Visual Studio extension that had to be installed from the VS Marketplace. Now, Model Builder ships with Visual Studio 16.6 as a preview feature! After enabling the Model Builder feature in VS, all you have to do is right-click on your project in Solution Explorer and add Machine Learning.
 
 ![Right Click and Add Machine Learning](right-click-add-ml.png)
