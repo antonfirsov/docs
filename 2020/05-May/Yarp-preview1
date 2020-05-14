@@ -13,13 +13,13 @@ With the basic infrastructure of the proxy now in place, we've produced the firs
 * Forwarded Headers (hard coded)
 
 ## What is not in Preview 1
-* Targeting both .NET Core 3.1 and .NET Core 5
-* Session Affinity
-* Forwarded Headers (configurable)
-* Code-based route definition & per-request routing
-* Metrics & logging
-* Performance tweaks
-* Connection filtering
+* Targeting both .NET Core 3.1 and .NET Core 5 [\#159](https://github.com/microsoft/reverse-proxy/issues/159)
+* Session Affinity [\#45](https://github.com/microsoft/reverse-proxy/issues/45)
+* Forwarded Headers (configurable) [\#60](https://github.com/microsoft/reverse-proxy/issues/60)
+* Code-based route definition & per-request routing [\#8](https://github.com/microsoft/reverse-proxy/issues/8), [\#46](https://github.com/microsoft/reverse-proxy/issues/46)
+* Metrics & logging [\#61](https://github.com/microsoft/reverse-proxy/issues/61)
+* Performance tweaks [\#51](https://github.com/microsoft/reverse-proxy/issues/51)
+* Connection filtering [\#53](https://github.com/microsoft/reverse-proxy/issues/53)
 * And much more - see the [backlog project board](https://github.com/microsoft/reverse-proxy/projects/5) for more details
 
 # Getting started with YARP Preview 1
@@ -30,7 +30,7 @@ YARP is designed as a library that provides the core proxy functionality, that y
 2. Create an "Empty" ASP.NET Core application using 
    * `dotnet new web -n MyProxy`
    
-   Or
+> Or
 
    * Create a new ASP.NET Core web application in Visual Studio, and choose "Empty" for the project template.
 3. Open the Project and make sure it includes:
