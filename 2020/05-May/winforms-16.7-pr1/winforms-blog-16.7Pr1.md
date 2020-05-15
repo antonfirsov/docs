@@ -4,7 +4,7 @@ Today we're happy to announce that the Windows Forms designer for .NET Core proj
 
 ![.NET Core Windows Forms designer in Visual Studio](designer.png)
 
-    Don't forget to enable the designer in **Tools** > **Options** > **Environment** > **Preview Features**.
+*Don't forget to enable the designer in **Tools** > **Options** > **Environment** > **Preview Features***.
 
 Many of you may remember that we [open-sourced Windows Forms](https://blogs.windows.com/windowsdeveloper/2018/12/04/announcing-open-source-of-wpf-windows-forms-and-winui-at-microsoft-connect-2018/) and ported it to .NET Core with .NET Core 3.0. Since then, we've been [hard at work](https://devblogs.microsoft.com/dotnet/updates-to-net-core-windows-forms-designer-in-visual-studio-16-5-preview-1/) bringing the Windows Forms designer experience to .NET Core. While we are getting closer to completion, we are continuing work on the designer and plan on bringing more functional and performance improvements in the near future.
 
@@ -54,7 +54,6 @@ Improving the performance is our next goal after we complete the functionality w
 * Complete localization
 
 ## New in 16.6 GA release
-* **ToDo: which controls we added in 16.6 GA sisnce 16.6 Preview 1?**
 * Drag-and-drop improvements
 * Selection improvements
 * Stability and bug fixes
