@@ -25,7 +25,7 @@ Alternatively, if you’re using Jupyter Notebooks and want a more interactive e
 
 ## F# 5 features and improvements
 
-This release introduces only one new feature. However, the other features we've shipped so far have been further stabilized. There's a few more features in the pipeline that we're considering before we call F# 5 feature complete, and we'll post updates when they're available.
+This release introduces only one new feature. However, the other features we've shipped so far have been further stabilized. There are a few more features in the pipeline that we're considering before we call F# 5 feature complete, and we'll post updates when they're available.
 
 ### Default interface member interop
 
