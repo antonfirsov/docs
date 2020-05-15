@@ -1,4 +1,4 @@
-# Announcing .NET 5 Preview 4 and our Journey to one .NET
+# Announcing .NET 5 Preview 4 and our journey to one .NET
 
 .NET 5 is the next version of .NET where we continue the journey of unifying the .NET platform. We’ve took the best of .NET Framework and put that into .NET Core 3, with the addition of Windows desktop support, including WPF and Windows Forms. As we continue the journey, our vision for one .NET is to take .NET Core and Mono/Xamarin and create a unified set of libraries and tools as well as expand on the support for cloud native and modern web development.  
 
