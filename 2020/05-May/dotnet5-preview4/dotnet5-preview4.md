@@ -40,7 +40,7 @@ Let's take a look at some of the release highlights that we expect to deliver wi
    * [Added on-stack-replacement to improve tiered compilation performance](https://github.com/dotnet/runtime/pull/32969)
    * [Improve stack prolog zeroing performance](https://github.com/dotnet/runtime/pull/32538)
    * [Improve performance of tailcalls used by F#](https://github.com/dotnet/runtime/pull/341)
-* Consistent performance: We have increased our focus on predictable consistent performance, reducing performance cliffs and outliers. 
+* Consistent performance: We have increased our focus on predictable consistent performance, reducing performance cliffs and outliers, with an emphasis on P95+ latency. 
    * [Improve call counting mechanism](https://github.com/dotnet/runtime/pull/32250) used by tiered JIT compilation to smooth out performance during startup
    * [Dynamic generic dictionary expansion](https://github.com/dotnet/runtime/pull/32270) that eliminate performance cliffs hit by generic code 
    * [Pinned object heap](https://github.com/dotnet/runtime/pull/32283) to reduce heap fragmentation caused by pinning
