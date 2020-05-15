@@ -58,7 +58,7 @@ void ExecuteClickCommand ()
 
 ### MVU
 
-In addition, we are enabling developers to write fluent C# UI and implement the increasingly popular Model-View-Update (MVU) pattern. Both MVVM and MVU deliver the same native applications, performance, and platform fidelity. Developers can now choose which style best suits their preference and use case. Let's take a look at MVU in action.
+In addition, we are enabling developers to write fluent C# UI and implement the increasingly popular Model-View-Update (MVU) pattern. Both MVVM and MVU deliver the same native applications, performance, and platform fidelity. Developers will be able to choose which style best suits their preference and use case. Let's take a look at MVU in action.
 
 ```csharp
 readonly State<int> count = 0;
@@ -84,7 +84,7 @@ In addition to MVU, .NET MAUI is also optimized for consumption by Blazor in ord
 
 ## Transitioning from Xamarin.Forms to .NET MAUI
 
-Xamarin.Forms developers will hit the ground running with new projects in .NET MAUI, using all the same controls and APIs they have grown to know and love. As we get closer to the MAUI launch, we will investigate ways to smooth the transition for apps that should migration from Xamarin.Forms to MAUI and .NET 6.
+Xamarin.Forms developers will hit the ground running with new projects in .NET MAUI, using all the same controls and APIs they have grown to know and love. As we get closer to the MAUI launch, In order to help developers make a smooth transition of existing apps to .NET MAUI we intend to provide try-convert support and migration guides similar to what we have today for migrating to .NET Core.
 
 ### The .NET MAUI Timeline
 
