@@ -54,12 +54,18 @@ Improving the performance is our next goal after we complete the functionality w
 * Complete localization
 
 ## New in 16.6 GA release
+* All Dialogs controls
+* `PropertyGrid`
+* `HScrollBar`
+* `VScrollBar`
+* `DomainUpDown`
+* `TrackBar`
 * Drag-and-drop improvements
 * Selection improvements
 * Stability and bug fixes
 
 ## New in 16.7 Preview 1 release
-* `UserControl`s
+* `UserControl`and custom controls infrastructure
 * `TableLayoutPanel`
 * Fundamentals for third-party controls support
 * Fundamentals for data binding support
