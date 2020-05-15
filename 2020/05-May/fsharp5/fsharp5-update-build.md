@@ -15,17 +15,15 @@ You can use F# 5 preview via the [.NET 5 preview SDK](https://dotnet.microsoft.c
 
 If you’re using the .NET 5 preview SDK, check out a [sample repository](https://github.com/cartermp/fs5preview) showing off some of what you can do with F# 5. You can play with each of the features there instead of starting from scratch.
 
-If you’d rather use F# 5 in your own project, you’ll need to add a `LangVersion` property. It should look something like this:
+If you’d rather use F# 5 in your own project, you’ll need to add a `LangVersion` property with `preview` as the value. It should look something like this:
 
 <script src="https://gist.github.com/cartermp/3a12e552cc64918d697c430c7b5cfcf7.js"></script>
-
-In future previews, the `FSharp.Core` reference shouldn’t be required.
 
 Alternatively, if you’re using Jupyter Notebooks and want a more interactive experience, check out a [sample notebook](https://gist.github.com/cartermp/6b91c3561c6a5efca4288dca37c15edc) that shows the same features, but has a more interactive output.
 
 ## F# 5 features and improvements
 
-This release introduces only one new feature. However, the other features we've shipped so far have been further stabilized. There are a few more features in the pipeline that we're considering before we call F# 5 feature complete, and we'll post updates when they're available.
+This release introduces only one new langauge feature. However, the other features we've shipped so far have been further stabilized. There are a few more features in the pipeline that we're considering before we call F# 5 feature complete, and we'll post updates when they're available.
 
 ### Default interface member interop
 
@@ -45,23 +43,23 @@ We currently don't support _generating_ default implementations, though. If you'
 
 We've been focused on improving the performance of the F# compiler and tools for some time now, and with each release we see incremental progress. Although performance can always be improved, we're quite happy with our progress so far!
 
-To demonstrate the difference, check out this [fork of the FSharpPlus repository](https://github.com/cartermp/fsharpplus), a codebase that stresses the F# compiler significantly with its use of certain advanced features. You can modify the `global.json` file to specify a .NET SDK on your machine. In this case, it has a .NET 5 preview and a released .NET Core 3.1 SDK specified. If you have those SDKs on your machine, you can test this out yourself.
+To demonstrate the difference, check out this [fork of the FSharpPlus repository](https://github.com/cartermp/fsharpplus), a codebase that stresses the F# compiler significantly with its use of certain advanced features. You can modify the `global.json` file to specify a .NET SDK on your machine. In this case, it has a .NET 5 preview and a released .NET Core 3.1 SDK from Visual Studio 2019 update 16.5 specified. If you have those SDKs on your machine, you can test this out yourself.
 
-On my personal desktop, I get the following results when running `dotnet clean FSharpPluslsn` followed by `dotnet build FSharpPlus.sln -c Release`:
+On my personal desktop, I get the following results when running `dotnet clean FSharpPlus.sln` followed by `dotnet build FSharpPlus.sln -c Release`:
 
 **.NET Core 3.1:** 3:01.510
 **.NET 5:** 2:16.23
 
-That's quite an improvement! However, not all of the wall-clock time improvements are due to F#. Everything in the .NET toolchain improves too.
+That's quite an improvement! However, not all of the wall-clock time improvements are due to F#. Everything in the .NET toolchain improved too.
 
-To dig into this a little more, I performed the same steps as before, but `dotnet msbuild FSharpPlus.sln /p:Congiguration=Release /clp:PerformanceSummary` to generate an MSBuild performance summary. With one run, I see the following differences in CPU time spent in the Fsc task (the F# compiler getting called):
+To dig into this a little more, I performed the same steps as before, but ran `dotnet msbuild FSharpPlus.sln /p:Congiguration=Release /clp:PerformanceSummary` to generate an MSBuild performance summary. With one run, I see the following differences in CPU time spent in the Fsc task (the F# compiler getting called):
 
 **.NET Core 3.1:** 527522ms
 **.NET 5:** 440873ms
 
 (Note: because MSBuild is running things in parallel when it can, the CPU time is a lot longer than wall-clock time.)
 
-This is a 16% improvement in time spent in the F# compiler to build the same codebase! When compiling the core project `FSharpPlus.fsproj`, I've personally seen up to a 35% improvement in compile times. The exact improvement can vary from machine to machine and build to build, especially if the build process doesn't have the highest priority on your machine at the time. Regardless of these caveats, build times are always improved when building this project.
+This is a 16% improvement in time spent in the F# compiler to build the same codebase! When compiling the core project `FSharpPlus.fsproj`, I've personally seen up to a 35% improvement in compile times. The exact improvement can vary from machine to machine and build to build, especially if the build process doesn't have the highest priority on your machine at the time. Regardless of these caveats, build times are always improved when building this project. This has held true for a few other OSS projects that were tested.
 
 I uploaded both logs into a [GitHub gist](https://gist.github.com/cartermp/5d45f77b68be935adf3acffabbdd8787) if you're curious about the full breakdown.
 
