@@ -63,7 +63,7 @@ To dig into this a little more, I performed the same steps as before, but `dotne
 
 This is a 16% improvement in time spent in the F# compiler to build the same codebase! When compiling the core project `FSharpPlus.fsproj`, I've personally seen up to a 35% improvement in compile times. The exact improvement can vary from machine to machine and build to build, especially if the build process doesn't have the highest priority on your machine at the time. Regardless of these caveats, build times are always improved when building this project.
 
-Both logs into a [GitHub gist](https://gist.github.com/cartermp/5d45f77b68be935adf3acffabbdd8787) if you're curious about the full breakdown.
+I uploaded both logs into a [GitHub gist](https://gist.github.com/cartermp/5d45f77b68be935adf3acffabbdd8787) if you're curious about the full breakdown.
 
 Download the .NET 5 preview and try it out yourself!
 
