@@ -37,20 +37,27 @@ Let's take a look at some of the release highlights that we expect to deliver wi
    * [Improve performance of `string.ToUpperInvariant`, `string.ToLowerInvariant`, `char.ToUpperInvariant`, `char.ToLowerInvariant`, and other related patterns](https://github.com/dotnet/runtime/pull/31968)
    * [Improve HTTP 1.1 performance](https://github.com/dotnet/corefx/pull/41640)
    * [Improve HTTP/2 scaling performance](https://github.com/dotnet/runtime/pull/35694)
-   * [Reduce GC pause times](https://github.com/dotnet/coreclr/pull/27776)
+   * [Added on-stack-replacement to improve tiered compilation performance](https://github.com/dotnet/runtime/pull/32969)
+   * [Improve stack prolog zeroing performance](https://github.com/dotnet/runtime/pull/32538)
+   * [Improve performance of tailcalls used by F#](https://github.com/dotnet/runtime/pull/341)
+* Consistent performance: We have increased our focus on predictable consistent performance, reducing performance cliffs and outliers. 
+   * [Improve call counting mechanism](https://github.com/dotnet/runtime/pull/32250) used by tiered JIT compilation to smooth out performance during startup
+   * [Dynamic generic dictionary expansion](https://github.com/dotnet/runtime/pull/32270) that eliminate performance cliffs hit by generic code 
+   * [Pinned object heap](https://github.com/dotnet/runtime/pull/32283) to reduce heap fragmentation caused by pinning
+   * Reduce GC pause times in specific situations, like [GC lock contention](https://github.com/dotnet/coreclr/pull/27776), [Array.Copy](https://github.com/dotnet/coreclr/pull/27776)   
    * [Remove GC lock contention](https://github.com/dotnet/runtime/pull/32795)
-* Single file applications -- a new single-file publish type that executes your app out of a single binary (can be used on read-only media).
+* Single file applications -- a new single-file publish type that [executes your app out of a single binary](https://github.com/dotnet/runtime/pull/36052) (for example, can be used on read-only media).
 * Windows ARM64 -- [Enable .NET to run natively on Windows ARM64](https://gist.github.com/richlander/6fd855f467036a941501e5dcaceabf0a), supporting both development scenarios and deployment of client apps on customer machines. 
 * ARM64 -- [Improve ARM64 performance](https://github.com/dotnet/runtime/issues/35853) (Linux and Windows) in the JIT and BCL libraries.
 * Containers -- [Reduce container image size](https://github.com/dotnet/dotnet-docker/issues/1814#issuecomment-625294750) and implement [new container APIs](https://github.com/dotnet/runtime/pull/34334) to enable .NET to stay up-to-date with container runtime evolution.
 * New Target Framework -- We have adopted a [new approach for .NET TFMs](https://github.com/dotnet/designs/blob/master/accepted/2020/net5/net5.md).
 * Json APIs -- Enable easier migration from [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/) to [System.Text.Json](https://docs.microsoft.com/dotnet/standard/serialization/system-text-json-overview).
 
+I'll share some more detailed information about some of these improvements, and where we see them headed.
 
+### Windows ARM64
 
-## Windows ARM64
-
-We are adding support for .NET to run natively on Windows ARM64. This is in addition, to Linux ARM64, which we've supported since .NET Core 3.0. With .NET 5.0, you can develop cloud and UI apps on Windows ARM64 devices, and deliver your applications to users who own [Surface Pro X](https://www.microsoft.com/en-us/p/surface-pro-x/8VDNRP2M6HHC) and similar devices. You can currently run .NET Core and .NET Framework apps on Windows ARM64, but via x86 emulation. It's workable, but native ARM64 execution will have much better performance.
+We are adding support for .NET to run natively on Windows ARM64. This is in addition, to Linux ARM64, which we've supported since .NET Core 3.0. With .NET 5.0, you can develop web and UI apps on Windows ARM64 devices, and deliver your applications to users who own [Surface Pro X](https://www.microsoft.com/en-us/p/surface-pro-x/8VDNRP2M6HHC) and similar devices. You can already run .NET Core and .NET Framework apps on Windows ARM64, but via x86 emulation. It's workable, but native ARM64 execution will have much better performance.
 
 You can download and use the .NET 5.0 SDK on ARM64 with today's release. At present, you need to download and expand a zip, and it doesn't yet include Windows Forms or WPF. We're working on filling the gaps so that using .NET on Windows Forms on ARM64 is just like x64. We intend to backport the same functionality to .NET Core 3.1.
 
