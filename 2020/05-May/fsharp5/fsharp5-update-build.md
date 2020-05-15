@@ -77,7 +77,7 @@ The first video is with Visual Studio 2019 Update 16.5:
 
 Video to embed via wordpress: https://www.youtube.com/watch?v=vGWxveh6NLI
 
-Note that results take a lot longer to start filling in, and the entire process takes about 1 minute and 11 seconds to complete. After Find All References was finished, Visual Studio was up to ~1.7GB of memory usage:
+Note that results take a lot longer to start filling in, and the entire process takes about 1 minute and 11 seconds to complete. After Find All References was finished, Visual Studio was up to ~1.75GB of memory usage:
 
 ![Visual Studio memory usage with 16.5](img/fake-findrefs-16.5.png)
 
@@ -102,7 +102,7 @@ We've got even more awesome stuff planned for F# 5, and we can't wait to show yo
 
 * Continuing inclusion of language features when their design and implementations are stable
 * Continuing to improve the tooling performance for larger F# codebases
-* Making F# in Jupyter and Visual Studio Code Notebooks the best language for data science and analytical work
+* Making F# in Jupyter and Visual Studio Code Notebooks the best language for data science and analytical work (more on this in future updates!)
 
 If you'd like to follow along on a much more detailed level, you can check out the [F# development repository](https://github.com/dotnet/fsharp). We're now tracking the work we're focused on with a GitHub issue every 3 weeks, and we encourage you all to provide input to the list of things and let us know what you think.
 
