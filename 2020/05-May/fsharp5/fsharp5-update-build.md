@@ -71,26 +71,30 @@ Download the .NET 5 preview and try it out yourself!
 
 The compiler wasn't the only thing that got faster in this release. We've been focusing on improving the performance and reliability of the Visual Studio tools for F# throughout the Visual Studio 2019 lifecycle, and this release is no different! Starting with Visual Studio 2019 Update 16.6, features like Find All References and Rename should run considerably faster and show results much sooner when scanning a large codebase.
 
-TODO: potentially change this to not be quite so insane, since this case is really really wild:
-
-To demonstrate this, I've uploaded two videos showing the Find All References operation on the `bool` type in the F# codebase itself. There are many thousands of such references, and because the F# codebase uses multi-targeting, the routine actually scans the codebase for each target:
+To demonstrate this, I've uploaded two videos showing the Find All References operation on the `string` type in FAKE, a large F# OSS codebase. This is an extreme case that isn't representative of "normal" usage for Find All References, but it helps demonstrate what might happen in the rare event that you do need to find references to an extremely common type in a large codebase.
 
 The first video is with Visual Studio 2019 Update 16.5:
 
-(video)
+Video to embed via wordpress: https://www.youtube.com/watch?v=vGWxveh6NLI
+
+Note that results take a lot longer to start filling in, and the entire process takes about 1 minute and 11 seconds to complete. After Find All References was finished, Visual Studio was up to ~1.7GB of memory usage:
+
+![Visual Studio memory usage with 16.5](img/fake-findrefs-16.5.png)
 
 The second is with the latest Visual Studio 2019 Update 16.6:
 
-(video)
+Video to embed via wordpress: https://youtu.be/JtjRLriCv1Q
 
-As you can see, results are shown once they are available in the latest version!
+As you can see, results start showing up much faster, and the entire process took about 43 seconds to complete! After Find All References is finished running, Visual Studio was up to ~1.2GB of memory usage:
+
+![Visual Studio memory usage with 16.5](img/fake-findrefs-16.6.png)
 
 Behind the scenes, two key components were rewritten:
 
 * The core component that is responsible for finding symbols in user code and yielding them back to a caller who asks for symbols that match a given input
 * The Visual Studio component that displays found symbols in the Find All References window and colorizes the text based on the source code being shown in the list
 
-In addition to these features being faster, the amount of memory used to run them has also been significantly reduced.
+In addition to features like Find All References being faster, the amount of memory used to run it has also been significantly reduced, which is important when you're working in a big codebase.
 
 ## The continuing F# 5 journey
 
