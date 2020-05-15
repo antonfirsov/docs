@@ -18,7 +18,7 @@ You can [download .NET 5.0 Preview 4](https://dotnet.microsoft.com/download/dotn
 
 ASP.NET Core and EF Core are also being released today.
 
-You need Visual Studio 2019 16.6 or later versions to use .NET 5.0. To use .NET 5.0 with Visual Studio Code, install the latest version of the [C# extension](https://code.visualstudio.com/Docs/languages/csharp). .NET 5.0 isn't supported yet with Visual Studio for Mac.
+You need Visual Studio 2019 16.6 or later versions to use .NET 5.0. To use .NET 5.0 with Visual Studio Code, install the latest version of the [C# extension](https://code.visualstudio.com/Docs/languages/csharp). .NET 5.0 isn't yet supported with Visual Studio for Mac.
 
 Release notes:
 
@@ -28,7 +28,25 @@ Release notes:
 * [GitHub release](https://github.com/dotnet/core/releases)
 * [GitHub tracking issue](https://github.com/dotnet/core/issues/4607)
 
-Let's look at some of the improvements in Preview 4.
+## .NET 5 Highlights
+
+Let's take a look at some of the release highlights that we expect to deliver with .NET 5.0, in November. This will paint a clearer picture on the improvements you'll get to take advantage of in your development process and in production.
+
+* Performance -- Improve [performance throughout the product](https://github.com/dotnet/runtime/pulls?page=2&q=is%3Apr+is%3Aclosed+label%3Atenet-performance) to make applications run faster and more efficiently (less cost). Examples:
+   * [Regular expressions](https://devblogs.microsoft.com/dotnet/regex-performance-improvements-in-net-5/)
+   * [Improve performance of `string.ToUpperInvariant`, `string.ToLowerInvariant`, `char.ToUpperInvariant`, `char.ToLowerInvariant`, and other related patterns](https://github.com/dotnet/runtime/pull/31968)
+   * [Improve HTTP 1.1 performance](https://github.com/dotnet/corefx/pull/41640)
+   * [Improve HTTP/2 scaling performance](https://github.com/dotnet/runtime/pull/35694)
+   * [Reduce GC pause times](https://github.com/dotnet/coreclr/pull/27776)
+   * [Remove GC lock contention](https://github.com/dotnet/runtime/pull/32795)
+* Single file applications -- a new single-file publish type that executes your app out of a single binary (can be used on read-only media).
+* Windows ARM64 -- [Enable .NET to run natively on Windows ARM64](https://gist.github.com/richlander/6fd855f467036a941501e5dcaceabf0a), supporting both development scenarios and deployment of client apps on customer machines. 
+* ARM64 -- [Improve ARM64 performance](https://github.com/dotnet/runtime/issues/35853) (Linux and Windows) in the JIT and BCL libraries.
+* Containers -- [Reduce container image size](https://github.com/dotnet/dotnet-docker/issues/1814#issuecomment-625294750) and implement [new container APIs](https://github.com/dotnet/runtime/pull/34334) to enable .NET to stay up-to-date with container runtime evolution.
+* New Target Framework -- We have adopted a [new approach for .NET TFMs](https://github.com/dotnet/designs/blob/master/accepted/2020/net5/net5.md).
+* Json APIs -- Enable easier migration from [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/) to [System.Text.Json](https://docs.microsoft.com/dotnet/standard/serialization/system-text-json-overview).
+
+
 
 ## Windows ARM64
 
@@ -37,6 +55,8 @@ We are adding support for .NET to run natively on Windows ARM64. This is in addi
 You can download and use the .NET 5.0 SDK on ARM64 with today's release. At present, you need to download and expand a zip, and it doesn't yet include Windows Forms or WPF. We're working on filling the gaps so that using .NET on Windows Forms on ARM64 is just like x64. We intend to backport the same functionality to .NET Core 3.1.
 
 You can follow our progress at [.NET 5.0 ARM64 tracking issue](https://gist.github.com/tommcdon/6a250a1caa621892a14ea42bf1f87b4a). We're also working to generally [improve ARM64 performance](https://github.com/dotnet/runtime/issues/35853).
+
+## New improvents in Preview 4
 
 ## BCL
 
@@ -49,7 +69,7 @@ Placeholder
 
 ## Support for cgroup v2 (for containers)
 
-.NET now has support for cgroup v2, which we expect will become an important container-related API in 2020 and beyond. Docker currently uses cgroup v1. In comparison, cgroup v2 is simpler, more efficient, and more secure than cgroup v1. You can learn more about [cgroup and Docker resource limits](https://devblogs.microsoft.com/dotnet/using-net-and-docker-together-dockercon-2019-update/) from our 2019 Docker update. Linux distros and containers runtimes are in the [process of adding support for cgroup v2](https://medium.com/nttlabs/cgroup-v2-596d035be4d7). .NET 5.0 will work correctly in cgroup v2 environments once they become more common. Credit to [Omair Majid](https://github.com/omajid), who supports .NET at Red Hat.
+.NET now has [support for cgroup v2](https://github.com/dotnet/runtime/pull/34334), which we expect will become an important container-related API in 2020 and beyond. Docker currently uses cgroup v1. In comparison, cgroup v2 is simpler, more efficient, and more secure than cgroup v1. You can learn more about [cgroup and Docker resource limits](https://devblogs.microsoft.com/dotnet/using-net-and-docker-together-dockercon-2019-update/) from our 2019 Docker update. Linux distros and containers runtimes are in the [process of adding support for cgroup v2](https://medium.com/nttlabs/cgroup-v2-596d035be4d7). .NET 5.0 will work correctly in cgroup v2 environments once they become more common. Credit to [Omair Majid](https://github.com/omajid), who supports .NET at Red Hat.
 
 ## Reducing the size of container images
 
