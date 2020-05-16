@@ -61,13 +61,43 @@ I'll share some more detailed information about some of these improvements, and 
 
 ### Windows ARM64
 
-We are adding support for .NET to run natively on Windows ARM64. This is in addition, to Linux ARM64, which we've supported since .NET Core 3.0. With .NET 5.0, you can develop web and UI apps on Windows ARM64 devices, and deliver your applications to users who own [Surface Pro X](https://www.microsoft.com/en-us/p/surface-pro-x/8VDNRP2M6HHC) and similar devices. You can already run .NET Core and .NET Framework apps on Windows ARM64, but via x86 emulation. It's workable, but native ARM64 execution will have much better performance.
+.NET apps can now run natively on Windows ARM64. This follows the support we added for Linux ARM64, with .NET Core 3.0. With .NET 5.0, you can develop web and UI apps on Windows ARM64 devices, and deliver your applications to users who own [Surface Pro X](https://www.microsoft.com/en-us/p/surface-pro-x/8VDNRP2M6HHC) and similar devices. You can already run .NET Core and .NET Framework apps on Windows ARM64, but via x86 emulation. It's workable, but native ARM64 execution has much better performance.
 
-You can download and use the .NET 5.0 SDK on ARM64 with today's release. At present, you need to download and expand a zip, and it doesn't yet include Windows Forms or WPF. We're working on filling the gaps so that using .NET on Windows Forms on ARM64 is just like x64. We intend to backport the same functionality to .NET Core 3.1.
+You can download and use the .NET 5.0 SDK on ARM64 with today's preview 4 release. Currently, only Console and ASP.NET Core apps are supported. See [.NET 5.0 ARM64 tracking issue](https://gist.github.com/tommcdon/6a250a1caa621892a14ea42bf1f87b4a) to track our progress.
 
-You can follow our progress at [.NET 5.0 ARM64 tracking issue](https://gist.github.com/tommcdon/6a250a1caa621892a14ea42bf1f87b4a). We're also working to generally [improve ARM64 performance](https://github.com/dotnet/runtime/issues/35853).
+The `master` branch adds support for Windows Forms. This changes may make it into Preview 5, but Preview 6 for sure. You can download a `master` branch build from [dotnet/installer](https://github.com/dotnet/installer#installers-and-binaries).
+
+At present, you need to download and expand `.zip` files for ARM64. We intend to add ARM64 MSIs for the final .NET 5 release.
+
+We have been working closely with the PowerShell team to validate and enable PowerShell 7.1 on Windows ARM64. The team has had Windows ARM64 "experimental" builds for some time. The team intends to support PowerShell 7.1 on Windows ARM64, when they release. PowerShell 7.1 is built on .NET 5.0.
+
+The following image demonstrate the [Conway's Game of life](https://github.com/dotnet/samples/tree/master/windowsforms/Conway's-Game-of-Life/VB) VB sample running on Windows ARM64.
 
 <img width="398" alt="2020-05-15" src="https://user-images.githubusercontent.com/2608468/82086979-20f5bd00-96a4-11ea-8d73-abed8f2505fb.png">
+
+### ARM64 Performance
+
+We've been investing sigificantly in improving ARM64 performance, for over a year. We're committed to making ARM64 a high-performance platform with .NET.Platform portability and consistency have always been compelling characteristics of .NET. This includes offering great performance. Up until the 5.0 release, ARM64 has had functionality parity with x64 but was missing some key performance features and investments. 
+
+There are two big categories of improvements we're making: 
+
+* Enable and take advantage of ARM64 hardware intrinics.
+* Update performance-critical algorithms that are [Intel ISA](https://en.wikipedia.org/wiki/X86_instruction_listings) centric.
+
+See [Improving ARM64 Performance in .NET 5.0](https://github.com/dotnet/runtime/issues/35853) to track our progress. 
+
+[Hardware instrinsics](https://devblogs.microsoft.com/dotnet/hardware-intrinsics-in-net-core/) are a [low-level performance feature](https://github.com/dotnet/designs/blob/master/accepted/2018/platform-intrinsics.md) we added in .NET Core 3.0. At the time, we added support for x64 instructions and chips. As part of .NET 5.0, we are extending the feature to support ARM64. Just creating the intrisics doesn't help performance. You need to use them in performance-critical code. We've [taken advantage of ARM64 intrinsics extensively in .NET libraries](https://github.com/dotnet/runtime/issues/33308) in .NET 5.0. You can also do this in your own code, although you need to be be familiar with CPU instructions to do so.
+
+I'll explain what hardware intrinsics do with an analogy. For the most part, developers rely on types and APIs built into .NET, like `string.split` or `HttpClient`. Those APIs often take advantage of native operating system APIs, via the [P/Invoke](https://docs.microsoft.com/dotnet/standard/native-interop/pinvoke) feature. P/Invoke enables high-performance native interop, and is used extensively in the BCL for that purpose.  You can use this same feature yourself, to call native APIs. Hardware instrinsics are similar, except instead of calling operative system APIs, they enable you to directly use CPU instructions in your code. It's roughly equivalent to a runtime version of [inline assembly](https://docs.microsoft.com/cpp/assembler/inline/inline-assembler-overview). Hardware instrics are best thought of as a CPU hardware-acceleration feature. They provide very tangible benefits, are now the performance substrate of the .NET libraries, and responsible for many of the benefits you read about in our [performance blog posts](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-core-3-0/). 
+
+We're making our first big investments in ARM64 performance in 5.0, but will continue this effort in subsequent releases. We work directly with engineers from [ARM holdings](https://en.wikipedia.org/wiki/Arm_Holdings) to prioritize product improvements and to select design algorithms that best take advantage of the [ARMv8 ISA](https://en.wikipedia.org/wiki/ARM_architecture#ARMv8-A). Some of these improvements will accrue value to ARM32, however, we are not applying the same effort to ARM32.
+
+Please share any performance information with us related to ARM64, either a notable improvement from 3.1 to 5.0, or performance with 5.0 that should be better.
+
+## Garbage Collection Latency
+
+test here.
+
 
 ## New improvements in Preview 4
 
