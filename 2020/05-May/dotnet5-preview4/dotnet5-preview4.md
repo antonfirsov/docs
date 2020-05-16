@@ -67,7 +67,7 @@ You can download and use the .NET 5.0 SDK on ARM64 with today's release. At pres
 
 You can follow our progress at [.NET 5.0 ARM64 tracking issue](https://gist.github.com/tommcdon/6a250a1caa621892a14ea42bf1f87b4a). We're also working to generally [improve ARM64 performance](https://github.com/dotnet/runtime/issues/35853).
 
-## New improvents in Preview 4
+## New improvements in Preview 4
 
 ## BCL
 
@@ -92,8 +92,8 @@ Multi-stage build costs with **Ubuntu 20.04 Focal**:
 
 | Pull Image | Before | After |
 | ---------- | ------ | ----- |
-| `sdk:5.0-focal`        |  268MB | 232 MB|
-| `aspnet:5.0-focal`| 64MB | 10 KB (manifest only) |
+| `sdk:5.0-focal`        |  268 MB | 232 MB|
+| `aspnet:5.0-focal`| 64 MB | 10 KB (manifest only) |
 
 *Net download savings*: 100 MB (-30%)
 
@@ -101,8 +101,8 @@ Multi-stage build costs with **Debian 10 Buster**:
 
 | Pull Image | Before | After |
 | ---------- | ------ | ----- |
-| `sdk:5.0`        |  280MB | 218 MB|
-| `aspnet:5.0`| 84MB | 4 KB (manifest only) |
+| `sdk:5.0`        |  280 MB | 218 MB|
+| `aspnet:5.0`| 84 MB | 4 KB (manifest only) |
 
 *Net download savings*: 146 MB (-40%)
 
