@@ -50,7 +50,7 @@ Let's take a look at some of the release highlights that we expect to deliver wi
    * [Pinned object heap](https://github.com/dotnet/runtime/pull/32283) to reduce heap fragmentation caused by pinning
    * Reduce GC pause times in specific situations, like [GC lock contention](https://github.com/dotnet/coreclr/pull/27776), [Array.Copy](https://github.com/dotnet/coreclr/pull/27776)   
    * [Remove GC lock contention](https://github.com/dotnet/runtime/pull/32795)
-* Single file applications -- a new [single-file publish type](https://github.com/dotnet/runtime/issues/36590) that [executes your app out of a single binary](https://github.com/dotnet/runtime/pull/36052) (for example, can be used on read-only media).
+* Single file applications -- a new [single-file publish type](https://github.com/dotnet/runtime/issues/36590) that executes your app out of a single binary (for example, can be used on read-only media).
 * Windows ARM64 -- [Enable .NET to run natively on Windows ARM64](https://gist.github.com/richlander/6fd855f467036a941501e5dcaceabf0a), supporting both development scenarios and deployment of client apps on customer machines. 
 * ARM64 -- [Improve ARM64 performance](https://github.com/dotnet/runtime/issues/35853) (Linux and Windows) in the JIT and BCL libraries.
 * Containers -- [Reduce container image size](https://github.com/dotnet/dotnet-docker/issues/1814#issuecomment-625294750) and implement [new container APIs](https://github.com/dotnet/runtime/pull/34334) to enable .NET to stay up-to-date with container runtime evolution.
@@ -98,13 +98,33 @@ Please share any performance information with us related to ARM64, either a nota
 
 We see an increasing number of large internet-facing sites and services being hosted on .NET. While there is a lot of legitimate focus on the [requests per second (RPS) metric](https://twitter.com/ben_a_adams/status/1260792649625280513), we find that very few big site owners ask us about that or require 7M RPS. We hear a lot about latency, however, specifically about improving [P95 or P99 latency](https://docs.microsoft.com/en-us/azure/internet-analyzer/internet-analyzer-scorecard). Often, the number of machines or cores that are provisioned for a site are chosen based on achieving a specific P95 metric, as opposed to say P50. We think of latency as being the true "money metric".
 
-Our friends at StackOverflow do a great job of sharing data on their service. Nick Craver recently shared improvements they saw to latency, as a result of moving to .NET Core: [12/2019](https://twitter.com/Nick_Craver/status/1205289893674573829) and [3/2020](https://twitter.com/Nick_Craver/status/1245027999034023936). Do yourself a favor and [follow Nick on Twitter](https://twitter.com/Nick_Craver) if you have an interest in web server performance.
+Our friends at StackOverflow do a great job of sharing data on their service. Nick Craver recently shared improvements they saw to latency, as a result of moving to .NET Core: [12/2019](https://twitter.com/Nick_Craver/status/1205289893674573829) and [3/2020](https://twitter.com/Nick_Craver/status/1245027999034023936). Do yourself a favor and [follow Nick on Twitter](https://twitter.com/Nick_Craver) if you have an interest in web server performance (from the perspective of a user).
 
 While you can see that we've been making good progress on latency, we're far from satisfied. In the (distant) past, we built features like [server GC](https://docs.microsoft.com/en-us/dotnet/standard/garbage-collection/workstation-server-gc) and [background GC](https://docs.microsoft.com/dotnet/standard/garbage-collection/background-gc) to improve latency, by taking advantage of course-grained CPU features like multiple-cores and threads, respectively. Those remain very important, however, we need to get a lot more creative to significantly improve latency moving forward, at least as it relates to the GC. We have started multiple projects along those lines.
 
 Pinned object have been a long-term challenge for GC performance, specifically because they accelerate (or cause) memory fragmentation. We've added a [new GC heap for pinned objects](https://github.com/dotnet/runtime/pull/32283). The [pinned object heap](https://github.com/dotnet/runtime/blob/master/docs/design/features/PinnedHeap.md) is based on the assumption that there are very few pinned objects in a process but that their presence causes disproportionate performance challenges. It makes sense to move pinned objects -- particularly those created by .NET libraries as an implementation detail -- to a unique area, leaving the generational GC heaps with few or no pinned objects, and with higher performance as a result.
 
 More recently, we've been attacking long-standing "hard problems" in the GC. [dotnet/runtime #2795](https://github.com/dotnet/runtime/pull/32795) applies a new approach to GC statics scanning that avoids lock contention when it is determining liveness of GC heap objects. [dotnet/runtime #25986](https://github.com/dotnet/coreclr/pull/) uses a new alogrithm for balancing GC work across cores during the mark phase of garbage collection, which should increase the throughput of garbage collection with large heaps, which in turn reduces latency.
+
+## Single file applications
+
+There are key scenarios where people want to use .NET where single-file distribution is a requirement, or at least preferred. We've been building up the key pieces that we need to enable this scenario over multiple releases, and will be including a [new single file publish type in .NET 5.0](https://github.com/dotnet/runtime/issues/36590). It's a feature we expect to continue to refine over multiple releases.
+
+There are two aspects that make this feature expensive to build: 
+
+* Accounting for different feature sets and constraints on Linux and Windows for loading executable content out of native resources.
+* Ensuring that the debugger provides a multi-file-like experience for single-file applications.
+
+For scoping purposes, we are supporting this feature on X64 only for .NET 5.0, on Windows and Linux. Both [runtime-dependent and self-contained publish types](https://docs.microsoft.com/en-us/dotnet/core/deploying/) will be supported for single-file.
+
+The experience between Windows and Linux is similar, but not the same. The differences are primarily relevant for self-contained single file applications, as described in the [Single-file publish design doc](https://github.com/dotnet/designs/blob/master/accepted/2020/single-file/design.md):
+
+* Single-file publish Linux: `dotnet publish -r linux-x64 /p:PublishSingleFile=true`
+   * Published files: `HelloWorld`, `HelloWorld.pdb`
+* Single-file publish Windows: `dotnet publish -r win-x64 /p:PublishSingleFile=true`
+   * Published files: `HelloWorld.exe`, `HelloWorld.pdb`, `coreclr.dll`, `clrjit.dll`, `clrcompression.dll`,  `mscordaccore.dll`
+
+As you can see, on Windows, single-file self-contained applications require four additional files beyond the app. We were not able to include these runtime files into the single file app. We do not currently have a technical plan for hiding these extra files on Windows, even though we understand that it would be prefered. Note: `mscordaccore.dll` and `.pdb` files are required only for debugging scenarios, and not for execution of the app. 
 
 ## New improvements in Preview 4
 
