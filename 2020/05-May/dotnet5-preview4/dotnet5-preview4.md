@@ -69,9 +69,9 @@ The `master` branch adds support for Windows Forms. This changes may make it int
 
 At present, you need to download and expand `.zip` files for ARM64. We intend to add ARM64 MSIs for the final .NET 5 release.
 
-We have been working closely with the PowerShell team to validate and enable PowerShell 7.1 on Windows ARM64. The team has had Windows ARM64 "experimental" builds for some time. The team intends to support PowerShell 7.1 on Windows ARM64, when they release. PowerShell 7.1 is built on .NET 5.0.
+We have been working closely with the PowerShell team to validate and enable PowerShell 7.1 on Windows ARM64. The team has had Windows ARM64 "experimental" builds for some time and intends to support PowerShell 7.1 on Windows ARM64, when they release. PowerShell 7.1 is built on .NET 5.0, and should be released around the same time.
 
-The following image demonstrate the [Conway's Game of life](https://github.com/dotnet/samples/tree/master/windowsforms/Conway's-Game-of-Life/VB) VB sample running on Windows ARM64.
+The following image demonstrate the [Conway's Game of life](https://github.com/dotnet/samples/tree/master/windowsforms/Conway's-Game-of-Life/VB) VB and Windows Forms sample running on Windows ARM64.
 
 <img width="398" alt="2020-05-15" src="https://user-images.githubusercontent.com/2608468/82086979-20f5bd00-96a4-11ea-8d73-abed8f2505fb.png">
 
@@ -94,10 +94,17 @@ We're making our first big investments in ARM64 performance in 5.0, but will con
 
 Please share any performance information with us related to ARM64, either a notable improvement from 3.1 to 5.0, or performance with 5.0 that should be better.
 
-## Garbage Collection Latency
+## P95+ Latency
 
-test here.
+We see an increasing number of large internet-facing sites and services being hosted on .NET. While there is a lot of legitimate focus on the [requests per second (RPS) metric](https://twitter.com/ben_a_adams/status/1260792649625280513), we find that very few big site owners ask us about that or require 7M RPS. We hear a lot about latency, however, specifically about improving [P95 or P99 latency](https://docs.microsoft.com/en-us/azure/internet-analyzer/internet-analyzer-scorecard). Often, the number of machines or cores that are provisioned for a site are chosen based on achieving a specific P95 metric, as opposed to say P50. We think of latency as being the true "money metric".
 
+Our friends at StackOverflow do a great job of sharing data on their service. Nick Craver recently shared improvements they saw to latency, as a result of moving to .NET Core: [12/2019](https://twitter.com/Nick_Craver/status/1205289893674573829) and [3/2020](https://twitter.com/Nick_Craver/status/1245027999034023936). Do yourself a favor and [follow Nick on Twitter](https://twitter.com/Nick_Craver) if you have an interest in web server performance.
+
+While you can see that we've been making good progress on latency, we're far from satisfied. In the (distant) past, we built features like [server GC](https://docs.microsoft.com/en-us/dotnet/standard/garbage-collection/workstation-server-gc) and [background GC](https://docs.microsoft.com/dotnet/standard/garbage-collection/background-gc) to improve latency, by taking advantage of course-grained CPU features like multiple-cores and threads, respectively. Those remain very important, however, we need to get a lot more creative to significantly improve latency moving forward, at least as it relates to the GC. We have started multiple projects along those lines.
+
+Pinned object have been a long-term challenge for GC performance, specifically because they accelerate (or cause) memory fragmentation. We've added a [new GC heap for pinned objects](https://github.com/dotnet/runtime/pull/32283). The [pinned object heap](https://github.com/dotnet/runtime/blob/master/docs/design/features/PinnedHeap.md) is based on the assumption that there are very few pinned objects in a process but that their presence causes disproportionate performance challenges. It makes sense to move pinned objects -- particularly those created by .NET libraries as an implementation detail -- to a unique area, leaving the generational GC heaps with few or no pinned objects, and with higher performance as a result.
+
+More recently, we've been attacking long-standing "hard problems" in the GC. [dotnet/runtime #2795](https://github.com/dotnet/runtime/pull/32795) applies a new approach to GC statics scanning that avoids lock contention when it is determining liveness of GC heap objects. [dotnet/runtime #25986](https://github.com/dotnet/coreclr/pull/) uses a new alogrithm for balancing GC work across cores during the mark phase of garbage collection, which should increase the throughput of garbage collection with large heaps, which in turn reduces latency.
 
 ## New improvements in Preview 4
 
