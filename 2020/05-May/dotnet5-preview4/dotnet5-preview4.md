@@ -50,12 +50,12 @@ Let's take a look at some of the release highlights that we expect to deliver wi
    * [Pinned object heap](https://github.com/dotnet/runtime/pull/32283) to reduce heap fragmentation caused by pinning
    * Reduce GC pause times in specific situations, like [GC lock contention](https://github.com/dotnet/coreclr/pull/27776), [Array.Copy](https://github.com/dotnet/coreclr/pull/27776)   
    * [Remove GC lock contention](https://github.com/dotnet/runtime/pull/32795)
-* Single file applications -- a new single-file publish type that [executes your app out of a single binary](https://github.com/dotnet/runtime/pull/36052) (for example, can be used on read-only media).
+* Single file applications -- a new [single-file publish type](https://github.com/dotnet/runtime/issues/36590) that [executes your app out of a single binary](https://github.com/dotnet/runtime/pull/36052) (for example, can be used on read-only media).
 * Windows ARM64 -- [Enable .NET to run natively on Windows ARM64](https://gist.github.com/richlander/6fd855f467036a941501e5dcaceabf0a), supporting both development scenarios and deployment of client apps on customer machines. 
 * ARM64 -- [Improve ARM64 performance](https://github.com/dotnet/runtime/issues/35853) (Linux and Windows) in the JIT and BCL libraries.
 * Containers -- [Reduce container image size](https://github.com/dotnet/dotnet-docker/issues/1814#issuecomment-625294750) and implement [new container APIs](https://github.com/dotnet/runtime/pull/34334) to enable .NET to stay up-to-date with container runtime evolution.
 * New Target Framework -- We have adopted a [new approach for .NET TFMs](https://github.com/dotnet/designs/blob/master/accepted/2020/net5/net5.md).
-* Json APIs -- Enable easier migration from [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/) to [System.Text.Json](https://docs.microsoft.com/dotnet/standard/serialization/system-text-json-overview).
+* Json APIs -- Enable easier [migration from Newtonsoft.Json to System.Text.Json](https://docs.microsoft.com/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to).
 
 I'll share some more detailed information about some of these improvements, and where we see them headed.
 
@@ -67,7 +67,10 @@ You can download and use the .NET 5.0 SDK on ARM64 with today's release. At pres
 
 You can follow our progress at [.NET 5.0 ARM64 tracking issue](https://gist.github.com/tommcdon/6a250a1caa621892a14ea42bf1f87b4a). We're also working to generally [improve ARM64 performance](https://github.com/dotnet/runtime/issues/35853).
 
+<img width="398" alt="2020-05-15" src="https://user-images.githubusercontent.com/2608468/82086979-20f5bd00-96a4-11ea-8d73-abed8f2505fb.png">
+
 ## New improvements in Preview 4
+
 
 ## BCL
 
