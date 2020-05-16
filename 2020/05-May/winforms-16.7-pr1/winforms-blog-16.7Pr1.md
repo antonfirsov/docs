@@ -1,6 +1,6 @@
 # Windows Forms Designer for .NET Core Released
 
-Today we're happy to announce that the Windows Forms designer for .NET Core projects is now available in Visual Studio 2019 version 16.6! We also have a newer version of the designer available in [Visual Studio 16.7 Preview 1](https://docs.microsoft.com/en-us/visualstudio/releases/2019/release-notes-preview#16.7.0-pre.1.0)!
+Today we're happy to announce that the Windows Forms designer for .NET Core projects is now available as a preview in Visual Studio 2019 version 16.6! We also have a newer version of the designer available in [Visual Studio 16.7 Preview 1](https://docs.microsoft.com/en-us/visualstudio/releases/2019/release-notes-preview#16.7.0-pre.1.0)!
 
 ![.NET Core Windows Forms designer in Visual Studio](designer.png)
 
@@ -29,7 +29,9 @@ Improving the performance is our next goal after we complete the functionality w
     * cut/copy/paste/delete
     * integration with Properties Window
     * events generation and so on
- * New [`WebView2` control](https://) **ToDo: link to the WebView2 blogpost**
+ * New `WebView2` control
+    
+    This chromium-based embedded browser control allows to render web content (HTML/CSS/JavaScript) for .NET apps. It is supported in both .NET Core and .NET Framework platforms for Windows Forms and WPF applications. You can find a [getting started tutorial](https://docs.microsoft.com/en-us/microsoft-edge/webview2/gettingstarted/winforms) in the Microsoft documentation and we will publish a blog post dedicated to WebView2 control in the nearest future.
  * Local resources
  * Partial support for localization
  
@@ -43,9 +45,11 @@ Improving the performance is our next goal after we complete the functionality w
 
     This work is in progress, and you already can see some results in the Visual Studio 16.7 Preview 1 designer.
 
-* Control vendors support, such as Progress Telerik, DevExpress, GrapeCity, and others
+* Third-party control vendors support
     
-    We are closely working with the control vendors on supporting their controls in .NET Core and in .NET 5. One of our demos for Microsoft Build 2020 showed Progress Telerik controls in Windows Forms application targeting .NET Core 3.1 and .NET 5. More controls from various vendors are coming soon.
+    We are closely working with the control vendors such as  DevExpress, GrapeCity and Progress Telerik on supporting their controls in the Windows Forms designer in the nearest future for .NET Core and in .NET 5 projects. We are also collaborating with ActiPro, Infragistics and SyncFusion. One of our demos for Microsoft Build 2020 showed Progress Telerik controls in Windows Forms application targeting .NET Core 3.1 and .NET 5. More controls from various vendors are coming soon.
+
+    ![Progress Telerik RadGridView control in MS Build 2020 demo](progress-grid.png)
 
 * Inherited dialogs support
 
@@ -69,7 +73,7 @@ Improving the performance is our next goal after we complete the functionality w
 * `TableLayoutPanel`
 * Fundamentals for third-party controls support
 * Fundamentals for data binding support
-
+* Improvements in designer interaction with the `TableLayoutPanel`
 
 ## Give us your feedback!
 
