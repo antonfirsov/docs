@@ -59,7 +59,7 @@ Let's take a look at some of the release highlights that we expect to deliver wi
 
 I'll share some more detailed information about some of these improvements, and where we see them headed.
 
-### Target Framework
+### .NET 5.0 Target Framework
 
 We are changing the approach we use for [target frameworks with .NET 5.0](https://github.com/dotnet/designs/blob/master/accepted/2020/net5/net5.md). The following two project file examples demonstrate using .NET Core 3.0 and .NET 5.0 target frameworks, by specifying the respective Target Framework Moniker (TFM). You can see a new, more compact, TFM for .NET 5.0:
 
@@ -194,6 +194,10 @@ At the same time, we're also improving the usability of System.Text.Json:
 
 * [Add new System.Net.Http.Json project/namespace](https://github.com/dotnet/runtime/pull/33459) - Adds [new extension methods for HttpClient that allow serialization from/to JSON](https://github.com/dotnet/runtime/issues/32937).
 * [Add copy constructor to JsonSerializerOptions](https://github.com/dotnet/runtime/pull/34725) - Enables a library of framework to manage a `JsonSerializerOptions` instance, with specific values it sets, while the type versions over time.
+
+### Repo consolidation
+
+
 
 ## New improvements in Preview 4
 
