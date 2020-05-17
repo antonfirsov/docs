@@ -110,6 +110,7 @@ You likely have more questions you want answered. We'll be publishing a larger b
 * There are no plans for a `net5.0-linux` since we don't (yet) expose any Linux-specific APIs. Also, "Linux" is not a single uniform thing, so it is unclear which APIs would be exposed in such a TFM. We could expose the [POSIX standard](https://en.wikipedia.org/wiki/POSIX), but then we'd call it `net5.0-posix`, and it would work on more operating systems than Linux. However, we don't have plans for that either.
 * We [do not plan to expose a TFM for web assembly](https://github.com/dotnet/runtime/issues/33328), for similar reasons as not having one for Linux.
 * You cannot simply update the `TargetFrameworkVersion` in a .NET Framework project to 5.0 and expect it to become a .NET 5.0 project. It will not work. Instead, you need to [port your application to .NET Core](https://docs.microsoft.com/en-us/dotnet/core/porting/). For libraries, you can port to .NET Standard or .NET Core. We are [no longer adding .NET Framework APIs to .NET Core](https://github.com/dotnet/announcements/issues/130), so there is no need to wait to port your application to .NET Core until .NET 5.0 releases.
+* The new TFM plan is a foundational part of the [workloads project](https://github.com/dotnet/designs/blob/master/accepted/2020/workloads/workloads.md). We will add minimal support for workloads in .NET 5.0 and then implement the complete vision in .NET 6.0.
 
 ### Windows ARM64
 
@@ -177,7 +178,7 @@ The experience between Windows and Linux is similar, but not the same. The diffe
 * Single-file publish Windows: `dotnet publish -r win-x64 /p:PublishSingleFile=true`
    * Published files: `HelloWorld.exe`, `HelloWorld.pdb`, `coreclr.dll`, `clrjit.dll`, `clrcompression.dll`,  `mscordaccore.dll`
 
-As you can see, on Windows, single-file self-contained applications require four additional files beyond the app. We were not able to include these runtime files into the single file app. We do not currently have a technical plan for hiding these extra files on Windows, even though we understand that it would be preferred. Note: `mscordaccore.dll` and `.pdb` files are required only for debugging scenarios, and not for execution of the app. 
+As you can see, on Windows, single-file self-contained applications require four additional files beyond the app. We were not able to include these runtime files into the single file app. We do not currently have a technical plan for hiding these extra files on Windows, even though we understand that it would be preferred. Note: `.pdb` files are required only for debugging scenarios, and `mscordaccore.dll` is required to collect crash dumps, including by [Windows Error Reporting (AKA "Watson")](https://en.wikipedia.org/wiki/Windows_Error_Reporting). 
 
 ### Improving migration from NewtonSoft.Json to System.Text.Json
 
@@ -195,9 +196,19 @@ At the same time, we're also improving the usability of System.Text.Json:
 * [Add new System.Net.Http.Json project/namespace](https://github.com/dotnet/runtime/pull/33459) - Adds [new extension methods for HttpClient that allow serialization from/to JSON](https://github.com/dotnet/runtime/issues/32937).
 * [Add copy constructor to JsonSerializerOptions](https://github.com/dotnet/runtime/pull/34725) - Enables a library of framework to manage a `JsonSerializerOptions` instance, with specific values it sets, while the type versions over time.
 
-### Repo consolidation
+### Open source project improvements
 
+We care a lot about open source, enabling the .NET community to be productive on GitHub, and making .NET projects accessible to a large set of developers. We've been working on a variety of initiatives along those lines.
 
+[dotnet/source-build](https://github.com/dotnet/source-build) enables building the entire .NET project/product from source with a single command. Red Hat uses this project to build the version of .NET Core that they distribute, and we work closely with them on that. [Fedora also uses source-build](https://fedoraproject.org/wiki/DotNet) to enable .NET Core in their package repositories. We want to make it straightforward for any developer, organization or companies to use source-build, and are investing significantly in the project. You can follow the [.NET 5.0 source-build effort](https://github.com/dotnet/source-build/issues/1500) directly.
+
+We started out the .NET Core project with too many GitHub repos. At its high, we had over 100 repos. That was too many to make sense to anyone, including the .NET Team. As part of the .NET 5.0 project, we decided to reduce the number of repos to a small and manageable collection. We announced our [intention to consolidate .NET repos](https://github.com/dotnet/announcements/issues/119) in August, 2019, and then provided a [final update on the plan](https://github.com/dotnet/announcements/issues/127) the following October. As part of that plan, we merged many repos together and moved almost all repos within the [dotnet org](https://github.com/dotnet). We retained repo history as part of the effort, which had some [funny side-effects](https://twitter.com/migueldeicaza/status/1219748706611798022). We continue to use the old repos for servicing the 2.1 and 3.1 product versions. [MSBuild](https://github.com/microsoft/msbuild) and [NuGet client](https://github.com/NuGet/NuGet.Client) repos remain in other orgs.
+
+We are also working on [reducing build times](https://github.com/dotnet/arcade/blob/master/Documentation/Net5Builds.md) for most repos. Quicker build times make everyone more productive, and enable you to see PR build results quicker. This is a longer-term effort, and a theme that will repeat in subsequent releases. You can track progress at [.NET 5 Build Time Reduction Status](https://github.com/dotnet/arcade/blob/master/Documentation/Net5BuildTImeReductionStatus.md).
+
+We largely focus on improving the product, but are more recently turning our attention to improving the .NET open source project for contributors and other participants. We recently asked for [feedback on improving the project and the experience participating in .NET repos](https://github.com/dotnet/announcements/issues/154). It is important to us that everyone feels like they have a voice (on project-related topics) on .NET project repos, that they are treated well, and that they can accomplish their goals. That doesn't mean we accept every PR or suggestion filed as an issue. As it relates to our approach, we intend to use clear language, be neutral to kind in our engagement, and [encourage contribution]((https://github.com/dotnet/runtime/issues?q=is%3Aopen+is%3Aissue+label%3Aeasy)). Please give us your feedback on our [repo contribution experience survey](https://www.surveymonkey.com/r/ZLPVNX9?SourceRepo=dotnet-blog).
+
+We have been asked multiple times to clarify and liberalize .NET Core licenses. We've done that, each time moving source and binary assets to the [MIT license](https://github.com/dotnet/core/blob/master/LICENSE.TXT). More recently, we've [clarified the license we use for .NET Windows builds](https://github.com/dotnet/installer/issues/7043). For most users, these changes won't matter much, but for others, they do, and we've done our best to satisfy their needs.
 
 ## New improvements in Preview 4
 
