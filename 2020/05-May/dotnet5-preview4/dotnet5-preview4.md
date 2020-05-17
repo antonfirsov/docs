@@ -94,7 +94,7 @@ We're making our first big investments in ARM64 performance in 5.0, but will con
 
 Please share any performance information with us related to ARM64, either a notable improvement from 3.1 to 5.0, or performance with 5.0 that should be better.
 
-## P95+ Latency
+### P95+ Latency
 
 We see an increasing number of large internet-facing sites and services being hosted on .NET. While there is a lot of legitimate focus on the [requests per second (RPS) metric](https://twitter.com/ben_a_adams/status/1260792649625280513), we find that very few big site owners ask us about that or require 7M RPS. We hear a lot about latency, however, specifically about improving [P95 or P99 latency](https://docs.microsoft.com/en-us/azure/internet-analyzer/internet-analyzer-scorecard). Often, the number of machines or cores that are provisioned for a site are chosen based on achieving a specific P95 metric, as opposed to say P50. We think of latency as being the true "money metric".
 
@@ -106,7 +106,7 @@ Pinned object have been a long-term challenge for GC performance, specifically b
 
 More recently, we've been attacking long-standing "hard problems" in the GC. [dotnet/runtime #2795](https://github.com/dotnet/runtime/pull/32795) applies a new approach to GC statics scanning that avoids lock contention when it is determining liveness of GC heap objects. [dotnet/runtime #25986](https://github.com/dotnet/coreclr/pull/) uses a new alogrithm for balancing GC work across cores during the mark phase of garbage collection, which should increase the throughput of garbage collection with large heaps, which in turn reduces latency.
 
-## Single file applications
+### Single file applications
 
 There are key scenarios where people want to use .NET where single-file distribution is a requirement, or at least preferred. We've been building up the key pieces that we need to enable this scenario over multiple releases, and will be including a [new single file publish type in .NET 5.0](https://github.com/dotnet/runtime/issues/36590). It's a feature we expect to continue to refine over multiple releases.
 
@@ -126,7 +126,29 @@ The experience between Windows and Linux is similar, but not the same. The diffe
 
 As you can see, on Windows, single-file self-contained applications require four additional files beyond the app. We were not able to include these runtime files into the single file app. We do not currently have a technical plan for hiding these extra files on Windows, even though we understand that it would be prefered. Note: `mscordaccore.dll` and `.pdb` files are required only for debugging scenarios, and not for execution of the app. 
 
+### Improving migration from NewtonSoft.Json to System.Text.Json
+
+We added [System.Text.Json](https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-apis/) as part of the .NET Core 3.0 release. It provides significant performance improvements over [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json), which has been the go-to Json library for .NET for many years. In some cases, it is hard to migrate to System.Text.Json, even with the [migration guide](https://docs.microsoft.com/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to) we've provided. We've been working on targeted features that enable easier migration, without giving up on the performance value proposition of System.Text.Json.
+
+We've added the following migration features with .NET 5.0:
+
+* [Add support for preserve references on JSON](https://github.com/dotnet/runtime/pull/655) - [Enables `ReferenceLoopHandling`](https://github.com/dotnet/runtime/issues/29900).
+* [Add `JsonConstructor` and support for deserializing with parameterized ctors](https://github.com/dotnet/runtime/pull/33444) -- Adds support for immutable classes and structs to JsonSerializer.
+* [Add JsonIgnoreCondition & per-property ignore logic](https://github.com/dotnet/runtime/pull/34049) - Adds support for null value handling.
+* [Add JsonIncludeAttribute & support for non-public accessors](https://github.com/dotnet/runtime/pull/34675) -- Enables non-public getter usage, which is similar to the capability of the Newtonsoft.Json `JsonProperty` attribute.
+
+At the same time, we're also improving the usability of System.Text.Json:
+
+* [Add new System.Net.Http.Json project/namespace](https://github.com/dotnet/runtime/pull/33459) - Adds [new extension methods for HttpClient that allow serialization from/to JSON](https://github.com/dotnet/runtime/issues/32937).
+* [Add copy constructor to JsonSerializerOptions](https://github.com/dotnet/runtime/pull/34725) - Enables a library of framework to manage a `JsonSerializerOptions` instance, with specific values it sets, while the type versions over time.
+
 ## New improvements in Preview 4
+
+Open telemetry (Tarek) – is there a consumable chunk in P4?
+https://github.com/dotnet/runtime/pull/35220 - Improvements to the System.Diagnostics.Activity APIs (Design doc: https://github.com/dotnet/designs/pull/98)
+
+Another semi-important (breaking) feature to let folks know about is ICU on windows.
+https://github.com/dotnet/runtime/pull/34645 - Use libICU on Windows when available.
 
 
 ## BCL
