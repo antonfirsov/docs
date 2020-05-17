@@ -219,6 +219,85 @@ Another semi-important (breaking) feature to let folks know about is ICU on wind
 https://github.com/dotnet/runtime/pull/34645 - Use libICU on Windows when available.
 
 
+### C# 9
+
+.NET 5.0 Preview 4 includes the first preview of C# 9. The C# 9 preview includes numerous features including the first preview of Records, the first preview of top-level programs, improved pattern matching, and more. Here's a sneak peek of some of the pattern matching improvements:
+
+```csharp
+using System;
+
+public enum LifeStage
+{
+    Prenatal,
+    Infant,
+    Toddler,
+    EarlyChild,
+    MiddleChild,
+    Adolescent,
+    EarlyAdult,
+    MiddleAdult,
+    LateAdult
+}
+
+public class C
+{
+    // "is not" patterns
+    public static bool IsNotNull<T>(T item) => item is not null;
+    
+    // Relational patterns
+    public static LifeStage LifeStageAtAge(int age) =>
+        age switch
+        {
+            < 0 =>  LifeStage.Prenatal,
+            < 2 =>  LifeStage.Infant,
+            < 4 =>  LifeStage.Toddler,
+            < 6 =>  LifeStage.EarlyChild,
+            < 12 => LifeStage.MiddleChild,
+            < 20 => LifeStage.Adolescent,
+            < 40 => LifeStage.EarlyAdult,
+            < 65 => LifeStage.MiddleAdult,
+            _ =>    LifeStage.LateAdult,
+        };
+}
+```
+
+```html
+<script src="https://gist.github.com/cartermp/c87120452d124c8cadceb62935bff003.js"></script>
+```
+
+Stay tuned for our blog post tomorrow that dives into all the details.
+
+### F# 5
+
+Building on the [F# 5 preview released earlier this year](https://devblogs.microsoft.com/dotnet/announcing-f-5-preview-1/), the update to F# 5 includes support for consuming Default Interface Methods (DIMs) and some big performance improvements. Here's a sneak peek at the DIMs support in F#:
+
+```fsharp
+open CSharp
+
+// You can implement the interface via a class
+type MyType() =
+    member _.M() = ()
+
+    interface MyDim
+
+let md = MyType() :> MyDim
+printfn "DIM from C#: %d" md.Z
+
+// You can also implement it via an object expression
+let md' = { new MyDim }
+printfn "DIM from C# but via Object Expression: %d" md'.Z
+```
+
+```html
+<script src="https://gist.github.com/cartermp/6a9eddd1fcb4f117baa93710fc9e7400.js"></script>
+```
+
+Stay tuned for a blog post tomorrow that goes over the details.
+
+### C# Source Generators update
+
+This release also includes an update to the [C#  Source Generators preview](https://devblogs.microsoft.com/dotnet/introducing-c-source-generators/). In addition to some bug fixes, it includes support for passing an analyzerconfig, which is essentially a list of key-value pairs, to a Source Generator. This lets your source generators work differently based on the input they recieve. For example, you may want to generate source code differently if a consuming project targets .NET Framework vs. .NET 5. Using an analyzerconfig allows you to pass information like a consuming project's TFM to allow for exactly this scenario.
+
 ## BCL
 
 Placeholder
