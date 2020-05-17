@@ -59,6 +59,58 @@ Let's take a look at some of the release highlights that we expect to deliver wi
 
 I'll share some more detailed information about some of these improvements, and where we see them headed.
 
+### Target Framework
+
+We are changing the approach we use for [target frameworks with .NET 5.0](https://github.com/dotnet/designs/blob/master/accepted/2020/net5/net5.md). The following two project file examples demonstrate using .NET Core 3.0 and .NET 5.0 target frameworks, by specifying the respective Target Framework Moniker (TFM). You can see a new, more compact, TFM for .NET 5.0:
+
+.NET Core 3.0:
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+</Project>
+```
+
+.NET 5.0:
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+</Project>
+```
+
+We are making several important changes to .NET TFMs for .NET 5.0, to simplify using them, reduce concepts, and to make it easier to support more operating systems. Here is a quick summary:
+
+* `net5.0` is the new Target Framework Moniker (TFM) for .NET 5.0. 
+* `net5.0` can consume `netcoreapp*` and `netstandard*` dependencies.
+* `net5.0` should be thought of as replacing .NET Standard.
+* `net5.0-windows` will be used to expose Windows-specific functionality, like Windows Forms and WPF.
+* .NET 6.0 will use the same approach, with `net6.0` and will add `net6.0-ios` and `net6.0-android`.
+* The OS-specific TFMs can include [OS version numbers](https://github.com/dotnet/designs/blob/master/accepted/2020/minimum-os-version/minimum-os-version.md), like `net6.0-ios14`.
+* Portable APIs, like ASP.NET Core and Xamarin.Forms, will be usable with `net5.0`.
+
+These changes are a result of thinking of [.NET Core as the future of .NET](https://devblogs.microsoft.com/dotnet/net-core-is-the-future-of-net/). We've been removing the "Core" name from various aspects of the product, including [APIs](https://github.com/dotnet/runtime/issues/33680) and [container repos](https://github.com/dotnet/dotnet-docker/issues/1765). We also saw an opportunity to further simplify .NET, by removing .NET Standard as a concept, for .NET 5.0+. [.NET Standard](https://github.com/dotnet/standard) has played a key role in establishing .NET Core, by creating a bridge with .NET Framework and Xamarin. The .NET Standard 2.0 version will remain relevant for many years, and we recommend you use it if you need to support both .NET Core and .NET Framework. For libraries that don't need to run on .NET Framework, we recommend targeting the `net5.0` TFM, which will enable your code to run on multiple operating systems.
+
+You likely have more questions you want answered. We'll be publishing a larger blog post on this topic before we release .NET 5.0. The following points answer some of the most obvious remaining questions:
+
+* `netcoreapp5.0` was used in earlier previews and is now deprecated, however will still work.
+* All project types will use the `Microsoft.NET.Sdk` going forward, as you can see in the project file examples above. The `Microsoft.NET.Sdk.WindowsDesktop` and `Microsoft.NET.Sdk.Web` SDKs will no longer appear in templates. Instead, Windows Forms and WPF templates will use the `net5.0-windows` TFM, and ASP.NET Core templates will use the `net5.0` TFM and a new `UserAspNetCore` property (or something similar).
+* Existing .NET Standard versions will work forever, and their continued use is supported.
+* We don't expect to create any new `netstandard` versions. [.NET Standard 2.1](https://devblogs.microsoft.com/dotnet/announcing-net-standard-2-1/) will likely be the last version.
+* There are no plans for a `net5.0-linux` since we don't (yet) expose any Linux-specific APIs. Also, "Linux" is not a single uniform thing, so it is unclear which APIs would be exposed in such a TFM. We could expose the [POSIX standard](https://en.wikipedia.org/wiki/POSIX), but then we'd call it `net5.0-posix`, and it would work on more operating systems than Linux. However, we don't have plans for that either.
+* We [do not plan to expose a TFM for web assembly](https://github.com/dotnet/runtime/issues/33328), for similar reasons as not having one for Linux.
+* You cannot simply update the `TargetFrameworkVersion` in a .NET Framework project to 5.0 and expect it to become a .NET 5.0 project. It will not work. Instead, you need to [port your application to .NET Core](https://docs.microsoft.com/en-us/dotnet/core/porting/). For libraries, you can port to .NET Standard or .NET Core. We are [no longer adding .NET Framework APIs to .NET Core](https://github.com/dotnet/announcements/issues/130), so there is no need to wait to port your application to .NET Core until .NET 5.0 releases.
+
 ### Windows ARM64
 
 .NET apps can now run natively on Windows ARM64. This follows the support we added for Linux ARM64 in .NET Core 3.0. With .NET 5.0, you can develop web and UI apps on Windows ARM64 devices, and deliver your applications to users who own [Surface Pro X](https://www.microsoft.com/en-us/p/surface-pro-x/8VDNRP2M6HHC) and similar devices. You can already run .NET Core and .NET Framework apps on Windows ARM64, but via x86 emulation. It's workable, but native ARM64 execution has much better performance.
@@ -81,9 +133,9 @@ We've been investing sigificantly in improving ARM64 performance, for over a yea
 
 There are several categories of improvements we're making: 
 
-* Tune JIT optimizations for ARM64
-* Enable and take advantage of ARM64 hardware intrinsics.
-* Adjust performance-critical algorithms in libraries for ARM64.
+* Tune JIT optimizations for ARM64.
+* Enable and take advantage of ARM64 hardware intrinsics ([example](https://github.com/dotnet/runtime/pull/34486)).
+* Adjust performance-critical algorithms in libraries for ARM64 ([example](https://github.com/dotnet/runtime/issues/34198)).
 
 See [Improving ARM64 Performance in .NET 5.0](https://github.com/dotnet/runtime/issues/35853) to track our progress. 
 
