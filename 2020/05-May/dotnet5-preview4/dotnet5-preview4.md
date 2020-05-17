@@ -46,7 +46,7 @@ Let's take a look at some of the release highlights that we expect to deliver wi
    * [Improve performance of tailcalls used by F#](https://github.com/dotnet/runtime/pull/341)
 * Consistent performance: We have increased our focus on predictable consistent performance, reducing performance cliffs and outliers, with an emphasis on P95+ latency. 
    * [Improve call counting mechanism](https://github.com/dotnet/runtime/pull/32250) used by tiered JIT compilation to smooth out performance during startup
-   * [Dynamic generic dictionary expansion](https://github.com/dotnet/runtime/pull/32270) that eliminate performance cliffs hit by generic code 
+   * [Dynamic expansion of internal generic dictionary](https://github.com/dotnet/runtime/pull/32270) that eliminate performance cliffs hit by generic code 
    * [Pinned object heap](https://github.com/dotnet/runtime/pull/32283) to reduce heap fragmentation caused by pinning
    * Reduce GC pause times in specific situations, like [Array.Copy](https://github.com/dotnet/coreclr/pull/27776), [Array.Sort](https://github.com/dotnet/runtime/pull/35297) or [object unboxing](https://github.com/dotnet/runtime/pull/32353#issuecomment-586642480)  
    * [Remove GC lock contention](https://github.com/dotnet/runtime/pull/32795)
