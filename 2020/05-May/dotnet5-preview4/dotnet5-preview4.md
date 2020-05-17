@@ -48,20 +48,20 @@ Let's take a look at some of the release highlights that we expect to deliver wi
    * [Improve call counting mechanism](https://github.com/dotnet/runtime/pull/32250) used by tiered JIT compilation to smooth out performance during startup
    * [Dynamic generic dictionary expansion](https://github.com/dotnet/runtime/pull/32270) that eliminate performance cliffs hit by generic code 
    * [Pinned object heap](https://github.com/dotnet/runtime/pull/32283) to reduce heap fragmentation caused by pinning
-   * Reduce GC pause times in specific situations, like [GC lock contention](https://github.com/dotnet/coreclr/pull/27776), [Array.Copy](https://github.com/dotnet/coreclr/pull/27776)   
+   * Reduce GC pause times in specific situations, like [Array.Copy](https://github.com/dotnet/coreclr/pull/27776), [Array.Sort](https://github.com/dotnet/runtime/pull/35297) or [object unboxing](https://github.com/dotnet/runtime/pull/32353#issuecomment-586642480)  
    * [Remove GC lock contention](https://github.com/dotnet/runtime/pull/32795)
 * Single file applications -- a new [single-file publish type](https://github.com/dotnet/runtime/issues/36590) that executes your app out of a single binary (for example, can be used on read-only media).
 * Windows ARM64 -- [Enable .NET to run natively on Windows ARM64](https://gist.github.com/richlander/6fd855f467036a941501e5dcaceabf0a), supporting both development scenarios and deployment of client apps on customer machines. 
 * ARM64 -- [Improve ARM64 performance](https://github.com/dotnet/runtime/issues/35853) (Linux and Windows) in the JIT and BCL libraries.
 * Containers -- [Reduce container image size](https://github.com/dotnet/dotnet-docker/issues/1814#issuecomment-625294750) and implement [new container APIs](https://github.com/dotnet/runtime/pull/34334) to enable .NET to stay up-to-date with container runtime evolution.
 * New Target Framework -- We have adopted a [new approach for .NET TFMs](https://github.com/dotnet/designs/blob/master/accepted/2020/net5/net5.md).
-* Json APIs -- Enable easier [migration from Newtonsoft.Json to System.Text.Json](https://docs.microsoft.com/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to).
+* JSON APIs -- Enable easier [migration from Newtonsoft.Json to System.Text.Json](https://docs.microsoft.com/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to).
 
 I'll share some more detailed information about some of these improvements, and where we see them headed.
 
 ### Windows ARM64
 
-.NET apps can now run natively on Windows ARM64. This follows the support we added for Linux ARM64, with .NET Core 3.0. With .NET 5.0, you can develop web and UI apps on Windows ARM64 devices, and deliver your applications to users who own [Surface Pro X](https://www.microsoft.com/en-us/p/surface-pro-x/8VDNRP2M6HHC) and similar devices. You can already run .NET Core and .NET Framework apps on Windows ARM64, but via x86 emulation. It's workable, but native ARM64 execution has much better performance.
+.NET apps can now run natively on Windows ARM64. This follows the support we added for Linux ARM64 in .NET Core 3.0. With .NET 5.0, you can develop web and UI apps on Windows ARM64 devices, and deliver your applications to users who own [Surface Pro X](https://www.microsoft.com/en-us/p/surface-pro-x/8VDNRP2M6HHC) and similar devices. You can already run .NET Core and .NET Framework apps on Windows ARM64, but via x86 emulation. It's workable, but native ARM64 execution has much better performance.
 
 You can download and use the .NET 5.0 SDK on ARM64 with today's preview 4 release. Currently, only Console and ASP.NET Core apps are supported. See [.NET 5.0 ARM64 tracking issue](https://gist.github.com/tommcdon/6a250a1caa621892a14ea42bf1f87b4a) to track our progress.
 
@@ -79,18 +79,19 @@ The following image demonstrate the [Conway's Game of life](https://github.com/d
 
 We've been investing sigificantly in improving ARM64 performance, for over a year. We're committed to making ARM64 a high-performance platform with .NET.Platform portability and consistency have always been compelling characteristics of .NET. This includes offering great performance. Up until the 5.0 release, ARM64 has had functionality parity with x64 but was missing some key performance features and investments. 
 
-There are two big categories of improvements we're making: 
+There are several categories of improvements we're making: 
 
-* Enable and take advantage of ARM64 hardware intrinics.
-* Update performance-critical algorithms that are [Intel ISA](https://en.wikipedia.org/wiki/X86_instruction_listings) centric.
+* Tune JIT optimizations for ARM64
+* Enable and take advantage of ARM64 hardware intrinsics.
+* Adjust performance-critical algorithms in libraries for ARM64.
 
 See [Improving ARM64 Performance in .NET 5.0](https://github.com/dotnet/runtime/issues/35853) to track our progress. 
 
-[Hardware instrinsics](https://devblogs.microsoft.com/dotnet/hardware-intrinsics-in-net-core/) are a [low-level performance feature](https://github.com/dotnet/designs/blob/master/accepted/2018/platform-intrinsics.md) we added in .NET Core 3.0. At the time, we added support for x64 instructions and chips. As part of .NET 5.0, we are extending the feature to support ARM64. Just creating the intrisics doesn't help performance. You need to use them in performance-critical code. We've [taken advantage of ARM64 intrinsics extensively in .NET libraries](https://github.com/dotnet/runtime/issues/33308) in .NET 5.0. You can also do this in your own code, although you need to be be familiar with CPU instructions to do so.
+[Hardware intrinsics](https://devblogs.microsoft.com/dotnet/hardware-intrinsics-in-net-core/) are a [low-level performance feature](https://github.com/dotnet/designs/blob/master/accepted/2018/platform-intrinsics.md) we added in .NET Core 3.0. At the time, we added support for x64 instructions and chips. As part of .NET 5.0, we are extending the feature to support ARM64. Just creating the intrinsics doesn't help performance. You need to use them in performance-critical code. We've [taken advantage of ARM64 intrinsics extensively in .NET libraries](https://github.com/dotnet/runtime/issues/33308) in .NET 5.0. You can also do this in your own code, although you need to be be familiar with CPU instructions to do so.
 
-I'll explain what hardware intrinsics do with an analogy. For the most part, developers rely on types and APIs built into .NET, like `string.split` or `HttpClient`. Those APIs often take advantage of native operating system APIs, via the [P/Invoke](https://docs.microsoft.com/dotnet/standard/native-interop/pinvoke) feature. P/Invoke enables high-performance native interop, and is used extensively in the BCL for that purpose.  You can use this same feature yourself, to call native APIs. Hardware instrinsics are similar, except instead of calling operative system APIs, they enable you to directly use CPU instructions in your code. It's roughly equivalent to a runtime version of [inline assembly](https://docs.microsoft.com/cpp/assembler/inline/inline-assembler-overview). Hardware instrics are best thought of as a CPU hardware-acceleration feature. They provide very tangible benefits, are now the performance substrate of the .NET libraries, and responsible for many of the benefits you read about in our [performance blog posts](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-core-3-0/). 
+I'll explain what hardware intrinsics do with an analogy. For the most part, developers rely on types and APIs built into .NET, like `string.split` or `HttpClient`. Those APIs often take advantage of native operating system APIs, via the [P/Invoke](https://docs.microsoft.com/dotnet/standard/native-interop/pinvoke) feature. P/Invoke enables high-performance native interop, and is used extensively in the BCL for that purpose.  You can use this same feature yourself to call native APIs. Hardware intrinsics are similar, except instead of calling operating system APIs, they enable you to directly use CPU instructions in your code. It's roughly equivalent to a runtime version of [inline assembly](https://docs.microsoft.com/cpp/assembler/inline/inline-assembler-overview). Hardware intrinsics are best thought of as a CPU hardware-acceleration feature. They provide very tangible benefits, are now the performance substrate of the .NET libraries, and responsible for many of the benefits you read about in our [performance blog posts](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-core-3-0/). 
 
-We're making our first big investments in ARM64 performance in 5.0, but will continue this effort in subsequent releases. We work directly with engineers from [ARM holdings](https://en.wikipedia.org/wiki/Arm_Holdings) to prioritize product improvements and to select design algorithms that best take advantage of the [ARMv8 ISA](https://en.wikipedia.org/wiki/ARM_architecture#ARMv8-A). Some of these improvements will accrue value to ARM32, however, we are not applying the same effort to ARM32.
+We're making our first big investments in ARM64 performance in 5.0, but will continue this effort in subsequent releases. We work directly with engineers from [ARM Holdings](https://en.wikipedia.org/wiki/Arm_Holdings) to prioritize product improvements and to select design algorithms that best take advantage of the [ARMv8 ISA](https://en.wikipedia.org/wiki/ARM_architecture#ARMv8-A). Some of these improvements will accrue value to ARM32, however, we are not applying the same effort to ARM32.
 
 Please share any performance information with us related to ARM64, either a notable improvement from 3.1 to 5.0, or performance with 5.0 that should be better.
 
@@ -104,7 +105,7 @@ While you can see that we've been making good progress on latency, we're far fro
 
 Pinned object have been a long-term challenge for GC performance, specifically because they accelerate (or cause) memory fragmentation. We've added a [new GC heap for pinned objects](https://github.com/dotnet/runtime/pull/32283). The [pinned object heap](https://github.com/dotnet/runtime/blob/master/docs/design/features/PinnedHeap.md) is based on the assumption that there are very few pinned objects in a process but that their presence causes disproportionate performance challenges. It makes sense to move pinned objects -- particularly those created by .NET libraries as an implementation detail -- to a unique area, leaving the generational GC heaps with few or no pinned objects, and with higher performance as a result.
 
-More recently, we've been attacking long-standing "hard problems" in the GC. [dotnet/runtime #2795](https://github.com/dotnet/runtime/pull/32795) applies a new approach to GC statics scanning that avoids lock contention when it is determining liveness of GC heap objects. [dotnet/runtime #25986](https://github.com/dotnet/coreclr/pull/) uses a new alogrithm for balancing GC work across cores during the mark phase of garbage collection, which should increase the throughput of garbage collection with large heaps, which in turn reduces latency.
+More recently, we've been attacking long-standing "hard problems" in the GC. [dotnet/runtime #2795](https://github.com/dotnet/runtime/pull/32795) applies a new approach to GC statics scanning that avoids lock contention when it is determining liveness of GC heap objects. [dotnet/runtime #25986](https://github.com/dotnet/coreclr/pull/) uses a new algorithm for balancing GC work across cores during the mark phase of garbage collection, which should increase the throughput of garbage collection with large heaps, which in turn reduces latency.
 
 ### Single file applications
 
@@ -124,7 +125,7 @@ The experience between Windows and Linux is similar, but not the same. The diffe
 * Single-file publish Windows: `dotnet publish -r win-x64 /p:PublishSingleFile=true`
    * Published files: `HelloWorld.exe`, `HelloWorld.pdb`, `coreclr.dll`, `clrjit.dll`, `clrcompression.dll`,  `mscordaccore.dll`
 
-As you can see, on Windows, single-file self-contained applications require four additional files beyond the app. We were not able to include these runtime files into the single file app. We do not currently have a technical plan for hiding these extra files on Windows, even though we understand that it would be prefered. Note: `mscordaccore.dll` and `.pdb` files are required only for debugging scenarios, and not for execution of the app. 
+As you can see, on Windows, single-file self-contained applications require four additional files beyond the app. We were not able to include these runtime files into the single file app. We do not currently have a technical plan for hiding these extra files on Windows, even though we understand that it would be preferred. Note: `mscordaccore.dll` and `.pdb` files are required only for debugging scenarios, and not for execution of the app. 
 
 ### Improving migration from NewtonSoft.Json to System.Text.Json
 
