@@ -2,10 +2,6 @@
 
 .NET 5 is the next version and future of .NET. We are continuing the journey of unifying the .NET platform, with a single framework that extends from cloud to desktop to mobile and beyond. Looking back, we took the best of .NET Framework and put that into .NET Core 3, including support for WPF and Windows Forms. As we continue the journey, we will move Xamarin and .NET web assembly to use the .NET 5 libraries, and extend the dotnet tools to target mobile and web assembly in the browser. At the same time, we'll continue to improve .NET capabilities as a leading cloud and container runtime.
 
-I encourage you to watch "The Journey to One .NET" with Scott Hanselman and I to find out more. 
-
-Note: Add link above.
-
 Last year, [we laid out our vision for one .NET and .NET 5](https://devblogs.microsoft.com/dotnet/introducing-net-5/), we said we would take .NET Core and Mono/Xamarin implementations and unify them into one base class library (BCL) and toolchain (SDK). In the wake of the global health pandemic, we've had to adapt to the changing needs of our customers and provide the support needed to assist with their smooth operations. Our efforts continue to be anchored in helping our customers address their most urgent needs. As a result, we expect these features to be available in preview by November 2020, but the that unification will be truly completed with .NET 6, our Long-Term Support (LTS) release. Our vision hasn't changed, but our timeline has. 
 
 We remain committed to one .NET platform and will deliver a quality .NET 5 release in November this year. You'll continue to see a wave of innovation happening with multiple previews on the journey to one .NET.  
