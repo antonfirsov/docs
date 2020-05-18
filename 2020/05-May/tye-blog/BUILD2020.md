@@ -4,7 +4,7 @@
 [Project Tye](https://github.com/dotnet/tye) is an experimental developer tool that makes developing, testing, and deploying microservices and distributed applications easier. The project has two main goals:
 
 1. Making development of microservices easier by:
-    - Run many services with one command
+    - Running multiple services with a single command
     - Use dependencies in containers
     - Discover addresses of other services using simple conventions
 1. Automating deployment of .NET applications to Kubernetes by:
