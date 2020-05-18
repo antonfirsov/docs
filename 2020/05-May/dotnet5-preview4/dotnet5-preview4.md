@@ -174,6 +174,25 @@ We are always looking for opportunities to improve the images we publish. This i
 
 Last, we are working to make it easier to work with container orchestrators and similar environments. We are adding support for [OpenTelemetry out of the box](https://github.com/dotnet/runtime/issues/31372) so that you can [capture distributed traces and metrics from your application](https://opentelemetry.io/). We are also working on a new set of experimental tools in the [dotnet/tye](https://github.com/dotnet/tye) repo that are intended to improve microservices developer productivity, both for development and deploying to a Kubernetes environment.
 
+### Improving tiered compilation performance
+
+We've been working on improving [tiered compilation](https://devblogs.microsoft.com/dotnet/tiered-compilation-preview-in-net-core-2-1/) for multiple releases. We continue to see it as a critical performance feature, for both startup and steady-state performance. We've made two big imporvements to tiered compilation this release.
+
+The primary mechanism underlying tiered compilation is call counting. Once a method is called n times, the runtime asks the JIT to recompile the method at higher quality. From our earliest performance analyses, we knew that the call-counting mechanism was too slow (from a long-term standpoint), but didn't see a straightforward way to resolve that. As part of .NET 5.0, we've [improved the call counting mechanism](https://github.com/dotnet/runtime/pull/32250) used by tiered JIT compilation to smooth out performance during startup. In past releases, we've seen reports of unpredictable performance during the first 10-15s of process lifetime (mostly for web servers). That should now be resolved. Please test it and tell us what you see.
+
+Another performance challenge we found was using tiered compilation for methods with loops. The fundamental problem is that you can have a cold method (only called once or a few times; $lt; n) with a loop that iterates a million times. A great example of this pathalogical case is the `Program.Main` method of an application. As a result, we disabled tiered compilation for methods with loops by default. Instead, we enabled applications to opt into using tiered compilation with loops. PowerShell is an application that chose to do this, after seeing high single-digit performance improvements in some scenarios.
+
+To address methods with loops better, we implemented [on-stack replacement (OSR)](https://github.com/dotnet/runtime/pull/32969). This is similar to a feature that the Java Virtual Machines has, of the same name. [OSR](https://github.com/dotnet/runtime/blob/master/docs/design/features/OnStackReplacement.md) enables code executed by a currently running method to be re-compiled in the middle of method execution, while those methods are active "on-stack". This feature is currently experimental and opt-in (on x64).
+
+To use OSR, multiple features must be enabled. The [PowerShell profile file](https://github.com/PowerShell/PowerShell/blob/70d9ed4d551e12eebf2985b5590c7cd6e106aaeb/src/powershell-win-core/powershell-win-core.csproj#L10) is a good starting point. You will notice that tiered compilation and all quick-jit features are enabled. In addition, you need to set `COMPlus_JitPatchpoint=1` (its an environment variable).
+
+Alternatively, you can set the following two environment variables, assuming all other settings have their default values:
+
+* `COMPlus_TC_QuickJitForLoops=1`
+* `COMPlus_JitPatchpoint=1`
+
+We do not intend to enable OSR by default in .NET 5.0 and have not yet decided if we will support it in production. Please give us any and all feedback you have on the feature. We are actively testing it now and will share more insights on it later.
+
 ### Single file applications
 
 There are key scenarios where people want to use .NET where single-file distribution is a requirement, or at least preferred. We've been building up the key pieces that we need to enable this scenario over multiple releases, and will be including a [new single file publish type in .NET 5.0](https://github.com/dotnet/runtime/issues/36590). It's a feature we expect to continue to refine over multiple releases.
@@ -212,7 +231,7 @@ At the same time, we're also improving the usability of System.Text.Json:
 
 ## WinRT Interop
 
-We are moving to a [new model for supporting WinRT APIs as part of .NET 5.0](https://github.com/dotnet/runtime/issues/35318). This includes calling APIs (in either direction; CLR <==> WinRT), marshaling of data between the two type systems, and unification of types that are intended to be treated the same across the boundary (i.e. "projected types"; [`IEnumberable<T>'](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) and [`IIterable<T>`](https://docs.microsoft.com/uwp/api/windows.foundation.collections.iiterable-1) are examples).
+We are moving to a [new model for supporting WinRT APIs as part of .NET 5.0](https://github.com/dotnet/runtime/issues/35318). This includes calling APIs (in either direction; CLR <==> WinRT), marshaling of data between the two type systems, and unification of types that are intended to be treated the same across the boundary (i.e. "projected types"; [`IEnumerable<T>'](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) and [`IIterable<T>`](https://docs.microsoft.com/uwp/api/windows.foundation.collections.iiterable-1) are examples).
 
 We will rely on a [new set of WinRT tools](https://github.com/microsoft/CsWinRT) provided by the WinRT team in Windows that will generate C#-based WinRT interop assemblies. We are currently working closely with that team. The tools will be delivered for .NET 5.0.
 
@@ -288,6 +307,8 @@ public class C
 ```html
 <script src="https://gist.github.com/cartermp/c87120452d124c8cadceb62935bff003.js"></script>
 ```
+
+You can play with this same code at [Sharplab.io](https://sharplab.io/#v2:EYLgZgpghgLgrgJwgZwLQAdYwggdsgZgB8ABAJgEYBYAKFpIIAIJc4BbRgGQEtIBlGFADmEWgG9ajKYwAKSXLCgAbADSTpASVxgouGGprTGAFQD2AE3NKcBowFEoCJQE8AwgAtuS87ekBZbktrDy8fdSkAQXNTa2QAYxZ9cMYHJ2couCUkw39AqwgMrN8pTlgC80yYWgBfWnomckZXcWSAelbGACJuZEZcUxhOxkwYbDxkZIZGEgoANkZgUxjGDWQAOQG1zKUAHmMAPgAKY0ZubDYASkYAXn3T89Pe/pg+7YBuZLaOgCUIJVhuKYFEphlgcPhJg05lxeBABMIIDD+IIRBEYBERIduHpGAirrdkkYEYxkAB3M5xdyE6QSHJGemMHaMAAMNzuSLhKIgADo5CxFKpqQymWQ2SVYfCRNytDo9MUGdImQAWMUcyU8sxBGxC+lM+a3cXIhHc1IuELeeUKxmMCiig08I1SgJa81hOlW61kVn2iVc7lRGIoBJynVGZXeu4OznG03pCpFUOKxizACsYqj6u5zvyhWyHukAH1VYbo1LSthc5bpNUPjRajQgA==).
 
 Stay tuned for our blog post tomorrow that dives into all the details.
 
