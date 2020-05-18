@@ -43,7 +43,7 @@ Scancam is a loss prevention company that uses ML.NET for object detection to pr
 ![Scancam Xamarin App](scancam-client-app.jpg)
  
 > "ML.NET allowed us to increase productivity by allowing us to code our ML components in the same language and tooling we use for everything else. ML.NET provided the easiest jumping point for our .NET developers to get started integrating machine learning to our applications." 
-><br/> -June Tabadero, CTO @ <b>Scancam Industries</b>
+><br/> -June Tabadero, CTO at <b>Scancam Industries</b>
 
 Read more about how Scancam uses ML.NET in the [ML.NET Customer Showcase](https://dotnet.microsoft.com/apps/machinelearning-ai/ml-dotnet/customers/scancam).
 
