@@ -36,14 +36,14 @@ Release notes:
 
 Let's take a look at some of the release highlights that we expect to deliver with .NET 5.0, in November. This will paint a clearer picture on the improvements you'll get to take advantage of in your development process and in production.
 
-* Performance -- Improve [performance throughout the product](https://github.com/dotnet/runtime/pulls?page=2&q=is%3Apr+is%3Aclosed+label%3Atenet-performance) to make applications run faster and more efficiently.
+* Performance -- Improve [performance throughout the product](https://github.com/dotnet/runtime/pulls?page=2&q=is%3Apr+is%3Aclosed+label%3Atenet-performance).
    * [Regular expressions](https://devblogs.microsoft.com/dotnet/regex-performance-improvements-in-net-5/)
    * [Improve performance of `string.ToUpperInvariant`, `string.ToLowerInvariant`, `char.ToUpperInvariant`, `char.ToLowerInvariant`, and other related patterns](https://github.com/dotnet/runtime/pull/31968)
    * [Improve HTTP 1.1 performance](https://github.com/dotnet/corefx/pull/41640)
    * [Improve HTTP/2 scaling performance](https://github.com/dotnet/runtime/pull/35694)
    * [Added on-stack-replacement to improve tiered compilation performance](https://github.com/dotnet/runtime/pull/32969)
    * [Improve stack prolog zeroing performance](https://github.com/dotnet/runtime/pull/32538)
-   * [Improve performance of tailcalls used by F#](https://github.com/dotnet/runtime/pull/341)
+   * [Improve performance of tailcalls used by F#](https://twitter.com/dsymetweets/status/1255077752149094400)
 * Consistent performance: We have increased our focus on predictable consistent performance, reducing performance cliffs and outliers, with an emphasis on P95+ latency. 
    * [Improve call counting mechanism](https://github.com/dotnet/runtime/pull/32250) used by tiered JIT compilation to smooth out performance during startup
    * [Dynamic expansion of internal generic dictionary](https://github.com/dotnet/runtime/pull/32270) that eliminate performance cliffs hit by generic code 
@@ -88,7 +88,7 @@ We are changing the approach we use for [target frameworks with .NET 5.0](https:
 </Project>
 ```
 
-We are making several important changes to .NET TFMs for .NET 5.0, to simplify using them, reduce concepts, and to make it easier to support more operating systems. Here is a quick summary:
+We are making several important changes to .NET TFMs for .NET 5.0, to simplify using them, reduce concepts, and to make it easier to expose operating-system-specific APIs. Here is a quick summary:
 
 * `net5.0` is the new Target Framework Moniker (TFM) for .NET 5.0. 
 * `net5.0` can consume `netcoreapp*` and `netstandard*` dependencies.
@@ -106,7 +106,7 @@ You likely have more questions you want answered. We'll be publishing a larger b
 * `netcoreapp5.0` was used in earlier previews and is no longer supported, however still works.
 * Existing .NET Standard versions will work forever, and their continued use is supported.
 * We don't expect to create any new `netstandard` versions. [.NET Standard 2.1](https://devblogs.microsoft.com/dotnet/announcing-net-standard-2-1/) will likely be the last version.
-* There are no plans for a `net5.0-linux` TFM since we don't (yet) expose any Linux-specific APIs. Also, "Linux" is not a single uniform thing, so it is unclear which APIs would be exposed in such a TFM. We could expose the [POSIX standard](https://en.wikipedia.org/wiki/POSIX), but then we'd call it `net5.0-posix`, and it would work on more operating systems than Linux. However, we don't have plans for that either.
+* There are no plans for a `net5.0-linux` TFM since we don't (yet) expose any Linux-specific APIs. Also, "Linux" is not a single uniform quantity, so it is unclear which APIs would be exposed in such a TFM. We could expose the [POSIX standard](https://en.wikipedia.org/wiki/POSIX), but then we'd call it `net5.0-posix`, and it would work on more operating systems than just Linux. However, we don't have plans for that either.
 * We [do not plan to expose a TFM for web assembly](https://github.com/dotnet/runtime/issues/33328), for similar reasons as described for Linux.
 * You cannot update the `TargetFrameworkVersion` in a .NET Framework project to 5.0 and expect it to become a .NET 5.0 project. It will not work. Instead, you need to [port your application to .NET Core](https://docs.microsoft.com/en-us/dotnet/core/porting/). For libraries, you can port to .NET Standard or .NET Core. We are [no longer adding .NET Framework APIs to .NET Core](https://github.com/dotnet/announcements/issues/130), so there is no need to wait to port your application to .NET Core.
 * The new TFM plan is a foundational part of the [workloads project](https://github.com/dotnet/designs/blob/master/accepted/2020/workloads/workloads.md). We will add minimal support for workloads in .NET 5.0 and then implement the complete vision in .NET 6.0.
