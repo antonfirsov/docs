@@ -6,7 +6,7 @@
 1. Making development of microservices easier by:
     - Running multiple services with a single command
     - Use dependencies in containers
-    - Discover addresses of other services using simple conventions
+    - Bootstrapping service discovery with simple conventions
 1. Automating deployment of .NET applications to Kubernetes by:
    - Automatically containerizing .NET applications
    - Generating Kubernetes manifests with minimal knowledge or configuration
