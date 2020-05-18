@@ -26,7 +26,7 @@ Read this [blog post](/2020/04-Apr/train-image-classification-model-azure-mlnet-
 
 # ML.NET Customer Showcase
 ## Asgard Systems
-Asgard Systems is a software and consulting company in Romania that uses ML.NET for grocery demand forecasting. The company trains an ML.NET forecasting model for each product at the grocery store which predicts that product’s demand, and then each model is integrated into a .NET desktop application.
+Asgard Systems is a software and consulting company in Romania that uses ML.NET to forecast the demand of groceries. The company trains a separate ML.NET forecasting model for each product at the grocery store. All models are integrated into a .NET desktop application.
 
 ML.NET has integrated well with Asgard’s existing solutions, leveraging SQL Server and Azure SQL, while also providing significant performance gains, both in training and inference, relative to Python implementations of the same models.
 
