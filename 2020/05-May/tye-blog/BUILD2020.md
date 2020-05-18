@@ -23,21 +23,6 @@ Tye can then be installed as a global tool using the following command:
 dotnet tool install -g Microsoft.Tye --version "0.2.0-alpha.20258.3"
 ```
 
-To verify that the installation was successful and to see the current running version of Tye, you can use the version command as shown below:
-
-```
-tye --version
-```
-
-To display a list of other commands available for Tye, run:
-```
-tye --help
-```
-
-If your application has external dependencies that are Docker images, then you will also need to install [Docker Desktop](https://www.docker.com/products/docker-desktop) for either Windows/MacOS/Linux depending on your machine and current operating system. This is required so that Tye can build and run those images locally. 
-
-If you wish to deploy your application to Kubernetes using Tye, then you will also need to have Kubernetes installed on your machine. You can enable Kubernetes through Docker Desktop or explore different options for a Kubernetes cluster such as [Azure Kubernetes Service](https://azure.microsoft.com/en-us/services/kubernetes-service/) (AKS) and [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/) (ACR).
-
 ### Setting up Tye for local development
 Tye makes it easy to build and run multi-service applications locally on your machine. One way that Tye accomplishes this, is by generating a manifest yaml file that contains all of your projects and external dependencies. If you have an existing solution, Tye will automatically populate this file with all of your current projects. 
 
@@ -123,6 +108,10 @@ services:
 This fragment will launch `redis` when used with `tye run` on port `6379` (the typical listening port for Redis) *and* provide a connection string to other services with the value of `localhost:6379`.
 
 To see more in-depth explanations and examples centered around service discovery and Tye's philosphy on the subject, check out this [reference doc](https://github.com/dotnet/tye/blob/master/docs/reference/service_discovery.md) in Tye's Github repository.
+
+If your application has external dependencies that are Docker images, then you will also need to install [Docker Desktop](https://www.docker.com/products/docker-desktop) for either Windows/MacOS/Linux depending on your machine and current operating system. This is required so that Tye can build and run those images locally. 
+
+If you wish to deploy your application to Kubernetes using Tye, then you will also need to have Kubernetes installed on your machine. You can enable Kubernetes through Docker Desktop or explore different options for a Kubernetes cluster such as [Azure Kubernetes Service](https://azure.microsoft.com/en-us/services/kubernetes-service/) (AKS) and [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/) (ACR).
 
 ### Deploying your applications to Kubernetes
 Tye makes the process of deploying your application to Kubernetes very simple with minimal knowlege or configuration required.
