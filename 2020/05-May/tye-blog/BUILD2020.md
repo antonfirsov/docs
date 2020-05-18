@@ -39,7 +39,7 @@ If your application has external dependencies that are Docker images, then you w
 If you wish to deploy your application to Kubernetes using Tye, then you will also need to have Kubernetes installed on your machine. You can enable Kubernetes through Docker Desktop or explore different options for a Kubernetes cluster such as [Azure Kubernetes Service](https://azure.microsoft.com/en-us/services/kubernetes-service/) (AKS) and [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/) (ACR).
 
 ### Setting up Tye for local development
-Tye makes it much easier to build and run multi-service appplications locally on your machine. One way that Tye accomplishes this, is by generating a manifest yaml file that contains all of your projects and external dependencies. If you have an existing solution, Tye will automatically populate this file with all of your current projects. 
+Tye makes it easy to build and run multi-service applications locally on your machine. One way that Tye accomplishes this, is by generating a manifest yaml file that contains all of your projects and external dependencies. If you have an existing solution, Tye will automatically populate this file with all of your current projects. 
 
 To initalize this file and use Tye for local development, you will need to run the following command in the solution directory:
 
