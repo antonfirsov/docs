@@ -228,12 +228,7 @@ We have been asked multiple times to clarify and liberalize .NET Core licenses. 
 
 ## New improvements in Preview 4
 
-Open telemetry (Tarek) – is there a consumable chunk in P4?
-https://github.com/dotnet/runtime/pull/35220 - Improvements to the System.Diagnostics.Activity APIs (Design doc: https://github.com/dotnet/designs/pull/98)
-
-Another semi-important (breaking) feature to let folks know about is ICU on windows.
-https://github.com/dotnet/runtime/pull/34645 - Use libICU on Windows when available.
-
+The following improvements are new in Preview 4 and not otherwise covered in the earlier highlights section.
 
 ### C# 9
 
@@ -314,13 +309,9 @@ Stay tuned for a blog post tomorrow that goes over the details.
 
 This release also includes an update to the [C#  Source Generators preview](https://devblogs.microsoft.com/dotnet/introducing-c-source-generators/). In addition to some bug fixes, it includes support for passing an analyzerconfig, which is essentially a list of key-value pairs, to a Source Generator. This lets your source generators work differently based on the input they recieve. For example, you may want to generate source code differently if a consuming project targets .NET Framework vs. .NET 5. Using an analyzerconfig allows you to pass information like a consuming project's TFM to allow for exactly this scenario.
 
-## BCL
+### Support for ICU on Windows
 
-Placeholder
-
-1.	Strongly typed JSON API on HttpClient (David C)
-2.	System.Text.JSON features (Layomi)
-3.	Open telemetry (Tarek) – is there a consumable chunk in P4?
+We use the [ICU](http://site.icu-project.org/) library that provides Unicode and Globalization support for applications on Linux. We are now enabling users to use this same library on Windows should they want to. When it is present, [the .NET runtime will prefer ICU](https://github.com/dotnet/runtime/pull/34645) over using Windows APIs for the same purpose.
 
 
 ## Support for cgroup v2 (for containers)
