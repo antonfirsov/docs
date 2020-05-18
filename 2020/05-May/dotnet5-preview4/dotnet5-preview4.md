@@ -1,16 +1,14 @@
 # Announcing .NET 5 Preview 4 and our journey to one .NET
 
-.NET 5 is the next version of .NET, where we continue the journey of unifying the .NET platform. We took the best of .NET Framework and put that into .NET Core 3, with the addition of Windows desktop support, including WPF and Windows Forms. As we continue the journey, our vision for one .NET is to take .NET Core and Mono/Xamarin and create a unified set of libraries and tools as well as expand on the support for cloud native and modern web development.  
+.NET 5 is the next version and future of .NET. We are continuing the journey of unifying the .NET platform, with a single framework that extends from cloud to desktop to mobile and beyond. Looking back, we took the best of .NET Framework and put that into .NET Core 3, including support for WPF and Windows Forms. As we continue the journey, we will move Xamarin and .NET web assembly to use the .NET 5 libraries, and extend the dotnet tools to target mobile and web assembly in the browser. At the same time, we'll continue to improve .NET capabilities as a leading cloud and container runtime.
 
 I encourage you to watch "The Journey to One .NET" with Scott Hanselman and I to find out more. 
 
 Note: Add link above.
 
-Last year, [we laid out our vision for one .NET and .NET 5](https://devblogs.microsoft.com/dotnet/introducing-net-5/), we said we would take .NET Core and Mono/Xamarin implementations and unify them into one base class library (BCL) and toolchain (SDK). In the wake of the global health pandemic, we've had to adapt to the changing needs of our customers and provide the support needed to assist with smooth operations. Our efforts continue to be anchored in helping our customers address their most urgent needs. As a result, we expect these features to be available in preview by November 2020, but the unification will be truly completed with .NET 6, our Long-Term Support (LTS) release. Our vision hasn't changed, but our timeline has. 
+Last year, [we laid out our vision for one .NET and .NET 5](https://devblogs.microsoft.com/dotnet/introducing-net-5/), we said we would take .NET Core and Mono/Xamarin implementations and unify them into one base class library (BCL) and toolchain (SDK). In the wake of the global health pandemic, we've had to adapt to the changing needs of our customers and provide the support needed to assist with their smooth operations. Our efforts continue to be anchored in helping our customers address their most urgent needs. As a result, we expect these features to be available in preview by November 2020, but the that unification will be truly completed with .NET 6, our Long-Term Support (LTS) release. Our vision hasn't changed, but our timeline has. 
 
-.NET 5 will have several cloud & web investments, such as smaller, faster, single file EXEs that use less memory which are appropriate for microservices and containerized applications across operating systems. We'll continue to build on the work we've done so far.
-
-We are still committed to one .NET platform and delivering a quality .NET 5 release to our millions of users in November this year. You'll continue to see a wave of innovation happening with multiple previews on the journey to one .NET.  
+We are remain committed to one .NET platform and will deliver a quality .NET 5 release in November this year. You'll continue to see a wave of innovation happening with multiple previews on the journey to one .NET.  
 
 ## Download Preview 4
 
@@ -34,7 +32,7 @@ Release notes:
 
 ## .NET 5 Highlights
 
-Let's take a look at some of the release highlights that we expect to deliver with .NET 5.0, in November. This will paint a clearer picture on the improvements you'll get to take advantage of in your development process and in production.
+Let's take a look at some of the release highlights that we expect to deliver with .NET 5, in November. Many of these changes are included, in part or in full, in Preview 4. The highlights will paint a clearer picture on the improvements you'll get to take advantage of in your development process and in production when you adopt .NET 5.
 
 * Performance -- Improve [performance throughout the product](https://github.com/dotnet/runtime/pulls?page=2&q=is%3Apr+is%3Aclosed+label%3Atenet-performance).
    * [Regular expressions](https://devblogs.microsoft.com/dotnet/regex-performance-improvements-in-net-5/)
@@ -172,7 +170,7 @@ The first is our investment in fundamentals. It's a bit odd to claim credit for 
 
 We are working on making .NET perform better in containers. We heard reports about [poor performance related to a change in .NET Core 3.1](https://github.com/dotnet/runtime/issues/622) late last year (which was later reverted). We are now investigating the performance of using .NET in high-density and other configurations to help inform what we expect will be a relatively scoped set of changes that unlock the next significant performance improvements in containers. It should be noted that [.NET Core 3.0 was a very big release for .NET and containers](https://devblogs.microsoft.com/dotnet/using-net-and-docker-together-dockercon-2019-update/), with the 3.1 issue being a small (and short-lived) blip.
 
-We are always looking for opportunities to improve the images we publish. This includes [reducing image size](https://github.com/dotnet/dotnet-docker/issues/1814#issuecomment-625294750), but also extending the set of images we publish. We have decided to [start publishing Windows Server Core images](https://github.com/dotnet/dotnet-docker/issues/1852) based on feedback we heard on GitHub and other sources. The following is an [example Dockerfile](https://github.com/mthalman/dotnet-docker/blob/e4a2c1b8696b4b8657a775d6ee8e72d69e650a2f/5.0/runtime/windowsservercore-1909/amd64/Dockerfile) that will be used when we start publishing these images.
+We are always looking for opportunities to improve the images we publish. This includes [reducing image size](https://github.com/dotnet/dotnet-docker/issues/1814#issuecomment-625294750), but also extending the set of images we publish. We have decided to [start publishing Windows Server Core images](https://github.com/dotnet/dotnet-docker/issues/1852) based on feedback we heard on GitHub and other sources. The following is an [example Dockerfile](https://github.com/mthalman/dotnet-docker/blob/e4a2c1b8696b4b8657a775d6ee8e72d69e650a2f/5.0/runtime/windowsservercore-1909/amd64/Dockerfile) that will be used when we start publishing these images. We've made other changes that [reduce the size of Windows Server Core images](https://devblogs.microsoft.com/dotnet/we-made-windows-server-core-container-images-40-smaller/), making them more attractive to use.
 
 Last, we are working to make it easier to work with container orchestrators and similar envionments. We are adding support for [OpenTelemetry out of the box](https://github.com/dotnet/runtime/issues/31372) so that you can [capture distributed traces and metrics from your application](https://opentelemetry.io/). We are also working on a new set of tools in the [dotnet/tye](https://github.com/dotnet/tye) that are intended to improve microservices developer productivity, both for development and deploying to Kubernetes.
 
