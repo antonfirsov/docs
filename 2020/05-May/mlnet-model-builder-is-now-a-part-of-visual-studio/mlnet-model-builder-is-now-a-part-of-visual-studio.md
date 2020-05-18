@@ -33,7 +33,7 @@ ML.NET has integrated well with Asgard’s existing solutions, leveraging SQL Se
 ![Asgard Systems Grocery Store](asgard-systems-supermarket.jpg)
  
 > "We have achieved greater than 24 million pounds of CO2 emissions in yearly savings already and by the end of 2020 /early 2021 we will have yearly savings of about 240 million pounds of CO2 emissions… We achieved impressive results without trying to influence the consumer to eat less meat or fruits or change their eating habits in any way." 
-><br/>-Mihai Mihaiescu, System Architect @ <b>Asgard Systems</b>
+><br/>-Mihai Mihaiescu, System Architect at <b>Asgard Systems</b>
 
 Read more about how Asgard Systems uses ML.NET in the [ML.NET Customer Showcase](https://dotnet.microsoft.com/apps/machinelearning-ai/ml-dotnet/customers/asgard-systems).
 
