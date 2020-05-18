@@ -26,7 +26,7 @@ This delivers:
 * One location to manage resources such as fonts and images
 * Multi-targeting to organize your platform-specific code
 
-You master one way to build client apps, the MAUI way, and all platforms are within your reach. To see this in action, watch Scott Hunter's demo from Build, [The Journey to One .NET](https://aka.ms/Build2020AppDev-OneDotNet).
+You master one way to build client apps, the MAUI way, and all platforms are within your reach. Today, Scott Hunter will demo it in action at Build, [The Journey to One .NET](https://aka.ms/ScottBuildSessions).
 
 ## Modern App Patterns
 
@@ -78,13 +78,11 @@ View body() => new StackLayout
 };
 ```
 
-This pattern is ideally suited for hot reload as you can see from the demo [in this session](https://aka.ms/Build2020AppDev-DotNet) at Microsoft Build 2020. Now adding styling, gradients, fonts, and some love we show MVU in action with instant hot reload from C#.
+This pattern is ideally suited for hot reload as you can see below with added styling, gradients, and fonts with instant hot reload from C#.
 
 ![MAUI MVU](maui-mvu.gif)
 
 Both MVVM and MVU deliver the same native applications, performance, and platform fidelity. Developers will be able to choose which style best suits their preference and use case.
-
-For more information about MVU, the Elm architecture 
 
 ## Transitioning from Xamarin.Forms to .NET MAUI
 
