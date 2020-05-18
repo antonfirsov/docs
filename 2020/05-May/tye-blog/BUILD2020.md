@@ -18,7 +18,7 @@
 
 To get started with Tye, you will first need to have .[NET Core 3.1](https://dotnet.microsoft.com/download) installed on your machine. 
 
-Tye can then be installed as a global .NET tool using the following command:
+Tye can then be installed as a global tool using the following command:
 ```
 dotnet tool install -g Microsoft.Tye --version "0.2.0-alpha.20258.3"
 ```
