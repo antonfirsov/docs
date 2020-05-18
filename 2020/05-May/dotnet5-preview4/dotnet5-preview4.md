@@ -8,13 +8,14 @@ Note: Add link above.
 
 Last year, [we laid out our vision for one .NET and .NET 5](https://devblogs.microsoft.com/dotnet/introducing-net-5/), we said we would take .NET Core and Mono/Xamarin implementations and unify them into one base class library (BCL) and toolchain (SDK). In the wake of the global health pandemic, we've had to adapt to the changing needs of our customers and provide the support needed to assist with their smooth operations. Our efforts continue to be anchored in helping our customers address their most urgent needs. As a result, we expect these features to be available in preview by November 2020, but the that unification will be truly completed with .NET 6, our Long-Term Support (LTS) release. Our vision hasn't changed, but our timeline has. 
 
-We are remain committed to one .NET platform and will deliver a quality .NET 5 release in November this year. You'll continue to see a wave of innovation happening with multiple previews on the journey to one .NET.  
+We remain committed to one .NET platform and will deliver a quality .NET 5 release in November this year. You'll continue to see a wave of innovation happening with multiple previews on the journey to one .NET.  
 
 ## Download Preview 4
 
 You can [download .NET 5.0 Preview 4](https://dotnet.microsoft.com/download/dotnet/5.0), for Windows, macOS, and Linux:
 
-* [MSIs, PKGs and .zip/tar.gz](https://dotnet.microsoft.com/download/dotnet/5.0)
+* [Windows and macOS installers](https://dotnet.microsoft.com/download/dotnet/5.0)
+* [.zip and tar.gz files](https://dotnet.microsoft.com/download/dotnet/5.0)
 * [Docker images](https://hub.docker.com/_/microsoft-dotnet)
 * [Snap installer](https://snapcraft.io/dotnet-sdk)
 
@@ -34,15 +35,16 @@ Release notes:
 
 Let's take a look at some of the release highlights that we expect to deliver with .NET 5, in November. Many of these changes are included, in part or in full, in Preview 4. The highlights will paint a clearer picture on the improvements you'll get to take advantage of in your development process and in production when you adopt .NET 5.
 
+* Includes C# 9 and F# 5.
 * Performance -- Improve [performance throughout the product](https://github.com/dotnet/runtime/pulls?page=2&q=is%3Apr+is%3Aclosed+label%3Atenet-performance).
    * [Regular expressions](https://devblogs.microsoft.com/dotnet/regex-performance-improvements-in-net-5/)
    * [Improve performance of `string.ToUpperInvariant`, `string.ToLowerInvariant`, `char.ToUpperInvariant`, `char.ToLowerInvariant`, and other related patterns](https://github.com/dotnet/runtime/pull/31968)
    * [Improve HTTP 1.1 performance](https://github.com/dotnet/corefx/pull/41640)
-   * [Improve HTTP/2 scaling performance](https://github.com/dotnet/runtime/pull/35694)
-   * [Added on-stack-replacement to improve tiered compilation performance](https://github.com/dotnet/runtime/pull/32969)
+   * [Improve HTTP/2 performance](https://github.com/dotnet/runtime/pull/35694)
+   * [Improve tiered compilation performance](https://github.com/dotnet/runtime/pull/32969)
    * [Improve stack prolog zeroing performance](https://github.com/dotnet/runtime/pull/32538)
    * [Improve performance of tailcalls used by F#](https://twitter.com/dsymetweets/status/1255077752149094400)
-* Consistent performance: We have increased our focus on predictable consistent performance, reducing performance cliffs and outliers, with an emphasis on P95+ latency. 
+* Consistent performance: We have increased our focus on predictably consistent performance, reducing performance cliffs and outliers, with an emphasis on P95+ latency. 
    * [Improve call counting mechanism](https://github.com/dotnet/runtime/pull/32250) used by tiered JIT compilation to smooth out performance during startup
    * [Dynamic expansion of internal generic dictionary](https://github.com/dotnet/runtime/pull/32270) that eliminate performance cliffs hit by generic code 
    * [Pinned object heap](https://github.com/dotnet/runtime/pull/32283) to reduce heap fragmentation caused by pinning
@@ -127,11 +129,11 @@ The following image demonstrate the [Conway's Game of life](https://github.com/d
 
 ### ARM64 Performance
 
-We've been investing sigificantly in improving ARM64 performance, for over a year. We're committed to making ARM64 a high-performance platform with .NET.Platform portability and consistency have always been compelling characteristics of .NET. This includes offering great performance. Up until the 5.0 release, ARM64 has had functionality parity with x64 but was missing some key performance features and investments. 
+We've been investing significantly in improving ARM64 performance, for over a year. We're committed to making ARM64 a high-performance platform with .NET. Platform portability and consistency have always been compelling characteristics of .NET. This includes offering great performance wherever you use .NET. With .NET Core 3.x, ARM64 has had functionality parity with x64 but was missing some key performance features and investments. We're making the first big investments in ARM64 performance in .NET 5.0.
 
 There are several categories of improvements we're making: 
 
-* Tune JIT optimizations for ARM64.
+* Tune JIT optimizations for ARM64 ([example](https://github.com/dotnet/runtime/pull/35675))
 * Enable and take advantage of ARM64 hardware intrinsics ([example](https://github.com/dotnet/runtime/pull/34486)).
 * Adjust performance-critical algorithms in libraries for ARM64 ([example](https://github.com/dotnet/runtime/issues/34198)).
 
@@ -139,15 +141,17 @@ See [Improving ARM64 Performance in .NET 5.0](https://github.com/dotnet/runtime/
 
 [Hardware intrinsics](https://devblogs.microsoft.com/dotnet/hardware-intrinsics-in-net-core/) are a [low-level performance feature](https://github.com/dotnet/designs/blob/master/accepted/2018/platform-intrinsics.md) we added in .NET Core 3.0. At the time, we added support for x64 instructions and chips. As part of .NET 5.0, we are extending the feature to support ARM64. Just creating the intrinsics doesn't help performance. You need to use them in performance-critical code. We've [taken advantage of ARM64 intrinsics extensively in .NET libraries](https://github.com/dotnet/runtime/issues/33308) in .NET 5.0. You can also do this in your own code, although you need to be be familiar with CPU instructions to do so.
 
-I'll explain what hardware intrinsics do with an analogy. For the most part, developers rely on types and APIs built into .NET, like `string.split` or `HttpClient`. Those APIs often take advantage of native operating system APIs, via the [P/Invoke](https://docs.microsoft.com/dotnet/standard/native-interop/pinvoke) feature. P/Invoke enables high-performance native interop, and is used extensively in the BCL for that purpose.  You can use this same feature yourself to call native APIs. Hardware intrinsics are similar, except instead of calling operating system APIs, they enable you to directly use CPU instructions in your code. It's roughly equivalent to a runtime version of [inline assembly](https://docs.microsoft.com/cpp/assembler/inline/inline-assembler-overview). Hardware intrinsics are best thought of as a CPU hardware-acceleration feature. They provide very tangible benefits, are now the performance substrate of the .NET libraries, and responsible for many of the benefits you read about in our [performance blog posts](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-core-3-0/). 
+I'll explain how hardware intrinsics work with an analogy. For the most part, developers rely on types and APIs built into .NET, like `string.split` or `HttpClient`. Those APIs often take advantage of native operating system APIs, via the [P/Invoke](https://docs.microsoft.com/dotnet/standard/native-interop/pinvoke) feature. P/Invoke enables high-performance native interop, and is used extensively in the BCL for that purpose.  You can use this same feature yourself to call native APIs. Hardware intrinsics are similar, except instead of calling operating system APIs, they enable you to directly use CPU instructions in your code. It's roughly equivalent to [inline assembly](https://docs.microsoft.com/cpp/assembler/inline/inline-assembler-overview). In fact, when .NET intrinsics are AOT-compiled into Ready-To-Run files, the intrinics have no runtime performance penalty. Hardware intrinsics are best thought of as a CPU hardware-acceleration feature. They provide very tangible benefits, are now the performance substrate of the .NET libraries, and responsible for many of the benefits you read about in our [performance blog posts](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-core-3-0/). 
 
-We're making our first big investments in ARM64 performance in 5.0, but will continue this effort in subsequent releases. We work directly with engineers from [ARM Holdings](https://en.wikipedia.org/wiki/Arm_Holdings) to prioritize product improvements and to select design algorithms that best take advantage of the [ARMv8 ISA](https://en.wikipedia.org/wiki/ARM_architecture#ARMv8-A). Some of these improvements will accrue value to ARM32, however, we are not applying the same effort to ARM32.
+Note: The Visual C++ compiler has an analogous [intrinsics feature](https://docs.microsoft.com/cpp/intrinsics/compiler-intrinsics). You can directly compare C++ to .NET hardware intrinsics. As an exercise (with x86 intrinsics), search for `_mm_i32gather_epi32` at [System.Runtime.Intrinsics.X86.Avx2](https://docs.microsoft.com/dotnet/api/system.runtime.intrinsics.x86.avx2), [x64 (amd64) intrinsics list](https://docs.microsoft.com/cpp/intrinsics/x64-amd64-intrinsics-list), and [Intel Intrinsics guide](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_i32gather_epi32). You will see a lot of similarity.
+
+We're making our first big investments in ARM64 performance in 5.0, but will continue this effort in subsequent releases. We work directly with engineers from [ARM Holdings](https://en.wikipedia.org/wiki/Arm_Holdings) to prioritize product improvements and to design algorithms that best take advantage of the [ARMv8 ISA](https://en.wikipedia.org/wiki/ARM_architecture#ARMv8-A). Some of these improvements will accrue value to ARM32, however, we are not applying unique effort to ARM32.
 
 Please share any performance information with us related to ARM64, either a notable improvement from 3.1 to 5.0, or performance with 5.0 that should be better.
 
 ### P95+ Latency
 
-We see an increasing number of large internet-facing sites and services being hosted on .NET. While there is a lot of legitimate focus on the [requests per second (RPS) metric](https://twitter.com/ben_a_adams/status/1260792649625280513), we find that very few big site owners ask us about that or require 7M RPS. We hear a lot about latency, however, specifically about improving [P95 or P99 latency](https://docs.microsoft.com/en-us/azure/internet-analyzer/internet-analyzer-scorecard). Often, the number of machines or cores that are provisioned for a site are chosen based on achieving a specific P95 metric, as opposed to say P50. We think of latency as being the true "money metric".
+We see an increasing number of large internet-facing sites and services being hosted on .NET. While there is a lot of legitimate focus on the [requests per second (RPS) metric](https://twitter.com/ben_a_adams/status/1260792649625280513), we find that very few big site owners ask us about that or require millions of RPS. We hear a lot about latency, however, specifically about improving [P95 or P99 latency](https://docs.microsoft.com/en-us/azure/internet-analyzer/internet-analyzer-scorecard). Often, the number of machines or cores that are provisioned for (and biggest cost driver of) a site are chosen based on achieving a specific P95 metric, as opposed to say P50. We think of latency as being the true "money metric".
 
 Our friends at StackOverflow do a great job of sharing data on their service. One of their engineers, Nick Craver, recently shared [improvements they saw to latency](https://twitter.com/Nick_Craver/status/1205289893674573829), as a result of moving to .NET Core:
 
@@ -158,7 +162,7 @@ Our friends at StackOverflow do a great job of sharing data on their service. On
 
 While you can see that we've been making good progress on latency, we're far from satisfied. In the (distant) past, we built features like [server GC](https://docs.microsoft.com/en-us/dotnet/standard/garbage-collection/workstation-server-gc) and [background GC](https://docs.microsoft.com/dotnet/standard/garbage-collection/background-gc) to improve latency, by taking advantage of course-grained CPU features like multiple-cores and threads, respectively. Those remain very important, however, we need to get a lot more creative to significantly improve latency moving forward, at least as it relates to the GC. We have started multiple projects along those lines.
 
-Pinned object have been a long-term challenge for GC performance, specifically because they accelerate (or cause) memory fragmentation. We've added a [new GC heap for pinned objects](https://github.com/dotnet/runtime/pull/32283). The [pinned object heap](https://github.com/dotnet/runtime/blob/master/docs/design/features/PinnedHeap.md) is based on the assumption that there are very few pinned objects in a process but that their presence causes disproportionate performance challenges. It makes sense to move pinned objects -- particularly those created by .NET libraries as an implementation detail -- to a unique area, leaving the generational GC heaps with few or no pinned objects, and with higher performance as a result.
+Pinned objects have been a long-term challenge for GC performance, specifically because they accelerate (or cause) memory fragmentation. We've added a [new GC heap for pinned objects](https://github.com/dotnet/runtime/pull/32283). The [pinned object heap](https://github.com/dotnet/runtime/blob/master/docs/design/features/PinnedHeap.md) is based on the assumption that there are very few pinned objects in a process but that their presence causes disproportionate performance challenges. It makes sense to move pinned objects -- particularly those created by .NET libraries as an implementation detail -- to a unique area, leaving the generational GC heaps with few or no pinned objects, and with substantially higher performance as a result.
 
 More recently, we've been attacking long-standing "hard problems" in the GC. [dotnet/runtime #2795](https://github.com/dotnet/runtime/pull/32795) applies a new approach to GC statics scanning that avoids lock contention when it is determining liveness of GC heap objects. [dotnet/runtime #25986](https://github.com/dotnet/coreclr/pull/) uses a new algorithm for balancing GC work across cores during the mark phase of garbage collection, which should increase the throughput of garbage collection with large heaps, which in turn reduces latency.
 
@@ -168,11 +172,11 @@ We consider containers to be the most important cloud trend, and have been inves
 
 The first is our investment in fundamentals. It's a bit odd to claim credit for these investments, since they also benefit non-containerized workloads. What might not be obvious is that more and more of the feedback we receive that influences our fundamentals investment is coming from developers who deploy containerized apps. There is a bias to containers with these investments.
 
-We are working on making .NET perform better in containers. We heard reports about [poor performance related to a change in .NET Core 3.1](https://github.com/dotnet/runtime/issues/622) late last year (which was later reverted). We are now investigating the performance of using .NET in high-density and other configurations to help inform what we expect will be a relatively scoped set of changes that unlock the next significant performance improvements in containers. It should be noted that [.NET Core 3.0 was a very big release for .NET and containers](https://devblogs.microsoft.com/dotnet/using-net-and-docker-together-dockercon-2019-update/), with the 3.1 issue being a small (and short-lived) blip.
+We are working on making .NET perform better in containers. We heard reports about [poor performance related to a change in .NET Core 3.1](https://github.com/dotnet/runtime/issues/622) late last year (which was later reverted). We are now investigating the performance of using .NET in high-density and other configurations to help inform what we expect will be a relatively scoped set of changes that unlocks the next significant performance improvements in containers. It should be noted that [.NET Core 3.0 was a very big release for .NET and containers](https://devblogs.microsoft.com/dotnet/using-net-and-docker-together-dockercon-2019-update/), with the 3.1 issue being a small (and short-lived) blip.
 
 We are always looking for opportunities to improve the images we publish. This includes [reducing image size](https://github.com/dotnet/dotnet-docker/issues/1814#issuecomment-625294750), but also extending the set of images we publish. We have decided to [start publishing Windows Server Core images](https://github.com/dotnet/dotnet-docker/issues/1852) based on feedback we heard on GitHub and other sources. The following is an [example Dockerfile](https://github.com/mthalman/dotnet-docker/blob/e4a2c1b8696b4b8657a775d6ee8e72d69e650a2f/5.0/runtime/windowsservercore-1909/amd64/Dockerfile) that will be used when we start publishing these images. We've made other changes that [reduce the size of Windows Server Core images](https://devblogs.microsoft.com/dotnet/we-made-windows-server-core-container-images-40-smaller/), making them more attractive to use.
 
-Last, we are working to make it easier to work with container orchestrators and similar envionments. We are adding support for [OpenTelemetry out of the box](https://github.com/dotnet/runtime/issues/31372) so that you can [capture distributed traces and metrics from your application](https://opentelemetry.io/). We are also working on a new set of tools in the [dotnet/tye](https://github.com/dotnet/tye) that are intended to improve microservices developer productivity, both for development and deploying to Kubernetes.
+Last, we are working to make it easier to work with container orchestrators and similar envionments. We are adding support for [OpenTelemetry out of the box](https://github.com/dotnet/runtime/issues/31372) so that you can [capture distributed traces and metrics from your application](https://opentelemetry.io/). We are also working on a new set of experimental tools in the [dotnet/tye](https://github.com/dotnet/tye) repo that are intended to improve microservices developer productivity, both for development and deploying to a Kubernetes environment.
 
 ### Single file applications
 
@@ -183,7 +187,7 @@ There are two aspects that make this feature expensive to build:
 * Accounting for different feature sets and constraints on Linux and Windows for loading executable content out of native resources.
 * Ensuring that the debugger provides a multi-file-like experience for single-file applications.
 
-For scoping purposes, we are supporting this feature on X64, for .NET 5.0, on Windows and Linux. It will work for ARM32/64 apps, however, we are not actively validating ARM single files apps this release. Both [runtime-dependent and self-contained publish types](https://docs.microsoft.com/en-us/dotnet/core/deploying/) will be supported for single-file.
+For scoping purposes, we are supporting this feature on X64, for .NET 5.0, on Windows and Linux. It will work for ARM32/64 apps, however, we are not actively validating single files apps for the ARM architecture this release. Both [runtime-dependent and self-contained publish types](https://docs.microsoft.com/en-us/dotnet/core/deploying/) will be supported for single-file.
 
 The experience between Windows and Linux is similar, but not the same. The differences are primarily relevant for self-contained single file applications, as described in the [Single-file publish design doc](https://github.com/dotnet/designs/blob/master/accepted/2020/single-file/design.md):
 
@@ -212,9 +216,9 @@ At the same time, we're also improving the usability of System.Text.Json:
 
 ### Open source project improvements
 
-We care a lot about open source, enabling the .NET community to be productive on GitHub, and making .NET projects accessible to a large set of developers. We've been working on a variety of initiatives along those lines.
+We care a lot about open source, including enabling the .NET community to be productive on GitHub, and making .NET projects accessible to a large set of developers. We've been working on a variety of initiatives along those lines.
 
-[dotnet/source-build](https://github.com/dotnet/source-build) enables building the entire .NET project/product from source with a single command. Red Hat uses this project to build the version of .NET Core that they distribute, and we work closely with them on that. [Fedora also uses source-build](https://fedoraproject.org/wiki/DotNet) to enable .NET Core in their package repositories. We want to make it straightforward for any developer, organization or companies to use source-build, and are investing significantly in the project. You can follow the [.NET 5.0 source-build effort](https://github.com/dotnet/source-build/issues/1500) directly.
+[dotnet/source-build](https://github.com/dotnet/source-build) enables building the entire .NET project/product from source with a single command. Red Hat uses this project to build the version of .NET Core that they distribute, and we work closely with them on that. [Fedora also uses source-build](https://fedoraproject.org/wiki/DotNet) to enable .NET Core in their package repositories. We want to make it straightforward for any developer, organization or company to use source-build, and are investing significantly in the project. You can follow the [.NET 5.0 source-build effort](https://github.com/dotnet/source-build/issues/1500) directly.
 
 We started out the .NET Core project with too many GitHub repos. At its high, we had over 100 repos. That was too many to make sense to anyone, including the .NET Team. As part of the .NET 5.0 project, we decided to reduce the number of repos to a small and manageable collection. We announced our [intention to consolidate .NET repos](https://github.com/dotnet/announcements/issues/119) in August, 2019, and then provided a [final update on the plan](https://github.com/dotnet/announcements/issues/127) the following October. As part of that plan, we merged many repos together and moved almost all repos within the [dotnet org](https://github.com/dotnet). We retained repo history as part of the effort, which had some [funny side-effects](https://twitter.com/migueldeicaza/status/1219748706611798022). We continue to use the old repos for servicing the 2.1 and 3.1 product versions. [MSBuild](https://github.com/microsoft/msbuild) and [NuGet client](https://github.com/NuGet/NuGet.Client) repos remain in other orgs.
 
@@ -309,14 +313,14 @@ This release also includes an update to the [C#  Source Generators preview](http
 
 ### Support for ICU on Windows
 
-We use the [ICU](http://site.icu-project.org/) library that provides Unicode and Globalization support for applications on Linux. We are now enabling users to use this same library on Windows should they want to. When it is present, [the .NET runtime will prefer ICU](https://github.com/dotnet/runtime/pull/34645) over using Windows APIs for the same purpose.
+We use the [ICU](http://site.icu-project.org/) library on Linux. It provides Unicode and Globalization support for applications. We are now enabling users to use this same library on Windows should they want to. When it is present, [the .NET runtime will prefer ICU](https://github.com/dotnet/runtime/pull/34645) over using Windows APIs for the same purpose.
 
 
-## Support for cgroup v2 (for containers)
+### Support for cgroup v2 (for containers)
 
-.NET now has [support for cgroup v2](https://github.com/dotnet/runtime/pull/34334), which we expect will become an important container-related API in 2020 and beyond. Docker currently uses cgroup v1. In comparison, cgroup v2 is simpler, more efficient, and more secure than cgroup v1. You can learn more about [cgroup and Docker resource limits](https://devblogs.microsoft.com/dotnet/using-net-and-docker-together-dockercon-2019-update/) from our 2019 Docker update. Linux distros and containers runtimes are in the [process of adding support for cgroup v2](https://medium.com/nttlabs/cgroup-v2-596d035be4d7). .NET 5.0 will work correctly in cgroup v2 environments once they become more common. Credit to [Omair Majid](https://github.com/omajid), who supports .NET at Red Hat.
+.NET now has [support for cgroup v2](https://github.com/dotnet/runtime/pull/34334), which we expect will become an important container-related API in 2020 and beyond. Docker currently uses cgroup v1 (which is already supported by .NET). In comparison, cgroup v2 is simpler, more efficient, and more secure than cgroup v1. You can learn more about [cgroup and Docker resource limits](https://devblogs.microsoft.com/dotnet/using-net-and-docker-together-dockercon-2019-update/) from our 2019 Docker update. Linux distros and containers runtimes are in the [process of adding support for cgroup v2](https://medium.com/nttlabs/cgroup-v2-596d035be4d7). .NET 5.0 will work correctly in cgroup v2 environments once they become more common. Credit to [Omair Majid](https://github.com/omajid), who supports .NET at Red Hat.
 
-## Reducing the size of container images
+### Reducing the size of container images
 
 We are always looking for opportunities to make .NET container images smaller and easier to use. We made a change in Preview 4 that dramatically reduces the size of the aggregate images you pull in multi-stage-build scenarios (which is a very common pattern). We [re-based the SDK image on top of the ASP.NET image](https://github.com/dotnet/dotnet-docker/pull/1848) instead of [buildpack-deps](https://hub.docker.com/_/buildpack-deps). 
 
@@ -346,17 +350,17 @@ This change helps multi-stage builds, where the `sdk` and the `aspnet` or `runti
 
 If you want a bit more context, keep reading. For 3.1 and prior, the SDK is based on the [buildpack-deps](https://hub.docker.com/_/buildpack-deps) image. When we started producing container images, we noticed other development platforms using buildpack-deps as the base of their tools/SDK images, so we followed the established pattern. We have specifically relied on the [`scm` layer](https://github.com/docker-library/buildpack-deps/blob/1bf287b61b2c02d8890f4806a9bfb2c7042b308d/focal/scm/Dockerfile), which includes source-control tools and is based on the [`curl` layer](https://github.com/docker-library/buildpack-deps/blob/1bf287b61b2c02d8890f4806a9bfb2c7042b308d/focal/curl/Dockerfile), which includes curl and similar network tools. That means that all those tools have been available to you in the SDK images. Unfortunately, this approach has come with a big tradeoff. Since Docker only allows for a single line of inheritance (each image can only have one parent), the `sdk` image needs to carry its own copy of ASP.NET, and Docker doesn't see the actually identical ASP.NET bytes in the `sdk` image as the same as the ones in the `aspnet` image. That situation requires a lot of wasted bytes to be stored and transferred. On the other hand, people don't want to give up using the tools provided by `buildpack-deps`. 
 
-As a compromise position, we re-based the `sdk` on `aspnet`, added [some of the tools back](https://github.com/dotnet/dotnet-docker/pull/1848#issue-404674130), and retained 90+% of the size savings.
+As a compromise position, we re-based the `sdk` on `aspnet`, added [some of the tools back](https://github.com/dotnet/dotnet-docker/pull/1848#issue-404674130), while retaining 90+% of the size savings.
 
 This explanation is descriptive of what we did for Ubuntu. The story with Debian is more complicated, and responsible for the larger size win. In short, the Debian variants of `aspnet` and `runtime` are based on the `-slim` Debian variant, while `buildpack-deps` is based on the non-slim Debian images. That means that for multi-stage builds with Debian, that you pull Debian twice! Even the distro layer hasn't been shared until now.
 
 We made similar changes for [Alpine and Nano Server](https://github.com/dotnet/dotnet-docker/pull/1832). There is no `buildpack-deps` image for either Alpine or Nano Server. However, the `sdk` images for Alpine and Nano Server were not previously built on top of the ASP.NET image. We fixed that. You will see significant size wins for Alpine and Nano Server as well with 5.0, for multi-stage builds.
 
-We've known about these problems for a long time, but they had never been the next thing to go resolve. We decided that the 5.0 release was a good time to chase these size wins. For the most part, we expect these changes to be a huge win. Please tell us if there are any rough edges that we didn't expect.
+We've known about these problems for a long time, but they had never been the next thing to go resolve. We decided that the 5.0 release was a good time to chase these size wins. Please tell us if there are any rough edges that we didn't expect.
 
 ## .NET 5.0 will switch to the `dotnet` container repo
 
-As part of the move to ".NET" as the product name, we are now publishing .NET 5.0 and later images to the [`mcr.microsoft.com/dotnet`](https://hub.docker.com/_/microsoft-dotnet) family of repos, instead of [`mcr.microsoft.com/dotnet/core`](https://hub.docker.com/_/microsoft-dotnet-core). Please update your `FROM` statements and scripts accordingly. .NET Core 3.1 and 2.1 will continue to be published to [`mcr.microsoft.com/dotnet/core`](https://hub.docker.com/_/microsoft-dotnet-core).
+As part of the move to ".NET" as the product name, we are now publishing .NET 5.0 Preview 4 and later images to the [`mcr.microsoft.com/dotnet`](https://hub.docker.com/_/microsoft-dotnet) family of repos, instead of [`mcr.microsoft.com/dotnet/core`](https://hub.docker.com/_/microsoft-dotnet-core). Please update your `FROM` statements and scripts accordingly. .NET Core 3.1 and 2.1 will continue to be published to [`mcr.microsoft.com/dotnet/core`](https://hub.docker.com/_/microsoft-dotnet-core).
 
 ## Closing
 
