@@ -16,7 +16,7 @@ Additionally, anomaly detection, clustering, forecasting, and object detection h
  
 
 # Azure training for image classification in Model Builder
-For text-based classification, value prediction, image classification, and recommendation scenarios, Model Builder uses Automated Machine Learning (AutoML) locally to find and train the best model for your scenario and data. While local training is great for smaller datasets, when you train locally, you work within the constraints of your computer resources (CPU, memory, and disk).
+For text-based classification, value prediction, image classification, and recommendation scenarios, Model Builder uses Automated Machine Learning (AutoML) locally to find and train the best model for your scenario and data. While local training is great for smaller datasets, you work within the constraints of your computer resources (CPU, memory, and disk).
 
 For image classification, you can now take advantage of Azure training to scale up your resources to meet the demands of your scenario, especially for large datasets. You can set up a new Azure Machine Learning workspace and kick off an image classification training experiment right from Model Builder in Visual Studio.
 
