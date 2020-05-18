@@ -6,6 +6,8 @@ As we consider what building device applications will look like in a unified .NE
 
 Let us introduce you to what .NET MAUI is, the MAUI single project developer experience, modern development patterns, and a look at the journey ahead.
 
+![Overview](maui-overview.png)
+
 ## What is .NET MAUI
 
 MAUI is an evolution of the increasingly popular Xamarin.Forms toolkit that turns 6 years old this month. For years [companies such as](https://dotnet.microsoft.com/apps/xamarin/customers) UPS, Ernst & Young, and Delta have been leveraging the mobile expertise of Xamarin atop .NET to power their businesses; some since the very beginning. It has also been very successful in helping small businesses maximize their development investment sharing upwards of 95% of their code, and beating their competitors to market. MAUI extends this success on mobile to embrace the desktop making it the best way to build multi-platform applications across both, especially our new devices such as the new Surface Duo.
@@ -89,15 +91,14 @@ Xamarin.Forms developers will hit the ground running with new projects in .NET M
 
 ### The .NET MAUI Timeline
 
-We will begin shipping .NET MAUI previews later this year, and target a GA release with .NET 6 in November of 2021. MAUI will ship on the same 6 week cadence that Xamarin.Forms has been on.
+We will begin shipping .NET MAUI previews later this year, and target general availability with .NET 6 in November of 2021. MAUI will ship on the same 6 week cadence that Xamarin.Forms has been on. We have published the [MAUI roadmap](https://github.com/dotnet/maui/wiki/Roadmap)  on GitHub and invite you to join us there today!
 
 ### What's Next for Xamarin and Xamarin.Forms
 
 As part of our .NET unification, Xamarin.iOS and Xamarin.Android will become part of .NET 6 as .NET for iOS and .NET for Android. Because these bindings are projections of the SDKs shipped from Apple and Google, nothing changes there, however build tooling, target framework monikers, and runtime framework monikers will be updated to match all other .NET 6 workloads. Our commitment to keeping .NET developers up-to-date with the latest mobile SDKs is foundational to .NET MAUI and remains firm. When .NET 6 ships, we expect to ship a final release of Xamarin SDKs in their current form that will be serviced for a year. All modern work will at that time shift to .NET 6.
 
-Xamarin.Forms will ship a new major version later this year, and continue to ship minor and service releases every 6 weeks through .NET 6 GA in November 2021. The final release of Xamarin.Forms will be serviced for a year after shipping, and all modern work will shift to .NET MAUI.
+Xamarin.Forms will ship a [new major version later this year](https://aka.ms/xf-roadmap), and continue to ship minor and service releases every 6 weeks through .NET 6 GA in November 2021. The final release of Xamarin.Forms will be serviced for a year after shipping, and all modern work will shift to .NET MAUI.
 
 ## Get Involved Today
 
-Join us on this journey to MAUI at our brand new repository [dotnet/maui](https://github.com/dotnet/maui). Be sure to star and watch to get notifications, then join in the discussion of proposal specs describing how we want to evolve the code base. This is the very beginning of a long journey welding Xamarin and Xamarin.Forms directly into the heart of .NET, and we are excited to do this all in the open with you.
-
+Join us on this journey to MAUI at our brand new repository [dotnet/maui](https://github.com/dotnet/maui). Be sure to star and watch to get notifications, then join in the [discussion of proposals](https://github.com/dotnet/maui/issues) describing how we want to evolve the code base. This is the very beginning of a long journey welding Xamarin and Xamarin.Forms directly into the heart of .NET, and we are excited to do this in the open with you.
