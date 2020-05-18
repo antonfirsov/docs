@@ -111,7 +111,7 @@ You likely have more questions you want answered. We'll be publishing a larger b
 
 .NET apps can now run natively on Windows ARM64. This follows the support we added for Linux ARM64 in .NET Core 3.0. With .NET 5.0, you can develop web and UI apps on Windows ARM64 devices, and deliver your applications to users who own [Surface Pro X](https://www.microsoft.com/en-us/p/surface-pro-x/8VDNRP2M6HHC) and similar devices. You can already run .NET Core and .NET Framework apps on Windows ARM64, but via x86 emulation. It's workable, but native ARM64 execution has much better performance.
 
-You can download and use the .NET 5.0 SDK on ARM64 with today's preview 4 release. Currently, only Console and ASP.NET Core apps are supported. See [.NET 5.0 ARM64 tracking issue](https://gist.github.com/tommcdon/6a250a1caa621892a14ea42bf1f87b4a) to track our progress.
+You can download and use the .NET 5.0 SDK on ARM64 with today's preview 4 release. Currently, only Console and ASP.NET Core apps are supported. See [.NET 5.0 ARM64 tracking issue](https://gist.github.com/richlander/6fd855f467036a941501e5dcaceabf0a) to track our progress.
 
 The `master` branch adds support for Windows Forms. This changes may make it into Preview 5, but Preview 6 for sure. You can download a `master` branch build from [dotnet/installer](https://github.com/dotnet/installer#installers-and-binaries).
 
@@ -209,6 +209,21 @@ At the same time, we're also improving the usability of System.Text.Json:
 
 * [Add new System.Net.Http.Json project/namespace](https://github.com/dotnet/runtime/pull/33459) - Adds [new extension methods for HttpClient that allow serialization from/to JSON](https://github.com/dotnet/runtime/issues/32937).
 * [Add copy constructor to JsonSerializerOptions](https://github.com/dotnet/runtime/pull/34725) - Enables a library of framework to manage a `JsonSerializerOptions` instance, with specific values it sets, while the type versions over time.
+
+## WinRT Interop
+
+We are moving to a [new model for supporting WinRT APIs as part of .NET 5.0](https://github.com/dotnet/runtime/issues/35318). This includes calling APIs (in either direction; CLR <==> WinRT), marshaling of data between the two type systems, and unification of types that are intended to be treated the same across the boundary (i.e. "projected types"; [`IEnumberable<T>'](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) and [`IIterable<T>`](https://docs.microsoft.com/uwp/api/windows.foundation.collections.iiterable-1) are examples).
+
+We will rely on a [new set of WinRT tools](https://github.com/microsoft/CsWinRT) provided by the WinRT team in Windows that will generate C#-based WinRT interop assemblies. We are currently working closely with that team. The tools will be delivered for .NET 5.0.
+
+There are several benefits to the new system:
+
+* Can be developed and improved separate from the .NET runtime.
+* Symmetrical with interop systems provided for other OSes, like iOS and Android.
+* Can take advantage of many other .NET features (AOT, C# features, IL linking).
+* Simplifies the .NET runtime codebase.
+
+We will be removing the existing WinRT interop system from the .NET runtime (and any other associated components) as part of .NET 5.0. This means that apps using WinRT with .NET Core 3.x will need to be rebuilt and will not run on .NET 5.0 as-is.
 
 ### Open source project improvements
 
