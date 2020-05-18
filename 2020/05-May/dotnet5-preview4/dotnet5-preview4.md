@@ -234,7 +234,7 @@ The following improvements are new in Preview 4 and not otherwise covered in the
 
 ### C# 9
 
-.NET 5.0 Preview 4 includes the first preview of C# 9. The C# 9 preview includes numerous features including the first preview of Records, the first preview of top-level programs, improved pattern matching, and more. Here's a sneak peek of some of the pattern matching improvements:
+.NET 5.0 Preview 4 includes the first preview of C# 9. The C# 9 preview includes numerous features including the first preview of Records, the first preview of top-level statements, improved pattern matching, and more. Here's a sneak peek of some of the pattern matching improvements:
 
 ```csharp
 using System;
