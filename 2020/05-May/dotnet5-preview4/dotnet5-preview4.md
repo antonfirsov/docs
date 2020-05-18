@@ -167,7 +167,15 @@ More recently, we've been attacking long-standing "hard problems" in the GC. [do
 
 ### Containers
 
-We consider containers to be the most important cloud modality, and are investing  
+We consider containers to be the most important cloud trend, and have been investing significantly in this modality. We are investing in containers in at least four different ways.
+
+The first is our investment in fundamentals. It's a bit odd to claim credit for these investments, since they also benefit non-containerized workloads. What might not be obvious is that more and more of the feedback we receive that influences our fundamentals investment is coming from developers who deploy containerized apps. There is a bias to containers with these investments.
+
+We are working on making .NET perform better in containers. We heard reports about [poor performance related to a change in .NET Core 3.1](https://github.com/dotnet/runtime/issues/622) late last year (which was later reverted). We are now investigating the performance of using .NET in high-density and other configurations to help inform what we expect will be a relatively scoped set of changes that unlock the next significant performance improvements in containers. It should be noted that [.NET Core 3.0 was a very big release for .NET and containers](https://devblogs.microsoft.com/dotnet/using-net-and-docker-together-dockercon-2019-update/), with the 3.1 issue being a small (and short-lived) blip.
+
+We are always looking for opportunities to improve the images we publish. This includes [reducing image size](https://github.com/dotnet/dotnet-docker/issues/1814#issuecomment-625294750), but also extending the set of images we publish. We have decided to [start publishing Windows Server Core images](https://github.com/dotnet/dotnet-docker/issues/1852) based on feedback we heard on GitHub and other sources. The following is an [example Dockerfile](https://github.com/mthalman/dotnet-docker/blob/e4a2c1b8696b4b8657a775d6ee8e72d69e650a2f/5.0/runtime/windowsservercore-1909/amd64/Dockerfile) that will be used when we start publishing these images.
+
+Last, we are working on [dotnet/tye](https://github.com/dotnet/tye). It's an open source experiment that is intended to improve microservices developer productivity, both for development and deploying to Kubernets.
 
 ### Single file applications
 
@@ -178,7 +186,7 @@ There are two aspects that make this feature expensive to build:
 * Accounting for different feature sets and constraints on Linux and Windows for loading executable content out of native resources.
 * Ensuring that the debugger provides a multi-file-like experience for single-file applications.
 
-For scoping purposes, we are supporting this feature on X64 only for .NET 5.0, on Windows and Linux. Both [runtime-dependent and self-contained publish types](https://docs.microsoft.com/en-us/dotnet/core/deploying/) will be supported for single-file.
+For scoping purposes, we are supporting this feature on X64, for .NET 5.0, on Windows and Linux. It will work for ARM32/64 apps, however, we are not actively validating ARM single files apps this release. Both [runtime-dependent and self-contained publish types](https://docs.microsoft.com/en-us/dotnet/core/deploying/) will be supported for single-file.
 
 The experience between Windows and Linux is similar, but not the same. The differences are primarily relevant for self-contained single file applications, as described in the [Single-file publish design doc](https://github.com/dotnet/designs/blob/master/accepted/2020/single-file/design.md):
 
