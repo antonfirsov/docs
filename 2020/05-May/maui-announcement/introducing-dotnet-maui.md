@@ -8,23 +8,24 @@ Let us introduce you to what .NET MAUI is, the MAUI single project developer exp
 
 ## What is .NET MAUI
 
-MAUI is an evolution of the increasingly popular Xamarin.Forms toolkit that turns 6 years old this month. For years enterprises such as UPS, Pepsi, Ernst & Young, and Delta have been leveraging the mobile expertise of Xamarin atop .NET to power their businesses; some since the very beginning. It has also been very successful in helping small businesses maximize their development investment sharing upwards of 95% of their code, and beating their competitors to market. MAUI extends this success on mobile to embrace the desktop making it the best way to build multi-platform applications across both, especially our new devices such as the new Surface Duo.
+MAUI is an evolution of the increasingly popular Xamarin.Forms toolkit that turns 6 years old this month. For years [companies such as](https://dotnet.microsoft.com/apps/xamarin/customers) UPS, Ernst & Young, and Delta have been leveraging the mobile expertise of Xamarin atop .NET to power their businesses; some since the very beginning. It has also been very successful in helping small businesses maximize their development investment sharing upwards of 95% of their code, and beating their competitors to market. MAUI extends this success on mobile to embrace the desktop making it the best way to build multi-platform applications across both, especially our new devices such as the new Surface Duo.
 
 MAUI simplifies the choices for .NET developers, providing a single stack that supports all modern workloads: Android, iOS, macOS, and Windows. The native features of each platform and UI control are within reach in a simple, cross-platform API for you to deliver no-compromise user experiences while sharing even more code than before.
 
 ## Single Project Developer Experience
 
-MAUI uses a single project instead of the multiple project heads that Xamarin projects traditionally had. Things like multiple devices are represented similar to target framework monikers or dependencies in your project file, which is different from the one-device-per-project model from before. Here's a prototype demo showing one iteration of this experience:
+MAUI is built with developer productivity in mind, including the project system and cross-platform tooling that developers need. MAUI simplifies the project structure into a single project to target multiple platforms. This means you can easily deploy to any target that you wish including your desktop, emulators, simulators, or physical devices with a single click. With built-in cross-platform resources you will be able to add any images, fonts, or translation files into the single project, and MAUI will automatically setup native hooks so you can just code. Finally, you will always have access the native underlying operating system APIs and it will be easier than ever with new platform specific integrations. Under platforms you can add source code files for a specific operating system and access the native APIs. With Maui everything is in one place where you need it to keep you productive.
 
-// video
+![Single Project](maui-single-project.png)
 
-As you saw in the demo, this delivers:
+This delivers:
 
 * One project targeting multiple platforms and devices
 * One location to manage resources such as fonts and images
 * Multi-targeting to organize your platform-specific code
 
-You master one way to build client apps, the MAUI way, and all platforms are within your reach.
+You master one way to build client apps, the MAUI way, and all platforms are within your reach. To see this in action, watch Scott Hunter's demo from Build, [The Journey to One .NET](https://aka.ms/Build2020AppDev-OneDotNet).
+
 
 ## Modern App Patterns
 
@@ -58,7 +59,9 @@ void ExecuteClickCommand ()
 
 ### MVU
 
-In addition, we are enabling developers to write fluent C# UI and implement the increasingly popular Model-View-Update (MVU) pattern. Both MVVM and MVU deliver the same native applications, performance, and platform fidelity. Developers will be able to choose which style best suits their preference and use case. Let's take a look at MVU in action.
+In addition, we are enabling developers to write fluent C# UI and implement the increasingly popular Model-View-Update (MVU) pattern. MVU promotes a one-way flow of data and state management, as well as a code-first development experience that rapidly updates the UI by applying only the changes necessary. 
+
+Below is a basic counter example in the MVU style.
 
 ```csharp
 readonly State<int> count = 0;
@@ -74,13 +77,11 @@ View body() => new StackLayout
 };
 ```
 
-// video and code sample
+This pattern is ideally suited for hot reload as you can see from the demo [in this session](https://aka.ms/Build2020AppDev-DotNet) at Microsoft Build 2020. Now adding styling, gradients, fonts, and some love we show MVU in action with instant hot reload from C#.
 
-### Blazor
+![MAUI MVU](maui-mvu.gif)
 
-In addition to MVU, .NET MAUI is also optimized for consumption by Blazor in order to deliver a variety of future possibilities we are experimenting on such as [Mobile Blazor Bindings](https://docs.microsoft.com/en-us/mobile-blazor-bindings/). Check out this session from the Blazor team as they demo some experiments bringing Blazor and MAUI together:
-
-// Blazor demo video
+Both MVVM and MVU deliver the same native applications, performance, and platform fidelity. Developers will be able to choose which style best suits their preference and use case. 
 
 ## Transitioning from Xamarin.Forms to .NET MAUI
 
