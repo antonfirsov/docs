@@ -104,7 +104,6 @@ These changes are a result of thinking of [.NET Core as the future of .NET](http
 You likely have more questions you want answered. We'll be publishing a larger blog post on this topic before we release .NET 5.0. The following points answer some of the most obvious remaining questions:
 
 * `netcoreapp5.0` was used in earlier previews and is no longer supported, however still works.
-* All templates / project flavors will use the `Microsoft.NET.Sdk` going forward, as you can see in the project file examples above. The `Microsoft.NET.Sdk.WindowsDesktop` and `Microsoft.NET.Sdk.Web` SDKs will no longer appear in templates. Instead, Windows Forms and WPF templates will use the `net5.0-windows` TFM, and ASP.NET Core templates will use the `net5.0` TFM and a new `UseAspNetCore` property (or something similar).
 * Existing .NET Standard versions will work forever, and their continued use is supported.
 * We don't expect to create any new `netstandard` versions. [.NET Standard 2.1](https://devblogs.microsoft.com/dotnet/announcing-net-standard-2-1/) will likely be the last version.
 * There are no plans for a `net5.0-linux` TFM since we don't (yet) expose any Linux-specific APIs. Also, "Linux" is not a single uniform thing, so it is unclear which APIs would be exposed in such a TFM. We could expose the [POSIX standard](https://en.wikipedia.org/wiki/POSIX), but then we'd call it `net5.0-posix`, and it would work on more operating systems than Linux. However, we don't have plans for that either.
@@ -167,7 +166,7 @@ More recently, we've been attacking long-standing "hard problems" in the GC. [do
 
 ### Containers
 
-We consider containers to be the most important cloud trend, and have been investing significantly in this modality. We are investing in containers in at least four different ways.
+We consider containers to be the most important cloud trend, and have been investing significantly in this modality. We are investing in containers in at least four different ways, at multiple levels of the .NET software stack.
 
 The first is our investment in fundamentals. It's a bit odd to claim credit for these investments, since they also benefit non-containerized workloads. What might not be obvious is that more and more of the feedback we receive that influences our fundamentals investment is coming from developers who deploy containerized apps. There is a bias to containers with these investments.
 
@@ -175,7 +174,7 @@ We are working on making .NET perform better in containers. We heard reports abo
 
 We are always looking for opportunities to improve the images we publish. This includes [reducing image size](https://github.com/dotnet/dotnet-docker/issues/1814#issuecomment-625294750), but also extending the set of images we publish. We have decided to [start publishing Windows Server Core images](https://github.com/dotnet/dotnet-docker/issues/1852) based on feedback we heard on GitHub and other sources. The following is an [example Dockerfile](https://github.com/mthalman/dotnet-docker/blob/e4a2c1b8696b4b8657a775d6ee8e72d69e650a2f/5.0/runtime/windowsservercore-1909/amd64/Dockerfile) that will be used when we start publishing these images.
 
-Last, we are working on [dotnet/tye](https://github.com/dotnet/tye). It's an open source experiment that is intended to improve microservices developer productivity, both for development and deploying to Kubernets.
+Last, we are working to make it easier to work with container orchestrators and similar envionments. We are adding support for [OpenTelemetry out of the box](https://github.com/dotnet/runtime/issues/31372) so that you can [capture distributed traces and metrics from your application](https://opentelemetry.io/). We are also working on a new set of tools in the [dotnet/tye](https://github.com/dotnet/tye) that are intended to improve microservices developer productivity, both for development and deploying to Kubernetes.
 
 ### Single file applications
 
