@@ -51,7 +51,7 @@ tye init
 
 The sample application below displays an example of the generated `tye.yaml` file output for a multi-services solution. This application consists of multiple projects including a frontend, backend, and an external dependency on Redis for storing data and caching the results of the backend API.
 
-![tye yaml](images\tye-yaml-redis.PNG)
+![tye-yaml-redis](https://user-images.githubusercontent.com/20052391/82242125-2fd1af00-98f2-11ea-9f12-079ff007346b.PNG)
 
 Two services were added to the `tye.yaml` file above. The `redis` service itself and a `redis-cli` service that we will use to watch the data being sent to and retrieved from redis.
 
@@ -69,15 +69,15 @@ tye run
 ```
 Continuing with the sample multi-service application from the previous section, this is a snippet of the console output that gets generated when running the command above:
 
-![tye run output](images\tye-run-output.PNG)
+![tye-run-output](https://user-images.githubusercontent.com/20052391/82242069-129ce080-98f2-11ea-93d4-ae84ebf7a476.PNG)
 
 This shows how Tye is processing, listening, and building all of the services contained in the yaml file. A key feature from this output is the dashboard that gets generated. 
 
-![tye dashboard](images\tye-dashboard.PNG)
+![tye-dashboard](https://user-images.githubusercontent.com/20052391/82242209-54c62200-98f2-11ea-954a-24f283e91491.PNG)
 
 The dashboard is the UI for Tye that displays a list of all of your services. It also allows you to view the running logs for each service - not only just for local services, but also for services running in containers. The dashboard also contains the port bindings for each service. Tye automatically assigns ports for each service to avoid common issues like port conflicts.
 
-![tye logs](images\tye-logs.PNG)
+![tye-logs](https://user-images.githubusercontent.com/20052391/82242273-6dced300-98f2-11ea-90dc-29817fe1d794.PNG)
 
 So now you may be thinking, well how does each service know about all of the other services to successfully run the application?
 
@@ -155,7 +155,7 @@ tye deploy --interactive
 
 You will be prompted to enter your container registry. This is needed to tag images, and to push them to a location accessible by kubernetes.
 
-![tye deploy output](images\tye-deploy-output.PNG)
+![tye-deploy-output](https://user-images.githubusercontent.com/20052391/82242391-9c4cae00-98f2-11ea-9f30-cd9f55e1120b.PNG)
 
 If you are using dockerhub, the registry name will your dockerhub username. If you are a standalone container registry (for instance from your cloud provider), the registry name will look like a hostname, eg: `example.azurecr.io`.
 
@@ -166,7 +166,7 @@ If you are using dockerhub, the registry name will your dockerhub username. If y
 - Generate a Kubernetes `Deployment` and `Service` for each project.
 - Apply the generated `Deployment` and `Service` to your current Kubernetes context.
 
-![tye deploy output two](images\tye-deploy-output2.PNG)
+![tye-deploy-output2](https://user-images.githubusercontent.com/20052391/82242449-b5555f00-98f2-11ea-884f-9a42e3257bea.PNG)
 
 
 You should now see three pods running after deploying.
@@ -175,15 +175,14 @@ You should now see three pods running after deploying.
 kubectl get pods
 ```
 
-![kubernetes pods](images\kubernetes-pods.PNG)
+![kubernetes-pods](https://user-images.githubusercontent.com/20052391/82242484-c3a37b00-98f2-11ea-821c-ff485fc735b5.PNG)
 
 You'll have three services in addition to the built-in kubernetes service.
 
 ```
 kubectl get service
 ```
-
-![kubernetes services](images\kubernetes-services.PNG)
+![kubernetes-services](https://user-images.githubusercontent.com/20052391/82242490-c56d3e80-98f2-11ea-909d-61edcf3f3fb6.PNG)
 
 You can visit the frontend application, you will need to port-forward to access the frontend from outside the cluster.
 
@@ -193,7 +192,7 @@ kubectl port-forward svc/frontend 5000:80
 
 Now navigate to http://localhost:5000 to view the frontend application working on Kubernetes.
 
-![kubernetes port forwarding](images\port-forwarding.PNG)
+![port-forwarding](https://user-images.githubusercontent.com/20052391/82242541-e2097680-98f2-11ea-9316-052c8a92d42c.PNG)
 
 > *Currently tye does not automatically enable TLS within the cluster, and so communication takes place over HTTP instead of HTTPS. This is typical way to deploy services in kubernetes - we may look to enable TLS as an option or by default in the future.*
 
