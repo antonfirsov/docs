@@ -165,6 +165,10 @@ Pinned object have been a long-term challenge for GC performance, specifically b
 
 More recently, we've been attacking long-standing "hard problems" in the GC. [dotnet/runtime #2795](https://github.com/dotnet/runtime/pull/32795) applies a new approach to GC statics scanning that avoids lock contention when it is determining liveness of GC heap objects. [dotnet/runtime #25986](https://github.com/dotnet/coreclr/pull/) uses a new algorithm for balancing GC work across cores during the mark phase of garbage collection, which should increase the throughput of garbage collection with large heaps, which in turn reduces latency.
 
+### Containers
+
+We consider containers to be the most important cloud modality, and are investing  
+
 ### Single file applications
 
 There are key scenarios where people want to use .NET where single-file distribution is a requirement, or at least preferred. We've been building up the key pieces that we need to enable this scenario over multiple releases, and will be including a [new single file publish type in .NET 5.0](https://github.com/dotnet/runtime/issues/36590). It's a feature we expect to continue to refine over multiple releases.
@@ -352,8 +356,7 @@ This explanation is descriptive of what we did for Ubuntu. The story with Debian
 
 We made similar changes for [Alpine and Nano Server](https://github.com/dotnet/dotnet-docker/pull/1832). There is no `buildpack-deps` image for either Alpine or Nano Server. However, the `sdk` images for Alpine and Nano Server were not previously built on top of the ASP.NET image. We fixed that. You will see significant size wins for Alpine and Nano Server as well with 5.0, for multi-stage builds.
 
-We've known about these problems for a long time, but they had never been the next thing to go resolve. We decided that the 5.0 release was a good time to chase these size wins. To be honest, we were surprised with how large they were, and wish we had made the changes earlier. For the most part, we expect these changes to be a huge win. Please tell us if there are any rough edges that we didn't expect.
-
+We've known about these problems for a long time, but they had never been the next thing to go resolve. We decided that the 5.0 release was a good time to chase these size wins. For the most part, we expect these changes to be a huge win. Please tell us if there are any rough edges that we didn't expect.
 
 ## .NET 5.0 will switch to the `dotnet` container repo
 
