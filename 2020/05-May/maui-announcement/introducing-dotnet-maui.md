@@ -28,7 +28,6 @@ This delivers:
 
 You master one way to build client apps, the MAUI way, and all platforms are within your reach. To see this in action, watch Scott Hunter's demo from Build, [The Journey to One .NET](https://aka.ms/Build2020AppDev-OneDotNet).
 
-
 ## Modern App Patterns
 
 Part of the vision for one .NET is providing developer choice in the areas of personal preferences so you can be most productive using .NET. This manifests in which IDE you use whether Visual Studio 2019, Visual Studio for Mac, or even Visual Studio Code. MAUI will be available in all of those, and support both the existing MVVM and XAML patterns as well as future capabilities like Model-View-Update (MVU) with C#, or even Blazor.
@@ -61,9 +60,9 @@ void ExecuteClickCommand ()
 
 ### MVU
 
-In addition, we are enabling developers to write fluent C# UI and implement the increasingly popular Model-View-Update (MVU) pattern. MVU promotes a one-way flow of data and state management, as well as a code-first development experience that rapidly updates the UI by applying only the changes necessary. 
+In addition, we are enabling developers to write fluent C# UI and implement the increasingly popular Model-View-Update (MVU) pattern. MVU promotes a one-way flow of data and state management, as well as a code-first development experience that rapidly updates the UI by applying only the changes necessary. For more information about MVU as a pattern, check out [this Elm Programming guide](https://elmprogramming.com/model-view-update-part-1.html) and [this blog](https://thomasbandt.com/model-view-update) from Thomas Bandt.
 
-Below is a basic counter example in the MVU style.
+Below is a basic counter example in the MVU style written in MAUI.
 
 ```csharp
 readonly State<int> count = 0;
@@ -83,7 +82,9 @@ This pattern is ideally suited for hot reload as you can see from the demo [in t
 
 ![MAUI MVU](maui-mvu.gif)
 
-Both MVVM and MVU deliver the same native applications, performance, and platform fidelity. Developers will be able to choose which style best suits their preference and use case. 
+Both MVVM and MVU deliver the same native applications, performance, and platform fidelity. Developers will be able to choose which style best suits their preference and use case.
+
+For more information about MVU, the Elm architecture 
 
 ## Transitioning from Xamarin.Forms to .NET MAUI
 
