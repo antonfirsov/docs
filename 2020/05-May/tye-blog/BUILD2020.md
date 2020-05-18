@@ -34,7 +34,7 @@ To display a list of other commands available for Tye, run:
 tye --help
 ```
 
-If your applications have external dependencies that are Docker images, then you will also need to install [Docker Desktop](https://www.docker.com/products/docker-desktop) for either Windows/MacOS/Linux depending on your machine and current operating system. This is required so that Tye can build and run those images locally. 
+If your application has external dependencies that are Docker images, then you will also need to install [Docker Desktop](https://www.docker.com/products/docker-desktop) for either Windows/MacOS/Linux depending on your machine and current operating system. This is required so that Tye can build and run those images locally. 
 
 If you wish to deploy your application to Kubernetes using Tye, then you will also need to have Kubernetes installed on your machine. You can enable Kubernetes through Docker Desktop or explore different options for a Kubernetes cluster such as [Azure Kubernetes Service](https://azure.microsoft.com/en-us/services/kubernetes-service/) (AKS) and [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/) (ACR).
 
