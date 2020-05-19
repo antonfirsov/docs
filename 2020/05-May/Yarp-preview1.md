@@ -11,9 +11,9 @@ With the basic infrastructure of the proxy now in place, we've produced the firs
 * Config-based route definitions
 * Pipeline model for extensibility
 * Forwarded Headers (hard coded)
+* Targeting both .NET Core 3.1 and .NET Core 5
 
 ## What is not in Preview 1
-* Targeting both .NET Core 3.1 and .NET Core 5 [\#159](https://github.com/microsoft/reverse-proxy/issues/159)
 * Session Affinity [\#45](https://github.com/microsoft/reverse-proxy/issues/45)
 * Forwarded Headers (configurable) [\#60](https://github.com/microsoft/reverse-proxy/issues/60)
 * Code-based route definition & per-request routing [\#8](https://github.com/microsoft/reverse-proxy/issues/8), [\#46](https://github.com/microsoft/reverse-proxy/issues/46)
@@ -26,32 +26,48 @@ With the basic infrastructure of the proxy now in place, we've produced the firs
 
 YARP is designed as a library that provides the core proxy functionality, that you can then customize by adding or replacing modules. For preview 1, YARP is being supplied as a nuget package and code snippets. We plan on having a project template, and pre-built exe in future previews.
 
-1. Download the preview 3 (or greater) of .NET 5 SDK from https://dotnet.microsoft.com/download/dotnet/5.0
+1. YARP works with either .NET Core 3.1 or .NET 5 preview 4 (or later). Download the preview 4 (or greater) of .NET 5 SDK from https://dotnet.microsoft.com/download/dotnet/5.0
 2. Create an "Empty" ASP.NET Core application using 
-   * `dotnet new web -n MyProxy`
+   * `dotnet new web -n MyProxy -f netcoreapp5.0` (or `netcoreapp3.1` for .NET Core 3.1)
    
 > Or
 
    * Create a new ASP.NET Core web application in Visual Studio, and choose "Empty" for the project template.
+
 3. Open the Project and make sure it includes:
 
 ```	
 <PropertyGroup>
-  <TargetFramework>net5.0</TargetFramework>
+  <TargetFramework>netcoreapp5.0</TargetFramework>
 </PropertyGroup>
 ```
 
 And
 
 ```
-<ItemGroup>
-  <PackageReference Include="Microsoft.ReverseProxy.Core" Version="1.0.0-preview.1" />
-</ItemGroup>
+<ItemGroup> 
+  <PackageReference Include="Microsoft.ReverseProxy" Version="1.0.0-preview.1.*" /> 
+</ItemGroup> 
 ```
 
 4. **Startup.cs**
 
    YARP is implemented as a ASP.NET Core component, and so the majority of the sample code is in Startup.cs.
+
+    YARP currently uses configuration files to define the routes and endpoints for the proxy. That is loaded in the `ConfigureServices` method. 
+
+```
+public IConfiguration Configuration { get; }
+public Startup(IConfiguration configuration)
+{
+    Configuration = configuration;
+}
+public void ConfigureServices(IServiceCollection services) 
+{ 
+    services.AddReverseProxy() 
+        .LoadFromConfig(Configuration.GetSection("ReverseProxy")); 
+} 
+```
 
    The configure method defines the ASP.NET pipeline for processing requests. The reverse proxy is plugged in to ASP.NET endpoint routing, and then has its own sub pipeline for the proxy. Here proxy pipeline modules, such as load balancing can be added to customize the handling of the request.
 
@@ -73,20 +89,6 @@ public void Configure(IApplicationBuilder app)
             proxyPipeline.UseProxyLoadBalancing();
         });
     });
-}
-```
-
-YARP currently uses configuration to define the routes and endpoints for the proxy. That is loaded in the ConfigureServices method.
-
-```
-/// <summary>
-/// This method gets called by the runtime. Use this method to add services to the container.
-/// </summary>
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddControllers();
-    services.AddReverseProxy()
-        .LoadFromConfig(_configuration.GetSection("ReverseProxy"))
 }
 ```
 
@@ -153,4 +155,4 @@ We are interested to see how you are currently using a reverse proxy and what pr
 
 # Code Feedback
 
-If you have feature suggestions, changes, bugs etc, please provide feedback using the issue templates in the project repo. We welcome contributions, please see [contibuting.md]() for more details.
+If you have feature suggestions, changes, bugs etc, please provide feedback using the issue templates in the project repo. We welcome contributions, please see [contibuting.md](https://github.com/microsoft/reverse-proxy/blob/master/contributing.md) for more details.
