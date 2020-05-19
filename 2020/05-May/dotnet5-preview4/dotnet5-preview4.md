@@ -123,7 +123,7 @@ Today we’re happy to announce that the Windows Forms designer for .NET Core pr
 
 To enable the designer in Visual Studio, go to Tools > Options > Environment > Preview Features and select the Use the preview Windows Forms designer for .NET Core apps option. 
 
-The new designer supports all Windows Forms controls, except `DataGridView` and `ToolStripContainer` (coming soon). It include all other designer functionality you would expect, including: drag-and-drop, selection, move and resize, cut/copy/paste/delete of controls, integration with the Properties Window, events generation and more.  
+The new designer supports all Windows Forms controls, except `DataGridView` and `ToolStripContainer` (coming soon). It include all other designer functionality you would expect, including: drag-and-drop, selection, move and resize, cut/copy/paste/delete of controls, integration with the Properties Window, events generation and more. Data binding and support for third party controls are coming soon.
 
 Learn more in the [Windows Forms Designer for .NET Core Released](https://devblogs.microsoft.com/dotnet/windows-forms-designer-for-net-core-released/) post.
 
