@@ -3,7 +3,7 @@
 
 [Project Tye](https://github.com/dotnet/tye) is an experimental developer tool that makes developing, testing, and deploying microservices and distributed applications easier.
  
-When building an app made up of multiple projects, you often want to run more than one at a time, such as a website that communicates with a backend API or several services all communicating with each other. Today this can be difficult to setup and not as smooth as it could be, and it's only the very first step in trying to get started with something like building out a distributed application. Once you have an inner-loop experience there is then a, sometimes steep, learning curve to get your distributed app onto a platforms such as Kubernetes.
+When building an app made up of multiple projects, you often want to run more than one at a time, such as a website that communicates with a backend API or several services all communicating with each other. Today this can be difficult to setup and not as smooth as it could be, and it's only the very first step in trying to get started with something like building out a distributed application. Once you have an inner-loop experience there is then a, sometimes steep, learning curve to get your distributed app onto a platform such as Kubernetes.
  
 The project has two main goals:
  
@@ -14,7 +14,7 @@ The project has two main goals:
 1. Automating deployment of .NET applications to Kubernetes by:
     - Automatically containerizing .NET applications
     - Generating Kubernetes manifests with minimal knowledge or configuration
-    - Using the same conventions as development to keep it consistent
+    - Using a single configuration file
  
 If you have an app that talks to a database, or an app that is made up of a couple of different processes that communicate with each other, then we think Tye will help ease some of the common pain points you've experienced.
 
@@ -30,23 +30,23 @@ Tye can then be installed as a global tool using the following command:
 ```
 dotnet tool install -g Microsoft.Tye --version "0.2.0-alpha.20258.3"
 ```
-### Running a single application 
+### Running a single service 
 Tye makes it very easy to run single applications. To demonstrate this:
 
-Make a new folder called microservices and navigate to it:
+1. Make a new folder called microservices and navigate to it:
 
 ```
 mkdir microservices
 cd microservices
 ```
 
-Then create a frontend project:
+2. Then create a frontend project:
 
 ```
 dotnet new razor -n frontend
 ```
 
-Now run this project using `tye`:
+3. Now run this project using `tye run`:
 
 ```
 tye run frontend
@@ -54,9 +54,9 @@ tye run frontend
 
 ![tye run output](tye-run-output.png)
 
-The above displays how Tye is processing, listening, and building the frontend application. 
+The above displays how Tye is building, running, and monitoring the frontend application. 
 
-One key feature from `tye run` is the dashboard that gets generated. Navigate to <http://localhost:8000> to see the dashboard running.
+One key feature from `tye run` is a dashboard to view the state of your application. Navigate to <http://localhost:8000> to see the dashboard running.
 
 ![tye dashboard](tye-dashboard.png)
 
@@ -66,7 +66,7 @@ The dashboard is the UI for Tye that displays a list of all of your services. Th
 
 Services written using ASP.NET Core will have their listening ports assigned randomly if not explicitly configured. This is useful to avoid common issues like port conflicts.
 
-### Running multiple applications 
+### Running multiple services 
 Instead of just a single application, suppose we have a multi-application scenario where our frontend project now needs to communicate with a backend project. Create a backend API that the frontend will call inside of the `microservices/` folder.
 
 Then create a solution file and add both projects:
@@ -105,8 +105,8 @@ Prior to deploying your application, make sure to have the following:
 1. [Docker](https://www.docker.com/products/docker-desktop) installed based off on your operating system
 1. A container registry. Docker by default will create a container registry on [DockerHub](https://hub.docker.com/). You could also use [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/) (ACR) or another container registry of your choice.
 1. A Kubernetes Cluster. There are many different options here, including:
-   - [Azure Kubernetes Service](https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster)
    - [Kubernetes in Docker Desktop](https://www.docker.com/blog/docker-windows-desktop-now-kubernetes/)
+   - [Azure Kubernetes Service](https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster)
    - [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/)
    - [K3s](https://k3s.io) - *a lightweight single-binary certified Kubernetes distribution from Rancher*.
    - Another Kubernetes provider of your choice.
@@ -296,7 +296,7 @@ If you want to experiment more with using Tye, we have a variety of different sa
 
 ## Tye Roadmap
 
-We have been diligently working on adding new capabilities and integrations to continuously improve Tye. Here are some of the things below that we have recently released. There is also information provided on how to get started for each of these:
+We have been diligently working on adding new capabilities and integrations to continuously improve Tye. Here are some integrations below that we have recently released. There is also information provided on how to get started for each of these:
 
 * [Ingress](https://github.com/dotnet/tye/blob/master/docs/recipes/ingress.md) - *to expose pods/services created to the public internet*.
 * [Redis](https://github.com/dotnet/tye/blob/master/docs/tutorials/hello-tye/02_add_redis.md) - *to store data, cache, or as a message broker*.
