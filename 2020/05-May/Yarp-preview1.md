@@ -96,56 +96,55 @@ public void Configure(IApplicationBuilder app)
 
 The configuration for YARP is defined in JSON in the appsettings.json file. It defines a set of:
 * `Backends` - which are the clusters of servers that requests can be routed to
-   * The destination name is an identifier that is used in metrics and logging - it has no special meaning
+   * The destination name is an identifier that is used in metrics, logging and for session affinity.
    * `Address` is the URI prefix that will have the original request path appended to it
 * `Routes` - which map incoming requests to the backend clusters based on aspects of the request such as host name, path, method, request headers etc.
 	Routes are ordered, so the `app1` route needs to be defined first as `route2` will act as a catchall for all paths that have not already been matched.
 	
 	The following needs to be a peer to the `Logging` and `AllowedHosts` sections.
 ```
-"ReverseProxy": {
-  "Backends": {
-    "backend1": {
-      "LoadBalancing": {
-        "Mode": "Random"
+  "ReverseProxy": {
+    "Routes": [
+      {
+        "RouteId": "app1",
+        "BackendId": "backend1",
+        "Match": {
+          "Methods": [ "GET", "POST" ],
+          "Host": "localhost",
+          "Path": "/app1/"
+        }
       },
-      "Destinations": {
-        "backend1_server1": {
-          "Address": "https://example.com:10000/"
+      {
+        "RouteId": "route2",
+        "BackendId": "backend2",
+        "Match": {
+          "Host": "localhost"
+        }
+      }
+    ],
+    "Backends": {
+      "backend1": {
+        "LoadBalancing": {
+          "Mode": "Random"
         },
-        "backend1_server2": {
-          "Address": "http://example.com:10010/"
+        "Destinations": {
+          "backend1_destination1": {
+            "Address": "https://example.com:10000/"
+          },
+          "backend1_destination2": {
+            "Address": "http://example.com"10001/"
+          }
         }
-      }
-    },
-    "backend2": {
-      "Destinations": {
-        "backend2_dest": {
-          "Address": "https://example.com:10001/"
+      },
+      "backend2": {
+        "Destinations": {
+          "backend2_destination1": {
+            "Address": "https://example.com:10002/"
+          }
         }
       }
     }
-  },
-  "Routes": [
-    {
-      "RouteId": "app1",
-      "BackendId": "backend2",
-      "Match": {
-        "Methods": [ "GET", "POST" ],
-        "Path": "/app1/"
-      }
-    },
-    {
-      "RouteId": "route2",
-      "BackendId": "backend1",
-      "Match": {
-        "Methods": [ "GET", "POST" ],
-        "Host": "localhost",
-        "Path": "/"
-      }
-    }
-  ]
-}
+  }
 ```
 
 # Survey
