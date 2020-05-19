@@ -117,6 +117,17 @@ You likely have more questions you want answered. We'll be publishing a larger b
 * You cannot update the `TargetFrameworkVersion` in a .NET Framework project to 5.0 and expect it to become a .NET 5.0 project. It will not work. Instead, you need to [port your application to .NET Core](https://docs.microsoft.com/en-us/dotnet/core/porting/). For libraries, you can port to .NET Standard or .NET Core. We are [no longer adding .NET Framework APIs to .NET Core](https://github.com/dotnet/announcements/issues/130), so there is no need to wait to port your application to .NET Core.
 * The new TFM plan is a foundational part of the [workloads project](https://github.com/dotnet/designs/blob/master/accepted/2020/workloads/workloads.md). We will add minimal support for workloads in .NET 5.0 and then implement the complete vision in .NET 6.0.
 
+### Windows Forms Designer for .NET Core Released
+
+Today we’re happy to announce that the Windows Forms designer for .NET Core projects is now available as a preview in Visual Studio 2019 version 16.6! We also have a newer version of the designer available in Visual Studio 16.7 Preview 1! 
+
+To enable the designer in Visual Studio, go to Tools > Options > Environment > Preview Features and select the Use the preview Windows Forms designer for .NET Core apps option. 
+
+The designer has all Windows Forms controls except `DataGridView` and `ToolStripContainer` (coming soon) and all other designer functionality, including: drag-and-drop, selection, move and resize, cut/copy/paste/delete of controls, integration with the Properties Window, events generation and more.  
+
+Learn more in the [Windows Forms Designer for .NET Core Released](https://devblogs.microsoft.com/dotnet/windows-forms-designer-for-net-core-released/) post.
+
+
 ### Windows ARM64
 
 .NET apps can now run natively on Windows ARM64. This follows the support we added for Linux ARM64 in .NET Core 3.0. With .NET 5.0, you can develop web and UI apps on Windows ARM64 devices, and deliver your applications to users who own [Surface Pro X](https://www.microsoft.com/en-us/p/surface-pro-x/8VDNRP2M6HHC) and similar devices. You can already run .NET Core and .NET Framework apps on Windows ARM64, but via x86 emulation. It's workable, but native ARM64 execution has much better performance.
