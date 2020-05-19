@@ -184,12 +184,12 @@ Another performance challenge we found was using tiered compilation for methods 
 
 To address methods with loops better, we implemented [on-stack replacement (OSR)](https://github.com/dotnet/runtime/pull/32969). This is similar to a feature that the Java Virtual Machines has, of the same name. [OSR](https://github.com/dotnet/runtime/blob/master/docs/design/features/OnStackReplacement.md) enables code executed by a currently running method to be re-compiled in the middle of method execution, while those methods are active "on-stack". This feature is currently experimental and opt-in (on x64).
 
-To use OSR, multiple features must be enabled. The [PowerShell profile file](https://github.com/PowerShell/PowerShell/blob/70d9ed4d551e12eebf2985b5590c7cd6e106aaeb/src/powershell-win-core/powershell-win-core.csproj#L10) is a good starting point. You will notice that tiered compilation and all quick-jit features are enabled. In addition, you need to set `COMPlus_JitPatchpoint=1` (its an environment variable).
+To use OSR, multiple features must be enabled. The [PowerShell profile file](https://github.com/PowerShell/PowerShell/blob/70d9ed4d551e12eebf2985b5590c7cd6e106aaeb/src/powershell-win-core/powershell-win-core.csproj#L10) is a good starting point. You will notice that tiered compilation and all quick-jit features are enabled. In addition, you need to set `COMPlus_TC_OnStackReplacement=1` (its an environment variable).
 
 Alternatively, you can set the following two environment variables, assuming all other settings have their default values:
 
 * `COMPlus_TC_QuickJitForLoops=1`
-* `COMPlus_JitPatchpoint=1`
+* `COMPlus_TC_OnStackReplacement=1`
 
 We do not intend to enable OSR by default in .NET 5.0 and have not yet decided if we will support it in production. Please give us any and all feedback you have on the feature. We are actively testing it now and will share more insights on it later.
 
