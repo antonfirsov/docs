@@ -3,14 +3,14 @@
 
 [Project Tye](https://github.com/dotnet/tye) is an experimental developer tool that makes developing, testing, and deploying microservices and distributed applications easier.
  
-When building an app made up of multiple projects, you often want to run more than one at a time, such as a website that communicates with a backend API or several services all communicating with each other. Today this can be difficult to setup and not as smooth as it could be, and it's only the very first step in trying to get started with something like building out a distributed application. Once you have an inner-loop experience there is then a, sometimes steep, learning curve to get your distributed app onto a platform such as Kubernetes.
+When building an app made up of multiple projects, you often want to run more than one at a time, such as a website that communicates with a backend API or several services all communicating with each other. Today, this can be difficult to setup and not as smooth as it could be, and it's only the very first step in trying to get started with something like building out a distributed application. Once you have an inner-loop experience there is then a, sometimes steep, learning curve to get your distributed app onto a platform such as Kubernetes.
  
 The project has two main goals:
  
 1. Making development of microservices easier by:
-    - Run many services with one command
-    - Use dependencies in containers
-    - Discover addresses of other services using simple conventions
+    - Running many services with one command
+    - Using dependencies in containers
+    - Discovering addresses of other services using simple conventions
 1. Automating deployment of .NET applications to Kubernetes by:
     - Automatically containerizing .NET applications
     - Generating Kubernetes manifests with minimal knowledge or configuration
@@ -84,13 +84,13 @@ You can now run `tye` in the folder with the solution.
 tye run
 ```
 
-You can download or clone the full solution that contains both the frontend and backend projects [here](https://github.com/dotnet/tye/tree/master/samples/frontend-backend) in Tye's Github repository. This sample application will be used in subsquent sections with some optional additions.
+You can download or clone the full solution that contains both the frontend and backend projects [here](https://github.com/dotnet/tye/tree/master/samples/frontend-backend) in Tye's Github repository. This sample application will be used in subsequent sections with some optional additions.
 
 To help your services communicate with each other while running your application, Tye utilizes service discovery. In general terms, service discovery describes the process by which one service figures out the address of another service. Tye uses environment variables for specifying connection strings and URIs of services.
 
 The simplist way to use Tye's service discovery is through the `Microsoft.Extensions.Configuration` system - available by default in ASP.NET Core or .NET Core Worker projects. In addition to this, we provide the `Microsoft.Tye.Extensions.Configuration` package with some Tye-specific extensions layered on top of the configuration system.
 
-If you want to learn more about Tye's philosophy on service discovery and see detailed usage examples, check out this [reference doc](https://github.com/dotnet/tye/blob/master/docs/reference/service_discovery.md).
+If you want to learn more about Tye's philosophy on service discovery and see detailed usage examples, check out this [reference document](https://github.com/dotnet/tye/blob/master/docs/reference/service_discovery.md).
 
 Now that you are able to run a single and multi-project application with `tye run`, the next section will cover how to deploy this application to Kubernetes.
 
@@ -126,7 +126,7 @@ You will be prompted to enter your container registry. This is needed to tag ima
 
 ![tye-deploy-output](https://user-images.githubusercontent.com/20052391/82242391-9c4cae00-98f2-11ea-9f30-cd9f55e1120b.PNG)
 
-If you are using dockerhub, the registry name will be your dockerhub username. If you are a standalone container registry (for instance from your cloud provider), the registry name will look like a hostname, eg: `example.azurecr.io`.
+If you are using dockerhub, the registry name will be your dockerhub username. If you are using a standalone container registry (for instance from your cloud provider), the registry name will look like a hostname, eg: `example.azurecr.io`.
 
 `tye deploy` does many different things to deploy an application to Kubernetes. It will:
 
@@ -167,9 +167,9 @@ Now navigate to http://localhost:5000 to view the frontend application working o
 
 ### Tye's configuration schema
 
-Tye has a optional configuration file (`tye.yaml`) to allow customizing settings. This file contains all of your projects and external dependencies. If you have an existing solution, Tye will automatically populate this with all of your current projects. 
+Tye has a optional configuration file (`tye.yaml`) to enable customizing settings. This file contains all of your projects and external dependencies. If you have an existing solution, Tye will automatically populate this with all of your current projects. 
 
-To initalize this file, you will need to run the following command in the microservices directory to generate a default `tye.yaml` file:
+To initalize this file, you will need to run the following command in the `microservices` directory to generate a default `tye.yaml` file:
 
 ```
 tye init
@@ -197,9 +197,7 @@ Now it's possible to use `tye deploy` without `--interactive` since the registry
 
 > *This step may not make much sense if you're using tye.yaml to store a personal Dockerhub username. A more typical use case would storing the name of a private registry for use in a CI/CD system*.
 
-
 For a conceptual overview of how Tye behaves when using `tye deploy` for deployment, check out this [document](https://github.com/dotnet/tye/blob/master/docs/reference/deployment.md).
-
 
 ### Undeploying your application
 
@@ -216,9 +214,10 @@ tye undeploy --what-if
 ```
 
 ### Adding external dependencies (Redis)
+
 Not only does Tye make it easy to run and deploy your applications to Kubernetes, it's also fairly simple to add external dependencies to your applications as well. In this example, Redis is added to the frontend and backend application to store data.
 
-Tye can use docker to run images that run as part of your application. Make sure that [Docker](https://docs.docker.com/get-docker/) is installed on your machine.
+Tye can use Docker to run images that run as part of your application. Make sure that [Docker](https://docs.docker.com/get-docker/) is installed on your machine.
 
 You can download or clone the full solution that contains the redis, frontend, and backend projects [here](https://github.com/dotnet/tye/blob/master/samples/redis/tye.yaml).
 
@@ -243,7 +242,7 @@ tye run
 kubectl apply -f https://raw.githubusercontent.com/dotnet/tye/master/docs/tutorials/hello-tye/redis.yaml
 ```
 
-This will create a deployment and service for redis. You can see that by running:
+This will create a deployment and service for redis. To view this, run:
 
 ```
 kubectl get deployments
@@ -251,7 +250,7 @@ kubectl get deployments
 
 ![get-deployments](get-deployments.png)
 
-You can now deploy the rest of the application by running:
+You can now deploy the rest of the application with:
 
 ```
 tye deploy --interactive
@@ -266,7 +265,7 @@ Enter the following to use the instance that you just deployed:
 ```
 redis:6379
 ```
-`tye deploy` will create kubernetes secret to store the connection string.
+`tye deploy` will create Kubernetes secret to store the connection string.
 
 > *--interactive is needed here to create the secret. This is a one-time configuration step. In a CI/CD scenario you would not want to have to specify connection strings over and over, deployment would rely on the existing configuration in the cluster.*
 
@@ -304,11 +303,11 @@ We have been diligently working on adding new capabilities and integrations to c
 * [Zipkin](https://github.com/dotnet/tye/blob/master/docs/recipes/distributed_tracing.md) - *using Zipkin for distributed tracing*. 
 * [Elastic Stack](https://github.com/dotnet/tye/blob/master/docs/recipes/logging.md) - *using Elastic Stack for logging*.
 
-While we are excited about the promise Tye holds, it's an experimental project and not a committed product. During this experimental phase we expect to engage deeply with anyone trying out Tye to hear feedback and suggestions. The point of doing experiments in the open is to help us explore the space as much sa we can and use what we learn to determine what we should be building and shipping in the Future.
+While we are excited about the promise Tye holds, it's an experimental project and not a committed product. During this experimental phase we expect to engage deeply with anyone trying out Tye to hear feedback and suggestions. The point of doing experiments in the open is to help us explore the space as much as we can and use what we learn to determine what we should be building and shipping in the future.
 
 Project Tye is currently commited as an experiment until .NET 5 ships. At which point we will be evaluating what we have and all that we've learnt to decide what we should do in the future.
 
-Our goal is to [ship every month](https://github.com/dotnet/tye/releases), and some neew capabilities that we are looking into for Tye include:
+Our goal is to [ship every month](https://github.com/dotnet/tye/releases), and some new capabilities that we are looking into for Tye include:
 
 - More deployment targets
 - Sidecar support
@@ -317,4 +316,4 @@ Our goal is to [ship every month](https://github.com/dotnet/tye/releases), and s
 
 ## Conclusion
 
-We are excited by the potential Tye has to make developing distributed applications easier and we need your feedback to make sure it reaches that potential. We'd really love for you to try it out and tell us what you think, there is a link to a survey on the Tye dashboard that you can fill out or you can create issues and talk to us on GitHub. Either way we'd love to hear what you think.
+We are excited by the potential Tye has to make developing distributed applications easier and we need your feedback to make sure it reaches that potential. We'd really love for you to try it out and tell us what you think, there is a link to a survey on the Tye dashboard that you can fill out or you can create issues and talk to us on [GitHub](https://github.com/dotnet/tye). Either way we'd love to hear what you think.
