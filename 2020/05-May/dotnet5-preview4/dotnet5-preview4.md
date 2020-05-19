@@ -8,7 +8,7 @@ Last year, [we laid out our vision for one .NET and .NET 5](https://devblogs.mic
 
 We remain committed to one .NET platform and will deliver a quality .NET 5 release in November this year. You'll continue to see a wave of innovation happening with multiple previews on the journey to one .NET.  
 
-.NET 5: We want to hear from you!  Share your feedback about .NET 5 at https://aka.ms/dotnet5_feedback_blog.  We greatly value your feedback and use it to help make decisions on the future of .NET.
+We want to hear from you!  Share your feedback about .NET 5 at https://aka.ms/dotnet5_feedback_blog.  We greatly value your feedback and use it to help make decisions on the future of .NET.
 
 ## Download Preview 4
 
@@ -123,7 +123,7 @@ Today we’re happy to announce that the Windows Forms designer for .NET Core pr
 
 To enable the designer in Visual Studio, go to Tools > Options > Environment > Preview Features and select the Use the preview Windows Forms designer for .NET Core apps option. 
 
-The designer has all Windows Forms controls except `DataGridView` and `ToolStripContainer` (coming soon) and all other designer functionality, including: drag-and-drop, selection, move and resize, cut/copy/paste/delete of controls, integration with the Properties Window, events generation and more.  
+The new designer supports all Windows Forms controls, except `DataGridView` and `ToolStripContainer` (coming soon). It include all other designer functionality you would expect, including: drag-and-drop, selection, move and resize, cut/copy/paste/delete of controls, integration with the Properties Window, events generation and more.  
 
 Learn more in the [Windows Forms Designer for .NET Core Released](https://devblogs.microsoft.com/dotnet/windows-forms-designer-for-net-core-released/) post.
 
@@ -417,6 +417,8 @@ As part of the move to ".NET" as the product name, we are now publishing .NET 5.
 
 ## Closing
 
+.NET 5.0 is shaping up to be another big foundational release, much like .NET Core 1.0, 2.0 and 3.0. It includes many new improvements that should make your applications and development process better and easier. Much of the team has been working on .NET 5 since before we released .NET Core 3.0. We've been looking forward to releasing all these improvements in a near-final form for many months, and will now watch for your feedback as you try them out.
 
+As you can see from the product investments we've chosen, we're focused on modern scenarios, and giving you straightforward and predictable solutions that power the portfolio of applications you need, to run your business or organization. It's critical to us that you give us feedback to help us improve the features that you've read about here, but also with that you'd like to see next. As you may have seen earlier in the post, we're already deep into planning the .NET 6.0 release, so its not too early to give us future-looking feedback. 
 
-.NET 5: We want to hear from you!  Share your feedback about .NET 5 at https://aka.ms/dotnet5_feedback_blog.  We greatly value your feedback and use it to help make decisions on the future of .NET.
+Please Share your feedback about .NET at https://aka.ms/dotnet5_feedback_blog.
