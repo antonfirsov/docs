@@ -41,23 +41,26 @@ Improving the performance is our next goal after we complete the functionality w
 
 # What's coming next
 
+* Project resources
+
+* Complete localization
+
+* Inherited dialogs support
+
 * Data binding scenarios
 
     This work is in progress, and you already can see some results in the Visual Studio 16.7 Preview 1 designer.
 
 * Third-party control vendors support
     
-    We are closely working with the control vendors such as  DevExpress, GrapeCity and Progress Telerik on supporting their controls in the Windows Forms designer in the nearest future for .NET Core and in .NET 5 projects. We are also collaborating with ActiPro, Infragistics and SyncFusion. One of our demos for Microsoft Build 2020 showed Progress Telerik controls in Windows Forms application targeting .NET Core 3.1 and .NET 5. More controls from various vendors are coming soon.
+    We are closely working with the control vendors such as Progress Telerik, DevExpress and GrapeCity on supporting their controls in the Windows Forms designer in the nearest future for .NET Core and .NET 5 projects. We are also collaborating with ActiPro, Infragistics and SyncFusion. On the picture bellow you can see Progress Telerik controls in Windows Forms application targeting .NET 5.
 
-    ![Progress Telerik RadGridView control in MS Build 2020 demo](progress-grid.png)
-
-* Inherited dialogs support
-
-* Project resources
-
-* Complete localization
+    ![Using Progress Telerik RadGridView control in .NET 5](progress-grid.png)
 
 ## New in 16.6 GA release
+
+The following controls and improvements have been made in the 16.6 release.
+
 * All Dialogs controls
 * `PropertyGrid`
 * `HScrollBar`
@@ -69,6 +72,9 @@ Improving the performance is our next goal after we complete the functionality w
 * Stability and bug fixes
 
 ## New in 16.7 Preview 1 release
+
+The following controls and improvements have been made in the 16.7 Preview 1 release.
+
 * `UserControl`and custom controls infrastructure
 * `TableLayoutPanel`
 * Fundamentals for third-party controls support
@@ -79,4 +85,4 @@ Improving the performance is our next goal after we complete the functionality w
 
 Your feedback is important to us! Please report issues and send feature requests via the Visual Studio Feedback channel. Use the "Send Feedback" icon in Visual Studio top-right corner as shown below and specify that it is related to the "WinForms .NET Core" area.
 
-![Visual Studio Feedback channel](feedback.png)
+![Giving feedback directly from Visual Studio](feedback.png)
