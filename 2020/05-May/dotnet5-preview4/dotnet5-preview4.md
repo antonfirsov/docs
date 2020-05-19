@@ -2,9 +2,13 @@
 
 .NET 5 is the next version and future of .NET. We are continuing the journey of unifying the .NET platform, with a single framework that extends from cloud to desktop to mobile and beyond. Looking back, we took the best of .NET Framework and put that into .NET Core 3, including support for WPF and Windows Forms. As we continue the journey, we will move Xamarin and .NET web assembly to use the .NET 5 libraries, and extend the dotnet tools to target mobile and web assembly in the browser. At the same time, we'll continue to improve .NET capabilities as a leading cloud and container runtime.
 
+You can tune in to hear Scott Hanselman and I talk about .NET 5 and beyond in our "[The Journey to One .NET" talk](https://aka.ms/ScottBuildSessions) today. 
+
 Last year, [we laid out our vision for one .NET and .NET 5](https://devblogs.microsoft.com/dotnet/introducing-net-5/), we said we would take .NET Core and Mono/Xamarin implementations and unify them into one base class library (BCL) and toolchain (SDK). In the wake of the global health pandemic, we've had to adapt to the changing needs of our customers and provide the support needed to assist with their smooth operations. Our efforts continue to be anchored in helping our customers address their most urgent needs. As a result, we expect these features to be available in preview by November 2020, but the that unification will be truly completed with .NET 6, our Long-Term Support (LTS) release. Our vision hasn't changed, but our timeline has. 
 
 We remain committed to one .NET platform and will deliver a quality .NET 5 release in November this year. You'll continue to see a wave of innovation happening with multiple previews on the journey to one .NET.  
+
+.NET 5: We want to hear from you!  Share your feedback about .NET 5 at https://aka.ms/dotnet5_feedback_blog.  We greatly value your feedback and use it to help make decisions on the future of .NET.
 
 ## Download Preview 4
 
@@ -15,7 +19,7 @@ You can [download .NET 5.0 Preview 4](https://dotnet.microsoft.com/download/dotn
 * [Docker images](https://hub.docker.com/_/microsoft-dotnet)
 * [Snap installer](https://snapcraft.io/dotnet-sdk)
 
-ASP.NET Core, and EF Core are also being released today. PowerShell now releases on the .NET schedule, and has a .NET 5-based release today.
+ASP.NET Core, and EF Core are also being released today. [PowerShell has a .NET 5-based release today](https://devblogs.microsoft.com/powershell/powershell-7-1-preview-3-release/ ) and  now releases on the .NET schedule.
 
 You need Visual Studio 2019 16.6 or later versions to use .NET 5.0. To use .NET 5.0 with Visual Studio Code, install the latest version of the [C# extension](https://code.visualstudio.com/Docs/languages/csharp). .NET 5.0 isn't yet supported with Visual Studio for Mac.
 
@@ -95,7 +99,7 @@ We are making several important changes to .NET TFMs for .NET 5.0, to simplify u
 * The OS-specific TFMs can include [OS version numbers](https://github.com/dotnet/designs/blob/master/accepted/2020/minimum-os-version/minimum-os-version.md), like `net6.0-ios14`.
 * Portable APIs, like ASP.NET Core and Xamarin.Forms, will be usable with `net5.0`.
 
-These changes are a result of thinking of [.NET Core as the future of .NET](https://devblogs.microsoft.com/dotnet/net-core-is-the-future-of-net/). We've been removing the "Core" name from various aspects of the product, including [APIs](https://github.com/dotnet/runtime/issues/33680) and [container repos](https://github.com/dotnet/dotnet-docker/issues/1765). We also saw an opportunity to further simplify .NET, by removing .NET Standard as a concept, for .NET 5.0+. [.NET Standard](https://github.com/dotnet/standard) has played a key role in establishing .NET Core, by creating a bridge with .NET Framework and Xamarin. The .NET Standard 2.0 version will remain relevant for many years, and we recommend you use it if you need to support both .NET Core and .NET Framework. For libraries that don't need to run on .NET Framework, we recommend targeting the `net5.0` TFM, which will give you access to the largest set of cross-platform APIs.
+These changes are a result of thinking of [.NET Core as the future of .NET](https://devblogs.microsoft.com/dotnet/net-core-is-the-future-of-net/). We've been removing the "Core" name from various aspects of the product, including [APIs](https://github.com/dotnet/runtime/issues/33680) and [container repos](https://github.com/dotnet/dotnet-docker/issues/1765). We also saw an opportunity to further simplify .NET, by removing .NET Standard as a concept, for .NET 5.0+. [.NET Standard](https://github.com/dotnet/standard) has played a key role in establishing .NET Core, by creating a bridge with .NET Framework and Xamarin. The .NET Standard 2.0 version will remain relevant for many years, and we recommend you use it if you need to support .NET Framework. For apps and libraries that don't need to run on .NET Framework, we recommend targeting the `net5.0` TFM, which will give you access to the largest set of cross-platform APIs. For Xamarin, .NET Standard 2.0 and 2.1 remain relevant, however, once Xamarin is integrated into .NET as part of .NET 6.0, then it will switch to `net6.0` TFMs, and developers will target .NET Standard 2.0 exclusively for .NET Framework compatibility.
 
 You likely have more questions you want answered. We'll be publishing a larger blog post on this topic before we release .NET 5.0. The following points answer some of the most obvious remaining questions:
 
@@ -117,7 +121,7 @@ The `master` branch adds support for Windows Forms. This changes may make it int
 
 At present, you need to download and expand `.zip` files for ARM64. We intend to add ARM64 MSIs for the final .NET 5 release.
 
-We have been working closely with the PowerShell team to validate and enable PowerShell 7.1 on Windows ARM64. The team has had Windows ARM64 "experimental" builds for some time and intends to support PowerShell 7.1 on Windows ARM64, when they release. PowerShell 7.1 is built on .NET 5.0, and should be released around the same time.
+We have been working closely with the [PowerShell](https://github.com/powershell/powershell) team to validate and enable PowerShell 7.1 on Windows ARM64. The team has had Windows ARM64 "experimental" builds for some time and intends to support PowerShell 7.1 on Windows ARM64, when they release. PowerShell 7.1 is built on .NET 5.0, and should be released around the same time.
 
 The following image demonstrate the [Conway's Game of life](https://github.com/dotnet/samples/tree/master/windowsforms/Conway's-Game-of-Life/VB) VB and Windows Forms sample running on Windows ARM64.
 
@@ -396,4 +400,6 @@ As part of the move to ".NET" as the product name, we are now publishing .NET 5.
 
 ## Closing
 
-Text here.
+
+
+.NET 5: We want to hear from you!  Share your feedback about .NET 5 at https://aka.ms/dotnet5_feedback_blog.  We greatly value your feedback and use it to help make decisions on the future of .NET.
