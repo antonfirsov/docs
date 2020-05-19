@@ -1,6 +1,6 @@
 # Windows Forms Designer for .NET Core Released
 
-Today we're happy to announce that the Windows Forms designer for .NET Core projects is now available as a preview in Visual Studio 2019 version 16.6! We also have a newer version of the designer available in [Visual Studio 16.7 Preview 1](https://docs.microsoft.com/en-us/visualstudio/releases/2019/release-notes-preview#16.7.0-pre.1.0)!
+Today, we're happy to announce that the Windows Forms designer for .NET Core projects is now available as a preview in Visual Studio 2019 version 16.6! We also have a newer version of the designer available in [Visual Studio 16.7 Preview 1](https://docs.microsoft.com/visualstudio/releases/2019/release-notes-preview#16.7.0-pre.1.0)!
 
 ![.NET Core Windows Forms designer in Visual Studio](designer.png)
 
@@ -22,7 +22,7 @@ Improving the performance is our next goal after we complete the functionality w
 # What's available in the designer
 
 * All Windows Forms controls except `DataGridView` and `ToolStripContainer` (these are coming soon)
-* `UserControl` and custom controls infrastructure (available only in Visual Studio 16.7 Preview 1 version)
+* `UserControl` and custom controls infrastructure (only available since Visual Studio 16.7 Preview 1 version)
 * All designer functionality, such as 
     * drag-and-drop
     * selection, move and resize
@@ -31,7 +31,7 @@ Improving the performance is our next goal after we complete the functionality w
     * events generation and so on
  * New `WebView2` control
     
-    This chromium-based embedded browser control allows to render web content (HTML/CSS/JavaScript) for .NET apps. It is supported in both .NET Core and .NET Framework platforms for Windows Forms and WPF applications. You can find a [getting started tutorial](https://docs.microsoft.com/en-us/microsoft-edge/webview2/gettingstarted/winforms) in the Microsoft documentation and we will publish a blog post dedicated to WebView2 control in the nearest future.
+    This chromium-based embedded browser control allows to render web content (HTML/CSS/JavaScript) for .NET apps. It's supported in both .NET Core and .NET Framework platforms for Windows Forms and WPF applications. You can find a [getting started tutorial](https://docs.microsoft.com/microsoft-edge/webview2/gettingstarted/winforms) in the Microsoft documentation and we'll publish a blog post dedicated to WebView2 control in the nearest future.
  * Local resources
  * Partial support for localization
  
@@ -83,6 +83,6 @@ The following controls and improvements have been made in the 16.7 Preview 1 rel
 
 ## Give us your feedback!
 
-Your feedback is important to us! Please report issues and send feature requests via the Visual Studio Feedback channel. Use the "Send Feedback" icon in Visual Studio top-right corner as shown below and specify that it is related to the "WinForms .NET Core" area.
+Your feedback is important to us! Please report issues and send feature requests via the Visual Studio Feedback channel. Use the "Send Feedback" icon in Visual Studio top-right corner as shown in the following image and specify that it is related to the "WinForms .NET Core" area.
 
 ![Giving feedback directly from Visual Studio](feedback.png)
