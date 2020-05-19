@@ -33,7 +33,7 @@ dotnet tool install -g Microsoft.Tye --version "0.2.0-alpha.20258.3"
 ### Running a single application 
 Tye makes it very easy to run single applications. To demonstrate this:
 
-Make a new folder called microservice and navigate to it:
+Make a new folder called microservices and navigate to it:
 
 ```
 mkdir microservices
@@ -84,13 +84,13 @@ You can now run `tye` in the folder with the solution.
 tye run
 ```
 
-You can download or clone the full solution that contain both the frontend and backend projects [here](https://github.com/dotnet/tye/tree/master/samples/frontend-backend) in Tye's Github repository. This sample application will be used in subsquent sections with some optional additions.
+You can download or clone the full solution that contains both the frontend and backend projects [here](https://github.com/dotnet/tye/tree/master/samples/frontend-backend) in Tye's Github repository. This sample application will be used in subsquent sections with some optional additions.
 
 To help your services communicate with each other while running your application, Tye utilizes service discovery. In general terms, service discovery describes the process by which one service figures out the address of another service. Tye uses environment variables for specifying connection strings and URIs of services.
 
 The simplist way to use Tye's service discovery is through the `Microsoft.Extensions.Configuration` system - available by default in ASP.NET Core or .NET Core Worker projects. In addition to this, we provide the `Microsoft.Tye.Extensions.Configuration` package with some Tye-specific extensions layered on top of the configuration system.
 
-If you want to learn more about Tye's philosphy on service discovery and see detailed usage examples, check out this [reference doc](https://github.com/dotnet/tye/blob/master/docs/reference/service_discovery.md).
+If you want to learn more about Tye's philosophy on service discovery and see detailed usage examples, check out this [reference doc](https://github.com/dotnet/tye/blob/master/docs/reference/service_discovery.md).
 
 Now that you are able to run a single and multi-project application with `tye run`, the next section will cover how to deploy this application to Kubernetes.
 
@@ -98,7 +98,7 @@ Now that you are able to run a single and multi-project application with `tye ru
 
 Tye makes the process of deploying your application to Kubernetes very simple with minimal knowlege or configuration required.
 
-> *Tye will use your current credentials for pushing Docker images and accessing kubernetes clusters. If you have configured kubectl with a context already, that's what [`tye deploy`](/docs/reference/commandline/tye-deploy.md) is going to use!*
+> *Tye will use your current credentials for pushing Docker images and accessing Kubernetes clusters. If you have configured kubectl with a context already, that's what [`tye deploy`](/docs/reference/commandline/tye-deploy.md) is going to use!*
 
 Prior to deploying your application, make sure to have the following:
 
@@ -126,7 +126,7 @@ You will be prompted to enter your container registry. This is needed to tag ima
 
 ![tye-deploy-output](https://user-images.githubusercontent.com/20052391/82242391-9c4cae00-98f2-11ea-9f30-cd9f55e1120b.PNG)
 
-If you are using dockerhub, the registry name will your dockerhub username. If you are a standalone container registry (for instance from your cloud provider), the registry name will look like a hostname, eg: `example.azurecr.io`.
+If you are using dockerhub, the registry name will be your dockerhub username. If you are a standalone container registry (for instance from your cloud provider), the registry name will look like a hostname, eg: `example.azurecr.io`.
 
 `tye deploy` does many different things to deploy an application to Kubernetes. It will:
 
@@ -146,7 +146,7 @@ kubectl get pods
 
 ![kubernetes-pods](kubernetes-pods.png)
 
-You'll have two services in addition to the built-in kubernetes service.
+You'll have two services in addition to the built-in Kubernetes service.
 
 ```
 kubectl get service
@@ -220,7 +220,7 @@ Not only does Tye make it easy to run and deploy your applications to Kubernetes
 
 Tye can use docker to run images that run as part of your application. Make sure that [Docker](https://docs.docker.com/get-docker/) is installed on your machine.
 
-You can download or clone the full solution that contains the redis, frontend, and backend projects [here](https://github.com/dotnet/tye/blob/master/samples/redis/tye.yaml) in Tye's Github repository.
+You can download or clone the full solution that contains the redis, frontend, and backend projects [here](https://github.com/dotnet/tye/blob/master/samples/redis/tye.yaml).
 
 To incorporate redis in this application, two additional services are added to the `tye.yaml` file - the `redis` service itself and a `redis-cli` service that is used watch the data being sent to and retrieved from redis.
 
@@ -241,7 +241,6 @@ tye run
 
 ```
 kubectl apply -f https://raw.githubusercontent.com/dotnet/tye/master/docs/tutorials/hello-tye/redis.yaml
-
 ```
 
 This will create a deployment and service for redis. You can see that by running:
@@ -262,7 +261,7 @@ You'll be prompted for the connection string for redis.
 
 ![redis-connection-string](redis-connection-string.png)
 
-Enter the following to use instance that you just deployed:
+Enter the following to use the instance that you just deployed:
 
 ```
 redis:6379
