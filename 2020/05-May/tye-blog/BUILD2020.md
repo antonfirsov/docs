@@ -18,6 +18,8 @@ The project has two main goals:
  
 If you have an app that talks to a database, or an app that is made up of a couple of different processes that communicate with each other, then we think Tye will help ease some of the common pain points you've experienced.
 
+We have recently demonstrated Tye in a few Build sessions that we encourage you to watch, [Cloud Native Apps with .NET and AKS](https://aka.ms/Build2020AppDev-CloudNativeApps) and [Journey to one .NET](https://aka.ms/dotnetjourney)
+
 ## Tour of Tye
 
 ### Installation
