@@ -288,7 +288,7 @@ kubectl port-forward svc/frontend 5000:80
 
 You can now visit `http://localhost:5000` to see the frontend working in Kubernetes.
 
-### Tutorials
+### Follow up
 If you want to experiment more with using Tye, we have a variety of different sample applications and tutorials that you can walk through, check them out down below:
 
 * [Tye tutorials](https://github.com/dotnet/tye/blob/master/docs/tutorials/hello-tye/00_run_locally.md)
