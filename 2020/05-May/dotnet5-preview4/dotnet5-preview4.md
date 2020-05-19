@@ -88,7 +88,13 @@ We are changing the approach we use for [target frameworks with .NET 5.0](https:
 </Project>
 ```
 
-We are making several important changes to .NET TFMs for .NET 5.0, to simplify using them, reduce concepts, and to make it easier to expose operating-system-specific APIs. Here is a quick summary:
+We are making several important changes to .NET TFMs for .NET 5.0, to simplify using them, reduce concepts, and to make it easier to expose operating-system-specific APIs. 
+
+Here is a super-quick summary:
+
+Targeting API versions will be simpler with .NET going forward. We won't have two families of TFMs, like:`netcoreapp3.1` and `netstandard2.0`. Instead, we'll have just one, like: `net5.0`, and `net6.0`. We'll also enable you to target operating system APIs, with a small extension to the TFM, like `net5.0-windows` and `net6.0-android`. We'll also remove the different SDKs from your project file, like `Sdk="Microsoft.NET.Sdk.WindowsDesktop"` since `net5.0-windows`, for example, will provide the same information. The biggest win is that by targeting `net5.0`, you get access to 100% of cross-platform APIs, not the subset that happened to be in .NET Standard. It will always be obvious which TFM to use (it's either portable code or OS-specific), and you'll never have to wait for APIs like `Span<T>` to be available.
+
+Here are the details:
 
 * `net5.0` is the new Target Framework Moniker (TFM) for .NET 5.0. 
 * `net5.0` can consume `netcoreapp*` and `netstandard*` dependencies.
