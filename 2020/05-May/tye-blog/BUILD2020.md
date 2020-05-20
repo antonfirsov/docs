@@ -89,16 +89,192 @@ You should now have a solution called `microservices.sln` that references the fr
 ```
 tye run
 ```
+The dashboard should show both the frontend and backend services. You can navigate to both of them through either the dashboard of the url outputted by tye run.
 
-You can download or clone the full solution that contains both the frontend and backend projects [here](https://github.com/dotnet/tye/tree/master/samples/frontend-backend) in Tye's Github repository. This sample application will be used in subsequent sections with some optional additions.
+> *The backend service in this example was created using the webapi project template and will return an HTTP 404 for its root URL.*
 
-To help your services communicate with each other while running your application, Tye utilizes service discovery. In general terms, service discovery describes the process by which one service figures out the address of another service. Tye uses environment variables for specifying connection strings and URIs of services.
+To get both of these applications communicating with each other, Tye utilizes service discovery. In general terms, service discovery describes the process by which one service figures out the address of another service. Tye uses environment variables for specifying connection strings and URIs of services.
 
 The simplist way to use Tye's service discovery is through the `Microsoft.Extensions.Configuration` system - available by default in ASP.NET Core or .NET Core Worker projects. In addition to this, we provide the `Microsoft.Tye.Extensions.Configuration` package with some Tye-specific extensions layered on top of the configuration system.
 
 If you want to learn more about Tye's philosophy on service discovery and see detailed usage examples, check out this [reference document](https://github.com/dotnet/tye/blob/master/docs/reference/service_discovery.md).
 
-Now that you are able to run a single and multi-project application with `tye run`, the next section will cover how to deploy this application to Kubernetes.
+1. If you haven't already, stop the existing `tye run` command using `Ctrl + C`. Create a backend API that the frontend will call inside of the `microservices/` folder.
+
+    ```text
+    dotnet new webapi -n backend
+    ```
+
+1. Create a solution file and add both projects
+
+    ```text
+    dotnet new sln
+    dotnet sln add frontend backend
+    ```
+
+    You should have a solution called `microservice.sln` that references the `frontend` and `backend` projects.
+
+2. Run the `tye` command line in the folder with the solution.
+
+    ```text
+    tye run
+    ```
+
+    The dashboard should show both the `frontend` and `backend` services. You can navigate to both of them through either the dashboard of the url outputted by `tye run`.
+
+    > :warning: The `backend` service in this example was created using the `webapi` project template and will return an HTTP 404 for its root URL.
+
+## Getting the frontend to communicate with the backend
+
+Now that we have two applications running, let's make them communicate. By default, `tye` enables service discovery by injecting environment variables with a specific naming convention. For more information on, see [service discovery](/docs/reference/service_discovery.md).
+
+1. If you haven't already, stop the existing `tye run` command using `Ctrl + C`. Open the solution in your editor of choice.
+
+2. Add a file `WeatherForecast.cs` to the `frontend` project.
+
+    ```C#
+    using System;
+
+    namespace frontend
+    {
+        public class WeatherForecast
+        {
+            public DateTime Date { get; set; }
+
+            public int TemperatureC { get; set; }
+
+            public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+
+            public string Summary { get; set; }
+        }
+    }
+    ```
+
+    This will match the backend `WeatherForecast.cs`.
+
+3. Add a file `WeatherClient.cs` to the `frontend` project with the following contents:
+
+   ```C#
+    using System.Net.Http;
+    using System.Text.Json;
+    using System.Threading.Tasks;
+
+    namespace frontend
+    {
+        public class WeatherClient
+        {
+            private readonly JsonSerializerOptions options = new JsonSerializerOptions()
+            {
+                PropertyNameCaseInsensitive = true,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            };
+    
+            private readonly HttpClient client;
+    
+            public WeatherClient(HttpClient client)
+            {
+                this.client = client;
+            }
+    
+            public async Task<WeatherForecast[]> GetWeatherAsync()
+            {
+                var responseMessage = await this.client.GetAsync("/weatherforecast");
+                var stream = await responseMessage.Content.ReadAsStreamAsync();
+                return await JsonSerializer.DeserializeAsync<WeatherForecast[]>(stream, options);
+            }
+        }
+    }
+   ```
+
+4. Add a reference to the `Microsoft.Tye.Extensions.Configuration` package to the frontend project
+
+    ```txt
+    dotnet add frontend/frontend.csproj package Microsoft.Tye.Extensions.Configuration  --version "0.2.0-*"
+    ```
+
+5. Now register this client in `frontend` by adding the following to the existing `ConfigureServices` method to the existing `Startup.cs` file:
+
+   ```C#
+   ...
+   public void ConfigureServices(IServiceCollection services)
+   {
+       services.AddRazorPages();
+        /** Add the following to wire the client to the backend **/
+       services.AddHttpClient<WeatherClient>(client =>
+       {
+            client.BaseAddress = Configuration.GetServiceUri("backend");
+       });
+       /** End added code **/
+   }
+   ...
+   ```
+
+   This will wire up the `WeatherClient` to use the correct URL for the `backend` service.
+
+6. Add a `Forecasts` property to the `Index` page model under `Pages\Index.cshtml.cs` in the `frontend` project.
+
+    ```C#
+    ...
+    public WeatherForecast[] Forecasts { get; set; }
+    ...
+    ```
+
+   Change the `OnGet` method to take the `WeatherClient` to call the `backend` service and store the result in the `Forecasts` property:
+
+   ```C#
+   ...
+   public async Task OnGet([FromServices]WeatherClient client)
+   {
+        Forecasts = await client.GetWeatherAsync();
+   }
+   ...
+   ```
+
+7. Change the `Index.cshtml` razor view to render the `Forecasts` property in the razor page:
+
+   ```cshtml
+   @page
+   @model IndexModel
+   @{
+        ViewData["Title"] = "Home page";
+    }
+
+   <div class="text-center">
+       <h1 class="display-4">Welcome</h1>
+       <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+   </div>
+
+   Weather Forecast:
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in @Model.Forecasts)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureC</td>
+                    <td>@forecast.TemperatureF</td>
+                    <td>@forecast.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+   ```
+
+8.  Run the project with [`tye run`](/docs/reference/commandline/tye-run.md) and the `frontend` service should be able to successfully call the `backend` service!
+
+    When you visit the `frontend` service you should see a table of weather data. This data was produced randomly in the `backend` service. The fact that you're seeing it in a web UI in the `frontend` means that the services are able to communicate. Unfortunately, this doesn't work out of the box on Linux
+    right now due to how self-signed certificates are handled, please see the workaround [here](https://github.com/dotnet/tye/blob/master/docs/tutorials/hello-tye/00_run_locally.md#troubleshooting)
+
+Now that you are able to run a single and multi-project application with `tye run`, the next section will cover how to add Redis to the application.
 
 ### Deploying to Kubernetes
 
