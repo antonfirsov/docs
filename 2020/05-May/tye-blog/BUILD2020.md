@@ -67,7 +67,7 @@ The dashboard is the UI for Tye that displays a list of all of your services. Th
 Services written using ASP.NET Core will have their listening ports assigned randomly if not explicitly configured. This is useful to avoid common issues like port conflicts.
 
 ### Running multiple services 
-Instead of just a single application, suppose we have a multi-application scenario where our frontend project now needs to communicate with a backend project. 
+Instead of just a single application, suppose we have a multi-application scenario where our frontend project now needs to communicate with a backend project. If you haven't already, stop the existing `tye run` command using `Ctrl + C`.
 
 1. Create a backend API that the frontend will call inside of the `microservices/` folder.
 
@@ -93,40 +93,15 @@ The dashboard should show both the frontend and backend services. You can naviga
 
 > *The backend service in this example was created using the webapi project template and will return an HTTP 404 for its root URL.*
 
+## Getting the frontend to communicate with the backend
+
+Now that we have two applications running, let's make them communicate.
+
 To get both of these applications communicating with each other, Tye utilizes service discovery. In general terms, service discovery describes the process by which one service figures out the address of another service. Tye uses environment variables for specifying connection strings and URIs of services.
 
 The simplist way to use Tye's service discovery is through the `Microsoft.Extensions.Configuration` system - available by default in ASP.NET Core or .NET Core Worker projects. In addition to this, we provide the `Microsoft.Tye.Extensions.Configuration` package with some Tye-specific extensions layered on top of the configuration system.
 
 If you want to learn more about Tye's philosophy on service discovery and see detailed usage examples, check out this [reference document](https://github.com/dotnet/tye/blob/master/docs/reference/service_discovery.md).
-
-1. If you haven't already, stop the existing `tye run` command using `Ctrl + C`. Create a backend API that the frontend will call inside of the `microservices/` folder.
-
-    ```text
-    dotnet new webapi -n backend
-    ```
-
-1. Create a solution file and add both projects
-
-    ```text
-    dotnet new sln
-    dotnet sln add frontend backend
-    ```
-
-    You should have a solution called `microservice.sln` that references the `frontend` and `backend` projects.
-
-2. Run the `tye` command line in the folder with the solution.
-
-    ```text
-    tye run
-    ```
-
-    The dashboard should show both the `frontend` and `backend` services. You can navigate to both of them through either the dashboard of the url outputted by `tye run`.
-
-    > :warning: The `backend` service in this example was created using the `webapi` project template and will return an HTTP 404 for its root URL.
-
-## Getting the frontend to communicate with the backend
-
-Now that we have two applications running, let's make them communicate. By default, `tye` enables service discovery by injecting environment variables with a specific naming convention. For more information on, see [service discovery](/docs/reference/service_discovery.md).
 
 1. If you haven't already, stop the existing `tye run` command using `Ctrl + C`. Open the solution in your editor of choice.
 
