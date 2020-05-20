@@ -67,18 +67,24 @@ The dashboard is the UI for Tye that displays a list of all of your services. Th
 Services written using ASP.NET Core will have their listening ports assigned randomly if not explicitly configured. This is useful to avoid common issues like port conflicts.
 
 ### Running multiple services 
-Instead of just a single application, suppose we have a multi-application scenario where our frontend project now needs to communicate with a backend project. Create a backend API that the frontend will call inside of the `microservices/` folder.
+Instead of just a single application, suppose we have a multi-application scenario where our frontend project now needs to communicate with a backend project. 
 
-Then create a solution file and add both projects:
+1. Create a backend API that the frontend will call inside of the `microservices/` folder.
+
+```
+dotnet new webapi -n backend
+```
+
+2. Then create a solution file and add both projects:
 
 ```
 dotnet new sln
 dotnet sln add frontend backend
 ```
 
-Now you should have a solution called `microservices.sln` that references the frontend and backend projects.
+You should now have a solution called `microservices.sln` that references the frontend and backend projects.
 
-You can now run `tye` in the folder with the solution.
+3. Run `tye` in the folder with the solution.
 
 ```
 tye run
