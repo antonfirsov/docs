@@ -1,4 +1,3 @@
-
 # Project Tye
 
 [Project Tye](https://github.com/dotnet/tye) is an experimental developer tool that makes developing, testing, and deploying microservices and distributed applications easier.
