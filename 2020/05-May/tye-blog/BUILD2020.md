@@ -273,7 +273,7 @@ To learn more about Tye's yaml specifications and schema, you can check it out [
 
 ### Adding external dependencies (Redis)
 
-Not only does Tye make it easy to run and deploy your applications to Kubernetes, it's also fairly simple to add external dependencies to your applications as well. In this example, Redis is added to the frontend and backend application to store data.
+Not only does Tye make it easy to run and deploy your applications to Kubernetes, it's also fairly simple to add external dependencies to your applications as well. We will now add redis to the frontend and backend application to store data.
 
 Tye can use Docker to run images that run as part of your application. Make sure that [Docker](https://docs.docker.com/get-docker/) is installed on your machine.
 
