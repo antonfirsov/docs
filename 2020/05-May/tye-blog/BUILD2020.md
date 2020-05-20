@@ -461,13 +461,6 @@ frontend-84bbdf4f7d-6r5zp                        1/1     Running   0          85
 redis-5f554bd8bd-rv26p                           1/1     Running   0          98m
 ```
 
-You'll have three services in addition to the built-in Kubernetes service.
-
-```
-kubectl get service
-```
-![kubernetes-services](kubernetes-services.png)
-
 You can visit the frontend application, you will need to port-forward to access the frontend from outside the cluster.
 
 ```
@@ -479,6 +472,8 @@ Now navigate to http://localhost:5000 to view the frontend application working o
 ![port-forwarding](kubernetes-portforward.png)
 
 > *Currently tye does not automatically enable TLS within the cluster, and so communication takes place over HTTP instead of HTTPS. This is typical way to deploy services in kubernetes - we may look to enable TLS as an option or by default in the future.*
+
+### Adding a registry to tye.yaml
 
 If you want to use `tye deploy` as part of a CI/CD system, it's expected that you'll have a `tye.yaml` file initialized. You will then need to add a container registry to `tye.yaml`. Based on what container registry you configured, add the following line in the `tye.yaml` file:
 
@@ -509,8 +504,8 @@ tye undeploy --what-if
 ### Follow up
 If you want to experiment more with using Tye, we have a variety of different sample applications and tutorials that you can walk through, check them out down below:
 
-* [Tye tutorials](https://github.com/dotnet/tye/blob/master/docs/tutorials/hello-tye/00_run_locally.md)
 * [Tye samples](https://github.com/dotnet/tye/tree/master/samples)
+* [Recipes](https://github.com/dotnet/tye/tree/master/docs/recipes)
 
 ## Tye Roadmap
 
