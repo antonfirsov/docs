@@ -248,78 +248,6 @@ If you want to learn more about Tye's philosophy on service discovery and see de
     When you visit the `frontend` service you should see a table of weather data. This data was produced randomly in the `backend` service. The fact that you're seeing it in a web UI in the `frontend` means that the services are able to communicate. Unfortunately, this doesn't work out of the box on Linux
     right now due to how self-signed certificates are handled, please see the workaround [here](https://github.com/dotnet/tye/blob/master/docs/tutorials/hello-tye/00_run_locally.md#troubleshooting)
 
-Now that you are able to run a single and multi-project application with `tye run`, the next section will cover how to add Redis to the application.
-
-### Deploying to Kubernetes
-
-Tye makes the process of deploying your application to Kubernetes very simple with minimal knowlege or configuration required.
-
-> *Tye will use your current credentials for pushing Docker images and accessing Kubernetes clusters. If you have configured kubectl with a context already, that's what [`tye deploy`](/docs/reference/commandline/tye-deploy.md) is going to use!*
-
-Prior to deploying your application, make sure to have the following:
-
-1. [Docker](https://www.docker.com/products/docker-desktop) installed based off on your operating system
-1. A container registry. Docker by default will create a container registry on [DockerHub](https://hub.docker.com/). You could also use [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/) (ACR) or another container registry of your choice.
-1. A Kubernetes Cluster. There are many different options here, including:
-   - [Kubernetes in Docker Desktop](https://www.docker.com/blog/docker-windows-desktop-now-kubernetes/)
-   - [Azure Kubernetes Service](https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster)
-   - [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/)
-   - [K3s](https://k3s.io) - *a lightweight single-binary certified Kubernetes distribution from Rancher*.
-   - Another Kubernetes provider of your choice.
-
-> *If you choose a container registry provided by a cloud provider (other than Dockerhub), you will likely have to take some steps to configure your kubernetes cluster to allow access. Follow the instructions provided by your cloud provider.*  
-
-Now that we have our sample application running locally, let's deploy the application. In this example, we will deploy to Kubernetes by using `tye deploy`.
-
-You can deploy your application by running the follow command:
-```
-tye deploy --interactive
-```
-> *Enter the Container Registry (ex: `example.azurecr.io` for Azure or `example` for dockerhub):*
-
-
-You will be prompted to enter your container registry. This is needed to tag images, and to push them to a location accessible by kubernetes.
-
-![tye-deploy-output](https://user-images.githubusercontent.com/20052391/82242391-9c4cae00-98f2-11ea-9f30-cd9f55e1120b.PNG)
-
-If you are using dockerhub, the registry name will be your dockerhub username. If you are using a standalone container registry (for instance from your cloud provider), the registry name will look like a hostname, eg: `example.azurecr.io`.
-
-`tye deploy` does many different things to deploy an application to Kubernetes. It will:
-
-- Create a docker image for each project in your application.
-- Push each docker image to your container registry.
-- Generate a Kubernetes `Deployment` and `Service` for each project.
-- Apply the generated `Deployment` and `Service` to your current Kubernetes context.
-
-![tye-deploy-building-images-containers](tye-deploy-building-images.png)
-
-
-You should now see two pods running after deploying.
-
-```
-kubectl get pods
-```
-
-![kubernetes-pods](kubernetes-pods.png)
-
-You'll have two services in addition to the built-in Kubernetes service.
-
-```
-kubectl get service
-```
-![kubernetes-services](kubernetes-services.png)
-
-You can visit the frontend application, you will need to port-forward to access the frontend from outside the cluster.
-
-```
-kubectl port-forward svc/frontend 5000:80
-```
-
-Now navigate to http://localhost:5000 to view the frontend application working on Kubernetes.
-
-![port-forwarding](kubernetes-portforward.png)
-
-> *Currently tye does not automatically enable TLS within the cluster, and so communication takes place over HTTP instead of HTTPS. This is typical way to deploy services in kubernetes - we may look to enable TLS as an option or by default in the future.*
 
 ### Tye's configuration schema
 
@@ -343,7 +271,216 @@ To learn more about Tye's yaml specifications and schema, you can check it out [
 
 > *We provide a json-schema for tye.yaml and some editors support json-schema for completion and validation of yaml files. See [json-schema](https://github.com/dotnet/tye/blob/master/src/schema/README.md) for instructions.*
 
-If you want to use `tye deploy` as part of a CI/CD system, it's expected that you'll have a `tye.yaml` file initalized. You will then need to add a container registry to `tye.yaml`. Based on what container registry you configured, add the following line in the `tye.yaml` file:
+### Adding external dependencies (Redis)
+
+Not only does Tye make it easy to run and deploy your applications to Kubernetes, it's also fairly simple to add external dependencies to your applications as well. In this example, Redis is added to the frontend and backend application to store data.
+
+Tye can use Docker to run images that run as part of your application. Make sure that [Docker](https://docs.docker.com/get-docker/) is installed on your machine.
+
+1. Change the `WeatherForecastController.Get()` method in the `backend` project to cache the weather information in redis using an `IDistributedCache`.
+
+   Add the following `using`'s to the top of the file:
+
+   ```C#
+   using Microsoft.Extensions.Caching.Distributed;
+   using System.Text.Json;
+   ```
+
+   And update `Get()`:
+
+   ```C#
+   [HttpGet]
+   public async Task<string> Get([FromServices]IDistributedCache cache)
+   {
+       var weather = await cache.GetStringAsync("weather");
+
+       if (weather == null)
+       {
+           var rng = new Random();
+           var forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+           {
+               Date = DateTime.Now.AddDays(index),
+               TemperatureC = rng.Next(-20, 55),
+               Summary = Summaries[rng.Next(Summaries.Length)]
+           })
+           .ToArray();
+
+           weather = JsonSerializer.Serialize(forecasts);
+
+           await cache.SetStringAsync("weather", weather, new DistributedCacheEntryOptions
+           {
+               AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(5)
+           });
+       }
+       return weather;
+   }
+   ```
+
+   This will store the weather data in Redis with an expiration time of 5 seconds.
+
+
+2. Add a package reference to `Microsoft.Extensions.Caching.StackExchangeRedis` in the backend project:
+
+   ```
+   cd backend/
+   dotnet add package Microsoft.Extensions.Caching.StackExchangeRedis
+   cd ..
+   ```
+
+3. Modify `Startup.ConfigureServices` in the `backend` project to add the redis `IDistributedCache` implementation.
+   ```C#
+   public void ConfigureServices(IServiceCollection services)
+   {
+       services.AddControllers();
+
+       services.AddStackExchangeRedisCache(o =>
+       {
+            o.Configuration = Configuration.GetConnectionString("redis");
+        });
+   }
+   ```
+   The above configures redis to the configuration string for the `redis` service injected by the `tye` host.
+
+4. Modify `tye.yaml` to include redis as a dependency.
+
+   > :bulb: You should have already created `tye.yaml` in a previous step near the end of the deployment tutorial.
+
+   ```yaml
+   name: microservice
+   services:
+   - name: backend
+     project: backend\backend.csproj
+   - name: frontend
+     project: frontend\frontend.csproj
+   - name: redis
+     image: redis
+     bindings:
+     - port: 6379
+       connectionString: "${host}:${port}"
+   - name: redis-cli
+     image: redis
+     args: "redis-cli -h redis MONITOR"
+   ```
+
+    We've added 2 services to the `tye.yaml` file. The `redis` service itself and a `redis-cli` service that we will use to watch the data being sent to and retrieved from redis.
+
+    > :bulb: The `"${host}:${port}"` format in the `connectionString` property will substitute the values of the host and port number to produce a connection string that can be used with StackExchange.Redis.
+
+5. Run the `tye` command line in the solution root
+
+   > :bulb: Make sure your command-line is in the `microservices/` directory. One of the previous steps had you change directories to edit a specific project.
+
+   ```
+   tye run
+   ```
+
+   Navigate to <http://localhost:8000> to see the dashboard running. Now you will see both `redis` and the `redis-cli` running listed in the dashboard.
+   
+   Navigate to the `frontend` application and verify that the data returned is the same after refreshing the page multiple times. New content will be loaded every 5 seconds, so if you wait that long and refresh again, you should see new data. You can also look at the `redis-cli` logs using the dashboard and see what data is being cached in redis.
+
+> The `"${host}:${port}"` format in the `connectionString` property will substitute the values of the host and port number to produce a connection string that can be used with StackExchange.Redis.
+
+### Deploying to Kubernetes
+
+Tye makes the process of deploying your application to Kubernetes very simple with minimal knowlege or configuration required.
+
+> *Tye will use your current credentials for pushing Docker images and accessing Kubernetes clusters. If you have configured kubectl with a context already, that's what [`tye deploy`](/docs/reference/commandline/tye-deploy.md) is going to use!*
+
+Prior to deploying your application, make sure to have the following:
+
+1. [Docker](https://www.docker.com/products/docker-desktop) installed based off on your operating system
+1. A container registry. Docker by default will create a container registry on [DockerHub](https://hub.docker.com/). You could also use [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/) (ACR) or another container registry of your choice.
+1. A Kubernetes Cluster. There are many different options here, including:
+   - [Kubernetes in Docker Desktop](https://www.docker.com/blog/docker-windows-desktop-now-kubernetes/)
+   - [Azure Kubernetes Service](https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster)
+   - [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/)
+   - [K3s](https://k3s.io) - *a lightweight single-binary certified Kubernetes distribution from Rancher*.
+   - Another Kubernetes provider of your choice.
+
+> *If you choose a container registry provided by a cloud provider (other than Dockerhub), you will likely have to take some steps to configure your kubernetes cluster to allow access. Follow the instructions provided by your cloud provider.*  
+
+#### Deploying Redis
+`tye deploy` will not deploy the redis configuration, so you need to deploy it first by running:
+
+```
+kubectl apply -f https://raw.githubusercontent.com/dotnet/tye/master/docs/tutorials/hello-tye/redis.yaml
+```
+
+This will create a deployment and service for redis.
+
+#### Tye deploy
+
+You can deploy your application by running the follow command:
+```
+tye deploy --interactive
+```
+> *Enter the Container Registry (ex: `example.azurecr.io` for Azure or `example` for dockerhub):*
+
+You will be prompted to enter your container registry. This is needed to tag images, and to push them to a location accessible by kubernetes.
+
+![tye-deploy-output](https://user-images.githubusercontent.com/20052391/82242391-9c4cae00-98f2-11ea-9f30-cd9f55e1120b.PNG)
+
+If you are using dockerhub, the registry name will be your dockerhub username. If you are using a standalone container registry (for instance from your cloud provider), the registry name will look like a hostname, eg: `example.azurecr.io`.
+
+
+You'll also be prompted for the connection string for redis.
+
+![redis-connection-string](redis-connection-string.png)
+
+Enter the following to use the instance that you just deployed:
+
+```
+redis:6379
+```
+`tye deploy` will create Kubernetes secret to store the connection string.
+
+> *--interactive is needed here to create the secret. This is a one-time configuration step. In a CI/CD scenario you would not want to have to specify connection strings over and over, deployment would rely on the existing configuration in the cluster.*
+
+Tye uses Kubernetes secrets to store connection information about dependencies like redis that might live outside the cluster. Tye will automatically generate mappings between service names, binding names, and secret names.
+
+`tye deploy` does many different things to deploy an application to Kubernetes. It will:
+
+- Create a docker image for each project in your application.
+- Push each docker image to your container registry.
+- Generate a Kubernetes `Deployment` and `Service` for each project.
+- Apply the generated `Deployment` and `Service` to your current Kubernetes context.
+
+![tye-deploy-building-images-containers](tye-deploy-building-images.png)
+
+
+You should now see three pods running after deploying.
+
+```
+kubectl get pods
+```
+
+```
+NAME                                             READY   STATUS    RESTARTS   AGE
+backend-ccfcd756f-xk2q9                          1/1     Running   0          85m
+frontend-84bbdf4f7d-6r5zp                        1/1     Running   0          85m
+redis-5f554bd8bd-rv26p                           1/1     Running   0          98m
+```
+
+You'll have three services in addition to the built-in Kubernetes service.
+
+```
+kubectl get service
+```
+![kubernetes-services](kubernetes-services.png)
+
+You can visit the frontend application, you will need to port-forward to access the frontend from outside the cluster.
+
+```
+kubectl port-forward svc/frontend 5000:80
+```
+
+Now navigate to http://localhost:5000 to view the frontend application working on Kubernetes.
+
+![port-forwarding](kubernetes-portforward.png)
+
+> *Currently tye does not automatically enable TLS within the cluster, and so communication takes place over HTTP instead of HTTPS. This is typical way to deploy services in kubernetes - we may look to enable TLS as an option or by default in the future.*
+
+If you want to use `tye deploy` as part of a CI/CD system, it's expected that you'll have a `tye.yaml` file initialized. You will then need to add a container registry to `tye.yaml`. Based on what container registry you configured, add the following line in the `tye.yaml` file:
 
 ```
 registry: <registry_name>
@@ -368,80 +505,6 @@ This will remove all deployed resources. If you'd like to see what resources wou
 ```
 tye undeploy --what-if
 ```
-
-### Adding external dependencies (Redis)
-
-Not only does Tye make it easy to run and deploy your applications to Kubernetes, it's also fairly simple to add external dependencies to your applications as well. In this example, Redis is added to the frontend and backend application to store data.
-
-Tye can use Docker to run images that run as part of your application. Make sure that [Docker](https://docs.docker.com/get-docker/) is installed on your machine.
-
-You can download or clone the full solution that contains the redis, frontend, and backend projects [here](https://github.com/dotnet/tye/blob/master/samples/redis/tye.yaml).
-
-To incorporate redis in this application, two additional services are added to the `tye.yaml` file - the `redis` service itself and a `redis-cli` service that is used watch the data being sent to and retrieved from redis.
-
-![tye-yaml-redis](tye-yaml-redis.png)
-
-
-> The `"${host}:${port}"` format in the `connectionString` property will substitute the values of the host and port number to produce a connection string that can be used with StackExchange.Redis.
-
-You can then run `tye` in the solution root. 
-
-```
-tye run
-```
-
-### Deploying Redis 
-
-`tye deploy` will not deploy the redis configuration, so you need to deploy it first by running:
-
-```
-kubectl apply -f https://raw.githubusercontent.com/dotnet/tye/master/docs/tutorials/hello-tye/redis.yaml
-```
-
-This will create a deployment and service for redis. To view this, run:
-
-```
-kubectl get deployments
-```
-
-![get-deployments](get-deployments.png)
-
-You can now deploy the rest of the application with:
-
-```
-tye deploy --interactive
-```
-
-You'll be prompted for the connection string for redis.
-
-![redis-connection-string](redis-connection-string.png)
-
-Enter the following to use the instance that you just deployed:
-
-```
-redis:6379
-```
-`tye deploy` will create Kubernetes secret to store the connection string.
-
-> *--interactive is needed here to create the secret. This is a one-time configuration step. In a CI/CD scenario you would not want to have to specify connection strings over and over, deployment would rely on the existing configuration in the cluster.*
-
-Tye uses Kubernetes secrets to store connection information about dependencies like redis that might live outside the cluster. Tye will automatically generate mappings between service names, binding names, and secret names.
-
-You should now see three pods running after deploying.
-
-```
-kubectl get pods
-```
-
-![kubernetes-pods-redis](kubernetes-pods-redis.png)
-
-Just like the previous time, you can port-forward to access the frontend from outside the cluster.
-
-```
-kubectl port-forward svc/frontend 5000:80
-```
-
-You can now visit `http://localhost:5000` to see the frontend working in Kubernetes.
 
 ### Follow up
 If you want to experiment more with using Tye, we have a variety of different sample applications and tutorials that you can walk through, check them out down below:
