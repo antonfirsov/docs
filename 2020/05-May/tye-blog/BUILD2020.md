@@ -129,7 +129,7 @@ If you want to learn more about Tye's philosophy on service discovery and see de
 
 3. Add a file `WeatherClient.cs` to the `frontend` project with the following contents:
 
-   ```C#
+    ```C#
     using System.Net.Http;
     using System.Text.Json;
     using System.Threading.Tasks;
@@ -159,7 +159,7 @@ If you want to learn more about Tye's philosophy on service discovery and see de
             }
         }
     }
-   ```
+    ```
 
 4. Add a reference to the `Microsoft.Tye.Extensions.Configuration` package to the frontend project
 
