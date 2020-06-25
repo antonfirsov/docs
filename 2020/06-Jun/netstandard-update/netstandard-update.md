@@ -2,7 +2,7 @@
 
 Since [.NET 5 was announced][net5-post], many of you have asked what this means
 for .NET Standard and whether it will still be relevant. The short is answer:
-yes, but .NET Standard and .NET Core will be converged moving forward.
+yes, but .NET Standard and .NET Core will be merged.
 
 .NET Standard has made it much easier to create libraries that work on all .NET
 platforms. But there are still three problems with .NET Standard:
