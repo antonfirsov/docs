@@ -294,7 +294,7 @@ of .NET, for example, a minimal runtime without the current BCL. But that would
 mean that it couldn't leverage the existing .NET library ecosystem anyway, which
 means it wouldn't have implemented .NET Standard either. We're generally not
 interested in pursuing this direction, but the convergence of .NET Standard and
-.NET Core doesn't prevent that nor doest it make it any harder.
+.NET Core doesn't prevent that nor does it make it any harder.
 
 ## What you should target
 
