@@ -252,8 +252,8 @@ conjunction, for example, it might look something like this:
 |`net5.0-android`  | `net6.0-android`  | `net7.0-android`  |
 |`net5.0-ios`      | `net6.0-ios`      | `net7.0-ios`      |
 |`net5.0-windows`  | `net6.0-windows`  | `net7.0-windows`  |
-|                  | `net6.0-bar`      | `net7.0-bar`      |
-|`net5.0-foo`      |                   |                   |
+|                  | `net6.0-example1` | `net7.0-example1` |
+|`net5.0-example2` |                   |                   |
 
 This means that you can generally expect that whatever innovation we did in the
 BCL, you're going to be able to use it from all app models, no matter which
@@ -266,10 +266,11 @@ time we ship you can assume that all platforms are going to support the new
 version immediately and completely. And we cement this promise by using the
 prefix naming convention.
 
-However, we might add support for new platforms (illustrated by `net6.0-bar`)
-and we might drop support for platforms that are no longer relevant (illustrated
-by `net6.0-foo`). But dropping platforms will be a big deal and we'll announce
-these decisions well in advance, so these changes should never surprise you.
+However, we might add support for new platforms (illustrated by
+`net6.0-example1`) and we might drop support for platforms that are no longer
+relevant (illustrated by `net5.0-example2`). But dropping platforms will be a
+big deal and we'll announce these decisions well in advance, so these changes
+should never surprise you.
 
 ## .NET 5 as the combination of .NET Standard & .NET Core
 
