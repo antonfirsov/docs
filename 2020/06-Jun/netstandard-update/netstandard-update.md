@@ -10,7 +10,7 @@ also cover the cases where you still need .NET Standard.
 .NET 5 will be a shared code base for .NET Core, Mono, Xamarin, and future .NET
 implementations:
 
-![](net5-vision.gif)
+![.NET 5 vision](net5-vision.gif)
 
 To better reflect this, we've updated the [target framework names (TFMs)][net5-tfms]:
 
