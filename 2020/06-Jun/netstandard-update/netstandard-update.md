@@ -1,7 +1,7 @@
 # The future of .NET Standard
 
 Since [.NET 5 was announced][net5-post], many of you have asked what this means
-for .NET Standard and whether it will still be relevant. The short is answer:
+for .NET Standard and whether it will still be relevant. The short answer is:
 yes, but .NET Standard and .NET Core will be merged.
 
 .NET Standard has made it much easier to create libraries that work on all .NET
@@ -55,7 +55,7 @@ packages][ns-growth-post].
 
 But standardizing the API set alone creates a tax. It requires coordination
 whenever we're adding new APIs -- which happens all the time. Both us and the
-.NET open source community keep innovating in the BCL, be that for new language
+.NET open source community keep innovating in the BCL providing new language
 features, usability improvements, new cross-cutting features such as span, or
 supporting new data formats or networking protocols.
 
@@ -91,9 +91,9 @@ The goal is to only standardize APIs that we can truly implement in all current
 *and* future .NET platforms. These reviews are necessary because there are
 different implementations of the .NET stack, with different constraints.
 
-But what if there were a single code base? And what if that code base would have
+But what if there was a single code base? And what if that code base would have
 to support all the aspects that make .NET implementations differ today, for
-example, supporting both just-in-time (JIT) compilation as well as ahead-to-time
+example, supporting both just-in-time (JIT) compilation as well as ahead-of-time
 (AOT) compilation?
 
 Instead of doing these reviews as an after thought we'd make all these aspects
@@ -153,7 +153,7 @@ APIs][platform-compat-spec].
 
 This analyzer will be especially valuable for app-models that have a large set
 of OS-bindings, such as Android, iOS, and UWP. Technically, WinForms and WPF are
-also OS bindings but it works on all supported versions of Windows, so you never
+also OS bindings but they work on all supported versions of Windows, so you never
 encounter an API that needs a specific version of Windows (unlike the WinRT APIs
 from UWP).
 
@@ -162,7 +162,7 @@ compile-time you can only see APIs that exist in that version of .NET. If you
 want to call APIs that are introduced in a later .NET version, you need to
 either use reflection, retarget to a higher version (and thus no longer being
 able to run on the older version), or use multi-targeting (meaning you produce
-two produce separate binaries for the old and the new .NET version). You can't
+two separate binaries for the old and the new .NET version). You can't
 just compile against the later version and guard the call at runtime with an
 `if` check -- the reason is that the runtime needs to be able to resolve the
 types and methods you're using at runtime which it can't do for the new APIs
@@ -171,7 +171,7 @@ actually call the API.
 
 Since OS APIs are native, this requirement doesn't exist. Thus, you can compile
 against the latest Android, iOS, or Windows SDK and still run on older versions,
-as long only call APIs that are actually available at runtime.
+as long as you are only calling the APIs that are actually available at runtime.
 
 Let's look an example. Say you're building an iOS application and you want to
 run on iOS 13 while still being able to use the latest APIs if you're running on
