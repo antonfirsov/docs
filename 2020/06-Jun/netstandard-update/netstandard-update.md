@@ -3,7 +3,7 @@
 Since [.NET 5 was announced][net5-post], many of you have asked what this means
 for .NET Standard and whether it will still be relevant. In this post, I'm going
 to explain how .NET 5 improves code sharing and replaces .NET Standard. I'll
-also cover the cases where you still .NET Standard.
+also cover the cases where you still need .NET Standard.
 
 ## For the impatient: TL;DR
 
@@ -60,8 +60,8 @@ packages][ns-growth-post].
 But standardizing the API set alone creates a tax. It requires coordination
 whenever we're adding new APIs -- which happens all the time. Both us and the
 .NET open source community keep innovating in the BCL providing new language
-features, usability improvements, new cross-cutting features such as span, or
-supporting new data formats or networking protocols.
+features, usability improvements, new cross-cutting features such as `Span<T>`,
+or supporting new data formats or networking protocols.
 
 And while we can provide new types as NuGet packages, we can't provide new APIs
 on existing types this way. So in the general sense, innovation in the BCL
@@ -70,6 +70,16 @@ requires shipping a new version of .NET Standard.
 Up until .NET Standard 2.0 this wasn't really an issue because we only
 standardized *existing* APIs. But in .NET Standard 2.1 we standardized brand new
 APIs and that's where we saw quite a bit of friction.
+
+Where does this friction come from?
+
+.NET Standard is an API set that all .NET implementations have to support, so
+there is an [editorial aspect][ns-process] to it in that all APIs must be
+reviewed by the [.NET Standard review board][ns-board]. The board is comprised
+of .NET platform implementers as well as representatives of the .NET community.
+The goal is to only standardize APIs that we can truly implement in all current
+*and* future .NET platforms. These reviews are necessary because there are
+different implementations of the .NET stack, with different constraints.
 
 We predicted this type of friction which is why we said early on that .NET
 Standard [will only standardize APIs][problem-1] that were already shipped in at
@@ -84,16 +94,6 @@ unnatural acts to standardize APIs that weren't shipped yet (such as
 `IAsyncEnumerable<T>`). Doing this for all BCL APIs was simply too expensive
 which is why quite a few features still missed the .NET Standard 2.1 train (such
 as the new hardware intrinsics).
-
-Where does this friction come from?
-
-.NET Standard is an API set that all .NET implementations have to support, so
-there is an [editorial aspect][ns-process] to it in that all APIs must be
-reviewed by the [.NET Standard review board][ns-board]. The board is comprised
-of .NET platform implementers as well as representatives of the .NET community.
-The goal is to only standardize APIs that we can truly implement in all current
-*and* future .NET platforms. These reviews are necessary because there are
-different implementations of the .NET stack, with different constraints.
 
 But what if there was a single code base? And what if that code base would have
 to support all the aspects that make .NET implementations differ today, for
@@ -135,8 +135,10 @@ ACLs, the registry, WMI etc).
 
 We didn't have a way to mark these APIs as Windows-only, nor did we have a TFM
 to put them into (like we have now with `net5.0-windows`). Many of you have
-complained that these feel like "landmines", in that the code compiles as if it
-were portable but will fail it runtime.
+complained that these feel like "landmines" - the code will compile without
+errors and "look" like portable to any platform, but when running on a platform
+that doesn't have an implementation for the given API, you will get runtime
+errors.
 
 In the past, we have experimented with a [Roslyn analyzer][platform-compat] that
 detects platform-specific APIs at compile time:
@@ -145,7 +147,8 @@ detects platform-specific APIs at compile time:
 
 However, this analyzer has had a few short comings:
 
-1. It doesn't ship with the SDK and is not enabled by default
+1. It's experimental so it doesn't ship with the SDK and is not enabled by
+   default
 2. It essentially hard codes which APIs are platform-specific
 3. It's not smart enough to understand when APIs are called under a
    platform-guard
@@ -177,7 +180,7 @@ Since OS APIs are native, this requirement doesn't exist. Thus, you can compile
 against the latest Android, iOS, or Windows SDK and still run on older versions,
 as long as you are only calling the APIs that are actually available at runtime.
 
-Let's look an example. Say you're building an iOS application and you want to
+Let's look at an example. Say you're building an iOS application and you want to
 run on iOS 13 while still being able to use the latest APIs if you're running on
 the latest version of iOS. Your project file might look like this:
 
@@ -241,9 +244,9 @@ LTS. We created this fixed schedule to make it easier for you to plan your
 updates (if you're an app developer) and predict the demand for supported .NET
 versions (if you're a library developer).
 
-Thanks to the ability to install .NET Core side-by-side, our experience is that
-new versions are adopted fairly fast but most of the spike will happen on for
-LTS releases. In fact, .NET Core 3.1 was the fasted adopted .NET version ever.
+Thanks to the ability to install .NET Core side-by-side, new versions are
+adopted fairly fast with LTS versions being the most popular. In fact, .NET Core
+3.1 was the fasted adopted .NET version ever.
 
 ![.NET 5 Schedule](net5-schedule.png)
 
@@ -256,8 +259,8 @@ conjunction, for example, it might look something like this:
 |`net5.0-android`  | `net6.0-android`  | `net7.0-android`  |
 |`net5.0-ios`      | `net6.0-ios`      | `net7.0-ios`      |
 |`net5.0-windows`  | `net6.0-windows`  | `net7.0-windows`  |
-|                  | `net6.0-example1` | `net7.0-example1` |
-|`net5.0-example2` |                   |                   |
+|                  | `net6.0-somenewos`| `net7.0-somenewos`|
+|`net5.0-someoldos`|                   |                   |
 
 This means that you can generally expect that whatever innovation we did in the
 BCL, you're going to be able to use it from all app models, no matter which
@@ -271,8 +274,8 @@ version immediately and completely. And we cement this promise by using the
 prefix naming convention.
 
 However, we might add support for new platforms (illustrated by
-`net6.0-example1`) and we might drop support for platforms that are no longer
-relevant (illustrated by `net5.0-example2`). But dropping platforms will be a
+`net6.0-somenewos`) and we might drop support for platforms that are no longer
+relevant (illustrated by `net5.0-someoldos`. But dropping platforms will be a
 big deal and we'll announce these decisions well in advance, so these changes
 should never surprise you.
 
