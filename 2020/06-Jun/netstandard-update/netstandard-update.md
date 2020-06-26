@@ -1,20 +1,9 @@
 # The future of .NET Standard
 
 Since [.NET 5 was announced][net5-post], many of you have asked what this means
-for .NET Standard and whether it will still be relevant. The short answer is:
-yes, but .NET Standard and .NET Core will be merged.
-
-.NET Standard has made it much easier to create libraries that work on all .NET
-platforms. But there are still three problems with .NET Standard:
-
-1. **It [versions slowly][problem-1]**, which means you can't easily use the
-   latest features
-2. **It needs a [decoder ring][problem-2]** to map versions to .NET
-   implementations.
-3. **It [exposes platform-specific APIs][problem-3]**, which means you can't
-   statically validate whether your code is truly portable.
-
-In this post, I'm going to explain how .NET 5 will address all three issues.
+for .NET Standard and whether it will still be relevant. In this post, I'm going
+to explain how .NET 5 improves code sharing and replaces .NET Standard. I'll
+also cover the cases where you still .NET Standard.
 
 ## For the impatient: TL;DR
 
@@ -33,11 +22,26 @@ To better reflect this, we have updated the [framework names (TFMs)][net5-tfms]:
 * `net5.0-android`, `net5.0-ios`, and `net5.0-windows`. These TFMs represent OS
   specific flavors of .NET 5 that include `net5.0` plus OS-specific bindings.
 
-.NET 5 and all future versions will continue to support .NET Standard 2.1 and
-earlier. But there won't be a .NET Standard 2.2. You should think of `net5.0`
-(and future versions) as the foundation for sharing code moving forward.
+There isn't going to be a new version of .NET Standard but .NET 5 and all future
+versions will continue to support .NET Standard 2.1 and earlier. You should
+think of `net5.0` (and future versions) as the foundation for sharing code
+moving forward.
 
-## .NET Standard versions slowly
+## Problems with .NET Standard
+
+.NET Standard has made it much easier to create libraries that work on all .NET
+platforms. But there are still three problems with .NET Standard:
+
+1. **It [versions slowly][problem-1]**, which means you can't easily use the
+   latest features
+2. **It needs a [decoder ring][problem-2]** to map versions to .NET
+   implementations.
+3. **It [exposes platform-specific APIs][problem-3]**, which means you can't
+   statically validate whether your code is truly portable.
+
+Let's see how .NET 5 will address all three issues.
+
+## Problem 1: .NET Standard versions slowly
 
 [.NET Standard was designed][ns-post] at a time where the .NET platforms weren't
 converged at the implementation level. This made writing code that needs to work
@@ -102,7 +106,7 @@ standardized API set is, by construction, the common API set. When a feature is
 implemented, it would already be available for everyone because the code base is
 shared.
 
-## .NET Standard needs a decoder ring
+## Problem 2: .NET Standard needs a decoder ring
 
 Separating the API set from its implementation doesn't just slow down the
 availability of APIs. It also means that we need to [map .NET Standard versions
@@ -122,7 +126,7 @@ We can't solve this problem without truly merging some rectangles in our layer
 diagram, which is what .NET 5 does: it provides a unified implementation where
 all parties build on the same foundation and thus get the same version number.
 
-## .NET Standard exposes platform-specific APIs
+## Problem 3: .NET Standard exposes platform-specific APIs
 
 When we designed .NET Standard, [we had to make pragmatic
 concessions][problem-3] in order to avoid breaking the library ecosystem too
