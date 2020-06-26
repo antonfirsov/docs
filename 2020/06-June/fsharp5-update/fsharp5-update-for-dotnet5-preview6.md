@@ -49,7 +49,7 @@ This is also a significant improvement over the "old" way to use a package like 
 
 This preview brings along a fundamental improvement to [F# Code Quotations](https://docs.microsoft.com/dotnet/fsharp/language-reference/code-quotations), a metaprogramming feature that lets you generate and manipulate an abstract syntax tree that represents the F# code.
 
-Although powerful, F# Code Quotations have had a severe deficiency up until this point: they didn't carry "trait calls" to sufficiently represent the actual semantics of the code being "quoted" if it relied on type constraints. A common way this could manifest itself was "allowing" arithmetic that shouldn't actually compile, resulting in a runtime exception if evaluated.
+Although powerful, F# Code Quotations have had a severe deficiency up until this point: they didn't carry "trait calls" to sufficiently represent the actual semantics of the code being "quoted" if it relied on type constraints. A common way this could manifest itself was "allowing" code with arithmetic that would merely throw an exception at runtime.
 
 These enhancements are particularly relevant to translating F# code to run on other runtimes like PyTorch or ONNX, a key scenario we're exploring as a means to attract developers in more "analytical" domains to F# and .NET. We also anticipate numerous smaller issues that F# developers using F# Code Quotations today had to work around to be resolved and "just work" the way they expect them to.
 
