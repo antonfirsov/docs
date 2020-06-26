@@ -1,4 +1,3 @@
-
 # F# 5 and F# tools update (again!)
 
 We’re excited to announce more updates to F# 5 today! We shipped a lot of preview features since [F# 5 preview 1](https://devblogs.microsoft.com/dotnet/announcing-f-5-preview-1/), and they have all been stabilizing since that release including a [set of updates aligning with .NET 5 preview 4](https://devblogs.microsoft.com/dotnet/f-5-update-for-net-5-preview-4/). Today, we’re happy to announce some new language features, a sneak peek at using F# in VSCode notebooks, and some F# tooling updates that will align with Visual Studio 2019 Update 16.7.
@@ -23,11 +22,7 @@ If you’d rather use F# 5 in your own project, you’ll need to add a `LangVers
 
 Alternatively, if you’re using Jupyter Notebooks and want a more interactive experience, check out a [sample notebook](https://gist.github.com/cartermp/6b91c3561c6a5efca4288dca37c15edc) that shows the same features, but has a more interactive output.
 
-## New F# 5 features
-
-This release has some new features! Let's dive in.
-
-### Improvements to nuget references for F# scripts
+## Improvements to nuget references for F# scripts
 
 Support for `#r "nuget:..."` has now been enhanced to support packages that pull in native dependencies. Prior to this update, some packages weren't 100% usable if they needed to call into certain kinds of native code. This is now resolved. The following is an example of the [Flips](https://www.nuget.org/packages/Flips/) library, which used to fail on the second-to-last line of code where it serialized a model. Now it works!
 
@@ -39,13 +34,13 @@ Additionally, we now support referencing packages where the order of `.dll` refe
 
 This is also a significant improvement over the "old" way to use a package like this, where you needed to manually ensure the ordering of the `.dlls` being passed to the compiler to be able to use it in scripts.
 
-### Better interop with nullable value types
+## Better interop with nullable value types
 
 [Nullable (value) types](https://docs.microsoft.com/dotnet/api/system.nullable-1) (called Nullable Types historically) have long been supported by F#, but interacting with them has traditionally been somewhat of a pain since you'd have to construct a `Nullable` or `Nullable<SomeType>` wrapper every time you wanted to pass a value. Now the compiler will implicitly convert a value type into a `Nullable<ThatValueType>` if the target type matches. The following code is now possible:
 
 <script src="https://gist.github.com/cartermp/a0603f0e6da3693b2f243eabfbd977c7.js"></script>
 
-### F# quotations improvements
+## F# quotations improvements
 
 This preview brings a fundamental improvement to [F# Code Quotations](https://docs.microsoft.com/dotnet/fsharp/language-reference/code-quotations), a metaprogramming feature that lets you generate and manipulate an abstract syntax tree that represents the F# code.
 
@@ -61,7 +56,7 @@ This used to throw an exception. It now emits `-1` as you would expect it to.
 
 To read more about this feature (warning: there is a _lot_ to read about), you can check out the RFC here: https://github.com/fsharp/fslang-design/blob/master/preview/FS-1071-witness-passing-quotations.md
 
-### Improved stack traces in F# async and other computation expressions
+## Improved stack traces in F# async and other computation expressions
 
 Thanks to a contribution by [Nino Floris](https://github.com/NinoFloris), stack traces coming from caught exceptions in computation expressions (such as F# async) now retain more information. Consider the following code that uses the Ply library:
 
@@ -134,19 +129,15 @@ Some features on the more immediate roadmap include:
 
 We'd love to have you try it out and give us feedback on what you feel needs to be there. To do so, follow the [installation instructions](https://github.com/dotnet/interactive/blob/master/src/dotnet-interactive-vscode/README.md) and don't be shy when filing issues on GitHub!
 
-## F# tooling updates for VS 16.7
+## .NET Framework projects default to SDK-style project files
 
-In the forthcoming Visual Studio 16.7 update, we'll ship several improvements to F# tooling.
-
-### .NET Framework projects default to SDK-style project files
-
-We've deprecated the older "long-form" F# projects. They will still load in Visual Studio today, but any new projects you create will only be .NET SDK-style moving forward. The project files now look like this:
+Starting with the Visual Studio 16.7 update, we've deprecated the older "long-form" F# projects. They will still load in Visual Studio today, but any new projects you create will only be .NET SDK-style moving forward. The project files now look like this:
 
 ![.NET Framework project file from the template](img/net-fsharp-project.png)
 
 ### IntelliSense improvements
 
-Keywords descriptions now show in completion lists:
+Keyword descriptions now show in completion lists:
 
 ![Keyword descriptions](img/keyword-completion.png)
 
@@ -158,7 +149,7 @@ When typing at the top of a file (such as in an F# script), using a code fixer v
 
 Various improvements to error recovery and data shown in tooltips have been contributed by [Eugene Auduchinok](https://github.com/auduchinok) and [Matt Constable](https://github.com/mcon).
 
-### More performance improvements
+### More performance improvements for Visual Studio tooling
 
 The performance work for larger codebases is always ongoing, focused primarily on elminating some unnecessary memory usage over time. [Steffen Forkmann](https://github.com/forki/) also helped in this effort with some improvements.
 
