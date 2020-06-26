@@ -39,7 +39,7 @@ Additionally, we now support referencing packages where the order of `.dll` refe
 
 This is also a significant improvement over the "old" way to use a package like this, where you needed to manually ensure the ordering of the `.dlls` being passed to the compiler to be able to use it in scripts.
 
-### Better interop with Nullable value types
+### Better interop with nullable value types
 
 [Nullable (value) types](https://docs.microsoft.com/dotnet/api/system.nullable-1) (called Nullable Types historically) have long been supported by F#, but interacting with them has traditionally been somewhat of a pain since you'd have to construct a `Nullable` or `Nullable<SomeType>` wrapper every time you wanted to pass a value. Now the compiler will implicitly convert a value type into a `Nullable<ThatValueType>` if the target type matches. The following code is now possible:
 
@@ -47,7 +47,7 @@ This is also a significant improvement over the "old" way to use a package like 
 
 ### F# quotations improvements
 
-This preview brings along a fundamental improvement to [F# Code Quotations](https://docs.microsoft.com/dotnet/fsharp/language-reference/code-quotations), a metaprogramming feature that lets you generate and manipulate an abstract syntax tree that represents the F# code.
+This preview brings a fundamental improvement to [F# Code Quotations](https://docs.microsoft.com/dotnet/fsharp/language-reference/code-quotations), a metaprogramming feature that lets you generate and manipulate an abstract syntax tree that represents the F# code.
 
 Although powerful, F# Code Quotations have had a severe deficiency up until this point: they didn't carry "trait calls" to sufficiently represent the actual semantics of the code being "quoted" if it relied on type constraints. A common way this could manifest itself was "allowing" code with arithmetic that would merely throw an exception at runtime.
 
@@ -103,7 +103,7 @@ Code will now look like this:
 
 <script src="https://gist.github.com/cartermp/6901e59b8ab8a46ffa055b5ec02698d3.js"></script>
 
-### Allow implementing the same interface at differen generic instantiations
+### Allow implementing the same interface at different generic instantiations
 
 As another example of F# open source community excellence, [Lukas Rieger](https://github.com/0x53A) contributed an initial design and implementation of this feature. In a future F# 5 preview, code like this will be able to compile:
 
@@ -144,7 +144,7 @@ We've deprecated the older "long-form" F# projects. They will still load in Visu
 
 ![.NET Framework project file from the template](img/net-fsharp-project.png)
 
-### IntelliSense Improvements
+### IntelliSense improvements
 
 Keywords descriptions now show in completion lists:
 
