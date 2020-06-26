@@ -3,9 +3,9 @@
 
 We’re excited to announce more updates to F# 5 today! We shipped a lot of preview features since [F# 5 preview 1](https://devblogs.microsoft.com/dotnet/announcing-f-5-preview-1/), and they have all been stabilizing since that release including a [set of updates aligning with .NET 5 preview 4](https://devblogs.microsoft.com/dotnet/f-5-update-for-net-5-preview-4/). Today, we’re happy to announce some new language features, a sneak peek at using F# in VSCode notebooks, and some F# tooling updates that will align with Visual Studio 2019 Update 16.7.
 
-Here’s how you get the latest release:
+You can get the latest F# 5 in these ways
 
-* Install the latest [.NET 5 preview SDK](https://dotnet.microsoft.com/download/dotnet-core/5.0)
+* [Install the latest .NET 5 preview SDK](https://dotnet.microsoft.com/download/dotnet-core/5.0)
 * [Install .NET for Jupyter/nteract](https://github.com/dotnet/interactive/#jupyter-and-nteract)
 * [Install .NET for VSCode Notebooks](https://github.com/dotnet/interactive/#visual-studio-code)
 
@@ -41,7 +41,7 @@ This is also a significant improvement over the "old" way to use a package like 
 
 ### Better interop with Nullable value types
 
-[Nullable (value) types](https://docs.microsoft.com/dotnet/api/system.nullable-1) (called Nullable Types historically) have long been supported by F#, but interacting with them has traditionally been somewhat of a pain since you'd have to construct a `Nullable` or `Nullable<SomeType>` wrapper every time you wanted to pass a value. Now, we will implicitly convert a value type into a `Nullable<ThatValueType>` if the target type matches. The following code is now possible:
+[Nullable (value) types](https://docs.microsoft.com/dotnet/api/system.nullable-1) (called Nullable Types historically) have long been supported by F#, but interacting with them has traditionally been somewhat of a pain since you'd have to construct a `Nullable` or `Nullable<SomeType>` wrapper every time you wanted to pass a value. Now the compiler will implicitly convert a value type into a `Nullable<ThatValueType>` if the target type matches. The following code is now possible:
 
 <script src="https://gist.github.com/cartermp/a0603f0e6da3693b2f243eabfbd977c7.js"></script>
 
@@ -49,7 +49,7 @@ This is also a significant improvement over the "old" way to use a package like 
 
 This preview brings along a fundamental improvement to [F# Code Quotations](https://docs.microsoft.com/dotnet/fsharp/language-reference/code-quotations), a metaprogramming feature that lets you generate and manipulate an abstract syntax tree that represents the F# code.
 
-Although powerful, F# Code Quotations have had a severe deficiency up until this point: they didn't carry "trait calls" to sufficiently represent the actual semantics of the code being "quoted", disallowing you from representing many forms of F# code that relies on certain constraints in the types involved. A common way this could manifest itself was "allowing" arithmetic that shouldn't actually compile, resulting in a runtim exception if evaluated.
+Although powerful, F# Code Quotations have had a severe deficiency up until this point: they didn't carry "trait calls" to sufficiently represent the actual semantics of the code being "quoted" if it relied on type constraints. A common way this could manifest itself was "allowing" arithmetic that shouldn't actually compile, resulting in a runtime exception if evaluated.
 
 These enhancements are particularly relevant to translating F# code to run on other runtimes like PyTorch or ONNX, a key scenario we're exploring as a means to attract developers in more "analytical" domains to F# and .NET. We also anticipate numerous smaller issues that F# developers using F# Code Quotations today had to work around to be resolved and "just work" the way they expect them to.
 
@@ -114,7 +114,7 @@ Code will now look like this:
 
 <script src="https://gist.github.com/cartermp/6901e59b8ab8a46ffa055b5ec02698d3.js"></script>
 
-### Allow implementic the same interface at differen generic instantiations
+### Allow implementing the same interface at differen generic instantiations
 
 As another example of F# open source community excellence, [Lukas Rieger](https://github.com/0x53A) contributed an initial design and implementation of this feature. In a future F# 5 preview, code like this will be able to compile:
 
@@ -157,8 +157,6 @@ We've deprecated the older "long-form" F# projects. They will still load in Visu
 
 ### IntelliSense Improvements
 
-Some minor intellisense improvements are included in this release:
-
 Keywords descriptions now show in completion lists:
 
 ![Keyword descriptions](img/keyword-completion.png)
@@ -173,7 +171,9 @@ Various improvements to error recovery and data shown in tooltips have been cont
 
 ### More performance improvements
 
-The performance work for larger codebases is always ongoing, focused primarily on memory usage over time. [Steffen Forkmann](https://github.com/forki/) also helped in this effort with some improvements. Additionally, [Saul Rennison](https://github.com/saul) contributed an improvement to CPU time spend building F# projects at design-time in Visual Studio, a process that happens ambiently and many times over a session. The bottleneck identified has had its CPU time reduced by ~90%.
+The performance work for larger codebases is always ongoing, focused primarily on elminating some unnecessary memory usage over time. [Steffen Forkmann](https://github.com/forki/) also helped in this effort with some improvements.
+
+Additionally, [Saul Rennison](https://github.com/saul) contributed an improvement to CPU time spend building F# projects at design-time in Visual Studio, a process that happens ambiently and many times over a session. The bottleneck identified has had its CPU time reduced by ~90%. If you have a lot of F# projects in a solution, you may notice that various things feel "quicker" than before.
 
 Thank you to everyone who has contributed! F# is continually improving because of your work.
 
@@ -181,9 +181,9 @@ Thank you to everyone who has contributed! F# is continually improving because o
 
 We're still not done with F# 5, and aside from what I mentioned earlier about what's next, we'll be focused on these three things:
 
-* Continuing inclusion of language features when their design and implementations are stable
-* Continuing to improve the tooling performance for larger F# codebases
-* Making F# in Jupyter and Visual Studio Code Notebooks the best language for data science and analytical work
+1. Continuing inclusion of language features when their design and implementations are stable
+2. Continuing to improve the tooling performance for larger F# codebases
+3. Making F# in Jupyter and Visual Studio Code Notebooks the best language for data science and analytical work
 
 Later this year we will "close down" on F# 5, marking a period of time where we focus on stabilization and planning for the next F# language version. We don't have a date in mind for that year, but we're thinking it will be near the end of the Summer. Until that point, If you'd like to follow along on a much more detailed level, you can check out the [F# development repository](https://github.com/dotnet/fsharp). We're tracking the work we're focused on with a GitHub issue every 3 weeks, and we encourage you all to provide input to the list of things and let us know what you think.
 
