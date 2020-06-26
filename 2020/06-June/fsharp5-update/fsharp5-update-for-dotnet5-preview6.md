@@ -29,7 +29,7 @@ This release has some new features! Let's dive in.
 
 ### Improvements to nuget references for F# scripts
 
-Support for `#r "nuget:..."` has now been enhanced to support packages that pull in native dependencies. Prior to this update, some packages weren't 100% usable if they needed to call into certain kinds of native code. This is now resolved. The following is an example of the [FLIPs](https://www.nuget.org/packages/Flips/) library, which used to fail on the second-to-last line of code where it serialized a model. Now it works!
+Support for `#r "nuget:..."` has now been enhanced to support packages that pull in native dependencies. Prior to this update, some packages weren't 100% usable if they needed to call into certain kinds of native code. This is now resolved. The following is an example of the [Flips](https://www.nuget.org/packages/Flips/) library, which used to fail on the second-to-last line of code where it serialized a model. Now it works!
 
 <script src="https://gist.github.com/cartermp/2adeac8ac012822b270509bc057490e6.js"></script>
 
@@ -69,18 +69,7 @@ Thanks to a contribution by [Nino Floris](https://github.com/NinoFloris), stack 
 
 Prior to this change, the `origin` function would not appear in stack traces without a workaround in the Ply library (and any other library where this is a scenario). Now it shows the full trace:
 
-```
-System.InvalidOperationException: Generic error message.
-   at Program.origin() in C:\Users\phcart\source\repos\ConsoleApp35\ConsoleApp35\Program.fs:line 5
-   at Program.caller@8-1.Invoke(Unit unitVar) in C:\Users\phcart\source\repos\ConsoleApp35\ConsoleApp35\Program.fs:line 8
-   at Ply.TplPrimitives.tryWith[u](FSharpFunc`2 continuation, FSharpFunc`2 catch)
---- End of stack trace from previous location where exception was thrown ---
-   at Ply.TplPrimitives.tryWith[u](FSharpFunc`2 continuation, FSharpFunc`2 catch)
-   at Program.caller@7.Invoke(Unit unitVar) in C:\Users\phcart\source\repos\ConsoleApp35\ConsoleApp35\Program.fs:line 7
-   at Ply.TplPrimitives.ContinuationStateMachine`1.System-Runtime-CompilerServices-IAsyncStateMachine-MoveNext()
---- End of stack trace from previous location where exception was thrown ---
-   at Program.main(String[] argv) in C:\Users\phcart\source\repos\ConsoleApp35\ConsoleApp35\Program.fs:line 17
-```
+<script src="https://gist.github.com/cartermp/4147b1ceefd84c67c55cc17f6a199784.js"></script>
 
 ## What's coming next
 
