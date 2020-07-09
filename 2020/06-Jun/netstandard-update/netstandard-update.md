@@ -50,10 +50,9 @@ implementations.
 
 The goal of .NET Standard was to unify the API set of the base class library
 (BCL), so that you can write a single library that can run everywhere. And this
-has served us really well: .NET Standard is used by [over 30% of all NuGet
-packages][ns-growth-post].
-
-> **PENDING**. Requested updated data from Mark
+has served us really well: .NET Standard by over 77% of the top 1000 packages.
+And if we look at all packages that have been updated in the last 6 months, the
+adoption is at 58%.
 
 ![#Packages supporting .NET Standard](chart-all.png)
 
