@@ -20,3 +20,14 @@ Release notes:
 * [.NET 5.0 Runtime epics](https://github.com/dotnet/runtime/issues/37269)
 * GitHub release
 * GitHub tracking issue
+
+## .NET 5.0 Highlights
+
+The following improvements are ones that you will most likely take advantage of and notice when you adopt .NET 5.0.
+
+* [C# 9](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-5/)
+   * Top-level programs that enable no-ceremony programs (no classes required).
+   * Extends immutability to object initializers and property accessors.
+   * Adds record types, which are a new kind of value type that are always immutable, and can be mutated via a non-destructive `with`-expression (new with records).
+* [F# 5.0](https://devblogs.microsoft.com/dotnet/announcing-f-5-preview-1/)
+   * Better interactive and analytical programming.
