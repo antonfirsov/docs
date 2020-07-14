@@ -44,9 +44,9 @@ The [.NET 5.0 Runtime Epics](https://github.com/dotnet/runtime/issues/37269) pro
    * [HTTP 1.1](https://github.com/dotnet/corefx/pull/41640) and [HTTP/2](https://github.com/dotnet/runtime/pull/35694)
    * [ARM64](https://github.com/dotnet/runtime/issues/35853) (Linux and Windows) in the JIT and BCL libraries.
 * Consistent performance ([P95+ latency](https://github.com/dotnet/runtime/issues/37534)). 
+   * [Garbage collection](https://github.com/dotnet/coreclr/pull/27578)
    * [Tiered compilation](https://github.com/dotnet/runtime/pull/32250) used by tiered JIT compilation to smooth out performance during startup
    * [Pinned object heap](https://github.com/dotnet/runtime/pull/32283) to reduce heap fragmentation caused by pinning
-   * Reduce GC pause times in specific situations, like [Array.Copy](https://github.com/dotnet/coreclr/pull/27776), [Array.Sort](https://github.com/dotnet/runtime/pull/35297) or [object unboxing](https://github.com/dotnet/runtime/pull/32353#issuecomment-586642480)
 * Application deployment
    * [Single-file apps](https://github.com/dotnet/runtime/issues/36590)
    * [Reduce container image size](https://github.com/dotnet/dotnet-docker/issues/1814#issuecomment-625294750)
