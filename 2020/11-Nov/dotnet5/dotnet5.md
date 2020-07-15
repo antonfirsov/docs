@@ -45,7 +45,6 @@ The following improvements are the highlights of .NET 5.0, and the ones we hope 
    * [Reduce container image size](https://github.com/dotnet/dotnet-docker/issues/1814#issuecomment-625294750) -- Optimizes container layering for large size savings for building images.
 * Platforms
    * [Windows ARM64](https://github.com/dotnet/runtime/issues/36699) -- develop and deploy apps on Windows ARM64.
-   * [Apple Silicon](https://github.com/dotnet/coreclr/pull/28051) -- aupport running x64 apps in the Rosetta 2 emulator.
    * [Web Assembly (wasm)](https://github.com/dotnet/runtime/issues/38367) -- build wasm apps and deploy in the browser, with Blazor and Mono.
 
    The [.NET 5.0 Runtime Epics](https://github.com/dotnet/runtime/issues/37269) provide a more detailed set of highlights dedicated to the runtime and libraries.
@@ -54,9 +53,11 @@ The following improvements are the highlights of .NET 5.0, and the ones we hope 
 
 Last year, we shared a broad [vision of a singled unified .NET stack and ecosystem](https://devblogs.microsoft.com/dotnet/introducing-net-5/). We're happy to report that we did much of the underlying work needed to deliver that vision. We started the release with [CoreCLR](https://github.com/dotnet/coreclr), [CoreFX](https://github.com/dotnet/corefx), and [Mono](https://github.com/mono/mono) all in separate repos, and with significant duplication across them. We ended the release with the CoreCLR and Mono runtimes and the .NET libraries all together in the [runtime](https://github.com/dotnet/runtime) repo. In particular, Mono (in the runtime repo) and CoreCLR now use the same libraries. Unfortunately, due to the global pandemic, we had to defer shipping a release of Xamarin based on this repo until .NET 6.0.
 
-As part of .NET 5.0, we are releasing a new version of web assembly based on Mono and the .NET libraries, from the runtime repo (as opposed to the [mono](https://github.com/mono/mono) repo). This part of the release delivers on the initial vision, and proves out the model. We look forward to adding support for iOS and Android apps, based on Mono and the .NET libraries, as part of .NET 6.0.
+As part of .NET 5.0, we are releasing a new version of web assembly based on Mono and the .NET libraries, from the runtime repo (as opposed to the [mono](https://github.com/mono/mono) repo). The web assembly component of the release delivers on the initial vision, and proves out the model. We look forward to adding support for iOS and Android apps, based on Mono and the .NET libraries, as part of .NET 6.0.
 
-Looking forward, most of our fundamental investment will go into the runtime repo. We intend to use CoreCLR for desktop, IoT, and server workloads and Mono for mobile and web assembly. We'll continue to optimize the .NET libraries to deliver a first-class experience across all of those workload types. This includes making the libraries more linkable. For example, we don't need algorithms that can take advantage of multiple cores with web assembly.
+Looking forward, our fundamental investments will go into the runtime repo, for .NET 6.0 and beyond. We intend to use CoreCLR for desktop, IoT, and server workloads and Mono for mobile and web assembly. We'll continue to optimize the .NET libraries to deliver a first-class experience across all of those workload types. This includes making the libraries more linkable. For example, we don't need algorithms that can take advantage of multiple cores with web assembly.
+
+We'll continue to support and service .NET Framework in Windows and Windows Server. We release patches nearly every month, including in [container images](https://hub.docker.com/_/microsoft-dotnet-framework). We'll continue this model going forward, and support .NET Framework with each new version of Windows and Windows Server.
 
 ## Features
 
