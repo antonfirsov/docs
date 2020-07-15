@@ -11,8 +11,6 @@ You can [download .NET 5.0](https://dotnet.microsoft.com/download/dotnet/5.0), f
 * [Container images](https://hub.docker.com/_/microsoft-dotnet)
 * [Snap installer](https://snapcraft.io/dotnet-sdk)
 
-You need to use the latest [Visual Studio 2019](https://visualstudio.microsoft.com/vs/), [Visual Studio for Mac](https://visualstudio.microsoft.com/), or [C# extension](https://code.visualstudio.com/Docs/languages/csharp) with Visual Studio Code to use .NET 5.0. 
-
 Release notes:
 
 * [.NET 5.0 release notes](https://github.com/dotnet/core/tree/master/release-notes/5.0)
@@ -21,23 +19,28 @@ Release notes:
 * GitHub release
 * GitHub tracking issue
 
+You need the latest Visual Studio to use .NET 5.0:
+
+* [Visual Studio 2019 (16.7)](https://visualstudio.microsoft.com/vs/)
+* [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/)
+* [Visual Studio Code](https://code.visualstudio.com/) with the [C# extension](https://code.visualstudio.com/Docs/languages/csharp) 
+
 ## .NET 5.0 Highlights
 
-The following improvements are among the ones you will most likely notice and take advantage of when you adopt .NET 5.0. The primary GitHub PR or issue are provided for each highlight, and the features themselves are described in more detail later in the post.
-
-The [.NET 5.0 Runtime Epics](https://github.com/dotnet/runtime/issues/37269) provide a more detailed set of highlights, dedicated to the runtime and libraries.
+The following improvements are the highlights of .NET 5.0, and the ones we hope you enjoy using the most. The primary GitHub PR or issue are provided for each highlight, and the features are described in more detail later in the post.
 
 > Editor's note: Goal for each of these topics is top 2-4 contributions. We are trying to answer the "why you should care" question and nothing more.
 
 * [C# 9](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-5/)
-   * Top-level programs that enable no-ceremony programs (no classes required).
-   * Extends immutability to object initializers and property accessors and adds a new form of immutable value types called records.
+   * Top-level programs -- enable no-ceremony programs (no classes required).
+   * Immutability types -- extends immutability to object initializers and property accessors, adds records (immutable value types).
 * [F# 5.0](https://devblogs.microsoft.com/dotnet/announcing-f-5-preview-1/)
    * Better interactive and analytical programming.
-* New APIs
-   * New TFMs for .NET (waiting on Immo's post)
-   * Improving usability and capability of System.Text.Json (need a link)
-   * Cross-platform support for System.DirectoryServices.Protocols
+* .NET Libraries
+   * New target framework (TFM) for .NET -- the new TFM is `net5` and replaces `netcoreapp` and `netstandard`.
+   * JSON APIs -- Improving usability and capability of System.Text.Json.
+   * Directory services -- Cross-platform support for System.DirectoryServices.Protocols.
+   * Nullable reference types -- Complete set of nullable reference type annotations for .NET libraries.
 * [Performance Improvements](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-5/)
    * [Garbage collection](https://github.com/dotnet/coreclr/pull/25986) -- card stealing enables better work balance (throughput) in Server GC.
    * [Regular expressions](https://devblogs.microsoft.com/dotnet/regex-performance-improvements-in-net-5/) -- 3-6x throughput improvements in many cases.
@@ -54,6 +57,8 @@ The [.NET 5.0 Runtime Epics](https://github.com/dotnet/runtime/issues/37269) pro
    * [Windows ARM64](https://github.com/dotnet/runtime/issues/36699) -- develop and deploy apps on Windows ARM64.
    * [Apple Silicon](https://github.com/dotnet/coreclr/pull/28051) -- aupport running x64 apps in the Rosetta 2 emulator.
    * [Web Assembly (wasm)](https://github.com/dotnet/runtime/issues/38367) -- build wasm apps and deploy in the browser, with Blazor and Mono.
+
+   The [.NET 5.0 Runtime Epics](https://github.com/dotnet/runtime/issues/37269) provide a more detailed set of highlights dedicated to the runtime and libraries.
 
 ## Framing .NET 5 w/.NET Framework and Xamarin Project
 
