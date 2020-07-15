@@ -23,7 +23,7 @@ The following improvements are the highlights of .NET 5.0, and the ones we hope 
 
 * [C# 9](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-5/)
    * Top-level programs -- enable no-ceremony programs (no classes required).
-   * Immutability types -- extends immutability to object initializers and property accessors, adds records (immutable value types).
+   * Immutable types -- extends immutability to object initializers and property accessors, adds records (immutable value types).
 * [F# 5.0](https://devblogs.microsoft.com/dotnet/announcing-f-5-preview-1/)
    * Better interactive and analytical programming.
 * .NET Libraries
@@ -61,4 +61,3 @@ Looking forward, most of our fundamental investment will go into the runtime rep
 ## Features
 
 ## Closing
-
