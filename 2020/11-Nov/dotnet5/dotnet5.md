@@ -6,24 +6,17 @@ ASP.NET Core and EF Core are also being released today.
 
 You can [download .NET 5.0](https://dotnet.microsoft.com/download/dotnet/5.0), for Windows, macOS, and Linux:
 
-* [Windows and macOS installers](https://dotnet.microsoft.com/download/dotnet/5.0)
-* [Binaries](https://dotnet.microsoft.com/download/dotnet/5.0)
+* [Installers and binaries](https://dotnet.microsoft.com/download/dotnet/5.0)
 * [Container images](https://hub.docker.com/_/microsoft-dotnet)
 * [Snap installer](https://snapcraft.io/dotnet-sdk)
+
+You need the latest version of [Visual Studio](https://visualstudio.microsoft.com) (including Visual Studio for Mac) to use .NET 5.0.
 
 Release notes:
 
 * [.NET 5.0 release notes](https://github.com/dotnet/core/tree/master/release-notes/5.0)
 * [.NET 5.0 known issues](https://github.com/dotnet/core/blob/master/release-notes/5.0/5.0-known-issues.md)
-* [.NET 5.0 Runtime epics](https://github.com/dotnet/runtime/issues/37269)
-* GitHub release
-* GitHub tracking issue
-
-You need the latest Visual Studio to use .NET 5.0:
-
-* [Visual Studio 2019 (16.7)](https://visualstudio.microsoft.com/vs/)
-* [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/)
-* [Visual Studio Code](https://code.visualstudio.com/) with the [C# extension](https://code.visualstudio.com/Docs/languages/csharp) 
+* [.NET 5.0 GitHub issue tracker](https://github.com/dotnet/core/issues)
 
 ## .NET 5.0 Highlights
 
