@@ -9,14 +9,11 @@ You can [download .NET 5.0](https://dotnet.microsoft.com/download/dotnet/5.0), f
 * [Installers and binaries](https://dotnet.microsoft.com/download/dotnet/5.0)
 * [Container images](https://hub.docker.com/_/microsoft-dotnet)
 * [Snap installer](https://snapcraft.io/dotnet-sdk)
+* [Release notes](https://github.com/dotnet/core/tree/master/release-notes/5.0)
+* [Known issues](https://github.com/dotnet/core/blob/master/release-notes/5.0/5.0-known-issues.md)
+* [GitHub issue tracker](https://github.com/dotnet/core/issues)
 
 You need the latest version of [Visual Studio](https://visualstudio.microsoft.com) (including Visual Studio for Mac) to use .NET 5.0.
-
-Release notes:
-
-* [.NET 5.0 release notes](https://github.com/dotnet/core/tree/master/release-notes/5.0)
-* [.NET 5.0 known issues](https://github.com/dotnet/core/blob/master/release-notes/5.0/5.0-known-issues.md)
-* [.NET 5.0 GitHub issue tracker](https://github.com/dotnet/core/issues)
 
 ## .NET 5.0 Highlights
 
@@ -53,7 +50,13 @@ The following improvements are the highlights of .NET 5.0, and the ones we hope 
 
    The [.NET 5.0 Runtime Epics](https://github.com/dotnet/runtime/issues/37269) provide a more detailed set of highlights dedicated to the runtime and libraries.
 
-## Framing .NET 5 w/.NET Framework and Xamarin Project
+## .NET 5.0+
+
+Last year, we shared a broad [vision of a singled unified .NET stack and ecosystem](https://devblogs.microsoft.com/dotnet/introducing-net-5/). We're happy to report that we did much of the underlying work needed to deliver that vision. We started the release with [CoreCLR](https://github.com/dotnet/coreclr), [CoreFX](https://github.com/dotnet/corefx), and [Mono](https://github.com/mono/mono) all in separate repos, and with significant duplication across them. We ended the release with the CoreCLR and Mono runtimes and the .NET libraries all together in the [runtime](https://github.com/dotnet/runtime) repo. In particular, Mono (in the runtime repo) and CoreCLR now use the same libraries. Unfortunately, due to the global pandemic, we had to defer shipping a release of Xamarin based on this repo until .NET 6.0.
+
+As part of .NET 5.0, we are releasing a new version of web assembly based on Mono and the .NET libraries, from the runtime repo (as opposed to the [mono](https://github.com/mono/mono) repo). This part of the release delivers on the initial vision, and proves out the model. We look forward to adding support for iOS and Android apps, based on Mono and the .NET libraries, as part of .NET 6.0.
+
+Looking forward, most of our fundamental investment will go into the runtime repo. We intend to use CoreCLR for desktop, IoT, and server workloads and Mono for mobile and web assembly. We'll continue to optimize the .NET libraries to deliver a first-class experience across all of those workload types. This includes making the libraries more linkable. For example, we don't need algorithms that can take advantage of multiple cores with web assembly.
 
 ## Features
 
