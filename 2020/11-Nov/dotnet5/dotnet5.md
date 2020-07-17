@@ -115,7 +115,7 @@ The following project will enable all of the single-file publishing options I ju
     <IncludeNativeLibrariesInSingleFile>true</IncludeNativeLibrariesInSingleFile>
     <!-- Determine self-contained or runtime-dependent -->
     <SelfContained>true</SelfContained>
-    <!-- Enable us of .NET linker -->
+    <!-- Enable use of .NET linker -->
     <!-- Linker is only supported for self-contained apps -->
     <PublishTrimmed>true</PublishTrimmed>
     <!-- Enable AOT compilation -->
