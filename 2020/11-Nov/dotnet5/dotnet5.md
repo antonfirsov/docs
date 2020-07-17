@@ -51,7 +51,7 @@ The following improvements are the highlights of .NET 5.0, and the ones we hope 
 
 ## .NET 5.0+
 
-Last year, we shared a broad [vision of a singled unified .NET stack and ecosystem](https://devblogs.microsoft.com/dotnet/introducing-net-5/). We're happy to report that we did much of the underlying work needed to deliver that vision. We started the release with [CoreCLR](https://github.com/dotnet/coreclr), [CoreFX](https://github.com/dotnet/corefx), and [Mono](https://github.com/mono/mono) all in separate repos, and with significant duplication across them. We ended the release with the CoreCLR and Mono runtimes and the .NET libraries all together in the [runtime](https://github.com/dotnet/runtime) repo. In particular, Mono (in the runtime repo) and CoreCLR now use the same libraries. Unfortunately, due to the global pandemic, we had to defer shipping a release of Xamarin based on this repo until .NET 6.0.
+Last year, we shared a broad [vision of a singular .NET stack and ecosystem](https://devblogs.microsoft.com/dotnet/introducing-net-5/). We're happy to report that we did much of the underlying work needed to deliver that vision. We started the release with [CoreCLR](https://github.com/dotnet/coreclr), [CoreFX](https://github.com/dotnet/corefx), and [Mono](https://github.com/mono/mono) all in separate repos, and with significant duplication across them. We ended the release with the CoreCLR and Mono runtimes and the .NET libraries all together in the [runtime](https://github.com/dotnet/runtime) repo. In particular, Mono (in the runtime repo) and CoreCLR now use the same libraries. Unfortunately, due to the global pandemic, we had to defer shipping a release of Xamarin based on this repo until .NET 6.0.
 
 As part of .NET 5.0, we are releasing a new version of web assembly based on Mono and the .NET libraries, from the runtime repo (as opposed to the [mono](https://github.com/mono/mono) repo). The web assembly component of the release delivers on the initial vision, and proves out the model. We look forward to adding support for iOS and Android apps, based on Mono and the .NET libraries, as part of .NET 6.0.
 
@@ -59,6 +59,84 @@ Looking forward, our fundamental investments will go into the runtime repo, for 
 
 We'll continue to support and service .NET Framework in Windows and Windows Server. We release patches nearly every month, including in [container images](https://hub.docker.com/_/microsoft-dotnet-framework). We'll continue this model going forward, and support .NET Framework with each new version of Windows and Windows Server.
 
-## Features
+Let's switch to looking at what's new in the 5.0 release.
+
+## Application deployment
+
+After writing or updating an application, you need to [deploy it](https://docs.microsoft.com/dotnet/core/deploying/) for your users to take advantage of. This might be to a web server, a cloud service, or client machine, and might be the result of a CI/CD flow using a service like [Azure DevOps](https://docs.microsoft.com/azure/devops/pipelines/ecosystems/dotnet-core) or [GitHub Actions](https://github.com/actions/setup-dotnet).
+
+We strive to provide first-class deployment capabilities that naturally align with the application types. For .NET 5.0, we focused on improving single file applications, reducing container size for docker multi-stage builds, and providing better support for deploying ClickOnce applications with .NET Core.
+
+Best doc to get started: [.NET application deployment](https://docs.microsoft.com/dotnet/core/deploying/)
+
+### Single file applications
+
+Single file applications are published and deployed as a single file. The executable, the app and its dependencies are all included within that file. When the app is run, the dependencies are loaded into and executed from memory. This is a fast operation with no startup penalty. When combined with the linker and ahead-of-time compilation, the apps are made smaller and startup quickly. We've signficantly improved the linker as part of this release, making it much easier to produce smaller applications.
+
+Single file apps can be either runtime-dependent or self-contained. This means that single file apps can work in environments where the .NET runtime is always installed (runtime-dependent) and are much smaller as a result or carry the .NET runtime and required libraries with the app to ensure that the app always works (self-contained). In general, the first one is good for development and enterprise environments, while the latter is often a better choice is ISVs.
+
+We produced a version of single-file apps with .NET Core 3.1. It packages binaries into a single file for deployment and then unpacks those files to a temporary directory to load and execute them.
+
+For .NET 5.0, we wanted to load apps directly out of the single file, to make the single-file a true execution artifact. We had hurdles to overcome to achieve that goal. We had to create a more sophisticated bundler, teach the runtime to load assemblies out of binary resources, and make the debugger compatible with those memory-mapped assemblies. 
+
+We also improved the assembly linker at the same time. Much of this project was focused on [making the .NET libraries more linkable](https://github.com/mono/mono/issues/17823). For example, when targeting web assembly, algorithms that target four-cores can be linked out. The same thing is true for environments that don't support hardware intrinsics or don't require globalization support. 
+
+The following table demonstrates what you can expect for both runtime-dependent and self-contained applications with 5.0. It compares 3.1 to 5.0, for the console template and [BlazingPizza.Server](https://github.com/dotnet-presentations/blazor-workshop/tree/master/src/BlazingPizza.Server) app.
+
+- 3.1 console template (Linux x64)
+   - Runtime-dependent: 96k
+   - Self-contained: 36MB
+- 5.0 console template (Linux x64)
+   - Runtime-dependent: 215k
+   - Self-contained: 29MB
+- 3.1 BlazingPizza.Server 
+   - Runtime-dependent: 27MB
+   - Self-contained: 80MB
+- 5.0 BlazingPizza.Server
+   - Runtime-dependent: 24MB
+   - Self-contained: 67MB
+
+Notes:
+
+- Runtime-dependent publish arguments: -r linux-x64 --self-contained false /p:PublishSingleFile=true
+- Self-contained publish arguments: -r linux-x64 --self-contained true /p:PublishSingleFile=true /p:PublishTrimmed=true
+- The linker isn't support for runtime-dependent apps.
+
+The following project will enable all of the single-file publishing options I just covered. They are not all required.
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <!-- Enable single file with native libraries embedding -->
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesInSingleFile>true</IncludeNativeLibrariesInSingleFile>
+    <!-- Determine self-contained or runtime-dependent -->
+    <SelfContained>true</SelfContained>
+    <!-- Enable us of .NET linker -->
+    <!-- Linker is only supported for self-contained apps -->
+    <PublishTrimmed>true</PublishTrimmed>
+    <!-- Enable AOT compilation -->
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <!-- Embed symbols -->
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+</Project>
+```
+
+The following information summarizes and describes some of the detailed characteristics of the feature.
+
+* Apps are OS and architecture-specific. Publish for each configuration you need (Windows x64, Linux x64, Windows ARM64, ...).
+* No startup penalty.
+* Supports ahead-of-time compilation, producing ready-to-run files. They can be loaded directly from memory (on all OSes).
+* Configuration files (like `*.runtimeconfig.json`) are included in the single file. You can place an additional config file beside the single file, if needed (good for testing).
+* `.pdb` files are not included in the single file by default. You can enable PDB embedding.
+* On Windows and macOS, only managed files are loaded directly into memory. Native files (like coreclr.dll/libcoreclr.dylib) must be written to and loaded from a temporary location.
+* On Linux, native and managed files are loaded directly into memory.
+
+## More Features
 
 ## Closing
