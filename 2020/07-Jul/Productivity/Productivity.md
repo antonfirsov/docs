@@ -1,14 +1,14 @@
 # Learn about the latest .NET Productivity features
 
- The .NET Productivity team (aka. Roslyn) is constantly thinking of new ways to make .NET developers more productive. We’ve been working hard to take the feedback you’ve sent us and turn it into tools that you want! In this post I’ll cover some of the latest .NET productivity features available in [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/).
+ The .NET Productivity team (a.k.a. Roslyn) is constantly thinking of new ways to make .NET developers more productive. We’ve been working hard to take the feedback you’ve sent us and turn it into tools that you want! In this post, I’ll cover some of the latest .NET productivity features available in [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/).
 
 ## Tooling improvements
 
-The feature that I’m most excited about is the [IntelliSense completion in DateTime and TimeSpan string literals](https://docs.microsoft.com/visualstudio/ide/reference/datetime-timespan-completion). This feature is extremely helpful because we all know remembering DateTime and TimeSpan formats is hard enough. Place your caret inside the DateTime or TimeSpan string literal and press (Ctrl + Space). You will then see completion options and an explanation as to what each character means.
+The feature that I’m most excited about is the [IntelliSense completion in DateTime and TimeSpan string literals](https://docs.microsoft.com/visualstudio/ide/reference/datetime-timespan-completion). This feature is extremely helpful because we all know remembering DateTime and TimeSpan formats is hard enough. Place your caret inside the DateTime or TimeSpan string literal and press (Ctrl + Space). You'll then see completion options and an explanation as to what each character means.
 
 ![DateTime IntelliSense Completion](datetime-completion.png)
 
-[Add file header](https://docs.microsoft.com/visualstudio/ide/reference/add-file-header) allows you to easily add file headers to existing files, projects, and solutions using [EditorConfig](https://docs.microsoft.com/en-us/visualstudio/ide/create-portable-custom-editor-options?view=vs-2019#add-an-editorconfig-file-to-a-project). You will first need to add the file_header_template rule to your EditorConfig file. You will then need to set the value to equal the header text you would like applied. Next, place your caret on the first line of any C# or Visual Basic file. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu and select **Add file header**.
+[Add file header](https://docs.microsoft.com/visualstudio/ide/reference/add-file-header) allows you to easily add file headers to existing files, projects, and solutions using [EditorConfig](https://docs.microsoft.com/visualstudio/ide/create-portable-custom-editor-options#add-an-editorconfig-file-to-a-project). You'll first need to add the file_header_template rule to your *.editorconfig* file. Then, set the value to equal the header text you'd like applied. Next, place your caret on the first line of any C# or Visual Basic file. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu and select **Add file header**.
 
 ![Add File Header](add-file-header.png)
 
@@ -16,7 +16,7 @@ The [change method signature](https://docs.microsoft.com/visualstudio/ide/refere
 
 ![Change Signature Dialog](change-signature.png)
 
-Once you select **Add**, the new **Add Parameter** dialog will open. The Add Parameter dialog allows you to add a type name and a parameter name. You can choose to make the parameter required or optional with a default value. You can then add a value at the call site and choose a named argument for that value or you can introduce a TODO variable. The TODO variable puts a TODO in your code so you can visit each error and go through each call site independently and decide what to pass. For optional parameters you have the option to omit the call site completely.
+Once you select **Add**, the new **Add Parameter** dialog opens. The Add Parameter dialog allows you to add a type name and a parameter name. You can choose to make the parameter required or optional with a default value. You can then add a value at the call site and choose a named argument for that value or you can introduce a TODO variable. The TODO variable puts a TODO in your code so you can visit each error and go through each call site independently and decide what to pass. For optional parameters you have the option to omit the call site completely.
 
 ![Add Parameter Dialog](add-parameter-dialog.png)
 
@@ -42,11 +42,11 @@ Code fixes and refactorings are the code suggestions the compiler provides throu
 
     ![Convert to Regular String](convert-to-regular-string.png)
 
-* The [add debugger display attribute](https://docs.microsoft.com/visualstudio/ide/reference/add-debugger-display-attribute) refactoring allows you to pin properties within the debugger programmatically in your code. Place your caret on the class name. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu and select **Add ‘DebuggerDisplay` attribute**. This will add the debugger display attribute to the top of your class and generate an auto method that returns ToString() which you can edit to return the property value you want pinned in the debugger.
+* The [add debugger display attribute](https://docs.microsoft.com/visualstudio/ide/reference/add-debugger-display-attribute) refactoring allows you to pin properties within the debugger programmatically in your code. Place your caret on the class name. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu and select **Add 'DebuggerDisplay' attribute**. This will add the debugger display attribute to the top of your class and generate an auto method that returns ToString(), which you can edit to return the property value you want pinned in the debugger.
 
     ![Add Debugger Display Attribute](add-debugger-display-attribute.png)
 
-* The [generate comparison operators](https://docs.microsoft.com/visualstudio/ide/reference/generate-comparison-operators) refactoring generates a boiler plate with comparison operators for types that implement IComparable. Place your caret either inside the class or on IComparable. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu and select **Generate comparison operators**.
+* The [generate comparison operators](https://docs.microsoft.com/visualstudio/ide/reference/generate-comparison-operators) refactoring generates a boilerplate with comparison operators for types that implement IComparable. Place your caret either inside the class or on IComparable. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu and select **Generate comparison operators**.
 
     ![Generate Comparison Operators](generate-comparison-operators.png)
 
@@ -54,21 +54,21 @@ Code fixes and refactorings are the code suggestions the compiler provides throu
 
     ![Generate IEquatable Operators](generate-iequatable-operators.png)
 
-* The [generate properties when generating a constructor](https://docs.microsoft.com/en-us/visualstudio/ide/reference/generate-constructor?view=vs-2019#with) in a type allows you to easily create a constructor with properties in a type. Place your caret on the instance. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu and select **Select Generate constructor in <QualifiedName> (with properties)**.
+* The [generate properties when generating a constructor](https://docs.microsoft.com/visualstudio/ide/reference/generate-constructor#-generate-constructor-with-properties-c-only) allows you to easily create a constructor with properties in a type. Place your caret on the instance. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu and select **Select Generate constructor in <QualifiedName> (with properties)**.
 
     ![Generate Constructor with Properties](generate-constructor-with-properties.png)
 
-* There is now an easy fix for accidental assignments and comparisons. Place your caret on the warning.Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu. Next, select from one of the following options:  
+* There's now an easy fix for accidental assignments and comparisons. Place your caret on the warning. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu. Next, select from one of the following options:  
 
-    For accidental assignments, select **Assign to `<QualifiedName>`.value**:
+    For accidental assignments, select **Assign to '<QualifiedName>.value'**:
 
     ![Assign to <QualifiedName>.value](accidental-assignments-code-fix.png)
 
-    For accidental comparisons, select **Compare to `<QualifiedName>`.value**:
+    For accidental comparisons, select **Compare to '<QualifiedName>.value'**:
 
     ![Compare to <QualifiedName>.value](accidental-comparisons-code-fix.png)
 
-* The suppression operator warning, and code fix helps you easily identify and fix a suppression operator that has no effect. Place your caret on the suppression operator. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu. Next, select from one of the following:
+* The suppression operator warning and code fix helps you to easily identify and fix a suppression operator that has no effect. Place your caret on the suppression operator. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu. Next, select from one of the following:
 
    To remove the operator completely, select **Remove operator (preserves semantics)**:
 
@@ -78,10 +78,10 @@ Code fixes and refactorings are the code suggestions the compiler provides throu
 
     ![Negate Expression](negate-expression.png)
 
-    You can also negate the expression with the new C# 9 `not` pattern if it is available in your project:
+    You can also negate the expression with the new C# 9 `not` pattern if it's available in your project:
 
     ![Negate Expression with Not](negate-expression-with-not.png)
 
 ## Get involved
 
-This was just a sneak peak of what's new in [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/). For a complete list of what's new, see the [release notes](https://docs.microsoft.com/visualstudio/releases/2019/release-notes). And feel free to provide feedback on the [Developer Community](https://developercommunity.visualstudio.com/spaces/8/index.html) website, or using the [Report a Problem](https://docs.microsoft.com/visualstudio/ide/how-to-report-a-problem-with-visual-studio) tool in Visual Studio.
+This was just a sneak peek of what's new in [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/). For a complete list of what's new, see the [release notes](https://docs.microsoft.com/visualstudio/releases/2019/release-notes). And feel free to provide feedback on the [Developer Community](https://developercommunity.visualstudio.com/spaces/8/index.html) website, or using the [Report a Problem](https://docs.microsoft.com/visualstudio/ide/how-to-report-a-problem-with-visual-studio) tool in Visual Studio.
