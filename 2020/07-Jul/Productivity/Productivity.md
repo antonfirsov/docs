@@ -68,7 +68,7 @@ Code fixes and refactorings are the code suggestions the compiler provides throu
 
     ![Compare to <QualifiedName>.value](accidental-comparisons-code-fix.png)
 
-* The suppression operator warning and code fix helps you to easily identify and fix a suppression operator that has no effect. Place your caret on the suppression operator. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu. Next, select from one of the following:
+* The null suppression operator warning and code fix helps you to easily identify and fix a suppression operator that has no effect. For example, in this case someone wanted to express that something isn't `0` and typed `!is 0` instead of `is not 0`. The `!` is legal but is interpreted as asserting the expression on its left is not `null`. Since that can be confusing, we now offer a warning and code fixer. Place your caret on the suppression operator. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu. Next, select from one of the following:
 
    To remove the operator completely, select **Remove operator (preserves semantics)**:
 
