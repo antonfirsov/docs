@@ -2,7 +2,7 @@
 
 With .NET 5 scheduled to be released [later this year](https://github.com/dotnet/core/blob/master/roadmap.md), we thought it would be a good time to discuss some of the interop updates that went into the release and point out some items we are considering for the future.
 
-As we start looking more towards future releases, we are also searching for developers and consumers of any interop solutions to discuss their experiences. We are looking for experiences around interop in general - not just those related to .NET. If you have worked in the interop space, we'd love to [hear from you](#share-your-experiences).
+As we start thinking about what comes next, we are looking for developers and consumers of any interop solutions to discuss their experiences. We are looking for feedback about interop scenarios in general - not just those related to .NET. If you have worked in the interop space, we'd love to [hear from you](#share-your-experiences).
 
 ## Interop in .NET 5
 
@@ -47,7 +47,7 @@ In .NET 5, we introduced [`ComWrappers`](https://github.com/dotnet/runtime/issue
 
 The runtime distinguishes between COM objects by the value of the [`IUnknown`](https://docs.microsoft.com/windows/win32/api/unknwn/nn-unknwn-iunknown) interface exposed by each object. When getting an RCW for a COM object, the runtime will first check if an RCW already exists for that COM object identity. If an RCW already exists, that RCW will be reused; otherwise, a new RCW will be created. Similarly, the runtime maintains managed object identity. When getting a CCW for a managed object, the runtime will first check if there is already a CCW associated with that managed object. If a CCW already exists, that CCW will be used; otherwise, a new one will be created.
 
-With the `ComWrappers` API, the runtime will continue to handle ensuring that object identity is respected while allowing for integration - through the overrides of [`ComWrappers.CreateObject`](https://docs.microsoft.com/dotnet/api/system.runtime.interopservices.comwrappers.createobject) and [`ComWrappers.ComputeVtables`](https://docs.microsoft.com/dotnet/api/system.runtime.interopservices.comwrappers.computevtables) - at the point where it is determined a wrapper does need to be created. For example, if there is a subclass of `ComWrappers` named `MyComWrappers` being used for RCW and CCW creation:
+With the `ComWrappers` API, the runtime will continue to handle ensuring that object identity is respected while allowing for integration - through the overrides of [`ComWrappers.CreateObject`](https://docs.microsoft.com/dotnet/api/system.runtime.interopservices.comwrappers.createobject) and [`ComWrappers.ComputeVtables`](https://docs.microsoft.com/dotnet/api/system.runtime.interopservices.comwrappers.computevtables) - at the point where it is determined a wrapper needs to be created. For example, if there is a subclass of `ComWrappers` named `MyComWrappers` being used for RCW and CCW creation:
 
 ```C#
 var wrappers = new MyComWrappers();
@@ -204,7 +204,7 @@ static void Main()
 }
 ```
 
-The above requires the allocation of a delegate and the marshalling of that delegate to a function pointer. If the native function being called could hold on to the callback, we also need to ensure the delegate is not garbage collected.
+The above requires the allocation of a delegate and the marshalling of that delegate to a function pointer. If the native function being called could hold on to the callback, we also need to ensure the delegate is not garbage collected. This detail is often missed, leading to intermittent "Callback on collected delegate" crashes.
 
 With the combination of function pointers and `UnmanagedCallersOnlyAttribute`, this can be rewritten as:
 
@@ -226,7 +226,7 @@ static void Main()
 }
 ```
 
-The most obvious change is that the allocation of a delegate is no longer needed. By requiring that the function only have blittable arguments, the runtime does not need to do any marshalling, so the only requirement for entering the function is a GC transition to cooperative mode. The restriction of not allowing the function to be called from managed code means that the JIT-ed function itself can do the GC transition. The function pointer for `Callback` above actually points directly to the JIT-ed function.
+The most obvious change is that the allocation of a delegate is no longer needed. By requiring that the function only have blittable arguments, the runtime does not need to do any marshalling, so the only requirement for entering the function is a GC transition to cooperative mode. The restriction of not allowing the function to be called from managed code means that the JIT-ed function itself can do the GC transition. The function pointer for `Callback` above actually points directly to the JIT-ed function. The extra error-prone code for keeping the delegate alive is no longer needed either.
 
 `System.Private.CoreLib` has started using this attribute for some functions: [dotnet/runtime#34270](https://github.com/dotnet/runtime/pull/34270), [dotnet/runtime#39082](https://github.com/dotnet/runtime/pull/39082)
 
