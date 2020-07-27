@@ -6,7 +6,7 @@ As we start thinking about what comes next, we are looking for developers and co
 
 ## Interop in .NET 5
 
-This post is focused on CoreCLR rather than other runtimes within .NET 5, so 'the runtime' refers to CoreCLR.
+Some items mentioned in this post are Windows-specific (COM and WinRT). In those cases, 'the runtime' refers only to CoreCLR.
 
 ### Low-level APIs for interaction with the built-in interop system
 
@@ -14,7 +14,7 @@ An underlying theme for interop in .NET 5 has been providing low-level building 
 
 #### SuppressGCTransition
 
-When executing a [P/Invoke](https://docs.microsoft.com/dotnet/standard/native-interop/pinvoke), the runtime switches the [GC mode](https://github.com/dotnet/runtime/blob/master/docs/coding-guidelines/clr-code-guide.md#218-use-the-right-gc-mode--preemptive-vs-cooperative) from cooperative to preemptive mode. This transition comes with an overhead - an additional frame as well as the work to do the transition - which, depending on the scenario, can lead to the setup of a P/Invoke being more expensive than the native function that is invoked.
+When executing a [P/Invoke](https://docs.microsoft.com/dotnet/standard/native-interop/pinvoke), the runtime switches the [GC mode](https://github.com/dotnet/runtime/blob/master/docs/coding-guidelines/clr-code-guide.md#218-use-the-right-gc-mode--preemptive-vs-cooperative) from cooperative to preemptive mode. Depending on the scenario, this transition, which also includes an additional frame, can lead to [the setup](https://github.com/dotnet/runtime/blob/master/docs/design/coreclr/botr/clr-abi.md#per-call-site-pinvoke-work) of a P/Invoke being more expensive than the native function that is invoked.
 
 [`SuppressGCTransitionAttribute`](https://github.com/dotnet/runtime/issues/30741) ([dotnet/coreclr#26458](https://github.com/dotnet/coreclr/pull/26458)) provides a way for developers to indicate that a P/Invoke should avoid the GC transition. The ability to reduce this interop overhead enables high-performance P/Invoke calls in both runtime libraries and third-party libraries. This is similar in spirit to internal [FCalls](https://github.com/dotnet/runtime/blob/master/docs/design/coreclr/botr/corelib.md#calling-from-managed-to-native-code) into the runtime itself.
 
@@ -30,7 +30,7 @@ This attribute effectively circumvents the safeguards normally provided by the r
 
 Caveats:
 
-- This attribute is intended for targeted scenarios. Invalid usage can result in GC starvation, data corruption, or runtime termination.
+- This attribute is intended for targeted scenarios. Invalid usage can have serious consequences; blocking operations can result in GC starvation and interactions with the runtime (such as calling back into the runtime or throwing exceptions) can lead to data corruption or runtime termination.
 - During [mixed-mode debugging](https://docs.microsoft.com/visualstudio/debugger/how-to-debug-in-mixed-mode), it will not be possible to set breakpoints in or step into a P/Invoke that has been marked with this attribute.
 - This attribute is ignored if the method is not also marked with `DllImport`
 
@@ -45,7 +45,7 @@ On Windows, the [Component Object Model (COM)](https://docs.microsoft.com/window
 
 In .NET 5, we introduced [`ComWrappers`](https://github.com/dotnet/runtime/issues/1845) ([dotnet/runtime#32091](https://github.com/dotnet/runtime/pull/32091)) as a mechanism for third parties to generate custom wrappers. `ComWrappers` is an abstract class that consumers can subclass in order create wrappers that integrate into the built-in runtime system's management of object identity and lifetime. It is currently only supported on Windows.
 
-The runtime distinguishes between COM objects by the value of the [`IUnknown`](https://docs.microsoft.com/windows/win32/api/unknwn/nn-unknwn-iunknown) interface exposed by each object. When getting an RCW for a COM object, the runtime will first check if an RCW already exists for that COM object identity. If an RCW already exists, that RCW will be reused; otherwise, a new RCW will be created. Similarly, the runtime maintains managed object identity. When getting a CCW for a managed object, the runtime will first check if there is already a CCW associated with that managed object. If a CCW already exists, that CCW will be used; otherwise, a new one will be created.
+The runtime distinguishes between COM objects by the pointer to the [`IUnknown`](https://docs.microsoft.com/windows/win32/api/unknwn/nn-unknwn-iunknown) instance exposed by each object. When getting an RCW for a COM object, the runtime will first check if an RCW already exists for that COM object identity. If an RCW already exists, that RCW will be reused; otherwise, a new RCW will be created. Similarly, the runtime maintains managed object identity. When getting a CCW for a managed object, the runtime will first check if there is already a CCW associated with that managed object. If a CCW already exists, that CCW will be used; otherwise, a new one will be created.
 
 With the `ComWrappers` API, the runtime will continue to handle ensuring that object identity is respected while allowing for integration - through the overrides of [`ComWrappers.CreateObject`](https://docs.microsoft.com/dotnet/api/system.runtime.interopservices.comwrappers.createobject) and [`ComWrappers.ComputeVtables`](https://docs.microsoft.com/dotnet/api/system.runtime.interopservices.comwrappers.computevtables) - at the point where it is determined a wrapper needs to be created. For example, if there is a subclass of `ComWrappers` named `MyComWrappers` being used for RCW and CCW creation:
 
@@ -159,7 +159,7 @@ Resources:
 
 The APIs added above provided the basis for improvements to the way WinRT interop works with .NET. They enabled us to [support WinRT APIs](https://github.com/dotnet/runtime/issues/35318) while de-coupling the WinRT interop system from the .NET runtime itself.
 
-The [C#/WinRT](https://github.com/microsoft/CsWinRT) tool chain takes advantage of the new APIs and serves as the replacement for the built-in support WinRT interop that was [removed](https://github.com/dotnet/runtime/issues/37672) in .NET 5 ([dotnet/runtime#36715](https://github.com/dotnet/runtime/pull/36715)). This new model enables:
+As [previously announced](https://devblogs.microsoft.com/dotnet/announcing-net-5-0-preview-6/), this meant we could [remove](https://github.com/dotnet/runtime/issues/37672) the built-in support for WinRT interop in .NET 5 ([dotnet/runtime#36715](https://github.com/dotnet/runtime/pull/36715)). The [C#/WinRT](https://github.com/microsoft/CsWinRT) tool chain takes advantage of the new APIs and serves as the replacement for that built-in support. This new model enables:
 
 - Development and improvement of WinRT interop separate from the runtime.
 - Symmetry with interop systems provided for other operating systems (e.g. iOS and Android).
@@ -168,7 +168,7 @@ The [C#/WinRT](https://github.com/microsoft/CsWinRT) tool chain takes advantage 
 
 ### Function pointers
 
-With [C# function pointers](https://github.com/dotnet/csharplang/blob/master/proposals/function-pointers.md) ([dotnet/roslyn#39865](https://github.com/dotnet/roslyn/issues/39865)) coming to C# 9.0, the runtime had some work to support and complement the feature.
+[C# function pointers](https://github.com/dotnet/csharplang/blob/master/proposals/function-pointers.md) will be coming to C# 9.0, enabling the declaration of function pointers to both managed and unmanaged functions. The runtime had some work to support and complement the interop-related parts of the feature.
 
 #### UnmanagedCallersOnly
 
@@ -216,12 +216,12 @@ public static int Callback(int i)
 }
 
 [DllImport("NativeLib")]
-private static extern void NativeFunctionWithCallback(delegate* unmanaged<int, void> callback);
+private static extern void NativeFunctionWithCallback(delegate* unmanaged<int, int> callback);
 
 static void Main()
 {
     delegate* <int, int> ptr = &Callback;
-    delegate* unmanaged<int, int> unmanagedPtr = (delegate* unmanaged<int, int>)(ptr);
+    delegate* unmanaged<int, int> unmanagedPtr = (delegate* unmanaged<int, int>)ptr;
     NativeFunctionWithCallback(unmanagedPtr);
 }
 ```
@@ -251,7 +251,7 @@ The `unmanaged` (0x9) calling convention bit indicates that the calling conventi
 
 Having multiple calling conventions specified in the `modopt`s is not supported by the runtime. Multiple `modopt`s with calling conventions is entirely valid metadata; the Roslyn compiler will use the union of all specified conventions when interpreting metadata and checking if two signatures match. However, the runtime has no way of determining which of the specified calling conventions should actually be used, so it will produce an error at runtime.
 
-With this mechanism in place, the runtime can add support for additional calling conventions without using more values of the calling convention bit. It also allows for a way to encode modified behaviour such as [`SuppressGCTransition`](#SuppressGCTransition) ([dotnet/runtime#38134](https://github.com/dotnet/runtime/issues/38134)).
+With this mechanism in place, the runtime can add support for additional calling conventions in the future without using more values of the calling convention bit. It also allows for a way to encode modified behaviour such as [`SuppressGCTransition`](#SuppressGCTransition) ([dotnet/runtime#38134](https://github.com/dotnet/runtime/issues/38134)).
 
 Resources:
 - Proposal: [dotnet/runtime#38133](https://github.com/dotnet/runtime/issues/38133)
