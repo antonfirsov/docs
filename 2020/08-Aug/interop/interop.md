@@ -63,7 +63,7 @@ object obj2 = wrappers.GetOrCreateObjectForComInstance(comObj, CreateObjectFlags
 
 In the above, `ptr1` and `ptr2` are the same, as are `obj1` and `obj2`. The implementation of `MyComWrappers.ComputeVtables` is invoked only once - as part of the first call to `GetOrCreateComInterfaceForObject`. In the second call, the runtime determines that a CCW already exists for `managedObj` and does not create a new one. Likewise, the implementation of `MyComWrappers.CreateObject` is invoked only once - as part of the first call to `GetOrCreateObjectForComInstance`. In the second call, the runtime determines that an RCW already exists for `comObj` and does not create a new one. This enables the `MyComWrappers` implementation to provide custom wrapper creation while relying on the built-in runtime system for object identity.
 
-For object lifetime coordination, `ComWrappers` provides support for [`Reference Tracker` scenarios](https://docs.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/). When an RCW is created using with [`CreateObjectFlags.TrackerObject`](https://docs.microsoft.com/dotnet/api/system.runtime.interopservices.createobjectflags), the runtime will check if the COM object implements [`IReferenceTracker`](https://docs.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nn-windows-ui-xaml-hosting-referencetracker-ireferencetracker). If so, the runtime will get the object's [`IReferenceTrackerManager`](https://docs.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nn-windows-ui-xaml-hosting-referencetracker-ireferencetrackermanager) and update it with the [`IReferenceTrackerHost`](https://docs.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nn-windows-ui-xaml-hosting-referencetracker-ireferencetrackerhost) implemented by the runtime, thus enabling communication and coordination around garbage collection between the runtime and the third party that is implementing `IReferenceTrackerManager`. To handle creation of tracker targets, a `ComWrappers` instance can be registered as a global instance for tracker support through the [`ComWrappers.RegisterForTrackerSupport` API](https://docs.microsoft.com/dotnet/api/system.runtime.interopservices.comwrappers.registerfortrackersupport). The runtime will then use that instance when its implementation of `IReferenceTrackerHost` receives requests to create a tracker target.
+The [`Reference Tracker` API](https://docs.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/) is an existing system used by the [WinRT XAML runtime](https://docs.microsoft.com/uwp/api/Windows.UI.Xaml) for managing object lifetime between itself and another runtime. `ComWrappers` provides support for these `Reference Tracker` scenarios to handle object lifetime coordination. When an RCW is created using with [`CreateObjectFlags.TrackerObject`](https://docs.microsoft.com/dotnet/api/system.runtime.interopservices.createobjectflags), the runtime will check if the COM object implements [`IReferenceTracker`](https://docs.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nn-windows-ui-xaml-hosting-referencetracker-ireferencetracker). If so, the runtime will get the object's [`IReferenceTrackerManager`](https://docs.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nn-windows-ui-xaml-hosting-referencetracker-ireferencetrackermanager) and update it with the [`IReferenceTrackerHost`](https://docs.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nn-windows-ui-xaml-hosting-referencetracker-ireferencetrackerhost) implemented by the runtime, thus enabling communication and coordination around garbage collection between the runtime and the third party that is implementing `IReferenceTrackerManager`. To handle creation of tracker targets, a `ComWrappers` instance can be registered as a global instance for tracker support through the [`ComWrappers.RegisterForTrackerSupport` API](https://docs.microsoft.com/dotnet/api/system.runtime.interopservices.comwrappers.registerfortrackersupport). The runtime will then use that instance when its implementation of `IReferenceTrackerHost` receives requests to create a tracker target.
 
 A `ComWrappers` instance can also be registered as a global instance for marshalling in the runtime through the [`ComWrappers.RegisterForMarshalling` API](https://docs.microsoft.com/dotnet/api/system.runtime.interopservices.comwrappers.registerformarshalling). The registered instance is used for wrapper creation as part of COM-related [`Marshal` APIs](https://docs.microsoft.com/dotnet/api/system.runtime.interopservices.marshal), P/Invokes with COM-related types, and COM activation. Since the registered instance is given priority across all these COM-related marshalling scenarios, it should take care to work well for any potential object - whether that is successfully handling the object or indicating that it cannot. The built-in wrappers will only be used if the registered instance returns a value indicating that it could not create the interface entries or managed object.
 
@@ -168,7 +168,7 @@ As [previously announced](https://devblogs.microsoft.com/dotnet/announcing-net-5
 
 ### Function pointers
 
-[C# function pointers](https://github.com/dotnet/csharplang/blob/master/proposals/function-pointers.md) will be coming to C# 9.0, enabling the declaration of function pointers to both managed and unmanaged functions. The runtime had some work to support and complement the interop-related parts of the feature.
+[C# function pointers](https://github.com/dotnet/csharplang/blob/master/proposals/csharp-9.0/function-pointers.md) will be coming to C# 9.0, enabling the declaration of function pointers to both managed and unmanaged functions. The runtime had some work to support and complement the interop-related parts of the feature.
 
 #### UnmanagedCallersOnly
 
@@ -209,19 +209,21 @@ The above requires the allocation of a delegate and the marshalling of that dele
 With the combination of function pointers and `UnmanagedCallersOnlyAttribute`, this can be rewritten as:
 
 ```C#
-[UnmanagedCallersOnly]
+[UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
 public static int Callback(int i)
 {
     // ...
 }
 
 [DllImport("NativeLib")]
-private static extern void NativeFunctionWithCallback(delegate* unmanaged<int, int> callback);
+private static extern void NativeFunctionWithCallback(delegate* cdecl<int, int> callback);
 
 static void Main()
 {
-    delegate* <int, int> ptr = &Callback;
-    delegate* unmanaged<int, int> unmanagedPtr = (delegate* unmanaged<int, int>)ptr;
+    // The extra cast is a temporary workaround for Preview 8. It won't be required in the final version.
+    // The syntax will also be updated to use the 'unmanaged' keyword
+    // delegate* unmanaged[Cdecl]<int, int> unmanagedPtr = &Callback;
+    delegate* cdecl<int, int> unmanagedPtr = (delegate* cdecl<int, int>)(delegate* <int, int>)&Callback;
     NativeFunctionWithCallback(unmanagedPtr);
 }
 ```
@@ -245,17 +247,39 @@ Resources:
 
 #### Unmanaged calling convention
 
-The metadata for a method signature has a `CallKind` bit that identifies its calling convention ([ECMA-335](https://github.com/dotnet/runtime/blob/master/docs/project/dotnet-standards.md) II.15.3). As part of supporting function pointers, the Roslyn compiler and runtime and teams came up with an extensible way of specifying unmanaged calling conventions. 
+C# function pointers will allow declaration with an unmanaged calling convention using the `unmanaged` keyword (this syntax is not yet shipped, but will be in the final release). The following will use the platform-dependent default:
+```
+// Platform-dependent default calling convention
+delegate* unmanaged<int, int>;
+```
 
-The `unmanaged` (0x9) calling convention bit indicates that the calling convention can be encoded in the `modopt`s for the return type. To determine the actual calling convention, the runtime will check if the `modopt` values match [`CallConvCdecl`](https://docs.microsoft.com/dotnet/api/system.runtime.compilerservices.callconvcdecl), [`CallConvFastcall`](https://docs.microsoft.com/dotnet/api/system.runtime.compilerservices.callconvfastcall), [`CallConvStdcall`](https://docs.microsoft.com/dotnet/api/system.runtime.compilerservices.callconvstdcall), or [`CallConvThiscall`](https://docs.microsoft.com/dotnet/api/system.runtime.compilerservices.callconvthiscall). If none of these types are encoded in the `modopt`s, the platform-dependent default calling convention will be used.
+Since the unmanaged function may have a different calling convention from the platform default, the unmanaged calling convention can also be explicitly specified:
+```
+// cdecl calling convention
+delegate* unmanaged[Cdecl] <int, int>;
+```
 
-Having multiple calling conventions specified in the `modopt`s is not supported by the runtime. Multiple `modopt`s with calling conventions is entirely valid metadata; the Roslyn compiler will use the union of all specified conventions when interpreting metadata and checking if two signatures match. However, the runtime has no way of determining which of the specified calling conventions should actually be used, so it will produce an error at runtime.
+Similarly, a function marked with `UnmanagedCallersOnlyAttribute` can rely on the platform-dependent default or explicitly specify its calling convention:
+```
+// Platform-dependent default calling convention
+[UnmanagedCallersOnly]
+public static int Callback(int i) { ... }
+
+// cdecl calling convention
+[UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+public static int Callback(int i) { ... }
+```
+
+The runtime recognizes the following calling conventions: [`CallConvCdecl`](https://docs.microsoft.com/dotnet/api/system.runtime.compilerservices.callconvcdecl), [`CallConvFastcall`](https://docs.microsoft.com/dotnet/api/system.runtime.compilerservices.callconvfastcall), [`CallConvStdcall`](https://docs.microsoft.com/dotnet/api/system.runtime.compilerservices.callconvstdcall), and [`CallConvThiscall`](https://docs.microsoft.com/dotnet/api/system.runtime.compilerservices.callconvthiscall).
+
+As the Roslyn compiler and runtime teams were adding this support, extensibility was a major consideration. The metadata for a method signature has a `CallKind` bit that identifies its calling convention ([ECMA-335](https://github.com/dotnet/runtime/blob/master/docs/project/dotnet-standards.md) II.15.3). The new `unmanaged` (0x9) calling convention bit, rather than mapping directly to one specific calling convention, indicates that the calling convention can be encoded in the `modopt`s for the return type. To determine the actual calling convention, the runtime will check if the `modopt` values match known calling convention types and use the platform-dependent default if no values match.
 
 With this mechanism in place, the runtime can add support for additional calling conventions in the future without using more values of the calling convention bit. It also allows for a way to encode modified behaviour such as [`SuppressGCTransition`](#SuppressGCTransition) ([dotnet/runtime#38134](https://github.com/dotnet/runtime/issues/38134)).
 
 Resources:
 - Proposal: [dotnet/runtime#38133](https://github.com/dotnet/runtime/issues/38133)
 - Implementation: [dotnet/runtime#38357](https://github.com/dotnet/runtime/pull/38357), [dotnet/runtime#39030](https://github.com/dotnet/runtime/pull/39030)
+- Method signature metadata: [ECMA-335](https://github.com/dotnet/runtime/blob/master/docs/project/dotnet-standards.md) II.15.3
 
 ### COM objects with the `dynamic` keyword
 
