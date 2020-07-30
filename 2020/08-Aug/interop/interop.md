@@ -8,6 +8,121 @@ As we start thinking about what comes next, we are looking for developers and co
 
 Some items mentioned in this post are Windows-specific (COM and WinRT). In those cases, 'the runtime' refers only to CoreCLR.
 
+### Function pointers
+
+[C# function pointers](https://github.com/dotnet/csharplang/blob/master/proposals/csharp-9.0/function-pointers.md) will be coming to C# 9.0, enabling the declaration of function pointers to both managed and unmanaged functions. The runtime had some work to support and complement the interop-related parts of the feature.
+
+#### UnmanagedCallersOnly
+
+C# function pointers provide a performant way to call native functions from C#. It makes sense for the runtime to provide a symmetrical solution for calling managed functions from native code.
+
+[`UnmanagedCallersOnlyAttribute`](https://github.com/dotnet/runtime/issues/32462) ([dotnet/runtime#33005](https://github.com/dotnet/runtime/pull/33005)) indicates that a function will be called only from native code, allowing the runtime to reduce the cost of calling the managed function.
+
+To limit the complexity of the scenario, use of this attribute is restricted to methods that must:
+- Be `static`
+- Only have [blittable](https://docs.microsoft.com/dotnet/standard/native-interop/best-practices#blittable-types) arguments
+  - Removes reliance on any special marshalling logic
+- Not be called from managed code
+  - Limits the scenarios that need to be handled (e.g. no calls through reflection), allowing the focus to remain on reducing the cost of calling the managed function from native code
+
+A basic usage scenario of passing a managed callback to a native function would, without `UnmanagedCallersOnlyAttribute`, would look like:
+
+```C#
+public static int Callback(int i)
+{
+    // ...
+}
+
+private delegate void CallbackDelegate(int i);
+private static CallbackDelegate s_callback = new CallbackDelegate(Callback);
+
+[DllImport("NativeLib")]
+private static extern void NativeFunctionWithCallback(IntPtr callback);
+
+static void Main()
+{
+    IntPtr callback = Marshal.GetFunctionPointerForDelegate(s_callback);
+    NativeFunctionWithCallback(callback);
+}
+```
+
+The above requires the allocation of a delegate and the marshalling of that delegate to a function pointer. If the native function being called could hold on to the callback, we also need to ensure the delegate is not garbage collected. This detail is often missed, leading to intermittent "Callback on collected delegate" crashes.
+
+With the combination of function pointers and `UnmanagedCallersOnlyAttribute`, this can be rewritten as:
+
+```C#
+[UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+public static int Callback(int i)
+{
+    // ...
+}
+
+[DllImport("NativeLib")]
+private static extern void NativeFunctionWithCallback(delegate* cdecl<int, int> callback);
+
+static void Main()
+{
+    // The extra cast is a temporary workaround for Preview 8. It won't be required in the final version.
+    // The syntax will also be updated to use the 'unmanaged' keyword
+    // delegate* unmanaged[Cdecl]<int, int> unmanagedPtr = &Callback;
+    delegate* cdecl<int, int> unmanagedPtr = (delegate* cdecl<int, int>)(delegate* <int, int>)&Callback;
+    NativeFunctionWithCallback(unmanagedPtr);
+}
+```
+
+The most obvious change is that the allocation of a delegate is no longer needed. By requiring that the function only have blittable arguments, the runtime does not need to do any marshalling, so the only requirement for entering the function is a GC transition to cooperative mode. The restriction of not allowing the function to be called from managed code means that the JIT-ed function itself can do the GC transition. The function pointer for `Callback` above actually points directly to the JIT-ed function. The extra error-prone code for keeping the delegate alive is no longer needed either.
+
+`System.Private.CoreLib` has started using this attribute for some functions: [dotnet/runtime#34270](https://github.com/dotnet/runtime/pull/34270), [dotnet/runtime#39082](https://github.com/dotnet/runtime/pull/39082)
+
+The `UnmanagedCallersOnlyAttribute` is also supported by the [.NET hosting APIs](https://docs.microsoft.com/dotnet/core/tutorials/netcore-hosting#create-a-host-using-nethosth-and-hostfxrh) for calling a managed function from a native host.
+
+Caveats:
+
+- The x86 path is less optimized than others ([dotnet/runtime#33582](https://github.com/dotnet/runtime/issues/33582)).
+- Marking a P/Invoke with `UnmanagedCallersOnlyAttribute` is not supported.
+
+Resources:
+- API: [`UnmanagedCallersOnlyAttribute`](https://docs.microsoft.com/dotnet/api/system.runtime.interopservices.unmanagedcallersonlyattribute)
+- Proposal: [dotnet/runtime#32462](https://github.com/dotnet/runtime/issues/32462)
+- Implementation: [dotnet/runtime#33005](https://github.com/dotnet/runtime/pull/33005), [dotnet/runtime#35592](https://github.com/dotnet/runtime/pull/35592)
+- Prototype of native exports (uses the [.NET hosting APIs](https://docs.microsoft.com/dotnet/core/tutorials/netcore-hosting#create-a-host-using-nethosth-and-hostfxrh) and `UnmanagedCallersOnlyAttribute` as building blocks): [DNNE](https://github.com/AaronRobinsonMSFT/DNNE)
+
+#### Unmanaged calling convention
+
+C# function pointers will allow declaration with an unmanaged calling convention using the `unmanaged` keyword (this syntax is not yet shipped, but will be in the final release). The following will use the platform-dependent default:
+```
+// Platform-dependent default calling convention
+delegate* unmanaged<int, int>;
+```
+
+Since the unmanaged function may have a different calling convention from the platform default, the unmanaged calling convention can also be explicitly specified:
+```
+// cdecl calling convention
+delegate* unmanaged[Cdecl] <int, int>;
+```
+
+Similarly, a function marked with `UnmanagedCallersOnlyAttribute` can rely on the platform-dependent default or explicitly specify its calling convention:
+```
+// Platform-dependent default calling convention
+[UnmanagedCallersOnly]
+public static int Callback(int i) { ... }
+
+// cdecl calling convention
+[UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+public static int Callback(int i) { ... }
+```
+
+The runtime recognizes the following calling conventions: [`CallConvCdecl`](https://docs.microsoft.com/dotnet/api/system.runtime.compilerservices.callconvcdecl), [`CallConvFastcall`](https://docs.microsoft.com/dotnet/api/system.runtime.compilerservices.callconvfastcall), [`CallConvStdcall`](https://docs.microsoft.com/dotnet/api/system.runtime.compilerservices.callconvstdcall), and [`CallConvThiscall`](https://docs.microsoft.com/dotnet/api/system.runtime.compilerservices.callconvthiscall).
+
+As the Roslyn compiler and runtime teams were adding this support, extensibility was a major consideration. The metadata for a method signature has a `CallKind` bit that identifies its calling convention ([ECMA-335](https://github.com/dotnet/runtime/blob/master/docs/project/dotnet-standards.md) II.15.3). The new `unmanaged` (0x9) calling convention bit, rather than mapping directly to one specific calling convention, indicates that the calling convention can be encoded in the `modopt`s for the return type. To determine the actual calling convention, the runtime will check if the `modopt` values match known calling convention types and use the platform-dependent default if no values match.
+
+With this mechanism in place, the runtime can add support for additional calling conventions in the future without using more values of the calling convention bit. It also allows for a way to encode modified behaviour such as [`SuppressGCTransition`](#SuppressGCTransition) ([dotnet/runtime#38134](https://github.com/dotnet/runtime/issues/38134)).
+
+Resources:
+- Proposal: [dotnet/runtime#38133](https://github.com/dotnet/runtime/issues/38133)
+- Implementation: [dotnet/runtime#38357](https://github.com/dotnet/runtime/pull/38357), [dotnet/runtime#39030](https://github.com/dotnet/runtime/pull/39030)
+- Method signature metadata: [ECMA-335](https://github.com/dotnet/runtime/blob/master/docs/project/dotnet-standards.md) II.15.3
+
 ### Low-level APIs for interaction with the built-in interop system
 
 An underlying theme for interop in .NET 5 has been providing low-level building blocks that enable components outside of the runtime itself to better integrate with the built-in interop system. In .NET 5, we added some APIs that allow for more control over the interop system used in the runtime.
@@ -165,121 +280,6 @@ As [previously announced](https://devblogs.microsoft.com/dotnet/announcing-net-5
 - Symmetry with interop systems provided for other operating systems (e.g. iOS and Android).
 - Use of NET features such as AOT and [IL linking](https://github.com/mono/linker) in the WinRT ecosystem.
 - Simplification of the runtime codebase (~60k lines of code deleted).
-
-### Function pointers
-
-[C# function pointers](https://github.com/dotnet/csharplang/blob/master/proposals/csharp-9.0/function-pointers.md) will be coming to C# 9.0, enabling the declaration of function pointers to both managed and unmanaged functions. The runtime had some work to support and complement the interop-related parts of the feature.
-
-#### UnmanagedCallersOnly
-
-C# function pointers provide a performant way to call native functions from C#. It makes sense for the runtime to provide a symmetrical solution for calling managed functions from native code.
-
-[`UnmanagedCallersOnlyAttribute`](https://github.com/dotnet/runtime/issues/32462) ([dotnet/runtime#33005](https://github.com/dotnet/runtime/pull/33005)) indicates that a function will be called only from native code, allowing the runtime to reduce the cost of calling the managed function.
-
-To limit the complexity of the scenario, use of this attribute is restricted to methods that must:
-- Be `static`
-- Only have [blittable](https://docs.microsoft.com/dotnet/standard/native-interop/best-practices#blittable-types) arguments
-  - Removes reliance on any special marshalling logic
-- Not be called from managed code
-  - Limits the scenarios that need to be handled (e.g. no calls through reflection), allowing the focus to remain on reducing the cost of calling the managed function from native code
-
-A basic usage scenario of passing a managed callback to a native function would, without `UnmanagedCallersOnlyAttribute`, would look like:
-
-```C#
-public static int Callback(int i)
-{
-    // ...
-}
-
-private delegate void CallbackDelegate(int i);
-private static CallbackDelegate s_callback = new CallbackDelegate(Callback);
-
-[DllImport("NativeLib")]
-private static extern void NativeFunctionWithCallback(IntPtr callback);
-
-static void Main()
-{
-    IntPtr callback = Marshal.GetFunctionPointerForDelegate(s_callback);
-    NativeFunctionWithCallback(callback);
-}
-```
-
-The above requires the allocation of a delegate and the marshalling of that delegate to a function pointer. If the native function being called could hold on to the callback, we also need to ensure the delegate is not garbage collected. This detail is often missed, leading to intermittent "Callback on collected delegate" crashes.
-
-With the combination of function pointers and `UnmanagedCallersOnlyAttribute`, this can be rewritten as:
-
-```C#
-[UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
-public static int Callback(int i)
-{
-    // ...
-}
-
-[DllImport("NativeLib")]
-private static extern void NativeFunctionWithCallback(delegate* cdecl<int, int> callback);
-
-static void Main()
-{
-    // The extra cast is a temporary workaround for Preview 8. It won't be required in the final version.
-    // The syntax will also be updated to use the 'unmanaged' keyword
-    // delegate* unmanaged[Cdecl]<int, int> unmanagedPtr = &Callback;
-    delegate* cdecl<int, int> unmanagedPtr = (delegate* cdecl<int, int>)(delegate* <int, int>)&Callback;
-    NativeFunctionWithCallback(unmanagedPtr);
-}
-```
-
-The most obvious change is that the allocation of a delegate is no longer needed. By requiring that the function only have blittable arguments, the runtime does not need to do any marshalling, so the only requirement for entering the function is a GC transition to cooperative mode. The restriction of not allowing the function to be called from managed code means that the JIT-ed function itself can do the GC transition. The function pointer for `Callback` above actually points directly to the JIT-ed function. The extra error-prone code for keeping the delegate alive is no longer needed either.
-
-`System.Private.CoreLib` has started using this attribute for some functions: [dotnet/runtime#34270](https://github.com/dotnet/runtime/pull/34270), [dotnet/runtime#39082](https://github.com/dotnet/runtime/pull/39082)
-
-The `UnmanagedCallersOnlyAttribute` is also supported by the [.NET hosting APIs](https://docs.microsoft.com/dotnet/core/tutorials/netcore-hosting#create-a-host-using-nethosth-and-hostfxrh) for calling a managed function from a native host.
-
-Caveats:
-
-- The x86 path is less optimized than others ([dotnet/runtime#33582](https://github.com/dotnet/runtime/issues/33582)).
-- Marking a P/Invoke with `UnmanagedCallersOnlyAttribute` is not supported.
-
-Resources:
-- API: [`UnmanagedCallersOnlyAttribute`](https://docs.microsoft.com/dotnet/api/system.runtime.interopservices.unmanagedcallersonlyattribute)
-- Proposal: [dotnet/runtime#32462](https://github.com/dotnet/runtime/issues/32462)
-- Implementation: [dotnet/runtime#33005](https://github.com/dotnet/runtime/pull/33005), [dotnet/runtime#35592](https://github.com/dotnet/runtime/pull/35592)
-- Prototype of native exports (uses the [.NET hosting APIs](https://docs.microsoft.com/dotnet/core/tutorials/netcore-hosting#create-a-host-using-nethosth-and-hostfxrh) and `UnmanagedCallersOnlyAttribute` as building blocks): [DNNE](https://github.com/AaronRobinsonMSFT/DNNE)
-
-#### Unmanaged calling convention
-
-C# function pointers will allow declaration with an unmanaged calling convention using the `unmanaged` keyword (this syntax is not yet shipped, but will be in the final release). The following will use the platform-dependent default:
-```
-// Platform-dependent default calling convention
-delegate* unmanaged<int, int>;
-```
-
-Since the unmanaged function may have a different calling convention from the platform default, the unmanaged calling convention can also be explicitly specified:
-```
-// cdecl calling convention
-delegate* unmanaged[Cdecl] <int, int>;
-```
-
-Similarly, a function marked with `UnmanagedCallersOnlyAttribute` can rely on the platform-dependent default or explicitly specify its calling convention:
-```
-// Platform-dependent default calling convention
-[UnmanagedCallersOnly]
-public static int Callback(int i) { ... }
-
-// cdecl calling convention
-[UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
-public static int Callback(int i) { ... }
-```
-
-The runtime recognizes the following calling conventions: [`CallConvCdecl`](https://docs.microsoft.com/dotnet/api/system.runtime.compilerservices.callconvcdecl), [`CallConvFastcall`](https://docs.microsoft.com/dotnet/api/system.runtime.compilerservices.callconvfastcall), [`CallConvStdcall`](https://docs.microsoft.com/dotnet/api/system.runtime.compilerservices.callconvstdcall), and [`CallConvThiscall`](https://docs.microsoft.com/dotnet/api/system.runtime.compilerservices.callconvthiscall).
-
-As the Roslyn compiler and runtime teams were adding this support, extensibility was a major consideration. The metadata for a method signature has a `CallKind` bit that identifies its calling convention ([ECMA-335](https://github.com/dotnet/runtime/blob/master/docs/project/dotnet-standards.md) II.15.3). The new `unmanaged` (0x9) calling convention bit, rather than mapping directly to one specific calling convention, indicates that the calling convention can be encoded in the `modopt`s for the return type. To determine the actual calling convention, the runtime will check if the `modopt` values match known calling convention types and use the platform-dependent default if no values match.
-
-With this mechanism in place, the runtime can add support for additional calling conventions in the future without using more values of the calling convention bit. It also allows for a way to encode modified behaviour such as [`SuppressGCTransition`](#SuppressGCTransition) ([dotnet/runtime#38134](https://github.com/dotnet/runtime/issues/38134)).
-
-Resources:
-- Proposal: [dotnet/runtime#38133](https://github.com/dotnet/runtime/issues/38133)
-- Implementation: [dotnet/runtime#38357](https://github.com/dotnet/runtime/pull/38357), [dotnet/runtime#39030](https://github.com/dotnet/runtime/pull/39030)
-- Method signature metadata: [ECMA-335](https://github.com/dotnet/runtime/blob/master/docs/project/dotnet-standards.md) II.15.3
 
 ### COM objects with the `dynamic` keyword
 
