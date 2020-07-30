@@ -2,7 +2,7 @@
 
 With .NET 5 scheduled to be released [later this year](https://github.com/dotnet/core/blob/master/roadmap.md), we thought it would be a good time to discuss some of the interop updates that went into the release and point out some items we are considering for the future.
 
-As we start thinking about what comes next, we are looking for developers and consumers of any interop solutions to discuss their experiences. We are looking for feedback about interop scenarios in general - not just those related to .NET. If you have worked in the interop space, we'd love to [hear from you](#share-your-experiences).
+As we start thinking about what comes next, we are looking for developers and consumers of any interop solutions to discuss their experiences. We are looking for feedback about interop scenarios in general - not just those related to .NET. If you have worked in the interop space, we'd love to [hear from you](#share-your-experiences) on our [GitHub issue]([TODO] Link to GitHub issue).
 
 ## Interop in .NET 5
 
@@ -285,9 +285,9 @@ As [previously announced](https://devblogs.microsoft.com/dotnet/announcing-net-5
 
 In .NET Core 3.x and below, the `dynamic` keyword does not work with COM objects. While the support existed in .NET Framework, the amount of code was large and the logic was complex and specialized, so the support was not included in .NET Core. Thanks to the many developers that [let us know](https://github.com/dotnet/runtime/issues/12587) how problematic this lack of functionality was for them, we knew we needed to add the support in .NET 5. Using the `dynamic` keywords for COM objects is now supported ([dotnet/runtime#33060](https://github.com/dotnet/runtime/pull/33060)).
 
-### A/W suffix probing for P/Invokes
+### Marshalling of blittable generics
 
-Many Win32 APIs on Windows have [Unicode and ANSI versions](https://docs.microsoft.com/windows/win32/learnwin32/working-with-strings#unicode-and-ansi-functions). By convention the Unicode version has a suffix of `W` and the ANSI version has a suffix of `A`. When resolving P/Invoke entry points where [ExactSpelling](https://docs.microsoft.com/dotnet/api/system.runtime.interopservices.dllimportattribute.exactspelling) is `false`, the runtime would probe for functions with these suffixes - even on non-Windows platforms where there is no such convention. In .NET 5, this probing was [removed](https://github.com/dotnet/runtime/issues/33246) on non-Windows platforms ([dotnet/runtime#33250](https://github.com/dotnet/runtime/pull/33250)).
+The runtime [did not support](https://github.com/dotnet/runtime/issues/4547) marshalling of generic types. An attempt to do so would result in a `MarshalDirectiveException` indicating that generic types cannot be marshalled. In .NET 5, support was added for marshalling of blittable generics in P/Invokes ([dotnet/runtime#103](https://github.com/dotnet/runtime/pull/103)). Marshalling of non-blittable generics remains unsupported.
 
 ## Beyond .NET 5
 
@@ -314,4 +314,4 @@ To alleviate these issues, we are [planning](https://github.com/dotnet/runtime/b
 
 The interop space is as varied as it is complex. Whether you create or consume interop solutions, we are interested in your experiences.
 
-[TODO] SurveyMonkey?
+[TODO] Link to GitHub issue
