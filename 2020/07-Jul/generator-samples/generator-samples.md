@@ -1,7 +1,5 @@
 # New C# Source Generator Samples
 
-**Luca Bolognese** (lucabol@microsoft.com)
-
 Phillip introduced C# Source Generators [here](https://devblogs.microsoft.com/dotnet/introducing-c-source-generators/).
 This post describes two new generators that we added to the [samples project](https://github.com/dotnet/roslyn-sdk/tree/master/samples/CSharp/SourceGenerators) in the Roslyn SDK github repo.
 
