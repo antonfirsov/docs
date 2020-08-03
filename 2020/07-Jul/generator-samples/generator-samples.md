@@ -9,7 +9,7 @@ The first generator gives you strongly typed access to [CSV](https://en.wikipedi
 
 It is important to have a good mental picture of how source generators operate. Conceptually, a generator is a function that takes some input (more on that later) and generates C# code as output. This 'function' runs *before* the code for the main project is compiled. In fact, its output becomes part of the project.
 
-The input to a generator must be available at compile time, because that's when generators run. In this post we explore two different ways to provide it.
+The inputs to a generator must be available at compile time, because that's when generators run. In this post we explore two different ways to provide it.
 
 You use a generator in your project by either referencing a generator project or by referencing the generator assembly directly. In the samples project this is achieved by the following instruction in the project file:
 
