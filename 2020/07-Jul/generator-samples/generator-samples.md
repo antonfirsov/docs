@@ -24,8 +24,10 @@ You use a generator in your project by either referencing a generator project or
 The CSV Generator takes as an input CSV files and returns as an output strongly typed C# representations of them. You specify the CSV files with the following lines in the project file:
 
 ```xml
+  <ItemGroup>
     <AdditionalFiles Include="People.csv" CsvLoadType="Startup" />
     <AdditionalFiles Include="Cars.csv" CsvLoadType="OnDemand" CacheObjects="true" />
+  </ItemGroup>
 ```
 
 Where the `People.csv` file looks like so:
@@ -36,7 +38,7 @@ Name, address, 11Age
 "john doe", "32 Carl street", 45
 ```
 
-There are two additional arguments that get passed as part of the input: `CsvLoadType` and `CacheObject`. The former can take the value of `Startup` or `OnDemand` and specifies when the objects representing the CSV files are created. The latter is a `boolean` indicating if the objects need to be cached after creation.
+There are two additional arguments that get passed as part of the input: `CsvLoadType` and `CacheObject`. The former can take the value of `Startup` or `OnDemand` and specifies when the objects representing the CSV files are created. The latter is a `bool` indicating if the objects need to be cached after creation.
 
 It can be a little confusing to keep straight when exactly every phase runs. The generation of classes representing the shape of the CSV file happens at *compile time*, while the creation of the objects for each row of the file happens at *run time* according to the policy specified by `CsvLoadType` and `CacheObject`.
 
