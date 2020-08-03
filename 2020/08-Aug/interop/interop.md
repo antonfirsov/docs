@@ -202,7 +202,7 @@ In .NET, the metadata for a type is static, so whether or not it is possible to 
 
 With the introduction of [default implementations in interfaces](https://devblogs.microsoft.com/dotnet/default-implementations-in-interfaces/) in C# 8.0, we could require that the type returned by `IDynamicInterfaceCastable.GetInterfaceImplementation` be an interface. This restriction scopes down the breadth of issues around type safety, limiting them to interface dispatch (as opposed to field access on a class). Since interface dispatch goes through the two hooks mentioned above, the runtime can reasonably detect and error on cases where an operation is not supported. We further restricted the type that could be returned by requiring the interface have the `DynamicInterfaceCastableImplementation` attribute. This serves as a declaration of intent for the interface and a mechanism for the [IL linker](https://github.com/mono/linker) to handle `IDynamicInterfaceCastable` scenarios.
 
-Since this feature intentionally pokes a hole in type safety, there is some nuance associated with it. Take the (contrived) implementation below:
+This support of type-casting beyond what is in a type's metadata has some nuance associated with it. Take the (contrived) implementation below:
 
 ```C#
 public interface IGreet
@@ -312,6 +312,8 @@ To alleviate these issues, we are [planning](https://github.com/dotnet/runtime/b
 
 ## Share your experiences
 
-The interop space is as varied as it is complex. Whether you create or consume interop solutions, we are interested in your experiences.
+The interop space is as varied as it is complex. Whether you create or consume interop solutions, we are interested in your experiences. We would appreciate your thoughts and comments in our [discussion on GitHub]().
 
 [TODO] Link to GitHub issue
+
+Gist draft: https://gist.github.com/AaronRobinsonMSFT/8a5455e1144f17c0f7f367329e875319
