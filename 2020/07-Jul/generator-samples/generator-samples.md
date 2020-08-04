@@ -287,7 +287,7 @@ Then we inspect the assembly to fish out all the usages of the `Mustache` attrib
             IEnumerable<(string, string, string)> options = GetMustacheOptions(compilation);
 ```
 
-The code to do so is in the `GetMustacheOptions` function, that you can inspect yourself [here](https://github.com/dotnet/roslyn-sdk/blob/master/samples/CSharp/SourceGenerators/SourceGeneratorSamples/MustacheGenerator.cs) as this post is getting already too long.
+The code to do so is in the `GetMustacheOptions` function, that you can inspect [here](https://github.com/dotnet/roslyn-sdk/blob/master/samples/CSharp/SourceGenerators/SourceGeneratorSamples/MustacheGenerator.cs).
 
 Once you have the options, it is time to generate the source files:
 
