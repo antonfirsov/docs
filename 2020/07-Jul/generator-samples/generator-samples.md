@@ -21,7 +21,7 @@ You use a generator in your project by either referencing a generator project or
 
 ## CSV Generator Usage
 
-The CSV Generator takes as an input CSV files and returns as an output strongly typed C# representations of them. You specify the CSV files with the following lines in the project file:
+The CSV Generator takes as an input CSV files and returns strongly typed C# representations of them as output. You specify the CSV files with the following lines in the project file:
 
 ```xml
   <ItemGroup>
