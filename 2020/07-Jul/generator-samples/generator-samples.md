@@ -38,11 +38,11 @@ Name, address, 11Age
 "john doe", "32 Carl street", 45
 ```
 
-There are two additional arguments that get passed as part of the input: `CsvLoadType` and `CacheObject`. The former can take the value of `Startup` or `OnDemand` and specifies when the objects representing the CSV files are created. The latter is a `bool` indicating if the objects need to be cached after creation.
+There are two additional arguments that get passed as part of the input in the project file `AdditionalFiles` tag: `CsvLoadType` and `CacheObjects`. `CsvLoadType` can take the value of `Startup` or `OnDemand`: the former instruct the code to load the objects representing the CSV file when the program starts; the latter loads them at first usage. `CacheObjects` is a `bool` indicating if the objects need to be cached after creation.
 
-It can be a little confusing to keep straight when exactly every phase runs. The generation of classes representing the shape of the CSV file happens at *compile time*, while the creation of the objects for each row of the file happens at *run time* according to the policy specified by `CsvLoadType` and `CacheObject`.
+It can be a little confusing to keep straight when exactly every phase runs. The generation of classes representing the shape of the CSV file happens at *compile time*, while the creation of the objects for each row of the file happens at *run time* according to the policy specified by `CsvLoadType` and `CacheObjects`.
 
-BTW: in case you are curious, the `11Age` column name came about as a way to test that the C# generation is correct in case of columns starting with a number.
+BTW: the `11Age` column name came about as a way to test that the C# generation is correct in case of columns starting with a number.
 
 Given such input, the generator creates a `CSV` namespace that you can import in your code with:
 
@@ -82,7 +82,7 @@ The `Execute` method is the entry point. It gets called by the compiler to start
         }
 ```
 
-We first get the options - `CsvLoadType` and `CacheObjects` - we then generate the source files by reading the additional files and add them to the project.
+We first get the options - `CsvLoadType` and `CacheObjects` from the project file - we then generate the source files by reading the additional files and add them to the project.
 
 Getting the options is just a few easy calls to the analyzer apis:
 
