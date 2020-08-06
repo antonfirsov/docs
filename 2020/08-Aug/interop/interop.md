@@ -2,7 +2,7 @@
 
 With .NET 5 scheduled to be released [later this year](https://github.com/dotnet/core/blob/master/roadmap.md), we thought it would be a good time to discuss some of the interop updates that went into the release and point out some items we are considering for the future.
 
-As we start thinking about what comes next, we are looking for developers and consumers of any interop solutions to discuss their experiences. We are looking for feedback about interop scenarios in general - not just those related to .NET. If you have worked in the interop space, we'd love to [hear from you](#share-your-experiences) on our [GitHub issue]([TODO] Link to GitHub issue).
+As we start thinking about what comes next, we are looking for developers and consumers of any interop solutions to discuss their experiences. We are looking for feedback about interop scenarios in general - not just those related to .NET. If you have worked in the interop space, we'd love to [hear from you](#share-your-experiences) on our [GitHub issue](https://github.com/dotnet/runtime/issues/40484).
 
 ## Interop in .NET 5
 
@@ -312,8 +312,4 @@ To alleviate these issues, we are [planning](https://github.com/dotnet/runtime/b
 
 ## Share your experiences
 
-The interop space is as varied as it is complex. Whether you create or consume interop solutions, we are interested in your experiences. We would appreciate your thoughts and comments in our [discussion on GitHub]().
-
-[TODO] Link to GitHub issue
-
-Gist draft: https://gist.github.com/AaronRobinsonMSFT/8a5455e1144f17c0f7f367329e875319
+The interop space is as varied as it is complex. Whether you create or consume interop solutions, we are interested in your experiences. We would appreciate your thoughts and comments in our [survey on GitHub](https://github.com/dotnet/runtime/issues/40484).
