@@ -63,7 +63,7 @@ So that's how you use the generator. Let's now look at how it is implemented.
 
 ## CSV Generator Implementation
 
-Inside the generator project you need a class implementing the `ISourceGenerator` interface with a `Generator` attribute.
+Inside the [generator project](https://github.com/dotnet/roslyn-sdk/tree/master/samples/CSharp/SourceGenerators/SourceGeneratorSamples) you need a class implementing the `ISourceGenerator` interface with a `Generator` attribute.
 
 ```c#
     [Generator]
