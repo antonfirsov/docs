@@ -201,7 +201,7 @@ This is what gets compiled into your project, so that you can reference it from 
 
 ## Mustache Generator Usage
 
-For the Mustage Generator, we use a different way to pass input arguments compared to the CSV Generator above.
+For the [Mustage Generator](https://mustache.github.io/mustache.5.html), we use a different way to pass input arguments compared to the CSV Generator above.
 We embed our input in assembly attributes and then, in the generator code, we fish them out of the assembly to
 drive the generation process.
 
