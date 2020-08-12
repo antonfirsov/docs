@@ -1,6 +1,8 @@
 # August ML.NET API and Tooling Updates 
 
-We recently released ML.NET 1.5 and 1.5.1 as well as new versions of Model Builder and the ML.NET CLI. These releases include numerous bug fixes and enhancements, as well as a new features for anomaly detection and time series data, improvements to the TextLoader, local GPU training for image classification in Model Builder, and more.
+[ML.NET](https://dot.net/ml) is an open-source, cross-platform machine learning framework for .NET developers that allows you to integrate machine learning into your .NET apps without requiring you to leave the .NET ecosystem or have a background in ML or data science. ML.NET provides tooling (Model Builder UI in Visual Studio and the cross platform ML.NET CLI) that automatically trains custom machine learning models for you based on your scenario and data.
+
+We recently released ML.NET 1.5 and 1.5.1 as well as new versions of Model Builder and the ML.NET CLI. These releases include numerous bug fixes and enhancements, as well as new features for anomaly detection and time series data, improvements to the TextLoader, local GPU training for image classification in Model Builder, and more.
 
 In this post
 1.	New algorithms and features for anomaly detection and time series data
@@ -15,17 +17,60 @@ In this post
 ## What’s new with the ML.NET API?
 
 ### New algorithms and features for anomaly detection and time series data
-The 1.5 update added a new anomaly detection algorithm called [DetectEntireAnomalyBySrCnn](https://docs.microsoft.com/dotnet/api/microsoft.ml.timeseriescatalog.detectentireanomalybysrcnn?view=ml-dotnet) which allows you to detect anomalies for an entire dataset at once; this is in contrast to the existing [DetectAnomalyBySrCnn](https://docs.microsoft.com/dotnet/api/microsoft.ml.timeseriescatalog.detectanomalybysrcnn?view=ml-dotnet) algorithm, which streams parts of the dataset at once and examines a window around points to find anomalies.
+Time series data is a series of data points that are sequenced in time order. Monthly number of product sales over a year is a great example of time series data:
 
-This new algorithm is faster than the DetectAnomalyBySrCnn algorithm and can work on arbitrarily-sized datasets since it can train on batches of a fixed size, but it also consumes more memory since it loads the entire dataset in memory. You can use the new DetectEntireAnomalyBySrCnn algorithm if you have all your data on hand. However, if your time series data is streaming, you don’t have all your data on hand, or your data is too large to fit in memory, you can still use the previous DetectAnomalyBySrCnn algorithm. Here is an example using the new DetectEntireAnomalyBySrCnn algorithm.
+![Time series data example](time-series-data.png)
 
-This update also added [root cause detection](https://github.com/dotnet/machinelearning/blob/master/src/Microsoft.ML.TimeSeries/RootCauseAnalyzer.cs), which is an explainability feature that identifies which inputs caused an anomaly. For example, say you have housing data for Seattle, and one of the house listings shows an abnormally high price (e.g. an anomaly) on August 6. Using root cause detection, you may find that the neighborhood and property type are the contributing factors to the abnormally high price. The 1.5.1 update also added the ability for you to define a threshold for root cause analysis which can influence which features are chosen as root causes. Here is an example of root cause analysis.
+There are many applications for time series data and machine learning; anomaly detection and forecasting are two of the most commons scenarios which are also supported by ML.NET. With **anomaly detection**, you can find abnormal spikes in your time series data; for example, you could use anomaly detection to identify potentially fraudulant transactions on your credit card or spikes in power consumption based on daily readings from a meter. With **forecasting**, you can use past time series data to make predictions about future behavior; for example, you could use forecasting to make seasonal sales predictions or predict the weather.
 
-The 1.5.1 update also added new capabilities for working with time series data, including seasonality detection and being able to de-seasonalize seasonal data prior to anomaly detection. For example, say you had sales data from the past 5 years, and you noticed that sales always go up in the holiday months. Normally, this spike in sales would be counted as an anomaly, but now you can use ML.NET’s seasonality detection feature to identify this yearly occurrence and normalize the data against the seasonality before your anomaly detection analysis so that it does not show up as an anomaly.
+The ML.NET 1.5 update added a new anomaly detection algorithm called [DetectEntireAnomalyBySrCnn](https://docs.microsoft.com/dotnet/api/microsoft.ml.timeseriescatalog.detectentireanomalybysrcnn?view=ml-dotnet) which allows you to detect anomalies for an entire dataset at once; this is in contrast to the existing [DetectAnomalyBySrCnn](https://docs.microsoft.com/dotnet/api/microsoft.ml.timeseriescatalog.detectanomalybysrcnn?view=ml-dotnet) algorithm, which streams parts of the dataset and examines a window around points to find anomalies.
+
+This new algorithm is faster than the DetectAnomalyBySrCnn algorithm and can work on arbitrarily-sized datasets since it can train on batches of a fixed size, but it also consumes more memory since it loads the entire dataset in memory. You can use the new DetectEntireAnomalyBySrCnn algorithm if you have all your data on hand. However, if your time series data is streaming, you don’t have all your data on hand, or your data is too large to fit in memory, you can still use the previous DetectAnomalyBySrCnn algorithm. [Here](https://docs.microsoft.com/dotnet/api/microsoft.ml.timeseriescatalog.detectentireanomalybysrcnn?view=ml-dotnet#examples) is an example using the new DetectEntireAnomalyBySrCnn algorithm.
+
+This update also added [root cause detection](https://github.com/dotnet/machinelearning/blob/master/docs/api-reference/time-series-root-cause-localization.md), which is an explainability feature that identifies which inputs caused an anomaly. For example, say you have housing data for Seattle, and one of the house listings shows an abnormally high price (e.g. an anomaly) on August 6. Using root cause detection, you may find that the neighborhood and property type are the contributing factors to the abnormally high price. The 1.5.1 update also added the ability for you to define a threshold for root cause analysis which can influence which features are chosen as root causes.
+
+The code below shows how to implement root cause detection and print the results (full sample can be found [here](https://github.com/dotnet/machinelearning/blob/master/docs/samples/Microsoft.ML.Samples/Dynamic/Transforms/TimeSeries/LocalizeRootCause.cs)).
+
+```csharp
+// Create a new ML context for ML.NET operations
+var mlContext = new MLContext();
+
+// Create a root cause localization input instance
+DateTime timestamp = GetTimestamp();
+
+var data = new RootCauseLocalizationInput(
+    timestamp,
+    GetAnomalyDimension(),
+    new List<MetricSlice>()
+    {
+        new MetricSlice(timestamp, GetPoints())
+    },
+    AggregateType.Sum, 
+    AGG_SYMBOL);
+
+// Get the root cause localization result
+RootCause prediction = mlContext.AnomalyDetection.LocalizeRootCause(data);
+
+// Print the localization result
+int count = 0;
+foreach (RootCauseItem item in prediction.Items)
+{
+    count++;
+    Console.WriteLine($"Root cause item #{count} ...");
+    Console.WriteLine($"Score: {item.Score}, Path: {String.Join(" ",item.Path)}, Direction: {item.Direction}, Dimension:{String.Join(" ", item.Dimension)}");
+}
+
+    //Item #1 ...
+    //Score: 0.26670448876705927, Path: DataCenter, Direction: Up, Dimension:[Country, UK] [DeviceType, ##SUM##] [DataCenter, DC1]
+
+```
+
+The 1.5.1 update also added new capabilities for working with time series data, including [seasonality detection](https://github.com/dotnet/machinelearning/blob/master/docs/samples/Microsoft.ML.Samples/Dynamic/Transforms/TimeSeries/DetectSeasonality.cs) and the ability to [de-seasonalize](https://github.com/dotnet/machinelearning/blob/master/test/Microsoft.ML.TimeSeries.Tests/TimeSeriesDirectApi.cs#L727) seasonal data prior to anomaly detection. For example, say you had sales data from the past 5 years, and you noticed that sales always go up in the holiday months. Normally, this spike in sales would be counted as an anomaly, but now you can use ML.NET’s seasonality detection feature to identify this yearly occurrence and normalize the data against the seasonality before your anomaly detection analysis so that it does not show up as an anomaly.
 
 ### AutoML for ranking scenario
 While ML.NET has supported the [ranking scenario](https://github.com/dotnet/machinelearning-samples/tree/master/samples/csharp/getting-started/Ranking_Web) for a while, it is now also supported by local AutoML. This means that you don’t have to worry about selecting an algorithm or manually tuning algorithm settings; instead, you can simply choose the ranking scenario and input your data, and AutoML will give you the best model based on your inputs.
-Currently, you can use the AutoML.NET API for this ranking scenario, but we are working on adding AutoML ranking to our tooling (Model Builder in Visual Studio and the ML.NET CLI) as well.
+
+Currently, you can use the AutoML.NET API for this ranking scenario, but we are working on adding AutoML ranking to tooling (Model Builder and the ML.NET CLI) as well.
 
 ### Updates to TextLoader
 The 1.5 update also improved the TextLoader experience, which includes adding the following features:
@@ -52,10 +97,10 @@ After selecting Local (GPU) as your training environment, you can check to see i
 ![GPU compatability requirements](gpu-compatability.png)
  
 Compatibility requirements include:
-1.	Installing the ML.NET Model Builder GPU Support extension in the Visual Studio Marketplace or in the Extensions Manager in VS.
+1.	Installing the [ML.NET Model Builder GPU Support extension](https://marketplace.visualstudio.com/items?itemName=MLNET.ModelBuilderGPU) in the Visual Studio Marketplace or in the Extensions Manager in VS.
 2.	A CUDA-compatible GPU.
-3.	Installing CUDA v10.0 (make sure you get v.10.0, and not any newer version – you can’t have multiple version of CUDA installed).
-4.	Installing cuDNN v7.6.4 for CUDA 10.0 (you can’t have multiple versions of cuDNN installed).
+3.	Installing [CUDA v10.0](https://developer.nvidia.com/cuda-10.0-download-archive) (make sure you get v.10.0, and not any newer version – you can’t have multiple version of CUDA installed).
+4.	Installing [cuDNN v7.6.4 for CUDA 10.0](https://developer.nvidia.com/rdp/cudnn-download) (you can’t have multiple versions of cuDNN installed).
 Currently, Model Builder can check that you have a CUDA-compatible GPU as well as make sure you have the GPU extension installed, but it can’t yet check that you have the correct versions of CUDA and cuDNN (we are working to add this compatibility check in a future release).
 
 Don’t have a CUDA-compatible GPU but still want faster training? You can train in Azure, either by selecting the Azure training environment in Model Builder to utilize Azure ML or by creating an Azure VM with GPU and using Model Builder’s local GPU option for training.
