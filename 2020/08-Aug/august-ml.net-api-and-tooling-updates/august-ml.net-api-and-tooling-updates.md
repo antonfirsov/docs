@@ -10,6 +10,7 @@ In this post
 3.	[Updates to TextLoader](#updates-to-textloader)
 4.	[Model Builder local GPU training for image classification](#model-builder-local-gpu-training-for-image-classification)
 5.	[Feedback button in Model Builder](#feedback-button-in-model-builder)
+6. [Local image classification training in the ML.NET CLI](#Local-image-classification-training-in-the-ml.net-cli)
 6.	[Thanks to our contributors](#thanks-to-our-contributors)
 7.	[Feedback](#feedback)
 8.	[Get started and Resources](#get-started-and-resources)
@@ -17,16 +18,26 @@ In this post
 ## What’s new with the ML.NET API?
 
 ### New algorithms and features for anomaly detection and time series data
-Time series data is a series of data points that are sequenced in time order. Monthly number of product sales over a year is a great example of time series data:
+Time series data is a series of data points that are sequenced in time order. A common example of time series data is monthly number of product sales over a year:
 
 ![Time series data example](time-series-data.png)
 
-There are many applications for time series data and machine learning; anomaly detection and forecasting are two of the most commons scenarios which are also supported by ML.NET. With **anomaly detection**, you can find abnormal spikes in your time series data; for example, you could use anomaly detection to identify potentially fraudulant transactions on your credit card or spikes in power consumption based on daily readings from a meter. With **forecasting**, you can use past time series data to make predictions about future behavior; for example, you could use forecasting to make seasonal sales predictions or predict the weather.
+There are many applications for time series data and machine learning; anomaly detection and forecasting are two of the most commons scenarios which are also supported by ML.NET.
 
+With **anomaly detection**, you can find abnormal spikes in your time series data; for example, you could use anomaly detection to identify potentially fraudulant transactions on your credit card or spikes in power consumption based on daily readings from a meter.
+
+With **forecasting**, you can use past time series data to make predictions about future behavior; for example, you could use forecasting to project monthly sales based on previous months' sales or to predict the weather.
+
+#### Detect Entire Anomaly by SrCnn algorithm
 The ML.NET 1.5 update added a new anomaly detection algorithm called [DetectEntireAnomalyBySrCnn](https://docs.microsoft.com/dotnet/api/microsoft.ml.timeseriescatalog.detectentireanomalybysrcnn?view=ml-dotnet) which allows you to detect anomalies for an entire dataset at once; this is in contrast to the existing [DetectAnomalyBySrCnn](https://docs.microsoft.com/dotnet/api/microsoft.ml.timeseriescatalog.detectanomalybysrcnn?view=ml-dotnet) algorithm, which streams parts of the dataset and examines a window around points to find anomalies.
 
-This new algorithm is faster than the DetectAnomalyBySrCnn algorithm and can work on arbitrarily-sized datasets since it can train on batches of a fixed size, but it also consumes more memory since it loads the entire dataset in memory. You can use the new DetectEntireAnomalyBySrCnn algorithm if you have all your data on hand. However, if your time series data is streaming, you don’t have all your data on hand, or your data is too large to fit in memory, you can still use the previous DetectAnomalyBySrCnn algorithm. [Here](https://docs.microsoft.com/dotnet/api/microsoft.ml.timeseriescatalog.detectentireanomalybysrcnn?view=ml-dotnet#examples) is an example using the new DetectEntireAnomalyBySrCnn algorithm.
+This new algorithm is faster than the DetectAnomalyBySrCnn algorithm and can work on arbitrarily-sized datasets since it can train on batches of a fixed size, but it also consumes more memory since it loads the entire dataset in memory. You can use the new DetectEntireAnomalyBySrCnn algorithm if you have all your data on hand.
 
+However, if your time series data is streaming, you don’t have all your data on hand, or your data is too large to fit in memory, you can still use the previous DetectAnomalyBySrCnn algorithm.
+
+Check out this [sample](https://docs.microsoft.com/dotnet/api/microsoft.ml.timeseriescatalog.detectentireanomalybysrcnn?view=ml-dotnet#examples) to see how to use the DetectEntireAnomalyBySrCnn algorithm.
+
+#### Root cause detection
 This update also added [root cause detection](https://github.com/dotnet/machinelearning/blob/master/docs/api-reference/time-series-root-cause-localization.md), which is an explainability feature that identifies which inputs caused an anomaly. For example, say you have housing data for Seattle, and one of the house listings shows an abnormally high price (e.g. an anomaly) on August 6. Using root cause detection, you may find that the neighborhood and property type are the contributing factors to the abnormally high price. The 1.5.1 update also added the ability for you to define a threshold for root cause analysis which can influence which features are chosen as root causes.
 
 The code below shows how to implement root cause detection and print the results (full sample can be found [here](https://github.com/dotnet/machinelearning/blob/master/docs/samples/Microsoft.ML.Samples/Dynamic/Transforms/TimeSeries/LocalizeRootCause.cs)).
@@ -65,21 +76,47 @@ foreach (RootCauseItem item in prediction.Items)
 
 ```
 
+#### Time series seasonality and de-seasonality
 The 1.5.1 update also added new capabilities for working with time series data, including [seasonality detection](https://github.com/dotnet/machinelearning/blob/master/docs/samples/Microsoft.ML.Samples/Dynamic/Transforms/TimeSeries/DetectSeasonality.cs) and the ability to [de-seasonalize](https://github.com/dotnet/machinelearning/blob/master/test/Microsoft.ML.TimeSeries.Tests/TimeSeriesDirectApi.cs#L727) seasonal data prior to anomaly detection. For example, say you had sales data from the past 5 years, and you noticed that sales always go up in the holiday months. Normally, this spike in sales would be counted as an anomaly, but now you can use ML.NET’s seasonality detection feature to identify this yearly occurrence and normalize the data against the seasonality before your anomaly detection analysis so that it does not show up as an anomaly.
 
 ### AutoML for ranking scenario
 While ML.NET has supported the [ranking scenario](https://github.com/dotnet/machinelearning-samples/tree/master/samples/csharp/getting-started/Ranking_Web) for a while, it is now also supported by local AutoML. This means that you don’t have to worry about selecting an algorithm or manually tuning algorithm settings; instead, you can simply choose the ranking scenario and input your data, and AutoML will give you the best model based on your inputs.
 
-Currently, you can use the AutoML.NET API for this ranking scenario, but we are working on adding AutoML ranking to tooling (Model Builder and the ML.NET CLI) as well.
+Currently, you can use the AutoML.NET API for the ranking scenario, but we are working on adding AutoML ranking to tooling (Model Builder and the ML.NET CLI) as well.
+
+The code below shows how to use the AutoML.NET API to create a ranking experiment and print the results (full sample can be found [here](https://github.com/dotnet/machinelearning/blob/master/docs/samples/Microsoft.ML.AutoML.Samples/RankingExperiment.cs)).
+
+```csharp
+MLContext mlContext = new MLContext();
+
+// Load data
+IDataView trainDataView = mlContext.Data.LoadFromTextFile<SearchData>(TrainDataPath, hasHeader: true, separatorChar: ',');
+
+// Run AutoML Ranking experiment
+ExperimentResult<RankingMetrics> experimentResult = mlContext.Auto()
+    .CreateRankingExperiment(new RankingExperimentSettings(){ MaxExperimentTimeInSeconds = ExperimentTime })
+    .Execute(trainDataView, testDataView, new ColumnInformation(){
+                    LabelColumnName = LabelColumnName,
+                    GroupIdColumnName = GroupColumnName
+                    });
+
+// Print metric from best model
+RunDetail<RankingMetrics> bestRun = experimentResult.BestRun;
+
+Console.WriteLine($"Total models produced: {experimentResult.RunDetails.Count()}");
+Console.WriteLine($"Best model's trainer: {bestRun.TrainerName}");
+Console.WriteLine($"Metrics of best model from validation data --");
+PrintMetrics(bestRun.ValidationMetrics);
+```
 
 ### Updates to TextLoader
-The 1.5 update also improved the TextLoader experience, which includes adding the following features:
+The 1.5 update also improved the [TextLoader](https://docs.microsoft.com/dotnet/api/microsoft.ml.data.textloader?view=ml-dotnet) experience, which includes adding the following features:
 -  Enabling the TextLoader to accept new lines in quoted fields.
 -  Adding escapeChar support.
 -  Adding public generic methods to the TextLoader catalog that accept Options objects.
 -  Adding decimal marker option in the TextLoader.
 
-You can see more changes to ML.NET in the [1.5](https://github.com/dotnet/machinelearning/blob/master/docs/release-notes/1.5.0/release-1.5.0.md) and [1.5.1](https://github.com/dotnet/machinelearning/blob/master/docs/release-notes/1.5.1/release-1.5.1.md) release notes.
+You can see more updates to ML.NET in the [1.5](https://github.com/dotnet/machinelearning/blob/master/docs/release-notes/1.5.0/release-1.5.0.md) and [1.5.1](https://github.com/dotnet/machinelearning/blob/master/docs/release-notes/1.5.1/release-1.5.1.md) release notes.
 
 ## What’s new with ML.NET tooling?
 
@@ -113,6 +150,17 @@ It’s now even easier to open GitHub issues for Model Builder. We’ve added a 
 Selecting “Report a bug” or “Suggest a feature” will open up GitHub in your browser with the corresponding template to fill out.
 
 ![Model Builder feedback button](mb-feedback.png)
+
+### Local image classification training in the ML.NET CLI
+You can now use the ML.NET CLI to train image classification models on your local machine (this was previously only supported with the ML.NET Image Classificaiton API and through Model Builder in Visual Studio).
+
+After installing the ML.NET CLI and organizing your image data, you can train an image classification model with the following command:
+
+```console
+mlnet image-classification --dataset "" --max-time
+```
+
+![Image classification in ML.NET CLI](image-here.png)
 
 ## Thanks to our contributors
 For these updates, we had help from some other teams at Microsoft!
