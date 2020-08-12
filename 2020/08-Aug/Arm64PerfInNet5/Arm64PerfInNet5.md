@@ -64,7 +64,26 @@ Here are the numbers for `System.Numerics.BitOperations`:
 | `PopCount()`          | [PopCount_ulong](https://github.com/dotnet/performance/blob/454476401e17ed7f4d8b899ecf7661eb6cd63bad/src/benchmarks/micro/libraries/System.Numerics.BitOperations/Perf_BitOperations.cs#L104)        | -64%          |
 | `TrailingZeroCount()` | [TrailingZeroCount_uint](https://github.com/dotnet/performance/blob/454476401e17ed7f4d8b899ecf7661eb6cd63bad/src/benchmarks/micro/libraries/System.Numerics.BitOperations/Perf_BitOperations.cs#L68) | -51%          |
 
-Benchmark results from [here](https://pvscmdupload.blob.core.windows.net/reports/08_06_2020/report_Daily_ca=ARM64_cb=master_co=Ubuntu1804ARM_cr=dotnetcoresdk_cc=CompliationMode=tiered-RunKind=micro_Baseline_bb=release-3.1.2xx_2020-08-06.html):
+------> DO NOT MENTION Benchmark results from [here](https://pvscmdupload.blob.core.windows.net/reports/08_06_2020/report_Daily_ca=ARM64_cb=master_co=Ubuntu1804ARM_cr=dotnetcoresdk_cc=CompliationMode=tiered-RunKind=micro_Baseline_bb=release-3.1.2xx_2020-08-06.html):
+
+Here are the numbers for `System.Numerics.Matrix4x4`:
+
+| Method names          | Benchmarks                            | % improvement |
+|-----------------------|---------------------------------------|---------------|
+| `operator +()`        | [AddOperatorBenchmark]()              | -30%          |
+| `operator ==()`       | [EqualityOperatorBenchmark]()         | -8%           |
+| `operator !=()`       | [InequalityOperatorBenchmark]()       | -28%          |
+| `operator *()`        | [MultiplyByMatrixOperatorBenchmark]() | -55%          |
+| `operator *(scalar)`  | [MultiplyByScalarOperatorBenchmark]() | -16%          |
+| `operator -()`        | [SubtractOperatorBenchmark]()         | -21%          |
+| `operator negation()` | [NegationOperatorBenchmark]()         | -22%          |
+| `Add()`               | [AddBenchmark]()                      | -22%          |
+| `Lerp()`              | [LerpBenchmark]()                     | -41%          |
+| `Multiply()`          | [MultiplyByMatrixBenchmark]()         | -46%          |
+| `Multiply(scalar)`    | [MultiplyByScalarBenchmark]()         | -25%          |
+| `Negate()`            | [NegateBenchmark]()                   | -21%          |
+| `Subtract()`          | [SubtractBenchmark]()                 | -22%          |
+| `Transpose()`         | [Transpose]()                         | -25%          |
 
 TOOD: IndexOf, Encoding
 
@@ -184,35 +203,81 @@ G_M29785_IG03:
 ```
 </details>
 
+</p>
+
 ### AOT compilation for methods having ARM64 intrinsics
 
-Gather more examples around https://github.com/dotnet/runtime/pull/38060
+In .NET, a program can be compiled to machine code during runtime using what we known as JIT (just-in-time). The target machine code produced is very efficient but has little disadvantage of having to do the compilation during execution and this might add some delay during the start-up. If the target platform is known in advance, some .NET developer prefer creating ready to run images for target platform using AOT (ahead-of-time)  compilation. It has an advantage of faster startup time because there is no need to produce machine code during execution. The target machine code is already present in the binary and can be run directly. AOT compiled code might be suboptimal sometimes, but get replaced by optimal code eventually.
 
-Talk which top methods got impacted which resulted in faster start up.
+Earlier, if a method (.NET framework library method or user defined method) had calls to ARM64 hardware intrinsic APIs (APIs under `System.Runtime.Intrinsics` and `System.Runtime.Intrinsics.Arm`), such methods were never compiled AOT and were always deferred to get compiled during runtime. This had an impact on start-up time of some .NET apps which used one of these methods in their startup code. We [addressed this problem](https://github.com/dotnet/runtime/pull/38060) in .NET 5 and now able to do the compilation of such methods AOT.
 
-## Opened ended investigation for code quality
+## Benchmark analysis
 
-### Benchmark analysis
+As mentioned earlier, apart from optimizing .NET library with intrinsics, we also wanted to evaluate CQ of ARM64. In order to do that, we wanted to pick benchmarks that can easily highlight underlying ARM64 CQ issues. [TechEmpower](https://www.techempower.com/) was a good starting point, but intially, we wanted something simpler to investigate and reason about ARM64 code. Hence, we picked [Microbenchmarks](https://github.com/dotnet/performance/tree/master/src/benchmarks/micro) that are based upon [Benchmark.NET](https://github.com/dotnet/benchmarkdotnet). It has around 1300 benchmarks and are run daily to do various comparisons. You can check the daily report at https://aka.ms/dotnetperfindex.
 
-Started looking at [Microbenchmarks](https://github.com/dotnet/performance/tree/master/src/benchmarks/micro) that is based upon [Benchmark.NET](https://github.com/dotnet/benchmarkdotnet).
+We decided to compare ARM64 performance of those benchmarks with x64. Improving ARM64 performance to match that of x64 was not our goal, but to understand the outliers and know which benchmarks are slower than others. Once we identified the slower benchmarks, we wanted to check why they run slow on ARM64 target. We tried using some profilers like [WPA](https://docs.microsoft.com/en-us/windows-hardware/test/wpt/windows-performance-analyzer) and [PerfView](https://github.com/microsoft/perfview) but they were not useful in this scenario. Those profilers would have pointed out the hottest method in given benchmark. But since MicroBenchmarks are tiny benchmarks with at most 1~2 method, the hottest method that the profiler pointed was mostly the benchmark method itself. Hence, to understand the ARM64 CQ issues, we decided to just inspect the assembly code produced for a given benchmark and compare it against that produced for x64. That would help us identify basic issues in RyuJIT's ARM64 code generator.
 
-- In 1300 micro benchmarks, Speed ratio of x64/arm64 varied from 2X ~ 50X.
+Below, I will describe some of the issues that we found out with this exercise.
 
-- Profiler can't be used to compare microbenchmarks to spot for code quality issues
+### Memory barries in ARM64
 
-- Started focusing on "Windows ARM64" because IR that RyuJIT operates on is platform agnostics and any findings will have impact on Windows/Ubuntu.
+Through some of the benchmarks, we noticed that we were accessing `volatile` variable in hot loop of critical methods of `System.Collections.Concurrent.ConcurrentDictionary` class. Accessing `volatile` variable for ARM64 is expensive because they introduce memory barrier instructions. By caching the volatile variable and storing it in a local variable ([here](https://github.com/dotnet/runtime/pull/34225), [here](https://github.com/dotnet/runtime/pull/36976) and [here](https://github.com/dotnet/runtime/pull/37081)) outside such loops gave us good performance wins as seen below.
 
-- Inspect ARM64 code of benchmark and compare against x64 to see any difference.
 
-#### Memory barries in ARM64
 
-- Quick introduction and then example of volatile variable
-- Hoisting volatile variable gave ~30% win
 
-https://github.com/dotnet/runtime/pull/36697
-https://github.com/dotnet/runtime/pull/37309
-https://github.com/dotnet/runtime/pull/36976
-https://github.com/dotnet/runtime/pull/34225
+| Method names      | Benchmarks                                                                       | % improvement |
+|-------------------|----------------------------------------------------------------------------------|---------------|
+| `get_Count`       | [Count<Int32>.Dictionary(Size: 512)](https://github.com/dotnet/performance/blob/a5296dda39031ac84f40eeb5a0a136c89cde599b/src/benchmarks/micro/libraries/System.Collections/Concurrent/Count.cs#L37)                 | -40%          |
+| `TryGetValue()`   | [TryGetValueTrue<Int32, Int32>.ConcurrentDictionary(Size: 512)](https://github.com/dotnet/performance/blob/a5296dda39031ac84f40eeb5a0a136c89cde599b/src/benchmarks/micro/libraries/System.Collections/TryGetValue/TryGetValueTrue.cs#L95) | -37%          |
+| `ctor()`          | [CtorFromCollection<Int32>.ConcurrentDictionary(Size: 512)](https://github.com/dotnet/performance/blob/a5296dda39031ac84f40eeb5a0a136c89cde599b/src/benchmarks/micro/libraries/System.Collections/Create/CtorFromCollection.cs#L60)   | -33%          |
+| `IsEmpty(string)` | [IsEmpty<String>.Dictionary(Size: 512)](https://github.com/dotnet/performance/blob/a5296dda39031ac84f40eeb5a0a136c89cde599b/src/benchmarks/micro/libraries/System.Collections/Concurrent/IsEmpty.cs#L37)           | -33%          |
+| `IsEmpty(int)`    | [IsEmpty<Int32>.Dictionary(Size: 512)](https://github.com/dotnet/performance/blob/a5296dda39031ac84f40eeb5a0a136c89cde599b/src/benchmarks/micro/libraries/System.Collections/Concurrent/IsEmpty.cs#L37)             | -28%          |
+| `Add(), Clear()`  | [CreateAddAndClear<Int32>.ConcurrentDictionary(Size: 512)](https://github.com/dotnet/performance/blob/a5296dda39031ac84f40eeb5a0a136c89cde599b/src/benchmarks/micro/libraries/System.Collections/CreateAddAndClear.cs#L168)    | -28%          |
+| `TryAdd()`        | [TryAddDefaultSize<Int32>.ConcurrentDictionary(Count: 512)](https://github.com/dotnet/performance/blob/a5296dda39031ac84f40eeb5a0a136c89cde599b/src/benchmarks/micro/libraries/System.Collections/Add/TryAddDefaultSize.cs#L39)   | -26%          |
+| `TryAdd()`        | [TryAddGivenSize<Int32>.ConcurrentDictionary(Count: 512)](https://github.com/dotnet/performance/blob/a5296dda39031ac84f40eeb5a0a136c89cde599b/src/benchmarks/micro/libraries/System.Collections/Add/TryAddGivenSize.cs#L39)    | -10%          |
+| `TryAdd()`        | [AddGivenSize<Int32>.ConcurrentDictionary(Size: 512)](https://github.com/dotnet/performance/blob/a5296dda39031ac84f40eeb5a0a136c89cde599b/src/benchmarks/micro/libraries/System.Collections/Add/AddGivenSize.cs#L116)         | -10%          |
+
+Other places where we did similar optimization was in [System.Threading.ThreadPool](https://github.com/dotnet/runtime/pull/36697) and [System.Diagnostics.Tracing.EventCount](https://github.com/dotnet/runtime/pull/37309) classes. 
+
+
+
+#### Details
+ARM architecture has weakly ordered memory model. The processor can re-order the memory access instructions to improve performance of the processor. It can rearrange instructions to reduce the time processor takes to access memory. The order in which user has written the code is not guaranteed to be executed in same order and can be weakly defined depending on the memory access cost of given instruction. This approach doesn't impact single core machine but can impact adversely a multi-threaded program running on a multicore machine.
+In such situations, there are instructions to tell processors not to re-arrange memory access at a given point inside code. The technical term for such instructions that restricts this re-arrangement is called "memory barriers". The `dmb` instruction in ARM64 acts as a barrier prohibiting the processor from moving an instructions across the fence. You can read more about it in [ARM developer docs](https://developer.arm.com/documentation/den0024/a/memory-ordering).
+
+One of the way in which .NET developer can specify adding memory barrier in their code is by using [volatile variable](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/volatile) in C#. With `volatile` variable, it is guaranteed that the runtime, JIT or the processor will not rearrange reads and writes to memory locations for performance. To make this happen, RyuJIT would emit `dmb` (data memory barrier) instruction for ARM64 every time there is an access (read/write) to a `volatile` variable. 
+
+For example, below is the C# code taken from [microbenchmarks](https://github.com/dotnet/performance/blob/a5296dda39031ac84f40eeb5a0a136c89cde599b/src/benchmarks/micro/libraries/System.Threading/Perf.Volatile.cs#L17). It does a volatile read of local field `_location`.
+
+```csharp
+public class Perf_Volatile
+{
+    private double _location = 0;
+    
+    [Benchmark]
+    public double Read_double() => Volatile.Read(ref _location);
+}
+```
+
+The generated relevant machine code of `Read_double` for ARM64 is:
+
+```
+; Assembly listing for method Program:Read_double():double:this
+; Emitting BLENDED_CODE for generic ARM64 CPU - Windows
+
+G_M49790_IG02:
+        91002000          add     x0, x0, #8
+        FD400000          ldr     d0, [x0]
+        D50339BF          dmb     ishld
+```
+
+The code first gets the address of `_location` field, loads the value in `d0` register and then execute `dmb ishld` that acts as a data memory barrier.
+
+Although this guarantees the memory ordering, there is a cost for it. The processor must now guarantee that all the data access done before the memory barrier is visible to all the cores after the barrier instruction. This means that the barrier requires all memory operations to complete before letting the cores cross the barrier instruction which could be time consuming. Hence, it is important to avoid or minimize the usage of such data access inside hot methods and loop as much as possible.
+
+
+
 
 #### Mod operations
 NOT DONE
