@@ -5,14 +5,14 @@
 We recently released ML.NET 1.5 and 1.5.1 as well as new versions of Model Builder and the ML.NET CLI. These releases include numerous bug fixes and enhancements, as well as new features for anomaly detection and time series data, improvements to the TextLoader, local GPU training for image classification in Model Builder, and more.
 
 In this post
-1.	New algorithms and features for anomaly detection and time series data
-2.	AutoML for ranking scenario
-3.	Updates to TextLoader
-4.	Model Builder local GPU training for image classification
-5.	Feedback button in Model Builder
-6.	Thanks to our contributors
-7.	Feedback
-8.	Get started & Resources
+1.	[New algorithms and features for anomaly detection and time series data](#new-algorithms-and-features-for-anomaly-detection-and-time-series-data)
+2.	[AutoML for ranking scenario](#automl-for-ranking-scenario)
+3.	[Updates to TextLoader](#updates-to-textloader)
+4.	[Model Builder local GPU training for image classification](#model-builder-local-gpu-training-for-image-classification)
+5.	[Feedback button in Model Builder](#feedback-button-in-model-builder)
+6.	[Thanks to our contributors](#thanks-to-our-contributors)
+7.	[Feedback](#feedback)
+8.	[Get started and Resources](#get-started-and-resources)
 
 ## What’s new with the ML.NET API?
 
@@ -127,7 +127,7 @@ If you run into any issues, please let us know by creating an issue in our GitHu
 http://www.github.com/dotnet/machinelearning 
 -  ML.NET Tooling (Model Builder & ML.NET CLI): http://www.github.com/dotnet/machinelearning-modelbuilder
 
-## Get Started & Resources
+## Get Started and Resources
 Get started with ML.NET in this [tutorial](https://dotnet.microsoft.com/learn/ml-dotnet/get-started-tutorial/intro).
 
 Learn more about ML.NET and Model Builder in [Microsoft Docs](https://aka.ms/mlnet-docs).
