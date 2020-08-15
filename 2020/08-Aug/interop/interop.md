@@ -1,18 +1,16 @@
-# Interop: .NET 5 updates and a survey
+# Improvements in native code interop in .NET 5.0
 
 With .NET 5 scheduled to be released [later this year](https://github.com/dotnet/core/blob/master/roadmap.md), we thought it would be a good time to discuss some of the interop updates that went into the release and point out some items we are considering for the future.
 
 As we start thinking about what comes next, we are looking for developers and consumers of any interop solutions to discuss their experiences. We are looking for feedback about interop scenarios in general - not just those related to .NET. If you have worked in the interop space, we'd love to [hear from you](#share-your-experiences) on our [GitHub issue](https://github.com/dotnet/runtime/issues/40484).
 
-## Interop in .NET 5
-
 Some items mentioned in this post are Windows-specific (COM and WinRT). In those cases, 'the runtime' refers only to CoreCLR.
 
-### Function pointers
+## Function pointers
 
 [C# function pointers](https://github.com/dotnet/csharplang/blob/master/proposals/csharp-9.0/function-pointers.md) will be coming to C# 9.0, enabling the declaration of function pointers to both managed and unmanaged functions. The runtime had some work to support and complement the interop-related parts of the feature.
 
-#### UnmanagedCallersOnly
+### UnmanagedCallersOnly
 
 C# function pointers provide a performant way to call native functions from C#. It makes sense for the runtime to provide a symmetrical solution for calling managed functions from native code.
 
@@ -87,7 +85,7 @@ Resources:
 - Implementation: [dotnet/runtime#33005](https://github.com/dotnet/runtime/pull/33005), [dotnet/runtime#35592](https://github.com/dotnet/runtime/pull/35592)
 - Prototype of native exports (uses the [.NET hosting APIs](https://docs.microsoft.com/dotnet/core/tutorials/netcore-hosting#create-a-host-using-nethosth-and-hostfxrh) and `UnmanagedCallersOnlyAttribute` as building blocks): [DNNE](https://github.com/AaronRobinsonMSFT/DNNE)
 
-#### Unmanaged calling convention
+### Unmanaged calling convention
 
 C# function pointers will allow declaration with an unmanaged calling convention using the `unmanaged` keyword (this syntax is not yet shipped, but will be in the final release). The following will use the platform-dependent default:
 ```
@@ -123,11 +121,11 @@ Resources:
 - Implementation: [dotnet/runtime#38357](https://github.com/dotnet/runtime/pull/38357), [dotnet/runtime#39030](https://github.com/dotnet/runtime/pull/39030)
 - Method signature metadata: [ECMA-335](https://github.com/dotnet/runtime/blob/master/docs/project/dotnet-standards.md) II.15.3
 
-### Low-level APIs for interaction with the built-in interop system
+## Low-level APIs for interaction with the built-in interop system
 
-An underlying theme for interop in .NET 5 has been providing low-level building blocks that enable components outside of the runtime itself to better integrate with the built-in interop system. In .NET 5, we added some APIs that allow for more control over the interop system used in the runtime.
+The runtime has a built-in system that handles interop support such as [P/Invokes](https://docs.microsoft.com/dotnet/standard/native-interop/pinvoke), [marshalling](https://docs.microsoft.com/dotnet/standard/native-interop/type-marshaling), and [COM interactions](https://docs.microsoft.com/dotnet/standard/native-interop/cominterop). An underlying theme for interop in .NET 5 has been providing low-level building blocks that enable components outside of the runtime itself to better integrate with the built-in interop system. In .NET 5, we added some APIs that allow for more control over the interop system used in the runtime.
 
-#### SuppressGCTransition
+### SuppressGCTransition
 
 When executing a [P/Invoke](https://docs.microsoft.com/dotnet/standard/native-interop/pinvoke), the runtime switches the [GC mode](https://github.com/dotnet/runtime/blob/master/docs/coding-guidelines/clr-code-guide.md#218-use-the-right-gc-mode--preemptive-vs-cooperative) from cooperative to preemptive mode. Depending on the scenario, this transition, which also includes an additional frame, can lead to [the setup](https://github.com/dotnet/runtime/blob/master/docs/design/coreclr/botr/clr-abi.md#per-call-site-pinvoke-work) of a P/Invoke being more expensive than the native function that is invoked.
 
@@ -146,7 +144,7 @@ This attribute effectively circumvents the safeguards normally provided by the r
 Caveats:
 
 - This attribute is intended for targeted scenarios. Invalid usage can have serious consequences; blocking operations can result in GC starvation and interactions with the runtime (such as calling back into the runtime or throwing exceptions) can lead to data corruption or runtime termination.
-- During [mixed-mode debugging](https://docs.microsoft.com/visualstudio/debugger/how-to-debug-in-mixed-mode), it will not be possible to set breakpoints in or step into a P/Invoke that has been marked with this attribute.
+- Using [mixed-mode debugging](https://docs.microsoft.com/visualstudio/debugger/how-to-debug-in-mixed-mode), it will not be possible to set breakpoints in or step into a P/Invoke that has been marked with this attribute.
 - This attribute is ignored if the method is not also marked with `DllImport`
 
 Resources:
@@ -154,7 +152,7 @@ Resources:
 - Proposal: [dotnet/runtime#30741](https://github.com/dotnet/runtime/issues/30741)
 - Implementation: [dotnet/coreclr#26458](https://github.com/dotnet/coreclr/pull/26458)
 
-#### ComWrappers
+### ComWrappers
 
 On Windows, the [Component Object Model (COM)](https://docs.microsoft.com/windows/win32/com/component-object-model--com--portal) defines a system by which binary components can be exposed and interact with other components and applications. The runtime has a built-in system for interoperating with COM objects, with standard wrapper classes - [Runtime Callable Wrappers (RCW)](https://docs.microsoft.com/dotnet/standard/native-interop/runtime-callable-wrapper) and [COM Callable Wrappers (CCW)](https://docs.microsoft.com/dotnet/standard/native-interop/com-callable-wrapper) - for handling the boundary between COM and the .NET runtime. 
 
@@ -190,7 +188,7 @@ Resources:
 - Implementation: [dotnet/runtime#32091](https://github.com/dotnet/runtime/pull/32091)
 - Sample: [`ComWrappers` subclass for `IDispatch`](https://github.com/dotnet/samples/tree/core/interop/comwrappers/IDispatch)
 
-#### IDynamicInterfaceCastable
+### IDynamicInterfaceCastable
 
 In .NET, the metadata for a type is static, so whether or not it is possible to cast one type to another type can be determined based on the metadata. The runtime does contain logic for handling special cases (e.g. COM objects) using information beyond the metadata, but there was no general mechanism for a class to participate in the type-cast logic.
 
@@ -215,19 +213,23 @@ public class DynamicCastable : IDynamicInterfaceCastable
 {
     bool IDynamicInterfaceCastable.IsInterfaceImplemented(RuntimeTypeHandle interfaceType, bool throwIfNotImplemented)
     {
+        // Return true if casting to IGreet
         return interfaceType.Equals(typeof(IGreet).TypeHandle);
     }
 
     RuntimeTypeHandle IDynamicInterfaceCastable.GetInterfaceImplementation(RuntimeTypeHandle interfaceType)
     {
+        // Return IGreetImpl type which has a default implementation of IGreet.Hello
         return typeof(IGreetImpl).TypeHandle;
     }
 
     [DynamicInterfaceCastableImplementation]
     private interface IGreetImpl : IGreet
     {
+        // This method will called based on DynamicCastable's implementation of IDynamicInterfaceCastable
         void IGreet.Hello()
         {
+            // The 'this' pointer here will be a DynamicCastable
             Console.WriteLine($"Hello World from {GetType()}");
         }
     }
@@ -236,7 +238,11 @@ public class DynamicCastable : IDynamicInterfaceCastable
 static void Main()
 {
     DynamicCastable obj = new DynamicCastable();
+
+    // Since DynamicCastable implements IDynamicInterfaceCastable, the cast calls IsInterfaceImplemented on 'obj'
     IGreet greet = (IGreet)obj;
+
+    // Since DynamicCastable.GetInterfaceImplementation returns the IGreetImpl type, this calls IGreetImpl.Hello()
     greet.Hello();
 }
 ```
@@ -254,11 +260,16 @@ When dispatching that call, the runtime would call `GetInterfaceImplementation` 
 Implementations of `IDynamicInterfaceCastable` control casting on a per-instance basis, but interface dispatch on a per-type basis. We can append the following to `Main`:
 
 ```C#
+// Calls IsInterfaceImplemented on 'obj'
 IGreet greetAgain = (IGreet)obj;
 greetAgain.Hello();
 
 DynamicCastable otherObj = new DynamicCastable();
+
+// Call IsInterfaceImplemented on 'otherObj'
 IGreet otherGreet = (IGreet)otherObj;
+
+// Does *not* call GetInterfaceImplementation on 'otherObj'. The previous resolution from 'obj' instance will be used.
 otherGreet.Hello();
 ```
 
@@ -270,7 +281,7 @@ Resources:
 - Implementation: [dotnet/runtime#37042](https://github.com/dotnet/runtime/pull/37042)
 - Sample: [`IDynamicInterfaceCastable` implementation](https://github.com/dotnet/samples/tree/core/interop/IDynamicInterfaceCastable)
 
-### Support for WinRT
+## Support for WinRT
 
 The APIs added above provided the basis for improvements to the way WinRT interop works with .NET. They enabled us to [support WinRT APIs](https://github.com/dotnet/runtime/issues/35318) while de-coupling the WinRT interop system from the .NET runtime itself.
 
@@ -281,11 +292,11 @@ As [previously announced](https://devblogs.microsoft.com/dotnet/announcing-net-5
 - Use of NET features such as AOT and [IL linking](https://github.com/mono/linker) in the WinRT ecosystem.
 - Simplification of the runtime codebase (~60k lines of code deleted).
 
-### COM objects with the `dynamic` keyword
+## COM objects with the `dynamic` keyword
 
 In .NET Core 3.x and below, the `dynamic` keyword does not work with COM objects. While the support existed in .NET Framework, the amount of code was large and the logic was complex and specialized, so the support was not included in .NET Core. Thanks to the many developers that [let us know](https://github.com/dotnet/runtime/issues/12587) how problematic this lack of functionality was for them, we knew we needed to add the support in .NET 5. Using the `dynamic` keywords for COM objects is now supported ([dotnet/runtime#33060](https://github.com/dotnet/runtime/pull/33060)).
 
-### Marshalling of blittable generics
+## Marshalling of blittable generics
 
 The runtime [did not support](https://github.com/dotnet/runtime/issues/4547) marshalling of generic types. An attempt to do so would result in a `MarshalDirectiveException` indicating that generic types cannot be marshalled. In .NET 5, support was added for marshalling of blittable generics in P/Invokes ([dotnet/runtime#103](https://github.com/dotnet/runtime/pull/103)). Marshalling of non-blittable generics remains unsupported.
 
@@ -301,7 +312,7 @@ We expect to start investing more in code analyzers by [adding rules](https://gi
 
 ### Source generators
 
-When handling the invocation of a P/Invoke, the runtime will create a stream of IL instructions that is JIT-ed, generating an IL stub. This model tries to be a black box of marshalling logic that 'just works' and is generally opaque to the developer. However, it does have some significant drawbacks:
+When handling the invocation of a P/Invoke, the runtime will create a stream of IL instructions that is JIT-ed, generating an IL stub. This model tries to be a magic box of marshalling logic that 'just works' and is generally opaque to the developer. However, it does have some significant drawbacks:
 
 - The marshalling system is coupled to the runtime, such that any bug fixes require an update to the entire runtime.
 - Since the marshalling code is generated at run time, it is not available for ahead-of-time (AOT) compiler scenarios.
