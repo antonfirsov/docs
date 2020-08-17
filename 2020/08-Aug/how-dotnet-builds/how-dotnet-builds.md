@@ -46,7 +46,7 @@ Given that this dependency graph is rather complex, we need automated ways to tr
 The dependency names then correspond to a set of MSBuild property names present in an `eng/Versions.props` file that also lives in the repo:
 
 #### eng/Versions.props (excerpt from [dotnet/installer @ dc95de00046550c2a5a053153ca78ef89a114fd7](https://github.com/dotnet/installer/blob/dc95de00046550c2a5a053153ca78ef89a114fd7/eng/Versions.props)
-```
+```xml
   <PropertyGroup>
     <!-- Dependencies from https://github.com/dotnet/sdk -->
     <MicrosoftNETSdkPackageVersion>5.0.100-rc.1.20403.9</MicrosoftNETSdkPackageVersion>
