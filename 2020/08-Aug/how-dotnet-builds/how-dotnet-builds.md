@@ -30,7 +30,7 @@ The upshot of this is that when we release a version of .NET, we cannot simply p
 Given that this dependency graph is rather complex, we need automated ways to track and update it. We track dependencies via metadata in the `eng/Version.Details.xml` file of each repo. This file identifies the names and versions of a set of input dependencies. Each dependency also identifies the source commit and repo that was built to create it. For example, this excerpt is from `dotnet/installer`. It identifies that `dotnet/installer` has an input asset called `Microsoft.NET.Sdk` at version `5.0.100-rc.1.20403.9`, produced out of a build of `https://github.com/dotnet/sdk` at [`56005e13634b9388aa53596891bc2e8192e2978c`](https://github.com/dotnet/sdk/tree/56005e13634b9388aa53596891bc2e8192e2978c).
 
 #### eng/Version.Details.xml (excerpt from [dotnet/installer @ dc95de00046550c2a5a053153ca78ef89a114fd7](https://github.com/dotnet/installer/blob/dc95de00046550c2a5a053153ca78ef89a114fd7/eng/Version.Details.xml))
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <Dependencies>
   <ProductDependencies>
