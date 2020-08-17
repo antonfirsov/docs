@@ -138,7 +138,7 @@ The .NET team solves this by having 3 sets of NuGet feeds our build infrastructu
   - dotnet5-internal-transport - This feed is automatically added to the `NuGet.config` of a repo when doing official builds. Adding it at build time avoids NuGet restore issues when building publicly, where it is not accessible. This feed only recieves new packages when doing internal builds.
 - **Isolated feeds** - These feeds are created dynamically for each build for its *stable*, *shipping* packages. The feeds are named based on the repo and sha that was built. Maestro will then update the `NuGet.config` file in a dependency update PR to include any feeds required to access the desired stable packages. Each build ensures a clean NuGet cache to avoid accidentally picking up the wrong instance of a stable package. On release day these assets are pushed to `https://nuget.org` and any isolated feed containing packages with shipped versions are cleared out. This ensures that `https://nuget.org` is the "source of truth". Subsequent Maestro dependency updates will automatically remove these isolated feeds as they are no longer needed. A sample NuGet.config is shown below, from https://github.com/dotnet/cli/blob/v3.1.300/NuGet.config:
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <packageSources>
