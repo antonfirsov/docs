@@ -10,7 +10,6 @@ In this post
 3.	[Updates to TextLoader](#updates-to-textloader)
 4.	[Model Builder local GPU training for image classification](#model-builder-local-gpu-training-for-image-classification)
 5.	[Feedback button in Model Builder](#feedback-button-in-model-builder)
-6. [Local image classification training in the ML.NET CLI](#Local-image-classification-training-in-the-ml.net-cli)
 6.	[Thanks to our contributors](#thanks-to-our-contributors)
 7.	[Feedback](#feedback)
 8.	[Get started and Resources](#get-started-and-resources)
@@ -71,9 +70,8 @@ foreach (RootCauseItem item in prediction.Items)
     Console.WriteLine($"Score: {item.Score}, Path: {String.Join(" ",item.Path)}, Direction: {item.Direction}, Dimension:{String.Join(" ", item.Dimension)}");
 }
 
-    //Item #1 ...
-    //Score: 0.26670448876705927, Path: DataCenter, Direction: Up, Dimension:[Country, UK] [DeviceType, ##SUM##] [DataCenter, DC1]
-
+//Item #1 ...
+//Score: 0.26670448876705927, Path: DataCenter, Direction: Up, Dimension:[Country, UK] [DeviceType, ##SUM##] [DataCenter, DC1]
 ```
 
 #### Time series seasonality and de-seasonality
@@ -150,17 +148,6 @@ It’s now even easier to open GitHub issues for Model Builder. We’ve added a 
 Selecting “Report a bug” or “Suggest a feature” will open up GitHub in your browser with the corresponding template to fill out.
 
 ![Model Builder feedback button](mb-feedback.png)
-
-### Local image classification training in the ML.NET CLI
-You can now use the ML.NET CLI to train image classification models on your local machine (this was previously only supported with the ML.NET Image Classificaiton API and through Model Builder in Visual Studio).
-
-After installing the ML.NET CLI and organizing your image data, you can train an image classification model with the following command:
-
-```console
-mlnet image-classification --dataset "" --max-time
-```
-
-![Image classification in ML.NET CLI](image-here.png)
 
 ## Thanks to our contributors
 For these updates, we had help from some other teams at Microsoft!
