@@ -6,7 +6,7 @@ We're currently planning our next set of investments in Visual Studio tooling fo
 
 The .NET project system is a set of components that power nearly everything you do in Visual Studio and .NET. It's the "plumbing" that moves data to and from Solution Explorer, designer tooling, language services and IntelliSense, the debugger, build and publish actions, configuration, and more.
 
-The .NET project system is also responsible for several UI experiences in Visual Studio. Solution Explorer, project property pages, the dependencies node, project files, various menus, and several tooling windows (such as Class Designer). It's very broad in scope.
+The .NET project system is also responsible for several UI experiences in Visual Studio. Solution Explorer, project property pages, the dependencies node, project files, various menus, and several tooling windows (such as the RESX designer). It's very broad in scope.
 
 To illustrate this, here's a quick screenshot of various parts of Visual Studio that involve the .NET project system to some degree:
 
