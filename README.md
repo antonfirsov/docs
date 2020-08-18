@@ -28,6 +28,7 @@ In other words:
 1. Request access to the [dotnet team in the microsoft org](https://repos.opensource.microsoft.com/microsoft/teams/dotnet/join/)
 2. Submit a PR to [dotnet-blog](https://github.com/microsoft/dotnet-blog)
     * Author post in Markdown
+    * Make sure you have front-matter with title & featured image. You can use [this template](templates/blank.md).
     * Ensure all pictures are accessible by using the `alt` tag
     * Add subject matter experts (SMEs) from your engineering team/partner team as reviewers
     * Don't merge until `dotnet-blog-owners` and your SMEs sign off
