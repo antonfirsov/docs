@@ -1,37 +1,64 @@
-# Bring the best of the Web to your .NET applications with WebView2
+# Bring the best of the Web to your .NET desktop applications with WebView2
 
-Last year at Microsoft Build conference we introduced `WebView2` - an embedded browser control that renders web content (HTML/CSS/JavaScript) inside native applications, powered by the new Chromium-based Microsoft Edge. While it was originally limited in scope to Win32 C/C++ applications, today we are proud to announce the release of the `WebView2` preview for .NET applications!
+Last year at Build, we introduced [WebView2](aka.ms/webview), a browser control that renders web content (HTML/CSS/JavaScript) with the new Chromium-based Microsoft Edge. It was originally limited in scope to C/C++ applications. Today, we are happy to announce the release of the [WebView2](aka.ms/webview) preview for .NET applications!
 
-![WebView2 control](WebView2.png)
+`WebView2` is available for both .NET Core and .NET Framework. It can be used inside of [WPF](https://docs.microsoft.com/microsoft-edge/WebView2/gettingstarted/wpf), [Windows Forms](https://docs.microsoft.com/microsoft-edge/WebView2/gettingstarted/winforms) and [WinUI 3.0](https://docs.microsoft.com/en-us/microsoft-edge/webview2/gettingstarted/winui) applications all the way down to Windows 7.
 
-The new `WebView2` control is a big step forward from the original (Edge HTML-based) WebView control with modern, Chromium-based web standards and application support across Windows 7, Windows 8, and Windows 10. Going forward, we will update our SDK every six weeks, with our cadence and roadmap driven by your feedback. You can receive the latest updates via our release notes. 
+![WebView2 controlin WPF application](webview2.png)
 
-Check out [getting started guide for Windows Forms](https://docs.microsoft.com/microsoft-edge/WebView2/gettingstarted/winforms) and [getting started guide for WPF](https://docs.microsoft.com/microsoft-edge/WebView2/gettingstarted/wpf) and give us your feedback! 
+
+> **Important**: When installing the NuGet package, make sure to select a version with the `-prerelease` suffix.  Otherwise you will not get .NET support. Also, make sure to check **Include prerelease**.
+
+Going forward, we will be updating our SDK every six weeks according to the [Roadmap](https://docs.microsoft.com/microsoft-edge/webview2/roadmap), driven by your [feedback](aka.ms/WebViewFeedback). You can keep up with the latest updates in the [Release Notes](https://docs.microsoft.com/microsoft-edge/webview2/releasenotes).
 
 ## About the control 
 
-The `WebView2` control is the building block of a hybrid web application which allows developers to host web content within their applications. This approach allows you to leverage the dynamic content, modern user interfaces, tooling, and talent associated with web technologies to improve your native .NET applications.  
+With the help of the `WebView` family of controls you can host web content in your desktop .NET applications and enhance them with all the benefits that web has to offer, such as dynamic content, modern user interfaces, and tooling.
 
-The `WebView2` control allows for: 
+### A little history
+Originally, we started with the `WebBrowser` control which is based on Internet Explorer and thus no longer suitable for modern web content. We then created an Edge-based control called `WebView`. This control is only available on Windows 10 and can't be included in your app. We've heard your feedback loud and clear that you want a modern and consistent control supported on all Windows versions starting from Windows 7. This is how `WebView2` came to life. It is based on the Microsoft Edge Chromium platform, consistent across all Windows versions starting from Windows 7. It receives updates every 6 weeks, enabling you to consume the latest features.
 
-1. **Code Sharing**: adding web code to your codebase allows for increased portability across multiple platforms  
+### Present
+`WebView2` supports many features such as navigation, web messaging (communication between the application and the `WebView2` control), native object injection (accessing application objects directly from JavaScript) and so on. Check out our [documentation](aka.ms/webview2) for more details.
 
-1. **Rapid Innovation**: web development allows for faster deployment and iteration 
+At Microsoft, we are using `WebView2` in many of our applications. One example is the Room Finder panel in the desktop version of Outlook. By using `WebView2`, we were able to reuse the code from Outlook's web UI and make it accessible directly to the desktop version.
 
-1. **Web Ecosystem & Skillset**:  utilize the entire web platform, libraries, tooling, and talent that exists within the web ecosystem 
+![Outlook Room Finder panel hosted in WebView2 controls in desktop and web versions of Outlook](outlook.png)
 
-1. **Native Capabilities**: access the full set of .NET APIs 
+### Future
 
-1. **Incremental Adoption**: add web components piece by piece into your application 
+Currently `WebView2` is in Preview and we are working on the GA version. As a part of that effort we will be providing designer support for Windows Forms and WPF so you can enjoy the familiarity of drag-and-drop and WYSIWYG experience. See our [Roadmap](https://docs.microsoft.com/microsoft-edge/webview2/roadmap) for more information. Today Windows Forms .NET Framework designer experience is already supported and the rest is comming.
 
-1. **Evergreen Distribution**: rely on an up to date version of Chromium with regular and consistent platform updates and security patches or package the Chromium bits in your application 
+## Supported platforms
 
-1. **Supported Platforms**: support for a consistent user experience across Windows 7, 8, and 10  
+A developer preview is available for the following programming platforms:
 
-1. **Microsoft Supported**: When `WebView2` GA’s it will have the full backing of Microsoft in terms of support and feature requests  
+* Win32 C/C++
+* .NET Framework 4.6.2 or later
+* .NET Core 3.0 or later
+* WinUI 3.0
+
+and the following versions of Windows
+
+* Windows 10
+* Windows 8.1
+* Windows 8
+* Windows 7
+* Windows Server 2016
+* Windows Server 2012
+* Windows Server 2012 R2
+* Windows Server 2008 R2
 
 ## Getting started 
 
-Visit our documentation to learn more about the developer preview, check out the getting stated guide ([WPF](https://docs.microsoft.com/microsoft-edge/WebView2/gettingstarted/wpf), [Windows Forms](https://docs.microsoft.com/microsoft-edge/WebView2/gettingstarted/winforms)), and share feedback, suggestions, and details on your scenarios in our [feedback repo](aka.ms/WebViewFeedback). 
+Check out our getting started guides:
+* [Getting started guide for Windows Forms](https://docs.microsoft.com/microsoft-edge/WebView2/gettingstarted/winforms)
+* [Getting started guide for WPF](https://docs.microsoft.com/microsoft-edge/WebView2/gettingstarted/wpf)
+* [Getting started guide for WinUI 3.0](https://docs.microsoft.com/en-us/microsoft-edge/webview2/gettingstarted/winui)
+* [Getting started guide for Win32](https://docs.microsoft.com/en-us/microsoft-edge/webview2/gettingstarted/win32)
 
-Happy Building!
+## Give us your feedback 
+
+Your feedback is our main factor in creating the [Roadmap](https://docs.microsoft.com/microsoft-edge/webview2/roadmap) and prioritizing work items. Please share your opinions, suggestions, and details on your scenarios in our [feedback repo](aka.ms/WebViewFeedback). We appreciate your help!
+
+This blog post was written together with Palak Goel, Program Maneger on Edge Product Development team.
