@@ -179,4 +179,3 @@ http://www.github.com/dotnet/machinelearning
 Get started with ML.NET in this [tutorial](https://dotnet.microsoft.com/learn/ml-dotnet/get-started-tutorial/intro).
 
 Learn more about ML.NET and Model Builder in [Microsoft Docs](https://aka.ms/mlnet-docs).
-
