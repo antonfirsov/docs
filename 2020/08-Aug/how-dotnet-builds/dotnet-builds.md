@@ -1,7 +1,6 @@
 ---
 post_title: 'A Deep Dive into How .NET Builds and Ships'
-username: mmitche@microsoft.com
-featured_image: Preview8DependencyFlow.png
+username: sivyel
 summary: This is a deep technical dive into the machinery and processes used by the .NET Team to build and ship .NET.
 ---
 
