@@ -15,13 +15,13 @@ The .NET project system is also a significant driver of performance metrics in V
 * Build times for your solution
 * Behavior of various tooling windows
 * Behavior of various parts of Visual Studio when branching with source control
-* etc.
+* and others
 
-The team tracks metrics like this and constantly improves them over time.
+The team tracks metrics like this with the goal to improve them over time.
 
 ## How to help
 
-As mentioned, we're doing some planning on what to tackle next. Things like quality and performance improvements are already on the table, and you can engage with the team [on GitHub](https://github.com/dotnet/project-system) if you'd like to get more involved. If you have an idea for a new feature or enhancement, feel free to file an issue!
+As mentioned, we're doing some planning on what to tackle next. Quality and performance improvements are already on the table and you can engage with the team [on GitHub](https://github.com/dotnet/project-system). If you have an idea for a new feature or enhancement, feel free to [file an issue](https://github.com/dotnet/project-system/issues/new)!
 
 [Take the survey](https://www.surveymonkey.com/r/QW9BNYL)
 
