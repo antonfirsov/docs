@@ -23,6 +23,8 @@ The team tracks metrics like this with the goal to improve them over time.
 
 As mentioned, we're doing some planning on what to tackle next. Quality and performance improvements are already on the table and you can engage with the team [on GitHub](https://github.com/dotnet/project-system). If you have an idea for a new feature or enhancement, feel free to [file an issue](https://github.com/dotnet/project-system/issues/new)!
 
+Additionally, we'd love it if you could take 1-2 minutes and fill out a quick survey. It will help us prioritize certain areas of the .NET project system:
+
 [Take the survey](https://www.surveymonkey.com/r/QW9BNYL)
 
 ![Survey illustration](survey-illustration-300x181.png)
