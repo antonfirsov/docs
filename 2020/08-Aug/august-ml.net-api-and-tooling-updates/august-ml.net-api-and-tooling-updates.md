@@ -1,6 +1,6 @@
 # August ML.NET API and Tooling Updates 
 
-[ML.NET](https://dot.net/ml) is an open-source, cross-platform machine learning framework for .NET developers that allows you to integrate machine learning into your .NET apps without requiring you to leave the .NET ecosystem or have a background in ML or data science. ML.NET provides tooling (Model Builder UI in Visual Studio and the cross platform ML.NET CLI) that automatically trains custom machine learning models for you based on your scenario and data.
+[ML.NET](https://dot.net/ml) is an open-source, cross-platform machine learning framework for .NET developers. It allows integrating machine learning into your .NET apps without requiring you to leave the .NET ecosystem or even have a background in ML or data science. ML.NET provides tooling (Model Builder UI in Visual Studio and the cross platform ML.NET CLI) that automatically trains custom machine learning models for you based on your scenario and data.
 
 We recently released ML.NET 1.5 and 1.5.1 as well as new versions of Model Builder and the ML.NET CLI. These releases include numerous bug fixes and enhancements, as well as new features for anomaly detection and time series data, improvements to the TextLoader, local GPU training for image classification in Model Builder, and more.
 
