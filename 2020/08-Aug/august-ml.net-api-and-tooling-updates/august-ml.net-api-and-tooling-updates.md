@@ -4,7 +4,7 @@
 
 We recently released ML.NET 1.5 and 1.5.1 as well as new versions of Model Builder and the ML.NET CLI. These releases include numerous bug fixes and enhancements, as well as new features for anomaly detection and time series data, improvements to the TextLoader, local GPU training for image classification in Model Builder, and more.
 
-In this post
+In this post, I'm covering the following items:
 1.	[New algorithms and features for anomaly detection and time series data](#new-algorithms-and-features-for-anomaly-detection-and-time-series-data)
 2.	[AutoML for ranking scenario](#automl-for-ranking-scenario)
 3.	[Updates to TextLoader](#updates-to-textloader)
