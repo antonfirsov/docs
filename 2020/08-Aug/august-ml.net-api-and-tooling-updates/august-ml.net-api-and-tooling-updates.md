@@ -17,7 +17,7 @@ In this post, I'm covering the following items:
 ## What’s new with the ML.NET API?
 
 ### New algorithms and features for anomaly detection and time series data
-Time series data is a series of data points that are sequenced in time order. A common example of time series data is monthly number of product sales over a year:
+Time series data is a series of data points over time. A common example of time series data is monthly number of product sales over a year:
 
 ![Time series data example](time-series-data.png)
 
