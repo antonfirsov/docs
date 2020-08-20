@@ -21,11 +21,11 @@ Time series data is a series of data points over time. A common example of time 
 
 ![Time series data example](time-series-data.png)
 
-There are many applications for time series data and machine learning; anomaly detection and forecasting are two of the most commons scenarios which are also supported by ML.NET.
+There are many applications for time series data and machine learning; anomaly detection and forecasting are two of the most commons scenarios which are also supported by ML.NET:
 
-With **anomaly detection**, you can find abnormal spikes in your time series data; for example, you could use anomaly detection to identify potentially fraudulant transactions on your credit card or spikes in power consumption based on daily readings from a meter.
+* With **anomaly detection**, you can find abnormal spikes in your time series data; for example, you could use anomaly detection to identify potentially fraudulant transactions on your credit card or spikes in power consumption based on daily readings from a meter.
 
-With **forecasting**, you can use past time series data to make predictions about future behavior; for example, you could use forecasting to project monthly sales based on previous months' sales or to predict the weather.
+* With **forecasting**, you can use past time series data to make predictions about future behavior; for example, you could use forecasting to project monthly sales based on previous months' sales or to predict the weather.
 
 #### Detect Entire Anomaly by SrCnn algorithm
 The ML.NET 1.5 update added a new anomaly detection algorithm called [DetectEntireAnomalyBySrCnn](https://docs.microsoft.com/dotnet/api/microsoft.ml.timeseriescatalog.detectentireanomalybysrcnn?view=ml-dotnet) which allows you to detect anomalies for an entire dataset at once; this is in contrast to the existing [DetectAnomalyBySrCnn](https://docs.microsoft.com/dotnet/api/microsoft.ml.timeseriescatalog.detectanomalybysrcnn?view=ml-dotnet) algorithm, which streams parts of the dataset and examines a window around points to find anomalies.
