@@ -13,7 +13,7 @@ You can [download .NET 5.0](https://dotnet.microsoft.com/download/dotnet/5.0), f
 * [Known issues](https://github.com/dotnet/core/blob/master/release-notes/5.0/5.0-known-issues.md)
 * [GitHub issue tracker](https://github.com/dotnet/core/issues)
 
-You need the latest version of [Visual Studio](https://visualstudio.microsoft.com) (including Visual Studio for Mac) to use .NET 5.0.
+You need the latest version of [Visual Studio](https://visualstudio.microsoft.com) (including [Visual Studio for Mac)](https://visualstudio.microsoft.com/vs/mac/) to use .NET 5.0.
 
 ## .NET 5.0 Highlights
 
