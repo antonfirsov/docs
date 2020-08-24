@@ -43,7 +43,6 @@ public void M(DateTime dateTime)
 
 `DateTime` is a `struct` and `struct`s cannot be `null`. Starting in .NET 5 we will warn about this case with `CS80731`. The warning message is:
 
-
 ```
 Warning CS8073: The result of the expression is always ‘false’ since the value of type ‘DateTime’ is never equal to ‘null’ of type ‘DateTime?’
 ```
@@ -62,16 +61,15 @@ public void M(DateTime? dateTime) // We accept a null DateTime
 
 ### Do not use ReferenceEquals with value types
 
-Equality can sometimes be a tricky topic in .NET. This next warning strives to make accidentally comparing a `struct` by reference obvious. Consider the code below:
+Equality can sometimes be a tricky topic in .NET. This next warning strives to make accidentally comparing a `struct` by reference apparent. Consider the code below:
 
 ```csharp
 int int1 = 1;
 int int2 = 1;
 Console.WriteLine(object.ReferenceEquals(int1, int2)); // warning CA2013
-
 ```
 
-This will box the two ints and `ReferenceEquals` will always return false as a result. We will see this warning description:
+This will box the two `int`s and `ReferenceEquals` will always return false as a result. We will see this warning description:
 
 ```
 Warning CA2013: Do not pass an argument with value type 'int' to 'ReferenceEquals'. Due to value boxing, this call to 'ReferenceEquals' will always return 'false'.
@@ -80,7 +78,8 @@ Warning CA2013: Do not pass an argument with value type 'int' to 'ReferenceEqual
 The fix for this error is to either use the equality operator `==` or `object.Equals` like so:
 
 ```csharp
-int int1 = 1, int2 = 1;
+int int1 = 1;
+int int2 = 1;
 Console.WriteLine(int1 == int2); // using the equality operator is fine
 Console.WriteLine(object.Equals(int1, int2));  // so is object.Equals
 ```
@@ -124,13 +123,11 @@ class P
 
 ## Warnings for incorrect .NET API usage
 
-
-These next two warnings are about correctly using .NET libraries. While some of these apis might not be used by everyone today this is an important step in ensuring that the .NET team can release apis that we previously couldn’t because there was no way to tell the user that they were using the api wrong in one very specific case.
+The next examples are about correctly using .NET libraries. Analysis Levels allow for guarding against improper use of existing .NET APIs today, but it also has an impact on .NET library evolution moving forward. If a useful API is designed but it has the potential for misuse, a new warning that detects misuse can also be added in tandem with the new API.
 
 ### Do not define finalizers for types derived from MemoryManager
 
 `MemoryManager` is a useful class for when you want to implement your own `Memory<T>` type. This is not something you're likely to find yourself doing a lot, but when you need it you _really_ need it. A new warning triggers for cases like this:
-
 
 ```csharp
 class DerivedClass <T> : MemoryManager<T>
@@ -179,7 +176,7 @@ For the final entry in this category:  a warning that notifies us that we’ve u
 var tcs = new TaskCompletionSource<int>(TaskContinuationOptions.RunContinuationsAsynchronously); // warning CA2247
 ```
 
-Unless you are already aware of the issue you may stare at this for a bit before you see it. The problem is that this constructor does not take a `TaskContinuationOptions` enum it takes a `TaskCreationOptions` enum. Considering how similar their names are and that they have very similar values this mistake is easy to make.
+Unless you are already aware of the issue you may stare at this for a bit before you see it. The problem is that this constructor does not take a `TaskContinuationOptions` enum it takes a `TaskCreationOptions` enum. What is actually happening is that we are calling the constructor for `TaskCompletionSource` that accepts `object`! Considering how similar their names are and that they have very similar values this mistake is easy to make.
 
 ```
 Warning CA2247: Argument contains TaskContinuationsOptions enum instead of TaskCreationOptions enum.
@@ -204,7 +201,7 @@ Sometimes you need to interoperate with native code. .NET has the concept of pla
 private static extern void Goo([Out] string s); // warning CA1417
 ```
 
-Unless you are very familiar with writing P/Invokes, it's not obvious what is wrong here. You normally apply `OutAttribute` to types that the runtime doesn’t know about to indicate how the type should be marshaled. The `OutAttribute` implies that you are passing the data by value. It doesn’t make sense for strings to be passed by value though, and has the potential to destabilize the runtime.
+Unless you are very familiar with writing P/Invokes, it's not obvious what is wrong here. You normally apply `OutAttribute` to types that the runtime doesn’t know about to indicate how the type should be marshaled. The `OutAttribute` implies that you are passing the data by value. It doesn’t make sense for strings to be passed by value though, and has the potential to crash the runtime.
 
 ```
 Warning CA1417 Do not use the 'OutAttribute' for string parameter 's' which is passed by value. If marshalling of modified data back to the caller is required, use the 'out' keyword to pass the string by reference instead.
