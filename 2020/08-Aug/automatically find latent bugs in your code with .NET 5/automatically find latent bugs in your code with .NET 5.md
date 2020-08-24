@@ -41,7 +41,7 @@ public void M(DateTime dateTime)
 }
 ```
 
-`DateTime` is a `struct` and `struct`s cannot be `null`. Starting in .NET 5 we will warn about this case with `CS80731`. The warning message is:
+`DateTime` is a `struct` and `struct`s cannot be `null`. Starting in .NET 5 we will warn about this case with `CS8073`. The warning message is:
 
 ```
 Warning CS8073: The result of the expression is always ‘false’ since the value of type ‘DateTime’ is never equal to ‘null’ of type ‘DateTime?’
