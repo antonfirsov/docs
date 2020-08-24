@@ -51,7 +51,7 @@ public void M(DateTime dateTime)
 Warning CS8073: The result of the expression is always ‘false’ since the value of type ‘DateTime’ is never equal to ‘null’ of type ‘DateTime?’
 ```
 
-It might seem rather obvious what this code is doing is unnecessary in isolation but it can be hard to spot issues like this in codebases even though we are all good (?) programmers. To fix this you can remove the code (since its always false it’s not doing anything anyways) or change its type to `DateTime?`
+It might seem rather obvious what this code is doing is unnecessary in isolation, but consider that such a check might occur in a method with 10 parameters to validate. To fix this you can remove the code (since its always false it’s not doing anything anyways), or change its type to `DateTime? if `null` is an intended value for the parameter`
 
 ```csharp
 public void M(DateTime? dateTime) // We accept a null DateTime
