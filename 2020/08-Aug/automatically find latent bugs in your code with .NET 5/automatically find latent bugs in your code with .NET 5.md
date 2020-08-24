@@ -203,7 +203,7 @@ Sometimes you need to interoperate with native code. .NET has the concept of pla
 private static extern void Goo([Out] string s); // warning CA1417
 ```
 
-Unless you are very familiar with writing P/Invokes its not obvious what is wrong here. You normally apply OutAttribute’s to types that the runtime doesn’t know about to indicate how the type should be marshaled. The OutAttribute implies that you are passing the data by value. It doesn’t make sense for strings to be passed by value and has the potential to destabilize the runtime.
+Unless you are very familiar with writing P/Invokes, it's not obvious what is wrong here. You normally apply `OutAttribute` to types that the runtime doesn’t know about to indicate how the type should be marshaled. The `OutAttribute` implies that you are passing the data by value. It doesn’t make sense for strings to be passed by value though, and has the potential to destabilize the runtime.
 
 ```
 Warning CA1417 Do not use the 'OutAttribute' for string parameter 's' which is passed by value. If marshalling of modified data back to the caller is required, use the 'out' keyword to pass the string by reference instead.
