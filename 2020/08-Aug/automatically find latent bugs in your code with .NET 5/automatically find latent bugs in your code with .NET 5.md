@@ -19,7 +19,7 @@ Unless specified explicitly, the default Analysis Level is tied to your target f
 | `netcoreapp3.1` or lower  | 4               |
 | `netstandard2.1` or lower | 4               |
 
-Analysis Levels are tied to the target framework of your project so until you change what your code targets you will never change your default analysis level. You can also manually set your analysis level per project if you want (that’s discussed in more detail at the end).
+Since Analysis Levels are tied to the target framework of your project unless you change what your code targets you will never change your default analysis level. You can also manually set your analysis level per project if you want (that’s discussed in more detail at the end).
 Since all .NET 5 projects will be opted into _Analysis Level 5_, let’s take a look at some of the new warnings and suggestions that will be offered:
 
 
