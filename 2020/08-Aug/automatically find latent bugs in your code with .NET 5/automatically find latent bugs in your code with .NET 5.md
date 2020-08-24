@@ -107,7 +107,9 @@ This rule is all about [definite assignment](https://docs.microsoft.com/dotnet/c
 Error CS0177: The out parameter 'immutableArray' must be assigned to before control leaves the current method
 ```
 
-`CS0177` is already issued for several different situations today so why didn't we issue a warning for this obviously wrong case in the past? The history here is that this was a bug that traces itself all the way back to the original implementations of the C# compiler. Previously, the compiler ignored private fields of reference types in a value type imported from metadata when computing definite assignment. This very specific bug meant that a type like `ImmutableArray<T>` was able to escape definite assignment analysis. But no longer! Now the compiler will correctly warn you and you can fix it by simply ensuring that it is always assigned a value, like so:
+`CS0177` is already issued for several different situations today, but not in the case previously shown. The history here is that this was a bug that traces itself all the way back to the original implementations of the C# compiler. Previously, the C# compiler ignored private fields of reference types in a value type imported from metadata when computing definite assignment. This very specific bug meant that a type like `ImmutableArray<T>` was able to escape definite assignment analysis. Ouch!
+
+Now the compiler will correctly warn you and you can fix it by simply ensuring that it is always assigned a value, like so:
 
 ```csharp
 using System.Collections.Immutable;
