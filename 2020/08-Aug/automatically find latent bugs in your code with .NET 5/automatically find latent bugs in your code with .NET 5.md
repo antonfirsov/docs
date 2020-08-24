@@ -252,7 +252,8 @@ class Program
 
 ### Do not use stackalloc in loops
 
-The [`stackalloc`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/stackalloc) keyword is great for when you want to make sure the operations you are doing are easy on the garbage collector. In the past `stackalloc` was only allowed in unsafe code, but beginning in C# 8 its allowed as long as that variable is assigned to a `Span<T>` or a `ReadOnlySpan<T>`.
+The [`stackalloc`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/stackalloc) keyword is great for when you want to make sure the operations you are doing are easy on the garbage collector. In the past, `stackalloc` was only allowed in unsafe code, but since C# 8 it's also been allowed outside of `unsafe` blocks so long as that variable is assigned to a `Span<T>` or a `ReadOnlySpan<T>`.
+
 ```csharp
 class C
 {
