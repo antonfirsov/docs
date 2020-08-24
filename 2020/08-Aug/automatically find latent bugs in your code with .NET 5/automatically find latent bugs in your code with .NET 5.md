@@ -44,7 +44,8 @@ public void M(DateTime dateTime)
 }
 ```
 
-Is it obvious what the problem is? Admittedly this method is rather sparse on the details so to some it may stand out rather starkly: `DateTime` is a `struct` and `struct`s cannot be null, yet we check anyways. Starting in .NET 5 we will warn about this case with `CS80731`. Warning message will be:
+`DateTime` is a `struct` and `struct`s cannot be `null`. Starting in .NET 5 we will warn about this case with `CS80731`. The warning message is:
+
 
 ```
 Warning CS8073: The result of the expression is always ‘false’ since the value of type ‘DateTime’ is never equal to ‘null’ of type ‘DateTime?’
