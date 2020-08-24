@@ -23,7 +23,8 @@ Unless specified explicitly, the default Analysis Level is tied to your target f
 
 
 Analysis Levels are tied to the target framework of your project so until you change what your code targets you will never change your default analysis level. You can also manually set your analysis level per project if you want (that’s discussed in more detail at the end).
-Starting in .NET 5 Preview 8 all .NET 5 projects are opted into _Analysis Level 5_. Let’s look at what this means and what sorts of code bugs this will detect for you:
+Since all .NET 5 projects will be opted into _Analysis Level 5_, let’s take a look at some of the new warnings and suggestions that will be offered:
+
 
 ## Warnings for common mistakes
 
