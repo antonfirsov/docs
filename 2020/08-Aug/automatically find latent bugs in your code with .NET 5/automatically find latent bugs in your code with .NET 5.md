@@ -121,7 +121,8 @@ class P
 }
 ```
 
-## Correctly Using APIs
+## Warnings for incorrect .NET API usage
+
 
 These next two warnings are about correctly using .NET libraries. While some of these apis might not be used by everyone today this is an important step in ensuring that the .NET team can release apis that we previously couldn’t because there was no way to tell the user that they were using the api wrong in one very specific case.
 
