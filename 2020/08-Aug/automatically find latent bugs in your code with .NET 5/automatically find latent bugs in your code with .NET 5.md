@@ -165,7 +165,8 @@ class DerivedClass <T> : MemoryManager<T>
             _handle.Dispose();
         }
     }
- // no warning
+ // No warning, since there is no finalizer here
+
 }
 ```
 
