@@ -65,7 +65,7 @@ public void M(DateTime? dateTime) // We accept a null DateTime
 
 ### Do not use ReferenceEquals with value types
 
-Equality can be a tricky topic in .NET. This next warning strives to make accidentally comparing a `struct` by reference obvious. Consider the code below:
+Equality can sometimes be a tricky topic in .NET. This next warning strives to make accidentally comparing a `struct` by reference obvious. Consider the code below:
 
 ```csharp
 int int1 = 1;
