@@ -32,7 +32,7 @@ The first set of new warnings that we are going to talk about are intended to fi
 
 ### Warn when expression is always true or false
 
-The first new warning that we are going to talk about has been a long time coming. Consider the following code:
+The first new warning is extremely common. Consider the following code:
 
 ```csharp
 public void M(DateTime dateTime)
