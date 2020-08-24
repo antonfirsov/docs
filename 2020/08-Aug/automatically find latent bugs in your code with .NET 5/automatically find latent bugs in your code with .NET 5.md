@@ -195,7 +195,8 @@ There are also a few warnings that are useful when writing high-performance appl
 
 ### Do not use OutAttribute on string parameters for P/Invokes
 
-In the course of human events you sometimes need to inter-operate with native code. .Net has the concept of platform invocations (P/Invokes) to make this process easier. However, there are a few gotchas in terms of sending data to and from native libraries in .NET.  consider the code below:
+Sometimes you need to interoperate with native code. .NET has the concept of platform invocations (P/Invokes) to make this process easier. However, there are a few gotchas in terms of sending data to and from native libraries in .NET.  Consider the code below:
+
 
 ```csharp
 [DllImport("MyLibrary")]
