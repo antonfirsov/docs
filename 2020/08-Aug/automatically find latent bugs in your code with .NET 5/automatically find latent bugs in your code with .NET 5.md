@@ -269,7 +269,8 @@ class C
 }
 ```
 
-Allocating a lot on the stack can lead to the famous stack overflow exception where we’ve allocated more memory on the stack than allowed. Allocating in a loop is especially perilous.
+Allocating a lot on the stack can lead to the famous StackOverflow exception, where we’ve allocated more memory on the stack than allowed. Allocating in a loop is especially perilous.
+
 
 ```
 Warning CA2014 Potential stack overflow. Move the stackalloc out of the loop.
