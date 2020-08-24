@@ -146,7 +146,8 @@ class DerivedClass <T> : MemoryManager<T>
 }
 ```
 
-Turns out adding a finalizer to this type can introduce GC holes, bad terrible things as it were. Instead you now get the warning, so you don’t do this accidentally.
+Adding a finalizer to this type can introduce GC holes, which we all would prefer to avoid!
+
 
 ```
 Warning CA2015 Adding a finalizer to a type derived from MemoryManager<T> may permit memory to be freed while it is still in use by a Span<T>.
