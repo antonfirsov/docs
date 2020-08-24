@@ -153,7 +153,7 @@ Adding a finalizer to this type can introduce GC holes, which we all would prefe
 Warning CA2015 Adding a finalizer to a type derived from MemoryManager<T> may permit memory to be freed while it is still in use by a Span<T>.
 ```
 
-The fix is to remove this destructor as it will cause very subtle bugs in your program that will be hard to find and fix.
+The fix is to remove this finalizer, since it will cause very subtle bugs in your program that will be hard to find and fix.
 
 ```csharp
 class DerivedClass <T> : MemoryManager<T>
