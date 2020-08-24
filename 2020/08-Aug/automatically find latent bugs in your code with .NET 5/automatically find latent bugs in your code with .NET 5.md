@@ -128,7 +128,8 @@ These next two warnings are about correctly using .NET libraries. While some of 
 
 ### Do not define finalizers for types derived from MemoryManager
 
-`MemoryManager` is a useful class for when you want to implement your own `Memory<T>` type. Hopefully, this is not something most people find themselves doing a lot, but when you need it you really need it. This new warning triggers for cases like this:
+`MemoryManager` is a useful class for when you want to implement your own `Memory<T>` type. This is not something you're likely to find yourself doing a lot, but when you need it you _really_ need it. A new warning triggers for cases like this:
+
 
 ```csharp
 class DerivedClass <T> : MemoryManager<T>
