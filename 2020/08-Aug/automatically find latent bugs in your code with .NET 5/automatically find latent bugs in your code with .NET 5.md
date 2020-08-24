@@ -68,8 +68,10 @@ public void M(DateTime? dateTime) // We accept a null DateTime
 Equality can be a tricky topic in .NET. This next warning strives to make accidentally comparing a `struct` by reference obvious. Consider the code below:
 
 ```csharp
-int int1 = 1, int2 = 1;
+int int1 = 1;
+int int2 = 1;
 Console.WriteLine(object.ReferenceEquals(int1, int2)); // warning CA2013
+
 ```
 
 This will box the two ints and `ReferenceEquals` will always return false as a result. We will see this warning description:
