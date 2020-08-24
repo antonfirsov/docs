@@ -28,7 +28,7 @@ Since all .NET 5 projects will be opted into _Analysis Level 5_, let’s take a 
 
 ## Warnings for common mistakes
 
-The first set of new warnings that we are going to talk about are intended to find latent bugs in your existing code. I can say from experience that without the compiler helping you out these can be very difficult to avoid introducing into your codebase.
+The first set of new warnings are intended to find latent bugs, often in larger codebases. These can be very easy to introduce without additional compiler analysis today.
 
 ### Warn when expression is always true or false
 
