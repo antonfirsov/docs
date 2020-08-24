@@ -107,7 +107,7 @@ Error CS0177: The out parameter 'immutableArray' must be assigned to before cont
 
 `CS0177` is already issued for several different situations today, but not in the case previously shown. The history here is that this was a bug that traces itself all the way back to the original implementations of the C# compiler. Previously, the C# compiler ignored private fields of reference types in a value type imported from metadata when computing definite assignment. This very specific bug meant that a type like `ImmutableArray<T>` was able to escape definite assignment analysis. Ouch!
 
-Now the compiler will correctly warn you and you can fix it by simply ensuring that it is always assigned a value, like so:
+Now the compiler will correctly error for you and you can fix it by simply ensuring that it is always assigned a value, like so:
 
 ```csharp
 using System.Collections.Immutable;
