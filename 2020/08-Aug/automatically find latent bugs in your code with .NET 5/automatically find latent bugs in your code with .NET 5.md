@@ -1,4 +1,8 @@
-# Automatically find latent bugs in your code with .NET 5
+---
+post_title: 'Automatically find latent bugs in your code with .NET 5'
+username: jmarolf@microsoft.com
+summary: Introduction to the new Analysis Level feature shipping in .NET 5 Preview 8.
+---
 
 In the past we’ve been extremely reluctant to add new warnings to C#. This is because adding new warnings is a breaking change (it might not seem like it should be but passing warn-as-error makes it so). We _really_ don’t like making breaking changes but there are a lot of cases we’ve come across over the years where we also _really_ wanted to warn people that something was wrong. These cases were in both the C# language and in the libraries that we ship with .NET.  To solve this, we are introducing “Analysis Levels.”
 
@@ -292,17 +296,27 @@ If you just want to go back to the way things were before .NET 5 (meaning the wa
 ### Turning off just a single rule
 
 If there is a specific warning that you believe is not applicable to your codebase you can use an editorconfig file to turn it off for your codebase. You can do this by either setting the severity of the warning to ‘none’ from the error list.
- 
+
+![Set Severity From Error List](SetSeverityFromErrorList.png)
+
 Or by selecting “none” from the lightbulb menu where the warning appears in the editor
+
+![Set Severity From Lightbulb](SetSeverityFromLightbulb.png)
  
 ### Turning off a single instance of a warning
 
 If you want a warning to be on almost all the time and only suppress it in a few instances you can use the lightbulb menu to either:
+
 - Suppress it in source.
+
+![Suppress in Source](SuppressInSource.png)
  
 - Suppress it in a separate suppression file.
+  
+![Suppress in Suppression File](SuppressInSuppressionFile.png)
  
 - Suppress it in source with an attribute.
  
+![Suppress in Attribute](SuppressInAttribute.png)
 
 I hope this has gotten you excited for all the improvements to code analysis that you can expect in .NET 5 and please give us feedback about this experience.
