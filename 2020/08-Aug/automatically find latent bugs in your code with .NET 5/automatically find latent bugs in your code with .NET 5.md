@@ -4,7 +4,23 @@ username: jmarolf@microsoft.com
 summary: Introduction to the new Analysis Level feature shipping in .NET 5 Preview 8.
 ---
 
-In the past we’ve been extremely reluctant to add new warnings to C#. This is because adding new warnings is a breaking change (it might not seem like it should be but passing warn-as-error makes it so). We _really_ don’t like making breaking changes but there are a lot of cases we’ve come across over the years where we also _really_ wanted to warn people that something was wrong. These cases were in both the C# language and in the libraries that we ship with .NET.  To solve this, we are introducing “Analysis Levels.”
+In the past, we’ve been reluctant to add new warnings to C#. This is because adding new warnings is technically a breaking change for users who have warnings set as errors. However, there are a lot of cases we’ve come across over the years where we also _really_ want to warn people that something was wrong, ranging from common coding mistakes to common API misuse patterns.
+
+Starting with .NET 5, we're introducing what we're calling "Analysis Levels" in the C# compiler to introduce warnings for these patterns in a safe way. The default Analysis Level for all projects targeting .NET 5 will be at the highest, meaning that more warnings (and suggestions to fix them) will be introduced.
+
+## What are Analysis Levels?
+
+TODO - explain the mechanism
+TODO - give example of manually setting it in a project file
+
+Unless specified explicitly, the default Analysis Level is tied to your target framework:
+
+| Target Framework | Analysis Level |
+|---------------------|-----------------|
+| `netcoreapp3.1` or lower | ??? |
+| `net5.0` or higher | 5 |
+| `netstandard2.1 or lower | ??? |
+
 
 Analysis Levels are tied to the target framework of your project so until you change what your code targets you will never change your default analysis level. You can also manually set your analysis level per project if you want (that’s discussed in more detail at the end).
 Starting in .NET 5 Preview 8 all .NET 5 projects are opted into _Analysis Level 5_. Let’s look at what this means and what sorts of code bugs this will detect for you:
