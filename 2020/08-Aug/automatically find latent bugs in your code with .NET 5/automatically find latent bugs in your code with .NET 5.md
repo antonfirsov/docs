@@ -98,6 +98,10 @@ Here is a simple mapping of what these shortcuts mean today:
 | `latest`   | 5               |
 | `none`     | 4               |
 
+You can also configure the analysis level for a project from within Visual Studio via the Code Analysis property page:
+
+![Configure Analysis Level in Visual Studio](PropertyPage.png)
+
 Since all .NET 5 projects will be opted into _Analysis Level 5_, let's look at some of the new warnings and suggestions that will be offered:
 
 ### All New Warnings coming in Analysis Level 5
