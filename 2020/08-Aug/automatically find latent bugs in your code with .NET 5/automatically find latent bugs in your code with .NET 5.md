@@ -94,13 +94,22 @@ Here is a simple mapping of what these shortcuts mean today:
 
 | Short Name | Analysis Level  |
 |------------|-----------------|
-| `preview`  | 5               |
+| `preview`  | 6               |
 | `latest`   | 5               |
 | `none`     | 4               |
 
 You can also configure the analysis level for a project from within Visual Studio via the Code Analysis property page:
 
 ![Configure Analysis Level in Visual Studio](PropertyPage.png)
+
+In the future we will add a new Analysis Level for every release of .NET. So about a year from now when we are getting ready to release .NET 6 we'll add (you guessed it!) analysis level 6. Once we've arrived at that distance future shore the short names would have these new meanings:
+
+
+| Short Name | Analysis Level  |
+|------------|-----------------|
+| `preview`  | 7               |
+| `latest`   | 6               |
+| `none`     | 4               |
 
 Since all .NET 5 projects will be opted into _Analysis Level 5_, let's look at some of the new warnings and suggestions that will be offered:
 
