@@ -4,7 +4,7 @@ username: jmarolf@microsoft.com
 summary: Introduction to the new Analysis Level feature shipping in .NET 5 Preview 8.
 ---
 
-In the past, we’ve been reluctant to add new warnings to C#. This is because adding new warnings is technically a breaking change for users who have warnings set as errors. However, there are a lot of cases we’ve come across over the years where we also really want to warn people that something was wrong, ranging from common coding mistakes to common API misuse patterns.
+In the past, we’ve been reluctant to add new warnings to C#. This is because adding new warnings is technically a source breaking change for users who have warnings set as errors. However, there are a lot of cases we’ve come across over the years where we also really want to warn people that something was wrong, ranging from common coding mistakes to common API misuse patterns.
 
 Starting with .NET 5, we're introducing what we're calling "Analysis Levels" in the C# compiler to introduce warnings for these patterns in a safe way. The default Analysis Level for all projects targeting .NET 5 will be set to 5, meaning that more warnings (and suggestions to fix them) will be introduced.
 
