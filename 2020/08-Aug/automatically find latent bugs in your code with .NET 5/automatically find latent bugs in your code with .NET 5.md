@@ -204,6 +204,8 @@ class P
 
 ### Do not allow locks on non-reference types
 
+`lock`ing on a non-reference type (like an `int`) does nothing because they are pass-by-value so a different version of them lives on every stack frame. In the past we would warn you about locking on non-reference types for simple cases like `lock(5)` but until recently we would not warn you for open generics like below.
+
 ```csharp
 public class P
 {
@@ -221,9 +223,13 @@ public class P
 }
 ```
 
+This is an error because passing in an int (which is allowed under this unconstrained generic) will actually lock correctly. We'll see this error:
+
 ```cmd
 Error CS0185 'TKey' is not a reference type as required by the lock statement
 ```
+
+To fix this we need to indicate that the `GetValue` method should only be given reference types. We can do this with the generic type constraint `where TKey : class`
 
 ```csharp
 public class P
@@ -239,32 +245,45 @@ public class P
 
 ### Rethrow to preserve stack details
 
+We're all good (?) developers so our code never throws exceptions right? Well even the best developers need to handle exceptions in .NET and one of the common pitfalls new programmers fall into is this:
+
 ```csharp
 try
 {
     throw new Exception();
 }
-catch (Exception ex)
+catch (Exception ಠ_ಠ)
 {
-    throw ex; // CA2200
+    // probably logging some info here...
+
+    // rethrow now that we are done
+    throw ಠ_ಠ; // CA2200
 }
 ```
+
+In school I learned that if someone threw the ball at me and I caught it, I had to throw the ball back! Metaphors like this lead lots of folks to believe that `throw ex` is the correct way to re-throw this exception. Sadly this will change the stacks in the original exception. Now you will get a warning that this is happening. It looks like this:
 
 ```cmd
 Warning CA2200 Re-throwing caught exception changes stack information
 ```
 
+In nearly all cases the correct thing to do here is to simply use the `thow` keyword without mentioning the variable of the exception we caught.
+
 ```csharp
 try
 {
     throw new Exception();
 }
-catch (Exception ex)
+catch (Exception ಠ_ಠ)
 {
+    // probably logging some info here...
+
+    // rethrow now that we are done
     throw;
 }
 ```
 
+We also offer a code fix to easily fix up all of these at once in your document, project, or solution!
 ![Code fix to Rethrow](ReThrowCodeFix.png)
 
 ### Do not use ReferenceEquals with value types
