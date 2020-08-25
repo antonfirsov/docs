@@ -4,18 +4,18 @@ username: jmarolf@microsoft.com
 summary: Introduction to the new Analysis Level feature shipping in .NET 5 Preview 8.
 ---
 
-In the past, we’ve been reluctant to add new warnings to C#. This is because adding new warnings is technically a source breaking change for users who have warnings set as errors. However, there are a lot of cases we’ve come across over the years where we also really want to warn people that something was wrong, ranging from common coding mistakes to common API misuse patterns.
+In the past, we've been reluctant to add new warnings to C#. This is because adding new warnings is technically a source breaking change for users who have warnings set as errors. However, there are a lot of cases we've come across over the years where we also really want to warn people that something was wrong, ranging from common coding mistakes to common API misuse patterns.
 
 Starting with .NET 5, we're introducing what we're calling "Analysis Levels" in the C# compiler to introduce warnings for these patterns in a safe way. The default Analysis Level for all projects targeting .NET 5 will be set to 5, meaning that more warnings (and suggestions to fix them) will be introduced.
 
-Let’s talk about what the possible values for analysis level mean in your project. First thing we should note: unless you override the default, Analysis Level is set based on your target framework:
+Let's talk about what the possible values for analysis level mean in your project. First thing we should note: unless you override the default, Analysis Level is set based on your target framework:
 
 | Target Framework              | Default Analysis Level  |
 |-------------------------------|-------------------------|
 | `net5.0`                      | 5                       |
 | `netcoreapp3.1` or lower      | 4                       |
 | `netstandard2.1` or lower     | 4                       |
-| `.NET Framwwork 4.8` or lower | 4                       |
+| `.NET Framework 4.8` or lower | 4                       |
 
 However, what about the numbers 0-3? here is a more detailed breakdown of what each analysis level value means
 
@@ -98,8 +98,7 @@ Here is a simple mapping of what these shortcuts mean today:
 | `latest`   | 5               |
 | `none`     | 4               |
 
-
-Since all .NET 5 projects will be opted into _Analysis Level 5_, let’s look at some of the new warnings and suggestions that will be offered:
+Since all .NET 5 projects will be opted into _Analysis Level 5_, let's look at some of the new warnings and suggestions that will be offered:
 
 ### New Warnings in Analysis Level 5 for .NET 5 Preview 8
 
@@ -111,7 +110,7 @@ These new warnings are available _today_ in .NET 5 Preview 8 with Visual Studio 
 | CA1831 | Performance      | Warning  | Use AsSpan instead of Range-based indexers for string when appropriate |
 | CA2013 | Reliability      | Warning  | Do not use ReferenceEquals with value types                            |
 | CA2014 | Reliability      | Warning  | Do not use `stackalloc` in loops                                       |
-| CA2015 | Reliability      | Warning  | Do not define finalizers for types derived from MemoryManager<T>       |
+| CA2015 | Reliability      | Warning  | Do not define finalizers for types derived from `MemoryManager<T>`     |
 | CA2247 | Usage            | Warning  | Argument passed to `TaskCompletionSource` constructor should be `TaskCreationOptions` enum instead of `TaskContinuationOptions` |
 | CS0177 | Correctness      | Error    | track definite assignment of structs across assemblies                 |
 | CS8073 | Usage            | Warning  | warn when expression is always false or true                           |
@@ -127,7 +126,7 @@ The ones in **bold** are going to be in level 5 by the time .NET 5 ships.
 | CA1831     | Performance      | Warning  | Use AsSpan instead of Range-based indexers for string when appropriate |
 | CA2013     | Reliability      | Warning  | Do not use ReferenceEquals with value types                            |
 | CA2014     | Reliability      | Warning  | Do not use `stackalloc` in loops                                       |
-| CA2015     | Reliability      | Warning  | Do not define finalizers for types derived from MemoryManager<T>       |
+| CA2015     | Reliability      | Warning  | Do not define finalizers for types derived from `MemoryManager<T>`     |
 | **CA2200** | **Usage** | **Warning**  | **Rethrow to preserve stack details**       |
 | CA2247     | Usage            | Warning  | Argument passed to `TaskCompletionSource` constructor should be `TaskCreationOptions` enum instead of `TaskContinuationOptions` |
 | CS0177     | Correctness      | Error    | track definite assignment of structs across assemblies                 |
@@ -155,11 +154,11 @@ public void M(DateTime dateTime)
 
 `DateTime` is a `struct` and `struct`s cannot be `null`. Starting in .NET 5 we will warn about this case with `CS8073`. The warning message is:
 
-```
-Warning CS8073: The result of the expression is always ‘false’ since the value of type ‘DateTime’ is never equal to ‘null’ of type ‘DateTime?’
+```cmd
+Warning CS8073: The result of the expression is always 'false' since the value of type 'DateTime' is never equal to 'null' of type 'DateTime?'
 ```
 
-It might seem rather obvious what this code is doing is unnecessary in isolation, but consider that such a check might occur in a method with 10 parameters to validate. To fix this you can remove the code (since its always false it’s not doing anything anyways), or change its type to `DateTime? if `null` is an intended value for the parameter`
+It might seem rather obvious what this code is doing is unnecessary in isolation, but consider that such a check might occur in a method with 10 parameters to validate. To fix this you can remove the code (since its always false it's not doing anything anyways), or change its type to `DateTime?` if `null` is an intended value for the parameter
 
 ```csharp
 public void M(DateTime? dateTime) // We accept a null DateTime
@@ -183,7 +182,7 @@ Console.WriteLine(object.ReferenceEquals(int1, int2)); // warning CA2013
 
 This will box the two `int`s and `ReferenceEquals` will always return false as a result. We will see this warning description:
 
-```
+```cmd
 Warning CA2013: Do not pass an argument with value type 'int' to 'ReferenceEquals'. Due to value boxing, this call to 'ReferenceEquals' will always return 'false'.
 ```
 
@@ -213,7 +212,7 @@ class P
 
 This rule is all about [definite assignment](https://docs.microsoft.com/dotnet/csharp/language-reference/language-specification/variables#definite-assignment), a useful feature in C# that makes sure you don't forget to assign values to your variables.
 
-```
+```cmd
 Error CS0177: The out parameter 'immutableArray' must be assigned to before control leaves the current method
 ```
 
@@ -258,8 +257,7 @@ class DerivedClass <T> : MemoryManager<T>
 
 Adding a finalizer to this type can introduce GC holes, which we all would prefer to avoid!
 
-
-```
+```cmd
 Warning CA2015 Adding a finalizer to a type derived from MemoryManager<T> may permit memory to be freed while it is still in use by a Span<T>.
 ```
 
@@ -282,7 +280,7 @@ class DerivedClass <T> : MemoryManager<T>
 
 ### Argument passed to TaskCompletionSource constructor should be TaskCreationOptions enum instead of TaskContinuationOptions
 
-For the final entry in this category:  a warning that notifies us that we’ve used just _slightly_ the wrong enum.
+For the final entry in this category:  a warning that notifies us that we've used just _slightly_ the wrong enum.
 
 ```csharp
 var tcs = new TaskCompletionSource<int>(TaskContinuationOptions.RunContinuationsAsynchronously); // warning CA2247
@@ -290,32 +288,32 @@ var tcs = new TaskCompletionSource<int>(TaskContinuationOptions.RunContinuations
 
 Unless you are already aware of the issue you may stare at this for a bit before you see it. The problem is that this constructor does not take a `TaskContinuationOptions` enum it takes a `TaskCreationOptions` enum. What is actually happening is that we are calling the constructor for `TaskCompletionSource` that accepts `object`! Considering how similar their names are and that they have very similar values this mistake is easy to make.
 
-```
+```cmd
 Warning CA2247: Argument contains TaskContinuationsOptions enum instead of TaskCreationOptions enum.
 ```
 
 The fix is to pass in the correct enum type:
+
 ```csharp
 var tcs = new TaskCompletionSource<int>(TaskCreationOptions.RunContinuationsAsynchronously); // no warning
 ```
 
 ## Low level coding help
 
-There are also a few warnings that are useful when writing high-performance applications. These next set of warnings ensure you don’t need to sacrifice safety for these cases.
+There are also a few warnings that are useful when writing high-performance applications. These next set of warnings ensure you don't need to sacrifice safety for these cases.
 
 ### Do not use OutAttribute on string parameters for P/Invokes
 
 Sometimes you need to interoperate with native code. .NET has the concept of platform invocations (P/Invokes) to make this process easier. However, there are a few gotchas in terms of sending data to and from native libraries in .NET.  Consider the code below:
-
 
 ```csharp
 [DllImport("MyLibrary")]
 private static extern void Goo([Out] string s); // warning CA1417
 ```
 
-Unless you are very familiar with writing P/Invokes, it's not obvious what is wrong here. You normally apply `OutAttribute` to types that the runtime doesn’t know about to indicate how the type should be marshaled. The `OutAttribute` implies that you are passing the data by value. It doesn’t make sense for strings to be passed by value though, and has the potential to crash the runtime.
+Unless you are very familiar with writing P/Invokes, it's not obvious what is wrong here. You normally apply `OutAttribute` to types that the runtime doesn't know about to indicate how the type should be marshaled. The `OutAttribute` implies that you are passing the data by value. It doesn't make sense for strings to be passed by value though, and has the potential to crash the runtime.
 
-```
+```cmd
 Warning CA1417 Do not use the 'OutAttribute' for string parameter 's' which is passed by value. If marshalling of modified data back to the caller is required, use the 'out' keyword to pass the string by reference instead.
 ```
 
@@ -326,7 +324,7 @@ The fix for this is to either treat it as a normal out parameter (passing by ref
 private static extern void Goo(out string s); // no warning
 ```
 
-or if you don’t need the string marshaled back to the caller you can just do this:
+or if you don't need the string marshaled back to the caller you can just do this:
 
 ```csharp
 [DllImport("MyLibrary")]
@@ -335,7 +333,7 @@ private static extern void Goo(string s); // no warning
 
 ### Use AsSpan instead of Range-based indexers for string when appropriate
 
-This is all about making sure that you don’t accidentally allocate a string. 
+This is all about making sure that you don't accidentally allocate a string.
 
 ```csharp
 class Program
@@ -347,9 +345,9 @@ class Program
 }
 ```
 
-In the code sample, it's clear that the intent is to index a string using the new [range-based index](https://docs.microsoft.com/dotnet/csharp/language-reference/proposals/csharp-8.0/ranges) feature in C#. Unfortunately, this will actually allocate a string unless you convert that string to a span first. 
+In the code sample, it's clear that the intent is to index a string using the new [range-based index](https://docs.microsoft.com/dotnet/csharp/language-reference/proposals/csharp-8.0/ranges) feature in C#. Unfortunately, this will actually allocate a string unless you convert that string to a span first.
 
-```
+```cmd
 Warning CA1831 Use 'AsSpan' instead of the 'System.Range'-based indexer on 'string' to avoid creating unnecessary data copies
 ```
 
@@ -367,7 +365,7 @@ class Program
 
 ### Do not use stackalloc in loops
 
-The [`stackalloc`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/stackalloc) keyword is great for when you want to make sure the operations you are doing are easy on the garbage collector. In the past, `stackalloc` was only allowed in unsafe code, but since C# 8 it's also been allowed outside of `unsafe` blocks so long as that variable is assigned to a `Span<T>` or a `ReadOnlySpan<T>`.
+The [`stackalloc`](https://docs.microsoft.com/dotnet/csharp/language-reference/operators/stackalloc) keyword is great for when you want to make sure the operations you are doing are easy on the garbage collector. In the past, `stackalloc` was only allowed in unsafe code, but since C# 8 it's also been allowed outside of `unsafe` blocks so long as that variable is assigned to a `Span<T>` or a `ReadOnlySpan<T>`.
 
 ```csharp
 class C
@@ -384,14 +382,14 @@ class C
 }
 ```
 
-Allocating a lot on the stack can lead to the famous StackOverflow exception, where we’ve allocated more memory on the stack than allowed. Allocating in a loop is especially perilous.
+Allocating a lot on the stack can lead to the famous StackOverflow exception, where we've allocated more memory on the stack than allowed. Allocating in a loop is especially perilous.
 
-
-```
+```cmd
 Warning CA2014 Potential stack overflow. Move the stackalloc out of the loop.
 ```
 
 The fix is to move our `stackalloc` out of the loop.
+
 ```csharp
 class C
 {
@@ -409,12 +407,12 @@ class C
 
 ## Configuring Analysis Levels
 
-Now that you’ve seen how useful these warnings are you probably never want to go back to a world without them right? Well I know that the world doesn’t always work that way. As mentioned at the beginning of this post, these are breaking changes and you should be able to take them on in a schedule that makes sense to you. Part of the reason we're introducing this now is to get feedback in two areas:
+Now that you've seen how useful these warnings are you probably never want to go back to a world without them right? Well I know that the world doesn't always work that way. As mentioned at the beginning of this post, these are breaking changes and you should be able to take them on in a schedule that makes sense to you. Part of the reason we're introducing this now is to get feedback in two areas:
 
 1. If the small set of warnings we're introducing is too disruptive or not
 2. If the mechanism for tuning the warnings is sufficient for your needs
 
-### Going back to the .NET Core 3.1 analysis level:
+### Going back to the .NET Core 3.1 analysis level
 
 If you just want to go back to the way things were before .NET 5 (meaning the warnings you got in .NET Core 3.1) all you need to do is set the analysis level to 4 in your project file. Here is an example:
 
@@ -433,14 +431,14 @@ If you just want to go back to the way things were before .NET 5 (meaning the wa
 
 ### Turning off just a single rule
 
-If there is a specific warning that you believe is not applicable to your codebase you can use an editorconfig file to turn it off for your codebase. You can do this by either setting the severity of the warning to ‘none’ from the error list.
+If there is a specific warning that you believe is not applicable to your codebase you can use an editorconfig file to turn it off for your codebase. You can do this by either setting the severity of the warning to 'none' from the error list.
 
 ![Set Severity From Error List](SetSeverityFromErrorList.png)
 
-Or by selecting “none” from the lightbulb menu where the warning appears in the editor
+Or by selecting "none" from the lightbulb menu where the warning appears in the editor
 
 ![Set Severity From Lightbulb](SetSeverityFromLightbulb.png)
- 
+
 ### Turning off a single instance of a warning
 
 If you want a warning to be on almost all the time and only suppress it in a few instances you can use the lightbulb menu to either:
@@ -448,13 +446,13 @@ If you want a warning to be on almost all the time and only suppress it in a few
 - Suppress it in source.
 
 ![Suppress in Source](SuppressInSource.png)
- 
+
 - Suppress it in a separate suppression file.
   
 ![Suppress in Suppression File](SuppressInSuppressionFile.png)
- 
+
 - Suppress it in source with an attribute.
- 
+
 ![Suppress in Attribute](SuppressInAttribute.png)
 
 I hope this has gotten you excited for all the improvements to code analysis that you can expect in .NET 5 and please give us feedback about this experience.
