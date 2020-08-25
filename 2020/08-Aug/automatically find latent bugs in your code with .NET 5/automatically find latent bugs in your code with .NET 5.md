@@ -104,35 +104,35 @@ Since all .NET 5 projects will be opted into _Analysis Level 5_, let's look at s
 
 These new warnings are available _today_ in .NET 5 Preview 8 with Visual Studio 2019 16.8 Preview 2!
 
-| Id     | Category         | Severity | Description                                                            |
-|--------|------------------|----------|------------------------------------------------------------------------|
-| CA1417 | Interoperability | Warning  | Do not use OutAttribute on string parameters for P/Invokes             |
-| CA1831 | Performance      | Warning  | Use AsSpan instead of Range-based indexers for string when appropriate |
-| CA2013 | Reliability      | Warning  | Do not use ReferenceEquals with value types                            |
-| CA2014 | Reliability      | Warning  | Do not use `stackalloc` in loops                                       |
-| CA2015 | Reliability      | Warning  | Do not define finalizers for types derived from `MemoryManager<T>`     |
-| CA2247 | Usage            | Warning  | Argument passed to `TaskCompletionSource` constructor should be `TaskCreationOptions` enum instead of `TaskContinuationOptions` |
-| CS0177 | Correctness      | Error    | track definite assignment of structs across assemblies                 |
-| CS8073 | Usage            | Warning  | warn when expression is always false or true                           |
+| Id                                                                                | Category         | Severity | Description                                                            |
+|-----------------------------------------------------------------------------------|------------------|----------|------------------------------------------------------------------------|
+| [CA1417](#do-not-use-outattribute-on-string-parameters-for-pinvokes)              | Interoperability | Warning  | Do not use OutAttribute on string parameters for P/Invokes             |
+| [CA1831](#use-asspan-instead-of-range-based-indexers-for-string-when-appropriate) | Performance      | Warning  | Use AsSpan instead of Range-based indexers for string when appropriate |
+| [CA2013](#do-not-use-referenceequals-with-value-types)                            | Reliability      | Warning  | Do not use ReferenceEquals with value types                            |
+| [CA2014](#do-not-use-stackalloc-in-loops)                                         | Reliability      | Warning  | Do not use `stackalloc` in loops                                       |
+| [CA2015](#do-not-define-finalizers-for-types-derived-from-memorymanager)          | Reliability      | Warning  | Do not define finalizers for types derived from `MemoryManager<T>`     |
+| [CA2247](#argument-passed-to-taskcompletionsource-calls-the-wrong-constructor)    | Usage            | Warning  | Argument passed to `TaskCompletionSource` calls the wrong constructor  |
+| [CS0177](#track-definite-assignment-of-structs-across-assemblies)                 | Correctness      | Error    | track definite assignment of structs across assemblies                 |
+| [CS8073](#warn-when-expression-is-always-true-or-false)                           | Usage            | Warning  | warn when expression is always false or true                           |
 
 ### All New Warnings coming in Analysis Level 5
 
 The ones in **bold** are going to be in level 5 by the time .NET 5 ships.
 
-| Id         | Category         | Severity | Description                                                            |
-|------------|------------------|----------|------------------------------------------------------------------------|
-| **CA1416** | **Interoperability** | **Warning**  | **Warn when code does not work across all platforms**       |
-| CA1417     | Interoperability | Warning  | Do not use OutAttribute on string parameters for P/Invokes             |
-| CA1831     | Performance      | Warning  | Use AsSpan instead of Range-based indexers for string when appropriate |
-| CA2013     | Reliability      | Warning  | Do not use ReferenceEquals with value types                            |
-| CA2014     | Reliability      | Warning  | Do not use `stackalloc` in loops                                       |
-| CA2015     | Reliability      | Warning  | Do not define finalizers for types derived from `MemoryManager<T>`     |
-| **CA2200** | **Usage** | **Warning**  | **Rethrow to preserve stack details**       |
-| CA2247     | Usage            | Warning  | Argument passed to `TaskCompletionSource` constructor should be `TaskCreationOptions` enum instead of `TaskContinuationOptions` |
-| CS0177     | Correctness      | Error    | track definite assignment of structs across assemblies                 |
-| **CS0185** | **Usage**       | **Warning**  | **do not allow locks on non-reference types**                     |
-| **CS7023** | **Usage**       | **Warning**  | **do not allow as or is on static types**                         |
-| CS8073     | Usage            | Warning  | warn when expression is always false or true                           |
+| Id                                                                                | Category             | Severity    | Description                                                            |
+|-----------------------------------------------------------------------------------|----------------------|-------------|------------------------------------------------------------------------|
+| [**CA1416**](#warn-when-code-does-not-work-across-all-platforms)                  | **Interoperability** | **Warning** | **Warn when code does not work across all platforms**                  |
+| [CA1417](#do-not-use-outattribute-on-string-parameters-for-pinvokes)              | Interoperability     | Warning     | Do not use OutAttribute on string parameters for P/Invokes             |
+| [CA1831](#use-asspan-instead-of-range-based-indexers-for-string-when-appropriate) | Performance          | Warning     | Use AsSpan instead of Range-based indexers for string when appropriate |
+| [CA2013](#do-not-use-referenceequals-with-value-types)                            | Reliability          | Warning     | Do not use ReferenceEquals with value types                            |
+| [CA2014](#do-not-use-stackalloc-in-loops)                                         | Reliability          | Warning     | Do not use `stackalloc` in loops                                       |
+| [CA2015](#do-not-define-finalizers-for-types-derived-from-memorymanager)          | Reliability          | Warning     | Do not define finalizers for types derived from `MemoryManager<T>`     |
+| [**CA2200**](#rethrow-to-preserve-stack-details)                                  | **Usage**            | **Warning** | **Rethrow to preserve stack details**                                  |
+| [CA2247](#argument-passed-to-taskcompletionsource-calls-the-wrong-constructor)    | Usage                | Warning     | Argument passed to `TaskCompletionSource` calls the wrong constructor  |
+| [CS0177](#track-definite-assignment-of-structs-across-assemblies)                 | Correctness          | Error       | track definite assignment of structs across assemblies                 |
+| [**CS0185**](#do-not-allow-locks-on-non-reference-types)                          | **Usage**            | **Warning** | **do not allow locks on non-reference types**                          |
+| [**CS7023**](#do-not-allow-as-or-is-on-static-types)                              | **Usage**            | **Warning** | **do not allow `as` or `is` on static types**                          |
+| [CS8073](#warn-when-expression-is-always-true-or-false)                           | Usage                | Warning     | warn when expression is always false or true                           |
 
 ## Warnings for common mistakes
 
@@ -169,6 +169,12 @@ public void M(DateTime? dateTime) // We accept a null DateTime
     }
 }
 ```
+
+### Do not allow as or is on static types
+
+### Do not allow locks on non-reference types
+
+### Rethrow to preserve stack details
 
 ### Do not use ReferenceEquals with value types
 
@@ -278,7 +284,7 @@ class DerivedClass <T> : MemoryManager<T>
 }
 ```
 
-### Argument passed to TaskCompletionSource constructor should be TaskCreationOptions enum instead of TaskContinuationOptions
+### Argument passed to `TaskCompletionSource` calls the wrong constructor
 
 For the final entry in this category:  a warning that notifies us that we've used just _slightly_ the wrong enum.
 
@@ -297,6 +303,8 @@ The fix is to pass in the correct enum type:
 ```csharp
 var tcs = new TaskCompletionSource<int>(TaskCreationOptions.RunContinuationsAsynchronously); // no warning
 ```
+
+### Warn when code does not work across all platforms
 
 ## Low level coding help
 
