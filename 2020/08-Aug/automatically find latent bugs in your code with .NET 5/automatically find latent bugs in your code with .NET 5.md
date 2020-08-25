@@ -82,7 +82,7 @@ Finally, we have `none` which means _"I want to upgrade my project to a newer ta
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5</TargetFramework>
     <!-- I am just fine thanks -->
     <AnalysisLevel>none</AnalysisLevel>
   </PropertyGroup>
@@ -115,8 +115,8 @@ The ones in **bold** are going to be in level 5 by the time .NET 5 ships. The re
 | [**CA2200**](#rethrow-to-preserve-stack-details)                                  | **Usage**            | **Warning** | **Rethrow to preserve stack details**                                  |
 | [CA2247](#argument-passed-to-taskcompletionsource-calls-the-wrong-constructor)    | Usage                | Warning     | Argument passed to `TaskCompletionSource` calls the wrong constructor  |
 | [CS0177](#track-definite-assignment-of-structs-across-assemblies)                 | Correctness          | Error       | track definite assignment of structs across assemblies                 |
-| [**CS0185**](#do-not-allow-locks-on-non-reference-types)                          | **Usage**            | **Warning** | **do not allow locks on non-reference types**                          |
-| [**CS7023**](#do-not-allow-as-or-is-on-static-types)                              | **Usage**            | **Error** | **do not allow `as` or `is` on static types**                          |
+| [**CS0185**](#do-not-allow-locks-on-non-reference-types)                          | **Correctness**      | **Error** | **do not allow locks on non-reference types**                          |
+| [**CS7023**](#do-not-allow-as-or-is-on-static-types)                              | **Correctness**      | **Error** | **do not allow `as` or `is` on static types**                          |
 | [CS8073](#warn-when-expression-is-always-true-or-false)                           | Usage                | Warning     | warn when expression is always false or true                           |
 
 ## Warnings for common mistakes
@@ -166,7 +166,7 @@ class P
 {
     bool M(object o)
     {
-        return o is Fiz; // error: cannot use a static type in 'is' or 'as'
+        return o is Fiz; // CS7023
     }
 }
 ```
@@ -196,9 +196,8 @@ public class P
 {
     public static void GetValue<TKey>(TKey key)
     {
-        lock (key) // error
+        lock (key) // CS0185
         {
-            // some code...
         }
     }
 
@@ -218,9 +217,8 @@ public class P
 {
     public static void GetValue<TKey>(TKey key) where TKey : class
     {
-        lock (key)
+        lock (key) // no error
         {
-            // some code...
         }
     }
 }
@@ -235,7 +233,7 @@ try
 }
 catch (Exception ex)
 {
-    throw ex;
+    throw ex; // CA2200
 }
 ```
 
