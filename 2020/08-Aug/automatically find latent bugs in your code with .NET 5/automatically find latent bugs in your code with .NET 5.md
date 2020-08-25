@@ -416,6 +416,88 @@ var tcs = new TaskCompletionSource<int>(TaskCreationOptions.RunContinuationsAsyn
 
 ### Warn when code does not work across all platforms
 
+This last one is a doozy! I won't go into all of its intricacies here (look forward to a future blog post on that topic). But the purpose of warnings here is to let you know that the APIs you are calling may not work on all the targets you are building for.
+
+Lets say I have an app that runs on both Linux and Windows. I have a method that I use to get the path to create log files under and it has different behavior based on where it is running.
+
+```csharp
+private static string GetLoggingPath()
+{
+    var appDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+    var loggingDirectory = Path.Combine(appDataDirectory, "Fabrikam", "AssetManagement", "Logging");
+
+    // Create the directory and restrict access using Windows
+    // Access Control Lists (ACLs).
+
+    var rules = new DirectorySecurity(); // CA1416
+    rules.AddAccessRule(
+        new FileSystemAccessRule(@"fabrikam\log-readers",
+                                    FileSystemRights.Read,
+                                    AccessControlType.Allow)
+    );
+    rules.AddAccessRule(
+        new FileSystemAccessRule(@"fabrikam\log-writers",
+                                    FileSystemRights.FullControl,
+                                    AccessControlType.Allow)
+    );
+
+    if (!OperatingSystem.IsWindows())
+    {
+        // Just create the directory
+        Directory.CreateDirectory(loggingDirectory);
+    }
+    else
+    {
+        Directory.CreateDirectory(loggingDirectory, rules);
+    }
+
+    return loggingDirectory;
+}
+```
+
+I correctly use the [OperatingSystem](https://docs.microsoft.com/dotnet/api/system.operatingsystem) helper check if the OS is windows with `OperatingSystem.IsWindows()` and only pass the rules in in that case, but I actually have already uses platform specific APIs that will not work on Linux!
+
+```cmd
+Warning CA1416: 'DirectorySecurity' is unsupported on 'Linux'
+```
+
+The correct way to handle this is to move all of my platform specific code inside the `else` statement.
+
+```csharp
+private static string GetLoggingPath()
+{
+    var appDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+    var loggingDirectory = Path.Combine(appDataDirectory, "Fabrikam", "AssetManagement", "Logging");
+
+    if (!OperatingSystem.IsWindows())
+    {
+        // Just create the directory
+        Directory.CreateDirectory(loggingDirectory);
+    }
+    else
+    {
+        // Create the directory and restrict access using Windows
+        // Access Control Lists (ACLs).
+
+        var rules = new DirectorySecurity(); // CA1416
+        rules.AddAccessRule(
+            new FileSystemAccessRule(@"fabrikam\log-readers",
+                                        FileSystemRights.Read,
+                                        AccessControlType.Allow)
+        );
+        rules.AddAccessRule(
+            new FileSystemAccessRule(@"fabrikam\log-writers",
+                                        FileSystemRights.FullControl,
+                                        AccessControlType.Allow)
+        );
+
+        Directory.CreateDirectory(loggingDirectory, rules);
+    }
+
+    return loggingDirectory;
+}
+```
+
 ## Low level coding help
 
 There are also a few warnings that are useful when writing high-performance applications. These next set of warnings ensure you don't need to sacrifice safety for these cases.
