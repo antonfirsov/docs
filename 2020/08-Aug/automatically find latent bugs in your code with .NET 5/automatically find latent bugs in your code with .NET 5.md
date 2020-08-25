@@ -100,24 +100,9 @@ Here is a simple mapping of what these shortcuts mean today:
 
 Since all .NET 5 projects will be opted into _Analysis Level 5_, let's look at some of the new warnings and suggestions that will be offered:
 
-### New Warnings in Analysis Level 5 for .NET 5 Preview 8
-
-These new warnings are available _today_ in .NET 5 Preview 8 with Visual Studio 2019 16.8 Preview 2!
-
-| Id                                                                                | Category         | Severity | Description                                                            |
-|-----------------------------------------------------------------------------------|------------------|----------|------------------------------------------------------------------------|
-| [CA1417](#do-not-use-outattribute-on-string-parameters-for-pinvokes)              | Interoperability | Warning  | Do not use OutAttribute on string parameters for P/Invokes             |
-| [CA1831](#use-asspan-instead-of-range-based-indexers-for-string-when-appropriate) | Performance      | Warning  | Use AsSpan instead of Range-based indexers for string when appropriate |
-| [CA2013](#do-not-use-referenceequals-with-value-types)                            | Reliability      | Warning  | Do not use ReferenceEquals with value types                            |
-| [CA2014](#do-not-use-stackalloc-in-loops)                                         | Reliability      | Warning  | Do not use `stackalloc` in loops                                       |
-| [CA2015](#do-not-define-finalizers-for-types-derived-from-memorymanager)          | Reliability      | Warning  | Do not define finalizers for types derived from `MemoryManager<T>`     |
-| [CA2247](#argument-passed-to-taskcompletionsource-calls-the-wrong-constructor)    | Usage            | Warning  | Argument passed to `TaskCompletionSource` calls the wrong constructor  |
-| [CS0177](#track-definite-assignment-of-structs-across-assemblies)                 | Correctness      | Error    | track definite assignment of structs across assemblies                 |
-| [CS8073](#warn-when-expression-is-always-true-or-false)                           | Usage            | Warning  | warn when expression is always false or true                           |
-
 ### All New Warnings coming in Analysis Level 5
 
-The ones in **bold** are going to be in level 5 by the time .NET 5 ships.
+The ones in **bold** are going to be in level 5 by the time .NET 5 ships. The rest are new warnings are available _today_ in .NET 5 Preview 8 with Visual Studio 2019 16.8 Preview 2!
 
 | Id                                                                                | Category             | Severity    | Description                                                            |
 |-----------------------------------------------------------------------------------|----------------------|-------------|------------------------------------------------------------------------|
@@ -131,7 +116,7 @@ The ones in **bold** are going to be in level 5 by the time .NET 5 ships.
 | [CA2247](#argument-passed-to-taskcompletionsource-calls-the-wrong-constructor)    | Usage                | Warning     | Argument passed to `TaskCompletionSource` calls the wrong constructor  |
 | [CS0177](#track-definite-assignment-of-structs-across-assemblies)                 | Correctness          | Error       | track definite assignment of structs across assemblies                 |
 | [**CS0185**](#do-not-allow-locks-on-non-reference-types)                          | **Usage**            | **Warning** | **do not allow locks on non-reference types**                          |
-| [**CS7023**](#do-not-allow-as-or-is-on-static-types)                              | **Usage**            | **Warning** | **do not allow `as` or `is` on static types**                          |
+| [**CS7023**](#do-not-allow-as-or-is-on-static-types)                              | **Usage**            | **Error** | **do not allow `as` or `is` on static types**                          |
 | [CS8073](#warn-when-expression-is-always-true-or-false)                           | Usage                | Warning     | warn when expression is always false or true                           |
 
 ## Warnings for common mistakes
@@ -172,9 +157,104 @@ public void M(DateTime? dateTime) // We accept a null DateTime
 
 ### Do not allow as or is on static types
 
+```csharp
+static class Fiz
+{
+}
+
+class P
+{
+    bool M(object o)
+    {
+        return o is Fiz; // error: cannot use a static type in 'is' or 'as'
+    }
+}
+```
+
+```cmd
+Warning CS7023 The second operand of an 'is' or 'as' operator may not be static type 'KeyValuePair'
+```
+
+```csharp
+class Fiz
+{
+}
+
+class P
+{
+    bool M(object o)
+    {
+        return o is Fiz; // no error
+    }
+}
+```
+
 ### Do not allow locks on non-reference types
 
+```csharp
+public class P
+{
+    public static void GetValue<TKey>(TKey key)
+    {
+        lock (key) // error
+        {
+            // some code...
+        }
+    }
+
+    static void Main()
+    {
+        GetValue(1);
+    }
+}
+```
+
+```cmd
+Error CS0185 'TKey' is not a reference type as required by the lock statement
+```
+
+```csharp
+public class P
+{
+    public static void GetValue<TKey>(TKey key) where TKey : class
+    {
+        lock (key)
+        {
+            // some code...
+        }
+    }
+}
+```
+
 ### Rethrow to preserve stack details
+
+```csharp
+try
+{
+    throw new Exception();
+}
+catch (Exception ex)
+{
+    throw ex;
+}
+```
+
+```cmd
+Warning CA2200 Re-throwing caught exception changes stack information
+```
+
+```csharp
+try
+{
+    throw new Exception();
+}
+catch (Exception ex)
+{
+    throw;
+}
+```
+
+![Code fix to Rethrow](ReThrowCodeFix.png)
 
 ### Do not use ReferenceEquals with value types
 
