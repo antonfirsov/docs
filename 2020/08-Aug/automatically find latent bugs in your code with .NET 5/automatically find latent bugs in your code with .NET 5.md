@@ -4,11 +4,11 @@ username: jmarolf@microsoft.com
 summary: Introduction to the new Analysis Level feature shipping in .NET 5 Preview 8.
 ---
 
-In the past, we’ve been reluctant to add new warnings to C#. This is because adding new warnings is technically a breaking change for users who have warnings set as errors. However, there are a lot of cases we’ve come across over the years where we also _really_ want to warn people that something was wrong, ranging from common coding mistakes to common API misuse patterns.
+In the past, we’ve been reluctant to add new warnings to C#. This is because adding new warnings is technically a breaking change for users who have warnings set as errors. However, there are a lot of cases we’ve come across over the years where we also really want to warn people that something was wrong, ranging from common coding mistakes to common API misuse patterns.
 
 Starting with .NET 5, we're introducing what we're calling "Analysis Levels" in the C# compiler to introduce warnings for these patterns in a safe way. The default Analysis Level for all projects targeting .NET 5 will be set to 5, meaning that more warnings (and suggestions to fix them) will be introduced.
 
-Lets talk about what the possible values for analysis level mean in your project. Unless you override the default Analysis Level is set based on your target framework:
+Let’s talk about what the possible values for analysis level mean in your project. First thing we should note: unless you override the default, Analysis Level is set based on your target framework:
 
 | Target Framework              | Default Analysis Level  |
 |-------------------------------|-------------------------|
@@ -17,7 +17,7 @@ Lets talk about what the possible values for analysis level mean in your project
 | `netstandard2.1` or lower     | 4                       |
 | `.NET Framwwork 4.8` or lower | 4                       |
 
-However what about the number 0-3? here is a more detailed breakdown of what each analysis level value means
+However, what about the numbers 0-3? here is a more detailed breakdown of what each analysis level value means
 
 | Analysis Level | Effect On C# Compiler | Advanced Platform API Analysis |
 |----------------|--------|--------|
@@ -28,9 +28,10 @@ However what about the number 0-3? here is a more detailed breakdown of what eac
 | 1              | identical to passing `-warn:1` to the C# compiler in previous versions | No |
 | 0              | identical to passing `-warn:0` to the C# compiler in previous versions, turns off all emission of warnings |  No |
 
-Since Analysis Levels are tied to the target framework of your project unless you change what your code targets you will never change your default analysis level. However you can also manually set your analysis level per project if you want. For example, even if we are targeting .NET Core App 3.1 (and therefore have analysis level defaulted to 4) we can still opt into a higher level.
+Since Analysis Levels are tied to the target framework of your project, unless you change what your code targets you will never change your default analysis level. You can manually set your analysis level though. For example, even if we are targeting .NET Core App 3.1 (and therefore have analysis level defaulted to 4) we can still opt into a higher level.
 
 Here is an example of doing that:
+
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
 
@@ -45,6 +46,7 @@ Here is an example of doing that:
 ```
 
 If you always want to be on the highest supported analysis level you can specify `latest` in your project file:
+
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
 
@@ -59,6 +61,7 @@ If you always want to be on the highest supported analysis level you can specify
 ```
 
 If you are _very_ adventurous and want to try out experimental compiler and platform analysis you can specify `preview` to get the latest, cutting-edge code diagnostics.
+
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
 
@@ -72,7 +75,7 @@ If you are _very_ adventurous and want to try out experimental compiler and plat
 </Project>
 ```
 
-Finally we have `none` which means "I want to upgrade my project to a newer target but do not want to opt into more advanced analysis." This will give you the same compiler warnings you have been seeing in your project up until now
+Finally, we have `none` which means _"I want to upgrade my project to a newer target but do not want to opt into more advanced analysis."_ This will give you the same compiler warnings you have been seeing in your project up until now
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
@@ -87,7 +90,7 @@ Finally we have `none` which means "I want to upgrade my project to a newer targ
 </Project>
 ```
 
-Here is a simple mapping of how these shortcuts map today:
+Here is a simple mapping of what these shortcuts mean today:
 
 | Short Name | Analysis Level  |
 |------------|-----------------|
@@ -96,7 +99,7 @@ Here is a simple mapping of how these shortcuts map today:
 | `none`     | 4               |
 
 
-Since all .NET 5 projects will be opted into _Analysis Level 5_, let’s take a look at some of the new warnings and suggestions that will be offered:
+Since all .NET 5 projects will be opted into _Analysis Level 5_, let’s look at some of the new warnings and suggestions that will be offered:
 
 ### New Warnings in Analysis Level 5 for .NET 5 Preview 8
 
@@ -131,7 +134,6 @@ The ones in **bold** are going to be in level 5 by the time .NET 5 ships.
 | **CS0185** | **Usage**       | **Warning**  | **do not allow locks on non-reference types**                     |
 | **CS7023** | **Usage**       | **Warning**  | **do not allow as or is on static types**                         |
 | CS8073     | Usage            | Warning  | warn when expression is always false or true                           |
-
 
 ## Warnings for common mistakes
 
