@@ -4,7 +4,7 @@ username: jmarolf@microsoft.com
 summary: Introduction to the new Analysis Level feature shipping in .NET 5 Preview 8.
 ---
 
-It's an exciting time to be writing code! Especially for .NET as the platform just keeps getting smarter and smarter. We are now including more advanced analysis in the SDK by default! In the past you would need to install NuGet packages or other stand-alone tools to get more code analysis. Now everything is being built directly into the .NET SDK!
+It's an exciting time to be writing code! Especially for .NET as the platform just keeps getting smarter and smarter. We are now including more advanced analysis in the SDK by default! Before you would need to install NuGet packages or other stand-alone tools to get more code analysis. Now everything is being built directly into the .NET SDK!
 
 In the past, we've been reluctant to add new warnings to C#. This is because adding new warnings is technically a source breaking change for users who have warnings set as errors. However, there are a lot of cases we've come across over the years where we also really want to warn people that something was wrong, ranging from common coding mistakes to common API misuse patterns.
 
@@ -134,7 +134,7 @@ The ones in **bold** are going to be in level 5 by the time .NET 5 ships. The re
 | [**CS7023**](#do-not-allow-as-or-is-on-static-types)                              | **Correctness**      | **Error** | **do not allow `as` or `is` on static types**                          |
 | [CS8073](#warn-when-expression-is-always-true-or-false)                           | Usage                | Warning     | warn when expression is always false or true                           |
 
-## Warnings for common mistakes
+## Warnings and Errors for common mistakes
 
 The first set of new warnings are intended to find latent bugs, often in larger codebases. These can be very easy to introduce without additional compiler analysis today.
 
