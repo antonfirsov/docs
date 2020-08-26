@@ -154,7 +154,7 @@ public void M(DateTime dateTime)
 
 `DateTime` is a `struct` and `struct`s cannot be `null`. Starting in .NET 5 we will warn about this case with `CS8073`. The warning message is:
 
-```cmd
+```
 Warning CS8073: The result of the expression is always 'false' since the value of type 'DateTime' is never equal to 'null' of type 'DateTime?'
 ```
 
@@ -190,7 +190,7 @@ class P
 
 Because class `Fiz` is a static class an instance object like `o` will never be able to be an instance of this type. We will get this warning:
 
-```cmd
+```
 Warning CS7023 The second operand of an 'is' or 'as' operator may not be static type 'Fiz'
 ```
 
@@ -233,7 +233,7 @@ public class P
 
 This is an error because passing in an int (which is allowed under this unconstrained generic) will actually lock correctly. We'll see this error:
 
-```cmd
+```
 Error CS0185 'TKey' is not a reference type as required by the lock statement
 ```
 
@@ -271,11 +271,11 @@ catch (Exception ಠ_ಠ)
 
 In school I learned that if someone threw the ball at me and I caught it, I had to throw the ball back! Metaphors like this lead lots of folks to believe that `throw ex` is the correct way to re-throw this exception. Sadly, this will change the stacks in the original exception. Now you will get a warning that this is happening. It looks like this:
 
-```cmd
+```
 Warning CA2200 Re-throwing caught exception changes stack information
 ```
 
-In nearly all cases the correct thing to do here is to simply use the `thow` keyword without mentioning the variable of the exception we caught.
+In nearly all cases the correct thing to do here is to simply use the `throw` keyword without mentioning the variable of the exception we caught.
 
 ```csharp
 try
@@ -306,7 +306,7 @@ Console.WriteLine(object.ReferenceEquals(int1, int2)); // warning CA2013
 
 This will box the two `int`s and `ReferenceEquals` will always return false as a result. We will see this warning description:
 
-```cmd
+```
 Warning CA2013: Do not pass an argument with value type 'int' to 'ReferenceEquals'. Due to value boxing, this call to 'ReferenceEquals' will always return 'false'.
 ```
 
@@ -336,7 +336,7 @@ class P
 
 This rule is all about [definite assignment](https://docs.microsoft.com/dotnet/csharp/language-reference/language-specification/variables#definite-assignment), a useful feature in C# that makes sure you don't forget to assign values to your variables.
 
-```cmd
+```
 Error CS0177: The out parameter 'immutableArray' must be assigned to before control leaves the current method
 ```
 
@@ -381,7 +381,7 @@ class DerivedClass <T> : MemoryManager<T>
 
 Adding a finalizer to this type can introduce holes in the garbage collector, which we all would prefer to avoid!
 
-```cmd
+```
 Warning CA2015 Adding a finalizer to a type derived from MemoryManager<T> may permit memory to be freed while it is still in use by a Span<T>.
 ```
 
@@ -412,7 +412,7 @@ var tcs = new TaskCompletionSource<int>(TaskContinuationOptions.RunContinuations
 
 Unless you are already aware of the issue you may stare at this for a bit before you see it. The problem is that this constructor does not take a `TaskContinuationOptions` enum it takes a `TaskCreationOptions` enum. What is happening is that we are calling the constructor for `TaskCompletionSource` that accepts `object`! Considering how similar their names are and that they have very similar values this mistake is easy to make.
 
-```cmd
+```
 Warning CA2247: Argument contains TaskContinuationsOptions enum instead of TaskCreationOptions enum.
 ```
 
@@ -465,7 +465,7 @@ private static string GetLoggingPath()
 
 I correctly use the [OperatingSystem](https://docs.microsoft.com/dotnet/api/system.operatingsystem) helper check if the OS is windows with `OperatingSystem.IsWindows()` and only pass the rules in in that case, but I actually have already uses platform specific APIs that will not work on Linux!
 
-```cmd
+```
 Warning CA1416: 'DirectorySecurity' is unsupported on 'Linux'
 ```
 
@@ -521,7 +521,7 @@ private static extern void Goo([Out] string s); // warning CA1417
 
 Unless you are very familiar with writing P/Invokes, it's not obvious what is wrong here. You normally apply `OutAttribute` to types that the runtime doesn't know about to indicate how the type should be marshaled. The `OutAttribute` implies that you are passing the data by value. It doesn't make sense for strings to be passed by value though and has the potential to crash the runtime.
 
-```cmd
+```
 Warning CA1417 Do not use the 'OutAttribute' for string parameter 's' which is passed by value. If marshalling of modified data back to the caller is required, use the 'out' keyword to pass the string by reference instead.
 ```
 
@@ -555,7 +555,7 @@ class Program
 
 In the code sample, it's clear that the intent is to index a string using the new [range-based index](https://docs.microsoft.com/dotnet/csharp/language-reference/proposals/csharp-8.0/ranges) feature in C#. Unfortunately, this will actually allocate a string unless you convert that string to a span first.
 
-```cmd
+```
 Warning CA1831 Use 'AsSpan' instead of the 'System.Range'-based indexer on 'string' to avoid creating unnecessary data copies
 ```
 
@@ -592,7 +592,7 @@ class C
 
 Allocating a lot on the stack can lead to the famous StackOverflow exception, where we've allocated more memory on the stack than allowed. Allocating in a loop is especially perilous.
 
-```cmd
+```
 Warning CA2014 Potential stack overflow. Move the stackalloc out of the loop.
 ```
 
