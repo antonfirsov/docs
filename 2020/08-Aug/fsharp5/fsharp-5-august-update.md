@@ -1,6 +1,6 @@
 # F# 5 update for August
 
-We’re excited to announce more updates to F# 5 today to go alongside [.NET 5 preview 8](https://devblogs.microsoft.com/dotnet/announcing-net-5-0-preview-8/)! We shipped various updates since the beginning of this year:
+We’re excited to announce more updates to F# 5 today to go alongside [.NET 5 preview 8](https://devblogs.microsoft.com/dotnet/announcing-net-5-0-preview-8/)! We've shipped various updates since the beginning of this year:
 
 * [F# 5 preview 1](https://devblogs.microsoft.com/dotnet/announcing-f-5-preview-1/)
 * [F# 5 update for .NET 5 preview 5](https://devblogs.microsoft.com/dotnet/f-5-update-for-net-5-preview-4/)
@@ -131,7 +131,7 @@ printfn "%s" (nameof M.f)
 <script src="https://gist.github.com/cartermp/678dc8cde08565cbbb9726a0e65ffbdd.js"></script>
 ```
 
-Three final additions are changes to how operators work, the addition of the `nameof<'type-parameter>` form for generic type parameters, and the ability to use `nameof` as a pattern in a pattern match expression.
+Three final additions are changes to how operators work: the addition of the `nameof<'type-parameter>` form for generic type parameters, and the ability to use `nameof` as a pattern in a pattern match expression.
 
 ```fsharp
 
@@ -163,7 +163,7 @@ let deserialize (e: RecordedEvent) : MyEvent =
 
 The `nameof<'type-parameter>` form aligns with how `typeof` and `typedefof` work in F# today.
 
-### Open Type declarations
+## Open Type declarations
 
 This preview also adds Open Type Declarations. It's like Open Static Classes in C#, except with some different syntax and some slightly different behavior to fit F# semantics.
 
