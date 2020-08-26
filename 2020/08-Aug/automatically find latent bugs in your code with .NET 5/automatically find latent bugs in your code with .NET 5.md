@@ -140,7 +140,7 @@ The first set of new warnings are intended to find latent bugs, often in larger 
 
 ### Warn when expression is always true or false
 
-The first new warning is extremely common. Consider the following code:
+This new warning is extremely common. Consider the following code:
 
 ```csharp
 public void M(DateTime dateTime)
@@ -158,7 +158,7 @@ public void M(DateTime dateTime)
 Warning CS8073: The result of the expression is always 'false' since the value of type 'DateTime' is never equal to 'null' of type 'DateTime?'
 ```
 
-It might seem rather obvious what this code is doing is unnecessary in isolation but consider that such a check might occur in a method with 10 parameters to validate. To fix this you can remove the code (since its always false it's not doing anything anyways), or change its type to `DateTime?` if `null` is an intended value for the parameter
+It might seem rather obvious what this code is doing is unnecessary in isolation but consider that such a check might occur in a method with 10 parameters to validate. To fix this you can remove the code (since its always false it's not doing anything anyways), or change its type to `DateTime?` if `null` is an intended value for the parameter.
 
 ```csharp
 public void M(DateTime? dateTime) // We accept a null DateTime
@@ -231,7 +231,7 @@ public class P
 }
 ```
 
-This is an error because passing in an int (which is allowed under this unconstrained generic) will actually lock correctly. We'll see this error:
+This is an error because passing in an int (which is allowed under this unconstrained generic) will not actually lock correctly. We'll see this error:
 
 ```
 Error CS0185 'TKey' is not a reference type as required by the lock statement
@@ -292,7 +292,7 @@ catch (Exception ಠ_ಠ)
 ```
 
 We also offer a code fix to easily fix up all of these at once in your document, project, or solution!
-![Code fix to Rethrow](ReThrowCodeFix.png)
+![Code fix for Rethrow](ReThrowCodeFix.png)
 
 ### Do not use ReferenceEquals with value types
 
@@ -398,13 +398,12 @@ class DerivedClass <T> : MemoryManager<T>
         }
     }
  // No warning, since there is no finalizer here
-
 }
 ```
 
 ### Argument passed to `TaskCompletionSource` calls the wrong constructor
 
-For the final entry in this category:  a warning that notifies us that we've used just _slightly_ the wrong enum.
+This warning notifies us that we've used just _slightly_ the wrong enum.
 
 ```csharp
 var tcs = new TaskCompletionSource<int>(TaskContinuationOptions.RunContinuationsAsynchronously); // warning CA2247
@@ -469,7 +468,7 @@ I correctly use the [OperatingSystem](https://docs.microsoft.com/dotnet/api/syst
 Warning CA1416: 'DirectorySecurity' is unsupported on 'Linux'
 ```
 
-The correct way to handle this is to move all of my platform specific code inside the `else` statement.
+The correct way to handle this is to move all my platform specific code inside the `else` statement.
 
 ```csharp
 private static string GetLoggingPath()
@@ -615,7 +614,7 @@ class C
 
 ## Configuring Analysis Levels
 
-Now that you've seen how useful these warnings are you probably never want to go back to a world without them right? Well I know that the world doesn't always work that way. As mentioned at the beginning of this post, these are breaking changes and you should be able to take them on in a schedule that makes sense to you. Part of the reason we're introducing this now is to get feedback in two areas:
+Now that you've seen how useful these warnings are you probably never want to go back to a world without them right? Well I know that the world doesn't always work that way. As mentioned at the beginning of this post, these are breaking changes, and you should be able to take them on in a schedule that makes sense to you. Part of the reason we're introducing this now is to get feedback in two areas:
 
 1. If the small set of warnings we're introducing is too disruptive or not
 2. If the mechanism for tuning the warnings is sufficient for your needs
