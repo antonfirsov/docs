@@ -4,7 +4,7 @@ username: jmarolf@microsoft.com
 summary: Introduction to the new Analysis Level feature shipping in .NET 5 Preview 8.
 ---
 
-It's an exciting time to be writing code! Especially for .NET as the platform just keeps getting smarter and smarter. We are now including more advanced analysis in the SDK by default! Before you would need to install NuGet packages or other stand-alone tools to get more code analysis. Now everything is being built directly into the .NET SDK!
+It's an exciting time to be writing code! Especially for .NET developers as the platform keeps getting smarter. We now include rich diagnostics and refactoring in the .NET SDK by default. Before you would need to install NuGet packages or other stand-alone tools to get more code analysis. Now, you will automatically get diagnostics and refactorings to use new language features, correcting typos, and addressing API misuse patterns in-order to help you write better quality code.
 
 In the past, we've been reluctant to add new warnings to C#. This is because adding new warnings is technically a source breaking change for users who have warnings set as errors. However, there are a lot of cases we've come across over the years where we also really want to warn people that something was wrong, ranging from common coding mistakes to common API misuse patterns.
 
