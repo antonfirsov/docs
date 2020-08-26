@@ -4,6 +4,8 @@ username: jmarolf@microsoft.com
 summary: Introduction to the new Analysis Level feature shipping in .NET 5 Preview 8.
 ---
 
+Its an exciting time to be writing code! Especially for .NET as the platform just keeps getting smarter and smarter. We are now including more advanced analysis in the SDK by default! In the past you would need to install nuget packages or other stand-alone tools to get more code analysis. Now everything is being built directly into the .NET SDK!
+
 In the past, we've been reluctant to add new warnings to C#. This is because adding new warnings is technically a source breaking change for users who have warnings set as errors. However, there are a lot of cases we've come across over the years where we also really want to warn people that something was wrong, ranging from common coding mistakes to common API misuse patterns.
 
 Starting with .NET 5, we're introducing what we're calling "Analysis Levels" in the C# compiler to introduce warnings for these patterns in a safe way. The default Analysis Level for all projects targeting .NET 5 will be set to 5, meaning that more warnings (and suggestions to fix them) will be introduced.
