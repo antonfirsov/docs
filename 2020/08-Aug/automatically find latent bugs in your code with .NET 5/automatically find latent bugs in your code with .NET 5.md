@@ -115,7 +115,7 @@ In the future we will add a new Analysis Level for every release of .NET. So abo
 
 Since all .NET 5 projects will be opted into _Analysis Level 5_, let's look at some of the new warnings and suggestions that will be offered:
 
-### All New Warnings coming in Analysis Level 5
+### All New Warnings and Errors coming in Analysis Level 5
 
 The ones in **bold** are going to be in level 5 by the time .NET 5 ships. The rest are new warnings are available _today_ in .NET 5 Preview 8 with Visual Studio 2019 16.8 Preview 2!
 
