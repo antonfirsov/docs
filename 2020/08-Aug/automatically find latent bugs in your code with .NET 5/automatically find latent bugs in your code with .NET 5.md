@@ -4,7 +4,7 @@ username: jmarolf@microsoft.com
 summary: Introduction to the new Analysis Level feature shipping in .NET 5 Preview 8.
 ---
 
-Its an exciting time to be writing code! Especially for .NET as the platform just keeps getting smarter and smarter. We are now including more advanced analysis in the SDK by default! In the past you would need to install nuget packages or other stand-alone tools to get more code analysis. Now everything is being built directly into the .NET SDK!
+It's an exciting time to be writing code! Especially for .NET as the platform just keeps getting smarter and smarter. We are now including more advanced analysis in the SDK by default! In the past you would need to install NuGet packages or other stand-alone tools to get more code analysis. Now everything is being built directly into the .NET SDK!
 
 In the past, we've been reluctant to add new warnings to C#. This is because adding new warnings is technically a source breaking change for users who have warnings set as errors. However, there are a lot of cases we've come across over the years where we also really want to warn people that something was wrong, ranging from common coding mistakes to common API misuse patterns.
 
@@ -104,7 +104,7 @@ You can also configure the analysis level for a project from within Visual Studi
 
 ![Configure Analysis Level in Visual Studio](PropertyPage.png)
 
-In the future we will add a new Analysis Level for every release of .NET. So about a year from now when we are getting ready to release .NET 6 we'll add (you guessed it!) analysis level 6. Once we've arrived at that distance future shore the short names would have these new meanings:
+In the future we will add a new Analysis Level for every release of .NET. So, about a year from now when we are getting ready to release .NET 6 we'll add (you guessed it!) analysis level 6. Once we've arrived at that distance future shore the short names would have these new meanings:
 
 
 | Short Name | Analysis Level  |
@@ -158,7 +158,7 @@ public void M(DateTime dateTime)
 Warning CS8073: The result of the expression is always 'false' since the value of type 'DateTime' is never equal to 'null' of type 'DateTime?'
 ```
 
-It might seem rather obvious what this code is doing is unnecessary in isolation, but consider that such a check might occur in a method with 10 parameters to validate. To fix this you can remove the code (since its always false it's not doing anything anyways), or change its type to `DateTime?` if `null` is an intended value for the parameter
+It might seem rather obvious what this code is doing is unnecessary in isolation but consider that such a check might occur in a method with 10 parameters to validate. To fix this you can remove the code (since its always false it's not doing anything anyways), or change its type to `DateTime?` if `null` is an intended value for the parameter
 
 ```csharp
 public void M(DateTime? dateTime) // We accept a null DateTime
@@ -194,7 +194,7 @@ Because class `Fiz` is a static class an instance object like `o` will never be 
 Warning CS7023 The second operand of an 'is' or 'as' operator may not be static type 'Fiz'
 ```
 
-The fix for this is either to refactor our code (maybe we are actually checking against the wrong type to begin with). Or to make the class `Fiz` non-static:
+The fix for this is to refactor our code (maybe we are actually checking against the wrong type to begin with), or to make the class `Fiz` non-static:
 
 ```csharp
 class Fiz
@@ -253,7 +253,7 @@ public class P
 
 ### Rethrow to preserve stack details
 
-We're all good (?) developers so our code never throws exceptions right? Well even the best developers need to handle exceptions in .NET and one of the common pitfalls new programmers fall into is this:
+We're all good (?) developers so our code never throws exceptions, right? Well even the best developers need to handle exceptions in .NET and one of the common pitfalls new programmers fall into is this:
 
 ```csharp
 try
@@ -269,7 +269,7 @@ catch (Exception ಠ_ಠ)
 }
 ```
 
-In school I learned that if someone threw the ball at me and I caught it, I had to throw the ball back! Metaphors like this lead lots of folks to believe that `throw ex` is the correct way to re-throw this exception. Sadly this will change the stacks in the original exception. Now you will get a warning that this is happening. It looks like this:
+In school I learned that if someone threw the ball at me and I caught it, I had to throw the ball back! Metaphors like this lead lots of folks to believe that `throw ex` is the correct way to re-throw this exception. Sadly, this will change the stacks in the original exception. Now you will get a warning that this is happening. It looks like this:
 
 ```cmd
 Warning CA2200 Re-throwing caught exception changes stack information
@@ -379,7 +379,7 @@ class DerivedClass <T> : MemoryManager<T>
 }
 ```
 
-Adding a finalizer to this type can introduce GC holes, which we all would prefer to avoid!
+Adding a finalizer to this type can introduce holes in the garbage collector, which we all would prefer to avoid!
 
 ```cmd
 Warning CA2015 Adding a finalizer to a type derived from MemoryManager<T> may permit memory to be freed while it is still in use by a Span<T>.
@@ -410,7 +410,7 @@ For the final entry in this category:  a warning that notifies us that we've use
 var tcs = new TaskCompletionSource<int>(TaskContinuationOptions.RunContinuationsAsynchronously); // warning CA2247
 ```
 
-Unless you are already aware of the issue you may stare at this for a bit before you see it. The problem is that this constructor does not take a `TaskContinuationOptions` enum it takes a `TaskCreationOptions` enum. What is actually happening is that we are calling the constructor for `TaskCompletionSource` that accepts `object`! Considering how similar their names are and that they have very similar values this mistake is easy to make.
+Unless you are already aware of the issue you may stare at this for a bit before you see it. The problem is that this constructor does not take a `TaskContinuationOptions` enum it takes a `TaskCreationOptions` enum. What is happening is that we are calling the constructor for `TaskCompletionSource` that accepts `object`! Considering how similar their names are and that they have very similar values this mistake is easy to make.
 
 ```cmd
 Warning CA2247: Argument contains TaskContinuationsOptions enum instead of TaskCreationOptions enum.
@@ -424,9 +424,9 @@ var tcs = new TaskCompletionSource<int>(TaskCreationOptions.RunContinuationsAsyn
 
 ### Warn when code does not work across all platforms
 
-This last one is a doozy! I won't go into all of its intricacies here (look forward to a future blog post on that topic). But the purpose of warnings here is to let you know that the APIs you are calling may not work on all the targets you are building for.
+This last one is a doozy! I won't go into all its intricacies here (look forward to a future blog post on that topic). But the purpose of warnings here is to let you know that the APIs you are calling may not work on all the targets you are building for.
 
-Lets say I have an app that runs on both Linux and Windows. I have a method that I use to get the path to create log files under and it has different behavior based on where it is running.
+Let's say I have an app that runs on both Linux and Windows. I have a method that I use to get the path to create log files under and it has different behavior based on where it is running.
 
 ```csharp
 private static string GetLoggingPath()
@@ -519,7 +519,7 @@ Sometimes you need to interoperate with native code. .NET has the concept of pla
 private static extern void Goo([Out] string s); // warning CA1417
 ```
 
-Unless you are very familiar with writing P/Invokes, it's not obvious what is wrong here. You normally apply `OutAttribute` to types that the runtime doesn't know about to indicate how the type should be marshaled. The `OutAttribute` implies that you are passing the data by value. It doesn't make sense for strings to be passed by value though, and has the potential to crash the runtime.
+Unless you are very familiar with writing P/Invokes, it's not obvious what is wrong here. You normally apply `OutAttribute` to types that the runtime doesn't know about to indicate how the type should be marshaled. The `OutAttribute` implies that you are passing the data by value. It doesn't make sense for strings to be passed by value though and has the potential to crash the runtime.
 
 ```cmd
 Warning CA1417 Do not use the 'OutAttribute' for string parameter 's' which is passed by value. If marshalling of modified data back to the caller is required, use the 'out' keyword to pass the string by reference instead.
