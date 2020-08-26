@@ -643,7 +643,7 @@ If there is a specific warning that you believe is not applicable to your codeba
 
 ![Set Severity From Error List](SetSeverityFromErrorList.png)
 
-Or by selecting "none" from the lightbulb menu where the warning appears in the editor
+Or by selecting 'none' from the lightbulb menu where the warning appears in the editor
 
 ![Set Severity From Lightbulb](SetSeverityFromLightbulb.png)
 
