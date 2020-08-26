@@ -172,6 +172,8 @@ public void M(DateTime? dateTime) // We accept a null DateTime
 
 ### Do not allow as or is on static types
 
+This next one is a nice little enhancement:
+
 ```csharp
 static class Fiz
 {
@@ -186,9 +188,13 @@ class P
 }
 ```
 
+Because class `Fiz` is a static class an instance object like `o` will never be able to be an instance of this type. We will get this warning:
+
 ```cmd
-Warning CS7023 The second operand of an 'is' or 'as' operator may not be static type 'KeyValuePair'
+Warning CS7023 The second operand of an 'is' or 'as' operator may not be static type 'Fiz'
 ```
+
+The fix for this is either to refactor our code (maybe we are actually checking against the wrong type to begin with). Or to make the class `Fiz` non-static:
 
 ```csharp
 class Fiz
