@@ -639,7 +639,7 @@ If you just want to go back to the way things were before .NET 5 (meaning the wa
 
 ### Turning off just a single rule
 
-If there is a specific warning that you believe is not applicable to your codebase you can use an [editorconfig file](https://docs.microsoft.com/visualstudio/code-quality/configure-fxcop-analyzers) to turn it off for your codebase. You can do this by either setting the severity of the warning to 'none' from the error list.
+If there is a specific warning that you believe is not applicable to your codebase you can use an [editorconfig file](https://docs.microsoft.com/visualstudio/ide/create-portable-custom-editor-options) to turn it off for your codebase. You can do this by either setting the severity of the warning to 'none' from the error list.
 
 ![Set Severity From Error List](SetSeverityFromErrorList.png)
 
