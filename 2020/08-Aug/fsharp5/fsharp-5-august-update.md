@@ -208,22 +208,21 @@ type InputOptions =
     Validators : (string -> bool) array }
 
 type InputBuilder() =
-
     member t.Yield(_) =
       { Label = None
         Kind = Text None
         Validators = [||] }
 
     [<CustomOperation("text")>]
-    member this.Text(io,?placeholder) =
+    member this.Text(io, ?placeholder) =
         { io with Kind = Text placeholder }
 
     [<CustomOperation("password")>]
-    member this.Password(io,?placeholder) =
+    member this.Password(io, ?placeholder) =
         { io with Kind = Password placeholder }
 
     [<CustomOperation("label")>]
-    member this.Label(io,label) = 
+    member this.Label(io, label) =
         { io with Label = Some label }
 
     [<CustomOperation("with_validators")>]
@@ -233,31 +232,31 @@ type InputBuilder() =
 let input = InputBuilder()
 
 let name =
-  input {
+    input {
     label "Name"
     text
     with_validators
         (String.IsNullOrWhiteSpace >> not)
-  }
+    }
 
 let email =
-  input {
+    input {
     label "Email"
     text "Your email"
     with_validators
         (String.IsNullOrWhiteSpace >> not)
         (fun s -> s.Contains "@")
-  }
+    }
 
 let password =
-  input {
+    input {
     label "Password"
     password "Must contains at least 6 characters, one number and one uppercase"
     with_validators
         (String.exists Char.IsUpper)
         (String.exists Char.IsDigit)
         (fun s -> s.Length >= 6)
-  }
+    }
 ```
 
 ```html
@@ -294,7 +293,7 @@ iaString.Get() // "hello"
 
 ## Finishing F# 5
 
-Now that we're feature complete for F# 5, modulo a tweak here or there, we're going to shift our focus:
+Now that we're feature complete for F# 5, minus a tweak here or there, we're going to shift our focus:
 
 * Ensure F# 5 features are of high quality and do not introduce any problems
 * Address bug fixes and high-priority feedback items for F# 5
