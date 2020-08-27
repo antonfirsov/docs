@@ -13,12 +13,13 @@ Starting with .NET 5, we're introducing what we're calling `AnalysisLevel` in th
 Let's talk about what the possible values for `AnalysisLevel` mean in your project. First thing we should note: unless you override the default, `AnalysisLevel` is set based on your target framework:
 
 
-| Target Framework              | Default Analysis Level  |
+| Target Framework              | Default for `AnalysisLevel`  |
 |-------------------------------|-------------------------|
 | `net5.0`                      | 5                       |
 | `netcoreapp3.1` or lower      | 4                       |
 | `netstandard2.1` or lower     | 4                       |
 | `.NET Framework 4.8` or lower | 4                       |
+
 
 However, what about the numbers 0-3? here is a more detailed breakdown of what each analysis level value means
 
