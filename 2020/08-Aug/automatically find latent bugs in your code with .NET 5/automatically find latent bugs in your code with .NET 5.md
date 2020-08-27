@@ -67,6 +67,7 @@ If you always want to be on the highest supported analysis level you can specify
 
 If you are _very_ adventurous and want to try out experimental compiler and platform analysis you can specify `preview` to get the latest, cutting-edge code diagnostics.
 
+Please note that when you use `latest` or `preview, the analysis results might vary between machines, depending on the available SDK and the highest analysis level it offers.
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
 
