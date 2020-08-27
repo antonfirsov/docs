@@ -105,11 +105,6 @@ You can also configure the analysis level for a project from within Visual Studi
 In the future we will add a new analysis level for every release of .NET. The goal is to make sure that a given analysis level always represents the same set of analysis defaults (the rules and their severities). If we want to turn an existing rule on by default, we'll do this in an upcoming analysis level, instead of changing the existing level. This ensures that a given project/source always produces the same warning, regardless of how new the SDK is (unless the project uses `preview` or `latest`, of course).
 
 
-| Short Name | Analysis Level  |
-|------------|-----------------|
-| `preview`  | 7               |
-| `latest`   | 6               |
-| `none`     | 4               |
 
 Since all .NET 5 projects will be opted into _Analysis Level 5_, let's look at some of the new warnings and suggestions that will be offered:
 
