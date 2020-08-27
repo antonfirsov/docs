@@ -102,7 +102,7 @@ You can also configure the analysis level for a project from within Visual Studi
 
 ![Configure Analysis Level in Visual Studio](PropertyPage.png)
 
-In the future we will add a new Analysis Level for every release of .NET. So, about a year from now when we are getting ready to release .NET 6 we'll add (you guessed it!) analysis level 6. Once we've arrived at that distance future shore the short names would have these new meanings:
+In the future we will add a new analysis level for every release of .NET. The goal is to make sure that a given analysis level always represents the same set of analysis defaults (the rules and their severities). If we want to turn an existing rule on by default, we'll do this in an upcoming analysis level, instead of changing the existing level. This ensures that a given project/source always produces the same warning, regardless of how new the SDK is (unless the project uses `preview` or `latest`, of course).
 
 
 | Short Name | Analysis Level  |
