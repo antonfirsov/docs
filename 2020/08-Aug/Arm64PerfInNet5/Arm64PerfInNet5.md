@@ -1,49 +1,7 @@
 # ARM64 performance work in .NET 5
 **Kunal Pathak** (Kunal.Pathak@microsoft.com)
 
-TODO: Remove Toc?
-
-- [History of ARM and .NET](#history-of-arm-and-net)
-- [Goals](#goals)
-- [ARM64 hardware intrinsics in .NET libraries](#arm64-hardware-intrinsics-in-net-libraries)
-- [Optimized .NET library code using ARM64 hardware intrinsics](#optimized-net-library-code-using-arm64-hardware-intrinsics)
-  * [Details](#details)
-- [AOT compilation for methods having ARM64 intrinsics](#aot-compilation-for-methods-having-arm64-intrinsics)
-- [Microbenchmark analysis](#microbenchmark-analysis)
-  * [Memory barriers in ARM64](#memory-barriers-in-arm64)
-    + [Details](#details-1)
-  * [ARM64 and big constants](#arm64-and-big-constants)
-    + [Details](#details-2)
-  * [C# structs](#c%23-structs)
-    + [Details](#details-3)
-  * [Array access with post-index addressing mode](#array-access-with-post-index-addressing-mode)
-    + [Details](#details-4)
-  * [Mod operations](#mod-operations)
-- [Code size analysis](#code-size-analysis)
-  * [Inline heuristics tweaking](#inline-heuristics-tweaking)
-  * [Return address hijacking](#return-address-hijacking)
-  * [ARM64 code characteristics](#arm64-code-characteristics)
-- [Peephole analysis](#peephole-analysis)
-  * [Details](#details-5)
-    + [Replace pair of "ldr" with "ldp"](#replace-pair-of-ldr-with-ldp)
-    + [Replace pair of "str" with "stp"](#replace-pair-of-str-with-stp)
-    + [Replace pair of "str wzr" with "str xzr"](#replace-pair-of-str-wzr-with-str-xzr)
-    + [Remove redundant "ldr" and "str"](#remove-redundant-ldr-and-str)
-    + [Replace "ldr" with "mov"](#replace-ldr-with-mov)
-    + [Loading large constants using movz/movk](#loading-large-constants-using-movzmovk)
-    + [Call indirects and virtual stubs](#call-indirects-and-virtual-stubs)
-- [Techempower benchmarks](#techempower-benchmarks)
-- [Hardware](#hardware)
-  * [MicroBenchmarks](#microbenchmarks)
-  * [Techempower benchmarks](#techempower-benchmarks-1)
-- [Conclusion](#conclusion)
-
 .NET Core team has done great amount of work to improve the performance of .NET 5. You can check it out in excellent and detailed [Performance Improvements in .NET5](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-5/) blog by Stephen. In this blog, I will describe the work our team has done to improve performance of .NET 5 for ARM64 and resulting outcome on some of the benchmarks. I will also reflect some of the code quality issues that we have identified and planning to address in future release.
-
-## History of ARM and .NET
-
-.NET Core has been working on ARM architecture for quite some time. .NET Core 2.0 was the first release to [announce support of ARM32](https://github.com/dotnet/announcements/issues/29). Back then, .NET had legacy JIT engine, which was used to target ARM32, although the newer JIT engine "RyuJIT" was used to target x86 and x64. In December 2017, we made [RyuJIT as the default engine to generate ARM32 code](https://github.com/dotnet/coreclr/pull/15134). In .NET Core 2.1, we [added support of ARM32 on Linux](https://devblogs.microsoft.com/dotnet/announcing-net-core-2-1/) and had preview quality support for ARM64 on Linux. .NET Core 3.0 was a big release for .NET Core in terms of ARM architecture. In that, not only did we extend our support of ARM32 for Windows but also added [support of ARM64 on Linux platform](https://devblogs.microsoft.com/dotnet/announcing-net-core-3-0/). In .NET 5, we are planning to target ARM64 for Windows. You can check out our progress [here](https://github.com/dotnet/runtime/issues/36699).
-
 
 ## Goals
 
