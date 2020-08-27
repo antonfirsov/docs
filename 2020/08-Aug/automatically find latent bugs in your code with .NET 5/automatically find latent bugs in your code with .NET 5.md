@@ -8,7 +8,7 @@ It's an exciting time to be writing code! Especially for .NET developers as the 
 
 In the past, we've been reluctant to add new warnings to C#. This is because adding new warnings is technically a source breaking change for users who have warnings set as errors. However, there are a lot of cases we've come across over the years where we also really want to warn people that something was wrong, ranging from common coding mistakes to common API misuse patterns.
 
-Starting with .NET 5, we're introducing what we're calling "Analysis Levels" in the C# compiler to introduce warnings for these patterns in a safe way. The default Analysis Level for all projects targeting .NET 5 will be set to 5, meaning that more warnings (and suggestions to fix them) will be introduced.
+Starting with .NET 5, we're introducing what we're calling `AnalysisLevel` in the C# compiler to introduce warnings for these patterns in a safe way. The default Analysis Level for all projects targeting .NET 5 will be set to 5, meaning that more warnings (and suggestions to fix them) will be introduced.
 
 Let's talk about what the possible values for analysis level mean in your project. First thing we should note: unless you override the default, Analysis Level is set based on your target framework:
 
