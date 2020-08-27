@@ -10,7 +10,8 @@ In the past, we've been reluctant to add new warnings to C#. This is because add
 
 Starting with .NET 5, we're introducing what we're calling `AnalysisLevel` in the C# compiler to introduce warnings for these patterns in a safe way. The default Analysis Level for all projects targeting .NET 5 will be set to 5, meaning that more warnings (and suggestions to fix them) will be introduced.
 
-Let's talk about what the possible values for analysis level mean in your project. First thing we should note: unless you override the default, Analysis Level is set based on your target framework:
+Let's talk about what the possible values for `AnalysisLevel` mean in your project. First thing we should note: unless you override the default, `AnalysisLevel` is set based on your target framework:
+
 
 | Target Framework              | Default Analysis Level  |
 |-------------------------------|-------------------------|
