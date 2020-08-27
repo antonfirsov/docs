@@ -289,7 +289,8 @@ We also offer a code fix to easily fix up all of these at once in your document,
 
 ### Do not use ReferenceEquals with value types
 
-Equality can sometimes be a tricky topic in .NET. This next warning strives to make accidentally comparing a `struct` by reference apparent. Consider the code below:
+Equality is a tricky topic in .NET. This next warning strives to make accidentally comparing a `struct` by reference apparent. Consider the code below:
+
 
 ```csharp
 int int1 = 1;
