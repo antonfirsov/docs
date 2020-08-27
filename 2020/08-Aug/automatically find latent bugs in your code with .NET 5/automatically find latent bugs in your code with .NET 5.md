@@ -82,7 +82,7 @@ Please note that when you use `latest` or `preview, the analysis results might v
 </Project>
 ```
 
-Finally, we have `none` which means _"I want to upgrade my project to a newer target but do not want to opt into more advanced analysis."_ This will give you the same compiler warnings you have been seeing in your project up until now
+Finally, we have `none` which means _"I don't want to see any new warnings."_ In this mode, you wont' get any of the advanced API analysis nor new compiler warnings. This is useful if you need to update your framework but you're not ready to absorb new the warnings yet.
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
