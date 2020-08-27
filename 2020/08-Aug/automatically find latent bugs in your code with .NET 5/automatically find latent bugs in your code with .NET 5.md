@@ -618,7 +618,8 @@ class C
 
 ## Configuring Analysis Levels
 
-Now that you've seen how useful these warnings are you probably never want to go back to a world without them right? Well I know that the world doesn't always work that way. As mentioned at the beginning of this post, these are breaking changes, and you should be able to take them on in a schedule that makes sense to you. Part of the reason we're introducing this now is to get feedback in two areas:
+Now that you've seen how useful these warnings are, you probably never want to go back to a world without them right? Well, I know that the world doesn't always work that way. As mentioned at the beginning of this post, these are source breaking changes, and you should be able to take them on in a schedule that works for you. Part of the reason we're introducing this now is to get feedback in two areas:
+
 
 1. If the small set of warnings we're introducing is too disruptive or not
 2. If the mechanism for tuning the warnings is sufficient for your needs
