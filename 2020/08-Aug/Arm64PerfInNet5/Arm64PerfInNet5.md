@@ -133,10 +133,10 @@ Methods of `System.SpanHelpers` were optimized by [this](https://github.com/dotn
 
 | Method names           | Benchmark                                                         | .NET Core 3.1         | .NET 5       | Improvements |
 |------------------------------|-------------------------------------------------------------------|------------------|----------------|---------------|
-| `IndexOf(char)`              | Span<Char>.IndexOfValue(Size: 512)          | 66.50979105  | 46.87694064| 30%           |
-| `IndexOf(byte)`              | Span<Byte>.IndexOfValue(Size: 512)          | 34.10612189  | 25.40946457| 25%           |
-| `IndexOf(char)`              | ReadOnlySpan.IndexOfString ()                       | 172.6797311  | 137.7584367| 20%           |
-| `IndexOfAnyThreeValue(byte)` | Span<Byte>.IndexOfAnyThreeValues(Size: 512) | 71.21714512  | 55.91700222| 21%           |
+| `IndexOf(char)`              | Span<Char>.IndexOfValue(Size: 512)          | 66.50979105  | 46.87694064| -30%           |
+| `IndexOf(byte)`              | Span<Byte>.IndexOfValue(Size: 512)          | 34.10612189  | 25.40946457| -25%           |
+| `IndexOf(char)`              | ReadOnlySpan.IndexOfString ()                       | 172.6797311  | 137.7584367| -20%           |
+| `IndexOfAnyThreeValue(byte)` | Span<Byte>.IndexOfAnyThreeValues(Size: 512) | 71.21714512  | 55.91700222| -21%           |
 
 
 TODO: Numbers for `System.Text.Unicode`
@@ -391,37 +391,37 @@ Here are some of the measurements in `nanoseconds` from [ReadOnlySpan&lt;T&gt; a
 
 | Benchmark                                                                         | .NET Core 3.1  | .NET 5.0       | Improvements |
 |-----------------------------------------------------------------------------------|----------------|----------------|---------------|
-| Constructors&lt;Byte&gt;.MemoryMarshalCreateSpan                    | 7.583399218 | 0.433725971 | 94%           |
-| Constructors_ValueTypesOnly&lt;Int32&gt;.ReadOnlyFromPointerLength  | 7.220777831 | 0.432063085 | 94%           |
-| Constructors&lt;Byte&gt;.ReadOnlySpanFromArray                      | 6.472501607 | 0.43246507  | 93%           |
-| Constructors&lt;Byte&gt;.SpanImplicitCastFromArray                  | 4.255107335 | 0.408494535 | 90%           |
-| Constructors_ValueTypesOnly&lt;Byte&gt;.ReadOnlyFromPointerLength   | 6.454759972 | 0.640597864 | 90%           |
-| Constructors&lt;Byte&gt;.ArrayAsSpanStartLength                     | 4.016483045 | 0.399269389 | 90%           |
-| Constructors&lt;String&gt;.ReadOnlySpanImplicitCastFromSpan         | 34.02944184 | 4.35494549  | 87%           |
-| Constructors&lt;Byte&gt;.ArrayAsSpan                                | 8.335282762 | 1.478884188 | 82%           |
-| Constructors&lt;Byte&gt;.ReadOnlySpanImplicitCastFromArraySegment   | 18.37594258 | 3.404014212 | 81%           |
-| Constructors&lt;String&gt;.ReadOnlySpanImplicitCastFromArray        | 17.87143151 | 3.501343832 | 80%           |
-| Constructors&lt;Byte&gt;.SpanImplicitCastFromArraySegment           | 18.61810548 | 3.875744143 | 79%           |
-| Constructors&lt;String&gt;.SpanFromArrayStartLength                 | 50.89709625 | 14.2696605  | 72%           |
-| Constructors&lt;String&gt;.MemoryFromArrayStartLength               | 54.30978731 | 16.22546529 | 70%           |
-| Constructors&lt;String&gt;.ReadOnlySpanFromArrayStartLength         | 17.34056171 | 5.389451598 | 69%           |
-| Constructors&lt;Byte&gt;.SpanFromMemory                             | 8.946718503 | 3.090839804 | 65%           |
-| Constructors&lt;String&gt;.ArrayAsMemory                            | 53.56446745 | 18.54268683 | 65%           |
-| Constructors&lt;Byte&gt;.ReadOnlyMemoryFromArrayStartLength         | 9.052935042 | 3.267590043 | 64%           |
-| Constructors&lt;Byte&gt;.MemoryFromArrayStartLength                 | 9.060271576 | 3.297494998 | 64%           |
-| Constructors&lt;String&gt;.ArrayAsMemoryStartLength                 | 53.00951382 | 19.31234213 | 64%           |
-| Constructors&lt;String&gt;.SpanImplicitCastFromArraySegment         | 63.62355461 | 25.60170494 | 60%           |
-| Constructors&lt;Byte&gt;.ArrayAsMemoryStartLength                   | 9.074284261 | 3.658263244 | 60%           |
-| Constructors&lt;String&gt;.ReadOnlyMemoryFromArray                  | 9.058529843 | 3.698126198 | 59%           |
-| Constructors&lt;Byte&gt;.SpanFromArray                              | 8.387611647 | 3.442481582 | 59%           |
-| Constructors&lt;String&gt;.MemoryMarshalCreateSpan                  | 14.43049812 | 7.276874033 | 50%           |
-| Constructors&lt;Byte&gt;.MemoryFromArray                            | 6.209045745 | 3.217596263 | 48%           |
-| Constructors&lt;Byte&gt;.ReadOnlySpanFromMemory                     | 12.95182457 | 7.346977122 | 43%           |
-| Constructors&lt;String&gt;.ReadOnlySpanImplicitCastFromArraySegment | 31.84154807 | 18.0779193  | 43%           |
-| Constructors&lt;String&gt;.ReadOnlyMemoryFromArrayStartLength       | 9.061042755 | 5.517813473 | 39%           |
-| Constructors&lt;Byte&gt;.ReadOnlyMemoryFromArray                    | 6.236086886 | 4.13047879  | 34%           |
-| Constructors&lt;String&gt;.SpanFromMemory                           | 20.86998894 | 15.05075427 | 28%           |
-| Constructors&lt;Byte&gt;.ReadOnlySpanImplicitCastFromArray          | 4.466520015 | 3.43740775  | 23%           |
+| Constructors&lt;Byte&gt;.MemoryMarshalCreateSpan                    | 7.583399218 | 0.433725971 | -94%           |
+| Constructors_ValueTypesOnly&lt;Int32&gt;.ReadOnlyFromPointerLength  | 7.220777831 | 0.432063085 | -94%           |
+| Constructors&lt;Byte&gt;.ReadOnlySpanFromArray                      | 6.472501607 | 0.43246507  | -93%           |
+| Constructors&lt;Byte&gt;.SpanImplicitCastFromArray                  | 4.255107335 | 0.408494535 | -90%           |
+| Constructors_ValueTypesOnly&lt;Byte&gt;.ReadOnlyFromPointerLength   | 6.454759972 | 0.640597864 | -90%           |
+| Constructors&lt;Byte&gt;.ArrayAsSpanStartLength                     | 4.016483045 | 0.399269389 | -90%           |
+| Constructors&lt;String&gt;.ReadOnlySpanImplicitCastFromSpan         | 34.02944184 | 4.35494549  | -87%           |
+| Constructors&lt;Byte&gt;.ArrayAsSpan                                | 8.335282762 | 1.478884188 | -82%           |
+| Constructors&lt;Byte&gt;.ReadOnlySpanImplicitCastFromArraySegment   | 18.37594258 | 3.404014212 | -81%           |
+| Constructors&lt;String&gt;.ReadOnlySpanImplicitCastFromArray        | 17.87143151 | 3.501343832 | -80%           |
+| Constructors&lt;Byte&gt;.SpanImplicitCastFromArraySegment           | 18.61810548 | 3.875744143 | -79%           |
+| Constructors&lt;String&gt;.SpanFromArrayStartLength                 | 50.89709625 | 14.2696605  | -72%           |
+| Constructors&lt;String&gt;.MemoryFromArrayStartLength               | 54.30978731 | 16.22546529 | -70%           |
+| Constructors&lt;String&gt;.ReadOnlySpanFromArrayStartLength         | 17.34056171 | 5.389451598 | -69%           |
+| Constructors&lt;Byte&gt;.SpanFromMemory                             | 8.946718503 | 3.090839804 | -65%           |
+| Constructors&lt;String&gt;.ArrayAsMemory                            | 53.56446745 | 18.54268683 | -65%           |
+| Constructors&lt;Byte&gt;.ReadOnlyMemoryFromArrayStartLength         | 9.052935042 | 3.267590043 | -64%           |
+| Constructors&lt;Byte&gt;.MemoryFromArrayStartLength                 | 9.060271576 | 3.297494998 | -64%           |
+| Constructors&lt;String&gt;.ArrayAsMemoryStartLength                 | 53.00951382 | 19.31234213 | -64%           |
+| Constructors&lt;String&gt;.SpanImplicitCastFromArraySegment         | 63.62355461 | 25.60170494 | -60%           |
+| Constructors&lt;Byte&gt;.ArrayAsMemoryStartLength                   | 9.074284261 | 3.658263244 | -60%           |
+| Constructors&lt;String&gt;.ReadOnlyMemoryFromArray                  | 9.058529843 | 3.698126198 | -59%           |
+| Constructors&lt;Byte&gt;.SpanFromArray                              | 8.387611647 | 3.442481582 | -59%           |
+| Constructors&lt;String&gt;.MemoryMarshalCreateSpan                  | 14.43049812 | 7.276874033 | -50%           |
+| Constructors&lt;Byte&gt;.MemoryFromArray                            | 6.209045745 | 3.217596263 | -48%           |
+| Constructors&lt;Byte&gt;.ReadOnlySpanFromMemory                     | 12.95182457 | 7.346977122 | -43%           |
+| Constructors&lt;String&gt;.ReadOnlySpanImplicitCastFromArraySegment | 31.84154807 | 18.0779193  | -43%           |
+| Constructors&lt;String&gt;.ReadOnlyMemoryFromArrayStartLength       | 9.061042755 | 5.517813473 | -39%           |
+| Constructors&lt;Byte&gt;.ReadOnlyMemoryFromArray                    | 6.236086886 | 4.13047879  | -34%           |
+| Constructors&lt;String&gt;.SpanFromMemory                           | 20.86998894 | 15.05075427 | -28%           |
+| Constructors&lt;Byte&gt;.ReadOnlySpanImplicitCastFromArray          | 4.466520015 | 3.43740775  | -23%           |
 
 <p/>
 
@@ -949,8 +949,8 @@ ThinkSystem HR330A​
 2x Serial Ports​
 1x 1GbE Management Port​
 Ubuntu 18.04​
-
 ARMv8​
+
 Architecture:        aarch64​
 Byte Order:          Little Endian​
 CPU(s):              32​
