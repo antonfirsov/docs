@@ -666,4 +666,6 @@ If you want a warning to be on almost all the time and only suppress it in a few
 
 ![Suppress in Attribute](SuppressInAttribute.png)
 
-I hope this has gotten you excited for all the improvements to code analysis that you can expect in .NET 5 and please give us feedback about this experience.
+## Summary
+
+I hope this has gotten you excited for all the improvements to code analysis that you can expect in .NET 5 and please [give us feedback](https://github.com/dotnet/roslyn-analyzers/issues/new) about this experience.
