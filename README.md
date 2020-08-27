@@ -41,7 +41,7 @@ In other words:
     * If you're not comfortable using an actual photograph, choose something else
 5. [Review staged post in WordPress](https://devblogs.microsoft.com/dotnet/wp-admin/edit.php)
     * After merging the PR, the post should automatically be staged in WordPress
-    * Review title, author, categories, and tags    
+    * Review title, author, categories, and tags
 6. Coordinate publishing with [.NET Blog Owners](mailto:netblogowners@microsoft.com)
 
 ## Instructions for reviewers
