@@ -142,18 +142,19 @@ type C<'TType> =
     member _.TypeName = nameof<'TType> // Nameof with a generic type parameter via 'nameof<>'
 
 /// Simplified version of EventStore's API
-type RecordedEvent = { EventType: string; Data: byte[] }
+[<Struct; IsByRefLike>]
+type RecordedEvent = { EventType: string; Data: ReadOnlySpan<byte> }
 
 /// My concrete type:
 type MyEvent =
-    | A of AData
-    | B of BData
+    | AData of int
+    | BData of string
 
 // use 'nameof' instead of the string literal in the match expression
 let deserialize (e: RecordedEvent) : MyEvent =
     match e.EventType with
-    | nameof A -> A (JsonSerializer.Deserialize<AData> e.Data)
-    | nameof B -> B (JsonSerializer.Deserialize<BData> e.Data)
+    | nameof AData -> AData (JsonSerializer.Deserialize<int> e.Data)
+    | nameof BData -> BData (JsonSerializer.Deserialize<string> e.Data)
     | t -> failwithf "Invalid EventType: %s" t
 ```
 
@@ -193,7 +194,7 @@ printfn "%A" A
 
 Computation expressions are a powerful feature for library and framework authors. They allow you to greatly improve the expressiveness of your components by letting you define well-known members and form a DSL for the domain you're working in.
 
-We've enhanced computation expressions to allow for [Applicative forms] already. This time, [Diego Esmerio](https://github.com/Nhowka) and [Ryan Riley](https://github.com/panesofglass) contributed a design an implementation to allow for overloading custom keywords in computation expressions. This new feature allows code like the following to be written:
+We've enhanced computation expressions to allow for [Applicative forms](https://devblogs.microsoft.com/dotnet/announcing-f-5-preview-1/#applicative-computation-expressions) already. This time, [Diego Esmerio](https://github.com/Nhowka) and [Ryan Riley](https://github.com/panesofglass) contributed a design an implementation to allow for overloading custom keywords in computation expressions. This new feature allows code like the following to be written:
 
 ```fsharp
 open System
@@ -295,7 +296,6 @@ iaString.Get() // "hello"
 
 Now that we're feature complete for F# 5, minus a tweak here or there, we're going to shift our focus:
 
-* Ensure F# 5 features are of high quality and do not introduce any problems
 * Address bug fixes and high-priority feedback items for F# 5
 * Improve our engineering system in the [F# development repository](https://github.com/dotnet/fsharp), particularly to improve our testing infrastructure so that it's easier for open source contributors to work there
 
