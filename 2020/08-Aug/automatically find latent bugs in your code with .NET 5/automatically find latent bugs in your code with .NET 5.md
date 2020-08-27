@@ -96,13 +96,6 @@ Finally, we have `none` which means _"I want to upgrade my project to a newer ta
 </Project>
 ```
 
-Here is a simple mapping of what these shortcuts mean today:
-
-| Short Name | Analysis Level  |
-|------------|-----------------|
-| `preview`  | 6               |
-| `latest`   | 5               |
-| `none`     | 4               |
 
 You can also configure the analysis level for a project from within Visual Studio via the Code Analysis property page. Just go navigate to the project property page from solution explorer. Then go to the Code Analysis tab.
 
