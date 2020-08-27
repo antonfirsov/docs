@@ -22,7 +22,8 @@ Let's talk about what the possible values for `AnalysisLevel` mean in your proje
 
 However, what about the numbers 0-3? here is a more detailed breakdown of what each analysis level value means
 
-| Analysis Level | Effect On C# Compiler | Advanced Platform API Analysis |
+| `AnalysisLevel` | Effect On C# Compiler | Advanced Platform API Analysis |
+
 |----------------|--------|--------|
 | 5              | Get new compiler language analysis (details below) | Yes |
 | 4              | identical to passing `-warn:4` to the C# compiler in previous versions | No |
