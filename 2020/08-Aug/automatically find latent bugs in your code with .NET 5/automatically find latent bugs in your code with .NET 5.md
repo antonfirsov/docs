@@ -33,7 +33,8 @@ However, what about the numbers 0-3? here is a more detailed breakdown of what e
 | 1              | identical to passing `-warn:1` to the C# compiler in previous versions | No |
 | 0              | identical to passing `-warn:0` to the C# compiler in previous versions, turns off all emission of warnings |  No |
 
-Since Analysis Levels are tied to the target framework of your project, unless you change what your code targets you will never change your default analysis level. You can manually set your analysis level though. For example, even if we are targeting .NET Core App 3.1 (and therefore have analysis level defaulted to 4) we can still opt into a higher level.
+Since `AnalysisLevel` is tied to the target framework of your project, unless you change what your code targets, you will never change your default analysis level. You can manually set your analysis level though. For example, even if we are targeting .NET Core 3.1 or .NET Standard (and therefore have `AnalysisLevel` defaulted to 4) you can still opt into a higher level.
+
 
 Here is an example of doing that:
 
