@@ -1,12 +1,12 @@
 # F# 5 update for August
 
-We’re excited to announce more updates to F# 5 today to go alongside [.NET 5 preview 8](https://devblogs.microsoft.com/dotnet/announcing-net-5-0-preview-8/)! We've shipped various updates since the beginning of this year:
+We’re excited to announce more updates to F# 5 which will go alongside [.NET 5 preview 8](https://devblogs.microsoft.com/dotnet/announcing-net-5-0-preview-8/)! We've shipped various updates since the beginning of this year:
 
 * [F# 5 preview 1](https://devblogs.microsoft.com/dotnet/announcing-f-5-preview-1/)
 * [F# 5 update for .NET 5 preview 5](https://devblogs.microsoft.com/dotnet/f-5-update-for-net-5-preview-4/)
 * [F# 5 update for June](https://devblogs.microsoft.com/dotnet/f-5-and-f-tools-update-for-june/)
 
-Today, we're please to announce the last of our F# 5 feature work. There is one minor enhancement planned for the .NET 5 RC, but other than that we are finished with F# 5! From this point forward, our journey to shipping F# 5 will be focused mostly on bug fixes and addressing feedback.
+Today, we're pleased to announce the completion of the F# 5 feature work. There is one minor enhancement planned for the .NET 5 RC, but other than that we are finished with F# 5! From this point forward, our journey to shipping F# 5 will be focused mostly on bug fixes and addressing feedback.
 
 You can get the latest F# 5 in these ways
 
@@ -20,7 +20,7 @@ If you’re using Visual Studio on Windows, you’ll need both the .NET 5 previe
 
 You can use F# 5 preview via the [.NET 5 preview SDK](https://dotnet.microsoft.com/download/dotnet-core/5.0), or through the [.NET and Jupyter Notebooks support](https://devblogs.microsoft.com/dotnet/net-interactive-is-here-net-notebooks-preview-2/).
 
-If you’re using the .NET 5 preview SDK, check out a [sample repository](https://github.com/cartermp/fs5preview) showing off some of what you can do with F# 5. You can play with each of the features there instead of starting from scratch.
+If you’re using the .NET 5 preview SDK, check out the [sample repository](https://github.com/cartermp/fs5preview) which shows off some of what you can do with F# 5. You can play with each of the features there instead of starting from scratch.
 
 If you’d rather use F# 5 in your own project, you’ll need to add a `LangVersion` property with `preview` as the value. It should look something like this:
 
