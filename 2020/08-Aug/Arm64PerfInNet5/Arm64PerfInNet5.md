@@ -3,8 +3,6 @@
 
 The .NET team has significantly improved  performance with .NET 5, both generally and for ARM64. You can check out the general improvements  in the excellent and detailed [Performance Improvements in .NET 5](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-5/) blog by Stephen. In this post, I will describe the performance improvements we made specifically for ARM64 and show the positive impact on the benchmarks we use. I will also share some of the additional opportunities for performance improvements that we have identified and plan to address in a future release.
 
-## Goals
-
 While we have been working on ARM64 support in RyuJIT for over five years, most of the work that was done was to ensure that we generate functionally correct ARM64 code. We spent very little time in evaluating the performance of the code  RyuJIT produced for ARM64. As part of .NET 5, our focus was to perform investigation in this area and find out any obvious issues in RyuJIT that would improve the ARM64 code quality (CQ). Since Microsoft VC++ team already support for Windows ARM64, we consulted with them to understand the CQ issues that they encountered when doing a similar exercise.
 
 Although fixing CQ issues is crucial, sometimes its impact might not be noticeable in an application. Hence, we also wanted to make observable improvements in the performance of .NET libraries to benefit .NET applications targeted for ARM64.
@@ -57,27 +55,38 @@ For each of the methods that we optimized in .NET 5, I'll show you the improveme
 | `PopCount(ulong)`         |PopCount_ulong         | 4234.18  | 1541.48 | -64%            |
 | `PopCount(uint)`          |PopCount_uint          | 4233.58  | 1733.83 | -59%            |
 
-
-TODO: Below numbers are from the PR. Take latest lab numbers
-
 `System.Numerics.Matrix4x4` methods were optimized in [dotnet/runtime#40054](https://github.com/dotnet/runtime/pull/40054). The following measurements are in `nanoseconds` for [Perf_Matrix4x4](https://github.com/dotnet/performance/blob/a5296dda39031ac84f40eeb5a0a136c89cde599b/src/benchmarks/micro/libraries/System.Numerics.Vectors/Perf_Matrix4x4.cs#L11) microbenchmark.
 
-| Method names          | Benchmarks                            | .NET Core 3.1 | .NET 5 | Improvements |
-|-----------------------|---------------------------------------|----------|----------|---------------|
-| `operator +()`        | [AddOperatorBenchmark]()              |          |          | -30%          |
-| `operator ==()`       | [EqualityOperatorBenchmark]()         |          |          | -8%           |
-| `operator !=()`       | [InequalityOperatorBenchmark]()       |          |          | -28%          |
-| `operator *()`        | [MultiplyByMatrixOperatorBenchmark]() |          |          | -55%          |
-| `operator *(scalar)`  | [MultiplyByScalarOperatorBenchmark]() |          |          | -16%          |
-| `operator -()`        | [SubtractOperatorBenchmark]()         |          |          | -21%          |
-| `operator negation()` | [NegationOperatorBenchmark]()         |          |          | -22%          |
-| `Add()`               | [AddBenchmark]()                      |          |          | -22%          |
-| `Lerp()`              | [LerpBenchmark]()                     |          |          | -41%          |
-| `Multiply()`          | [MultiplyByMatrixBenchmark]()         |          |          | -46%          |
-| `Multiply(scalar)`    | [MultiplyByScalarBenchmark]()         |          |          | -25%          |
-| `Negate()`            | [NegateBenchmark]()                   |          |          | -21%          |
-| `Subtract()`          | [SubtractBenchmark]()                 |          |          | -22%          |
-| `Transpose()`         | [Transpose]()                         |          |          | -25%          |
+| Benchmarks                               | .NET Core 3.1 | .NET 5 | Improvements |
+|------------------------------------------|---------------|--------|--------------|
+| CreateScaleFromVectorWithCenterBenchmark | 29.39         | 24.84  | -15%         |
+| CreateOrthographicBenchmark              | 17.14         | 11.19  | -35%         |
+| CreateScaleFromScalarWithCenterBenchmark | 26.00         | 17.14  | -34%         |
+| MultiplyByScalarOperatorBenchmark        | 28.45         | 22.06  | -22%         |
+| TranslationBenchmark                     | 15.15         | 5.39   | -64%         |
+| CreateRotationZBenchmark                 | 50.21         | 40.24  | -20%         |
+
+
+The SIMD accelerated types `System.Numerics.Vector2`, `System.Numerics.Vector3` and `System.Numerics.Vector4` were optimized in [dotnet/runtime#35421](https://github.com/dotnet/runtime/pull/35421), [dotnet/runtime#36267](https://github.com/dotnet/runtime/pull/36267), [dotnet/runtime#36512](https://github.com/dotnet/runtime/pull/36512), [dotnet/runtime#36579](https://github.com/dotnet/runtime/pull/36579)and [dotnet/runtime#37882](https://github.com/dotnet/runtime/pull/37882) to use hardware intrinsics.  The following measurements are in `nanoseconds` for [Perf_Vector2](https://github.com/dotnet/performance/blob/adccb815003451dd68586516d4f25f52f3f2ebe7/src/benchmarks/micro/libraries/System.Numerics.Vectors/Perf_Vector2.cs#L12), [Perf_Vector3](https://github.com/dotnet/performance/blob/adccb815003451dd68586516d4f25f52f3f2ebe7/src/benchmarks/micro/libraries/System.Numerics.Vectors/Perf_Vector3.cs#L11) and [Perf_Vector4](https://github.com/dotnet/performance/blob/adccb815003451dd68586516d4f25f52f3f2ebe7/src/benchmarks/micro/libraries/System.Numerics.Vectors/Perf_Vector4.cs#L11) microbenchmark.
+
+
+| Benchmark                              | .NET Core 3.1 | .NET 5  | Improvements |
+|----------------------------------------|---------------|--------|--------------|
+| Perf_Vector2.AddOperatorBenchmark      | 6.59          | 1.16   | -82%         |
+| Perf_Vector2.ClampBenchmark            | 11.94         | 1.10   | -91%         |
+| Perf_Vector2.DistanceBenchmark         | 6.55          | 0.70   | -89%         |
+| Perf_Vector2.MinBenchmark              | 5.56          | 1.15   | -79%         |
+| Perf_Vector2.SubtractFunctionBenchmark | 10.78         | 0.38   | -96%         |
+| Perf_Vector3.MaxBenchmark              | 3.46          | 2.31   | -33%         |
+| Perf_Vector3.MinBenchmark              | 3.97          | 0.38   | -90%         |
+| Perf_Vector3.MultiplyFunctionBenchmark | 3.95          | 1.16   | -71%         |
+| Perf_Vector3.MultiplyOperatorBenchmark | 4.30          | 0.77   | -82%         |
+| Perf_Vector4.AddOperatorBenchmark      | 4.04          | 0.77   | -81%         |
+| Perf_Vector4.ClampBenchmark            | 4.04          | 0.69   | -83%         |
+| Perf_Vector4.DistanceBenchmark         | 2.12          | 0.38   | -82%         |
+| Perf_Vector4.MaxBenchmark              | 6.74          | 0.38   | -94%         |
+| Perf_Vector4.MultiplyFunctionBenchmark | 7.67          | 0.39   | -95%         |
+| Perf_Vector4.MultiplyOperatorBenchmark | 3.47          | 0.34   | -90%         |
 
 <p/>
 
@@ -112,7 +121,7 @@ In .NET 6, we are planning to optimizing remaining methods of `System.Text.ASCII
 TODO: Should we include sources from where data was gathered?
 
 You can see all the measurements I have mentioned above in our performance lab run that we conducted on [8/6/2020](https://pvscmdupload.blob.core.windows.net/reports/08_06_2020/report_Daily_ca=ARM64_cb=master_co=Ubuntu1804ARM_cr=dotnetcoresdk_cc=CompliationMode=tiered-RunKind=micro_Baseline_bb=release-3.1.2xx_2020-08-06.html
-) and [8/10/2020](https://pvscmdupload.blob.core.windows.net/reports/08_10_2020/report_Daily_ca=ARM64_cb=master_co=Ubuntu1804ARM_cr=dotnetcoresdk_cc=CompliationMode=tiered-RunKind=micro_Baseline_bb=release-3.1.2xx_2020-08-10.html) to compare .NET Core 3.1 and .NET 5.
+), [8/10/2020](https://pvscmdupload.blob.core.windows.net/reports/08_10_2020/report_Daily_ca=ARM64_cb=master_co=Ubuntu1804ARM_cr=dotnetcoresdk_cc=CompliationMode=tiered-RunKind=micro_Baseline_bb=release-3.1.2xx_2020-08-10.html) and [8/28/2020](https://pvscmdupload.blob.core.windows.net/reports/08_28_2020/report_Daily_ca=ARM64_cb=master_co=Ubuntu1804ARM_cr=dotnetcoresdk_cc=CompliationMode=tiered-RunKind=micro_Baseline_bb=release-3.1.2xx_2020-08-28.html) to compare .NET Core 3.1 and .NET 5.
 
 <p/>
 
