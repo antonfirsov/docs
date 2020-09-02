@@ -104,26 +104,19 @@ The SIMD accelerated types `System.Numerics.Vector2`, `System.Numerics.Vector3` 
 
 <p/>
 
-### System.Text 
-- `System.Text.ASCIIUtility`
-- `System.Text.Unicode`
-- `System.Text.Encodings.Web`
+### System.Text
 
-TODO: Numbers for `System.Text.Unicode`
+We have also optimized methods in several classes under `System.Text`. 
 
-TODO: Numbers for `System.Text.Encodings.Web`
-
-<p/>
+- Methods in `System.Text.ASCIIUtility` were optimized in [dotnet/runtime#38597](https://github.com/dotnet/runtime/pull/38597) and [dotnet/runtime#39506](https://github.com/dotnet/runtime/pull/39506).
+- `System.Text.Unicode` were optimized in [dotnet/runtime#38653](https://github.com/dotnet/runtime/pull/38653), [dotnet/runtime#39041](https://github.com/dotnet/runtime/pull/39041) and [dotnet/runtime#39050](https://github.com/dotnet/runtime/pull/39050)
+- `System.Text.Encodings.Web` were optimized in [dotnet/runtime#38707](https://github.com/dotnet/runtime/pull/38707)
 
 In .NET 6, we are planning to optimizing remaining methods of `System.Text.ASCIIUtility` described in [dotnet/runtime#41292](https://github.com/dotnet/runtime/issues/41292), methods of `System.Buffers` to address [dotnet/runtime#35033](https://github.com/dotnet/runtime/issues/35033) and merge the work to optimize `JsonReaderHelper.IndexOfLessThan` done by [Ben Adams](https://github.com/benaadams) in [dotnet/runtime#41097](https://github.com/dotnet/runtime/pull/41097).
 
 
-TODO: Should we include sources from where data was gathered?
-
-You can see all the measurements I have mentioned above in our performance lab run that we conducted on [8/6/2020](https://pvscmdupload.blob.core.windows.net/reports/08_06_2020/report_Daily_ca=ARM64_cb=master_co=Ubuntu1804ARM_cr=dotnetcoresdk_cc=CompliationMode=tiered-RunKind=micro_Baseline_bb=release-3.1.2xx_2020-08-06.html
-), [8/10/2020](https://pvscmdupload.blob.core.windows.net/reports/08_10_2020/report_Daily_ca=ARM64_cb=master_co=Ubuntu1804ARM_cr=dotnetcoresdk_cc=CompliationMode=tiered-RunKind=micro_Baseline_bb=release-3.1.2xx_2020-08-10.html) and [8/28/2020](https://pvscmdupload.blob.core.windows.net/reports/08_28_2020/report_Daily_ca=ARM64_cb=master_co=Ubuntu1804ARM_cr=dotnetcoresdk_cc=CompliationMode=tiered-RunKind=micro_Baseline_bb=release-3.1.2xx_2020-08-28.html) to compare .NET Core 3.1 and .NET 5.
-
-<p/>
+All the measurements that I have mentioned above came from our performance lab runs done on [8/6/2020](https://pvscmdupload.blob.core.windows.net/reports/08_06_2020/report_Daily_ca=ARM64_cb=master_co=Ubuntu1804ARM_cr=dotnetcoresdk_cc=CompliationMode=tiered-RunKind=micro_Baseline_bb=release-3.1.2xx_2020-08-06.html
+), [8/10/2020](https://pvscmdupload.blob.core.windows.net/reports/08_10_2020/report_Daily_ca=ARM64_cb=master_co=Ubuntu1804ARM_cr=dotnetcoresdk_cc=CompliationMode=tiered-RunKind=micro_Baseline_bb=release-3.1.2xx_2020-08-10.html) and [8/28/2020](https://pvscmdupload.blob.core.windows.net/reports/08_28_2020/report_Daily_ca=ARM64_cb=master_co=Ubuntu1804ARM_cr=dotnetcoresdk_cc=CompliationMode=tiered-RunKind=micro_Baseline_bb=release-3.1.2xx_2020-08-28.html).
 
 ### Details
 
