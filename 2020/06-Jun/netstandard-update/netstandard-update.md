@@ -106,10 +106,11 @@ adoption is at 58%.
 ![#Packages supporting .NET Standard](chart-all.png)
 
 But standardizing the API set alone creates a tax. It requires coordination
-whenever we're adding new APIs -- which happens all the time. Both us and the
-.NET open-source community keep innovating in the BCL providing new language
-features, usability improvements, new cross-cutting features such as `Span<T>`,
-or supporting new data formats or networking protocols.
+whenever we're adding new APIs -- which happens all the time. The .NET
+open-source community (which includes us) keeps innovating in the BCL by
+providing new language features, usability improvements, new cross-cutting
+features such as `Span<T>`, or supporting new data formats or networking
+protocols.
 
 And while we can provide new types as NuGet packages, we can't provide new APIs
 on existing types this way. So in the general sense, innovation in the BCL
