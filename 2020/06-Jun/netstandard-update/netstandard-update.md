@@ -19,8 +19,8 @@ To better reflect this, we've updated the [target framework names (TFMs)][net5-t
   technologies that work cross-platform (except for pragmatic concessions, like we
   already did in .NET Standard).
 
-* `net5.0-android`, `net5.0-ios`, and `net5.0-windows`. These TFMs represent OS
-  specific flavors of .NET 5 that include `net5.0` plus OS-specific
+* `net5.0-windows` (and later `net6.0-android` and `net6.0-ios`). These TFMs
+  represent OS specific flavors of .NET 5 that include `net5.0` plus OS-specific
   functionality.
 
 There isn't going to be a new version of .NET Standard, but .NET 5 and all future
@@ -304,10 +304,9 @@ conjunction, for example, it might look something like this:
 |.NET 5            | .NET 6            | .NET 7            |
 |------------------|-------------------|-------------------|
 |`net5.0`          | `net6.0`          | `net7.0`          |
-|`net5.0-android`  | `net6.0-android`  | `net7.0-android`  |
-|`net5.0-ios`      | `net6.0-ios`      | `net7.0-ios`      |
+|                  | `net6.0-android`  | `net7.0-android`  |
+|                  | `net6.0-ios`      | `net7.0-ios`      |
 |`net5.0-windows`  | `net6.0-windows`  | `net7.0-windows`  |
-|                  | `net6.0-somenewos`| `net7.0-somenewos`|
 |`net5.0-someoldos`|                   |                   |
 
 This means that you can generally expect that whatever innovation we did in the
@@ -321,8 +320,8 @@ time we ship, you can assume that all platforms are going to support the new
 version immediately and completely. And we cement this promise by using the
 prefix naming convention.
 
-However, we might add support for new platforms (illustrated by
-`net6.0-somenewos`) and we might drop support for platforms that are no longer
+However, we might add support for new platforms (such as Android and iOS that
+come with .NET 6) and we might drop support for platforms that are no longer
 relevant (illustrated by `net5.0-someoldos`). But dropping platforms will be a
 big deal and we'll announce these decisions well in advance, so these changes
 should never surprise you.
@@ -355,8 +354,8 @@ interested in pursuing this direction, but the convergence of .NET Standard and
 ## Summary
 
 `net5.0` is for code that runs everywhere. It combines and replaces the
-`netcoreapp` and `netstandard` names. We'll also have platform-specific
-frameworks, such as `net5.0-android`, `net5.0-ios`, and `net5.0-windows`.
+`netcoreapp` and `netstandard` names. We also have platform-specific frameworks,
+such as `net5.0-windows` (and later also `net6.0-android`, and `net6.0-ios`).
 
 Since there is no difference between the standard and its implementation, you'll
 be able to take advantage of new features much quicker than with .NET Standard.
