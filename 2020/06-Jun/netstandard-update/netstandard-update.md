@@ -20,18 +20,24 @@ To better reflect this, we've updated the [target framework names (TFMs)][net5-t
   already did in .NET Standard).
 
 * `net5.0-android`, `net5.0-ios`, and `net5.0-windows`. These TFMs represent OS
-  specific flavors of .NET 5 that include `net5.0` plus OS-specific bindings.
+  specific flavors of .NET 5 that include `net5.0` plus OS-specific
+  functionality.
 
 There isn't going to be a new version of .NET Standard, but .NET 5 and all future
 versions will continue to support .NET Standard 2.1 and earlier. You should
 think of `net5.0` (and future versions) as the foundation for sharing code
 moving forward.
 
+And since `net5.0` is the shared base for all these new TFMs, runtime, library,
+and language innovation is coordinated around this version number. For example,
+in order to use C# 9, you need to use `net5.0` or `net5.0-windows`.
+
 ## What you should target
 
 .NET 5 and all future versions will always support .NET Standard 2.1 and
 earlier. The only reason to retarget from .NET Standard to .NET 5 is to gain
-access to more APIs. So you can think of .NET 5 as .NET Standard 2.2.
+access to more runtime features, language features, or APIs. So you can think of
+.NET 5 as .NET Standard vNext.
 
 What about new code? Should you still start with .NET Standard 2.0 or should you
 go straight to .NET 5? It depends.
@@ -44,14 +50,14 @@ go straight to .NET 5? It depends.
   the same BCL features everywhere.
 
 * **Reusable libraries**. If you're building reusable libraries that you plan on
-  shipping on NuGet, you'll want to consider the trade-off between reach and API
-  set. .NET Standard 2.0 is the highest version of .NET Standard that is
-  supported by .NET Framework, so it will give you the most reach, while also
-  giving you a fairly large API set to work with. We'd generally recommend
-  against targeting .NET Standard 1.x as it's not worth the hassle anymore. If
-  you don't need to support .NET Framework, then you can either go with .NET
-  Standard 2.1 or .NET 5. Most code can probably skip .NET Standard 2.1 and go
-  straight to .NET 5.
+  shipping on NuGet, you'll want to consider the trade-off between reach and
+  available feature set. .NET Standard 2.0 is the highest version of .NET
+  Standard that is supported by .NET Framework, so it will give you the most
+  reach, while also giving you a fairly large feature set to work with. We'd
+  generally recommend against targeting .NET Standard 1.x as it's not worth the
+  hassle anymore. If you don't need to support .NET Framework, then you can
+  either go with .NET Standard 2.1 or .NET 5. Most code can probably skip .NET
+  Standard 2.1 and go straight to .NET 5.
 
 So what should you do? My expectation is that widely used libraries will end up
 multi-targeting for both .NET Standard 2.0 and .NET 5: supporting .NET Standard
@@ -79,7 +85,7 @@ platforms. But there are still three problems with .NET Standard:
    latest features.
 2. **It needs a [decoder ring][problem-2]** to map versions to .NET
    implementations.
-3. **It [exposes platform-specific APIs][problem-3]**, which means you can't
+3. **It [exposes platform-specific features][problem-3]**, which means you can't
    statically validate whether your code is truly portable.
 
 Let's see how .NET 5 will address all three issues.
@@ -91,7 +97,7 @@ converged at the implementation level. This made writing code that needs to work
 in different environments hard, because different workloads used different .NET
 implementations.
 
-The goal of .NET Standard was to unify the API set of the base class library
+The goal of .NET Standard was to unify the feature set of the base class library
 (BCL), so that you can write a single library that can run everywhere. And this
 has served us really well: .NET Standard by over 77% of the top 1000 packages.
 And if we look at all packages that have been updated in the last 6 months, the
@@ -133,8 +139,8 @@ Standard is widely supported.
 
 We felt for some features that opportunity loss was too high, so we did
 unnatural acts to standardize APIs that weren't shipped yet (such as
-`IAsyncEnumerable<T>`). Doing this for all BCL APIs was simply too expensive,
-which is why quite a few features still missed the .NET Standard 2.1 train (such
+`IAsyncEnumerable<T>`). Doing this for all features was simply too expensive,
+which is why quite a few of them still missed the .NET Standard 2.1 train (such
 as the new hardware intrinsics).
 
 But what if there was a single code base? And what if that code base would have
@@ -353,9 +359,9 @@ interested in pursuing this direction, but the convergence of .NET Standard and
 frameworks, such as `net5.0-android`, `net5.0-ios`, and `net5.0-windows`.
 
 Since there is no difference between the standard and its implementation, you'll
-be able to take advantage of new APIs much quicker than with .NET Standard. And
-due to the naming convention, you'll be able to easily tell who can consume a
-given library -- without having to consult the .NET Standard version table.
+be able to take advantage of new features much quicker than with .NET Standard.
+And due to the naming convention, you'll be able to easily tell who can consume
+a given library -- without having to consult the .NET Standard version table.
 
 While .NET Standard 2.1 will be the last version of .NET Standard, .NET 5 and
 all future versions will continue to support .NET Standard 2.1 and earlier. But
