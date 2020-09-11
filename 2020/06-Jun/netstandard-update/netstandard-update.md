@@ -27,6 +27,49 @@ versions will continue to support .NET Standard 2.1 and earlier. You should
 think of `net5.0` (and future versions) as the foundation for sharing code
 moving forward.
 
+## What you should target
+
+.NET 5 and all future versions will always support .NET Standard 2.1 and
+earlier. The only reason to retarget from .NET Standard to .NET 5 is to gain
+access to more APIs. So you can think of .NET 5 as .NET Standard 2.2.
+
+What about new code? Should you still start with .NET Standard 2.0 or should you
+go straight to .NET 5? It depends.
+
+* **App components**. If you're using libraries to break down your application
+  into several components, my recommendation is to use `netX.Y` where `X.Y` is
+  the lowest number of .NET that your application (or applications) are
+  targeting. For simplicity, you probably want all projects that make up your
+  application to be on the same version of .NET because it means you can assume
+  the same BCL features everywhere.
+
+* **Reusable libraries**. If you're building reusable libraries that you plan on
+  shipping on NuGet, you'll want to consider the trade-off between reach and API
+  set. .NET Standard 2.0 is the highest version of .NET Standard that is
+  supported by .NET Framework, so it will give you the most reach, while also
+  giving you a fairly large API set to work with. We'd generally recommend
+  against targeting .NET Standard 1.x as it's not worth the hassle anymore. If
+  you don't need to support .NET Framework, then you can either go with .NET
+  Standard 2.1 or .NET 5. Most code can probably skip .NET Standard 2.1 and go
+  straight to .NET 5.
+
+So what should you do? My expectation is that widely used libraries will end up
+multi-targeting for both .NET Standard 2.0 and .NET 5: supporting .NET Standard
+2.0 gives you the most reach while supporting .NET 5 ensures you can leverage
+the latest platform features for customers that are already on .NET 5.
+
+In a couple of years, the choice for reusable libraries will only involve the
+version number of `netX.Y`, which is basically how building libraries for .NET
+has always worked -- you generally want to support some older version in order
+to ensure you get the most reach.
+
+To summarize:
+
+* Use `netstandard2.0` to share code between .NET Framework and all other
+  platforms.
+* Use `netstandard2.1` to share code between Mono, Xamarin, and .NET Core 3.x.
+* Use `net5.0` for code sharing moving forward.
+
 ## Problems with .NET Standard
 
 .NET Standard has made it much easier to create libraries that work on all .NET
@@ -302,49 +345,6 @@ mean that it couldn't leverage the existing .NET library ecosystem anyway, which
 means it wouldn't have implemented .NET Standard either. We're generally not
 interested in pursuing this direction, but the convergence of .NET Standard and
 .NET Core doesn't prevent that nor does it make it any harder.
-
-## What you should target
-
-.NET 5 and all future versions will always support .NET Standard 2.1 and
-earlier. The only reason to retarget from .NET Standard to .NET 5 is to gain
-access to more APIs. So you can think of .NET 5 as .NET Standard 2.2.
-
-What about new code? Should you still start with .NET Standard 2.0 or should you
-go straight to .NET 5? It depends.
-
-* **App components**. If you're using libraries to break down your application
-  into several components, my recommendation is to use `netX.Y` where `X.Y` is
-  the lowest number of .NET that your application (or applications) are
-  targeting. For simplicity, you probably want all projects that make up your
-  application to be on the same version of .NET because it means you can assume
-  the same BCL features everywhere.
-
-* **Reusable libraries**. If you're building reusable libraries that you plan on
-  shipping on NuGet, you'll want to consider the trade-off between reach and API
-  set. .NET Standard 2.0 is the highest version of .NET Standard that is
-  supported by .NET Framework, so it will give you the most reach, while also
-  giving you a fairly large API set to work with. We'd generally recommend
-  against targeting .NET Standard 1.x as it's not worth the hassle anymore. If
-  you don't need to support .NET Framework, then you can either go with .NET
-  Standard 2.1 or .NET 5. Most code can probably skip .NET Standard 2.1 and go
-  straight to .NET 5.
-
-So what should you do? My expectation is that widely used libraries will end up
-multi-targeting for both .NET Standard 2.0 and .NET 5: supporting .NET Standard
-2.0 gives you the most reach while supporting .NET 5 ensures you can leverage
-the latest platform features for customers that are already on .NET 5.
-
-In a couple of years, the choice for reusable libraries will only involve the
-version number of `netX.Y`, which is basically how building libraries for .NET
-has always worked -- you generally want to support some older version in order
-to ensure you get the most reach.
-
-To summarize:
-
-* Use `netstandard2.0` to share code between .NET Framework and all other
-  platforms.
-* Use `netstandard2.1` to share code between Mono, Xamarin, and .NET Core 3.x.
-* Use `net5.0` for code sharing moving forward.
 
 ## Summary
 
