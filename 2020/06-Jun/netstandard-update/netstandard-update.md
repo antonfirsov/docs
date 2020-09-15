@@ -462,13 +462,13 @@ time we ship, you can assume that all platforms are going to support the new
 version immediately and completely. And we cement this promise by using the
 prefix naming convention.
 
-However, we might add support for new platforms (such as Android and iOS that
-come with .NET 6) and we might drop support for platforms that are no longer
-relevant (illustrated by `net5.0-someoldos`). But dropping platforms will be a
-big deal and we'll announce these decisions well in advance, so these changes
-should never surprise you. That's the same model we with .NET Standard, where,
-for example, there is no new version of Windows Phone that implements a later
-version of .NET Standard.
+However, new versions of .NET might add support for other platforms (such as
+Android and iOS that'll come in .NET 6) or might stop supporting platforms that
+are no longer relevant (illustrated by `net5.0-someoldos` which doesn't exist in
+.NET 6). But not moving platforms forward will be a big deal and we'll announce
+these decisions well in advance, so these changes should never surprise you.
+That's the same model we had with .NET Standard, where, for example, there is no
+new version of Windows Phone that implements a later version of .NET Standard.
 
 ## Why there is no TFM for WebAssembly
 
