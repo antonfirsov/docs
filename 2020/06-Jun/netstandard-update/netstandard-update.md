@@ -7,8 +7,9 @@ also cover the cases where you still need .NET Standard.
 
 ## For the impatient: TL;DR
 
-.NET 5 will be a shared code base for .NET Core, Mono, Xamarin, and future .NET
-implementations:
+.NET 5 will be a single product with a uniform set of capabilities and APIs that
+can be used for Windows desktop apps, cross-platform mobile apps, console apps,
+cloud services, and web sites:
 
 ![.NET 5 vision](net5-vision.gif)
 
