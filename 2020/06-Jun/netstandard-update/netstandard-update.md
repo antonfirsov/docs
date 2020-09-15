@@ -209,14 +209,14 @@ following warnings:
 ```C#
 private static string GetLoggingDirectory()
 {
-    using (var key = Registry.CurrentUser.OpenSubKey(@"Software\Fabrikam"))
+    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Fabrikam"))
     {
         if (key?.GetValue("LoggingDirectoryPath") is string configuredPath)
             return configuredPath;
     }
 
-    var exePath = Process.GetCurrentProcess().MainModule.FileName;
-    var folder = Path.GetDirectoryName(exePath);
+    string exePath = Process.GetCurrentProcess().MainModule.FileName;
+    string folder = Path.GetDirectoryName(exePath);
     return Path.Combine(folder, "Logging");
 }
 ```
@@ -253,15 +253,15 @@ private static string GetLoggingDirectory()
 {
     if (OperatingSystem.IsWindows())
     {
-        using (var key = Registry.CurrentUser.OpenSubKey(@"Software\Fabrikam"))
+        using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Fabrikam"))
         {
             if (key?.GetValue("LoggingDirectoryPath") is string configuredPath)
                 return configuredPath;
         }
     }
 
-    var exePath = Process.GetCurrentProcess().MainModule.FileName;
-    var folder = Path.GetDirectoryName(exePath);
+    string exePath = Process.GetCurrentProcess().MainModule.FileName;
+    string folder = Path.GetDirectoryName(exePath);
     return Path.Combine(folder, "Logging");
 }
 ```
@@ -273,14 +273,14 @@ To **mark your code as Windows-specific**, apply the new
 [SupportedOSPlatform("windows")]
 private static string GetLoggingDirectory()
 {
-    using (var key = Registry.CurrentUser.OpenSubKey(@"Software\Fabrikam"))
+    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Fabrikam"))
     {
         if (key?.GetValue("LoggingDirectoryPath") is string configuredPath)
             return configuredPath;
     }
 
-    var exePath = Process.GetCurrentProcess().MainModule.FileName;
-    var folder = Path.GetDirectoryName(exePath);
+    string exePath = Process.GetCurrentProcess().MainModule.FileName;
+    string folder = Path.GetDirectoryName(exePath);
     return Path.Combine(folder, "Logging");
 }
 ```
@@ -319,8 +319,8 @@ private static string GetLoggingDirectory()
 {
     //...
 
-    var exePath = Process.GetCurrentProcess().MainModule.FileName;
-    var folder = Path.GetDirectoryName(exePath);
+    string exePath = Process.GetCurrentProcess().MainModule.FileName;
+    string folder = Path.GetDirectoryName(exePath);
     return Path.Combine(folder, "Logging");
 }
 ```
@@ -344,8 +344,8 @@ private static string GetLoggingDirectory()
 
     if (!OperatingSystem.IsBrowser())
     {
-        var exePath = Process.GetCurrentProcess().MainModule.FileName;
-        var folder = Path.GetDirectoryName(exePath);
+        string exePath = Process.GetCurrentProcess().MainModule.FileName;
+        string folder = Path.GetDirectoryName(exePath);
         return Path.Combine(folder, "Logging");
     }
     else
@@ -363,8 +363,8 @@ private static string GetLoggingDirectory()
 {
     //...
 
-    var exePath = Process.GetCurrentProcess().MainModule.FileName;
-    var folder = Path.GetDirectoryName(exePath);
+    string exePath = Process.GetCurrentProcess().MainModule.FileName;
+    string folder = Path.GetDirectoryName(exePath);
     return Path.Combine(folder, "Logging");
 }
 ```
