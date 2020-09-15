@@ -232,8 +232,9 @@ You have three options on how you can address these warnings:
 1. **Guard the call**. You can check whether you're running on Windows before
    calling the API by using `OperatingSystem.IsWindows()`.
 
-2. **Mark the call as Windows-specific**. In some cases, it might make sense
-   to mark yourself as platform-specific via `[SupportedOSPlatform("windows")]`.
+2. **Mark the call as Windows-specific**. In some cases, it might make sense to
+   mark the calling member as platform-specific via
+   `[SupportedOSPlatform("windows")]`.
 
 3. **Delete the code.**. Generally not what you want because it means you lose
    fidelity when your code is used by Windows users, but for cases where a
