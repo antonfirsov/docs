@@ -1,4 +1,8 @@
-# The future of .NET Standard
+---
+post_title: 'The future of .NET Standard'
+username: terrajobst@web.de
+summary: Since .NET 5 was announced, many of you have asked what this means for .NET Standard and whether it will still be relevant. In this post, I'm going to explain how .NET 5 improves code sharing and replaces .NET Standard. I'll also cover the cases where you still need .NET Standard.
+---
 
 Since [.NET 5 was announced][net5-post], many of you have asked what this means
 for .NET Standard and whether it will still be relevant. In this post, I'm going
