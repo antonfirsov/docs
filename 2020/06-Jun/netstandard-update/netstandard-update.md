@@ -174,15 +174,15 @@ below them all that represents the common API set. In a very real sense, this
 
 We can't solve this problem without truly merging some rectangles in our layer
 diagram, which is what .NET 5 does: it provides a unified implementation where
-all parties build on the same foundation and thus get the same version number.
+all parties build on the same foundation and thus get the same API shape and version number.
 
 ## Problem 3: .NET Standard exposes platform-specific APIs
 
 When we designed .NET Standard, [we had to make pragmatic
 concessions][problem-3] in order to avoid breaking the library ecosystem too
 much. That is, we had to include some Windows-only APIs (such as file system
-ACLs, the registry, WMI, and so on). Moving forward, we try to avoid adding
-platform-specific APIs to `net5.0`. However, it's impossible for us to predict
+ACLs, the registry, WMI, and so on). Moving forward, we will avoid adding
+platform-specific APIs to `net5.0`, `net6.0` and future versions. However, it's impossible for us to predict
 the future. For example, with Blazor WebAssembly we have recently added a new
 environment where .NET runs and some of the otherwise cross-platform APIs (such
 as threading or process control) can't be supported in the browser's sandbox.
@@ -306,7 +306,7 @@ be Windows-specific.
 
 ### Dealing with APIs that are unsupported in Blazor WebAssembly
 
-Blazor WebAssembly projects run inside the browser sandbox, which constraints
+Blazor WebAssembly projects run inside the browser sandbox, which constrains
 which APIs you can use. For example, while thread and process creation are both
 cross-platform APIs, we can't make these APIs work in Blazor WebAssembly, which
 means they throw `PlatformNotSupportedException`. We have marked these APIs with
