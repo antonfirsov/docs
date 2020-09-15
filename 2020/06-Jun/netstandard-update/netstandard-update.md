@@ -100,16 +100,16 @@ implementations.
 
 The goal of .NET Standard was to unify the feature set of the base class library
 (BCL), so that you can write a single library that can run everywhere. And this
-has served us well: .NET Standard is used by over 77% of the top 1000 packages.
-And if we look at all packages that have been updated in the last 6 months, the
-adoption is at 58%.
+has served us well: .NET Standard is supported by over 77% of the top 1000
+packages. And if we look at all packages on NuGet.org that have been updated in
+the last 6 months, the adoption is at 58%.
 
 ![#Packages supporting .NET Standard](chart-all.png)
 
 But standardizing the API set alone creates a tax. It requires coordination
 whenever we're adding new APIs -- which happens all the time. The .NET
-open-source community (which includes us) keeps innovating in the BCL by
-providing new language features, usability improvements, new cross-cutting
+open-source community (which includes the .NET team) keeps innovating in the BCL
+by providing new language features, usability improvements, new cross-cutting
 features such as `Span<T>`, or supporting new data formats or networking
 protocols.
 
@@ -174,7 +174,8 @@ below them all that represents the common API set. In a very real sense, this
 
 We can't solve this problem without truly merging some rectangles in our layer
 diagram, which is what .NET 5 does: it provides a unified implementation where
-all parties build on the same foundation and thus get the same API shape and version number.
+all parties build on the same foundation and thus get the same API shape and
+version number.
 
 ## Problem 3: .NET Standard exposes platform-specific APIs
 
@@ -372,7 +373,7 @@ private static string GetLoggingDirectory()
 
 Since the browser sandbox is fairly restrictive, not all class libraries and
 NuGet packages should be expected to work in Blazor WebAssembly. Furthermore,
-the vast majority of libraries aren't expected to run in Blazor
+the vast majority of libraries aren't expected to support running in Blazor
 WebAssembly either.
 
 That's why regular class libraries targeting `net5.0` won't see warnings for
@@ -440,7 +441,9 @@ However, we might add support for new platforms (such as Android and iOS that
 come with .NET 6) and we might drop support for platforms that are no longer
 relevant (illustrated by `net5.0-someoldos`). But dropping platforms will be a
 big deal and we'll announce these decisions well in advance, so these changes
-should never surprise you.
+should never surprise you. That's the same model we with .NET Standard, where,
+for example, there is no new version of Windows Phone that implements a later
+version of .NET Standard.
 
 ## .NET 5 as the combination of .NET Standard & .NET Core
 
@@ -451,14 +454,14 @@ run on tomorrow.
 You might think "hold on, this sounds great, but what if someone wants to create
 a completely new implementation". That's fine too. But virtually nobody will
 start one from scratch. Most likely, it will be a fork of the current code base
-([dotnet/runtime]), and even that might not be necessary. For example, Tizen
-(the Samsung platform for smart appliances) uses an unchanged .NET Core
-runtime/framework with a Samsung-specific app model on top.
+([dotnet/runtime]). For example, Tizen (the Samsung platform for smart
+appliances) uses a .NET Core with minimal changes and a Samsung-specific app
+model on top.
 
-And, even in cases where changes at the runtime or framework-level are
-necessary, forking preserves a merge relationship, which allows maintainers to
-keep pulling in new changes from the [dotnet/runtime] repo, benefiting from BCL
-innovations in areas unaffected by their changes.
+Forking preserves a merge relationship, which allows maintainers to keep pulling
+in new changes from the [dotnet/runtime] repo, benefiting from BCL innovations
+in areas unaffected by their changes. That's very similar to how Linux distros
+work.
 
 Granted, there are cases where one might want to create a very different "kind"
 of .NET, such as a minimal runtime without the current BCL. But that would
