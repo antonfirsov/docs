@@ -181,107 +181,218 @@ all parties build on the same foundation and thus get the same version number.
 When we designed .NET Standard, [we had to make pragmatic
 concessions][problem-3] in order to avoid breaking the library ecosystem too
 much. That is, we had to include some Windows-only APIs (such as file system
-ACLs, the registry, WMI, and so on).
+ACLs, the registry, WMI, and so on). Moving forward, we try to avoid adding
+platform-specific APIs to `net5.0`. However, it's impossible for us to predict
+the future. For example, with Blazor WebAssembly we have recently added a new
+environment where .NET runs and some of the otherwise cross-platform APIs (such
+as threading or process control) can't be supported in the browser's sandbox.
 
-We didn't have a way to mark these APIs as Windows-only, nor did we have a TFM
-to put them into (like we have now with `net5.0-windows`). Many of you have
-complained that these feel like "landmines" - the code compiles without
-errors and "look" like portable to any platform, but when running on a platform
-that doesn't have an implementation for the given API, you get runtime
-errors.
+Many of you have complained that these kind of APIs feel like "landmines" - the
+code compiles without errors and thus appears to being portable to any platform,
+but when running on a platform that doesn't have an implementation for the given
+API, you get runtime errors.
 
-In the past, we have experimented with a [Roslyn analyzer][platform-compat] that
-detects platform-specific APIs at compile time:
+Starting with .NET 5, we're [shipping analyzers and code fixers][analzyer-post]
+with the SDK that are on by default. This includes the [platform compatibility
+analyzer][platform-compat-spec] that that detects unintentional use of APIs that
+aren't supported on the platforms you intend to run on. This features replaces
+the `Microsoft.DotNet.Analyzers.Compatibility` NuGet package.
 
-![Detecting platform-specific APIs with an analyzer][platform-compat-img]
+Let's first look at Windows-specific APIs.
 
-However, this analyzer has a few shortcomings:
+### Dealing with Windows-specific APIs
 
-1. It's experimental so it doesn't ship with the SDK and is not enabled by
-   default.
-2. It essentially hard codes which APIs are platform-specific.
-3. It's not smart enough to understand when APIs are called under a
-   platform-guard.
-4. It doesn't understand in which version a platform API is available.
+When you create a project targeting `net5.0` you can reference the
+`Microsoft.Win32.Registry` package. But when you start using it, you'll get the
+following warnings:
 
-Starting with .NET 5, we're going to ship analyzers and code fixers with the SDK
-that are on by default. Among those, we're [planning to add one for platform specific
-APIs][platform-compat-spec].
+```C#
+private static string GetLoggingDirectory()
+{
+    using (var key = Registry.CurrentUser.OpenSubKey(@"Software\Fabrikam"))
+    {
+        if (key?.GetValue("LoggingDirectoryPath") is string configuredPath)
+            return configuredPath;
+    }
 
-This analyzer will be especially valuable for app-models that have a large set
-of OS-bindings, such as Android, iOS, and UWP. Technically, WinForms and WPF are
-also OS bindings, but they work on all supported versions of Windows, so you never
-encounter an API that needs a specific version of Windows (unlike the WinRT APIs
-from UWP).
+    var exePath = Process.GetCurrentProcess().MainModule.FileName;
+    var folder = Path.GetDirectoryName(exePath);
+    return Path.Combine(folder, "Logging");
+}
+```
 
-In .NET land, you compile against a specific framework version, which means at
-compile-time you can only see APIs that exist in that version of .NET. If you
-want to call APIs that are introduced in a later .NET version, you need to
-either use reflection, retarget to a higher version (and thus no longer being
-able to run on the older version), or use multi-targeting (meaning you produce
-two separate binaries for the old and the new .NET version). You can't
-just compile against the later version and guard the call at run time with an
-`if` check -- the reason is that the runtime needs to be able to resolve the
-types and methods you're using at run time which it can't do for the new APIs
-when you run on the older version. That's irrespective of whether or not you
-actually call the API.
+```text
+CA1416: 'RegistryKey.OpenSubKey(string)' is supported on 'windows'
+CA1416: 'Registry.CurrentUser' is supported on 'windows'
+CA1416: 'RegistryKey.GetValue(string?)' is supported on 'windows'
+```
 
-Since OS APIs are native, this requirement doesn't exist. Thus, you can compile
-against the latest Android, iOS, or Windows SDK and still run on older versions,
-as long as you are only calling the APIs that are actually available at run time.
+You have three options on how you can address these warnings:
 
-Let's look at an example. Say you're building an iOS application and you want to
-run on iOS 13 while still being able to use the latest APIs if you're running on
-the latest version of iOS. Your project file might look like this:
+1. **Guard the call**. You can check whether you're running on Windows before
+   calling the API by using `OperatingSystem.IsWindows()`.
+
+2. **Mark the calling as Windows-specific**. In some cases, it might make sense
+   to mark yourself as platform-specific via `[SupportedOSPlatform("windows")]`.
+
+3. **Delete the code.**. Generally not what you want because it means you lose
+   fidelity when your code is used by Windows users, but for cases where a
+   cross-platform alternative exists, you're likely better off using that over
+   platform-specific APIs. For example, instead of using the registry you could
+   use an XML configuration file.
+
+4. **Suppress the warning**. You can of course cheat and simply suppress the
+   warning, either via `editor.config` or `#pragma warning disable`. However,
+   you should prefer options (1) and (2) when using platform-specific APIs.
+
+In order to **guard the call**, you'd use the new static methods on the
+`System.OperatingSystem` class, for example:
+
+```C#
+private static string GetLoggingDirectory()
+{
+    if (OperatingSystem.IsWindows())
+    {
+        using (var key = Registry.CurrentUser.OpenSubKey(@"Software\Fabrikam"))
+        {
+            if (key?.GetValue("LoggingDirectoryPath") is string configuredPath)
+                return configuredPath;
+        }
+    }
+
+    var exePath = Process.GetCurrentProcess().MainModule.FileName;
+    var folder = Path.GetDirectoryName(exePath);
+    return Path.Combine(folder, "Logging");
+}
+```
+
+In order to **mark your code as Windows-specific**, you'd apply the new
+`SupportedOSPlatform` attribute:
+
+```C#
+[SupportedOSPlatform("windows")]
+private static string GetLoggingDirectory()
+{
+    using (var key = Registry.CurrentUser.OpenSubKey(@"Software\Fabrikam"))
+    {
+        if (key?.GetValue("LoggingDirectoryPath") is string configuredPath)
+            return configuredPath;
+    }
+
+    var exePath = Process.GetCurrentProcess().MainModule.FileName;
+    var folder = Path.GetDirectoryName(exePath);
+    return Path.Combine(folder, "Logging");
+}
+```
+
+In both cases the warnings for using the registry will disappear.
+
+The key difference is that in second example the analyzer will now issue
+warnings for the call sites of `GetLoggingDirectory()` because it is now
+considered to be a Windows-specific API. In other words, you forward the
+requirement of doing the platform check your callers.
+
+The `[SupportedOSPlatform]` attribute can be applied to the member, type, or
+assembly level. This attribute is also used by the BCL itself, for example, the
+assembly `Microsoft.Win32.Registry` has this attribute applied, which is the
+reason that it knows that the registry is a Windows-specific API in the first
+place.
+
+Note that if you target `net5.0-windows` this attribute is automatically applied
+to your assembly. That means using Windows-specific APIs from `net5.0-windows`
+will never generate any warnings because your entire assembly is considered to
+be Windows-specific.
+
+### Dealing with APIs that are unsupported in Blazor WebAssembly
+
+Blazor WebAssembly projects run inside the browser sandbox, which constraints
+which APIs you can use. For example, while thread- and process creation are both
+cross-platform APIs we can't make these APIs work in Blazor WebAssembly which
+means they throw `PlatformNotSupportedException`. We have marked these APIs with
+`[UnsupportedOSPlatform("browser")].
+
+Let's say you copy & paste the `GetLoggingDirectory()` into a Blazor WebAssembly
+application. You'll get the following warning:
+
+```C#
+private static string GetLoggingDirectory()
+{
+    //...
+
+    var exePath = Process.GetCurrentProcess().MainModule.FileName;
+    var folder = Path.GetDirectoryName(exePath);
+    return Path.Combine(folder, "Logging");
+}
+```
+
+```text
+CA1416 'Process.GetCurrentProcess()' is unsupported on 'browser'
+CA1416 'Process.MainModule' is unsupported on 'browser'
+```
+
+In order to deal with these warnings, you have basically the same options
+as with Windows-specific APIs.
+
+You can get **guard the call**:
+
+```C#
+private static string GetLoggingDirectory()
+{
+    //...
+
+    if (!OperatingSystem.IsBrowser())
+    {
+        var exePath = Process.GetCurrentProcess().MainModule.FileName;
+        var folder = Path.GetDirectoryName(exePath);
+        return Path.Combine(folder, "Logging");
+    }
+    else
+    {
+        return string.Empty;
+    }
+}
+```
+
+Or you can mark the member as being unsupported by Blazor WebAssembly:
+
+```C#
+[UnsupportedOSPlatform("browser")]
+private static string GetLoggingDirectory()
+{
+    //...
+
+    var exePath = Process.GetCurrentProcess().MainModule.FileName;
+    var folder = Path.GetDirectoryName(exePath);
+    return Path.Combine(folder, "Logging");
+}
+```
+
+Since the browser sandbox is fairly restrictive not all class libraries and
+NuGet packages should be expected to work in Blazor WebAssembly. Furthermore,
+the vast majority of libraries aren't expected having to run in Blazor
+WebAssembly either.
+
+That's why regular class libraries targeting `net5.0` will not see warnings for
+APIs that are unsupported by Blazor WebAssembly. You have to explicitly indicate
+that you intend to support your project in Blazor Web Assembly by adding the
+`<SupportedPlatform>` item to your project file:
 
 ```XML
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0-ios14.0</TargetFramework>
-    <TargetPlatformMinVersion>13.0</TargetPlatformMinVersion>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
-
-  ...
-
+  
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+  
 </Project>
 ```
 
-In our example, Apple added a new API `NSFizzBuff` that provides some cool new
-thing to your application, but it's entirely optional.
-
-Our [goal for .NET 5][platform-compat-spec] is to ship the following experience.
-If you call the API like this:
-
-```C#
-private static void ProvideExtraPop()
-{
-    NSFizzBuff();
-}
-```
-
-you'll immediately get a warning such as:
-
-> 'NSFizzBuff' requires iOS 14 or later.
-
-You can then invoke a code fix from the light bulb menu that will add a platform
-guard to your code:
-
-```C#
-private static void ProvideExtraPop()
-{
-    if (!RuntimeInformation.IsOSPlatformOrLater(OSPlatform.iOS, 14))
-      return;
-
-    NSFizzBuff();
-}
-```
-
-The warning will then disappear because the analyzer understands that you
-checked for the correct version. Alternatively, you can invoke a different code
-fixer that will annotate your own method (type or even assembly) to be
-platform-specific. This way, you can forward the requirements to your consumers.
-This makes it possible to write wrappers around platform-specific APIs as well.
+If you're building a Blazor WebAssembly application you don't have to do this
+because the `Microsoft.NET.Sdk.BlazorWebAssembly` SDK does this automatically.
 
 ## .NET versioning
 
@@ -411,3 +522,4 @@ Happy coding!
 [platform-compat-img]: https://github.com/dotnet/platform-compat/raw/master/docs/screenshot1.png
 [platform-compat-spec]: https://github.com/dotnet/designs/pull/110
 [rid]: https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
+[analzyer-post]: https://devblogs.microsoft.com/dotnet/automatically-find-latent-bugs-in-your-code-with-net-5/
