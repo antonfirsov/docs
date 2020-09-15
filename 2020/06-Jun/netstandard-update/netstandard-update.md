@@ -236,7 +236,7 @@ You have three options on how you can address these warnings:
    mark the calling member as platform-specific via
    `[SupportedOSPlatform("windows")]`.
 
-3. **Delete the code.**. Generally not what you want because it means you lose
+3. **Delete the code**. Generally not what you want because it means you lose
    fidelity when your code is used by Windows users, but for cases where a
    cross-platform alternative exists, you're likely better off using that over
    platform-specific APIs. For example, instead of using the registry, you could
