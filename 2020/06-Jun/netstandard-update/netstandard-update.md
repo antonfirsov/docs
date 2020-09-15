@@ -11,7 +11,7 @@ also cover the cases where you still need .NET Standard.
 can be used for Windows desktop apps, cross-platform mobile apps, console apps,
 cloud services, and websites:
 
-![.NET 5 vision](net5-vision.gif)
+![.NET 5 vision](net5-vision.gif) <!-- Use .mp4 on WordPress -->
 
 To better reflect this, we've updated the [target framework names (TFMs)][net5-tfms]:
 
