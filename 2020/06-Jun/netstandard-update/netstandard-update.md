@@ -29,9 +29,10 @@ versions will continue to support .NET Standard 2.1 and earlier. You should
 think of `net5.0` (and future versions) as the foundation for sharing code
 moving forward.
 
-And since `net5.0` is the shared base for all these new TFMs, runtime, library,
-and language innovation is coordinated around this version number. For example,
-in order to use C# 9, you need to use `net5.0` or `net5.0-windows`.
+And since net5.0 is the shared base for all these new TFMs, that means that the
+runtime, library, and new language features are coordinated around this version
+number. For example, in order to use C# 9, you need to use `net5.0` or
+`net5.0-windows`.
 
 ## What you should target
 
@@ -504,8 +505,9 @@ And due to the naming convention, you'll be able to easily tell who can consume
 a given library -- without having to consult the .NET Standard version table.
 
 While .NET Standard 2.1 will be the last version of .NET Standard, .NET 5 and
-all future versions will continue to support .NET Standard 2.1 and earlier. But
-you should think of `netX.Y` as the foundation for sharing code moving forward.
+all future versions will continue to support .NET Standard 2.1 and earlier. You
+should think of `net5.0` (and future versions) as the foundation for sharing
+code moving forward.
 
 Happy coding!
 
