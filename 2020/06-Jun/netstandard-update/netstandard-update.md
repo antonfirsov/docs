@@ -246,7 +246,7 @@ You have three options on how you can address these warnings:
    you should prefer options (1) and (2) when using platform-specific APIs.
 
 To **guard the call**, use the new static methods on the
-`System.OperatingSystem` class, for example:
+[System.OperatingSystem] class, for example:
 
 ```C#
 private static string GetLoggingDirectory()
@@ -525,3 +525,4 @@ Happy coding!
 [platform-compat-spec]: https://github.com/dotnet/designs/pull/110
 [rid]: https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
 [analyzer-post]: https://devblogs.microsoft.com/dotnet/automatically-find-latent-bugs-in-your-code-with-net-5/
+[System.OperatingSystem]: https://docs.microsoft.com/dotnet/api/system.operatingsystem
