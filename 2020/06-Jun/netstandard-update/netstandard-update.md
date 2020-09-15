@@ -352,6 +352,30 @@ means it wouldn't have implemented .NET Standard either. We're generally not
 interested in pursuing this direction, but the convergence of .NET Standard and
 .NET Core doesn't prevent that nor does it make it any harder.
 
+## Why there is no TFM for WebAssembly
+
+We originally considered adding TFM for WebAssembly, such as `net5.0-wasm`. We
+decided against for the following reasons:
+
+* WebAssembly is more like an instruction set (such as x86 or x64) than like an
+  operating system. And we generally don't offer divergent APIs between different
+  architectures.
+
+* WebAssembly's execution model in the browser sandbox is a key differentiator,
+  but we decided that it makes more sense to only model this as a runtime check.
+  Similar to how you check for Windows and Linux, you can use the `OperatingSystem`
+  type. Since this isn't about instruction set, the method is called `IsBrowser()`
+  rather than `IsWebAssembly()`.
+
+* There are [runtime identifiers (RID)][rid] for WebAssembly, called `browser`
+  and `browser-wasm`. They allow package authors to deploy different binaries
+  when targeting WebAssembly in a browser.
+
+As part of the compatibility analyzer, we have marked APIs that are unsupported
+in the browser sandbox. For example, `System.Diagnostics.Process`. If you use
+those APIs from inside a browser app, you'll get a warning telling you that this
+APIs is unsupported. A following blog post will go into more detail on this.
+
 ## Summary
 
 `net5.0` is for code that runs everywhere. It combines and replaces the
@@ -385,3 +409,4 @@ Happy coding!
 [platform-compat]: https://github.com/dotnet/platform-compat
 [platform-compat-img]: https://github.com/dotnet/platform-compat/raw/master/docs/screenshot1.png
 [platform-compat-spec]: https://github.com/dotnet/designs/pull/110
+[rid]: https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
