@@ -9,7 +9,7 @@ also cover the cases where you still need .NET Standard.
 
 .NET 5 will be a single product with a uniform set of capabilities and APIs that
 can be used for Windows desktop apps, cross-platform mobile apps, console apps,
-cloud services, and web sites:
+cloud services, and websites:
 
 ![.NET 5 vision](net5-vision.gif)
 
@@ -21,10 +21,10 @@ To better reflect this, we've updated the [target framework names (TFMs)][net5-t
   already did in .NET Standard).
 
 * `net5.0-windows` (and later `net6.0-android` and `net6.0-ios`). These TFMs
-  represent OS specific flavors of .NET 5 that include `net5.0` plus OS-specific
+  represent OS-specific flavors of .NET 5 that include `net5.0` plus OS-specific
   functionality.
 
-There isn't going to be a new version of .NET Standard, but .NET 5 and all future
+We won't be releasing a new version of .NET Standard, but .NET 5 and all future
 versions will continue to support .NET Standard 2.1 and earlier. You should
 think of `net5.0` (and future versions) as the foundation for sharing code
 moving forward.
@@ -37,7 +37,7 @@ in order to use C# 9, you need to use `net5.0` or `net5.0-windows`.
 
 .NET 5 and all future versions will always support .NET Standard 2.1 and
 earlier. The only reason to retarget from .NET Standard to .NET 5 is to gain
-access to more runtime features, language features, or APIs. So you can think of
+access to more runtime features, language features, or APIs. So, you can think of
 .NET 5 as .NET Standard vNext.
 
 What about new code? Should you still start with .NET Standard 2.0 or should you
@@ -60,7 +60,7 @@ go straight to .NET 5? It depends.
   either go with .NET Standard 2.1 or .NET 5. Most code can probably skip .NET
   Standard 2.1 and go straight to .NET 5.
 
-So what should you do? My expectation is that widely used libraries will end up
+So, what should you do? My expectation is that widely used libraries will end up
 multi-targeting for both .NET Standard 2.0 and .NET 5: supporting .NET Standard
 2.0 gives you the most reach while supporting .NET 5 ensures you can leverage
 the latest platform features for customers that are already on .NET 5.
@@ -100,7 +100,7 @@ implementations.
 
 The goal of .NET Standard was to unify the feature set of the base class library
 (BCL), so that you can write a single library that can run everywhere. And this
-has served us really well: .NET Standard by over 77% of the top 1000 packages.
+has served us well: .NET Standard is used by over 77% of the top 1000 packages.
 And if we look at all packages that have been updated in the last 6 months, the
 adoption is at 58%.
 
@@ -114,10 +114,10 @@ features such as `Span<T>`, or supporting new data formats or networking
 protocols.
 
 And while we can provide new types as NuGet packages, we can't provide new APIs
-on existing types this way. So in the general sense, innovation in the BCL
+on existing types this way. So, in the general sense, innovation in the BCL
 requires shipping a new version of .NET Standard.
 
-Up until .NET Standard 2.0 this wasn't really an issue because we only
+Up until .NET Standard 2.0, this wasn't really an issue because we only
 standardized *existing* APIs. But in .NET Standard 2.1, we standardized brand new
 APIs and that's where we saw quite a bit of friction.
 
@@ -150,7 +150,7 @@ to support all the aspects that make .NET implementations differ today, such
 as supporting both just-in-time (JIT) compilation and ahead-of-time
 (AOT) compilation?
 
-Instead of doing these reviews as an after thought, we'd make all these aspects
+Instead of doing these reviews as an afterthought, we'd make all these aspects
 part of the feature design, right from the start. In such a world, the
 standardized API set is, by construction, the common API set. When a feature is
 implemented, it would already be available for everyone because the code base is
@@ -161,12 +161,12 @@ shared.
 Separating the API set from its implementation doesn't just slow down the
 availability of APIs. It also means that we need to [map .NET Standard versions
 to their implementations][ns-table]. As someone who had to explain this table to
-many people over time I've come to appreciate just how complicated this
+many people over time, I've come to appreciate just how complicated this
 seemingly simple idea is. We've tried our best to make it easier, but in the
 end, it's just inherent complexity because the API set and the implementations
 are shipped independently.
 
-We have unified the .NET platforms by adding yet another, synthetic, platform
+We have unified the .NET platforms by adding yet another synthetic platform
 below them all that represents the common API set. In a very real sense, this
 [XKCD-inspired comic][xkcd] is spot on:
 
@@ -192,17 +192,17 @@ code compiles without errors and thus appears to being portable to any platform,
 but when running on a platform that doesn't have an implementation for the given
 API, you get runtime errors.
 
-Starting with .NET 5, we're [shipping analyzers and code fixers][analzyer-post]
+Starting with .NET 5, we're [shipping analyzers and code fixers][analyzer-post]
 with the SDK that are on by default. This includes the [platform compatibility
-analyzer][platform-compat-spec] that that detects unintentional use of APIs that
-aren't supported on the platforms you intend to run on. This features replaces
+analyzer][platform-compat-spec] that detects unintentional use of APIs that
+aren't supported on the platforms you intend to run on. This feature replaces
 the `Microsoft.DotNet.Analyzers.Compatibility` NuGet package.
 
 Let's first look at Windows-specific APIs.
 
 ### Dealing with Windows-specific APIs
 
-When you create a project targeting `net5.0` you can reference the
+When you create a project targeting `net5.0`, you can reference the
 `Microsoft.Win32.Registry` package. But when you start using it, you'll get the
 following warnings:
 
@@ -232,20 +232,20 @@ You have three options on how you can address these warnings:
 1. **Guard the call**. You can check whether you're running on Windows before
    calling the API by using `OperatingSystem.IsWindows()`.
 
-2. **Mark the calling as Windows-specific**. In some cases, it might make sense
+2. **Mark the call as Windows-specific**. In some cases, it might make sense
    to mark yourself as platform-specific via `[SupportedOSPlatform("windows")]`.
 
 3. **Delete the code.**. Generally not what you want because it means you lose
    fidelity when your code is used by Windows users, but for cases where a
    cross-platform alternative exists, you're likely better off using that over
-   platform-specific APIs. For example, instead of using the registry you could
+   platform-specific APIs. For example, instead of using the registry, you could
    use an XML configuration file.
 
 4. **Suppress the warning**. You can of course cheat and simply suppress the
    warning, either via `editor.config` or `#pragma warning disable`. However,
    you should prefer options (1) and (2) when using platform-specific APIs.
 
-In order to **guard the call**, you'd use the new static methods on the
+To **guard the call**, use the new static methods on the
 `System.OperatingSystem` class, for example:
 
 ```C#
@@ -266,7 +266,7 @@ private static string GetLoggingDirectory()
 }
 ```
 
-In order to **mark your code as Windows-specific**, you'd apply the new
+To **mark your code as Windows-specific**, apply the new
 `SupportedOSPlatform` attribute:
 
 ```C#
@@ -285,20 +285,20 @@ private static string GetLoggingDirectory()
 }
 ```
 
-In both cases the warnings for using the registry will disappear.
+In both cases, the warnings for using the registry will disappear.
 
 The key difference is that in second example the analyzer will now issue
 warnings for the call sites of `GetLoggingDirectory()` because it is now
 considered to be a Windows-specific API. In other words, you forward the
-requirement of doing the platform check your callers.
+requirement of doing the platform check to your callers.
 
 The `[SupportedOSPlatform]` attribute can be applied to the member, type, or
-assembly level. This attribute is also used by the BCL itself, for example, the
+assembly level. This attribute is also used by the BCL itself. For example, the
 assembly `Microsoft.Win32.Registry` has this attribute applied, which is the
 reason that it knows that the registry is a Windows-specific API in the first
 place.
 
-Note that if you target `net5.0-windows` this attribute is automatically applied
+Note that if you target `net5.0-windows`, this attribute is automatically applied
 to your assembly. That means using Windows-specific APIs from `net5.0-windows`
 will never generate any warnings because your entire assembly is considered to
 be Windows-specific.
@@ -306,13 +306,13 @@ be Windows-specific.
 ### Dealing with APIs that are unsupported in Blazor WebAssembly
 
 Blazor WebAssembly projects run inside the browser sandbox, which constraints
-which APIs you can use. For example, while thread- and process creation are both
-cross-platform APIs we can't make these APIs work in Blazor WebAssembly which
+which APIs you can use. For example, while thread and process creation are both
+cross-platform APIs, we can't make these APIs work in Blazor WebAssembly, which
 means they throw `PlatformNotSupportedException`. We have marked these APIs with
-`[UnsupportedOSPlatform("browser")].
+`[UnsupportedOSPlatform("browser")]`.
 
 Let's say you copy & paste the `GetLoggingDirectory()` into a Blazor WebAssembly
-application. You'll get the following warning:
+application.
 
 ```C#
 private static string GetLoggingDirectory()
@@ -325,15 +325,17 @@ private static string GetLoggingDirectory()
 }
 ```
 
+You'll get the following warning:
+
 ```text
 CA1416 'Process.GetCurrentProcess()' is unsupported on 'browser'
 CA1416 'Process.MainModule' is unsupported on 'browser'
 ```
 
-In order to deal with these warnings, you have basically the same options
+To deal with these warnings, you have basically the same options
 as with Windows-specific APIs.
 
-You can get **guard the call**:
+You can **guard the call**:
 
 ```C#
 private static string GetLoggingDirectory()
@@ -367,12 +369,12 @@ private static string GetLoggingDirectory()
 }
 ```
 
-Since the browser sandbox is fairly restrictive not all class libraries and
+Since the browser sandbox is fairly restrictive, not all class libraries and
 NuGet packages should be expected to work in Blazor WebAssembly. Furthermore,
-the vast majority of libraries aren't expected having to run in Blazor
+the vast majority of libraries aren't expected to run in Blazor
 WebAssembly either.
 
-That's why regular class libraries targeting `net5.0` will not see warnings for
+That's why regular class libraries targeting `net5.0` won't see warnings for
 APIs that are unsupported by Blazor WebAssembly. You have to explicitly indicate
 that you intend to support your project in Blazor Web Assembly by adding the
 `<SupportedPlatform>` item to your project file:
@@ -391,14 +393,14 @@ that you intend to support your project in Blazor Web Assembly by adding the
 </Project>
 ```
 
-If you're building a Blazor WebAssembly application you don't have to do this
+If you're building a Blazor WebAssembly application, you don't have to do this
 because the `Microsoft.NET.Sdk.BlazorWebAssembly` SDK does this automatically.
 
 ## .NET versioning
 
 As a library author, you're probably wondering when .NET 5 will be widely
 supported. Moving forward, we'll ship .NET every year in November, with every
-other year being a long-term-support (LTS) release.
+other year being a Long Term Support (LTS) release.
 
 .NET 5 will ship in November 2020 and .NET 6 will ship in November 2021 as an
 LTS. We created this fixed schedule to make it easier for you to plan your
@@ -407,12 +409,12 @@ versions (if you're a library developer).
 
 Thanks to the ability to install .NET Core side-by-side, new versions are
 adopted fairly fast with LTS versions being the most popular. In fact, .NET Core
-3.1 was the fasted adopted .NET version ever.
+3.1 was the fastest adopted .NET version ever.
 
 ![.NET 5 Schedule](net5-schedule.png)
 
 The expectation is that every time we ship, we ship all framework names in
-conjunction, for example, it might look something like this:
+conjunction. For example, it might look something like this:
 
 |.NET 5            | .NET 6            | .NET 7            |
 |------------------|-------------------|-------------------|
@@ -442,7 +444,7 @@ should never surprise you.
 ## .NET 5 as the combination of .NET Standard & .NET Core
 
 .NET 5 and subsequent versions will be a single code base that supports desktop
-apps, mobile apps, cloud services, web sites, and whatever environment .NET will
+apps, mobile apps, cloud services, websites, and whatever environment .NET will
 run on tomorrow.
 
 You might think "hold on, this sounds great, but what if someone wants to create
@@ -484,7 +486,7 @@ decided against for the following reasons:
   when targeting WebAssembly in a browser.
 
 As part of the compatibility analyzer, we have marked APIs that are unsupported
-in the browser sandbox. For example, `System.Diagnostics.Process`. If you use
+in the browser sandbox, such as `System.Diagnostics.Process`. If you use
 those APIs from inside a browser app, you'll get a warning telling you that this
 APIs is unsupported. A following blog post will go into more detail on this.
 
@@ -522,4 +524,4 @@ Happy coding!
 [platform-compat-img]: https://github.com/dotnet/platform-compat/raw/master/docs/screenshot1.png
 [platform-compat-spec]: https://github.com/dotnet/designs/pull/110
 [rid]: https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
-[analzyer-post]: https://devblogs.microsoft.com/dotnet/automatically-find-latent-bugs-in-your-code-with-net-5/
+[analyzer-post]: https://devblogs.microsoft.com/dotnet/automatically-find-latent-bugs-in-your-code-with-net-5/
