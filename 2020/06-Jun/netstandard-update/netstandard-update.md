@@ -398,6 +398,31 @@ that you intend to support your project in Blazor Web Assembly by adding the
 If you're building a Blazor WebAssembly application, you don't have to do this
 because the `Microsoft.NET.Sdk.BlazorWebAssembly` SDK does this automatically.
 
+## .NET 5 as the combination of .NET Standard & .NET Core
+
+.NET 5 and subsequent versions will be a single code base that supports desktop
+apps, mobile apps, cloud services, websites, and whatever environment .NET will
+run on tomorrow.
+
+You might think "hold on, this sounds great, but what if someone wants to create
+a completely new implementation". That's fine too. But virtually nobody will
+start one from scratch. Most likely, it will be a fork of the current code base
+([dotnet/runtime]). For example, Tizen (the Samsung platform for smart
+appliances) uses a .NET Core with minimal changes and a Samsung-specific app
+model on top.
+
+Forking preserves a merge relationship, which allows maintainers to keep pulling
+in new changes from the [dotnet/runtime] repo, benefiting from BCL innovations
+in areas unaffected by their changes. That's very similar to how Linux distros
+work.
+
+Granted, there are cases where one might want to create a very different "kind"
+of .NET, such as a minimal runtime without the current BCL. But that would
+mean that it couldn't leverage the existing .NET library ecosystem anyway, which
+means it wouldn't have implemented .NET Standard either. We're generally not
+interested in pursuing this direction, but the convergence of .NET Standard and
+.NET Core doesn't prevent that nor does it make it any harder.
+
 ## .NET versioning
 
 As a library author, you're probably wondering when .NET 5 will be widely
@@ -444,31 +469,6 @@ big deal and we'll announce these decisions well in advance, so these changes
 should never surprise you. That's the same model we with .NET Standard, where,
 for example, there is no new version of Windows Phone that implements a later
 version of .NET Standard.
-
-## .NET 5 as the combination of .NET Standard & .NET Core
-
-.NET 5 and subsequent versions will be a single code base that supports desktop
-apps, mobile apps, cloud services, websites, and whatever environment .NET will
-run on tomorrow.
-
-You might think "hold on, this sounds great, but what if someone wants to create
-a completely new implementation". That's fine too. But virtually nobody will
-start one from scratch. Most likely, it will be a fork of the current code base
-([dotnet/runtime]). For example, Tizen (the Samsung platform for smart
-appliances) uses a .NET Core with minimal changes and a Samsung-specific app
-model on top.
-
-Forking preserves a merge relationship, which allows maintainers to keep pulling
-in new changes from the [dotnet/runtime] repo, benefiting from BCL innovations
-in areas unaffected by their changes. That's very similar to how Linux distros
-work.
-
-Granted, there are cases where one might want to create a very different "kind"
-of .NET, such as a minimal runtime without the current BCL. But that would
-mean that it couldn't leverage the existing .NET library ecosystem anyway, which
-means it wouldn't have implemented .NET Standard either. We're generally not
-interested in pursuing this direction, but the convergence of .NET Standard and
-.NET Core doesn't prevent that nor does it make it any harder.
 
 ## Why there is no TFM for WebAssembly
 
