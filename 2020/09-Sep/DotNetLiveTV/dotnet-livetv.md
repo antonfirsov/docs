@@ -1,4 +1,11 @@
-# Introducing .NET Live TV - Daily Developer Live Streams
+---
+post_title: 'Introducing .NET Live TV - Daily Developer Live Streams'
+username: jamesmontemagno
+categories: Developers, Integrations
+tags: Live Streams, Xamarin, Community Standups, Events, Videos
+featured_image: 
+summary: Introducting [.NET Live TV](https://live.dot.net), your one stop shop for all .NET and Visual Studio developer live streams across Twitch and YouTube.
+---
 
 Today, we are launching [.NET Live TV](https://live.dot.net), your one stop shop for all .NET and Visual Studio live streams across Twitch and YouTube. We are always looking for new ways to bring great content to the developer community and innovate ways to interact in real-time. Live streaming gives us the opportunity to deliver more content and for everyone to ask their questions and interact with the product teams. 
 
