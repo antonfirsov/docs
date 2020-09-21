@@ -22,6 +22,19 @@ namespace BlogValidator
                 return 1;
             }
 
+            try
+            {
+                return Run(directory) ? 0 : 1;
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex);
+                return 1;
+            }
+        }
+
+        private static bool Run(string directory)
+        {
             var files = FindMarkdownFiles(directory);
 
             var diagnostics = Validate(files);
@@ -29,7 +42,7 @@ namespace BlogValidator
             var isInsideGitHubAction = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true";
 
             foreach (var d in diagnostics)
-            {               
+            {
                 var path = Path.GetRelativePath(directory, d.FileName);
                 var severity = d.IsWarning ? "warning" : "error";
 
@@ -50,7 +63,7 @@ namespace BlogValidator
                 }
             }
 
-            return diagnostics.Count == 0 ? 0 : 1;
+            return diagnostics.Count == 0;
         }
 
         private static IEnumerable<string> FindMarkdownFiles(string directory)
