@@ -2,7 +2,7 @@
 
 namespace BlogValidator
 {
-    internal sealed class VR02_RequiredMetadataRule : ValidationRule
+    internal sealed class VR02_MetadataRequired : ValidationRule
     {
         public override void Validate(ValidationContext context)
         {

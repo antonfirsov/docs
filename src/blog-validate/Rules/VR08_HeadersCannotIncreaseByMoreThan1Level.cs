@@ -1,11 +1,8 @@
-﻿using System.Linq;
-
-using Markdig.Syntax;
-using Markdig.Syntax.Inlines;
+﻿using Markdig.Syntax;
 
 namespace BlogValidator
 {
-    internal sealed class VR08_HeadersCannotIncreaseByMoreThan1LevelRule : ValidationRule
+    internal sealed class VR08_HeadersCannotIncreaseByMoreThan1Level : ValidationRule
     {
         public override void Validate(ValidationContext context)
         {

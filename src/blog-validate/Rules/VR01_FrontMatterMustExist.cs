@@ -1,6 +1,6 @@
 ﻿namespace BlogValidator
 {
-    internal sealed class VR01_FrontMatterMustExistRule : ValidationRule
+    internal sealed class VR01_FrontMatterMustExist : ValidationRule
     {
         public override void Validate(ValidationContext context)
         {

@@ -4,7 +4,7 @@ using Markdig.Syntax;
 
 namespace BlogValidator
 {
-    internal sealed class VR04_HeadersMustStartAtH2Rule : ValidationRule
+    internal sealed class VR04_HeadersMustStartAtH2 : ValidationRule
     {
         public override void Validate(ValidationContext context)
         {

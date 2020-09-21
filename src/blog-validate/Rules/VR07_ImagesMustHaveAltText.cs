@@ -5,7 +5,7 @@ using Markdig.Syntax.Inlines;
 
 namespace BlogValidator
 {
-    internal sealed class VR07_ImagesMustHaveAltTextRule : ValidationRule
+    internal sealed class VR07_ImagesMustHaveAltText : ValidationRule
     {
         public override void Validate(ValidationContext context)
         {

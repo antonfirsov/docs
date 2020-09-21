@@ -4,7 +4,7 @@ using Markdig.Syntax;
 
 namespace BlogValidator
 {
-    internal sealed class VR03_FirstBlockShouldBeParagraphRule : ValidationRule
+    internal sealed class VR03_FirstBlockShouldBeParagraph : ValidationRule
     {
         public override void Validate(ValidationContext context)
         {
