@@ -34,9 +34,20 @@ namespace BlogValidator
                 var severity = d.IsWarning ? "warning" : "error";
 
                 if (isInsideGitHubAction)
+                {
                     Console.WriteLine($"::{severity} file={path},line={d.Line + 1},col={d.Column + 1}::{d.Id} {d.Message}");
+                }
                 else
+                {
+                    if (d.IsWarning)
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                    else
+                        Console.ForegroundColor = ConsoleColor.Red;
+
                     Console.WriteLine($"{path}({d.Line + 1},{d.Column + 1}): {severity}: {d.Id}: {d.Message}");
+
+                    Console.ResetColor();
+                }
             }
 
             return diagnostics.Count == 0 ? 0 : 1;

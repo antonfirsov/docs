@@ -36,9 +36,8 @@ namespace BlogValidator
             var markdown = File.ReadAllText(fileName);
             var document = MarkdownParser.Parse(markdown, _pipeline);
             var context = new ValidationContext(document, fileName);
-            var rules = GetRules();
 
-            foreach (var rule in rules)
+            foreach (var rule in _rules)
                 rule.Validate(context);
 
             return context.Diagnostics;
