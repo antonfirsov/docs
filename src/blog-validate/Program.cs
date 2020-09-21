@@ -63,7 +63,7 @@ namespace BlogValidator
                 }
             }
 
-            return diagnostics.Count == 0;
+            return diagnostics.Any(d => !d.IsWarning);
         }
 
         private static IEnumerable<string> FindMarkdownFiles(string directory)
