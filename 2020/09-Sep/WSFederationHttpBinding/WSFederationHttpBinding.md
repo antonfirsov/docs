@@ -1,7 +1,7 @@
 ---
 post_title: 'WSFederationHttpBinding in .NET Standard'
 username: mikerou@microsoft.com
-summary: An overview of the new System.ServiceModel.Federation preview package that enables WSFederationHttpBinding to work on .NET Standard.
+summary: The new `System.ServiceModel.Federation` package adds support for `WSFederationHttpBinding` and `WS2007FederationHttpBinding` which bring support for WS-Federation authentication scenarios where users authenticate with a security token service like Active Directory Federation Services. In this post, I'll show you you the basics of getting started with these client-side bindings in your .NET Core applications and .NET Standard libraries.
 ---
 
 As .NET Core has evolved, the WCF team has worked to expand support for WCF client scenarios on .NET Standard and .NET Core. Until recently, one of the gaps developers faced when building WCF clients for .NET Core was the lack of `WSFederationHttpBinding` and `WS2007FederationHttpBinding`. These bindings support WS-Federation authentication scenarios where users authenticate with a security token service (like Active Directory Federation Services) and use a token from that authentication provider to authenticate with a separate service (called the 'relying party'). A preview of the [System.ServiceModel.Federation package](https://www.nuget.org/packages/System.ServiceModel.Federation) (targeting .NET Standard 2.0) is now available to enable these client WCF scenarios.
