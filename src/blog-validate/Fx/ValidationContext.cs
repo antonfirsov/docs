@@ -35,19 +35,29 @@ namespace BlogValidator
         public string FileName { get; }
         public IReadOnlyList<Diagnostic> Diagnostics => _diagnostics;
 
-        public void Report(bool isWarning, string id, int line, int column, string message)
+        private void Report(bool isWarning, string id, SourceSpan span, string message)
         {
-            _diagnostics.Add(new Diagnostic(isWarning, id, FileName, line, column, message));
+            _diagnostics.Add(new Diagnostic(isWarning, id, Document, FileName, span, message));
         }
 
         public void Error(string id, MarkdownObject o, string message)
         {
-            Report(isWarning: false, id, o.Line, o.Column, message);
+            Report(isWarning: false, id, o.Span, message);
+        }
+
+        public void Error(string id, SourceSpan span, string message)
+        {
+            Report(isWarning: false, id, span, message);
         }
 
         public void Warning(string id, MarkdownObject o, string message)
         {
-            Report(isWarning: true, id, o.Line, o.Column, message);
+            Report(isWarning: true, id, o.Span, message);
+        }
+
+        public void Warning(string id, SourceSpan span, string message)
+        {
+            Report(isWarning: true, id, span, message);
         }
     }
 }

@@ -53,7 +53,9 @@ namespace BlogValidator
 
                 if (isInsideGitHubAction)
                 {
-                    Console.WriteLine($"::{severity} file={path},line={d.Line + 1},col={d.Column + 1}::{d.Id} {d.Message}");
+                    var line = d.LinePositionSpan.Start.Line + 1;
+                    var col = d.LinePositionSpan.Start.Column + 1;
+                    Console.WriteLine($"::{severity} file={path},line={line},col={col}::{d.Id} {d.Message}");
                 }
                 else
                 {
@@ -62,7 +64,7 @@ namespace BlogValidator
                     else
                         Console.ForegroundColor = ConsoleColor.Red;
 
-                    Console.WriteLine($"{path}({d.Line + 1},{d.Column + 1}): {severity}: {d.Id}: {d.Message}");
+                    Console.WriteLine($"{path}({d.LinePositionSpan}): {severity}: {d.Id}: {d.Message}");
 
                     Console.ResetColor();
                 }

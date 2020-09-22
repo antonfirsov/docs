@@ -19,6 +19,7 @@ namespace BlogValidator
             _pipeline = new MarkdownPipelineBuilder()
                 .UsePipeTables()
                 .UseYamlFrontMatter()
+                .UsePreciseSourceLocation()
                 .Build();
         }
 
