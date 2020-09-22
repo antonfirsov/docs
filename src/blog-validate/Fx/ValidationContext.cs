@@ -21,6 +21,7 @@ namespace BlogValidator
                 var yaml = string.Join(Environment.NewLine, frontMatter.Lines);
                 var deserializer = new DeserializerBuilder()
                     .WithNamingConvention(UnderscoredNamingConvention.Instance)
+                    .IgnoreUnmatchedProperties()
                     .Build();
 
                 FrontMatter = deserializer.Deserialize<FrontMatter>(yaml);
