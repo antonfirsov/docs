@@ -51,3 +51,10 @@ link:
 
 1. Request access to the [dotnet team in microsoft org](https://repos.opensource.microsoft.com/microsoft/teams/dotnet/join/)
 2. Leave feedback on the PR
+
+## Validation
+
+We have a validation tool that automatically runs on CI builds. You can invoke
+this from VS Code via <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>B</kbd> (or whatever
+you bound the build command to) or via the command line by invoking
+`validate.cmd`.
