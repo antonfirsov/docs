@@ -10,10 +10,13 @@ namespace BlogValidator
         public override void Validate(ValidationContext context)
         {
             var images = context.Document.Descendants<LinkInline>()
-                                         .Where(i => string.IsNullOrWhiteSpace(i.FirstChild?.ToString()));
+                                         .Where(i => i.IsImage);
 
             foreach (var image in images)
-                context.Error("VR07", image, "Image must have alt text");
+            {
+                if (string.IsNullOrWhiteSpace(image.FirstChild?.ToString()))
+                    context.Error("VR07", image, "Image must have alt text");
+            }
         }
     }
 }

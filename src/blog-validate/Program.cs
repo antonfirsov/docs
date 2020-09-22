@@ -5,6 +5,11 @@ using System.Linq;
 
 namespace BlogValidator
 {
+    // Maira also suggested these rules:
+    //
+    // TODO: Image sizes
+    // TODO: Avoid non-English words(like i.e., e.g., etc.)
+
     internal static class Program
     {
         static int Main(string[] args)
