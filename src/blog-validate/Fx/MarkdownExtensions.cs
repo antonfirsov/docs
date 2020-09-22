@@ -25,7 +25,7 @@ namespace BlogValidator
         public static LinePositionSpan GetLinePosition(this MarkdownDocument document, SourceSpan span)
         {
             var start = document.GetLinePosition(span.Start);
-            var end = document.GetLinePosition(span.End);
+            var end = document.GetLinePosition(span.End + 1);
             return new LinePositionSpan(start, end);
         }
     }
