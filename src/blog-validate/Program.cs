@@ -7,7 +7,6 @@ namespace BlogValidator
 {
     // Maira suggested these rules:
     //
-    // TODO: Image sizes
     // TODO: Avoid non-English words(like i.e., e.g., etc.)
     //
     // Meenal suggested these rules:
