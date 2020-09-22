@@ -74,7 +74,8 @@ namespace BlogValidator
                 }
             }
 
-            return diagnostics.Any(d => !d.IsWarning);
+            var hasErrors = diagnostics.Any(d => !d.IsWarning);
+            return !hasErrors;
         }
 
         private static IEnumerable<string> FindMarkdownFiles(string directory)
