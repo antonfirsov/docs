@@ -5,10 +5,14 @@ using System.Linq;
 
 namespace BlogValidator
 {
-    // Maira also suggested these rules:
+    // Maira suggested these rules:
     //
     // TODO: Image sizes
     // TODO: Avoid non-English words(like i.e., e.g., etc.)
+    //
+    // Meenal suggested these rules:
+    //
+    // TODO: Minimum length for a post should be 300 words
 
     internal static class Program
     {
