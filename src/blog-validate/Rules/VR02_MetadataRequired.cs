@@ -10,17 +10,16 @@ namespace BlogValidator
         {
             if (context.FrontMatter != null)
             {
-                var block = context.Document.First();
-                var diagnosticSpan = new SourceSpan(block.Span.End, 0);
+                var diagnosticSpan = context.Document.GetFrontMatterDiagnosticSpan();
 
                 if (string.IsNullOrEmpty(context.FrontMatter.PostTitle))
-                    context.Error("VR02", diagnosticSpan, "Must specify post_title");
+                    context.Error("VR02", diagnosticSpan, "Must specify 'post_title'");
 
                 if (string.IsNullOrEmpty(context.FrontMatter.Summary))
-                    context.Error("VR02", diagnosticSpan, "Must specify summary");
+                    context.Error("VR02", diagnosticSpan, "Must specify 'summary'");
 
                 if (string.IsNullOrEmpty(context.FrontMatter.Username))
-                    context.Error("VR02", diagnosticSpan, "Must specify username");
+                    context.Error("VR02", diagnosticSpan, "Must specify 'username'");
             }
         }
     }

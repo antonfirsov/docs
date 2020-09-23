@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 
+using Markdig.Extensions.Yaml;
 using Markdig.Syntax;
 
 namespace BlogValidator
@@ -27,6 +29,15 @@ namespace BlogValidator
             var start = document.GetLinePosition(span.Start);
             var end = document.GetLinePosition(span.End + 1);
             return new LinePositionSpan(start, end);
+        }
+
+        public static SourceSpan GetFrontMatterDiagnosticSpan(this MarkdownDocument document)
+        {
+            var block = document.FirstOrDefault() as YamlFrontMatterBlock;
+            if (block == null)
+                throw new ArgumentException("The document doesn't have any front matter", nameof(document));
+
+            return new SourceSpan(block.Span.End - 2, block.Span.End);
         }
     }
 }
