@@ -77,7 +77,7 @@ Once you are satisfied with your model’s performance, you can generate the mod
 
 ## Image classification in ML.NET CLI
 
-In addition to classification, regression, and recommendation, you can use the cross-platform [ML.NET CLI](https://docs.microsoft.com/en-us/dotnet/machine-learning/automate-training-with-cli) to locally train custom image classification models.
+In addition to classification, regression, and recommendation, you can use the cross-platform [ML.NET CLI](https://docs.microsoft.com/dotnet/machine-learning/automate-training-with-cli) to locally train custom image classification models.
 
 All you need for this scenario is dataset of images that you’d like to use for training. For instance, let’s look at the weather example, where you want to classify an image as rainy, cloudy, or sunny.
 
