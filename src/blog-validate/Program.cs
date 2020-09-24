@@ -58,7 +58,7 @@ namespace BlogValidator
                 {
                     var line = d.LinePositionSpan.Start.Line + 1;
                     var col = d.LinePositionSpan.Start.Column + 1;
-                    Console.WriteLine($"::{severity} file={path},line={line},col={col}::{d.Id} {d.Message}");
+                    Console.WriteLine($"::{severity} file={path},line={line},col={col}::{d.Id}: {d.Message}");
                 }
                 else
                 {
