@@ -113,8 +113,8 @@ We would love to hear your feedback!
 
 If you run into any issues, please let us know by creating an issue in our GitHub repos (or use the new Feedback button in Model Builder!):
 
-- ML.NET API: github.com/dotnet/machinelearning
-- ML.NET Tooling (Model Builder & ML.NET CLI): github.com/dotnet/machinelearning-modelbuilder
+- [ML.NET API](https://github.com/dotnet/machinelearning)
+- [ML.NET Tooling (Model Builder & ML.NET CLI)](https://github.com/dotnet/machinelearning-modelbuilder)
 
 ## Get started and resources
 
