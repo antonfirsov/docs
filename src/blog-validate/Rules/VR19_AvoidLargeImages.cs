@@ -28,7 +28,7 @@ namespace BlogValidator
                 var info = new FileInfo(path);
                 var size = info.Exists ? info.Length : 0;
                 if (size > thresholdBytes)
-                    context.Warning("VR19", link, $"Avoid images larger than {thresholdBytes / 1024}kb.");
+                    context.Warning("VR19", link, $"This image is {size / 1024:N0}kb. You should avoid images larger than {thresholdBytes / 1024:N0}kb.");
             }
         }
     }
