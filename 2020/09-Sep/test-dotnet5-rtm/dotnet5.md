@@ -1,4 +1,9 @@
-# Announcing .NET 5.0
+---
+post_title: 'Announcing .NET 5.0'
+username: rich@lander.ca
+#featured_image: path/relative/to/your/post/image.png
+summary: Summary of your post, shown on the home page next to the featured image
+---
 
 We’re excited to announce the release of .NET 5.0. It includes [many improvements](https://github.com/dotnet/runtime/issues/37269), including single file applications, smaller container images, more capable JSON APIs, a complete set of nullable reference type annotations, and support for Windows ARM64. [Performance has been greatly improved](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-5/), in the NET libraries, in the GC, and the JIT. ARM64 was a key focus for performance investment, resulting in much better throughput and smaller binaries. .NET 5.0 includes new language versions, [C# 9](https://devblogs.microsoft.com/dotnet/welcome-to-c-9-0/) and [F# 5.0](https://devblogs.microsoft.com/dotnet/announcing-f-5-preview-1/).
 
@@ -22,30 +27,30 @@ The following improvements are the highlights of .NET 5.0, and the ones we hope 
 > Editor's note: Goal for each of these topics is top 2-4 contributions. We are trying to answer the "why you should care" question and nothing more.
 
 * [C# 9](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-5/)
-   * Top-level programs -- enable no-ceremony programs (no classes required).
-   * Immutable types -- extends immutability to object initializers and property accessors, adds records (immutable value types).
+  * Top-level programs -- enable no-ceremony programs (no classes required).
+  * Immutable types -- extends immutability to object initializers and property accessors, adds records (immutable value types).
 * [F# 5.0](https://devblogs.microsoft.com/dotnet/announcing-f-5-preview-1/)
-   * Better interactive and analytical programming.
+  * Better interactive and analytical programming.
 * .NET Libraries
-   * New target framework (TFM) for .NET -- the new TFM is `net5` and replaces `netcoreapp` and `netstandard`.
-   * JSON APIs -- Improving usability and capability of System.Text.Json.
-   * Directory services -- Cross-platform support for System.DirectoryServices.Protocols.
-   * Nullable reference types -- Complete set of nullable reference type annotations for .NET libraries.
+  * New target framework (TFM) for .NET -- the new TFM is `net5` and replaces `netcoreapp` and `netstandard`.
+  * JSON APIs -- Improving usability and capability of System.Text.Json.
+  * Directory services -- Cross-platform support for System.DirectoryServices.Protocols.
+  * Nullable reference types -- Complete set of nullable reference type annotations for .NET libraries.
 * [Performance Improvements](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-5/)
-   * [Garbage collection](https://github.com/dotnet/coreclr/pull/25986) -- card stealing enables better work balance (throughput) in Server GC.
-   * [Regular expressions](https://devblogs.microsoft.com/dotnet/regex-performance-improvements-in-net-5/) -- 3-6x throughput improvements in many cases.
-   * [HTTP 1.1](https://github.com/dotnet/corefx/pull/41640) and [HTTP/2](https://github.com/dotnet/runtime/pull/35694) -- increase throughput with HTTP.
-   * [ARM64](https://github.com/dotnet/runtime/issues/35853) -- improve throughput and size of applications targeting ARM64.
+  * [Garbage collection](https://github.com/dotnet/coreclr/pull/25986) -- card stealing enables better work balance (throughput) in Server GC.
+  * [Regular expressions](https://devblogs.microsoft.com/dotnet/regex-performance-improvements-in-net-5/) -- 3-6x throughput improvements in many cases.
+  * [HTTP 1.1](https://github.com/dotnet/corefx/pull/41640) and [HTTP/2](https://github.com/dotnet/runtime/pull/35694) -- increase throughput with HTTP.
+  * [ARM64](https://github.com/dotnet/runtime/issues/35853) -- improve throughput and size of applications targeting ARM64.
 * Consistent performance ([P95+ latency](https://github.com/dotnet/runtime/issues/37534)). 
-   * [Garbage collection](https://github.com/dotnet/coreclr/pull/27578) -- Reduce the cost of [suspension](https://github.com/dotnet/coreclr/pull/27729)
-   * [Tiered compilation](https://github.com/dotnet/runtime/pull/32250) -- used by tiered JIT compilation to smooth out performance during startup
-   * [Pinned object heap](https://github.com/dotnet/runtime/pull/32283) -- reduce heap fragmentation caused by pinning.
+  * [Garbage collection](https://github.com/dotnet/coreclr/pull/27578) -- Reduce the cost of [suspension](https://github.com/dotnet/coreclr/pull/27729)
+  * [Tiered compilation](https://github.com/dotnet/runtime/pull/32250) -- used by tiered JIT compilation to smooth out performance during startup
+  * [Pinned object heap](https://github.com/dotnet/runtime/pull/32283) -- reduce heap fragmentation caused by pinning.
 * Application deployment
-   * [Single-file apps](https://github.com/dotnet/runtime/issues/36590) -- apps that are deployed and run as a single binary.
-   * [Reduce container image size](https://github.com/dotnet/dotnet-docker/issues/1814#issuecomment-625294750) -- Optimizes container layering for large size savings for building images.
+  * [Single-file apps](https://github.com/dotnet/runtime/issues/36590) -- apps that are deployed and run as a single binary.
+  * [Reduce container image size](https://github.com/dotnet/dotnet-docker/issues/1814#issuecomment-625294750) -- Optimizes container layering for large size savings for building images.
 * Platforms
-   * [Windows ARM64](https://github.com/dotnet/runtime/issues/36699) -- develop and deploy apps on Windows ARM64.
-   * [Web Assembly (wasm)](https://github.com/dotnet/runtime/issues/38367) -- build wasm apps and deploy in the browser, with Blazor and Mono.
+  * [Windows ARM64](https://github.com/dotnet/runtime/issues/36699) -- develop and deploy apps on Windows ARM64.
+  * [Web Assembly (wasm)](https://github.com/dotnet/runtime/issues/38367) -- build wasm apps and deploy in the browser, with Blazor and Mono.
 
    The [.NET 5.0 Runtime Epics](https://github.com/dotnet/runtime/issues/37269) provide a more detailed set of highlights dedicated to the runtime and libraries.
 
@@ -53,7 +58,7 @@ The following improvements are the highlights of .NET 5.0, and the ones we hope 
 
 Last year, we shared a [broad vision of a singular .NET stack and ecosystem](https://devblogs.microsoft.com/dotnet/introducing-net-5/). We're happy to report that we now have the foundation in place to deliver on that vision, in .NET 6.0. We started the 5.0 release with separate [CoreCLR](https://github.com/dotnet/coreclr), [CoreFX](https://github.com/dotnet/corefx), and [Mono](https://github.com/mono/mono) repos, with significant duplication across them. We ended the release with the unified [runtime](https://github.com/dotnet/runtime) repo, which includes the CoreCLR and Mono runtimes and the .NET libraries. We now have one repository for the runtime, libraries, and other low-level components of the .NET platform, which we will move forward in lock-step together in future releases. The benefits of this change are much higher compatibility between the various .NET app types and maintaining and improving just one libraries code base. 
 
-A first example of moving forward with this vision is our work with [Web Assembly](https://webassembly.org/). Blazor Webassembly in .NET 5.0 uses the Mono runtime and the .NET Libraries (all the System.* libraries). This is a change from [Blazor 3.2](https://devblogs.microsoft.com/aspnet/blazor-webassembly-3-2-0-now-available/), which used the Mono runtime and Mono libraries. The change we made with Web assembly, to use the .NET libraries, is a down-payment on the broader vision. We expect to deliver the rest of the vision, largely focused on Xamarin (iOS and Android), with .NET 6.0. We had intended to deliver support for Xamarin apps with 5.0, but the global pandemic caused us to pause that work for a release. 
+A first example of moving forward with this vision is our work with [Web Assembly](https://webassembly.org/). Blazor WebAssembly in .NET 5.0 uses the Mono runtime and the .NET Libraries (all the System.* libraries). This is a change from [Blazor 3.2](https://devblogs.microsoft.com/aspnet/blazor-webassembly-3-2-0-now-available/), which used the Mono runtime and Mono libraries. The change we made with Web assembly, to use the .NET libraries, is a down-payment on the broader vision. We expect to deliver the rest of the vision, largely focused on Xamarin (iOS and Android), with .NET 6.0. We had intended to deliver support for Xamarin apps with 5.0, but the global pandemic caused us to pause that work for a release. 
 
 Looking forward, our fundamental investments will go into the runtime repo, for .NET 6.0 and beyond. We intend to use CoreCLR for desktop, IoT, and server workloads and Mono for mobile and web assembly. We'll continue to optimize the .NET libraries to deliver a first-class experience across all of those workload types.
 
@@ -85,24 +90,24 @@ The following table demonstrates what you can expect for both runtime-dependent 
 
 > Editors note: I need to re-run these scenarios and update the numbers.
 
-- 3.1 console template (Linux x64)
-   - Runtime-dependent: 96k
-   - Self-contained: 36MB
-- 5.0 console template (Linux x64)
-   - Runtime-dependent: 215k
-   - Self-contained: 29MB
-- 3.1 BlazingPizza.Server 
-   - Runtime-dependent: 27MB
-   - Self-contained: 80MB
-- 5.0 BlazingPizza.Server
-   - Runtime-dependent: 24MB
-   - Self-contained: 67MB
+* 3.1 console template (Linux x64)
+  * Runtime-dependent: 96k
+  * Self-contained: 36MB
+* 5.0 console template (Linux x64)
+  * Runtime-dependent: 215k
+  * Self-contained: 29MB
+* 3.1 BlazingPizza.Server 
+  * Runtime-dependent: 27MB
+  * Self-contained: 80MB
+* 5.0 BlazingPizza.Server
+  * Runtime-dependent: 24MB
+  * Self-contained: 67MB
 
 Notes:
 
-- Framework-dependent publish: dotnet publish -r linux-x64 --self-contained false /p:PublishSingleFile=true
-- Self-contained publish: dotnet publish -r linux-x64 --self-contained true /p:PublishSingleFile=true /p:PublishTrimmed=true
-- Assembly trimmng isn't supported for framework-dependent apps.
+* Framework-dependent publish: `dotnet publish -r linux-x64 --self-contained false /p:PublishSingleFile=true`
+* Self-contained publish: `dotnet publish -r linux-x64 --self-contained true /p:PublishSingleFile=true /p:PublishTrimmed=true`
+* Assembly trimming isn't supported for framework-dependent apps.
 
 You can also configure single file publishing with a project file.
 
