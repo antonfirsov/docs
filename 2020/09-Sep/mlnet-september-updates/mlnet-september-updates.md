@@ -1,4 +1,9 @@
-# ML.NET September Updates
+---
+post_title: "ML.NET September Updates"
+username: brachtma@microsoft.com
+featured_image: mlnet-icon.png
+summary: This release of ML.NET (1.5.2) brings numerous bug fixes and enhancements, while tooling updates include the ability to train object detection models using Azure ML via Model Builder and to locally train image classification models with the ML.NET CLI.
+---
 
 [ML.NET](https://dot.net/ml) is an open-source, cross-platform machine learning framework for .NET developers. It enables integrating machine learning into your .NET apps without requiring you to leave the .NET ecosystem or even have a background in ML or data science. ML.NET provides tooling (Model Builder UI in Visual Studio and the cross platform ML.NET CLI) that automatically trains custom machine learning models for you based on your scenario and data.
 
