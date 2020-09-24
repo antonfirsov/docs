@@ -14,8 +14,8 @@ jobs:
       with:
         dotnet-version: 3.1.301
     - name: Install dependencies
-      run: dotnet restore src/blog-validate.sln
+      run: dotnet restore tools/blog-tools.sln
     - name: Build
-      run: dotnet build src/blog-validate.sln --configuration Release --no-restore --nologo
+      run: dotnet build tools/blog-tools.sln --configuration Release --no-restore --nologo
     - name: Validate
-      run: dotnet run --project src/blog-validate/blog-validate.csproj .
+      run: dotnet run --project tools/blog-validate/blog-validate.csproj .
