@@ -20,6 +20,9 @@ namespace BlogValidator
 
                 if (string.IsNullOrEmpty(context.FrontMatter.Username))
                     context.Error("VR02", diagnosticSpan, "Must specify 'username'");
+
+                if (string.IsNullOrEmpty(context.FrontMatter.Categories))
+                    context.Error("VR02", diagnosticSpan, "Must specify 'categories'");
             }
         }
     }

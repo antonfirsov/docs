@@ -4,6 +4,7 @@
     {
         public string PostTitle { get; set; }
         public string Username { get; set; }
+        public string Categories { get; set; }
         public string FeaturedImage { get; set; }
         public string Summary { get; set; }
     }

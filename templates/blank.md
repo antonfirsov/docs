@@ -2,6 +2,7 @@
 post_title: 'Your post title'
 username: Your user name as seen on WordPress, not your github ID
 featured_image: path/relative/to/your/post/image.png
+categories: .NET, .NET Core
 summary: Summary of your post, shown on the home page next to the featured image
 ---
 
