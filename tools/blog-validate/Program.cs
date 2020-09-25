@@ -111,6 +111,7 @@ namespace BlogValidator
                         "debug-dotnet-in-wsl",
                         "dotnet5rc1",
                         "netstandard-update",
+                        "mlnet-september-updates",
                     };
 
                     var isGrandfathered = grandfathered.Contains(segments[2], StringComparer.Ordinal);
