@@ -21,7 +21,7 @@ If you’re using Visual Studio on Windows, you’ll need both the .NET 5 previe
 
 ## What F# 5 is all about
 
-From F# 4.1 to F# 5, the cheif focus for F# has been bringing up great .NET Core (now .NET 5) support. With F# 5, we're considering this journey mostly complete. F# 5 marks the start of a new era of F# evolution centered around three main things:
+From F# 4.1 to F# 5, the chief focus for F# has been bringing up great support for .NET Core (now .NET 5). With F# 5, we're considering this journey mostly complete. F# 5 marks the start of a new era of F# evolution centered around three main things:
 
 1. Interactive programming
 2. Making analytical-oriented programming convenient and fun
@@ -175,9 +175,7 @@ For more advanced usage, you can write multiple expressions inside of an interpo
 
 ## Support for nameof
 
-F# 5 supports another one of the most highly-requested features, `nameof`.
-
-To recap, `nameof` resolves the symbol it's being used for and produces a name that represents what it's called in F# source. This is useful in various scenarios, such as logging, and protects your logging against changes in source code.
+Another highly-requested feature of F# 5 is `nameof` which resolves the symbol it's being used for and produces its name in F# source. This is useful in various scenarios, such as logging, and protects your logging against changes in source code.
 
 ```fsharp
 let months =
@@ -426,7 +424,7 @@ We feel that these three enhancements will make slicing data types more convenie
 
 ## Applicative Computation Expressions
 
-Computation expressions (CEs) are used today to model “contextual computations”, or in more FP-friendly terminology, monadic computations. However, they are a more flexible construct than just offering syntax for monads (you can encode monoids or even a computation expression that [explicitly violates every monad law if you like](http://www.fssnip.net/qR/title/A-bindreturn-computation-expression-that-does-not-satisfy-any-of-the-monad-laws)).
+Computation expressions (CEs) are used today to model “contextual computations”, or in more functional programming friendly terminology, monadic computations. However, they are a more flexible construct than just offering syntax for monads (you can encode monoids or even a computation expression that [explicitly violates every monad law if you like](http://www.fssnip.net/qR/title/A-bindreturn-computation-expression-that-does-not-satisfy-any-of-the-monad-laws)).
 
 F# 5 introduces applicative CEs, which are a slightly different form of CE than what you’re perhaps used to. Applicative CEs allow for significantly more efficient computations provided that every computation is independent, and their results are merely accumulated at the end. When computations are independent of one another, they are also trivially parallelizable. This benefit comes at a restriction, though: computations that depend on previously-computed values are not allowed.
 
