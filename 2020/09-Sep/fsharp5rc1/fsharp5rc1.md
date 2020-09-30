@@ -1,4 +1,10 @@
-# Announcing F# 5 RC
+---
+post_title: Announcing F# 5 RC
+username: phcart@microsoft.com
+featured_image: img/fsharp-package-vscode-notebooks.png
+categories: F#, .NET, .NET Core, Notebooks, Jupyter, Data Science
+summary: F# 5 is now a release candidate - feature complete! Come read about all the interesting new stuff it lets you do, learn how to use it, and learn how to give feedback!
+---
 
 Today, we're excited to announce the release candidate for F# 5. It ships with [.NET 5 RC1](https://devblogs.microsoft.com/dotnet/announcing-net-5-0-rc-1). Like .NET 5 RC 1, this release of F# 5 is near-final and under a "go live" license. Our primary focus for F# 5 is now addressing any remaining critical bugs that should be fixed before the final release. We're looking forward to your feedback!
 
