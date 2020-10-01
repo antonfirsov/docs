@@ -38,6 +38,7 @@ Tools will be available for you
 -------------------------------
 
 All the [.NET tools](http://dotnet.microsoft.com/games/tools?WT.mc_id=gamedev-blog-abhamed) you are used to also work when making games. [Visual Studio](https://visualstudio.microsoft.com/vs/features/game-development?WT.mc_id=gamedev-blog-abhamed) is a great IDE that works with all .NET game engines on Windows and macOS. It provides word-class debugging, AI-assisted code completion, code refactoring, and cleanup. In addition, it provides real-time collaboration and productivity tools for remote work. [GitHub](http://github.com?WT.mc_id=gamedev-blog-abhamed) also provides all your DevOps needs. Host and review code, manage projects, and build software alongside 50 million developers with GitHub.
+
 ![An illustration of the person playing video games on a couch with a friend online](./swimlane-multiplayer-game.svg)
 The ecosystem
 -------------
