@@ -1,65 +1,62 @@
-The week in .NET - xx/xx/xx
-============================
-
-To read last week's post, see [xx](xx).
-
-On .NET
--------
-
-Last week, [xx was on the show](xx):
-
-<iframe src="xx" width="560" height="315" allowFullScreen frameBorder="0"></iframe>
-
-This week, we'll speak with [xx](xx) from [xx](xx) about [xx](xx) and .NET. The show is on Thursdays and begins at 10AM Pacific Time [on Channel 9](https://channel9.msdn.com/Shows/On-NET). We'll take questions on Gitter, on [the dotnet/home channel](https://gitter.im/dotnet/home) and on Twitter. Please use the `#onnet` tag. It's OK to start sending us questions in advance if you can't do it live during the show.
-
-Package of the week: xx
-----------------------------------
+---
+post_title: ' Use .NET for game development'
+username: abhamedmicrosoft-com
+categories: Game Development, .NET, C#, Dot.Net
+tags: Azure, CryEngine, Games, MonoGame, PlayFab, Stride, Unity, WaveEngine
+featured_image: ./swimlane-multiplayer-game.svg
+summary: Annoucment the launch of the new .NET Game Development section of our website.
+---
 
 
+ Use .NET for game development
+==============================
 
-```csharp
-```
+We have launched a new [Game Development with .NET](https://dotnet.microsoft.com/apps/games) section on our site. It is designed for current .NET developers to explore all the choices available to them when developing games. It&#39;s also designed for new developers trying to learn how to use .NET by making games. We have also launched a new [game development Learn portal for .NET](https://dotnet.microsoft.com/learn/games) filled with tutorials, videos, and documentation provided by Microsoft and others in the .NET game development community. Finally, we launched a step-by-step [Unity get-started tutorial](https://dotnet.microsoft.com/learn/games/unity-tutorial/intro) that will get you started with Unity and writing C# scripts for it in no time. We are excited to show you what .NET has to offer to you when making games. .NET is also part of [Microsoft Game Stack](https://developer.microsoft.com/en-us/games/), a comprehensive suite of tools and services just for game development.
 
-Game of the week: xx
------------------------------------
+![An illustration of the person playing video games on a couch with a friend online](./swimlane-multiplayer-game.svg)
+![An illustration of a game being played across multiple devices](./swimlane-monogame-game-development.svg)
+.NET for game developers
+------------------------
+
+.NET is cross-platform. With .NET you can target over 25+ different platforms with 1 code base. You can make games for, but not limited to, Windows, macOS, Linux, Android, iOS, Xbox, PlayStation, Nintendo, and mixed reality devices.
+
+C# is the most popular programming language in game development. The wider .NET community is also big. There is no lack of expertise and support you can find from individuals and user groups, locally or online.
+
+.NET does not just cover building your game. You can build you game&#39;s website with [ASP.NET](https://dotnet.microsoft.com/apps/aspnet), your mobile app using [Xamarin](https://dotnet.microsoft.com/apps/xamarin), and even do remote rendering with [Microsoft Azure](https://azure.microsoft.com/en-us/solutions/gaming/). Your skills will transfer cross the entire game development pipeline.
+
+Available Game Engines
+----------------------
+
+The first step to developing games in .NET is to choose a [game engine](http://dotnet.microsoft.com/games/engines). You can think of engines as development frameworks and tools, an IDE for game development. There are many game engines that use .NET, and they differ widely. Some of the engines are commercial and some are completely royalty free and open source. I am excited to see some of them planning to adopt .NET 5 soon. Just choose the engine that better works for you and your game. I have written another blog post that will help explain what game engines are, and which one would be best for you.
+
+Online services for your game
+-----------------------------
+
+If you are building you game with .NET, then you have a wide choice on how to build your online [game services](http://dotnet.microsoft.com/games/services). You can use ready to use services like [Microsoft Azure PlayFab](https://playfab.com/). You can also build from scratch on [Microsoft Azure](https://docs.microsoft.com/en-us/gaming/azure/). .NET also runs on multiple operating systems, clouds, and services, it does not limit you to use Microsoft&#39;s platforms.
+
+Tools will be available for you
+-------------------------------
+
+All the [.NET tools](http://dotnet.microsoft.com/games/tools) you are used to also work when making games. [Visual Studio](https://visualstudio.microsoft.com/vs/features/game-development/) is a great IDE that works with all .NET game engines on Windows and macOS. It provides word-class debugging, AI-assisted code completion, code refactoring, and cleanup. In addition, it provides real-time collaboration and productivity tools for remote work. [GitHub](http://github.com/) also provides all your DevOps needs. Host and review code, manage projects, and build software alongside 50 million developers with GitHub.
+
+The ecosystem
+-------------
+
+The [.NET game development ecosystem](http://dotnet.microsoft.com/games/ecosystem) is rich. Some of the .NET game engines depend on foundational work done by the open-source community to create managed graphics APIs like [SharpDX](http://sharpdx.org/), [SharpVulkan](https://github.com/jwollen/SharpVulkan), [Vulkan.NET](https://github.com/mono/VulkanSharp), and [Veldrid](https://github.com/mellinoe/veldrid). [Xamarin](https://dotnet.microsoft.com/apps/xamarin) also enables using platform native features on iOS and Android. Beyond the .NET community, each game engine also has their own community and user groups you can join and interact with. .NET is an open-source platform with over 60,000+ contributors. It&#39;s free and a solid stable base for all your current and future game development needs.
+
+Learn more and start developing
+--------------------------------
+
+Head to our new [Game Development with .NET](https://dotnet.microsoft.com/apps/games) site to get an overview of what .NET provides for you when making games. We have launched a step-by-step [Unity get-started tutorial](https://dotnet.microsoft.com/learn/games/unity-tutorial/intro) to get you scripting with C# as quick as possible. If you are looking for tutorials, videos, and documentations to get your started, head to our new [game development Learn portal for .NET](https://dotnet.microsoft.com/learn/games) for more resources.
 
 
-User group meeting of the week: xx
-------------------------------------------------
+Show us the work you do for .NET game development
+-------------------------------------------------
 
+We would love to see the work you do for .NET game developer. Please reach out to us if you would like us to talk about the games you are making, the APIs you are developing, the plugins you are distributing, or any .NET project remotely related to game development. Did you write a great blog post, or just read one? Do you want everyone to know about an amazing new .NET game development contribution or a useful plugin or tool? Do you have an analysis of game development pipeline using .NET? 
 
-
-.NET
-----
-
-ASP.NET
--------
-
-F#
---
-
-Xamarin
--------
-
-Azure
------
-
-Games
------
-
-And this is it for this week!
-
-Contribute to the week in .NET
-------------------------------
-
-As always, this weekly post couldn't exist without community contributions, and I'd like to thank all those who sent links and tips. The F# section is provided by [Phillip Carter](https://twitter.com/_cartermp), the gaming section by [Stacey Haffner](https://twitter.com/yecats131), and the Xamarin section by [Dan Rigby](https://twitter.com/DanRigby), and the UWP section by [Michael Crump](http://twitter.com/mbcrump).
-
-You can participate too. Did you write a great blog post, or just read one? Do you want everyone to know about an amazing new contribution or a useful library? Did you make or play a great game built on .NET?
 We'd love to hear from you, and feature your contributions on future posts:
 
-* Send an email to beleroy at Microsoft,
-* [comment on this gist](xx)
+* Send an email to abdullah.hamed at Microsoft,
 * Leave us a pointer in the comments section below.
-* [Send Stacey (@yecats131) tips on Twitter about .NET games](https://twitter.com/yecats131).
-
-This week's post (and future posts) also contains news I first read on [The ASP.NET Community Standup](https://blogs.msdn.microsoft.com/webdev/tag/communitystandup/), on [Weekly Xamarin](http://weeklyxamarin.com/), on [F# weekly](https://sergeytihon.wordpress.com/category/f-weekly/), and on [Chris Alcock's The Morning Brew](http://themorningbrew.net/).
+* [Send Abdullah (@indiesaudi) tips on Twitter about .NET game development](https://twitter.com/indiesaudi).
