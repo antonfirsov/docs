@@ -57,7 +57,7 @@ Rendered
 
 We'd love to hear from you
 --------------------------
-You have a .NET game devevelopment related project, plugin, library, or game you want to blog on the .NET blog?
+You have a .NET game devevelopment related project, plugin, library, or game you want to blog about on the .NET blog?
 
 * Send an email to abdullah.hamed at Microsoft,
 * Leave us a pointer in the comments section below.
