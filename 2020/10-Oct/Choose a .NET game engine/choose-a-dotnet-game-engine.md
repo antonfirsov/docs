@@ -17,8 +17,8 @@ Developers used to build their games from scratch each time. Now, developers hav
 
 With the popularity of XNA, more game engines started using .NET. The Mono runtime, now part of .NET 5, was a great choice because it was able to run C# code on many platforms including Android, iOS, PC, Mac, and Linux. Mono also supported dedicated game consoles like Xbox, PlayStation, and Nintendo platforms. Now with .NET including Mono with .NET 5, we are seeing some game engines getting ready to upgrade.
 
-Engines built with .NET Core 3.1 (will be upgraded to .NET 5)
--------------------------------------------------------------
+Engines built with .NET Core 3.1 
+--------------------------------
 ### MonoGame
 When XNA support got discontinued, the open-source community ported XNA to Mono, made it cross platform, and called it MonoGame. It has since advanced beyond the scope of XNA. MonoGame only has a programming API for all .NET languages and 1 GUI app that is used to manage assets. MonoGame is more of a lean framework that is used as a base for a game engine. MonoGame just got updates to version 3.8 where it uses .NET Core 3.1 and NuGet, with a plan to upgrade to .NET 5 in the future. An example of a game engine that uses MonoGame as framework is FlatRedBall. Many indie developers who have used XNA previously sill use MonoGame for all their cross-platform game development. There is also a more accurate reimplementation of XNA, made open-source by the community, called XFA that you could choose if you needed to port you older XNA game to a newer code base.
 
@@ -28,8 +28,8 @@ Stride (formally Xenko) is another pure C# and .NET engine that was developed by
 ### WaveEngine
 Another Engine that is purely .NET is WaveEngine. WaveEngine is free with many of it&#39;s components open-sourced. Their latest 3.0 preview released just upgraded to .NET Core 3.1. It offers exciting features like running 3D scenes in a browser using .NET WebAssembly (Mono WASM), Azure remote rendering, and support for HoloLens 2. WaveEngine has many mixed reality features, like spatial audio, ready to use out of the box.
 
-Engines embedding .NET runtimes
--------------------------------
+Engines embedding .NET
+----------------------
 ### Unity
 
 Unity, developed in C++, was one of the earlier commercial engines to use .NET to provide C# scripting and multi-platform targeting. Unity is an integrated engine with a programming API interface as well as visual editing tools for graphics, audio, profiling, and debugging. Unity quickly became of the most used game engine for all real-time graphics applications like games, VR, and simulations. There is a big ecosystem supporting Unity, from an asset store for plugins and starter packs, to game services ready for Unity like Microsoft Azure PlayFab. Unity is a commercial engine, but its free to use until certain revenue thresholds. It is also free to use for some educational and personal uses.
