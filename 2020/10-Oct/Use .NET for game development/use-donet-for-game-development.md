@@ -11,7 +11,7 @@ summary: Announcement the launch of the new .NET Game Development section of our
 
 We have launched a new [Game Development with .NET](https://dotnet.microsoft.com/apps/games?WT.mc_id=gamedev-blog-abhamed.  ) section on our site. It is designed for current .NET developers to explore all the choices available to them when developing games. It's also designed for new developers trying to learn how to use .NET by making games. We have also launched a new [game development Learn portal for .NET](https://dotnet.microsoft.com/learn/games?WT.mc_id=gamedev-blog-abhamed) filled with tutorials, videos, and documentation provided by Microsoft and others in the .NET game development community. Finally, we launched a step-by-step [Unity get-started tutorial](https://dotnet.microsoft.com/learn/games/unity-tutorial/intro?WT.mc_id=gamedev-blog-abhamed) that will get you started with Unity and writing C# scripts for it in no time. We are excited to show you what .NET has to offer to you when making games. .NET is also part of [Microsoft Game Stack](https://developer.microsoft.com/en-us/games?WT.mc_id=gamedev-blog-abhamed), a comprehensive suite of tools and services just for game development.
 
-![A picture of a game controller](./controller.jpg)
+![A picture of a game controller](./controller.jpg#center)
 
 .NET for game developers
 ------------------------
@@ -23,7 +23,7 @@ C# is the most popular programming language in game development. The wider .NET 
 .NET does not just cover building your game. You can build you game&#39;s website with [ASP.NET](https://dotnet.microsoft.com/apps/aspnet?WT.mc_id=gamedev-blog-abhamed), your mobile app using [Xamarin](https://dotnet.microsoft.com/apps/xamarin?WT.mc_id=gamedev-blog-abhamed), and even do remote rendering with [Microsoft Azure](https://azure.microsoft.com/solutions/gaming?WT.mc_id=gamedev-blog-abhamed). Your skills will transfer cross the entire game development pipeline.
   
   
-![logos of some gaming platforms supported by .NET](./game-platforms.png)
+![logos of some gaming platforms supported by .NET](./game-platforms.png#center)
 
 Available Game Engines
 ----------------------
@@ -40,7 +40,7 @@ Tools will be available for you
 
 All the [.NET tools](http://dotnet.microsoft.com/games/tools?WT.mc_id=gamedev-blog-abhamed) you are used to also work when making games. [Visual Studio](https://visualstudio.microsoft.com/vs/features/game-development?WT.mc_id=gamedev-blog-abhamed) is a great IDE that works with all .NET game engines on Windows and macOS. It provides word-class debugging, AI-assisted code completion, code refactoring, and cleanup. In addition, it provides real-time collaboration and productivity tools for remote work. [GitHub](http://github.com?WT.mc_id=gamedev-blog-abhamed) also provides all your DevOps needs. Host and review code, manage projects, and build software alongside 50 million developers with GitHub.
 
-![An illustration of the person playing video games on a couch with a friend online](./swimlane-multiplayer-game.svg)
+![An illustration of the person playing video games on a couch with a friend online](./swimlane-multiplayer-game.svg#center)
 The ecosystem
 -------------
 
