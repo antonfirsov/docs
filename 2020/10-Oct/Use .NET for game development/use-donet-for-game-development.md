@@ -62,4 +62,4 @@ We'd love to hear from you, and feature your contributions on future posts:
 
 * Send an email to abdullah.hamed at Microsoft,
 * Leave us a pointer in the comments section below
-* Send [Abdullah (@indiesaudi)](https://twitter.com/indiesaudi) tips on Twitter about .NET game development.
+* Send [Abdullah (@indiesaudi)](https://twitter.com/indiesaudi) tips on Twitter about .NET game development
