@@ -33,7 +33,7 @@ The first step to developing games in .NET is to choose a [game engine](http://d
 Online services for your game
 -----------------------------
 
-If you are building you game with .NET, then you have a wide choice on how to build your online [game services](http://dotnet.microsoft.com/games/services?WT.mc_id=gamedev-blog-abhamed). You can use ready to use services like [Microsoft Azure PlayFab](https://playfab.com?WT.mc_id=gamedev-blog-abhamed). You can also build from scratch on [Microsoft Azure](https://docs.microsoft.com/en-us/gaming/azure?WT.mc_id=gamedev-blog-abhamed). .NET also runs on multiple operating systems, clouds, and services, it does not limit you to use Microsoft&#39;s platforms.
+If you're building you game with .NET, then you have a wide choice on how to build your online [game services](http://dotnet.microsoft.com/games/services?WT.mc_id=gamedev-blog-abhamed). You can use ready-to-use services like [Microsoft Azure PlayFab](https://playfab.com?WT.mc_id=gamedev-blog-abhamed). You can also build from scratch on [Microsoft Azure](https://docs.microsoft.com/gaming/azure?WT.mc_id=gamedev-blog-abhamed). .NET also runs on multiple operating systems, clouds, and services, it doesn't limit you to use Microsoft's platforms.
 
 Tools will be available for you
 -------------------------------
