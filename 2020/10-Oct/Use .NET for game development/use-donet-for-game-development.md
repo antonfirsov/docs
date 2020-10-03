@@ -50,7 +50,7 @@ The [.NET game development ecosystem](https://dotnet.microsoft.com/games/ecosyst
 Learn more and start developing
 --------------------------------
 
-Head to our new [Game Development with .NET](https://dotnet.microsoft.com/apps/games?WT.mc_id=gamedev-blog-abhamed) site to get an overview of what .NET provides for you when making games. We have launched a step-by-step [Unity get-started tutorial](https://dotnet.microsoft.com/learn/games/unity-tutorial/intro?WT.mc_id=gamedev-blog-abhamed) to get you scripting with C# as quick as possible. If you are looking for tutorials, videos, and documentations to get your started, head to our new [game development Learn portal for .NET](https://dotnet.microsoft.com/learn/games?WT.mc_id=gamedev-blog-abhamed) for more resources.
+Head to our new [Game Development with .NET](https://dotnet.microsoft.com/apps/games?WT.mc_id=gamedev-blog-abhamed) site to get an overview of what .NET provides for you when making games. We've launched a step-by-step [Unity get-started tutorial](https://dotnet.microsoft.com/learn/games/unity-tutorial/intro?WT.mc_id=gamedev-blog-abhamed) to get you scripting with C# as quick as possible. If you're looking for tutorials, videos, and documentations to get your started, head to our new [game development Learn portal for .NET](https://dotnet.microsoft.com/learn/games?WT.mc_id=gamedev-blog-abhamed) for more resources.
 
 
 Show us the work you do for .NET game development
