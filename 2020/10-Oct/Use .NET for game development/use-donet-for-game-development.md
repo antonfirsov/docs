@@ -28,7 +28,7 @@ C# is the most popular programming language in game development. The wider .NET 
 Available game engines
 ----------------------
 
-The first step to developing games in .NET is to choose a [game engine](https://dotnet.microsoft.com/games/engines?WT.mc_id=gamedev-blog-abhamed). You can think of engines as development frameworks and tools, an IDE for game development. There are many game engines that use .NET and they differ widely. Some of the engines are commercial and some are completely royalty free and open source. I am excited to see some of them planning to adopt .NET 5 soon. Just choose the engine that better works for you and your game. I've written another blog post that will help explain what game engines are, and which one would be best for you.
+The first step to developing games in .NET is to choose a [game engine](https://dotnet.microsoft.com/games/engines?WT.mc_id=gamedev-blog-abhamed). You can think of engines as development frameworks and tools, an IDE for game development. There are many game engines that use .NET and they differ widely. Some of the engines are commercial and some are completely royalty free and open source. I am excited to see some of them planning to adopt .NET 5 soon. Just choose the engine that better works for you and your game.
 
 Online services for your game
 -----------------------------
