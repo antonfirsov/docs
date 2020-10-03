@@ -56,7 +56,7 @@ Head to our new [Game Development with .NET](https://dotnet.microsoft.com/apps/g
 Show us the work you do for .NET game development
 -------------------------------------------------
 
-We would love to see the work you do for .NET game developer. Please reach out to us if you would like us to talk about the games you are making, the APIs you are developing, the plugins you are distributing, or any .NET project remotely related to game development. Did you write a great blog post, or just read one? Do you want everyone to know about an amazing new .NET game development contribution or a useful plugin or tool? Do you have an analysis of game development pipeline using .NET? 
+We'd love to see the work you do for the .NET game developer. Please reach out to us if you'd like us to talk about the games you're making, the APIs you're developing, the plug-ins you're distributing, or any .NET project remotely related to game development. Did you write a great blog post, or just read one? Do you want everyone to know about an amazing new .NET game development contribution or a useful plug-in or tool? Do you have an analysis of game development pipeline using .NET? 
 
 We'd love to hear from you, and feature your contributions on future posts:
 
