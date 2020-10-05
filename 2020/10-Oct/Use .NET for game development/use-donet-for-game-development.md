@@ -16,11 +16,11 @@ We've launched a new [Game Development with .NET](https://dotnet.microsoft.com/a
 .NET for game developers
 ------------------------
 
-.NET is cross-platform. With .NET you can target over 25+ different platforms with 1 code base. You can make games for, but not limited to, Windows, macOS, Linux, Android, iOS, Xbox, PlayStation, Nintendo, and mixed reality devices.
+.NET is cross-platform. With .NET you can target over 25+ different platforms with 1 code base. You can make games for, but not limited to, Windows, macOS, Linux, Android, iOS, Xbox, PlayStation, Nintendo, and mixed reality devices. 
 
 C# is the most popular programming language in game development. The wider .NET community is also big. There is no lack of expertise and support you can find from individuals and user groups, locally or online.
 
-.NET does not just cover building your game. You can build you game&#39;s website with [ASP.NET](https://dotnet.microsoft.com/apps/aspnet?WT.mc_id=gamedev-blog-abhamed), your mobile app using [Xamarin](https://dotnet.microsoft.com/apps/xamarin?WT.mc_id=gamedev-blog-abhamed), and even do remote rendering with [Microsoft Azure](https://azure.microsoft.com/solutions/gaming?WT.mc_id=gamedev-blog-abhamed). Your skills will transfer cross the entire game development pipeline.
+.NET does not just cover building your game. You can build you game's website with [ASP.NET](https://dotnet.microsoft.com/apps/aspnet?WT.mc_id=gamedev-blog-abhamed), your mobile app using [Xamarin](https://dotnet.microsoft.com/apps/xamarin?WT.mc_id=gamedev-blog-abhamed), and even do remote rendering with [Microsoft Azure](https://azure.microsoft.com/solutions/gaming?WT.mc_id=gamedev-blog-abhamed). Your skills will transfer cross the entire game development pipeline.
   
   
 <center>![logos of some gaming platforms supported by .NET](./game-platforms.png)</center>
