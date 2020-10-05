@@ -1,7 +1,7 @@
 ---
 post_title: ' Use .NET for game development'
 username: abhamedmicrosoft-com
-categories: Game Development, .NET, C#, Dot.Net
+categories: .NET, C#, Dot.Net
 tags: Azure, CryEngine, Games, MonoGame, PlayFab, Stride, Unity, WaveEngine
 featured_image: ./controller.jpg
 summary: Announcement the launch of the new .NET Game Development section of our website.
