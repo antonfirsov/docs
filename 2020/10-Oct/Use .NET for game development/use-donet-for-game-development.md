@@ -1,10 +1,10 @@
 ---
 post_title: ' Use .NET for game development'
-username: abhamedmicrosoft-com
-categories: .NET, C#, Dot.Net
-tags: Azure, CryEngine, Games, MonoGame, PlayFab, Stride, Unity, WaveEngine
+username: abhamed@microsoft.com
+categories: .NET Core, C#, Game Development, Azure
+tags: Azure, CryEngine, Games, MonoGame, PlayFab, Stride, Unity, WaveEngine, Visual Studio
 featured_image: controller.jpg
-summary: Announcement the launch of the new .NET Game Development section of our website.
+summary: Did you want to develop games using .NET? Learn what .NET game engines, tools, and services are available for you when developing games.
 ---
 
 We've launched a new [Game Development with .NET](https://dotnet.microsoft.com/apps/games?WT.mc_id=gamedev-blog-abhamed) section on our site. It's designed for current .NET developers to explore all the choices available to them when developing games. It's also designed for new developers trying to learn how to use .NET by making games. We've also launched a new [game development Learn portal for .NET](https://dotnet.microsoft.com/learn/games?WT.mc_id=gamedev-blog-abhamed) filled with tutorials, videos, and documentation provided by Microsoft and others in the .NET game development community. Finally, we launched a step-by-step [Unity get-started tutorial](https://dotnet.microsoft.com/learn/games/unity-tutorial/intro?WT.mc_id=gamedev-blog-abhamed) that will get you started with Unity and writing C# scripts for it in no time. We are excited to show you what .NET has to offer to you when making games. .NET is also part of [Microsoft Game Stack](https://developer.microsoft.com/apps/games?WT.mc_id=gamedev-blog-abhamed), a comprehensive suite of tools and services just for game development.
@@ -24,12 +24,12 @@ C# is the most popular programming language in game development. The wider .NET 
 
 ## Available game engines
 
-The first step to developing games in .NET is to choose a [game engine](https://dotnet.microsoft.com/apps/games/engines?WT.mc_id=gamedev-blog-abhamed). You can think of engines as the frameworks and tools you use for developing your game. There are many game engines that use .NET and they differ widely. Some of the engines are commercial and some are completely royalty free and open source. I am excited to see some of them planning to adopt .NET 5 soon. Just choose the engine that better works for you and your game. I am writing another blog post, coming soon, that will help you learn about .NET game engines, and which one would be best for you.
+The first step to developing games in .NET is to choose a [game engine](https://dotnet.microsoft.com/apps/games/engines?WT.mc_id=gamedev-blog-abhamed). You can think of engines as the frameworks and tools you use for developing your game. There are many game engines that use .NET and they differ widely. Some of the engines are commercial and some are completely royalty free and open source. I am excited to see some of them planning to adopt .NET 5 soon. Just choose the engine that better works for you and your game. Would you like to read a blog post to help you learn about .NET game engines, and which one would be best for you?
 
 ### Online services for your game
 
 
-If you're building your game with .NET, then you have a wide choice on how to build your online [game services](https://dotnet.microsoft.com/apps/games/services?WT.mc_id=gamedev-blog-abhamed). You can use ready-to-use services like [Microsoft Azure PlayFab](https://playfab.com?WT.mc_id=gamedev-blog-abhamed). You can also build from scratch on [Microsoft Azure](https://docs.microsoft.com/gaming/azure?WT.mc_id=gamedev-blog-abhamed). .NET also runs on multiple operating systems, clouds, and services, it doesn't limit you to use Microsoft's platforms.
+If you're building your game with .NET, then you have many choices on how to build your online [game services](https://dotnet.microsoft.com/apps/games/services?WT.mc_id=gamedev-blog-abhamed). You can use ready-to-use services like [Microsoft Azure PlayFab](https://playfab.com?WT.mc_id=gamedev-blog-abhamed). You can also build from scratch on [Microsoft Azure](https://docs.microsoft.com/gaming/azure?WT.mc_id=gamedev-blog-abhamed). .NET also runs on multiple operating systems, clouds, and services, it doesn't limit you to use Microsoft's platforms.
 
 ## .NET has a rich set of tools
 
@@ -52,6 +52,5 @@ We'd love to see the work you do for the .NET game developer. Please reach out t
 
 We'd love to hear from you, and feature your contributions on future posts:
 
-* Send an email to abdullah.hamed at Microsoft
-* Leave us a pointer in the comments section below
-* Send [Abdullah (@indiesaudi)](https://twitter.com/indiesaudi) tips on Twitter about .NET game development
+* Leave us a message in the comments section below
+* Send [Abdullah (@indiesaudi)](https://twitter.com/indiesaudi) tips on Twitter about .NET game development.
