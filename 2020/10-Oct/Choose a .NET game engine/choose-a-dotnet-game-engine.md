@@ -3,44 +3,50 @@ post_title: 'Choose a .NET Game Engine'
 username: abhamedmicrosoft-com
 categories: Game Development, .NET, C#, Dot.Net
 tags: Azure, CryEngine, Games, MonoGame, PlayFab, Stride, Unity, WaveEngine
-featured_image: ./
+featured_image: controller-code.jpg
 summary: A guide for some of the .NET game engines you can use.
 ---
 
-Choose a .NET Game Engine
-=========================
 Developing games is multi-disciplined compared to developing business apps and services. Games need design skills spanning UI, audio, gameplay, and art direction. It also requires engineering skills for graphics, gameplay, audio, cloud services, and develops. Sometimes you need to get low level and play around with hardware registries in assembly to optimize performance for a specific device. Do you need to build all those layers yourself when making a game, or is there a better way? Of course, there is a better way. The .NET ecosystem offer many choices for folks like you who want to make games, but do not want to build everything from scratch.
+
+![a game controller with a laptop with a game engine in the background](controller-code.jpg)
 
 Game Engines
 ------------
-Developers used to build their games from scratch each time. Now, developers have obstructed a lot of reusable code in their games and created a set of APIs and tools that they can reuse whenever they start a new game. These _Game Engines_ contain obstructions of graphics, input, media API. They also might contain design tools and assets managers for visual and audio assets. You can think about them as an IDE but for more than just code. Some game companies started releasing their engines commercially. Microsoft had its own engine at some point, free to use, called XNA. XNA was built with .NET and enabled you to make games for Windows and Xbox 360.
+Developers used to build their games from scratch each time. Now, developers have obstructed a lot of reusable code in their games and created a set of APIs and tools that they can reuse whenever they start a new game. These _Game Engines_ contain obstructions of graphics, input, media API. They also might contain design tools and assets managers for visual and audio assets. You can think about them as an IDE but for more than just code. Some game companies started releasing their engines commercially. Microsoft had its own engine at some point, free to use, called [XNA](https://www.microsoft.com/en-us/download/details.aspx?id=23714&WT.mc_id=gamedev-blog-abhamed). XNA was built with .NET and enabled you to make games for Windows and Xbox 360.
 
 With the popularity of XNA, more game engines started using .NET. The Mono runtime, now part of .NET 5, was a great choice because it was able to run C# code on many platforms including Android, iOS, PC, Mac, and Linux. Mono also supported dedicated game consoles like Xbox, PlayStation, and Nintendo platforms. Now with .NET including Mono with .NET 5, we are seeing some game engines getting ready to upgrade.
+
 
 Engines built with .NET Core 3.1 
 --------------------------------
 ### MonoGame
-When XNA support got discontinued, the open-source community ported XNA to Mono, made it cross platform, and called it MonoGame. It has since advanced beyond the scope of XNA. MonoGame only has a programming API for all .NET languages and 1 GUI app that is used to manage assets. MonoGame is more of a lean framework that is used as a base for a game engine. MonoGame just got updates to version 3.8 where it uses .NET Core 3.1 and NuGet, with a plan to upgrade to .NET 5 in the future. An example of a game engine that uses MonoGame as framework is FlatRedBall. Many indie developers who have used XNA previously sill use MonoGame for all their cross-platform game development. There is also a more accurate reimplementation of XNA, made open-source by the community, called XFA that you could choose if you needed to port you older XNA game to a newer code base.
+When XNA got discontinued, the open-source community ported XNA to Mono, made it cross platform, and called it [MonoGame](https://www.monogame.net/?WT.mc_id=gamedev-blog-abhamed). It has since advanced beyond the scope of XNA. MonoGame only has a programming API for all .NET languages and 1 GUI app that is used to manage assets. MonoGame is more of a lean framework that is used as a base for a game engine. MonoGame just got updates to version 3.8 where it uses .NET Core 3.1 and NuGet, with a plan to upgrade to .NET 5 in the future. An example of a game engine that uses MonoGame as framework is [FlatRedBall](http://flatredball.com). Many indie developers who have used XNA previously sill use MonoGame for all their cross-platform game development. There is also a more accurate reimplementation of XNA, made open-source by the community, called XFA that you could choose if you needed to port you older XNA game to a newer code base.
 
 ### Stride
-Stride (formally Xenko) is another pure C# and .NET engine that was developed by Silicon Studios. It&#39;s a complete integrated engine with a graphical editor. Stride is open-source and royalty free. Different parts of the engine can be used independently thanks to its modular design. Stride also uses .NET Core 3.1 in their latest 4.0 release. I really like the part in their documentation that focuses on folks who have used Unity before.
+[Stride](https://stride3d.net/) (formally Xenko) is another pure C# and .NET engine that was developed by Silicon Studios. It's a complete integrated engine with a graphical editor. Stride is open-source and royalty free. Different parts of the engine can be used independently thanks to its modular design. Stride also uses .NET Core 3.1 in their latest 4.0 release. I really like the part in their documentation that focuses on folks who have used Unity before.
 
 ### WaveEngine
-Another Engine that is purely .NET is WaveEngine. WaveEngine is free with many of it&#39;s components open-sourced. Their latest 3.0 preview released just upgraded to .NET Core 3.1. It offers exciting features like running 3D scenes in a browser using .NET WebAssembly (Mono WASM), Azure remote rendering, and support for HoloLens 2. WaveEngine has many mixed reality features, like spatial audio, ready to use out of the box.
+Another Engine that is purely .NET is [WaveEngine](https://www.waveengine.net/). WaveEngine is free with many of it's components open-sourced. Their latest 3.0 preview released just upgraded to .NET Core 3.1. It offers exciting features like running 3D scenes in a browser using .NET WebAssembly (Mono WASM), Azure remote rendering, and support for HoloLens 2. WaveEngine has many mixed reality features, like spatial audio, ready to use out of the box.
+
+### NeoAxis
+[NeoAxis](https://www.neoaxis.com/) is an engine that was pointed out to me after I published my previous blog post about [using .NET for game development](https://devblogs.microsoft.com/dotnet/game-development-with-net). It's also completly written with .NET, open-source, and royalty free. It supports a full set of features, in including the addition of Android support in the latest release. 
+
+![logos of some popular .NET game engines](game-engines.png)
 
 Engines embedding .NET
 ----------------------
 ### Unity
 
-Unity, developed in C++, was one of the earlier commercial engines to use .NET to provide C# scripting and multi-platform targeting. Unity is an integrated engine with a programming API interface as well as visual editing tools for graphics, audio, profiling, and debugging. Unity quickly became of the most used game engine for all real-time graphics applications like games, VR, and simulations. There is a big ecosystem supporting Unity, from an asset store for plugins and starter packs, to game services ready for Unity like Microsoft Azure PlayFab. Unity is a commercial engine, but its free to use until certain revenue thresholds. It is also free to use for some educational and personal uses.
+[Unity](https://unity.com/), developed in C++, was one of the earlier commercial engines to use .NET to provide C# scripting and multi-platform targeting. Unity is an integrated engine with a programming API interface as well as visual editing tools for graphics, audio, profiling, and debugging. Unity quickly became of the most used game engine for all real-time graphics applications like games, VR, and simulations. There is a big ecosystem supporting Unity, from an asset store for plugins and starter packs, to game services ready for Unity like Microsoft Azure PlayFab. Unity is a commercial engine, but its free to use until certain revenue thresholds. It is also free to use for some educational and personal uses.
 
 ### Godot
 
-Godot is a royalty free, multi-platform, open-source engine developed using C++. It&#39;s a fully integrated game development engine. It also uses .NET to deliver C# scripting. Godot has been gaining popularity as of late and its community is growing rapidly. It has also gained support and grants from both Microsoft and Epic games.
+[Godot](https://godotengine.org/) is a royalty free, multi-platform, open-source engine developed using C++. It's a fully integrated game development engine. It also uses .NET to deliver C# scripting. Godot has been gaining popularity as of late and its community is growing rapidly. It has also gained support and grants from both Microsoft and Epic games.
 
 ### CryEngine
 
-The famous CryEngine also uses .NET. The engine was built in C++, but it uses the .NET to enable C# scripting. It&#39;s a powerful game engine with a great history powering AAA games. You only pay royalties when you exceed a revenue threshold when using CryEngine.
+The famous [CryEngine](https://www.cryengine.com/) also uses .NET. The engine was built in C++, but it uses the .NET to enable C# scripting. It's a powerful game engine with a great history powering AAA games. You only pay royalties when you exceed a revenue threshold when using CryEngine.
 
 Which engine is right for you?
 ------------------------------
@@ -57,7 +63,7 @@ Rendered
 
 We'd love to hear from you
 --------------------------
-You have a .NET game devevelopment related project, plugin, library, or game you want to blog about on the .NET blog?
+You have a .NET game devevelopment related project, plugin, library, or game you want to blog about on the .NET blog? Is there a .NET game development topic that you want me to write about?
 
 * Send an email to abdullah.hamed at Microsoft,
 * Leave us a pointer in the comments section below.
