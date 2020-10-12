@@ -13,7 +13,7 @@ Today, we are launching [.NET Live TV](https://live.dot.net), your one stop shop
 
 We started our journey several years ago with the [.NET Community Standup](https://dotnet.microsoft.com/platform/community/standup) series. It's a weekly "behind the scenes" live stream that shows you what goes into building the runtimes, languages, frameworks, and tools we all love. As it grew, so did our dreams of delivering even more awesome .NET live stream content.
 
-.NET Live TV takes things to a whole new level with the introduction of new shows and new website. It is a single place to bookmark so you can stay up to date with live streams across several Twitch and YouTube channels and with a single click can join in the conversation. 
+.NET Live TV takes things to a whole new level with the introduction of new shows and a new website. It is a single place to bookmark so you can stay up to date with live streams across several Twitch and YouTube channels and with a single click can join in the conversation. 
 
 Here are some of the new shows that recently launched that you can look forward to:
 
