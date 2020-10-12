@@ -43,4 +43,4 @@ What started as the ASP.NET Community Standup has grown into 7 unique shows thro
 
 
 ## More to come!
-Be sure to bookmark [live.dot.net](https://live.dot.net) as we are living streaming 5 days a week and adding even more shows soon!
+Be sure to bookmark [live.dot.net](https://live.dot.net) as we are living streaming 5 days a week and adding even more shows soon! If you are looking for even more great developer video content be sure to checkout [Microsoft Learn TV](https://docs.microsoft.com/learn/tv?WT.mc_id=livetv-blog-jamont) where in addition to some of the shows from .NET Live TV you will find 24 hour a day streaming content of all topics.
