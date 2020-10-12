@@ -11,7 +11,10 @@ Today, we are launching [.NET Live TV](https://live.dot.net), your one stop shop
 
 ![.NET Live Website](dotnet-live.png)
 
-We started our journey several years ago with the [.NET Community Standup](https://dotnet.microsoft.com/platform/community/standup) series that gave a weekly look behind the scenes what goes into building the libraries, frameworks, and tools we all love. .NET Live TV takes things to a whole new level with the introduction of new shows. It is a single place to bookmark so you can stay up to date with live streams across several Twitch and YouTube channels and with a single click can join in the conversation. You can even browse past streams from any of the shows or events. Here are some of the new shows that recently launched that you can look forward to:
+We started our journey several years ago with the [.NET Community Standup](https://dotnet.microsoft.com/platform/community/standup) series that gave a weekly look behind the scenes what goes into building the libraries, frameworks, and tools we all love. .NET Live TV takes things to a whole new level with the introduction of new shows. It is a single place to bookmark so you can stay up to date with live streams across several Twitch and YouTube channels and with a single click can join in the conversation. You can even browse past streams from any of the shows or events. What is really neat about the page is that it is built using .NET 5 & Blazor WebAssembly with Prerendering!
+
+
+Here are some of the new shows that recently launched that you can look forward to:
 
 ## Expanded .NET Community Standups
 What started as the ASP.NET Community Standup has grown into 7 unique shows throughout the month! Here is a quick guide to the schedule of the shows that all start at **10:00 AM Pacific**:
