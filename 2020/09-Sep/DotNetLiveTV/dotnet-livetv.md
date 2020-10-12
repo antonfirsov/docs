@@ -23,30 +23,20 @@ What started as the ASP.NET Community Standup has grown into 7 unique shows thro
 * **3rd Thursday**: .NET Tooling hosted by Kendra Havens
 * **4th Thursday**:  .NET Desktop hosted by Olia Gavrysh
 
-## Learn C# with CSharpFritz
-**Mondays at 6:00 AM Pacific** - Join Jeff Fritz (csharpfritz) in this start from the beginning series to learn C# in this talk-show format that answers viewers questions and provides interactive samples with every episode.
+## Packed Week of .NET Shows!
 
-![C# with CSharpFritz](csharpfritz.png)
+| Day | Time (PT) | Show | Description | 
+|-----|:------------:|:-------------------:|----------|
+|**Monday**| 6:00 AM | ![C# with CSharpFritz](csharpfritz.png) |  Join Jeff Fritz (csharpfritz) in this start from the beginning series to learn C# in this talk-show format that answers viewers questions and provides interactive samples with every episode. |
+|| 9:00 AM | ![The .NET Docs Show](dotnet-docs.png) | Join David Pine, Scott Addie, Cam Soper, and more from the Developer Relations team at Microsoft each week as they highlight the amazing community members in the .NET community. | 
+|| 11:00 AM | ![Visual Studio Remote Office Hours](vs-office-hours.png) |  A weekly show dedicated to the topic of working from home. Mads Kristensen from the Visual Studio team invites guests onto the show for conversations about anything and everything related to Visual Studio and working from home. |
+| **Tuesday** | 10:00 AM | ![.NET Community Standup](community-standup.png) | Join members from the ASP.NET teams for our community standup covering great community contributions for ASP.NET, ASP.NET Core, and more. | 
+| | 12:00 PM | ![C# Corner with Instafluff](instafluff.png) | Join Instafluff (Raphael) each week live on Twitch as he works on fun C# game related projects from his C# corner. |
+| **Wednesday** | 10:00 AM | ![.NET Community Standup](community-standup.png) | Join the Entity Framework and the Machine learning teams for their community standups covering great community contributions. | 
+| **Thursday** | 10:00 AM | ![.NET Community Standup](community-standup.png) | Join the Xamarin, Languages & Runtime, .NET Tooling, and .NET Desktop teams covering great community contributions for each subject. |
+| | 2:00 PM | ![On .NET Live](on-dotnet-live.png) | Join Cecil Phillip as he hosts and interviews amazing .NET contributors from the .NET teams and the community. |
+| **Friday** | 2:00 PM | ![Visual Studio Extensions with Mads](vs-extensions.png) | Join Mads Kristensen from the Visual Studio team each week as he builds extensions for Visual Studio live!  |
 
-## Visual Studio Remote Office Hours
-**Mondays at 11:00 AM Pacific** - A weekly show dedicated to the topic of working from home. Mads Kristensen from the Visual Studio team invites guests onto the show for conversations about anything and everything related to Visual Studio and working from home.
-
-![Visual Studio Remote Office Hours](vs-office-hours.png)
-
-## The .NET Docs Show
-**Mondays at 9:00 AM Pacific** - The .NET Docs show is a multi-faceted stream focused on the following, with an emphasis on the developer community. Hosted by David Pine, Scott Addie, Cam Soper, and more from the Developer Relations team at Microsoft.
-
-![The .NET Docs Show](dotnet-docs.png)
-
-## On .NET Live
-**Every other Thursday at 2:00 PM Pacific** - Join Cecil Phillip as he hosts and interviews amazing .NET contributors from the .NET teams and the community.
-
-![On .NET Live](on-dotnet-live.png)
-
-## Writing Visual Studio Extensions with Mads
-**Fridays at 2:00 PM Pacific** - Join Mads Kristensen from the Visual Studio team each week as he builds extensions for Visual Studio live! 
-
-![Visual Studio Extensions with Mads](vs-extensions.png)
 
 ## More to come!
 Be sure to bookmark [live.dot.net](https://live.dot.net) as we are living streaming 5 days a week and adding even more shows soon!
