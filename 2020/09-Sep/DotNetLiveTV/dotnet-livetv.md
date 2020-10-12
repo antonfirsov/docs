@@ -49,4 +49,4 @@ What started as the ASP.NET Community Standup has grown into 7 unique shows thro
 ![Visual Studio Extensions with Mads](vs-extensions.png)
 
 ## More to come!
-Be sure to bookmark [live.dot.net](https://live.dot.net) as we are living streaming 5 days a week and adding even more new shows soon!
+Be sure to bookmark [live.dot.net](https://live.dot.net) as we are living streaming 5 days a week and adding even more shows soon!
