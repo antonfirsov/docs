@@ -33,7 +33,7 @@ What started as the ASP.NET Community Standup has grown into 7 unique shows thro
 
 ![Visual Studio Remote Office Hours](vs-office-hours.png)
 
-## The .NET Docs shows
+## The .NET Docs Show
 **Mondays at 9:00 AM Pacific** - The .NET Docs show is a multi-faceted stream focused on the following, with an emphasis on the developer community. Hosted by David Pine, Scott Addie, Cam Soper, and more from the Developer Relations team at Microsoft.
 
 ![The .NET Docs Show](dotnet-docs.png)
