@@ -13,9 +13,11 @@ Developing games is multi-disciplined compared to developing business apps and s
 
 Game Engines
 ------------
-Developers used to build their games from scratch each time. Now, developers have obstructed a lot of reusable code in their games and created a set of APIs and tools that they can reuse whenever they start a new game. These _Game Engines_ contain obstructions of graphics, input, media API. They also might contain design tools and assets managers for visual and audio assets. You can think about them as an IDE but for more than just code. Some game companies started releasing their engines commercially. Microsoft had its own engine at some point, free to use, called [XNA](https://www.microsoft.com/download/details.aspx?id=23714&WT.mc_id=gamedev-blog-abhamed). XNA was built with .NET and enabled you to make games for Windows and Xbox 360.
+Developers used to build their games from scratch each time. Now, developers have abstracted a lot of reusable code in their games and created a set of APIs and tools that they can reuse whenever they start a new game. These _Game Engines_ contain abstractions of graphics, input, media API. They also might contain design tools and assets managers for visual and audio assets. You can think about them as an IDE but for more than just code. Some game companies started releasing their engines commercially. Microsoft had its own engine at some point, free to use, called [XNA](https://www.microsoft.com/download/details.aspx?id=23714&WT.mc_id=gamedev-blog-abhamed). XNA was built with .NET and enabled you to make games for Windows and Xbox 360.
 
 With the popularity of XNA, more game engines started using .NET. The Mono runtime, now part of .NET 5, was a great choice because it was able to run C# code on many platforms including Android, iOS, PC, Mac, and Linux. Mono also supported dedicated game consoles like Xbox, PlayStation, and Nintendo platforms. Now with .NET including Mono with .NET 5, we are seeing some game engines getting ready to upgrade.
+
+![logos of some popular .NET game engines](game-engines.png)
 
 
 Engines built with .NET Core 3.1 
@@ -32,7 +34,6 @@ Another Engine that is purely .NET is [WaveEngine](https://www.waveengine.net/).
 ### NeoAxis
 [NeoAxis](https://www.neoaxis.com/) is an engine that was pointed out to me after I published my previous blog post about [using .NET for game development](https://devblogs.microsoft.com/dotnet/game-development-with-net). It's also completely written with .NET, open-source, and royalty free. It supports a full set of features, in including the addition of Android support in the latest release. 
 
-![logos of some popular .NET game engines](game-engines.png)
 
 Engines embedding .NET
 ----------------------
@@ -64,6 +65,5 @@ We'd love to hear from you
 --------------------------
 You have a .NET game development related project, plugin, library, or game you want to blog about on the .NET blog? Is there a .NET game development topic that you want me to write about?
 
-* Send an email to abdullah.hamed at Microsoft,
-* Leave us a pointer in the comments section below.
+* Leave us a message in the comments section below.
 * Tweet at [Abdullah (@indiesaudi)](https://twitter.com/indiesaudi) 
