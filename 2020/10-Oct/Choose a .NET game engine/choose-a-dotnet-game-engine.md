@@ -38,7 +38,7 @@ Engines embedding .NET
 ----------------------
 ### Unity
 
-[Unity](https://unity.com/), developed in C++, was one of the earlier commercial engines to use .NET to provide C# scripting and multi-platform targeting. Unity is an integrated engine with a programming API interface as well as visual editing tools for graphics, audio, profiling, and debugging. Unity quickly became of the most used game engine for all real-time graphics applications like games, VR, and simulations. There is a big ecosystem supporting Unity, from an asset store for plugins and starter packs, to game services ready for Unity like Microsoft Azure PlayFab. Unity is a commercial engine, but its free to use until certain revenue thresholds. It is also free to use for some educational and personal uses.
+[Unity](https://unity.com/), developed in C++, was one of the earlier commercial engines to use .NET to provide C# scripting and multi-platform targeting. Unity is an integrated engine with a programming API interface as well as visual editing tools for graphics, audio, profiling, and debugging. Unity quickly became one of the most used game engine for all real-time graphics applications like games, VR, and simulations. There is a big ecosystem supporting Unity, from an asset store for plugins and starter packs, to game services like Microsoft Azure PlayFab. Unity is a commercial engine, but its free to use until certain revenue thresholds. It's also free to use for some educational and personal uses.
 
 ### Godot
 
