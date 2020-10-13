@@ -46,7 +46,7 @@ Engines embedding .NET
 
 ### CryEngine
 
-The famous [CryEngine](https://www.cryengine.com/) also uses .NET. The engine was built in C++, but it uses the .NET to enable C# scripting. It's a powerful game engine with a great history powering AAA games. You only pay royalties when you exceed a revenue threshold when using CryEngine.
+The famous [CryEngine](https://www.cryengine.com/) also uses .NET. The engine was built in C++, but it uses the .NET to enable C# scripting. It's a powerful game engine with a great history powering AAA games. You only pay royalties when you exceed a revenue threshold.
 
 Which engine is right for you?
 ------------------------------
