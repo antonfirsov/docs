@@ -50,7 +50,7 @@ The famous [CryEngine](https://www.cryengine.com/) also uses .NET. The engine wa
 
 Which engine is right for you?
 ------------------------------
-The most important point when choosing a game engine is how to get support. For beginners, asking peers, or folks online for help is an essential part of learning and remain motivated. For professionals, enterprise level support is essential to mitigate technical risks. By far, Unity has one of the biggest and most active communities. It also offers paid high-quality enterprise support. In addition, Unity also has one of the biggest ecosystems of services and plugins supporting the engine. Godot has also been gaining more popularity amongst hobbyists and its momentum has been accelerating as well.
+The most important point when choosing a game engine is how to get support. For beginners, asking peers, or folks online for help is an essential part of learning and remaining motivated. For professionals, enterprise level support is essential to mitigate technical risks. By far, Unity has one of the biggest and most active communities. It also offers paid high-quality enterprise support. In addition, Unity also has one of the biggest ecosystems of services and plugins supporting the engine. Godot has also been gaining more popularity amongst hobbyists and its momentum has been accelerating as well.
 
 Another thing to consider are your own skills, and how will an engine best leverage them. If you come from a .NET background and want the latest C# features, maybe a purely .NET engine like Stride, WaveEngine, or even MonoGame would better suite you. You can use all the familiar tools with them, like NuGet and the CLI.
 
