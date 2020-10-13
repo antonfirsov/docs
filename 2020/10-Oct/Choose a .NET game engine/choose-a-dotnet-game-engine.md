@@ -30,7 +30,7 @@ When XNA got discontinued, the open-source community ported XNA to Mono, made it
 Another Engine that is purely .NET is [WaveEngine](https://www.waveengine.net/). WaveEngine is free with many of it's components open-sourced. Their latest 3.0 preview released just upgraded to .NET Core 3.1. It offers exciting features like running 3D scenes in a browser using .NET WebAssembly (Mono WASM), Azure remote rendering, and support for HoloLens 2. WaveEngine has many mixed reality features, like spatial audio, ready to use out of the box.
 
 ### NeoAxis
-[NeoAxis](https://www.neoaxis.com/) is an engine that was pointed out to me after I published my previous blog post about [using .NET for game development](https://devblogs.microsoft.com/dotnet/game-development-with-net). It's also completly written with .NET, open-source, and royalty free. It supports a full set of features, in including the addition of Android support in the latest release. 
+[NeoAxis](https://www.neoaxis.com/) is an engine that was pointed out to me after I published my previous blog post about [using .NET for game development](https://devblogs.microsoft.com/dotnet/game-development-with-net). It's also completely written with .NET, open-source, and royalty free. It supports a full set of features, in including the addition of Android support in the latest release. 
 
 ![logos of some popular .NET game engines](game-engines.png)
 
