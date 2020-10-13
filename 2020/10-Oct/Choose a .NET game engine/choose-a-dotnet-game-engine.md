@@ -54,7 +54,7 @@ The most important point when choosing a game engine is how to get support. For 
 
 Another thing to consider are your own skills, and how well an engine will support you. If you come from a .NET background and want the latest C# features, maybe a pure .NET engine like Stride, WaveEngine, or even MonoGame would suit you best. You can use all the familiar tools with them, like NuGet and the CLI.
 
-An engine with active development gives you security that bugs will get fixed and new platforms and features will be supported. Commercial engines might be better for you if that is a concern.
+An engine with active development gives you security that bugs will get fixed and new platforms and features will be added. Commercial engines might be better for you if that is a concern.
 
 An important consideration when choosing an engine is the price. All the game engines mentioned above are free to start with. Some have royalties attached to them once you reach a revenue threshold. Some of the engines are completely free and royalty free. You choose where the loot goes depending on your financial plans.
 
