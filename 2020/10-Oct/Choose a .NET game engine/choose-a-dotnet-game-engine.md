@@ -59,7 +59,6 @@ An engine with active development gives you security that bugs will get fixed an
 An important consideration when choosing an engine is the price. All the game engines mentioned above are free to start with. Some have royalties attached to them once you reach a revenue threshold. Some of the engines are completely free and royalty free. You choose where the loot goes depending on your financial plans.
 
 Game design can dictate which engine you should use too. One engine might be more suitable than others for certain types of games. For example, using a fully integrated commercial engine to make a text-based adventure might be overkill.
-Rendered
 
 We'd love to hear from you
 --------------------------
