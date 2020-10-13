@@ -7,7 +7,7 @@ featured_image: controller-code.png
 summary: Learn what game engines are, and choose which .NET game engine is best for you.
 ---
 
-Developing games is multi-disciplined compared to developing business apps and services. Games need design skills spanning UI, audio, gameplay, and art direction. It also requires engineering skills for graphics, gameplay, audio, cloud services, and develops. Sometimes you need to get low level and play around with hardware registries in assembly to optimize performance for a specific device. Do you need to build all those layers yourself when making a game, or is there a better way? Of course, there is a better way. The .NET ecosystem offer many choices for folks like you who want to make games, but do not want to build everything from scratch.
+Developing games is multi-disciplined compared to developing business apps and services. Games need design skills spanning UI, audio, gameplay, and art direction. It also requires engineering skills for graphics, gameplay, audio, cloud services, and develops. Sometimes you need to get low level and play around with hardware registries in assembly to optimize performance for a specific device. Do you need to build all those layers yourself when making a game, or is there a better way? Of course, there is a better way. The .NET ecosystem offers many choices for folks like you who want to make games, but do not want to build everything from scratch.
 
 ![a game controller with a laptop with a game engine in the background](controller-code.png)
 
