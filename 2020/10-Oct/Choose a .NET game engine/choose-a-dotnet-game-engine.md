@@ -3,7 +3,7 @@ post_title: 'Choose a .NET Game Engine'
 username: abhamed@microsoft.com
 categories: Game Development, .NET, C#
 tags: Azure, CryEngine, Games, MonoGame, PlayFab, Stride, Unity, WaveEngine, flatredball, NeoAxis
-featured_image: controller-code.jpg
+featured_image: controller-code.png
 summary: Learn what game engines are, and choose which .NET game engine is best for you.
 ---
 
@@ -68,4 +68,3 @@ You have a .NET game devevelopment related project, plugin, library, or game you
 * Send an email to abdullah.hamed at Microsoft,
 * Leave us a pointer in the comments section below.
 * Tweet at [Abdullah (@indiesaudi)](https://twitter.com/indiesaudi) 
-
