@@ -42,7 +42,7 @@ Engines embedding .NET
 
 ### Godot
 
-[Godot](https://godotengine.org/) is a royalty free, multi-platform, open-source engine developed using C++. It's a fully integrated game development engine. It also uses .NET to deliver C# scripting. Godot has been gaining popularity as of late and its community is growing rapidly. It has also gained support and grants from both Microsoft and Epic games.
+[Godot](https://godotengine.org/) is a royalty free, multi-platform, open-source engine developed using C++. It's a fully integrated game development engine. It also uses .NET to deliver C# scripting. Lately, Godot has been gaining popularity and its community is growing rapidly. It has also gained support and grants from both Microsoft and Epic games.
 
 ### CryEngine
 
