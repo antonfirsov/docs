@@ -1,8 +1,18 @@
 # Improving Debug-time Productivity with Source Link
 
-How many times have you been in the debugger tracking down a bug, stepping through code, looking at what local variable values changed, when you hit a wall -- the value isn't what you expected and you can't step into the method that produced it because it's from a library? Or, you set a conditional breakpoint waiting to examine how some value got set, then noticing a call stack that's mostly greyed out, not letting you see what happened earlier in the call stack? Wouldn't it be great if you could easily step into, set breakpoints, and use all of the debugger's features on external library code?
+How many times have you been in the debugger tracking down a bug, stepping through code, looking at what local variable values changed, when you hit a wall -- the value isn't what you expected and you can't step into the method that produced it because it's from a library or .NET framework itself? Or, you set a conditional breakpoint waiting to examine how some value got set, then noticing a call stack that's mostly greyed out, not letting you see what happened earlier in the call stack? Wouldn't it be great if you could easily step into, set breakpoints, and use all of the debugger's features on NuGet dependencies or the framework itself?
+
+.NET development practices in 2020 are a lot different and better in many ways than they were ten years ago. The biggest change is that the .NET platform is open source and maintained on GitHub. Many of the NuGet libraries that we all use on a daily basis are also maintained on GitHub. That means that the source I'd really like to see in my debugger is just one HTTPS GET away. We could have this wonderfully productive ecosystem where we could all debug with source, for all of our dependencies, all the time. That would be nice! In fact, the Source Link project, started by Cameron Taggart, realized this and built an experience that did just that. Let me tell you about it.
 
 Source Link can get you there for many libraries that have it enabled. With Souce Link enabled libraries, the debugger can download the underlying source files as you step in, and you can set breakpoints/tracepoints like you would with any other source. Source Link-enabled debugging makes it easier to understand the full flow of your code from your code down to the runtime. Source Link is language-agnostic, so you can benefit from it for any .NET language and for some native libraries.
+
+
+
+
+
+
+
+
 
 As Source Link downloads source files from the internet, it's not enabled by default. 
 
