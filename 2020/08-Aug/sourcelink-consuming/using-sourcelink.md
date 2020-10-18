@@ -48,7 +48,7 @@ There are a couple steps to enable it:
 
 1. Go to **Tools -> Options -> Debugging -> Symbols** and ensure that the 'NuGet.org Symbol Server' option is checked. Specifying a directory for the symbol cache is a good idea to avoid downloading the same symbols again.
   ![Dialog showing options for symbol file locations and local cache](visual-studio-step-1.png)
-  If you would like to step into the .NET runtime code, you will also need check the 'Microsoft Symbol Servers' option. 
+  If you would like to step into the .NET framework code, you will also need check the 'Microsoft Symbol Servers' option. 
 
 2. Disable 'Just My Code` in **Tools -> Options -> Debugging -> General** since we want the debugger to attempt to locate symbols for code outside your solution.
   ![Dialog showing 'Enable Just My Code' unchecked](visual-studio-step-2.png)
