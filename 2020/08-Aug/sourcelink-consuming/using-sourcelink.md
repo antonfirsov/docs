@@ -1,53 +1,46 @@
-# Improving Debug-time Productivity with Source Link
+## Improving Debug-time Productivity with Source Link
 
 How many times have you been in the debugger tracking down a bug, stepping through code, looking at what local variable values changed, when you hit a wall -- the value isn't what you expected and you can't step into the method that produced it because it's from a library or .NET framework itself? Or, you set a conditional breakpoint waiting to examine how some value got set, then noticing a call stack that's mostly greyed out, not letting you see what happened earlier in the call stack? Wouldn't it be great if you could easily step into, set breakpoints, and use all of the debugger's features on NuGet dependencies or the framework itself?
 
 .NET development practices in 2020 are a lot different and better in many ways than they were ten years ago. The biggest change is that the .NET platform is open source and maintained on GitHub. Many of the NuGet libraries that we all use on a daily basis are also maintained on GitHub. That means that the source I'd really like to see in my debugger is just one HTTPS GET away. We could have this wonderfully productive ecosystem where we could all debug with source, for all of our dependencies, all the time. That would be nice! In fact, the Source Link project, started by Cameron Taggart, realized this and built an experience that did just that. Let me tell you about it.
 
-Source Link can get you there for many libraries that have it enabled. With Souce Link enabled libraries, the debugger can download the underlying source files as you step in, and you can set breakpoints/tracepoints like you would with any other source. Source Link-enabled debugging makes it easier to understand the full flow of your code from your code down to the runtime. Source Link is language-agnostic, so you can benefit from it for any .NET language and for some native libraries.
+With Souce Link enabled libraries, the debugger can download the underlying source files as you step in, and you can set breakpoints/tracepoints like you would with any other source. Source Link-enabled debugging makes it easier to understand the full flow of your code from your code down to the runtime. Source Link is language-agnostic, so you can benefit from it for any .NET language and for some native libraries.
 
+### Debugging the framework
+Lets look at an example. Sometimes you want to step into the framework to see what's going on, especially if something is happening that you didn't expect. With SourceLink, you can step into framework methods just like you can with your own code, inspect all variables, and set breakpoints.
 
+If you tried it without Source Link, here's what you'd see, before and after hitting F11 to step in.
 
-
-
-
-
-
-
-As Source Link downloads source files from the internet, it's not enabled by default. 
-
-
-
-# WIP to rearrange
-
-#### Debugging the Framework
-Lets look at an example. Sometimes you want to step into the Framework to see what's going on, especially if something is happening that you didn't expect. With SourceLink, you can step into Framework methods just like you can with your own code, inspect all variables, and set breakpoints.
-
-If you tried it without Source Link, here's what you'd see, before and after hitting F11 to step in. The 
-![At breakpoint with Console.WriteLine](debug-framework-before.png) 
+![At breakpoint with Console.WriteLine](debug-framework-before.png)
 ![Debugger at brace after Console.Writeline](debug-framework-nosourcelink-after.png)
+
 The debugger does not step into `Console.WriteLine` because there are no symbols or source for it. Once we configure Source Link, when we step in, we get a different result:
 
 ![Debugger in Console.Writeline method](debug-framework-sourcelink-after.png)
 
-You can see that Visual Studio has downloaded the matching source and stepped into the method. If you look at the `Autos` window, it shows the local variables passed in. You can step into, over, and out of the Framework code as much as you'd like.
+You can see that Visual Studio has downloaded the matching source and stepped into the method. If you look at the `Autos` window, it shows the local variables passed in. You can step into, over, and out of the framework code as much as you'd like.
 
-#### Debugging a library
-Often times the issue you're trying to solve is in a 3rd party library. Wouldn't it be great if you could step into the source for libraries too? If the library author added Source Link information during their build, you can! Here's an example with `Newtonsoft.Json`. Because `Newtonsoft.Json` was built with Source Link information, we can step into its code:
+### Debugging a dependency
+Often times the issue you're trying to solve is in a dependency. Wouldn't it be great if you could step into the source for your dependencies too? If the dependency added Source Link information during its build, you can! Here's an example with `Newtonsoft.Json`. Because `Newtonsoft.Json` was built with Source Link information, we can step into its code:
 
 ![Debugger outside of JsonConvert.SerializeObject method](newtonsoft-json-before.png) 
+![Prompt to download source from the internet](newtonsoft-json-download-prompt.png)
 ![Debugger inside CreateDefault method](newtonsoft-json-after.png)
 
-When we stepped in, the debugger skipped a couple of methods that were marked with `DebuggerStepThrough` and stopped on the next statement in the `CreateDefault` method.
+When we stepped in, the debugger skipped a couple of methods that were marked with `DebuggerStepThrough` and stopped on the next statement in the `CreateDefault` method. Since the source comes from the internet (GitHub, in this case), you're prompted to allow it, either for just a single file or for all files.
 
-#### Exceptions
-Source Link helps you with exceptions that come from the Framework or libraries too. How many times have you seen this message and what you really want is to examine the variables?
+### Exceptions
+Source Link helps you with exceptions that come from the framework or dependencies. How many times have you seen this message and what you really want is to examine the variables?
 
 ![Debugger stopped with unhandled exception](exception-unhandled-before.png) 
 ![Debugger stopped at exception site](exception-unhandled-after-thrown.png)
 ![Debugger looking at call stack from exception](exception-unhandled-after.png)
 
 With Source Link, the debugger will take you to the spot where the exception is thrown where you can then navigate the call stack and investigate.
+
+## Enabling Source Link
+
+As Source Link downloads source files from the internet, it's not enabled by default. Here's how to enable it:
 
 ### Visual Studio
 
@@ -60,9 +53,6 @@ There are a couple steps to enable it:
 2. Disable 'Just My Code` in **Tools -> Options -> Debugging -> General** since we want the debugger to attempt to locate symbols for code outside your solution.
   ![Dialog showing 'Enable Just My Code' unchecked](visual-studio-step-2.png)
   Verify that `Enable Source Link support` is checked (it is by default). If you would like to step into .NET Framework code, you will also need to check 'Enable .NET Framework source stepping'. This is not required for .NET Core.
-
-Here's a demo showing the experience in the debugger once set up: *[Ed: record better demo?]*
-<iframe src="https://www.youtube-nocookie.com/embed/gyRGhCQPkB4?start=61" frameborder="0" allowfullscreen="true"></iframe>
 
 ### Visual Studio Code
 
