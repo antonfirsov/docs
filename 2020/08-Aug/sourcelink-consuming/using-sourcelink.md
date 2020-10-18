@@ -16,6 +16,39 @@ Source Link can get you there for many libraries that have it enabled. With Souc
 
 As Source Link downloads source files from the internet, it's not enabled by default. 
 
+
+
+# WIP to rearrange
+
+#### Debugging the Framework
+Lets look at an example. Sometimes you want to step into the Framework to see what's going on, especially if something is happening that you didn't expect. With SourceLink, you can step into Framework methods just like you can with your own code, inspect all variables, and set breakpoints.
+
+If you tried it without Source Link, here's what you'd see, before and after hitting F11 to step in. The 
+![At breakpoint with Console.WriteLine](debug-framework-before.png) 
+![Debugger at brace after Console.Writeline](debug-framework-nosourcelink-after.png)
+The debugger does not step into `Console.WriteLine` because there are no symbols or source for it. Once we configure Source Link, when we step in, we get a different result:
+
+![Debugger in Console.Writeline method](debug-framework-sourcelink-after.png)
+
+You can see that Visual Studio has downloaded the matching source and stepped into the method. If you look at the `Autos` window, it shows the local variables passed in. You can step into, over, and out of the Framework code as much as you'd like.
+
+#### Debugging a library
+Often times the issue you're trying to solve is in a 3rd party library. Wouldn't it be great if you could step into the source for libraries too? If the library author added Source Link information during their build, you can! Here's an example with `Newtonsoft.Json`. Because `Newtonsoft.Json` was built with Source Link information, we can step into its code:
+
+![Debugger outside of JsonConvert.SerializeObject method](newtonsoft-json-before.png) 
+![Debugger inside CreateDefault method](newtonsoft-json-after.png)
+
+When we stepped in, the debugger skipped a couple of methods that were marked with `DebuggerStepThrough` and stopped on the next statement in the `CreateDefault` method.
+
+#### Exceptions
+Source Link helps you with exceptions that come from the Framework or libraries too. How many times have you seen this message and what you really want is to examine the variables?
+
+![Debugger stopped with unhandled exception](exception-unhandled-before.png) 
+![Debugger stopped at exception site](exception-unhandled-after-thrown.png)
+![Debugger looking at call stack from exception](exception-unhandled-after.png)
+
+With Source Link, the debugger will take you to the spot where the exception is thrown where you can then navigate the call stack and investigate.
+
 ### Visual Studio
 
 There are a couple steps to enable it:
