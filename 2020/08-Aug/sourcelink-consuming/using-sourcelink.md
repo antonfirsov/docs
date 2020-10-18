@@ -1,4 +1,10 @@
-## Improving Debug-time Productivity with Source Link
+---
+post_title: 'Improving Debug-time Productivity with Source Link'
+username: cnov
+featured_image: newtonsoft-json-after.png
+categories: .NET, .NET Core, Debugging, Source Link
+summary: Improve your debug-time productivity by using Soure Link to step into framework and dependency code.
+---
 
 How many times have you been in the debugger tracking down a bug, stepping through code, looking at what local variable values changed, when you hit a wall -- the value isn't what you expected and you can't step into the method that produced it because it's from a library or .NET framework itself? Or, you set a conditional breakpoint waiting to examine how some value got set, then noticing a call stack that's mostly greyed out, not letting you see what happened earlier in the call stack? Wouldn't it be great if you could easily step into, set breakpoints, and use all of the debugger's features on NuGet dependencies or the framework itself?
 
