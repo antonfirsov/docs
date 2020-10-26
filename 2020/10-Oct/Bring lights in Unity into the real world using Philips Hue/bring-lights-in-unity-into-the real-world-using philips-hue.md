@@ -14,7 +14,6 @@ A game or simulation can influence the real world through other mediums than jus
 Spoiler alert – if you want to see a quick test of the results, then watch my Unity Dev Log 6a - [Physical Light Teaser](https://youtu.be/Ht1of0WcGiI)
 
 Philips Hue Play Bars
-
 ---------------------
 
 ![Philips lights](philips-lights.png) ![Philips hub](philips-hub.png)
