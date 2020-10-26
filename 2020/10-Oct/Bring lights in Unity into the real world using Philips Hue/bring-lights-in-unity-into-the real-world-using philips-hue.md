@@ -17,7 +17,7 @@ Philips Hue Play Bars
 
 ---------------------
 
-![Philips lights](philips-lights.png) ![Philips hub](philips-hub)
+![Philips lights](philips-lights.png) ![Philips hub](philips-hub.png)
 
 There are numerous controllable lights but for this demonstration I am using the Philips Hue Play Bars. These are LED lights that can emit a range of colors. They are controlled by a Philips Bridge which in-turn is programmable via a [REST API](https://developers.meethue.com/develop/hue-api/lights-api/) (note, you have to sign-up to the API). Of course, since this is .net there is likely to be a NuGet package out there to make, ahem, “light work” out of using this API. For the demo I’m using the Open Source [Q42.HueApi](https://www.nuget.org/packages/Q42.HueApi/) package.  
 
