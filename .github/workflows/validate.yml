@@ -18,4 +18,4 @@ jobs:
     - name: Build
       run: dotnet build tools/blog-tools.sln --configuration Release --no-restore --nologo
     - name: Validate
-      run: dotnet run --project tools/blog-validate/blog-validate.csproj .
+      run: dotnet run --project tools/blog-validate/blog-validate.csproj -- . --base-ref {{ GITHUB_BASE_REF }} --ref {{ GITHUB_SHA }}
