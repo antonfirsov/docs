@@ -45,14 +45,6 @@ To get an App Key from the Bridge you now need to discover the Bridge, now we ge
 ```csharp
 public async Task RegisterAppWithHueBridge()
        {
-           /* TODO: Make sure the user has pressed the button 
-              on the bridge before calling RegisterAsync.
-              It will throw a LinkButtonNotPressedException 
-              if the user did not press the button
-           */
- 
-           //Or: LocalNetworkScanBridgeLocator, 
-           // MdnsBridgeLocator, MUdpBasedBridgeLocator
            IBridgeLocator locator = new HttpBridgeLocator();
            var timeout = TimeSpan.FromSeconds(5);
            var bridges = await locator.LocateBridgesAsync(timeout);
