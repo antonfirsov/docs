@@ -154,6 +154,7 @@ In my scene I have a single spotlight source directed at the side of a character
 Now we have multiple light sources on the characters face and the resulting color is a combination of them. In fact, it’s a combination of all sorts of light emitters. The lighting of the face consists of multiple light sources, reflections, ambient light, shadows, etc. Also, objects can affect the light before it reaches the character’s face. E.g. a window blind.
 
 ![reducing the light on the 3D character using objects](light-reduce.png)
+
 This means is that we need a way to examine the light on the character’s face rather than simply aggregate the light emitters. 
 
 ## Capture the light via a Camera
