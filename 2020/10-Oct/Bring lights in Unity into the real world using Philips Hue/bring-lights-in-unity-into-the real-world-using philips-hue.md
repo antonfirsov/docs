@@ -148,6 +148,7 @@ The problem – capturing the total light on a surface, not just single rays but
 ![a character in 3D with a single spotlight](illumination-spotlight.png)
 
 In my scene I have a single spotlight source directed at the side of a character’s face. What I want to do is to match the Philips light located to the right of the player to the same color. We could just grab the color the light is set to and use that. That’s okay but as we’ll see next, it’s not very accurate.
+
 ![a character in 3D with a multiple spotlights](illumination-spotlights.png)
 
 Now we have multiple light sources on the characters face and the resulting color is a combination of them. In fact, it’s a combination of all sorts of light emitters. The lighting of the face consists of multiple light sources, reflections, ambient light, shadows, etc. Also, objects can affect the light before it reaches the character’s face. E.g. a window blind.
