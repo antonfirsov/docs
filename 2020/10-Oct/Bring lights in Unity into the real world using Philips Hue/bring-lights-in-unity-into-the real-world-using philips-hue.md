@@ -28,6 +28,7 @@ The first step is to create a new Unity project and set the Project Settings->Pl
 ## Adding the Q42 NuGet Package to Unity
 Currently adding NuGet packages into Unity requires a more manual approach than perhaps we are used to. You might find a better approach, but I created a small .net console project and fetched the package into it. Then you can take the two managed .net 4.x DLLs, Q42.HueApi and Q42.HueApi.ColorConverters and place them into the Unity Project under the Plugins folder. 
 ![adding Hue API Nuget package to Unity](nuget2unity.png)
+
 Now we have everything ready to code against.
 
 Controlling the lights
