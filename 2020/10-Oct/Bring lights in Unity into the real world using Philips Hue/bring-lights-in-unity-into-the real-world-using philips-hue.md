@@ -236,7 +236,7 @@ private Color AverageWeightedColor(Color[] colors)
 We can now capture the light cast onto a game object, the character in this case, and emit a corresponding color to a light in the real world.
 ![example of character with purple light in Unity and terrence in the real world with same colors](demo-purple.png)
 
-Or however many lights you want to use. NB my video camera struggles to capture the actual light color, honestly, it’s much closer in real life 😊
+Or however many lights you want to use. NB my video camera struggles to capture the actual light color, honestly, it’s much closer in real life.
 ![example of character with yellow and green light in Unity and terrence in the real world with same colors](demo-yellow-green.png)
 
 You can find a YouTube video of this explanation and more links at [Unity Dev Log 6a - Physical Light Teaser](https://youtu.be/Ht1of0WcGiI) and [Unity Dev Log 6b - Implementing Physical Lights.](https://youtu.be/MzQ-4NvdFeo)
