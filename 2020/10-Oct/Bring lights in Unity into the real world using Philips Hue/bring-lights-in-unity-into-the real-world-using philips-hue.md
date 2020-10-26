@@ -7,7 +7,7 @@ featured_image: lights-face.png
 summary: Bring lights in Unity into the real-world using Philips Hue.
 ---
 
-A game or simulation can influence the real world through other mediums than just screens and speakers. For example, the use of dedicated haptic “rumble pads” controllers. I wanted to extend that influence to include altering the colours in the player’s environment. What if we could synchronize the light cast on the player’s character with actual lights in the player’s room? A search light casting its beam across their face, or onboard an alien infested space craft with the murky emergency lights filling their room? With my willing assistant, Terrance, a .net NuGet package, a couple of Philips Hue lights, and Unity 3D, let’s see if it can be achieved.
+A game or simulation can influence the real world through other mediums than just screens and speakers. For example, the use of dedicated haptic “rumble pads” controllers. I wanted to extend that influence to include altering the colours in the player’s environment. What if we could synchronize the light cast on the player’s character with actual lights in the player’s room? A search light casting its beam across their face, or onboard an alien infested space craft with the murky emergency lights filling their room? With my willing assistant, Terrance, a .NET NuGet package, a couple of Philips Hue lights, and Unity 3D, let’s see if it can be achieved.
 
 ![Terrance with Philips Hue Play Bars](lights-face.png)
 
