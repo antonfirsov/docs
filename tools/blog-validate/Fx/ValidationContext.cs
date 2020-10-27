@@ -14,7 +14,7 @@ namespace BlogValidator
     {
         private readonly List<Diagnostic> _diagnostics = new List<Diagnostic>();
 
-        public ValidationContext(MarkdownDocument document, string fileName)
+        public ValidationContext(MarkdownDocument document, string fileName, IEnumerable<string> categories)
         {
             if (document.FirstOrDefault() is YamlFrontMatterBlock frontMatter)
             {
@@ -29,11 +29,14 @@ namespace BlogValidator
 
             Document = document;
             FileName = fileName;
+            Categories = new SortedSet<string>(categories, StringComparer.OrdinalIgnoreCase);
         }
 
         public FrontMatter FrontMatter { get; }
         public MarkdownDocument Document { get; }
         public string FileName { get; }
+        public SortedSet<string> Categories { get; }
+
         public IReadOnlyList<Diagnostic> Diagnostics => _diagnostics;
 
         private void Report(bool isWarning, string id, SourceSpan span, string message)

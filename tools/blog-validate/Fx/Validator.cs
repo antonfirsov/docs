@@ -32,11 +32,11 @@ namespace BlogValidator
                                          .ToArray();
         }
 
-        public IReadOnlyList<Diagnostic> Validate(string fileName)
+        public IReadOnlyList<Diagnostic> Validate(string fileName, IEnumerable<string> categories)
         {
             var markdown = File.ReadAllText(fileName);
             var document = MarkdownParser.Parse(markdown, _pipeline);
-            var context = new ValidationContext(document, fileName);
+            var context = new ValidationContext(document, fileName, categories);
 
             foreach (var rule in _rules)
                 rule.Validate(context);

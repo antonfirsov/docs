@@ -25,14 +25,16 @@ namespace BlogValidator
             var help = false;
             var baseReferenceText = "main";
             var referenceText = "";
-            var inputPath = "";
+            var categoriesPath = "";
             var all = false;
+            var inputPath = "";
 
             var options = new OptionSet
             {
                 $"usage: {exeName} <directory> [OPTIONS]+",
-                { "base-ref=", "The branch the changes are merged into", v => baseReferenceText = v },
-                { "ref=", "The ref of the PR that is being merged", v => referenceText = v },
+                { "base-ref=", "The {branch} the changes are merged into", v => baseReferenceText = v },
+                { "ref=", "The {sha} of the PR that is being merged", v => referenceText = v },
+                { "categories=", "The {path} to a file with allowed categories", v => categoriesPath = v },
                 { "all", "Validates all files", v => all = true },
                 { "h|?|help", null, v => help = true, true },
                 new ResponseFileSource()
@@ -80,6 +82,23 @@ namespace BlogValidator
                 return 1;
             }
 
+            var categories = Array.Empty<string>();
+
+            if (!string.IsNullOrEmpty(categoriesPath))
+            {
+                categoriesPath = Path.GetFullPath(categoriesPath);
+                if (!File.Exists(categoriesPath))
+                {
+                    Console.Error.WriteLine($"error: file '{categoriesPath}' does not exist");
+                    return 1;
+                }
+
+                categories = File.ReadLines(categoriesPath)
+                                 .Select(l => l.Trim())
+                                 .Where(l => !string.IsNullOrEmpty(l))
+                                 .ToArray();
+            }
+
             var affectedFiles = (string[])null;
 
             if (!all)
@@ -123,7 +142,7 @@ namespace BlogValidator
 
             try
             {
-                return Run(directory, affectedFiles) ? 0 : 1;
+                return Run(directory, affectedFiles, categories) ? 0 : 1;
             }
             catch (Exception ex)
             {
@@ -145,11 +164,11 @@ namespace BlogValidator
             }
         }
 
-        private static bool Run(string directory, string[] affectedFiles)
+        private static bool Run(string directory, string[] affectedFiles, string[] categories)
         {
             var files = FindMarkdownFiles(directory, affectedFiles);
 
-            var diagnostics = Validate(files);
+            var diagnostics = Validate(files, categories);
 
             var isInsideGitHubAction = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true";
 
@@ -222,14 +241,14 @@ namespace BlogValidator
             return list.ToArray();
         }
 
-        private static IReadOnlyList<Diagnostic> Validate(IEnumerable<string> fileNames)
+        private static IReadOnlyList<Diagnostic> Validate(IEnumerable<string> fileNames, IEnumerable<string> categories)
         {
             var validator = new Validator();
             var result = new List<Diagnostic>();
 
             foreach (var fileName in fileNames)
             {
-                var diagnostics = validator.Validate(fileName);
+                var diagnostics = validator.Validate(fileName, categories);
                 result.AddRange(diagnostics);
             }
 
