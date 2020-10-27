@@ -1,7 +1,7 @@
 ---
 post_title: 'Improving Debug-time Productivity with Source Link'
 username: cnov
-featured_image: 10-Oct/sourcelink-consuming/newtonsoft-json-after.png
+featured_image: newtonsoft-json-after.png
 categories: .NET, .NET Core, Debugging, Source Link
 summary: Improve your debug-time productivity by using Soure Link to step into framework and dependency code.
 ---
