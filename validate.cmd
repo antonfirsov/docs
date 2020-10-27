@@ -1,4 +1,4 @@
 @echo off
 setlocal
 set PROJECT_FILE=%~dp0tools\blog-validate\blog-validate.csproj
-dotnet run --project %PROJECT_FILE% -- %~dp0 --ref HEAD --base-ref main
+dotnet run --project %PROJECT_FILE% -- %~dp0 %*

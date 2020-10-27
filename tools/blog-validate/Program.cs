@@ -19,19 +19,21 @@ namespace BlogValidator
 
     internal static class Program
     {
-        static int Main(string[] args)
+        private static int Main(string[] args)
         {
             var exeName = Path.GetFileNameWithoutExtension(Environment.GetCommandLineArgs()[0]);
             var help = false;
-            var baseReferenceText = "";
+            var baseReferenceText = "main";
             var referenceText = "";
             var inputPath = "";
+            var all = false;
 
             var options = new OptionSet
             {
                 $"usage: {exeName} <directory> [OPTIONS]+",
                 { "base-ref=", "The branch the changes are merged into", v => baseReferenceText = v },
                 { "ref=", "The ref of the PR that is being merged", v => referenceText = v },
+                { "all", "Validates all files", v => all = true },
                 { "h|?|help", null, v => help = true, true },
                 new ResponseFileSource()
             };
@@ -80,49 +82,45 @@ namespace BlogValidator
 
             var affectedFiles = (string[])null;
 
-            if (!string.IsNullOrEmpty(baseReferenceText) || string.IsNullOrEmpty(referenceText))
+            if (!all)
             {
-                if (string.IsNullOrEmpty(baseReferenceText))
-                {
-                    Console.Error.WriteLine($"error: must specify --base-ref when specifying --ref");
-                    return 1;
-                }
-
-                if (string.IsNullOrEmpty(referenceText))
-                {
-                    Console.Error.WriteLine($"error: must specify --ref when specifying --base-ref");
-                    return 1;
-                }
-
                 var repositoryPath = Repository.Discover(directory);
-                if (repositoryPath == null)
+                if (repositoryPath != null)
                 {
-                    Console.Error.WriteLine($"error: '{directory}' is not inside a Git repository");
-                    return 1;
+                    var repository = new Repository(repositoryPath);
+
+                    repository.RevParse(baseReferenceText, out var baseReference, out var gitBaseReferenceObject);
+                    var baseReferenceCommit = gitBaseReferenceObject as Commit;
+
+                    if (baseReferenceCommit == null)
+                    {
+                        Console.Error.WriteLine($"error: reference '{baseReferenceText}' isn't valid");
+                        return 1;
+                    }
+
+                    TreeChanges changes;
+
+                    if (string.IsNullOrEmpty(referenceText))
+                    {
+                        var indexAndWorkingDirectory = DiffTargets.Index | DiffTargets.WorkingDirectory;
+                        changes = repository.Diff.Compare<TreeChanges>(baseReferenceCommit.Tree, indexAndWorkingDirectory);
+                    }
+                    else
+                    {
+                        repository.RevParse(referenceText, out var reference, out var gitReferenceObject);
+                        var referenceCommit = gitReferenceObject as Commit;
+
+                        if (referenceCommit == null)
+                        {
+                            Console.Error.WriteLine($"error: reference '{referenceText}' isn't valid");
+                            return 1;
+                        }
+
+                        changes = repository.Diff.Compare<TreeChanges>(baseReferenceCommit.Tree, referenceCommit.Tree);
+                    }
+
+                    affectedFiles = changes.Select(c => Path.GetFullPath(Path.Combine(repository.Info.WorkingDirectory, c.Path))).ToArray();
                 }
-
-                var repository = new Repository(repositoryPath);
-
-                repository.RevParse(referenceText, out var reference, out var gitReferenceObject);
-                repository.RevParse(baseReferenceText, out var baseReference, out var gitBaseReferenceObject);
-
-                var referenceCommit = gitReferenceObject as Commit;
-                var baseReferenceCommit = gitBaseReferenceObject as Commit;
-
-                if (referenceCommit == null)
-                {
-                    Console.Error.WriteLine($"error: reference '{referenceText}' isn't valid");
-                    return 1;
-                }
-
-                if (baseReferenceCommit == null)
-                {
-                    Console.Error.WriteLine($"error: reference '{baseReferenceText}' isn't valid");
-                    return 1;
-                }
-
-                var treeChanges = repository.Diff.Compare<TreeChanges>(baseReferenceCommit.Tree, referenceCommit.Tree);
-                affectedFiles = treeChanges.Select(c => Path.GetFullPath(Path.Combine(repository.Info.WorkingDirectory, c.Path))).ToArray();
             }
 
             try
@@ -194,29 +192,6 @@ namespace BlogValidator
 
             if (!int.TryParse(segments[1].Substring(0, 2), out var month))
                 return false;
-
-            if (year < 2020 || year == 2020 && month < 9)
-                return false;
-
-            if (year == 2020 && month == 9)
-            {
-                if (segments.Length >= 3)
-                {
-                    var grandfathered = new[]
-                    {
-                        "announcing-entity-framework-5.0-rc1",
-                        "Arm64PerfInNet5",
-                        "debug-dotnet-in-wsl",
-                        "dotnet5rc1",
-                        "netstandard-update",
-                        "mlnet-september-updates",
-                    };
-
-                    var isGrandfathered = grandfathered.Contains(segments[2], StringComparer.Ordinal);
-                    if (isGrandfathered)
-                        return false;
-                }
-            }
 
             return true;
         }
