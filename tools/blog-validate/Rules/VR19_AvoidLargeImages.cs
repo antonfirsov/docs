@@ -11,7 +11,7 @@ namespace BlogValidator
     {
         public override void Validate(ValidationContext context)
         {
-            var thresholdBytes = 100 * 1024;
+            var thresholdBytes = 200 * 1024;
 
             var links = context.Document.Descendants<LinkInline>()
                                         .Where(i => i.IsImage);
