@@ -7,6 +7,8 @@ featured_image: lights-face.png
 summary: Bring lights in Unity into the real world using Philips Hue.
 ---
 
+The article was written 
+
 A game or simulation can influence the real world through other mediums than just screens and speakers, such as using dedicated haptic “rumble pads” controllers. I wanted to extend that influence to include altering the colors in the player’s environment. What if we could synchronize the light cast on the player’s character with actual lights in the player’s room? A search light casting its beam across their face, or onboard an alien infested space craft with the murky emergency lights filling their room? With my willing assistant, Terrance, a .NET NuGet package, a couple of Philips Hue lights, and Unity 3D, let’s see if it can be achieved.
 
 ![Terrance with Philips Hue Play Bars](lights-face.png)
@@ -54,7 +56,7 @@ public async Task RegisterAppWithHueBridge()
     var timeout = TimeSpan.FromSeconds(5);
     var bridges = await locator.LocateBridgesAsync(timeout);
  
-    // Bad assumption, only one bridge
+    // Assuming we have only one bridge
     var bridge = bridges.First();
     string ipAddressOfTheBridge = bridge.IpAddress;
     var client = new LocalHueClient(ipAddressOfTheBridge);
@@ -128,7 +130,7 @@ public async Task ChangeLight(string lightName, UnityEngine.Color color)
 }
 ```
 
-Each light is identified by a name configured in the Philips Apps. You can either discover the names from the returned lights enumerable or just supply the known names. Whichever way you choose, once you have a light object you can Send a Command to it or to several lights at the same time. In the previous example, a command is created to Turn On the light (doesn’t matter if it’s already on) and then Set the Color of the light. Careful though, you must convert from a Unity color to a Philips color via the RGBColor class.
+Each light is identified by a name configured in the Philips App. You can either discover the names from the returned lights enumerable or just supply the known names. Whichever way you choose, once you have a light object you can Send a Command to it or to several lights at the same time. In the previous example, a command is created to Turn On the light (doesn’t matter if it’s already on) and then Set the Color of the light. Careful though, you must convert from a Unity color to a Philips color via the RGBColor class.
 One last thing to remember is to turn off the lights when your app closes. You could do this from the `OnDestroy()` or `OnApplicationQuit()` Unity methods. One trick is to send a Command to all the lights by not supplying any target lights.
 
 ```csharp
@@ -247,6 +249,11 @@ You can now capture the light cast onto a game object, the character in this cas
 Or however many lights you want to use. My video camera NB struggles to capture the actual light color. Honestly, it’s much closer in real life.
 ![Example of character with yellow and green light in Unity and terreace in the real world with same colors](demo-yellow-green.png)
 
-You can find a YouTube video of this explanation and more links at [Unity Dev Log 6a - Physical Light Teaser](https://youtu.be/Ht1of0WcGiI) and [Unity Dev Log 6b - Implementing Physical Lights.](https://youtu.be/MzQ-4NvdFeo)
+Summary
+-------
+
+One of the major advantages of Unity is that it is able to utilize libraries from the wider .NET ecosystem allowing the game developer to, literally, bring other tools and hardware into play. In this post we have utilized a .NET library for Philips Hue to control the lighting, capture light information in Unity, and then apply the colors to Hue lights in the real world. I hope you enjoy an emmersive time playing with Unity and Philips Hue.
+
+You can find a YouTube video version of this and more links at [Unity Dev Log 6a - Physical Light Teaser](https://youtu.be/Ht1of0WcGiI) and [Unity Dev Log 6b - Implementing Physical Lights.](https://youtu.be/MzQ-4NvdFeo)
 
 A version of the scripts used can be found at the [paulio/UnityPhilipsLights](https://github.com/paulio/UnityPhilipsLights) repository on GitHub.
