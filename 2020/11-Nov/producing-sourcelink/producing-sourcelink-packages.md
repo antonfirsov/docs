@@ -1,7 +1,7 @@
 ---
 post_title: 'Producing Packagess with Source Link'
 username: cnov
-featured_image: path/relative/to/your/post/image.png
+featured_image: 
 categories: .NET, .NET Core, Debugging
 summary: 
 ---
