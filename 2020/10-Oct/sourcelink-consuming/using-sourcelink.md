@@ -38,9 +38,9 @@ When I stepped in, the debugger skipped a couple of methods that were marked wit
 ### Exceptions
 Source Link helps you with exceptions that come from the framework or dependencies. How many times have you seen this message and what you really want is to examine the variables?
 
-![Debugger stopped with unhandled exception](exception-unhandled-before.png) 
-![Debugger stopped at exception site](exception-unhandled-after-thrown.png)
-![Debugger looking at call stack from exception](exception-unhandled-after.png)
+![Debugger stopped with unhandled exception](unhandled-exception-before.png) 
+![Debugger stopped at exception site](unhandled-exception-after-thrown.png)
+![Debugger looking at call stack from exception](unhandled-exception-after.png)
 
 With Source Link, the debugger will take you to the spot where the exception is thrown where you can then navigate the call stack and investigate.
 
