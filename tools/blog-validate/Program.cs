@@ -48,7 +48,7 @@ namespace BlogValidator
                     return 0;
                 }
 
-                if (parameters.Length == 1)
+                if (parameters.Length >= 1)
                 {
                     inputPath = parameters[0];
                 }
@@ -89,8 +89,7 @@ namespace BlogValidator
                 {
                     var repository = new Repository(repositoryPath);
 
-                    repository.RevParse(baseReferenceText, out var baseReference, out var gitBaseReferenceObject);
-                    var baseReferenceCommit = gitBaseReferenceObject as Commit;
+                    var baseReferenceCommit = ParseRev(repository, baseReferenceText) ?? ParseRev(repository, "origin/" + baseReferenceText);
 
                     if (baseReferenceCommit == null)
                     {
@@ -107,8 +106,7 @@ namespace BlogValidator
                     }
                     else
                     {
-                        repository.RevParse(referenceText, out var reference, out var gitReferenceObject);
-                        var referenceCommit = gitReferenceObject as Commit;
+                        var referenceCommit = ParseRev(repository, referenceText);
 
                         if (referenceCommit == null)
                         {
@@ -131,6 +129,19 @@ namespace BlogValidator
             {
                 Console.Error.WriteLine(ex);
                 return 1;
+            }
+        }
+
+        private static Commit ParseRev(Repository repository, string text)
+        {
+            try
+            {
+                repository.RevParse(text, out var _, out var obj);
+                return obj as Commit;
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
 
