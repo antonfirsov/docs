@@ -60,9 +60,9 @@ For GitHub Actions, the variable is `GITHUB_ACTIONS`, so the result would be:
 
 ### Don't Repeat Yourself
 
-If you have a solution that has multiple projects in it, you can extract the common properties into a [Directory.Build.props](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2019#directorybuildprops-and-directorybuildtargets) file at the solution directory. That way all projects have them added automatically. 
+If you have a solution that has multiple projects in it, you can extract the common properties into a [Directory.Build.props](https://docs.microsoft.com/visualstudio/msbuild/customize-your-build#directorybuildprops-and-directorybuildtargets) file at the solution directory. That way all projects have them added automatically. 
 
-If you distribute the library via a package published to [NuGet.org](https://nuget.org), you should use [embedded pdb's[TODO FIND SOURCE TO LINK] so the debug information is always available with your library. Alternatively, you can build a [symbol package](https://docs.microsoft.com/en-us/nuget/create-packages/symbol-packages-snupkg) and publish it to [NuGet.org](https://nuget.org) as well. This will make the symbols available on [NuGet.org symbol server](https://docs.microsoft.com/en-us/nuget/create-packages/symbol-packages-snupkg#nugetorg-symbol-server), where the debugger can download it from when needed. 
+If you distribute the library via a package published to [NuGet.org](https://nuget.org), you should use [embedded pdb's[TODO FIND SOURCE TO LINK] so the debug information is always available with your library. Alternatively, you can build a [symbol package](https://docs.microsoft.com/nuget/create-packages/symbol-packages-snupkg) and publish it to [NuGet.org](https://nuget.org) as well. This will make the symbols available on [NuGet.org symbol server](https://docs.microsoft.com/nuget/create-packages/symbol-packages-snupkg#nugetorg-symbol-server), where the debugger can download it from when needed. 
 
 ## Source Control Providers
 Source Link packages are currently available for the following source control providers.
@@ -71,7 +71,7 @@ Source Link packages are currently available for the following source control pr
 
 ### github.com and GitHub Enterprise
 
-For projects hosted by [GitHub](http://github.com) or [GitHub Enterprise](https://enterprise.github.com/home) reference 
+For projects hosted by [GitHub](https://github.com) or [GitHub Enterprise](https://enterprise.github.com/home) reference 
 [Microsoft.SourceLink.GitHub](https://www.nuget.org/packages/Microsoft.SourceLink.GitHub) like so:
 
 ```xml
@@ -82,7 +82,7 @@ For projects hosted by [GitHub](http://github.com) or [GitHub Enterprise](https:
 
 ### Azure Repos (former Visual Studio Team Services)
 
-For projects hosted by [Azure Repos](https://azure.microsoft.com/en-us/services/devops/repos) in git repositories reference [Microsoft.SourceLink.AzureRepos.Git](https://www.nuget.org/packages/Microsoft.SourceLink.AzureRepos.Git): 
+For projects hosted by [Azure Repos](https://azure.microsoft.com/services/devops/repos) in git repositories reference [Microsoft.SourceLink.AzureRepos.Git](https://www.nuget.org/packages/Microsoft.SourceLink.AzureRepos.Git): 
 
 ```xml
 <ItemGroup>
@@ -92,7 +92,7 @@ For projects hosted by [Azure Repos](https://azure.microsoft.com/en-us/services/
 
 ### Azure DevOps Server (former Team Foundation Server)
 
-For projects hosted by on-prem [Azure DevOps Server](https://azure.microsoft.com/en-us/services/devops/server/) in git repositories reference
+For projects hosted by on-prem [Azure DevOps Server](https://azure.microsoft.com/services/devops/server/) in git repositories reference
 [Microsoft.SourceLink.AzureDevOpsServer.Git](https://www.nuget.org/packages/Microsoft.SourceLink.AzureDevOpsServer.Git) and add host configuration like so:
 
 ```xml
