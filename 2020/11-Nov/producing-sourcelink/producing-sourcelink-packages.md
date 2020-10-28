@@ -3,7 +3,7 @@ post_title: 'Producing Packagess with Source Link'
 username: cnov
 featured_image: 
 categories: .NET, .NET Core, Debugging
-summary: 
+summary: Learn how to add Source Link to your packages, to make your users more productive while debugging.
 ---
 
 In our last post, we showed you [how you can debug into the framework and dependencies](TODO ADD LINK) that was produced with Source Link. In this post, we'll show you how to add Source Link to your projects. This is beneficial both for public and internal projects.
