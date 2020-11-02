@@ -584,7 +584,7 @@ System.InvalidOperationException: Generic error message.
 
 F# 5 features several improvements to .NET interop.
 
-## Interfaces can be implemeneted at different generic instantiations
+### Interfaces can be implemeneted at different generic instantiations
 
 You can now implement the same interface at different generic instantiations. [Lukas Rieger](https://github.com/0x53A) contributed an initial design and implementation of this feature.
 
@@ -681,6 +681,10 @@ dateTimes
 <script src="https://gist.github.com/cartermp/a0603f0e6da3693b2f243eabfbd977c7.js"></script>
 ```
 
+## Improved runtime performance
+
+.NET 5 brings improvements to the performance of processing `.tail` calls, which F# emits in various scenarios (especially in recursive and async code). The impact of this on the runtime performance of your app can vary depending on the _kind_ of code you're writing, as not all `.tail` calls are equal. However, you should generally expect an improvement to runtime performance compared to .NET Core 3.1.
+
 ## Improved compiler performance
 
 Lastly, F# 5 brings along some performance improvements for the compiler and editor tooling.
@@ -706,7 +710,7 @@ Your own results may vary a bit depending on a variety of factors, but if you tr
 
 ## What's next
 
-Now that F# 5 has been released, we're moving our focus to a few areas:
+Now that F# 5 is released, we're moving our focus to a few areas:
 
 1. Improving our OSS infrastructure
 2. Core F# tooling improvements
