@@ -1,21 +1,12 @@
 ---
-post_title: Announcing F# 5 RC
+post_title: Announcing F# 5
 username: phcart@microsoft.com
 featured_image: img/fsharp-package-vscode-notebooks.png
 categories: F#, .NET, .NET Core, Notebooks, Jupyter, Data Science
 summary: F# 5 is now a release candidate - feature complete! Come read about all the interesting new stuff it lets you do, learn how to use it, and learn how to give feedback!
 ---
 
-Today, we're excited to announce the release candidate for F# 5. It ships with [.NET 5 RC1](https://devblogs.microsoft.com/dotnet/announcing-net-5-0-rc-1). Like .NET 5 RC 1, this release of F# 5 is near-final and under a "go live" license. Our primary focus for F# 5 is now addressing any remaining critical bugs that should be fixed before the final release. We're looking forward to your feedback!
-
-To date, we've shipped several previews since the beginning of the year:
-
-* [F# 5 preview 1](https://devblogs.microsoft.com/dotnet/announcing-f-5-preview-1/)
-* [F# 5 update for .NET 5 preview 5](https://devblogs.microsoft.com/dotnet/f-5-update-for-net-5-preview-4/)
-* [F# 5 update for June](https://devblogs.microsoft.com/dotnet/f-5-and-f-tools-update-for-june/)
-* [F# 5 update for August](https://devblogs.microsoft.com/dotnet/f-5-update-for-august/)
-
-This is our final update before the release.
+Today, we're excited to announce the general availability of F# 5. It ships with [.NET 5](https://devblogs.microsoft.com/dotnet/announcing-net-5-0). We've been working on F# 5 for over the past year now, and we're excited to share it with everyone.
 
 You can get the the F# release candidate in the following ways:
 
@@ -23,7 +14,7 @@ You can get the the F# release candidate in the following ways:
 * [Install .NET for Jupyter/nteract](https://github.com/dotnet/interactive/#jupyter-and-nteract)
 * [Install .NET for VSCode Notebooks](https://github.com/dotnet/interactive/#visual-studio-code)
 
-If you’re using Visual Studio on Windows, you’ll need both the .NET 5 preview SDK and [Visual Studio Preview installed](https://visualstudio.microsoft.com/vs/preview/).
+If you’re using Visual Studio on Windows, you’ll need the [latest 16.8 release](https://visualstudio.microsoft.com/downloads/).
 
 ## What F# 5 is all about
 
@@ -35,33 +26,13 @@ From F# 4.1 to F# 5, the chief focus for F# has been bringing up great support f
 
 We started F# 5 with roughly these same goals, stating in the first preview that ["F# 5 is focused on better interactive and analytical programming"](https://devblogs.microsoft.com/dotnet/announcing-f-5-preview-1/#f-5-is-focused-on-better-interactive-and-analytical-programming). This remains true, though we did end up bringing in a few more orthogonal features that everyone can enjoy regardless of how they're using F#.
 
-## Using F# 5 preview
+## Using F# 5
 
-You can use F# 5 preview via the [.NET 5 preview SDK](https://dotnet.microsoft.com/download/dotnet-core/5.0), or through the [.NET and Jupyter Notebooks support](https://devblogs.microsoft.com/dotnet/net-interactive-is-here-net-notebooks-preview-2/).
+F# 5 is the new default language version for the .NET SDK and Visual Studio. Any new or existing project compiled with either of those toolsets will use F# 5.
 
-If you’re using the .NET 5 preview SDK, check out the [sample repository](https://github.com/cartermp/fs5preview) which shows off some of what you can do with F# 5. You can play with each of the features there instead of starting from scratch.
+You can also use F# 5 in the [.NET and Jupyter Notebooks support](https://devblogs.microsoft.com/dotnet/net-interactive-is-here-net-notebooks-preview-2/).
 
-If you’d rather use F# 5 in your own project, you’ll need to add a `LangVersion` property with `preview` as the value. It should look something like this:
-
-```xml
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
-    <LangVersion>preview</LangVersion>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Include="Program.fs" />
-  </ItemGroup>
-
-</Project>
-```
-
-```html
-<script src="https://gist.github.com/cartermp/3a12e552cc64918d697c430c7b5cfcf7.js"></script>
-```
+Check out the [sample repository](https://github.com/cartermp/fs5preview) that shows off some of what you can do with F# 5. You can play with each of the features there instead of starting from scratch.
 
 ## Package references in F# scripts
 
@@ -439,7 +410,7 @@ The follow example shows a basic applicative CE for the `Result` type.
 ```fsharp
 // First, define a 'zip' function
 module Result =
-    let zip x1 x2 = 
+    let zip x1 x2 =
         match x1,x2 with
         | Ok x1res, Ok x2res -> Ok (x1res, x2res)
         | Error e, _ -> Error e
@@ -485,11 +456,11 @@ If you’re a library author who exposes CEs in their library today, there are s
 
 For consumers of applicative CEs, things aren’t too different from the CEs that you already use. The previously-mentioned restriction around independent computations is the key concept to understand.
 
-## Overloads of custom keywords in computation expressions
+## Preview: overloads of custom keywords in computation expressions
 
 Computation expressions are a powerful feature for library and framework authors. They allow you to greatly improve the expressiveness of your components by letting you define well-known members and form a DSL for the domain you're working in.
 
-We've enhanced computation expressions to allow for [Applicative forms](https://devblogs.microsoft.com/dotnet/announcing-f-5-preview-1/#applicative-computation-expressions) already. This time, [Diego Esmerio](https://github.com/Nhowka) and [Ryan Riley](https://github.com/panesofglass) contributed a design an implementation to allow for overloading custom keywords in computation expressions. This new feature allows code like the following to be written:
+[Diego Esmerio](https://github.com/Nhowka) and [Ryan Riley](https://github.com/panesofglass) contributed a design an implementation to allow for overloading custom keywords in computation expressions. This new feature allows code like the following to be written:
 
 ```fsharp
 open System
@@ -733,12 +704,31 @@ There was a big improvement from F# 4.5 to F# 4.7, and another big jump with F# 
 
 Your own results may vary a bit depending on a variety of factors, but if you try this out yourself you should see a fairly similar spread. It's also worth noting that everything else in the .NET toolchain has improved too, so it's not just the F# compiler getting faster when you use F# 5 with .NET 5.
 
-## The road to release
+## What's next
 
-We're now 100% feature complete for F# 5. Any further updates will only be bug fixes between now and the release later this year.
+Now that F# 5 has been released, we're moving our focus to a few areas:
 
-We're tracking all F# 5 and Visual Studio 16.8 issues with [this milestone on GitHub](https://github.com/dotnet/fsharp/milestone/35). These are the problems that are most on our radar right now. If you notice something odd in the release candidate and associated Visual Studio 16.8 tooling, please file a bug! We'll triage it and see if it makes sense to place in this milestone.
+1. Improving our OSS infrastructure
+2. Core F# tooling improvements
+3. Planning for the next F# version
 
-Lastly, we'd like to thank all of our open source contributers who have helped get F# 5 to where it is today. All of your contributions, from full-on feature development to simply filing a bug are appreciated. Thank you.
+Today, the [F# development repository](https://github.com/dotnet/fsharp) is quite a complex codebase. There are several test suites that were created at various points in history, one of which being particularly challenging to work with because it doesn't load in any IDE tooling. We feel that it's unfair to ask open source contributors to do things like add or update tests when this test suite is concerned, so we're migrating it to be modern. The codebase also builds two versions of the F# compiler, called the "desktop compiler" and the "CoreCLR compiler". From a technical standpoint, the "CoreCLR compiler" can be used to build any F# project on any app. The only reason why we still build both is technical debt that we're invested in paying off. From an open source contributor's standpoint, this should simplify things as well.
+
+We also plan on making significant F# tooling improvements over time. We've already started this work. One of the first steps was to incorporate [FSharp.Compiler.Service](https://www.nuget.org/packages/FSharp.Compiler.Service/) into our build and packaging infrastructure so that any consumers of this package (e.g., the [Ionide plugin in VSCode](https://github.com/ionide/ionide-vscode-fsharp)) can simply add a NuGet feed and get nightly updates. Next, we'll work towards retiring the `FSharp.Compiler.Private` project, which is functionally equivalent to `FSharp.Compiler.Service`, so that all F# tooling consumes the same functionality in the same way. From there, we intend on working with the F# community to eventually harden the [F# LSP implementation](https://github.com/fsharp/FsAutoComplete/) so that it powers all F# editor tooling (including Visual Studio). The long-term goal is that all F# tools have consistent behavior and feature availability, with individual editors adding their own "flavor" on top of that behavior so that F# programmers can pick the tool they like the most.
+
+Additionally, we're continuing to invest in F# tooling for Visual Studio by improving performance and adding several features. One such feature is called "Inline Hints", which you can activate by pressing and holding a key command. This lets you see the inferred types for all declarations and the names of F# parameters when applied (as if they were named parameters):
+
+![F# inline hints](img/fs-inline-hints.png)
+
+The intention behind a feature like this is to let you effectively ask the compiler what it's chosen to infer for your code at any time. We're interested in incorporating other features that make things more productive for F# developers.
+
+Finally, we're planning the next version of the F# language. There are several things on the docket already:
+
+1. Finishing reverse indices to account for .NET `Range` and `Index` interop
+2. Finishing overloads for custom computation expressions
+3. Adding support for a `task { }` computation expression with state machine generation
+4. Enhancements to the F# type system to better support efforts like [DiffSharp](https://diffsharp.github.io/)
+
+The list for new F# language features is constantly evolving and new requirements come in and we adjust accordingly. However, we're still committed to the direction that we set out on with F# 5. We want to continue to make F# a delightful language for interactive and analytical programming. You can expect to see more goodness in the near future.
 
 Cheers, and happy F# coding!
