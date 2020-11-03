@@ -2,7 +2,7 @@
 post_title: Announcing F# 5
 username: phcart@microsoft.com
 featured_image: img/fsharp-package-vscode-notebooks.png
-categories: F#, .NET, .NET Core, Notebooks, Jupyter, Data Science
+categories: F#, .NET, .NET Core
 summary: F# 5 is now a release candidate - feature complete! Come read about all the interesting new stuff it lets you do, learn how to use it, and learn how to give feedback!
 ---
 
@@ -563,7 +563,7 @@ let main argv =
 
 Prior to F# 5, the `origin` function would not appear in stack traces without a workaround in the Ply library (and any other library where this is a scenario). Now it shows the full trace:
 
-```
+```console
 System.InvalidOperationException: Generic error message.
    at Program.origin() in C:\Users\phcart\source\repos\ConsoleApp35\ConsoleApp35\Program.fs:line 5
    at Program.caller@8-1.Invoke(Unit unitVar) in C:\Users\phcart\source\repos\ConsoleApp35\ConsoleApp35\Program.fs:line 8
