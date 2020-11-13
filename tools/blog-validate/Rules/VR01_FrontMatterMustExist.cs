@@ -1,4 +1,4 @@
-﻿namespace BlogValidator
+﻿namespace Microsoft.DotNetBlog
 {
     internal sealed class VR01_FrontMatterMustExist : ValidationRule
     {

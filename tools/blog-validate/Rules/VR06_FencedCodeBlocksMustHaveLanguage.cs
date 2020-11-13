@@ -2,7 +2,7 @@
 
 using Markdig.Syntax;
 
-namespace BlogValidator
+namespace Microsoft.DotNetBlog
 {
     internal sealed class VR06_FencedCodeBlocksMustHaveLanguage: ValidationRule
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace BlogValidator
+namespace Microsoft.DotNetBlog
 {
     internal sealed class VR20_FeaturedImageShouldExist : ValidationRule
     {

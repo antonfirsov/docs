@@ -3,7 +3,7 @@
 using Markdig.Extensions.Yaml;
 using Markdig.Syntax;
 
-namespace BlogValidator
+namespace Microsoft.DotNetBlog
 {
     internal sealed class VR05_CodeBlocksMustBeFenced : ValidationRule
     {

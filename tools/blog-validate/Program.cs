@@ -7,7 +7,7 @@ using LibGit2Sharp;
 
 using Mono.Options;
 
-namespace BlogValidator
+namespace Microsoft.DotNetBlog
 {
     // Maira suggested these rules:
     //

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BlogValidator
+namespace Microsoft.DotNetBlog
 {
     public struct LinePositionSpan : IEquatable<LinePositionSpan>
     {

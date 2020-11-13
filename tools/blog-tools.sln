@@ -3,17 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30509.233
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blog-validate", "blog-validate\blog-validate.csproj", "{3A8D30CF-E75D-473A-B856-421528BBEFD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "blog-validate", "blog-validate\blog-validate.csproj", "{3A8D30CF-E75D-473A-B856-421528BBEFD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csvtocsv", "csvtocsv\csvtocsv.csproj", "{27F574B9-E933-481F-A681-CA8A6AB5CD81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "csvtocsv", "csvtocsv\csvtocsv.csproj", "{27F574B9-E933-481F-A681-CA8A6AB5CD81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blog-shared", "blog-shared\blog-shared.csproj", "{8DADF3B8-2D60-4CAE-8E84-047FA67DDE95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blog-get-post", "blog-get-post\blog-get-post.csproj", "{4681248A-50B9-4616-947A-6AD8A3C1E295}"
 EndProject
 Global
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {4BC00FC2-0EE6-450B-BD77-BC7FFBC054B2}
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
@@ -47,5 +45,35 @@ Global
 		{27F574B9-E933-481F-A681-CA8A6AB5CD81}.Release|x64.Build.0 = Release|Any CPU
 		{27F574B9-E933-481F-A681-CA8A6AB5CD81}.Release|x86.ActiveCfg = Release|Any CPU
 		{27F574B9-E933-481F-A681-CA8A6AB5CD81}.Release|x86.Build.0 = Release|Any CPU
+		{8DADF3B8-2D60-4CAE-8E84-047FA67DDE95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DADF3B8-2D60-4CAE-8E84-047FA67DDE95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DADF3B8-2D60-4CAE-8E84-047FA67DDE95}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8DADF3B8-2D60-4CAE-8E84-047FA67DDE95}.Debug|x64.Build.0 = Debug|Any CPU
+		{8DADF3B8-2D60-4CAE-8E84-047FA67DDE95}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8DADF3B8-2D60-4CAE-8E84-047FA67DDE95}.Debug|x86.Build.0 = Debug|Any CPU
+		{8DADF3B8-2D60-4CAE-8E84-047FA67DDE95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DADF3B8-2D60-4CAE-8E84-047FA67DDE95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DADF3B8-2D60-4CAE-8E84-047FA67DDE95}.Release|x64.ActiveCfg = Release|Any CPU
+		{8DADF3B8-2D60-4CAE-8E84-047FA67DDE95}.Release|x64.Build.0 = Release|Any CPU
+		{8DADF3B8-2D60-4CAE-8E84-047FA67DDE95}.Release|x86.ActiveCfg = Release|Any CPU
+		{8DADF3B8-2D60-4CAE-8E84-047FA67DDE95}.Release|x86.Build.0 = Release|Any CPU
+		{4681248A-50B9-4616-947A-6AD8A3C1E295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4681248A-50B9-4616-947A-6AD8A3C1E295}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4681248A-50B9-4616-947A-6AD8A3C1E295}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4681248A-50B9-4616-947A-6AD8A3C1E295}.Debug|x64.Build.0 = Debug|Any CPU
+		{4681248A-50B9-4616-947A-6AD8A3C1E295}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4681248A-50B9-4616-947A-6AD8A3C1E295}.Debug|x86.Build.0 = Debug|Any CPU
+		{4681248A-50B9-4616-947A-6AD8A3C1E295}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4681248A-50B9-4616-947A-6AD8A3C1E295}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4681248A-50B9-4616-947A-6AD8A3C1E295}.Release|x64.ActiveCfg = Release|Any CPU
+		{4681248A-50B9-4616-947A-6AD8A3C1E295}.Release|x64.Build.0 = Release|Any CPU
+		{4681248A-50B9-4616-947A-6AD8A3C1E295}.Release|x86.ActiveCfg = Release|Any CPU
+		{4681248A-50B9-4616-947A-6AD8A3C1E295}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4BC00FC2-0EE6-450B-BD77-BC7FFBC054B2}
 	EndGlobalSection
 EndGlobal

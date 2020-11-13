@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace BlogValidator
+namespace Microsoft.DotNetBlog
 {
     internal sealed class VR21_PickExistingCategories : ValidationRule
     {

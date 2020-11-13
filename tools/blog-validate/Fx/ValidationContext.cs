@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-
-using Markdig.Extensions.Yaml;
 using Markdig.Syntax;
 
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
-
-namespace BlogValidator
+namespace Microsoft.DotNetBlog
 {
     internal sealed class ValidationContext
     {
@@ -16,23 +10,15 @@ namespace BlogValidator
 
         public ValidationContext(MarkdownDocument document, string fileName, IEnumerable<string> categories)
         {
-            if (document.FirstOrDefault() is YamlFrontMatterBlock frontMatter)
-            {
-                var yaml = string.Join(Environment.NewLine, frontMatter.Lines);
-                var deserializer = new DeserializerBuilder()
-                    .WithNamingConvention(UnderscoredNamingConvention.Instance)
-                    .IgnoreUnmatchedProperties()
-                    .Build();
-
-                FrontMatter = deserializer.Deserialize<FrontMatter>(yaml);
-            }
-
             Document = document;
             FileName = fileName;
             Categories = new SortedSet<string>(categories, StringComparer.OrdinalIgnoreCase);
+
+            if (document.TryGetFrontMatter(out var frontFatter))
+                FrontMatter = frontFatter;
         }
 
-        public FrontMatter FrontMatter { get; }
+        public BlogFrontMatter FrontMatter { get; }
         public MarkdownDocument Document { get; }
         public string FileName { get; }
         public SortedSet<string> Categories { get; }

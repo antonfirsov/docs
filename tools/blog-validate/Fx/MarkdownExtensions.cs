@@ -4,7 +4,7 @@ using System.Linq;
 using Markdig.Extensions.Yaml;
 using Markdig.Syntax;
 
-namespace BlogValidator
+namespace Microsoft.DotNetBlog
 {
     public static class MarkdownExtensions
     {

@@ -5,7 +5,7 @@ using System.Net.Http;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 
-namespace BlogValidator
+namespace Microsoft.DotNetBlog
 {
     internal sealed class VR14_LinkShouldResolve : ValidationRule
     {

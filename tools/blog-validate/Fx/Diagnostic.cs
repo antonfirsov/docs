@@ -1,6 +1,6 @@
 ﻿using Markdig.Syntax;
 
-namespace BlogValidator
+namespace Microsoft.DotNetBlog
 {
     internal class Diagnostic
     {

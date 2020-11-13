@@ -1,6 +1,6 @@
-﻿namespace BlogValidator
+﻿namespace Microsoft.DotNetBlog
 {
-    internal class FrontMatter
+    public sealed class BlogFrontMatter
     {
         public string PostTitle { get; set; }
         public string Username { get; set; }

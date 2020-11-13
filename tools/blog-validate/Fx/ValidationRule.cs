@@ -1,4 +1,4 @@
-﻿namespace BlogValidator
+﻿namespace Microsoft.DotNetBlog
 {
     internal abstract class ValidationRule
     {

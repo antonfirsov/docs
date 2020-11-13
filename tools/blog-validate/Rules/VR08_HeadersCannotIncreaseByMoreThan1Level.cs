@@ -1,6 +1,6 @@
 ﻿using Markdig.Syntax;
 
-namespace BlogValidator
+namespace Microsoft.DotNetBlog
 {
     internal sealed class VR08_HeadersCannotIncreaseByMoreThan1Level : ValidationRule
     {

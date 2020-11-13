@@ -1,4 +1,4 @@
-﻿namespace BlogValidator
+﻿namespace Microsoft.DotNetBlog
 {
     internal sealed class VR16_TitleShouldBe60OrLess : ValidationRule
     {

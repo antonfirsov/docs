@@ -3,7 +3,7 @@
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 
-namespace BlogValidator
+namespace Microsoft.DotNetBlog
 {
     internal sealed class VR15_ImageAltTextShouldBe125OrLess : ValidationRule
     {
