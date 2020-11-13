@@ -23,6 +23,12 @@ namespace Microsoft.DotNetBlog
 
                 if (string.IsNullOrEmpty(context.FrontMatter.Categories))
                     context.Error("VR02", diagnosticSpan, "Must specify 'categories'");
+
+                if (string.IsNullOrEmpty(context.FrontMatter.MicrosoftAlias))
+                    context.Error("VR02", diagnosticSpan, "Must specify 'microsoft_alias'");
+
+                if (context.FrontMatter.DesiredPublicationDate == null)
+                    context.Error("VR02", diagnosticSpan, "Must specify a valid date time for 'desired_publication_date'");
             }
         }
     }

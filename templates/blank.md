@@ -1,9 +1,11 @@
 ---
 post_title: 'Your post title'
 username: Your user name as seen on WordPress, not your github ID
+microsoft_alias: Your Microsoft alias, without the domain, like 'immol'
 featured_image: path/relative/to/your/post/image.png
 categories: .NET, .NET Core
 summary: Summary of your post, shown on the home page next to the featured image
+desired_publication_date: The date you want to publish the post, such as '2020-11-12'
 ---
 
 This is the introduction to your post. It's the post's first paragraph. Don't
