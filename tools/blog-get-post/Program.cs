@@ -128,7 +128,7 @@ namespace Microsoft.DotNetBlog
             var markdown = File.ReadAllText(markdownFiles[0]);
             var document = BlogMarkdown.Parse(markdown);
 
-            if (document.TryGetFrontMatter(out var frontMatter))
+            if (!document.TryGetFrontMatter(out var frontMatter))
             {
                 Console.Error.WriteLine("warning: no front matter found");
                 return 0;
