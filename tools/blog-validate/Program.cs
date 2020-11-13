@@ -84,6 +84,13 @@ namespace Microsoft.DotNetBlog
 
             var categories = Array.Empty<string>();
 
+            if (string.IsNullOrEmpty(categoriesPath))
+            {
+                var defaultCategoriesPath = Path.Combine(inputPath, "categories.txt");
+                if (File.Exists(defaultCategoriesPath))
+                    categoriesPath = defaultCategoriesPath;
+            }
+
             if (!string.IsNullOrEmpty(categoriesPath))
             {
                 categoriesPath = Path.GetFullPath(categoriesPath);
