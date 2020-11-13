@@ -210,7 +210,8 @@ namespace Microsoft.DotNetBlog
         private static IEnumerable<string> FindMarkdownFiles(string directory, string[] affectedFiles)
         {
             if (affectedFiles != null)
-                return affectedFiles.Where(p => string.Equals(Path.GetExtension(p), ".md", StringComparison.OrdinalIgnoreCase));
+                return affectedFiles.Where(p => string.Equals(Path.GetExtension(p), ".md", StringComparison.OrdinalIgnoreCase))
+                                    .Where(p => IsIncluded(directory, p));
 
             return Directory.GetFiles(directory, "*.md", SearchOption.AllDirectories)
                             .Where(p => IsIncluded(directory, p));
