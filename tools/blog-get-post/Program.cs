@@ -125,33 +125,19 @@ namespace Microsoft.DotNetBlog
                 return 0;
             }
 
-            var file = markdownFiles[0];
-            if (!TryGetTitle(file, out var title))
-            {
-                Console.Error.WriteLine("warning: can't find title");
-                return 0;
-            }
-
-            Console.WriteLine($"::set-output name=title::{title}");
-            return 0;
-        }
-
-        private static bool TryGetTitle(string fileName, out object title)
-        {
-            var markdown = File.ReadAllText(fileName);
+            var markdown = File.ReadAllText(markdownFiles[0]);
             var document = BlogMarkdown.Parse(markdown);
 
             if (document.TryGetFrontMatter(out var frontMatter))
             {
-                if (!string.IsNullOrEmpty(frontMatter?.PostTitle))
-                {
-                    title = frontMatter.PostTitle;
-                    return true;
-                }
+                Console.Error.WriteLine("warning: no front matter found");
+                return 0;
             }
 
-            title = null;
-            return false;
+            Console.WriteLine($"::set-output name=title::{frontMatter.PostTitle}");
+            Console.WriteLine($"::set-output name=alias::{frontMatter.MicrosoftAlias}");
+            Console.WriteLine($"::set-output name=date::{frontMatter.DesiredPublicationDate?.ToString("dd/MM/yyyy")}");
+            return 0;
         }
     }
 

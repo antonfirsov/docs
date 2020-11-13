@@ -31,4 +31,10 @@ jobs:
         token: ${{secrets.GITHUB_TOKEN}}
         assignees: v-mepa
         labels: seo
-        body: 'Please visit [the WordPress posts](https://devblogs.microsoft.com/dotnet/wp-admin/edit.php) to perform the SEO optimization.'
+        body: |
+          Please visit [the WordPress posts](https://devblogs.microsoft.com/dotnet/wp-admin/edit.php) to perform the SEO optimization.
+
+          Title: ${{ steps.get-post.outputs.title }}
+          Alias: ${{ steps.get-post.outputs.alias }}
+          Date: ${{ steps.get-post.outputs.date }}
+
