@@ -66,7 +66,7 @@ namespace Microsoft.DotNetBlog
                 return 1;
             }
 
-            var repository = new Repository(repositoryPath);
+            using var repository = new Repository(repositoryPath);
 
             var beforeCommit = ParseRev(repository, beforeText);
             if (beforeCommit == null)
@@ -81,9 +81,8 @@ namespace Microsoft.DotNetBlog
                 Console.Error.WriteLine($"error: reference '{afterText}' isn't valid");
                 return 1;
             }
-
-            var changes = repository.Diff.Compare<TreeChanges>(beforeCommit.Tree, afterCommit.Tree);
-            var affectedFiles = changes.Select(c => Path.GetFullPath(Path.Combine(repository.Info.WorkingDirectory, c.Path))).ToArray();
+          
+            var affectedFiles = BlogRepo.GetAffectedPosts(repository, beforeCommit, afterCommit);
 
             try
             {

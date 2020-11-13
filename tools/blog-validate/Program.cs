@@ -113,7 +113,7 @@ namespace Microsoft.DotNetBlog
                 var repositoryPath = Repository.Discover(directory);
                 if (repositoryPath != null)
                 {
-                    var repository = new Repository(repositoryPath);
+                    using var repository = new Repository(repositoryPath);
 
                     var baseReferenceCommit = ParseRev(repository, baseReferenceText) ?? ParseRev(repository, "origin/" + baseReferenceText);
 
@@ -123,12 +123,9 @@ namespace Microsoft.DotNetBlog
                         return 1;
                     }
 
-                    TreeChanges changes;
-
                     if (string.IsNullOrEmpty(referenceText))
                     {
-                        var indexAndWorkingDirectory = DiffTargets.Index | DiffTargets.WorkingDirectory;
-                        changes = repository.Diff.Compare<TreeChanges>(baseReferenceCommit.Tree, indexAndWorkingDirectory);
+                        affectedFiles = BlogRepo.GetAffectedPosts(repository, baseReferenceCommit);
                     }
                     else
                     {
@@ -140,10 +137,8 @@ namespace Microsoft.DotNetBlog
                             return 1;
                         }
 
-                        changes = repository.Diff.Compare<TreeChanges>(baseReferenceCommit.Tree, referenceCommit.Tree);
+                        affectedFiles = BlogRepo.GetAffectedPosts(repository, baseReferenceCommit, referenceCommit);
                     }
-
-                    affectedFiles = changes.Select(c => Path.GetFullPath(Path.Combine(repository.Info.WorkingDirectory, c.Path))).ToArray();
                 }
             }
 
@@ -210,11 +205,9 @@ namespace Microsoft.DotNetBlog
         private static IEnumerable<string> FindMarkdownFiles(string directory, string[] affectedFiles)
         {
             if (affectedFiles != null)
-                return affectedFiles.Where(p => string.Equals(Path.GetExtension(p), ".md", StringComparison.OrdinalIgnoreCase))
-                                    .Where(p => IsIncluded(directory, p));
+                return affectedFiles;
 
-            return Directory.GetFiles(directory, "*.md", SearchOption.AllDirectories)
-                            .Where(p => IsIncluded(directory, p));
+            return BlogRepo.GetPosts(directory);
         }
 
         private static bool IsIncluded(string repoPath, string path)
