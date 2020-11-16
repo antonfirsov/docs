@@ -8,7 +8,7 @@ summary: Learn about the latest .NET Productivity features!
 desired_publication_date: 2020-11-18
 ---
 
-The .NET Productivity team (a.k.a. Roslyn) wants to help you be more productive by automating and reducing editing tasks to a single click in-order to save you time. We’ve seen a lot of excitement in the past few months over our latest features. In this post, I’ll cover some of the latest .NET productivity features available in [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/).
+The .NET Productivity team (a.k.a. Roslyn) wants to help you be more productive! We’ve seen a lot of excitement in the past few months over our latest features which automate and reduce editing tasks to a single click and help save you time. In this post, I’ll cover some of the latest .NET productivity features available in [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/).
 
 ## Tooling improvements
 
