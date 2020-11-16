@@ -1,4 +1,4 @@
-# Learn about the latest .NET Productivity features
+# What's new in .NET Productivity
 
 The .NET Productivity team (a.k.a. Roslyn) wants to help you be more productive by automating and reducing editing tasks to a single click in-order to save you time. We’ve seen a lot of excitement in the past few months over our latest features. In this post, I’ll cover some of the latest .NET productivity features available in [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/).
 
@@ -12,7 +12,7 @@ Another exciting feature is [inline parameter name hints](https://docs.microsoft
 
 ![Inline Hints](inline_hints.gif)
 
-You can now extract members from a selected class to a new base class with the new Extract Base Class refactoring. Place your cursor on either the class name or a highlighted member. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu. Select **Pull member(s) up to new base class** or **Extract base class**. The new **Extract Base Class** dialog will open where you can specify the name for the base class and location of where it should be placed. You can select the members that you want to transfer to the new base class and choose to make the members abstract by selecting the checkbox in the Make abstract column.
+You can now extract members from a selected class to a new base class with the new Extract Base Class refactoring. Place your cursor on either the class name or a highlighted member. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu. Select **Pull member(s) up to new base class** or **Extract base class**. The new **Extract Base Class** dialog will open where you can specify the name for the base class and location of where it should be placed. You can select the members that you want to transfer to the new base class and choose to make the members abstract by selecting the checkbox in the **Make abstract** column.
 
 ![Extract Base Class dialog](extract_base_class.png)
 
@@ -40,17 +40,11 @@ Code fixes and refactorings are the code suggestions the compiler provides throu
 
 * The [make class abstract](https://docs.microsoft.com/visualstudio/ide/reference/make-class-abstract?view=vs-2019) refactoring allows you to easily make a class abstract when you’re trying to write an abstract method in a class that isn’t abstract. Place your cursor on the method error. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu and select **Make class ‘abstract’**.
 
-    ![Make class abstract refactoring](make_class_abstract.png)
+    ![Make class abstract refactoring](make_class_abstract2.png)
 
-* The convert [typeof to nameof](https://docs.microsoft.com/visualstudio/ide/reference/convert-typeof-to-nameof?view=vs-2019) refactoring allows you to easily convert instances of *typeof(`<QualifiedType>`).Name* to *nameof(`<QualifiedType>`)* in C# and instances of *GetType(`<QualifiedType>`).Name* to *NameOf(`<QualifiedType>`)* in Visual Basic. Using *nameof* instead of the name of the type avoids the reflections involved when retrieving an object. Place your cursor within the *typeof(`<QualifiedType>`).Name*. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu. Next select from one of the following options:
+* The convert [typeof to nameof](https://docs.microsoft.com/visualstudio/ide/reference/convert-typeof-to-nameof?view=vs-2019) refactoring allows you to easily convert instances of *typeof(`<QualifiedType>`).Name* to *nameof(`<QualifiedType>`)* in C# and instances of *GetType(`<QualifiedType>`).Name* to *NameOf(`<QualifiedType>`)* in Visual Basic. Using *nameof* instead of the name of the type avoids the reflections involved when retrieving an object. Place your cursor within the *typeof(`<QualifiedType>`).Name*. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu and select **Convert 'typeof' to 'nameof'**.
 
-    For C#, select **Convert `typeof` to `nameof`**:
-
-    ![Convert typeof to nameof refactoring](csharp-convert-typeof-to-nameof.png)
-
-    For Visual Basic, select **Convert `GetType` to `NameOf`**:
-
-    ![Convert GetType to NameOf refactoring](convert-gettype-to-nameof.png)
+    ![Convert typeof to nameof refactoring](convert_typeof_nameof_csharp.png)
 
 * Visual Basic had multiple ways of passing parameters, *ByVal* and *ByRef*, and for a long time *ByVal* has been optional. We now fade *ByVal*to say it's not necessary along with a code fix to remove the unnecessary *ByVal*. Place your cursor on the ByVal keyword. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu and select **‘ByVal’ keyword is unnecessary and can be removed**.
 
