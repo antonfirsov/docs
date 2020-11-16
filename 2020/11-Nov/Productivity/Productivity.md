@@ -3,7 +3,7 @@ post_title: What's new in .NET Productivity
 username: mikadumont
 microsoft_alias: midumont@microsoft.com
 featured_image: img/inline-type-hint-csharp.png
-categories: .NET, Productivity, Visual Studio, .NET Core
+categories: .NET, Visual Studio, .NET Core
 summary: Learn about the latest .NET Productivity features!
 desired_publication_date: 2020-11-18
 ---
