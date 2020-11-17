@@ -8,15 +8,15 @@ summary: Introducing the brand new Microsoft Q&A for .NET, your one stop for get
 desired_publication_date: '2020-11-24'
 ---
 
-Have you ever been working on some code and ran into an issue and needed to ask someone for help? Maybe you are looking for assistanct on how to start your next app or perhaps you are seeking some architecture guidance? What is there was one place where you could go to get your technical questions answered by experts from Microsoft and the community? Well there is with the launch of [Microsoft Q&A for .NET](https://docs.microsoft.com/answers/products/dotnet?WT.mc_id=friends-0000-jamont)! 
+Have you ever been working on some code and ran into an issue and needed to ask someone for help? Maybe you are looking for assistance on how to start your next app or perhaps you are seeking some architecture guidance? What if there were one place where you could go to get your technical questions answered by experts from Microsoft and the community? Well there is now with the launch of [Microsoft Q&A for .NET](https://docs.microsoft.com/answers/products/dotnet?WT.mc_id=friends-0000-jamont)! 
 
 ![Microsoft Q&A home page for .NET](QA.PNG)
 
-Microsoft Q&A is the home for technical questions and answers at Microsoft. If you are looking for help on [any Microsoft product](https://docs.microsoft.com/answers/products/?WT.mc_id=friends-0000-jamont) you are sure to find it on Microsoft Q&A. Join the community of growing experts who are here to help developers get the help and answers they need on their projects. When you head to Microsoft Q&A for .NET you will find a wide range of .NET topics including runtime, app & web development, langauges, data, and more. Pick one that you need help with or are interested in helping out on and browse questions from the community.
+Microsoft Q&A is the home for technical questions and answers about products from Microsoft. If you are looking for help on [any Microsoft product](https://docs.microsoft.com/answers/products/?WT.mc_id=friends-0000-jamont) you are sure to find it on Microsoft Q&A. Join the community of growing experts who are here to help developers get the help and answers they need on their projects. When you head to Microsoft Q&A for .NET you will find a wide range of .NET topics including runtime, app & web development, languages, data, and more. Browse questions from the community, ask your own, and help out others!
 
 ![Microsoft Q&A page for Blazor with a few questions, follow button, and ability to ask a question](QA2.PNG)
 
-Ask a question, follow the topic, or pick out a question that you know the answer to. Your Microsoft Q&A profile is linked to your [Microsoft Learn](https://docs.microsoft.com/learn/dotnet/?WT.mc_id=friends-0000-jamont) and you can get gain reputation points by being active.
+Ask a question, follow the topic, or pick out a question that you know the answer to. Your Microsoft Q&A profile is linked to your [Microsoft Learn](https://docs.microsoft.com/learn/dotnet/?WT.mc_id=friends-0000-jamont) account and you can get gain reputation points by being active.
 
 ![Reputation pionts on your account page](REP.PNG)
 
