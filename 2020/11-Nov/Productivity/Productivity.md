@@ -66,7 +66,7 @@ Code fixes and refactorings are the code suggestions the compiler provides throu
 
     ![Remove redundant equality](img/remove_redundant_equality_operator.png)
 
-* And the last refactoring we added in 16.9 Preview 1 suggests [using ‘new(…)’](https://docs.microsoft.com/visualstudio/ide/reference/use-new?view=vs-2019) in non-contentious scenarios. Place your cursor on the field declaration. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu and select **Use ‘new(…)’**.
+* And the last refactoring we added in 16.9 Preview 1 suggests [using ‘new(…)’](https://docs.microsoft.com/visualstudio/ide/reference/use-new?view=vs-2019) in non-contentious scenarios. Place your cursor on the field declaration. Press **Ctrl**+**.** to trigger the **Quick Actions and Refactorings** menu and select **Use 'new(…)'**.
 
     ![Use new() refactoring](img/use_new.png)
 
