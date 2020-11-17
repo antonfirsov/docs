@@ -1,9 +1,11 @@
 ---
 post_title: 'Visual Basic WinForms Apps in .NET 5 and Visual Studio 16.8'
-username: Klaus Löffelmann
-featured_image: path/relative/to/your/post/image.png
+username: klloeffe@microsoft.com
+microsoft_alias: klloeffe@microsoft.com
+featured_image: 00_FeatureImage.png
 categories: .NET, .NET Core, VB, Visual Basic, WinForms, Windows Forms
 summary: Visual Studio 16.8 and .NET 5.0 for the first time fully support Windows Forms Designer and the VB Application Framework.
+desired_publication_date: 2020-11-18
 ---
 
 Visual Basic, along with its Application Framework, is  supported in ..NET 5 and Visual Studio 16.8! Visual Studio 16.8 includes the Windows Forms Designer, so Visual Basic is ready for you to migrate existing applications or create new applications.
@@ -217,10 +219,6 @@ Target Framework Monikers are
 -   *netcoreapp3.1* for .Net Core 3.1 Apps
 
 -   *net5.0-windows* for .NET 5 Apps
-
--   *net6.0-windows* for .NET 6 Apps. (.NET 6 is in very early Beta, and the
-    [SDK can be downloaded from
-    here](https://aka.ms/dotnet/net6/dev/Sdk/dotnet-sdk-win-x86.exe).)
 
 **--use-app-framework:** When this option is present (only possible from .NET
 5.0 and above), a Visual Basic WinForms App based on the Application Framework is
