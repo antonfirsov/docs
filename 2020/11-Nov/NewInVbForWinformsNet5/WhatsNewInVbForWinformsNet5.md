@@ -13,10 +13,7 @@ While .NET Core has had Visual Basic since the first release, and WinForms since
 We’re excited about the updates for Visual Basic in .NET 5, but first
 a reminder that you can base your decision to migrate to .NET 5 on whether or not you want its new features
 and how you need to interop with .NET 5 applications. The .NET Framework will
-be supported as part of Windows for a very long time. New features, including
-new WinForms features will not be added to .NET Framework. In contrast, and in
-addition to the new features in .NET 5, we plan to improve .NET 6 and newer
-versions even further.
+be supported as part of Windows for a very long time. New features will not be added to .NET Framework . New features, including new WinForms features, will be added only to .NET 5 and future versions. 
 
 Visual Studio 16.8 and .NET 5 include the following updates for WinForms
 development in .NET 5:
@@ -156,16 +153,15 @@ the first Form has been displayed, and it should be set only once.
 
 ## Creating .NET Core 3.1 or .NET 5 VB WinForms Apps with the CLI
 
-Currently Visual Studio only 16.8 supports the creation of .NET 5 Visual Basic
-WinForms apps, which by default use the Application Framework. When you create a
+While we highly recommend Visual Studio and its WinForms Designer, you can also
+create applications outside Visual Studio, using the .NET CLI. You need the .NET
+5 SDK, which is installed with Visual Studio, or you can download it here.
+
+When you create a
 Visual Basic WinForms app at the command line, the Application Framework is NOT
 used by default and you can select either .NET Core 3.1 or .NET 5. Since the
 Application Framework’s infrastructure was added to the runtime in.NET 5 you
 cannot create Application Framework applications targeting .NET Core 3.1.
-
-While we highly recommend Visual Studio and its WinForms Designer, you can also
-create applications outside Visual Studio, using the .NET CLI. You need the .NET
-5 SDK, which is installed with Visual Studio, or you can download it here.
 
 With the CLI, you create a new Visual Basic Forms app with the command *dotnet
 new*:
