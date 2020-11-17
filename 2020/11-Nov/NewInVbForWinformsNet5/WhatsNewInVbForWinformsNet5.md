@@ -1,5 +1,5 @@
 ---
-post_title: 'What’s New for Visual Basic WinForms Apps in .NET 5 and Visual Studio 16.8'
+post_title: 'Visual Basic WinForms Apps in .NET 5 and Visual Studio 16.8'
 username: Klaus Löffelmann
 featured_image: path/relative/to/your/post/image.png
 categories: .NET, .NET Core, VB, Visual Basic, WinForms, Windows Forms
