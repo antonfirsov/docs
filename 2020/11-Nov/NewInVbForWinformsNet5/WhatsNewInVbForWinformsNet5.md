@@ -1,22 +1,18 @@
 ---
-post_title: 'What’s New for Visual Basic WinForms Apps in .NET 5 and Visual Studio 16.8'
+post_title: 'Visual Basic WinForms Apps in .NET 5 and Visual Studio 16.8'
 username: Klaus Löffelmann
 featured_image: path/relative/to/your/post/image.png
 categories: .NET, .NET Core, VB, Visual Basic, WinForms, Windows Forms
 summary: Visual Studio 16.8 and .NET 5.0 for the first time fully support Windows Forms Designer and the VB Application Framework.
 ---
 
-Visual Studio 16.8 and .NET 5 include the Windows Forms Designer for Visual
-Basic, Application Framework library support! .NET 5 is the next version of .NET
-Core. While .NET Core has had Visual Basic since the first release, and WinForms
-since it was released in .NET Core 3.1, it did not include the Application
-Framework library and WinForms Designer support Visual Basic programmers expect.
-We think .NET 5 is ready for you to migrate existing .NET Framework apps or
-create new WinForms applications.
+Visual Basic, along with its Application Framework, is  supported in ..NET 5 and Visual Studio 16.8! Visual Studio 16.8 includes the Windows Forms Designer, so Visual Basic is ready for you to migrate existing applications or create new applications.
 
-We’re excited about the updates for Visual Basic in .NET 5, but let’s start with
-a reminder that you can base your decision to migrate to .NET 5 on new features
-and how you need to interop with your new .NET 5 apps. The .NET Framework will
+While .NET Core has had Visual Basic since the first release, and WinForms since it was released in .NET Core 3.1, it did not include the Application Framework library and WinForms Designer support Visual Basic programmers expect. .NET 5 is the next version of .NET Core and we think .NET 5 is ready for you to migrate existing .NET Framework apps or create new WinForms applications.
+
+We’re excited about the updates for Visual Basic in .NET 5, but first
+a reminder that you can base your decision to migrate to .NET 5 on whether or not you want its new features
+and how you need to interop with .NET 5 applications. The .NET Framework will
 be supported as part of Windows for a very long time. New features, including
 new WinForms features will not be added to .NET Framework. In contrast, and in
 addition to the new features in .NET 5, we plan to improve .NET 6 and newer
@@ -39,20 +35,19 @@ development in .NET 5:
     Applications to the .NET Core family. The new version also has updated logic
     that should work well in more scenarios.
 
--   **Updates to Visual Studio dialogs:** Updates have been required to a few
+-   **Updates to Visual Studio dialogs:** Updates have been made to a few
     dialogs to support Visual Basic features in the new project format. This
     work is ongoing.
 
 -   **Visual Basic WinForms template**: We waited to add the template to Visual
     Studio until you could create WinForms applications with the Application
-    Framework. The CLI templates from .NET Core 3.1 are available via a switch
-    on `dotnet new`.
+    Framework. This new template is the default in Visual Studio, and available via a switch on `dotnet new` in the .NET CLI.
 
 -   **Additional Visual Basic Runtime features:** The last few versions of .NET
     Core have ported features of the Visual Basic Runtime. We believe this work
     is complete and that missing features can’t work the same way on .NET 5.
 
-## Creating .NET 5 Application Framework WinForms Apps in Visual Studio
+### Creating .NET 5 Application Framework WinForms Apps in Visual Studio
 
 You’ll find the new .NET 5 template in the Create New Project dialog. Naming has
 been updated for templates, and you’ll find the .NET Framework templates names
@@ -83,7 +78,7 @@ name going forward.
 **Make single instance application:** If this option is clicked, the Application
 Framework makes sure, that a WinForms App is only started once. (Tip: If this
 option is not used, the [StartUpNextInstance application
-event](https://docs.microsoft.com/en-us/dotnet/api/microsoft.visualbasic.applicationservices.windowsformsapplicationbase.startupnextinstance?view=net-5.0)
+event](https://docs.microsoft.com/dotnet/api/microsoft.visualbasic.applicationservices.windowsformsapplicationbase.startupnextinstance?view=net-5.0)
 lets you control whether another instance of the WinForms app can be started).
 
 **Save My Settings on Shutdown:** Automatically saves settings properties when
@@ -99,18 +94,18 @@ dialog to be displayed or other authentication – it is exclusively for how the
 **Splash screen:** Lets you pick a Splash screen form, which gets automatically
 displayed, when the WinForms app starts.
 
-## Differences from .NET Framework
+### Differences from .NET Framework
 
 .NET 5 is in the .NET Core family and has differences in the APIs and libraries
-available, the Project System, and how applications are deployed. Check out this
+that are available, the Project System, and how applications are deployed. Check out this
 [blog post for porting applications to .NET
 Core](https://devblogs.microsoft.com/dotnet/porting-desktop-apps-to-net-core/).
 
 In general, your experience in Visual Studio will be similar for .NET 5 and .NET
 Framework. One difference is how you hook up Application Framework events for
 startup, network availability change detection, shutdown and unhandled exception
-notification. An empty *ApplicationEvents.vb* file to contains these events is
-created by the WinForms template in .NET 5, where in .NET Framework the file is
+notification. An empty *ApplicationEvents.vb* file to contain these events is
+created by the WinForms template in .NET 5, while in .NET Framework the file is
 not created until the developer clicks the *View Application Events* button. As
 a result, the procedure for wiring applications events in your application is:
 
@@ -124,7 +119,7 @@ a result, the procedure for wiring applications events in your application is:
 
 4.  This will create the handler where you can add your code.
 
-## New Application Framework Event *ApplyHighDpiMode*
+### New Application Framework Event *ApplyHighDpiMode*
 
 Beginning with .NET 5, the Application Framework provides a new application
 event named *ApplyHighDpiMode*. The default is *SystemAware* which provides the
@@ -133,7 +128,7 @@ same crisp high dpi rendering at design time and runtime.
 
 ![Visual Basic's new ApplyHighDpiMode Application Event](03_NewApplicationEvent.png)
 
-If you want to start your WinForms App with a different high Dpi setting you can
+If you want to start your WinForms App with a different high Dpi setting, you can
 do that easily by handling the *ApplyHighDpiMode* application event:
 
 -   Open the *ApplicationEvent.vb* code file in the editor.
@@ -159,7 +154,7 @@ End Class
 The high DPI mode set in the *ApplyHighDpiMode* event cannot be changed after
 the first Form has been displayed, and it should be set only once.
 
-# Creating .NET Core 3.1 or .NET 5 VB WinForms Apps with the CLI
+## Creating .NET Core 3.1 or .NET 5 VB WinForms Apps with the CLI
 
 Currently Visual Studio only 16.8 supports the creation of .NET 5 Visual Basic
 WinForms apps, which by default use the Application Framework. When you create a
@@ -175,22 +170,22 @@ create applications outside Visual Studio, using the .NET CLI. You need the .NET
 With the CLI, you create a new Visual Basic Forms app with the command *dotnet
 new*:
 
-```
-**dotnet new winforms -o vbwinforms --language VB**
+```sh
+**dotnet new winforms -o outputDirectoryName --language VB**
 ```
 
 You control with the command line options how the project should get created:
 
-**--output VbFormsProjectName:** Determines the VB WinForms project name. A
+**--output outputDirectoryName :** Determines the VB WinForms project name. A
 subfolder with this name is automatically created.
 
 **--language vb:** Determines that a Visual Basic WinForms project is created.
-If the *--language* option is omitted, a C\# project gets created. If you want
+If the *--language* option is omitted, a C\# project is created. If you want
 `dotnet new` to default to Visual Basic, set the environment variable
 `DOTNET_NEW_PREFERRED_LANG=VB`.
 
 By default, `dotnet new` generates a .NET Core 5.0 WinForms Project without the
-Application Framework. The application starts with a `Sub Main` method in module
+Application Framework, similar to how a C# WinForms project works. . The application starts with a `Sub Main` method in module
 called *Program.vb* which handles all the necessary set up:
 
 ```Visual Basic
@@ -208,10 +203,10 @@ Friend Module Program
 End Module
 ```
 
-If you want to create a .NET 5 WinForms VB Project with the command line with
-Application Framework support, then you should use these additional options:
+If you want to create a .NET 5 WinForms VB Project with
+Application Framework support from the command line, then you should use these additional options:
 
-```
+```sh
 dotnet new winforms -o VbForms5AF --language VB --framework net5.0
 --use-app-framework
 ```
@@ -228,11 +223,11 @@ Target Framework Monikers are
     here](https://aka.ms/dotnet/net6/dev/Sdk/dotnet-sdk-win-x86.exe).)
 
 **--use-app-framework:** When this option is present (only possible from .NET
-5.0 on), a Visual Basic WinForms App based on the Application Framework is
+5.0 and above), a Visual Basic WinForms App based on the Application Framework is
 created. The resulting project files are the same as the files created by using
 the VB .NET 5.0 WinForms template of Visual Studio.
 
-# Changed Project File Format
+## Changed Project File Format
 
 .NET Core and .NET 5 applications use a new project file (*.vbproj*) format. The
 new format is designed to be read and understood by humans as well as MSBuild.
@@ -252,8 +247,8 @@ this tag needs to be…
 
 -   …*Microsoft.NET.WindowsDesktop* for .NET Core 3.1 apps.
 
-Changing the Target Framework in a WinForms App (either Visual Basic or C\#)
-requires the *Target Framework* setting in the project file to be changed.
+To change the Target Framework in a WinForms App (either Visual Basic, C\# or F\#),
+change the *Target Framework* setting by editing the project file.
 
 **Important:** The Project Properties Designer does not currently support
 changing between .NET 5 and .NET Core 3.1. And if you inadvertently change it
@@ -267,13 +262,13 @@ Change the *TargetFramework* tag to…
 
 -   …*net5.0-windows* for .NET 5.0 Apps.
 
-# Known Issues
+## Known Issues
 
 In Visual Studio 16.8, the WinForms Designer still has a few features missing.
 Also, the project system, which manages the Project Dialog, does not fully
 support the Application Framework.
 
-## Selecting the Startup Form in a .NET 5.0 Application Framework App
+### Selecting the Startup Form in a .NET 5.0 Application Framework App
 
 In the Project Property Designer, the selection of the *Start Object* is not
 currently functional. To work around this issue:
@@ -295,9 +290,9 @@ currently functional. To work around this issue:
 -   Save the file, to initiate the code generation, that sets the Form you
     selected as the new start form.
 
-# Reporting bugs and suggesting features
+## Reporting bugs and suggesting features
 
-Having any comments, suggestions or have you found bugs? Please submit issues
-via Visual Studio or as issues in the WinForms GitHub repository. WinForms is
+Have any comments, suggestions or have you found bugs? Please submit issues
+via Visual Studio Feedback or as issues in the WinForms GitHub repository. WinForms is
 open source and developed in the open. Visit
 <https://github.com/dotnet/winforms>, and get engaged! Happy coding!
