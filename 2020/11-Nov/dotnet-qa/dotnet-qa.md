@@ -1,4 +1,12 @@
-
+---
+post_title: 'Announcing Microsoft Q&A for .NET'
+username: jamesmontemagno
+microsoft_alias: jamont
+featured_image: QA.PNG
+categories: .NET, .NET Core
+summary: Introducing the brand new Microsoft Q&A for .NET, your one stop for getting your techinical questions answered by experts from Microsoft and the .NET community.
+desired_publication_date: '2020-11-24'
+---
 
 Have you ever been working on some code and ran into an issue and needed to ask someone for help? Maybe you are looking for assistanct on how to start your next app or perhaps you are seeking some architecture guidance? What is there was one place where you could go to get your technical questions answered by experts from Microsoft and the community? Well there is with the launch of [Microsoft Q&A for .NET](https://docs.microsoft.com/answers/products/dotnet?WT.mc_id=friends-0000-jamont)! 
 
