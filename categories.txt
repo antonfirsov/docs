@@ -29,5 +29,8 @@ Spark for .NET
 TPL
 Visual Studio
 WinForms
+Windows Forms
 WPF
+VB
+Visual Basic
 XAML
