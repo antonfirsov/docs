@@ -161,7 +161,7 @@ the first Form has been displayed, and it should be set only once.
 
 While we highly recommend Visual Studio and its WinForms Designer, you can also
 create applications outside Visual Studio, using the .NET CLI. You need the .NET
-5 SDK, which is installed with Visual Studio, or you can download it here.
+5 SDK, which is installed with Visual Studio, or you can [download it here](https://aka.ms/dotnet-core-download).
 
 When you create a
 Visual Basic WinForms app at the command line, the Application Framework is NOT
