@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
@@ -14,6 +15,12 @@ namespace Microsoft.DotNetBlog
             var links = context.Document.Descendants<LinkInline>();
 
             var client = new HttpClient();
+
+            // Some CDNs, such as Akamai, will return 404 unless a UserAgent is specified.
+            var assemblyName = GetType().Assembly.GetName();
+            var productName = assemblyName.Name;
+            var productVersion = assemblyName.Version.ToString();
+            client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(productName, productVersion));
 
             foreach (var link in links)
             {
