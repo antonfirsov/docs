@@ -1,9 +1,11 @@
 ---
 post_title: 'Infer#: Interprocedural Memory Safety Analysis For C#'
 username: xinshi
+microsoft_alias: xinshi
 featured_image: path/relative/to/your/post/image.png
 categories: .NET, .NET Core, C#, Static Analysis
 summary: We are excited to announce the public release of Infer#, which brings the interprocedural static analysis capabilities of Infer to the .NET community.
+desired_publication_date: '2020-12-01'
 ---
 
 _“The refinement of techniques for the prompt discovery of error serves as well as any other as a hallmark of what we mean by science.”_
@@ -91,7 +93,7 @@ To view the bug report:
 cat output/filtered_bugs.txt
 ```
 
-* To try the C# plugin as a Github Action directly in your build, please follow the directions [here](https://github.com/marketplace/actions/c-code-analyzer).
+* To try the C# plugin as a [Github Action](https://github.com/marketplace/actions/c-code-analyzer) directly in your build.
 
 We welcome any feedback or feature requests at our [source code repository](https://github.com/microsoft/infersharp/issues).
 
