@@ -8,14 +8,18 @@ summary: Visual Studio 16.8 and .NET 5.0 for the first time fully support Window
 desired_publication_date: 2020-11-18
 ---
 
-Visual Basic, along with its Application Framework, is  supported in ..NET 5 and Visual Studio 16.8! Visual Studio 16.8 includes the Windows Forms Designer, so Visual Basic is ready for you to migrate existing applications or create new applications.
+Visual Basic, along with its Application Framework, is supported in .NET 5 and Visual Studio 16.8!
+Visual Studio 16.8 includes the Windows Forms Designer, 
+so Visual Basic is ready for you to migrate existing applications or create new applications.
 
 While .NET Core has had Visual Basic since the first release, and WinForms since it was released in .NET Core 3.1, it did not include the Application Framework library and WinForms Designer support Visual Basic programmers expect. .NET 5 is the next version of .NET Core and we think .NET 5 is ready for you to migrate existing .NET Framework apps or create new WinForms applications.
 
 We’re excited about the updates for Visual Basic in .NET 5, but first
 a reminder that you can base your decision to migrate to .NET 5 on whether or not you want its new features
 and how you need to interop with .NET 5 applications. The .NET Framework will
-be supported as part of Windows for a very long time. New features will not be added to .NET Framework . New features, including new WinForms features, will be added only to .NET 5 and future versions. 
+be supported as part of Windows for a very long time. 
+New features will not be added to .NET Framework. New features, including new WinForms features, 
+will be added only to .NET 5 and future versions.
 
 Visual Studio 16.8 and .NET 5 include the following updates for WinForms
 development in .NET 5:
@@ -75,7 +79,7 @@ rendering of controls, which was first introduced in Windows XP and retained the
 name going forward.
 
 **Make single instance application:** If this option is clicked, the Application
-Framework makes sure, that a WinForms App is only started once. (Tip: If this
+Framework ensures, that a WinForms App is only started once. (Tip: If this
 option is not used, the [StartUpNextInstance application
 event](https://docs.microsoft.com/dotnet/api/microsoft.visualbasic.applicationservices.windowsformsapplicationbase.startupnextinstance?view=net-5.0)
 lets you control whether another instance of the WinForms app can be started).
@@ -183,7 +187,8 @@ If the *--language* option is omitted, a C\# project is created. If you want
 `DOTNET_NEW_PREFERRED_LANG=VB`.
 
 By default, `dotnet new` generates a .NET Core 5.0 WinForms Project without the
-Application Framework, similar to how a C# WinForms project works. . The application starts with a `Sub Main` method in module
+Application Framework, similar to how a C# WinForms project works. 
+The application starts with a `Sub Main` method in module
 called *Program.vb* which handles all the necessary set up:
 
 ```Visual Basic
