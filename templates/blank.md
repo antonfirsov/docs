@@ -1,6 +1,6 @@
 ---
 post_title: 'Your post title'
-username: Your user name as seen on WordPress, not your github ID
+username: Your username on WordPress, see https://devblogs.microsoft.com/dotnet/wp-admin/profile.php
 microsoft_alias: Your Microsoft alias, without the domain, like 'immol'
 featured_image: path/relative/to/your/post/image.png
 categories: .NET, .NET Core
