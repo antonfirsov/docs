@@ -152,6 +152,6 @@ For projects hosted on-prem via [gitweb](https://git-scm.com/docs/gitweb) refere
 </ItemGroup>
 ```
 
-## Suummary
+## Summary
 
 Source Link is easy to add to your projects and we highly recommend that all projects configure it by default. 
