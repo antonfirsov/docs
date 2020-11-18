@@ -3,7 +3,7 @@ post_title: 'Visual Basic WinForms Apps in .NET 5 and Visual Studio 16.8'
 username: klloeffe@microsoft.com
 microsoft_alias: klloeffe@microsoft.com
 featured_image: 00_FeatureImage.png
-categories: .NET, .NET Core, VB, Visual Basic, WinForms, Windows Forms
+categories: .NET, .NET Core, Visual Basic, WinForms
 summary: Visual Studio 16.8 and .NET 5.0 for the first time fully support Windows Forms Designer and the VB Application Framework.
 desired_publication_date: 2020-11-18
 ---
