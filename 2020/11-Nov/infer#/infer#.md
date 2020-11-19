@@ -22,7 +22,7 @@ safety bugs such as null dereferences and resource leaks.
 
 By integrating directly in the developer workflow to detect reliability and security bugs before they ship,
 Infer# supports agile development for .NET. Indeed, we already are observing promising early results on
-Microsoft software such as Roslyn, DotNET SDK, ASP.NET Core, and MSBuild.
+Microsoft software such as Roslyn, .NET SDK, and ASP.NET Core.
 
 We plan to continue expanding Infer#, with support for thread safety coming next.
 
@@ -31,6 +31,8 @@ We plan to continue expanding Infer#, with support for thread safety coming next
 Infer# currently detects null dereferences and resource leaks, with race condition detection in
 development. We illustrate each capability below with a buggy piece of code along with the
 corresponding warning Infer# would report on it.
+
+To learn more about the technical implementation of Infer#, please see our [wiki](https://github.com/microsoft/infersharp/wiki/InferSharp:-A-Scalable-Code-Analytics-Tool-for-.NET).
 
 ### Null Dereference
 ```csharp
@@ -56,7 +58,7 @@ field. This dereference is detected:
 
 ```shell
 /home/runner/work/infersharpaction/infersharpaction/Examples/NullDereference/Program.cs:11: error: NULL_DEREFERENCE (biabduction/Rearrange.ml:1622:55-62:)
-  [B5] pointer  could be null and is dereferenced at line 11, column 13.
+  pointer 'returnNull' could be null and is dereferenced at line 11, column 13.
 ```
 
 ### Resource Leak
@@ -79,10 +81,8 @@ closed. Infer# reports the resulting resource leak, enabling the developer to fi
 
 ```shell
 /home/runner/work/infersharpaction/infersharpaction/Examples/ResourceLeak/Program.cs:11: error: RESOURCE_LEAK
-  Leaked { %0 -> 1 } resource(s) at type(s) System.IO.StreamReader.
+  Leaked { %0 -> 1 } resource(s) at type(s) System.IO.StreamWriter.
 ```
-
-To learn more about the technical implementation of Infer#, please see our [wiki](https://github.com/microsoft/infersharp/wiki/InferSharp:-A-Scalable-Code-Analytics-Tool-for-.NET).
 
 ## Coming next: Thread Safety Violations
 
@@ -116,7 +116,7 @@ Java; lock() statement blocks will trigger the [RacerD](https://fbinfer.com/docs
 ```shell
 /.../Examples/RaceCondition/Program.cs:39: error: THREAD_SAFTY_VIOLATION
   Read/Write race. Non-private method 'Int32 RaceCondition.ReadFromField()' reads without synchronization from 'this.intField'. Potentially races
-with in method 'RaceCondition.WriteToField(...)'.
+with write in method 'RaceCondition.WriteToField(...)'.
   Reporting because another access to the same memory occurs on a background thread, although this access may not.
 ```
 
@@ -136,7 +136,7 @@ cat output/filtered_bugs.txt
 ```
 * You can run Infer# on your own code by copying the .dll and .pdb files to a folder in the Docker container, then replace _Examples_ from the steps above with your folder name:
 ```shell
-sh run_infersharp.sh <folder name> output
+sh run_infersharp.sh <folder_name> output
 ```
 * You can also use Infer# on your own via a [Github Action](https://github.com/marketplace/actions/infersharp).
 
