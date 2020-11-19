@@ -17,7 +17,7 @@ the project has been [released on GitHub](https://github.com/microsoft/infershar
 
 Static analysis is a technique commonly used in the developer workflow to validate the correctness of
 source code without needing to execute it. Popular analyzers within the .NET ecosystem include FxCop
-and the analysis API of Roslyn. Infer# complements these tools by detecting interprocedural memory
+and Roslyn analyzers. Infer# complements these tools by detecting interprocedural memory
 safety bugs such as null dereferences and resource leaks.
 
 By integrating directly in the developer workflow to detect reliability and security bugs before they ship,
@@ -54,7 +54,10 @@ internal class NullObj
 The _returnNull_ variable is interprocedurally assigned null and is dereferenced via a read on the Value
 field. This dereference is detected:
 
-![Null Dereference Warning](img/NullDerefWarning.png)
+```shell
+/home/runner/work/infersharpaction/infersharpaction/Examples/NullDereference/Program.cs:11: error: NULL_DEREFERENCE (biabduction/Rearrange.ml:1622:55-62:)
+  [B5] pointer  could be null and is dereferenced at line 11, column 13.
+```
 
 ### Resource Leak
 ```csharp
@@ -67,35 +70,19 @@ public StreamWriter AllocatedStreamWriter()
 public void ResourceLeakBad()
 {
     StreamWriter stream = AllocateStreamWriter();
-    // FIXME: should close the stream by calling stream.Close() if stream is not null.
+    // FIXME: should close the StreamWriter by calling stream.Close() if stream is not null.
 }
 ```
 
 The _stream_ StreamWriter variable is returned from AllocateStreamWriter but not
 closed. Infer# reports the resulting resource leak, enabling the developer to fix the error:
 
-![Resource Leak Warning](img/ResourceLeakWarning.png)
+```shell
+/home/runner/work/infersharpaction/infersharpaction/Examples/ResourceLeak/Program.cs:11: error: RESOURCE_LEAK
+  Leaked { %0 -> 1 } resource(s) at type(s) System.IO.StreamReader.
+```
 
 To learn more about the technical implementation of Infer#, please see our [wiki](https://github.com/microsoft/infersharp/wiki/InferSharp:-A-Scalable-Code-Analytics-Tool-for-.NET).
-
-## Trying Infer#
-
-* To try Infer# in a docker container, simply pull it via the command below:
-```shell
-docker pull mcr.microsoft.com/infersharp:latest
-```
-Start a container in interactive mode, then run the following command in the container:
-```shell
-sh run_infersharp.sh Examples output
-```
-To view the bug report:
-```shell
-cat output/filtered_bugs.txt
-```
-
-* To try the C# plugin as a [Github Action](https://github.com/marketplace/actions/c-code-analyzer) directly in your build.
-
-We welcome any feedback or feature requests at our [source code repository](https://github.com/microsoft/infersharp/issues).
 
 ## Coming next: Thread Safety Violations
 
@@ -126,4 +113,31 @@ public class RaceCondition
 Although the feature is still in development, the warnings will appear analogously to how they do within
 Java; lock() statement blocks will trigger the [RacerD](https://fbinfer.com/docs/all-issue-types/#thread_safety_violation) analysis just as synchronized() Java blocks do.
 
-![Race Condition Warning](img/RaceConditionWarning.png)
+```shell
+/.../Examples/RaceCondition/Program.cs:39: error: THREAD_SAFTY_VIOLATION
+  Read/Write race. Non-private method 'Int32 RaceCondition.ReadFromField()' reads without synchronization from 'this.intField'. Potentially races
+with in method 'RaceCondition.WriteToField(...)'.
+  Reporting because another access to the same memory occurs on a background thread, although this access may not.
+```
+
+## Trying Infer#
+
+* You can play with Infer# and these examples simply using our Docker image:
+```shell
+docker pull mcr.microsoft.com/infersharp:latest
+```
+Start a container in interactive mode, then run the following command in the container:
+```shell
+sh run_infersharp.sh Examples output
+```
+To view the bug report:
+```shell
+cat output/filtered_bugs.txt
+```
+* You can run Infer# on your own code by copying the .dll and .pdb files to a folder in the Docker container, then replace _Examples_ from the steps above with your folder name:
+```shell
+sh run_infersharp.sh <folder name> output
+```
+* You can also use Infer# on your own via a [Github Action](https://github.com/marketplace/actions/infersharp).
+
+Please sumit your feedback and feature requests to our [GitHub repository](https://github.com/microsoft/infersharp/issues).
