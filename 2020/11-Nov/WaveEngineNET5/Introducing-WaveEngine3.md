@@ -19,7 +19,7 @@ To make this possible we started working on this one year ago, when we decide to
 Now we have official support for .NET 5 and this technology is ready for .NET 6 so we are glad to become one of the first engines to support it.
 This is an overview of what we are building with WaveEngine 3.1 and .NET 5:
 
-![image of an overview of what we are building with WaveEngine 3.1 and .NET 5. it is showing The engine supporting multiple technologies and platforms](whatwearebuilding.png)
+![image of an overview of what we are building WaveEngine 3.1 with .NET 5.](whatwearebuilding.png)
 
 We are using .NET 5 runtime and compilers in all platforms where it is possible, Windows, Linux, MacOS and Web and we use Mono where it is not possible, but we are ready for .NET 6 so that we can finally unify this to only use one runtime and compilers for all our supported platforms.
 One of the most interesting features that you can see in this diagram is that WaveEngine is easy to integrate with several user interface technologies like WPF, Windows Forms or SDL. If you need to integrate a 3D graphics viewer for data visualization inside new projects with .NET 5 this is a great technology to use.
@@ -29,7 +29,7 @@ Another interesting technology inside .NET 5 is a new compiler called “dotnet-
 
 <iframe width="640" height="480" title="Play the interactive game 'Escape Factory'. You control one robot, an AI agent controls the other one. Try to collaborate, in order to break free from the factory room" class="embed-responsive-item" src="https://ms-paidia-playground.azurewebsites.net/" allowfullscreen=""></iframe>
 
-(The [Project Paidia demo](https://innovation.microsoft.com/en-us/exploring-project-paidia) is a simple game with a new artificial intelligent model running using ONNX.js and WaveEngine on the browser)
+(The [Project Paidia demo](https://innovation.microsoft.com/exploring-project-paidia) is a simple game with a new artificial intelligent model running using ONNX.js and WaveEngine on the browser)
 
 ##New post processing pipeline
 With the new .NET 5 release we will also publish a new tool inside our standalone editor to edit the postprocessing pipeline with a graph editor. We believe this is something new in this area which will allow users to design professional postprocessing pipelines in theirs apps. It looks like this:
