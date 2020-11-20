@@ -1,6 +1,7 @@
 ---
 post_title: 'Bring lights in Unity into the real world using Philips Hue'
 username: abhamed@microsoft.com
+microsoft_alias: abhamed
 categories: Game Development, .NET, C#
 tags: Games, Unity
 featured_image: lights-face.png
