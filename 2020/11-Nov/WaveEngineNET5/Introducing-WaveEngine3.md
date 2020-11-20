@@ -1,9 +1,11 @@
 ---
 post_title: 'Introducing WaveEngine 3.1 based on .NET 5'
-username: 
+username: abhamed@microsoft.com
+microsoft_alias: abhamed
 categories: Game Development, .NET, C#
 tags: Azure,WaveEngine
 featured_image: wave.png
+desired_publication_date: 11/30/2020
 summary: Start creating 3D apps based on .NET 5 today.
 ---
 
