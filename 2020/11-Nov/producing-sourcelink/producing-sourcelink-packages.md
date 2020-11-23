@@ -1,12 +1,14 @@
 ---
-post_title: 'Producing Packagess with Source Link'
+post_title: 'Producing Packages with Source Link'
 username: cnov
+microsoft_alias: cnov
 featured_image: 
 categories: .NET, .NET Core, Debugging
 summary: Learn how to add Source Link to your packages, to make your users more productive while debugging.
+desired_publication_date: '2020-12-09'
 ---
 
-In our last post, we showed you [how you can debug into the framework and dependencies](TODO ADD LINK) that was produced with Source Link. In this post, we'll show you how to add Source Link to your projects. This is beneficial both for public and internal projects.
+In our last post, we showed you [how you can debug into the framework and dependencies](https://devblogs.microsoft.com/dotnet/improving-debug-time-productivity-with-source-link/) that was produced with Source Link. In this post, we'll show you how to add Source Link to your projects. This is beneficial both for public and internal projects.
 
 ## How Source Link Works
 
@@ -42,8 +44,7 @@ You can enable Source Link experience in your own .NET project by setting a few 
 
 Deterministic builds ensure that the same binary is produced regardless of the machine building it, including paths to sources stored in the symbols. While deterministic builds have been on by default since ____, there is an extra property, `ContinuousIntegrationBuild`, to set on the build server to normalize stored file paths. These should not be enabled during local dev or the debugger won't be able to find the local source files.
 
-Therefore, you should use your CI system's variable to set them conditionally. For Azure Pipelines, it 
-looks like this
+Therefore, you should use your CI system's variable to set them conditionally. For Azure Pipelines, it looks like this
 
 ```xml
 <PropertyGroup Condition="'$(TF_BUILD)' == 'true'">
@@ -52,6 +53,7 @@ looks like this
 ```
 
 For GitHub Actions, the variable is `GITHUB_ACTIONS`, so the result would be:
+
 ```xml
 <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
   <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
@@ -65,6 +67,7 @@ If you have a solution that has multiple projects in it, you can extract the com
 If you distribute the library via a package published to [NuGet.org](https://nuget.org), you should use [embedded pdb's[TODO FIND SOURCE TO LINK] so the debug information is always available with your library. Alternatively, you can build a [symbol package](https://docs.microsoft.com/nuget/create-packages/symbol-packages-snupkg) and publish it to [NuGet.org](https://nuget.org) as well. This will make the symbols available on [NuGet.org symbol server](https://docs.microsoft.com/nuget/create-packages/symbol-packages-snupkg#nugetorg-symbol-server), where the debugger can download it from when needed. 
 
 ## Source Control Providers
+
 Source Link packages are currently available for the following source control providers.
 
 > Source Link package is a development dependency, which means it is only used during build. It is therefore recommended to set `PrivateAssets` to `all` on the package reference. This prevents consuming projects of your nuget package from attempting to install Source Link.
@@ -82,7 +85,7 @@ For projects hosted by [GitHub](https://github.com) or [GitHub Enterprise](https
 
 ### Azure Repos (former Visual Studio Team Services)
 
-For projects hosted by [Azure Repos](https://azure.microsoft.com/services/devops/repos) in git repositories reference [Microsoft.SourceLink.AzureRepos.Git](https://www.nuget.org/packages/Microsoft.SourceLink.AzureRepos.Git): 
+For projects hosted by [Azure Repos](https://azure.microsoft.com/services/devops/repos) in git repositories reference [Microsoft.SourceLink.AzureRepos.Git](https://www.nuget.org/packages/Microsoft.SourceLink.AzureRepos.Git):
 
 ```xml
 <ItemGroup>
@@ -144,7 +147,7 @@ The version is important since URL format for accessing files changes with versi
 
 ### gitweb (pre-release)
 
-For projects hosted on-prem via [gitweb](https://git-scm.com/docs/gitweb) reference [Microsoft.SourceLink.GitWeb](https://www.nuget.org/packages/Microsoft.SourceLink.GitWeb) package: 
+For projects hosted on-prem via [gitweb](https://git-scm.com/docs/gitweb) reference [Microsoft.SourceLink.GitWeb](https://www.nuget.org/packages/Microsoft.SourceLink.GitWeb) package:
 
 ```xml
 <ItemGroup>
@@ -154,4 +157,4 @@ For projects hosted on-prem via [gitweb](https://git-scm.com/docs/gitweb) refere
 
 ## Summary
 
-Source Link is easy to add to your projects and we highly recommend that all projects configure it by default. 
+Source Link is easy to add to your projects and we highly recommend that all projects configure it by default.
