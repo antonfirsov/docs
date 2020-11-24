@@ -16,26 +16,26 @@ At its most basic, Source Link generates a JSON file that maps raw source code l
 
 ## Using Source Link
 
-Source Link is distributed as [a set of NuGet packages](https://www.nuget.org/packages?q=Microsoft.SourceLink), one per repository host. It is intended to be used as a private reference (it is used during the build, it does not require runtime consumers to have a dependency on it). 
+Source Link is distributed as [a set of NuGet packages](https://www.nuget.org/packages?q=Microsoft.SourceLink), one per repository host. It is intended to be used as a private reference (it is used during the build, it does not require runtime consumers to have a dependency on it).
 
 You can enable Source Link experience in your own .NET project by setting a few properties and adding a PackageReference to a Source Link package:
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
- 
-    <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <TargetFramework>net5.0</TargetFramework>
+
+    <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
- 
-    <!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
+
+    <!-- Embed source files that are not tracked by the source control manager in the PDB -->
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
   
-    <!-- Optional: Embed symbols containing Source Link in the main file (exe/dll) -->
+    <!-- Recommended: Embed symbols containing Source Link in the main file (exe/dll) -->
     <DebugType>embedded</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <!-- Add PackageReference specific for your source control provider (see below) --> 
+    <!-- Add PackageReference specific for your source control provider (see below) -->
   </ItemGroup>
 </Project>
 ```
@@ -62,20 +62,19 @@ For GitHub Actions, the variable is `GITHUB_ACTIONS`, so the result would be:
 
 ### Don't Repeat Yourself
 
-If you have a solution that has multiple projects in it, you can extract the common properties into a [Directory.Build.props](https://docs.microsoft.com/visualstudio/msbuild/customize-your-build#directorybuildprops-and-directorybuildtargets) file at the solution directory. That way all projects have them added automatically. 
+If you have a solution that has multiple projects in it, you can extract the common properties into a [Directory.Build.props](https://docs.microsoft.com/visualstudio/msbuild/customize-your-build#directorybuildprops-and-directorybuildtargets) file at the solution directory. That way all projects have them added automatically.
 
-If you distribute the library via a package published to [NuGet.org](https://nuget.org), you should use [embedded pdb's[TODO FIND SOURCE TO LINK] so the debug information is always available with your library. Alternatively, you can build a [symbol package](https://docs.microsoft.com/nuget/create-packages/symbol-packages-snupkg) and publish it to [NuGet.org](https://nuget.org) as well. This will make the symbols available on [NuGet.org symbol server](https://docs.microsoft.com/nuget/create-packages/symbol-packages-snupkg#nugetorg-symbol-server), where the debugger can download it from when needed. 
+If you distribute the library via a package published to [NuGet.org](https://nuget.org), you should use embedded PDB's so the debug information is always available with your library. Alternatively, you can build a [symbol package](https://docs.microsoft.com/nuget/create-packages/symbol-packages-snupkg) and publish it to [NuGet.org](https://nuget.org) as well. This will make the symbols available on [NuGet.org symbol server](https://docs.microsoft.com/nuget/create-packages/symbol-packages-snupkg#nugetorg-symbol-server), where the debugger can download it from when needed.
 
 ## Source Control Providers
 
 Source Link packages are currently available for the following source control providers.
 
-> Source Link package is a development dependency, which means it is only used during build. It is therefore recommended to set `PrivateAssets` to `all` on the package reference. This prevents consuming projects of your nuget package from attempting to install Source Link.
+> Source Link package is a development dependency, which means it is only used during build. It is therefore recommended to set `PrivateAssets` to `all` on the package reference. This prevents consuming projects of your NuGet package from attempting to install Source Link.
 
 ### github.com and GitHub Enterprise
 
-For projects hosted by [GitHub](https://github.com) or [GitHub Enterprise](https://enterprise.github.com/home) reference 
-[Microsoft.SourceLink.GitHub](https://www.nuget.org/packages/Microsoft.SourceLink.GitHub) like so:
+For projects hosted by [GitHub](https://github.com) or [GitHub Enterprise](https://enterprise.github.com/home) reference [Microsoft.SourceLink.GitHub](https://www.nuget.org/packages/Microsoft.SourceLink.GitHub) like so:
 
 ```xml
 <ItemGroup>
@@ -104,7 +103,7 @@ For projects hosted by on-prem [Azure DevOps Server](https://azure.microsoft.com
 </ItemGroup>
 ```
 
-If your server is configurated with non-empty IIS [Virtual Directory](docs/TfsVirtualDirectory/README.md), specify this directory in `SourceLinkAzureDevOpsServerGitHost` item like so:
+If your server is configured with non-empty IIS [Virtual Directory](https://github.com/dotnet/sourcelink/blob/master/docs/TfsVirtualDirectory/README.md), specify this directory in `SourceLinkAzureDevOpsServerGitHost` item like so:
 
 ```xml
 <ItemGroup>
@@ -116,7 +115,7 @@ The `Include` attribute specifies the domain and optionally the port of the serv
 
 ### GitLab
 
-For projects hosted by [GitLab](https://gitlab.com) reference [Microsoft.SourceLink.GitLab](https://www.nuget.org/packages/Microsoft.SourceLink.GitLab) package: 
+For projects hosted by [GitLab](https://gitlab.com) reference [Microsoft.SourceLink.GitLab](https://www.nuget.org/packages/Microsoft.SourceLink.GitLab) package:
 
 ```xml
 <ItemGroup>
