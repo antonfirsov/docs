@@ -64,7 +64,7 @@ For GitHub Actions, the variable is `GITHUB_ACTIONS`, so the result would be:
 
 If you have a solution that has multiple projects in it, you can extract the common properties into a [Directory.Build.props](https://docs.microsoft.com/visualstudio/msbuild/customize-your-build#directorybuildprops-and-directorybuildtargets) file at the solution directory. That way all projects have them added automatically.
 
-If you distribute the library via a package published to [NuGet.org](https://nuget.org), you should use embedded PDB's so the debug information is always available with your library. Alternatively, you can build a [symbol package](https://docs.microsoft.com/nuget/create-packages/symbol-packages-snupkg) and publish it to [NuGet.org](https://nuget.org) as well. This will make the symbols available on [NuGet.org symbol server](https://docs.microsoft.com/nuget/create-packages/symbol-packages-snupkg#nugetorg-symbol-server), where the debugger can download it from when needed.
+If you distribute the library via a package published to [NuGet.org](https://nuget.org), you should use embedded PDB's so the debug information is always available with your library. Alternatively, you can build a [symbol package](https://docs.microsoft.com/nuget/create-packages/symbol-packages-snupkg) and publish it to [NuGet.org](https://nuget.org) as well. This will make the symbols available on [NuGet.org symbol server](https://docs.microsoft.com/nuget/create-packages/symbol-packages-snupkg#nugetorg-symbol-server), where the debugger can download it when needed.
 
 ## Source Control Providers
 
