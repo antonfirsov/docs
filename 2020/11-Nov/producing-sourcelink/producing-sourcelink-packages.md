@@ -42,7 +42,7 @@ You can enable Source Link experience in your own .NET project by setting a few 
 
 ### Deterministic Builds
 
-Deterministic builds ensure that the same binary is produced regardless of the machine building it, including paths to sources stored in the symbols. While deterministic builds have been on by default since ____, there is an extra property, `ContinuousIntegrationBuild`, to set on the build server to normalize stored file paths. These should not be enabled during local dev or the debugger won't be able to find the local source files.
+Deterministic builds ensure that the same binary is produced regardless of the machine building it, including paths to sources stored in the symbols. While deterministic builds are enabled by default in .NET SDK projects, there is an extra property, `ContinuousIntegrationBuild`, to set on the build server to normalize stored file paths. These should not be enabled during local dev or the debugger won't be able to find the local source files.
 
 Therefore, you should use your CI system's variable to set them conditionally. For Azure Pipelines, it looks like this
 
