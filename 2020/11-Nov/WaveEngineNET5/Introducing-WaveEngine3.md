@@ -44,8 +44,6 @@ The new postprocessing pipeline is completely based on Compute Shader where it i
 For our Standard Material the new version comes with a Standard Post-Processing graph that users can edit to adapt to their needs. The standard graph comes with all these techniques: TAA (temporal antialiasing), Bokeh DoF (Depth of Field), SSAO (Screen Space Ambient Occlusion), SSR (Screen Space Reflections), Camera Motion Blur, Bloom, Grain, Vignette, Color Gradient and FXAA.
 In this video you can see all these techniques applied at the same time in a demo project: 
 
-![isyoutube](https://www.youtube.com/embed/YlygX3Hdp5I)
-
 <iframe width="560" height="315" src="https://www.youtube.com/embed/YlygX3Hdp5I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Resources
