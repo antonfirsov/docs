@@ -9,9 +9,9 @@ desired_publication_date: 11/30/2020
 summary: Start creating 3D apps based on .NET 5 today.
 ---
 
-*This is a guest post written by **Javier <last name>**. Javier is a Computer Science Engineer who has always had a passion for 3D graphics and software architecture. His professional achievements include being MVP for Windows DirectX and DirectX XNA for the last nine years, Xbox Ambassador, as well as Microsoft Student Partner and Microsoft Most Valuable Student during his years at college. Currently he works at Plainconcepts as Research Team Lead leading the talented team working on WaveEngine*.
+*This is a guest post written by **Javier Cantón Ferrero**. Javier is a Computer Science Engineer who has always had a passion for 3D graphics and software architecture. His professional achievements include being MVP for Windows DirectX and DirectX XNA for the last nine years, Xbox Ambassador, as well as Microsoft Student Partner and Microsoft Most Valuable Student during his years at college. Currently he works at Plainconcepts as Research Team Lead leading the talented team working on WaveEngine*.
 
-We are glad to announce that aligned with Microsoft we have just released WaveEngine 3.1 with official support for .NET 5 and C# 9. So if you are using C# and .NET 5, you can start creating 3D apps based on .NET 5 today. Download it from the [WaveEngine download page](https://waveengine.net/Downloads) right now and start creating 3D apps based on .NET 5 today.
+We are glad to announce that, aligned with Microsoft, we have just released WaveEngine 3.1 with official support for .NET 5 and C# 9. So if you are using C# and .NET 5, you can start creating 3D apps based on .NET 5 today. Download it from the [WaveEngine download page](https://waveengine.net/Downloads) right now and start creating 3D apps based on .NET 5 today. We would like to share with you our journy migrating from .NET Core 3.1 to .NET 5, as well as some of the new features made possible with .NET 5.
 
 From .NET Core 3.1 to .NET 5
 --------------------------------
