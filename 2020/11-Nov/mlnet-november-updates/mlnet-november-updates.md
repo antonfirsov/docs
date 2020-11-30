@@ -1,9 +1,11 @@
 ---
 post_title: "ML.NET Model Builder November Updates"
-username: brachtma@microsoft.com
+username: brachtma@microsoft.com\
+microsoft_alias: brachtma
 featured_image: mlnet-icon.png
 categories: ML.NET, Machine Learning
 summary: This release of ML.NET Model Builder brings numerous bug fixes and enhancements as well as new features, including advanced data loading options and streaming training data from SQL.
+desired_publication_date: 11-30-2020
 ---
 
 [ML.NET](https://dot.net/ml) is an open-source, cross-platform machine learning framework for .NET developers. It enables integrating machine learning into your .NET apps without requiring you to leave the .NET ecosystem or even have a background in ML or data science. ML.NET provides tooling (Model Builder UI in Visual Studio and the cross platform ML.NET CLI) that automatically trains custom machine learning models for you based on your scenario and data.
@@ -79,6 +81,6 @@ If you run into any issues, please let us know by creating an issue in our GitHu
 
 Get started with ML.NET in this [tutorial](https://dotnet.microsoft.com/learn/ml-dotnet/get-started-tutorial/intro).
 
-Learn more about ML.NET and Model Builder in [Microsoft Docs](https://aka.ms/mlnet-docs).
+Learn more about ML.NET and Model Builder in [Microsoft Docs](https://docs.microsoft.com/dotnet/machine-learning/).
 
 Tune in to the [Machine Learning .NET Community Standup](https://dotnet.microsoft.com/platform/community/standup) every other Wednesday at 10am Pacific Time.
