@@ -1,6 +1,6 @@
 ---
 post_title: "ML.NET Model Builder November Updates"
-username: brachtma@microsoft.com\
+username: brachtma@microsoft.com
 microsoft_alias: brachtma
 featured_image: mlnet-icon.png
 categories: ML.NET, Machine Learning
