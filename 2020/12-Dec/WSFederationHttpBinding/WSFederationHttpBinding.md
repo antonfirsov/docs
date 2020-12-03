@@ -2,7 +2,7 @@
 post_title: 'WSFederationHttpBinding in .NET Standard'
 username: mikerou@microsoft.com
 microsoft_alias: mikerou@microsoft.com
-categories: .NET Core, WCF
+categories: .NET Core
 desired_publication_date: 12/14/2020
 summary: The new `System.ServiceModel.Federation` package adds support for `WSFederationHttpBinding` and `WS2007FederationHttpBinding` which bring support for WS-Federation authentication scenarios where users authenticate with a security token service like Active Directory Federation Services. In this post, I'll show you you the basics of getting started with these client-side bindings in your .NET Core applications and .NET Standard libraries.
 ---
