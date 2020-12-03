@@ -1,0 +1,40 @@
+name: SEO optimization
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 # We need the full history in order to figure
+                       # out which posts were pushed.
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    - name: Install dependencies
+      run: dotnet restore tools/blog-get-post/blog-get-post.csproj
+    - name: Build
+      run: dotnet build tools/blog-get-post/blog-get-post.csproj --configuration Release --no-restore --nologo
+    - name: Get Post Title
+      id: get-post
+      run: dotnet run --project tools/blog-get-post/blog-get-post.csproj
+    - uses: nashmaniac/create-issue-action@v1.1
+      if: ${{ steps.get-post.outputs.title != '' }}
+      name: File issue
+      with:
+        title: Perform SEO for '${{ steps.get-post.outputs.title }}'
+        token: ${{secrets.GITHUB_TOKEN}}
+        assignees: v-mepa
+        labels: seo
+        body: |
+          Please visit [the WordPress posts](https://devblogs.microsoft.com/dotnet/wp-admin/edit.php) to perform the SEO optimization.
+
+          Title: ${{ steps.get-post.outputs.title }}
+          Alias: ${{ steps.get-post.outputs.alias }}
+          Date: ${{ steps.get-post.outputs.date }}
+

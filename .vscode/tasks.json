@@ -8,7 +8,7 @@
             "args": [
                 "run",
                 "--project",
-                "${workspaceFolder}/src/blog-validate/blog-validate.csproj",
+                "${workspaceFolder}/tools/blog-validate/blog-validate.csproj",
                 "--",
                 "${workspaceFolder}"
             ],
