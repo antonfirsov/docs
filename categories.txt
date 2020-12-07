@@ -27,6 +27,7 @@ ML.NET
 Performance
 Security
 Spark for .NET
+Static Analysis
 TPL
 Visual Studio
 WinForms
