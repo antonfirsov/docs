@@ -2,7 +2,6 @@
 post_title: 'Infer#: Interprocedural Memory Safety Analysis For C#'
 username: xinshi
 microsoft_alias: xinshi
-featured_image: path/relative/to/your/post/image.png
 categories: .NET, .NET Core, C#, Static Analysis
 summary: 'We are excited to announce the public release of Infer#, which brings the interprocedural static analysis capabilities of Infer to the .NET community.'
 desired_publication_date: '2020-12-08'
