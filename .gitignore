@@ -174,3 +174,4 @@ nuget/*.nupkg
 
 # In case we use paket for some reason
 .paket
+*.kra
