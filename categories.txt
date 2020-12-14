@@ -19,6 +19,7 @@ ErrorProne.NET
 F#
 Game Development
 GC
+GitHub Action
 Lifecycle
 LOH
 Machine Learning
@@ -29,8 +30,8 @@ Security
 Spark for .NET
 Static Analysis
 TPL
+Visual Basic
 Visual Studio
 WinForms
 WPF
-Visual Basic
 XAML

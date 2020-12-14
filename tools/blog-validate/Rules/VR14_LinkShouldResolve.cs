@@ -30,7 +30,7 @@ namespace Microsoft.DotNetBlog
 
                 try
                 {
-                    using var response = client.GetAsync(url).Result;
+                    using var response = client.GetAsync(url).GetAwaiter().GetResult();
 
                     if (IsForwardLink(url) && !IsForwarded(response))
                         throw new Exception("The URL wasn't forwarded");
