@@ -52,9 +52,38 @@ link:
 1. Request access to the [dotnet team in microsoft org](https://repos.opensource.microsoft.com/microsoft/teams/dotnet/join/)
 2. Leave feedback on the PR
 
+## External authors
+
+Have you explored the idea of inviting external bloggers onto DevBlogs but not
+sure how to go about it? We now have a process in place to enable to do just
+this:
+
+1. **Waiver &/or NDA** (depending on the situation). For when external authors
+   are granted "external author" role to come into our blog space to draft and
+   publish their content. See [NDA for External Authors.docx][NDA].
+
+2. **Waiver**. For when external authors grant us permission to publish their
+   content on our site. See [License for External Authors.docx][License].
+
+Additionally in terms of backend access and blog author list management, we now
+have a new user role *external author*. Non-Microsoft authors should ideally be
+given this role which is only slightly different from regular "author" roles:
+
+1. In the media folder they can only see media files uploaded by them
+2. In the "all posts" view they only see posts authored by them
+
+This ensures that external authors don't accidentally see draft post titles or
+media files for important announcements that have not yet been published.
+
+Reach out to us on [devblogsplatform](mailto:devblogsplatform@microsoft.com) if
+you have any questions.
+
 ## Validation
 
 We have a validation tool that automatically runs on CI builds. You can invoke
 this from VS Code via <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>B</kbd> (or whatever
 you bound the build command to) or via the command line by invoking
 `validate.cmd`.
+
+[NDA]: https://microsoft.sharepoint.com/:w:/r/teams/dd_vsblog/_layouts/15/Doc.aspx?sourcedoc=%7BFD4908C7-2B4A-476E-8C74-97C20CE4CD33%7D&file=NDA%20Process%20for%20External%20Blog%20Authors.docx&action=default&mobileredirect=true
+[License]: https://microsoft.sharepoint.com/:w:/t/dd_vsblog/EdbLLTgQuLRGuPVzkLnn8ewBfpXexWoMA-bquVRbDMxMlQ?e=LZQdoB
