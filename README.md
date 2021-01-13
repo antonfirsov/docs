@@ -29,8 +29,9 @@ In other words:
 2. Submit a PR to [dotnet-blog](https://github.com/microsoft/dotnet-blog)
     * Author post in Markdown. You can use [this template](templates/blank.md).
     * To pick a publication date, consult the [blogging schedule](https://tasks.office.com/microsoft.onmicrosoft.com/en-US/Home/Planner#/plantaskboard?planId=wHOgFOjggEyrykcunh6oQpUAARuD).
-      We generally only publish one post per day per blog. You can use the label
-      to filter to the .NET blog.
+      We generally only publish one post per day per blog. Also, you need to add
+      buffering for review and SEO. Plan for a minimum of three days between PR
+      creation and publication date.
     * Add subject matter experts (SMEs) from your engineering team/partner team as reviewers
     * We have an integration that will automatically stage the post in WordPress when the PR is merged. For more details, see this guide on [Drafting in GitHub](https://dev.azure.com/devdiv/DevDiv/_wiki/wikis/DevDiv.wiki/10339/Drafting-in-GitHub).
 3. [Sign in to the .NET blog](https://devblogs.microsoft.com/dotnet/wp-login.php?redirect_to=https%3A%2F%2Fdevblogs.microsoft.com%2Fdotnet%2F)
