@@ -1,4 +1,11 @@
-# Blinking lots of LEDs with Raspberry Pi
+---
+post_title: Blinking lots of LEDs with Raspberry Pi
+username: rlander@microsoft.com
+microsoft_alias: rlander@microsoft.com
+categories: .NET Core, .NET
+desired_publication_date: 3/10/2021
+summary: You can use C# and .NET to blink lots of LEDs with the Raspberry Pi, with a new set of LED blinking APIs.
+---
 
 The [Raspberry Pi](https://www.raspberrypi.org/) is one of the world's most successful hardware projects. A lot of people have one, but not everyone knows what to do with it. You can use it as a [desktop computer](https://www.raspberrypi.org/products/raspberry-pi-400/) or the [brain of an electronic circuit](https://learn.adafruit.com/category/raspberry-pi). I use the Raspberry Pi to blink LEDs -- with C# and [.NET GPIO APIs](https://docs.microsoft.com/dotnet/iot/) -- in weird and wonderful ways. It's straightforward to blink a single LED, but it gets cumbersome to wire and control multiple LEDs once you get past half a dozen. In this post, I'll show you how you can control large numbers of LEDs easily, with a mix of code and hardware.
 
