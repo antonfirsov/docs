@@ -28,6 +28,10 @@ namespace Microsoft.DotNetBlog
                 if (!url.IsAbsoluteUri)
                     continue;
 
+                var isHttp = url.Scheme.StartsWith("http", StringComparison.OrdinalIgnoreCase);
+                if (!isHttp)
+                    continue;
+
                 try
                 {
                     using var response = client.GetAsync(url).GetAwaiter().GetResult();

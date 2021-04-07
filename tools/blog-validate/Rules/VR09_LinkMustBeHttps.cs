@@ -24,13 +24,21 @@ namespace Microsoft.DotNetBlog
             foreach (var link in links)
             {              
                 var url = new Uri(link.Url, UriKind.RelativeOrAbsolute);
-                if (!url.IsAbsoluteUri || string.Equals(url.Scheme, "https"))
+
+                if (!url.IsAbsoluteUri)
                     continue;
 
                 var isKnownHost = _knownHosts.Any(k => url.Host.Equals(k, StringComparison.OrdinalIgnoreCase) ||
-                                                       url.Host.EndsWith("." + k, StringComparison.OrdinalIgnoreCase));                             
-                if (isKnownHost)
-                    context.Error("VR09", link, $"The host '{url.Host}' requires https");
+                                                       url.Host.EndsWith("." + k, StringComparison.OrdinalIgnoreCase));
+                if (!isKnownHost)
+                    continue;
+
+                var isHttp = url.Scheme.StartsWith("http", StringComparison.OrdinalIgnoreCase);
+                var isSecure = string.Equals(url.Scheme, "https", StringComparison.OrdinalIgnoreCase);
+                if (!isHttp || isSecure)
+                    continue;
+
+                context.Error("VR09", link, $"The host '{url.Host}' requires https");
             }
         }
     }
