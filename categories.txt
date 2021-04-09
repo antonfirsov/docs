@@ -2,6 +2,7 @@
 .NET Core
 .NET Framework
 .NET Internals
+.NET MAUI
 AI Machine Learning
 Apache
 ASP.NET
