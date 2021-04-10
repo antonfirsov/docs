@@ -1,0 +1,164 @@
+rich@mazama:~$ ssh rich@192.168.1.226
+rich@192.168.1.226's password:
+Welcome to Manjaro-ARM
+~~Website: https://manjaro.org
+~~Forum:   https://forum.manjaro.org/c/arm
+~~Matrix:  #manjaro-arm-public:matrix.org
+[rich@rasbperry-armor ~]$ ls
+[rich@rasbperry-armor ~]$ ls .ssh
+ls: cannot access '.ssh': No such file or directory
+[rich@rasbperry-armor ~]$ mkdir .ssh
+[rich@rasbperry-armor ~]$ exit
+logout
+Connection to 192.168.1.226 closed.
+rich@mazama:~$ cat .ssh/id_rsa.pub | ssh rich@192.168.1.226 "cat >> .ssh/authorized_keys"
+rich@192.168.1.226's password:
+rich@mazama:~$ ssh rich@192.168.1.226
+Welcome to Manjaro-ARM
+~~Website: https://manjaro.org
+~~Forum:   https://forum.manjaro.org/c/arm
+~~Matrix:  #manjaro-arm-public:matrix.org
+Last login: Fri Apr  9 13:02:40 2021 from 192.168.1.188
+[rich@rasbperry-armor ~]$
+
+
+rich@mazama:~$ ssh rich@192.168.1.226
+Welcome to Manjaro-ARM
+~~Website: https://manjaro.org
+~~Forum:   https://forum.manjaro.org/c/arm
+~~Matrix:  #manjaro-arm-public:matrix.org
+Last login: Fri Apr  9 13:02:40 2021 from 192.168.1.188
+[rich@rasbperry-armor ~]$ curl -o dotnet.tar.gz https://download.visualstudio.microsoft.com/download/pr/90d8a5e0-ed8f-430c-a66c-d17a096024a9/95d17428d5b0da3552c502eede9f7f05/dotnet-sdk-6.0.100-preview.3.21202.5-linux-arm64.tar.gz
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  145M  100  145M    0     0  17.7M      0  0:00:08  0:00:08 --:--:-- 18.3M
+[rich@rasbperry-armor ~]$ mkdir dotnet
+[rich@rasbperry-armor ~]$ tar -C dotnet -xf dotnet.tar.gz
+[rich@rasbperry-armor ~]$ ./dotnet/dotnet --version
+6.0.100-preview.3.21202.5
+[rich@rasbperry-armor ~]$ ./dotnet/dotnet --info
+.NET SDK (reflecting any global.json):
+ Version:   6.0.100-preview.3.21202.5
+ Commit:    aee38a6dd4
+
+Runtime Environment:
+ OS Name:     manjaro-arm
+ OS Version:
+ OS Platform: Linux
+ RID:         linux-arm64
+ Base Path:   /home/rich/dotnet/sdk/6.0.100-preview.3.21202.5/
+
+Host (useful for support):
+  Version: 6.0.0-preview.3.21201.4
+  Commit:  236cb21e3c
+
+.NET SDKs installed:
+  6.0.100-preview.3.21202.5 [/home/rich/dotnet/sdk]
+
+.NET runtimes installed:
+  Microsoft.AspNetCore.App 6.0.0-preview.3.21201.13 [/home/rich/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.NETCore.App 6.0.0-preview.3.21201.4 [/home/rich/dotnet/shared/Microsoft.NETCore.App]
+
+To install additional .NET runtimes or SDKs:
+  https://aka.ms/dotnet-download
+[rich@rasbperry-armor ~]$
+
+
+[rich@rasbperry-armor ~]$ export PATH="$PATH:/home/rich/.dotnet/tools"
+[rich@rasbperry-armor ~]$ ./dotnet/dotnet runtimeinfo
+A fatal error occurred. The required library libhostfxr.so could not be found.
+If this is a self-contained application, that library should exist in [/home/rich/.dotnet/tools/.store/dotnet-runtimeinfo/1.0.4/dotnet-runtimeinfo/1.0.4/tools/netcoreapp3.1/any/].
+If this is a framework-dependent application, install the runtime in the global location [/usr/share/dotnet] or use the DOTNET_ROOT environment variable to specify the runtime location or register the runtime location in [/etc/dotnet/install_location].
+
+The .NET runtime can be found at:
+  - https://aka.ms/dotnet-core-applaunch?missing_runtime=true&arch=arm64&rid=manjaro-arm-arm64&apphost_version=6.0.0-preview.3.21201.4
+[rich@rasbperry-armor ~]$ export DOTNET_ROOT=~/dotnet
+[rich@rasbperry-armor ~]$ ./dotnet/dotnet runtimeinfo
+**.NET information
+Version: 6.0.0
+FrameworkDescription: .NET 6.0.0-preview.3.21201.4
+Libraries version: 6.0.0-preview.3.21201.4
+Libraries hash: 236cb21e3c1992c8cee6935ce67e2125ac4687e8
+
+**Environment information
+OSDescription: Linux 5.10.17-1-MANJARO-ARM #1 SMP PREEMPT Mon Feb 22 11:29:03 CST 2021
+OSVersion: Unix 5.10.17.1
+OSArchitecture: Arm64
+ProcessorCount: 4
+
+
+[rich@rasbperry-armor ~]$ sudo pacman -S git
+
+[rich@rasbperry-armor ~]$ git clone https://github.com/dotnet/iot
+
+[rich@rasbperry-armor led-blink]$ export DOTNET_ROOT=~/dotnet
+[rich@rasbperry-armor led-blink]$ ./bin/Debug/net5.0/led-blink
+It was not possible to find any compatible framework version
+The framework 'Microsoft.NETCore.App', version '5.0.0' was not found.
+  - The following frameworks were found:
+      6.0.0-preview.3.21201.4 at [/home/rich/dotnet/shared/Microsoft.NETCore.App]
+
+You can resolve the problem by installing the specified framework and/or SDK.
+
+The specified framework can be found at:
+  - https://aka.ms/dotnet-core-applaunch?framework=Microsoft.NETCore.App&framework_version=5.0.0&arch=arm64&rid=manjaro-arm-arm64
+[rich@rasbperry-armor led-blink]$ export DOTNET_ROLL_FORWARD=LatestMajor
+[rich@rasbperry-armor led-blink]$ ./bin/Debug/net5.0/led-blink
+Unhandled exception. System.IO.IOException: Error 13 initializing the Gpio driver.
+   at System.Device.Gpio.Drivers.RaspberryPi3LinuxDriver.Initialize() in /home/rich/iot/src/System.Device.Gpio/System/Device/Gpio/Drivers/RaspberryPi3LinuxDriver.cs:line 603
+   at System.Device.Gpio.Drivers.RaspberryPi3LinuxDriver.OpenPin(Int32 pinNumber) in /home/rich/iot/src/System.Device.Gpio/System/Device/Gpio/Drivers/RaspberryPi3LinuxDriver.cs:line 159
+   at System.Device.Gpio.Drivers.RaspberryPi3Driver.OpenPin(Int32 pinNumber) in /home/rich/iot/src/System.Device.Gpio/System/Device/Gpio/Drivers/RaspberryPi3Driver.cs:line 179
+   at System.Device.Gpio.GpioController.OpenPinCore(Int32 pinNumber) in /home/rich/iot/src/System.Device.Gpio/System/Device/Gpio/GpioController.cs:line 104
+   at System.Device.Gpio.GpioController.OpenPin(Int32 pinNumber) in /home/rich/iot/src/System.Device.Gpio/System/Device/Gpio/GpioController.cs:line 93
+   at System.Device.Gpio.GpioController.OpenPin(Int32 pinNumber, PinMode mode) in /home/rich/iot/src/System.Device.Gpio/System/Device/Gpio/GpioController.cs:line 114
+   at <Program>$.<Main>$(String[] args) in /home/rich/iot/samples/led-blink/Program.cs:line 13
+Aborted (core dumped)
+[rich@rasbperry-armor led-blink]$ ^C
+[rich@rasbperry-armor led-blink]$ export DOTNET_ROLL_FORWARD_TO_PRERELEASE=1
+[rich@rasbperry-armor led-blink]$
+
+
+[rich@rasbperry-armor ~]$ cd iot
+[rich@rasbperry-armor iot]$ cd ..
+[rich@rasbperry-armor ~]$ cd iot/samples/led-animate/
+[rich@rasbperry-armor led-animate]$ cd ..
+[rich@rasbperry-armor samples]$ cd led-blink
+[rich@rasbperry-armor led-blink]$ ~/dotnet/dotnet build
+Microsoft (R) Build Engine version 16.10.0-preview-21181-07+073022eb4 for .NET
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+
+rich@mazama:~$ ssh pi@raspberrypineapple "cat /lib/udev/rules.d/60-rpi.gpio-common.rules" | ssh rich@192.168.1.226 "cat
+>> 60-rpi.gpio-common.rules"
+
+https://github.com/microsoft/WSL/issues/4518
+
+[rich@rasbperry-armor ~]$ ls
+60-rpi.gpio-common.rules  dotnet  dotnet.tar.gz  iot
+[rich@rasbperry-armor ~]$ ls /lib/udev/rules.d/
+10-dm.rules            60-input-id.rules                 64-btrfs.rules            75-probe_mtd.rules
+13-dm-disk.rules       60-persistent-alsa.rules          70-joystick.rules         78-sound-card.rules
+50-udev-default.rules  60-persistent-input.rules         70-mouse.rules            80-drivers.rules
+60-autosuspend.rules   60-persistent-storage.rules       70-power-switch.rules     80-net-setup-link.rules
+60-block.rules         60-persistent-storage-tape.rules  70-touchpad.rules         90-vconsole.rules
+60-cdrom_id.rules      60-persistent-v4l.rules           70-uaccess.rules          95-dm-notify.rules
+60-drm.rules           60-rfkill.rules                   71-seat.rules             96-e2scrub.rules
+60-evdev.rules         60-sensor.rules                   73-seat-late.rules        99-fuse.rules
+60-fido-id.rules       60-serial.rules                   75-net-description.rules  99-systemd.rules
+[rich@rasbperry-armor ~]$ ls /lib/udev/rules.d/ | grep gpio
+[rich@rasbperry-armor ~]$ mv 60-rpi.gpio-common.rules /lib/udev/rules.d/
+mv: cannot move '60-rpi.gpio-common.rules' to '/lib/udev/rules.d/60-rpi.gpio-common.rules': Permission denied
+[rich@rasbperry-armor ~]$ sudo mv 60-rpi.gpio-common.rules /lib/udev/rules.d/
+[sudo] password for rich:
+[rich@rasbperry-armor ~]$ ls /lib/udev/rules.d/ | grep gpio
+60-rpi.gpio-common.rules
+[rich@rasbperry-armor ~]$
+
+sudo usermod -aG dialout $USER
+
+
+[rich@rasbperry-armor ~]$ sudo reboot
+
+
+export DOTNET_ROOT=~/dotnet && export DOTNET_ROLL_FORWARD=LatestMajor && export DOTNET_ROLL_FORWARD_TO_PRERELEASE=1
+
