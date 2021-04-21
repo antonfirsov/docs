@@ -1,6 +1,6 @@
 ---
 post_title: "What's new in dotnet monitor"
-username: shirhatti
+username: soshir@microsoft.com
 microsoft_alias: soshir
 categories: .NET
 summary: "Learn about what's new in dotnet monitor"
