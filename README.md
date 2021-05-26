@@ -1,7 +1,7 @@
 # .NET Blog
 
 This repository is for reviewing and authoring our blog posts. The blogs posts
-must be authored in Markdown using this template](templates/blank.md).
+must be authored in Markdown using [this template](templates/blank.md).
 
 The directory structure should look like this:
 
