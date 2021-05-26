@@ -35,8 +35,10 @@ Spark for .NET
 Static Analysis
 Support
 TPL
+Tye
 Visual Basic
 Visual Studio
+Visual Studio Code
 WinForms
 WPF
 XAML
