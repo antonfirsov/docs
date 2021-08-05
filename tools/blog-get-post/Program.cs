@@ -17,6 +17,8 @@ namespace Microsoft.DotNetBlog
             var help = false;
             var beforeText = "";
             var afterText = "";
+            var pullRequestNumber = -1;
+            var pullRequestMerged = false;
 
             var eventPath = Environment.GetEnvironmentVariable("GITHUB_EVENT_PATH");
             if (!string.IsNullOrEmpty(eventPath))
@@ -24,18 +26,23 @@ namespace Microsoft.DotNetBlog
                 var eventJson = File.ReadAllText(eventPath);
                 var eventPayload = JsonSerializer.Deserialize<GitHubEventPayload>(eventJson);
 
+                pullRequestNumber = eventPayload.number;
+
                 if (eventPayload.before is not null && eventPayload.after is not null)
                 {
                     beforeText = eventPayload.before;
                     afterText = eventPayload.after;
                 }
-                else if (eventPayload.pull_request is not null) 
+                else if (eventPayload.pull_request is not null)
                 {
-                    beforeText = eventPayload.pull_request?.@base?.sha;
-                    afterText = eventPayload.pull_request?.head?.sha;
+                    beforeText = eventPayload.pull_request.@base?.sha;
+                    afterText = eventPayload.pull_request.head?.sha;
+                    pullRequestMerged = eventPayload.pull_request.merged;
                 }
             }
 
+            Console.WriteLine($"PullRequestNumber = {pullRequestNumber}");
+            Console.WriteLine($"PullRequestMerged = {pullRequestMerged}");
             Console.WriteLine($"Before = {beforeText}");
             Console.WriteLine($"After = {afterText}");
 
@@ -93,12 +100,12 @@ namespace Microsoft.DotNetBlog
                 Console.Error.WriteLine($"error: reference '{afterText}' isn't valid");
                 return 1;
             }
-          
+
             var affectedFiles = BlogRepo.GetAffectedPosts(repository, beforeCommit, afterCommit);
 
             try
             {
-                return Run(affectedFiles);
+                return Run(pullRequestNumber, pullRequestMerged, affectedFiles);
             }
             catch (Exception ex)
             {
@@ -120,7 +127,7 @@ namespace Microsoft.DotNetBlog
             }
         }
 
-        private static int Run(string[] affectedFiles)
+        private static int Run(int pullRequestNumber, bool pullRequestMerged, string[] affectedFiles)
         {
             var markdownFiles = affectedFiles.Where(p => string.Equals(Path.GetExtension(p), ".md", StringComparison.OrdinalIgnoreCase))
                                              .ToArray();
@@ -145,6 +152,8 @@ namespace Microsoft.DotNetBlog
                 return 0;
             }
 
+            Console.WriteLine($"::set-output name=pullRequestNumber::{pullRequestNumber}");
+            Console.WriteLine($"::set-output name=pullRequestMerged::{pullRequestMerged}");
             Console.WriteLine($"::set-output name=title::{frontMatter.PostTitle}");
             Console.WriteLine($"::set-output name=alias::{frontMatter.MicrosoftAlias}");
             Console.WriteLine($"::set-output name=date::{frontMatter.DesiredPublicationDate?.ToString("yyyy-MM-dd")}");
@@ -154,15 +163,24 @@ namespace Microsoft.DotNetBlog
 
     internal sealed class GitHubEventPayload
     {
+        public string action { get; set; }
         public string before { get; set; }
         public string after { get; set; }
+        public int number { get; set; }
         public PullRequestPayload pull_request { get; set; }
     }
 
     internal sealed class PullRequestPayload
     {
         public RefPayload @base { get; set; }
-        public RefPayload @head { get; set; }
+        public bool draft { get; set; }
+        public RefPayload head { get; set; }
+        public int id { get; set; }
+        public bool merged { get; set; }
+        public int number { get; set; }
+        public string state { get; set; }
+        public string title { get; set; }
+        public UserPayload user { get; set; }
     }
 
     internal sealed class RefPayload
@@ -170,5 +188,10 @@ namespace Microsoft.DotNetBlog
         public string sha { get; set; }
         public string @ref { get; set; }
         public string label { get; set; }
+    }
+
+    internal sealed class UserPayload
+    {
+        public string login { get; set; }
     }
 }
