@@ -147,7 +147,7 @@ namespace Microsoft.DotNetBlog
 
             Console.WriteLine($"::set-output name=title::{frontMatter.PostTitle}");
             Console.WriteLine($"::set-output name=alias::{frontMatter.MicrosoftAlias}");
-            Console.WriteLine($"::set-output name=date::{frontMatter.DesiredPublicationDate?.ToString("dd/MM/yyyy")}");
+            Console.WriteLine($"::set-output name=date::{frontMatter.DesiredPublicationDate?.ToString("yyyy-MM-dd")}");
             return 0;
         }
     }
