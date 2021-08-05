@@ -22,10 +22,22 @@ namespace Microsoft.DotNetBlog
             if (!string.IsNullOrEmpty(eventPath))
             {
                 var eventJson = File.ReadAllText(eventPath);
-                var eventPayload = JsonSerializer.Deserialize<PushPayload>(eventJson);
-                beforeText = eventPayload.before;
-                afterText = eventPayload.after;
+                var eventPayload = JsonSerializer.Deserialize<GitHubEventPayload>(eventJson);
+
+                if (eventPayload.before is not null && eventPayload.after is not null)
+                {
+                    beforeText = eventPayload.before;
+                    afterText = eventPayload.after;
+                }
+                else if (eventPayload.pull_request is not null) 
+                {
+                    beforeText = eventPayload.pull_request?.@base?.sha;
+                    afterText = eventPayload.pull_request?.head?.sha;
+                }
             }
+
+            Console.WriteLine($"Before = {beforeText}");
+            Console.WriteLine($"After = {afterText}");
 
             var options = new OptionSet
             {
@@ -140,9 +152,23 @@ namespace Microsoft.DotNetBlog
         }
     }
 
-    internal sealed class PushPayload
+    internal sealed class GitHubEventPayload
     {
         public string before { get; set; }
         public string after { get; set; }
+        public PullRequestPayload pull_request { get; set; }
+    }
+
+    internal sealed class PullRequestPayload
+    {
+        public RefPayload @base { get; set; }
+        public RefPayload @head { get; set; }
+    }
+
+    internal sealed class RefPayload
+    {
+        public string sha { get; set; }
+        public string @ref { get; set; }
+        public string label { get; set; }
     }
 }
