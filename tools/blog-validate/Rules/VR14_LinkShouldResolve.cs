@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -24,29 +25,40 @@ namespace Microsoft.DotNetBlog
 
             foreach (var link in links)
             {
-                var url = new Uri(link.Url, UriKind.RelativeOrAbsolute);
-                if (!url.IsAbsoluteUri)
+                if (!UriHelper.TryGetRelativeOrAbsoluteUri(link.Url, out var url))
                     continue;
 
-                var isHttp = url.Scheme.StartsWith("http", StringComparison.OrdinalIgnoreCase);
-                if (!isHttp)
-                    continue;
-
-                try
+                if (url.IsAbsoluteUri)
                 {
-                    using var response = client.GetAsync(url).GetAwaiter().GetResult();
-
-                    if (IsForwardLink(url) && !IsForwarded(response))
-                        throw new Exception("The URL wasn't forwarded");
-
-                    if (IsForwarded(response))
+                    var isHttp = url.Scheme.StartsWith("http", StringComparison.OrdinalIgnoreCase);
+                    if (!isHttp)
                         continue;
 
-                    response.EnsureSuccessStatusCode();
+                    try
+                    {
+                        using var response = client.GetAsync(url).GetAwaiter().GetResult();
+
+                        if (IsForwardLink(url) && !IsForwarded(response))
+                            throw new Exception("The URL wasn't forwarded");
+
+                        if (IsForwarded(response))
+                            continue;
+
+                        response.EnsureSuccessStatusCode();
+                    }
+                    catch (Exception ex)
+                    {
+                        context.Warning("VR14", link, $"URL '{url}' doesn't resolve: {ex.Message}");
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    context.Warning("VR14", link, $"URL '{url}' doesn't resolve: {ex.Message}");
+                    var markdownDirectory = Path.GetDirectoryName(context.FileName);
+                    var fullPath = Path.Join(markdownDirectory, link.Url);
+                    if (!File.Exists(fullPath))
+                    {
+                        context.Error("VR20", link, $"Relative URL '{url}' doesn't resolve to file in the repository");
+                    }
                 }
             }
         }      

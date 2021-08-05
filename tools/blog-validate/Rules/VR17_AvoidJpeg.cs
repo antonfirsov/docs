@@ -16,7 +16,9 @@ namespace Microsoft.DotNetBlog
 
             foreach (var link in links)
             {
-                var url = new Uri(link.Url, UriKind.RelativeOrAbsolute);
+                if (!UriHelper.TryGetRelativeOrAbsoluteUri(link.Url, out var url))
+                    continue;
+
                 var local = url.IsAbsoluteUri ? url.LocalPath : link.Url;
                 var extension = Path.GetExtension(local);
 
