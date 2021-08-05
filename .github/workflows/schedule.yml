@@ -1,8 +1,8 @@
-name: SEO optimization
+name: Planner Task Creation
 
 on:
-  push:
-    branches: [ main ]
+ pull_request:
+   types: [opened]
 
 jobs:
   build:
@@ -23,17 +23,11 @@ jobs:
     - name: Get Post Title
       id: get-post
       run: dotnet run --project tools/blog-get-post/blog-get-post.csproj
-    - uses: nashmaniac/create-issue-action@v1.1
+    - name: HTTP Request Action
       if: ${{ steps.get-post.outputs.title != '' }}
-      name: File issue
+      uses: fjogeleit/http-request-action@v1.7.1
       with:
-        title: Perform SEO for '${{ steps.get-post.outputs.title }}'
-        token: ${{secrets.GITHUB_TOKEN}}
-        assignees: v-mepa
-        labels: seo
-        body: |
-          Please visit [the WordPress posts](https://devblogs.microsoft.com/dotnet/wp-admin/edit.php) to perform the SEO optimization.
-
-          Title: ${{ steps.get-post.outputs.title }}
-          Alias: ${{ steps.get-post.outputs.alias }}
-          Date: ${{ steps.get-post.outputs.date }}
+        # Request URL
+        url: 'https://prod-05.westus2.logic.azure.com:443/workflows/a59ca80b0b0e4a06a248ba48670f78dd/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=xjUJMLP6P6bMADP81dUR8xqbqk4-OLhTS_8uDBbRA8g'
+        # Request Body as JSON String
+        data: '{ "post":	{ "microsoft_alias": "${{ steps.get-post.outputs.alias }}", "desired_publication_date": "${{ steps.get-post.outputs.date }}", "category" : ".NET",	"post_title": "${{ steps.get-post.outputs.title }}"	} }'
