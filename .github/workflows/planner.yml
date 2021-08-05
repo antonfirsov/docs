@@ -1,8 +1,8 @@
-name: Planner Task Creation
+name: Update Planner
 
 on:
  pull_request:
-   types: [opened]
+   types: [opened, synchronize, closed]
 
 jobs:
   build:
@@ -20,14 +20,22 @@ jobs:
       run: dotnet restore tools/blog-get-post/blog-get-post.csproj
     - name: Build
       run: dotnet build tools/blog-get-post/blog-get-post.csproj --configuration Release --no-restore --nologo
-    - name: Get Post Title
+    - name: Get blog post metadata
       id: get-post
       run: dotnet run --project tools/blog-get-post/blog-get-post.csproj
-    - name: HTTP Request Action
+    - name: Update planner
       if: ${{ steps.get-post.outputs.title != '' }}
       uses: fjogeleit/http-request-action@v1.7.1
       with:
-        # Request URL
         url: 'https://prod-05.westus2.logic.azure.com:443/workflows/a59ca80b0b0e4a06a248ba48670f78dd/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=xjUJMLP6P6bMADP81dUR8xqbqk4-OLhTS_8uDBbRA8g'
-        # Request Body as JSON String
-        data: '{ "post":	{ "microsoft_alias": "${{ steps.get-post.outputs.alias }}", "desired_publication_date": "${{ steps.get-post.outputs.date }}", "category" : ".NET",	"post_title": "${{ steps.get-post.outputs.title }}"	} }'
+        data: | 
+          {
+            "post": {
+              "pull_request_number": '${{ steps.get-post.outputs.pull_request_number }}''
+              "pull_request_is_merged": ${{ steps.get-post.outputs.pull_request_is_merged }}'
+              "microsoft_alias": "${{ steps.get-post.outputs.alias }}",
+              "desired_publication_date": "${{ steps.get-post.outputs.date }}",
+              "category" : ".NET",
+              "post_title": "${{ steps.get-post.outputs.title }}"
+            }
+          }

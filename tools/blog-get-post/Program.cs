@@ -18,7 +18,7 @@ namespace Microsoft.DotNetBlog
             var beforeText = "";
             var afterText = "";
             var pullRequestNumber = -1;
-            var pullRequestMerged = false;
+            var pullRequestIsMerged = false;
 
             var eventPath = Environment.GetEnvironmentVariable("GITHUB_EVENT_PATH");
             if (!string.IsNullOrEmpty(eventPath))
@@ -37,14 +37,14 @@ namespace Microsoft.DotNetBlog
                 {
                     beforeText = eventPayload.pull_request.@base?.sha;
                     afterText = eventPayload.pull_request.head?.sha;
-                    pullRequestMerged = eventPayload.pull_request.merged;
+                    pullRequestIsMerged = eventPayload.pull_request.merged;
                 }
             }
 
-            Console.WriteLine($"PullRequestNumber = {pullRequestNumber}");
-            Console.WriteLine($"PullRequestMerged = {pullRequestMerged}");
-            Console.WriteLine($"Before = {beforeText}");
-            Console.WriteLine($"After = {afterText}");
+            Console.WriteLine($"pull_request_number = {pullRequestNumber}");
+            Console.WriteLine($"pull_request_is_merged = {pullRequestIsMerged}");
+            Console.WriteLine($"before = {beforeText}");
+            Console.WriteLine($"after = {afterText}");
 
             var options = new OptionSet
             {
@@ -105,7 +105,7 @@ namespace Microsoft.DotNetBlog
 
             try
             {
-                return Run(pullRequestNumber, pullRequestMerged, affectedFiles);
+                return Run(pullRequestNumber, pullRequestIsMerged, affectedFiles);
             }
             catch (Exception ex)
             {
@@ -127,7 +127,7 @@ namespace Microsoft.DotNetBlog
             }
         }
 
-        private static int Run(int pullRequestNumber, bool pullRequestMerged, string[] affectedFiles)
+        private static int Run(int pullRequestNumber, bool pullRequestIsMerged, string[] affectedFiles)
         {
             var markdownFiles = affectedFiles.Where(p => string.Equals(Path.GetExtension(p), ".md", StringComparison.OrdinalIgnoreCase))
                                              .ToArray();
@@ -152,8 +152,8 @@ namespace Microsoft.DotNetBlog
                 return 0;
             }
 
-            Console.WriteLine($"::set-output name=pullRequestNumber::{pullRequestNumber}");
-            Console.WriteLine($"::set-output name=pullRequestMerged::{pullRequestMerged}");
+            Console.WriteLine($"::set-output name=pull_request_number::{pullRequestNumber}");
+            Console.WriteLine($"::set-output name=pull_request_is_merged::{pullRequestIsMerged}");
             Console.WriteLine($"::set-output name=title::{frontMatter.PostTitle}");
             Console.WriteLine($"::set-output name=alias::{frontMatter.MicrosoftAlias}");
             Console.WriteLine($"::set-output name=date::{frontMatter.DesiredPublicationDate?.ToString("yyyy-MM-dd")}");
