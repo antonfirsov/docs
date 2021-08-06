@@ -22,15 +22,6 @@ namespace Microsoft.DotNetBlog
             var pullRequestIsClosed = false;
             var pullRequestIsMerged = false;
 
-            Console.WriteLine("::group::Environment Variables");
-
-            foreach (DictionaryEntry kv in Environment.GetEnvironmentVariables())
-            {
-                Console.WriteLine($"{kv.Key} = {kv.Value}");
-            }
-
-            Console.WriteLine("::endgroup::");
-
             var eventPath = Environment.GetEnvironmentVariable("GITHUB_EVENT_PATH");
             if (!string.IsNullOrEmpty(eventPath))
             {
