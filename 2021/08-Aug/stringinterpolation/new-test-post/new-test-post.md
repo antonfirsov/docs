@@ -1,10 +1,10 @@
 ---
-post_title: 'Renamed test post'
+post_title: 'Yet another test post'
 username: terrajobst@web.de
 microsoft_alias: immol
 categories: .NET
 summary: This is a test post
-desired_publication_date: 2021-08-22
+desired_publication_date: 2021-08-17
 ---
 
 This is the introduction to your post. It's the post's first paragraph. Don't

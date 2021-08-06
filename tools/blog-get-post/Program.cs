@@ -53,13 +53,9 @@ namespace Microsoft.DotNetBlog
 
                     if (pullRequestIsMerged)
                     {
-                        // In case the PR is closed, we need to prefer effective data from
-                        // the event because the repo is configured for squash merge.
-                        if (eventPayload.before is not null && eventPayload.after is not null)
-                        {
-                            beforeText = eventPayload.before;
-                            afterText = eventPayload.after;
-                        }
+                        // In case the PR was merged, we need to use the merge commit as the after
+                        // because the repo might use rebase/squash merge
+                        afterText = eventPayload.pull_request.merge_commit_sha;
                     }
                 }
                 else if (eventPayload.before is not null && eventPayload.after is not null)
@@ -207,6 +203,7 @@ namespace Microsoft.DotNetBlog
         public RefPayload head { get; set; }
         public int id { get; set; }
         public bool merged { get; set; }
+        public string merge_commit_sha { get; set; }
         public int number { get; set; }
         public string state { get; set; }
         public string title { get; set; }
