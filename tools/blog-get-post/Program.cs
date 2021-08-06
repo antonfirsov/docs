@@ -42,7 +42,7 @@ namespace Microsoft.DotNetBlog
             }
 
             Console.WriteLine($"pull_request_number = {pullRequestNumber}");
-            Console.WriteLine($"pull_request_is_merged = {pullRequestIsMerged}");
+            Console.WriteLine($"pull_request_is_merged = {pullRequestIsMerged.ToString().ToLower()}");
             Console.WriteLine($"before = {beforeText}");
             Console.WriteLine($"after = {afterText}");
 
@@ -153,7 +153,7 @@ namespace Microsoft.DotNetBlog
             }
 
             Console.WriteLine($"::set-output name=pull_request_number::{pullRequestNumber}");
-            Console.WriteLine($"::set-output name=pull_request_is_merged::{pullRequestIsMerged}");
+            Console.WriteLine($"::set-output name=pull_request_is_merged::{pullRequestIsMerged.ToString().ToLower()}");
             Console.WriteLine($"::set-output name=title::{frontMatter.PostTitle}");
             Console.WriteLine($"::set-output name=alias::{frontMatter.MicrosoftAlias}");
             Console.WriteLine($"::set-output name=date::{frontMatter.DesiredPublicationDate?.ToString("yyyy-MM-dd")}");
