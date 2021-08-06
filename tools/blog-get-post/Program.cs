@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -21,10 +22,24 @@ namespace Microsoft.DotNetBlog
             var pullRequestIsClosed = false;
             var pullRequestIsMerged = false;
 
+            Console.WriteLine("::group::Environment Variables");
+
+            foreach (DictionaryEntry kv in Environment.GetEnvironmentVariables())
+            {
+                Console.WriteLine($"{kv.Key} = {kv.Value}");
+            }
+
+            Console.WriteLine("::endgroup::");
+
             var eventPath = Environment.GetEnvironmentVariable("GITHUB_EVENT_PATH");
             if (!string.IsNullOrEmpty(eventPath))
             {
                 var eventJson = File.ReadAllText(eventPath);
+
+                Console.WriteLine("::group::GitHub Event");
+                Console.WriteLine(eventJson);
+                Console.WriteLine("::endgroup::");
+
                 var eventPayload = JsonSerializer.Deserialize<GitHubEventPayload>(eventJson);
 
                 pullRequestNumber = eventPayload.number;
@@ -55,6 +70,7 @@ namespace Microsoft.DotNetBlog
             }
 
             Console.WriteLine($"pull_request_number = {pullRequestNumber}");
+            Console.WriteLine($"pull_request_is_closed = {pullRequestIsClosed.ToString().ToLower()}");
             Console.WriteLine($"pull_request_is_merged = {pullRequestIsMerged.ToString().ToLower()}");
             Console.WriteLine($"before = {beforeText}");
             Console.WriteLine($"after = {afterText}");
