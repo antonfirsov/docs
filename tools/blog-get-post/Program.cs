@@ -28,16 +28,16 @@ namespace Microsoft.DotNetBlog
 
                 pullRequestNumber = eventPayload.number;
 
-                if (eventPayload.before is not null && eventPayload.after is not null)
-                {
-                    beforeText = eventPayload.before;
-                    afterText = eventPayload.after;
-                }
-                else if (eventPayload.pull_request is not null)
+                if (eventPayload.pull_request is not null)
                 {
                     beforeText = eventPayload.pull_request.@base?.sha;
                     afterText = eventPayload.pull_request.head?.sha;
                     pullRequestIsMerged = eventPayload.pull_request.merged;
+                }
+                else if (eventPayload.before is not null && eventPayload.after is not null)
+                {
+                    beforeText = eventPayload.before;
+                    afterText = eventPayload.after;
                 }
             }
 
