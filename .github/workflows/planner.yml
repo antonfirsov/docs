@@ -1,8 +1,8 @@
 name: Update Planner
 
 on:
- pull_request:
-   types: [opened, synchronize, closed]
+  pull_request:
+    types: [opened, synchronize, closed]
 
 jobs:
   build:
