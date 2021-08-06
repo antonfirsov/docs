@@ -8,17 +8,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+ 
+    - name: Clone repo with full history
+      uses: actions/checkout@v2
       with:
         fetch-depth: 0 # We need the full history in order to figure
                        # out which files we need to validate.
+
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Install dependencies
+
+    - name: Restore
       run: dotnet restore tools/blog-tools.sln
+
     - name: Build
       run: dotnet build tools/blog-tools.sln --configuration Release --no-restore --nologo
+
     - name: Validate
       run: dotnet run --project tools/blog-validate/blog-validate.csproj -- . --categories categories.txt --base-ref $GITHUB_BASE_REF --ref $GITHUB_SHA
