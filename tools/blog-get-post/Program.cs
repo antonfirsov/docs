@@ -18,6 +18,7 @@ namespace Microsoft.DotNetBlog
             var beforeText = "";
             var afterText = "";
             var pullRequestNumber = -1;
+            var pullRequestIsClosed = false;
             var pullRequestIsMerged = false;
 
             var eventPath = Environment.GetEnvironmentVariable("GITHUB_EVENT_PATH");
@@ -32,7 +33,19 @@ namespace Microsoft.DotNetBlog
                 {
                     beforeText = eventPayload.pull_request.@base?.sha;
                     afterText = eventPayload.pull_request.head?.sha;
+                    pullRequestIsClosed = eventPayload.pull_request.state == "closed";
                     pullRequestIsMerged = eventPayload.pull_request.merged;
+
+                    if (pullRequestIsMerged)
+                    {
+                        // In case the PR is closed, we need to prefer effective data from
+                        // the event because the repo is configured for squash merge.
+                        if (eventPayload.before is not null && eventPayload.after is not null)
+                        {
+                            beforeText = eventPayload.before;
+                            afterText = eventPayload.after;
+                        }
+                    }
                 }
                 else if (eventPayload.before is not null && eventPayload.after is not null)
                 {
@@ -105,7 +118,7 @@ namespace Microsoft.DotNetBlog
 
             try
             {
-                return Run(pullRequestNumber, pullRequestIsMerged, affectedFiles);
+                return Run(pullRequestNumber, pullRequestIsClosed, pullRequestIsMerged, affectedFiles);
             }
             catch (Exception ex)
             {
@@ -127,7 +140,7 @@ namespace Microsoft.DotNetBlog
             }
         }
 
-        private static int Run(int pullRequestNumber, bool pullRequestIsMerged, string[] affectedFiles)
+        private static int Run(int pullRequestNumber, bool pullRequestIsClosed, bool pullRequestIsMerged, string[] affectedFiles)
         {
             var markdownFiles = affectedFiles.Where(p => string.Equals(Path.GetExtension(p), ".md", StringComparison.OrdinalIgnoreCase))
                                              .ToArray();
@@ -153,6 +166,7 @@ namespace Microsoft.DotNetBlog
             }
 
             Console.WriteLine($"::set-output name=pull_request_number::{pullRequestNumber}");
+            Console.WriteLine($"::set-output name=pull_request_is_closed::{pullRequestIsClosed.ToString().ToLower()}");
             Console.WriteLine($"::set-output name=pull_request_is_merged::{pullRequestIsMerged.ToString().ToLower()}");
             Console.WriteLine($"::set-output name=title::{frontMatter.PostTitle}");
             Console.WriteLine($"::set-output name=alias::{frontMatter.MicrosoftAlias}");

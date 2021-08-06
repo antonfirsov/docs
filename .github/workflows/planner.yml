@@ -39,6 +39,7 @@ jobs:
           {
             "post": {
               "pull_request_number": "dotnet_${{ steps.get-post.outputs.pull_request_number }}",
+              "pull_request_is_closed": ${{ steps.get-post.outputs.pull_request_is_closed }},
               "pull_request_is_merged": ${{ steps.get-post.outputs.pull_request_is_merged }},
               "microsoft_alias": "${{ steps.get-post.outputs.alias }}",
               "desired_publication_date": "${{ steps.get-post.outputs.date }}",
