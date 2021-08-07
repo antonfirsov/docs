@@ -1,7 +1,21 @@
 # .NET Blog
 
-This repository is for reviewing and authoring our blog posts. The blogs posts
-must be authored in Markdown using [this template](templates/blank.md).
+This repository is for reviewing and authoring our blog posts.
+
+## Creating a new post
+
+The easiest way to get started is by running this command:
+
+```text
+$ ./new-post
+```
+
+This will ask you some questions and will create the necessary boilerplate for
+the blog post.
+
+## Format and Structure
+
+The blogs posts must be authored in Markdown using [this template](templates/blank.md).
 
 The directory structure should look like this:
 
@@ -19,7 +33,8 @@ The directory structure should look like this:
 In other words:
 
 * A top-level folder per year
-* One nested folder per month, with the two-digit month number, a hyphen, and the three letter abbreviation for the month.
+* One nested folder per month, with the two-digit month number, a hyphen, and
+  the three letter abbreviation for the month.
 * One nested folder per post. The folder name should reflect the post's title.
 * The post folder should contain all assets, especially images
 
