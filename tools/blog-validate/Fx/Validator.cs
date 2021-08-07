@@ -23,11 +23,11 @@ namespace Microsoft.DotNetBlog
                                          .ToArray();
         }
 
-        public IReadOnlyList<Diagnostic> Validate(string fileName, IEnumerable<string> categories)
+        public IReadOnlyList<Diagnostic> Validate(string rootDirectory, string fileName, IEnumerable<string> categories)
         {
             var markdown = File.ReadAllText(fileName);
             var document = BlogMarkdown.Parse(markdown);
-            var context = new ValidationContext(document, fileName, categories);
+            var context = new ValidationContext(rootDirectory, document, fileName, categories);
 
             foreach (var rule in _rules)
                 rule.Validate(context);

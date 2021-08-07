@@ -8,8 +8,9 @@ namespace Microsoft.DotNetBlog
     {
         private readonly List<Diagnostic> _diagnostics = new List<Diagnostic>();
 
-        public ValidationContext(MarkdownDocument document, string fileName, IEnumerable<string> categories)
+        public ValidationContext(string rootDirectory, MarkdownDocument document, string fileName, IEnumerable<string> categories)
         {
+            RootDirectory = rootDirectory;
             Document = document;
             FileName = fileName;
             Categories = new SortedSet<string>(categories, StringComparer.OrdinalIgnoreCase);
@@ -18,6 +19,7 @@ namespace Microsoft.DotNetBlog
                 FrontMatter = frontFatter;
         }
 
+        public string RootDirectory { get; }
         public BlogFrontMatter FrontMatter { get; }
         public MarkdownDocument Document { get; }
         public string FileName { get; }

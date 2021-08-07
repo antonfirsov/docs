@@ -166,17 +166,17 @@ namespace Microsoft.DotNetBlog
             }
         }
 
-        private static bool Run(string directory, string[] affectedFiles, string[] categories)
+        private static bool Run(string rootDirectory, string[] affectedFiles, string[] categories)
         {
-            var files = FindMarkdownFiles(directory, affectedFiles);
+            var files = FindMarkdownFiles(rootDirectory, affectedFiles);
 
-            var diagnostics = Validate(files, categories);
+            var diagnostics = Validate(rootDirectory, files, categories);
 
             var isInsideGitHubAction = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true";
 
             foreach (var d in diagnostics)
             {
-                var path = Path.GetRelativePath(directory, d.FileName);
+                var path = Path.GetRelativePath(rootDirectory, d.FileName);
                 var severity = d.IsWarning ? "warning" : "error";
 
                 if (isInsideGitHubAction)
@@ -242,14 +242,14 @@ namespace Microsoft.DotNetBlog
             return list.ToArray();
         }
 
-        private static IReadOnlyList<Diagnostic> Validate(IEnumerable<string> fileNames, IEnumerable<string> categories)
+        private static IReadOnlyList<Diagnostic> Validate(string rootDirectory, IEnumerable<string> fileNames, IEnumerable<string> categories)
         {
             var validator = new Validator();
             var result = new List<Diagnostic>();
 
             foreach (var fileName in fileNames)
             {
-                var diagnostics = validator.Validate(fileName, categories);
+                var diagnostics = validator.Validate(rootDirectory, fileName, categories);
                 result.AddRange(diagnostics);
             }
 
