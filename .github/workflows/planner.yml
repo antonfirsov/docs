@@ -2,7 +2,7 @@ name: Update Planner
 
 on:
   pull_request:
-    types: [opened, synchronize, closed]
+    types: [opened, synchronize, closed, reopened]
 
 jobs:
   update-planner:
