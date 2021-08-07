@@ -154,7 +154,7 @@ Some summary or call to action.";
 
         private static string GetFileName()
         {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Microsoft", ".NET Blog", "user.text");
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Microsoft", ".NET Blog", "user.txt");
         }
 
         public static bool Delete()
