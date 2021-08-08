@@ -1,9 +1,10 @@
 # .NET Blog
 
-[WordPress](https://devblogs.microsoft.com/dotnet/) |
-[Schedule](https://tasks.office.com/microsoft.onmicrosoft.com/en-US/Home/Planner#/plantaskboard?groupId=fdff90ed-0b3b-4caa-a30a-efb4dd47665f&planId=wHOgFOjggEyrykcunh6oQpUAARuD)
+[WordPress] | [Schedule] | [Tutorial]
 
 This repository is for reviewing and authoring our blog posts.
+
+Blogging for the first time? Check out the video [tutorial].
 
 ## Creating a new post
 
@@ -115,3 +116,6 @@ you bound the build command to) or via the command line by invoking
 
 [NDA]: https://microsoft.sharepoint.com/:w:/r/teams/dd_vsblog/_layouts/15/Doc.aspx?sourcedoc=%7BFD4908C7-2B4A-476E-8C74-97C20CE4CD33%7D&file=NDA%20Process%20for%20External%20Blog%20Authors.docx&action=default&mobileredirect=true
 [License]: https://microsoft.sharepoint.com/:w:/t/dd_vsblog/EdbLLTgQuLRGuPVzkLnn8ewBfpXexWoMA-bquVRbDMxMlQ?e=LZQdoB
+[WordPress]: https://devblogs.microsoft.com/dotnet/
+[Schedule]: https://tasks.office.com/microsoft.onmicrosoft.com/en-US/Home/Planner#/plantaskboard?groupId=fdff90ed-0b3b-4caa-a30a-efb4dd47665f&planId=wHOgFOjggEyrykcunh6oQpUAARuD
+[Tutorial]: https://msit.microsoftstream.com/video/619b0840-98dc-b561-c7a4-f1ebf7e10ab0
