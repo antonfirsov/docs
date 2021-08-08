@@ -1,5 +1,8 @@
 # .NET Blog
 
+[WordPress](https://devblogs.microsoft.com/dotnet/) |
+[Schedule](https://tasks.office.com/microsoft.onmicrosoft.com/en-US/Home/Planner#/plantaskboard?groupId=fdff90ed-0b3b-4caa-a30a-efb4dd47665f&planId=wHOgFOjggEyrykcunh6oQpUAARuD)
+
 This repository is for reviewing and authoring our blog posts.
 
 ## Creating a new post
