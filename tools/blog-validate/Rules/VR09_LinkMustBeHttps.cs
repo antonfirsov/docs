@@ -23,7 +23,7 @@ namespace Microsoft.DotNetBlog
 
             foreach (var link in links)
             {              
-                if (!UriHelper.TryGetRelativeOrAbsoluteUri(link.Url, out var url) || !url.IsAbsoluteUri)
+                if (!UriHelper.TryGetAbsoluteUri(link.Url, out var url))
                     continue;
 
                 var isKnownHost = _knownHosts.Any(k => url.Host.Equals(k, StringComparison.OrdinalIgnoreCase) ||

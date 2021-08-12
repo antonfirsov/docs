@@ -18,7 +18,7 @@ namespace Microsoft.DotNetBlog
 
             foreach (var link in links)
             {
-                if (!UriHelper.TryGetRelativeOrAbsoluteUri(link.Url, out var url) || url.IsAbsoluteUri)
+                if (!UriHelper.TryGetRelativeUri(link.Url, out var url))
                     continue;
 
                 var local = link.Url;

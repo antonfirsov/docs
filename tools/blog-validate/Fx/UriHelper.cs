@@ -17,5 +17,48 @@ namespace Microsoft.DotNetBlog
                 return false;
             }
         }
+
+        public static bool TryGetAbsoluteUri(string text, out Uri uri)
+        {
+            try
+            {
+                var u = new Uri(text, UriKind.RelativeOrAbsolute);
+                if (u.IsAbsoluteUri)
+                {
+                    uri = u;
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            uri = null;
+            return false;
+        }
+
+        public static bool TryGetRelativeUri(string text, out Uri uri)
+        {
+            try
+            {
+                var u = new Uri(text, UriKind.RelativeOrAbsolute);
+                if (!u.IsAbsoluteUri && !IsAnchor(text))
+                {
+                    uri = u;
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            uri = null;
+            return false;
+        }
+
+        private static bool IsAnchor(string text)
+        {
+            return text.Trim().StartsWith("#");
+        }
     }
 }

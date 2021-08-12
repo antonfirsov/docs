@@ -15,7 +15,7 @@ namespace Microsoft.DotNetBlog
 
             foreach (var link in links)
             {
-                if (!UriHelper.TryGetRelativeOrAbsoluteUri(link.Url, out var url) || !url.IsAbsoluteUri)
+                if (!UriHelper.TryGetAbsoluteUri(link.Url, out var url))
                     continue;
 
                 var isMicrosoftDotCom = url.Host.Equals("microsoft.com", StringComparison.OrdinalIgnoreCase) ||

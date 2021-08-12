@@ -11,11 +11,11 @@ namespace Microsoft.DotNetBlog
             {
                 var diagnosticSpan = context.Document.GetFrontMatterDiagnosticSpan();
 
-                if (!UriHelper.TryGetRelativeOrAbsoluteUri(relativePath, out var url))
+                if (!UriHelper.TryGetRelativeOrAbsoluteUri(relativePath, out _))
                 {
                     context.Warning("VR20", diagnosticSpan, $"'featured_image' must be a valid URL.");
                 }
-                else if (!url.IsAbsoluteUri)
+                else if (UriHelper.TryGetRelativeUri(relativePath, out var url))
                 {
                     var markdownDirectory = Path.GetDirectoryName(context.FileName);
                     var fullPath = Path.Join(markdownDirectory, relativePath);
