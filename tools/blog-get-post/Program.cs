@@ -44,9 +44,23 @@ namespace Microsoft.DotNetBlog
 
                     if (pullRequestIsMerged)
                     {
-                        // In case the PR was merged, we need to use the merge commit as the after
-                        // because the repo might use rebase/squash merge
+                        // Since this repo uses squash/merge we can't use base/head.
+                        //
+                        // We can't use head because that commit isn't merged and the
+                        // way GitHub Actions clones this repo isn't even part of the
+                        // cloned repo.
+                        //
+                        // We can't use base either because the squased PR is on top
+                        // of current main, which means it might contain commits from
+                        // PRs that were merged after this PR got created but before
+                        // this PR was merged. IOW, base is too old and if we used it
+                        // we'd also include commits from those other PRs.
+                        //
+                        // So instead we use the <merge commit's SHA> as the after and
+                        // <merge commit's SHA>^ as the before.
+
                         afterText = eventPayload.pull_request.merge_commit_sha;
+                        beforeText = afterText + "^";
                     }
                 }
                 else if (eventPayload.before is not null && eventPayload.after is not null)
