@@ -174,6 +174,14 @@ namespace Microsoft.DotNetBlog
             Console.WriteLine($"::set-output name=title::{frontMatter.PostTitle}");
             Console.WriteLine($"::set-output name=alias::{frontMatter.MicrosoftAlias}");
             Console.WriteLine($"::set-output name=date::{frontMatter.DesiredPublicationDate?.ToString("yyyy-MM-dd")}");
+
+            
+            Console.WriteLine($"pull_request_number = {pullRequestNumber}");
+            Console.WriteLine($"pull_request_is_closed = {pullRequestIsClosed.ToString().ToLower()}");
+            Console.WriteLine($"pull_request_is_merged = {pullRequestIsMerged.ToString().ToLower()}");
+            Console.WriteLine($"title = {frontMatter.PostTitle}");
+            Console.WriteLine($"alias = {frontMatter.MicrosoftAlias}");
+            Console.WriteLine($"date = {frontMatter.DesiredPublicationDate?.ToString("yyyy-MM-dd")}");
             return 0;
         }
     }
