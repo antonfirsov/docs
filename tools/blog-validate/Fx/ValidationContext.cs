@@ -15,8 +15,8 @@ namespace Microsoft.DotNetBlog
             FileName = fileName;
             Categories = new SortedSet<string>(categories, StringComparer.OrdinalIgnoreCase);
 
-            if (document.TryGetFrontMatter(out var frontFatter))
-                FrontMatter = frontFatter;
+            if (document.TryGetFrontMatter(out var frontMatter))
+                FrontMatter = frontMatter;
         }
 
         public string RootDirectory { get; }
