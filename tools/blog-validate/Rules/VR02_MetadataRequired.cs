@@ -10,25 +10,28 @@ namespace Microsoft.DotNetBlog
         {
             if (context.FrontMatter != null)
             {
-                var diagnosticSpan = context.Document.GetFrontMatterDiagnosticSpan();
-
                 if (string.IsNullOrEmpty(context.FrontMatter.PostTitle))
-                    context.Error("VR02", diagnosticSpan, "Must specify 'post_title'");
+                    MustSpecifyField(context, BlogFrontMatterFields.PostTitle);
 
                 if (string.IsNullOrEmpty(context.FrontMatter.Summary))
-                    context.Error("VR02", diagnosticSpan, "Must specify 'summary'");
+                    MustSpecifyField(context, BlogFrontMatterFields.Summary);
 
                 if (string.IsNullOrEmpty(context.FrontMatter.Username))
-                    context.Error("VR02", diagnosticSpan, "Must specify 'username'");
+                    MustSpecifyField(context, BlogFrontMatterFields.Username);
 
                 if (string.IsNullOrEmpty(context.FrontMatter.Categories))
-                    context.Error("VR02", diagnosticSpan, "Must specify 'categories'");
+                    MustSpecifyField(context, BlogFrontMatterFields.Categories);
 
                 if (string.IsNullOrEmpty(context.FrontMatter.MicrosoftAlias))
-                    context.Error("VR02", diagnosticSpan, "Must specify 'microsoft_alias'");
+                    MustSpecifyField(context, BlogFrontMatterFields.MicrosoftAlias);
 
                 if (context.FrontMatter.DesiredPublicationDate == null)
-                    context.Error("VR02", diagnosticSpan, "Must specify a valid date time for 'desired_publication_date'");
+                    MustSpecifyField(context, BlogFrontMatterFields.DesiredPublicationDate);
+
+                static void MustSpecifyField(ValidationContext context, string field)
+                {
+                    context.Error("VR02", context.Document.GetFrontMatterDiagnosticSpan(field), $"Must specify '{field}'");
+                }
             }
         }
     }

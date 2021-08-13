@@ -6,7 +6,7 @@
         {
             if (context.FrontMatter != null)
             {
-                var diagnosticSpan = context.Document.GetFrontMatterDiagnosticSpan();
+                var diagnosticSpan = context.Document.GetFrontMatterDiagnosticSpan(BlogFrontMatterFields.PostTitle);
 
                 if (context.FrontMatter.PostTitle?.Length > 60)
                     context.Warning("VR16", diagnosticSpan, "'post_title' should be 60 characters or less");

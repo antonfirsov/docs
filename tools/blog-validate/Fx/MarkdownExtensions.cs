@@ -2,6 +2,7 @@
 using System.Linq;
 
 using Markdig.Extensions.Yaml;
+using Markdig.Helpers;
 using Markdig.Syntax;
 
 namespace Microsoft.DotNetBlog
@@ -31,13 +32,20 @@ namespace Microsoft.DotNetBlog
             return new LinePositionSpan(start, end);
         }
 
-        public static SourceSpan GetFrontMatterDiagnosticSpan(this MarkdownDocument document)
+        public static SourceSpan GetFrontMatterDiagnosticSpan(this MarkdownDocument document, string text)
         {
             var block = document.FirstOrDefault() as YamlFrontMatterBlock;
             if (block == null)
                 throw new ArgumentException("The document doesn't have any front matter", nameof(document));
 
-            return new SourceSpan(block.Span.End - 2, block.Span.End);
+            foreach (StringLine line in block.Lines)
+            {
+                var lineText = line.ToString();
+                if (lineText.Contains(text, StringComparison.OrdinalIgnoreCase))
+                    return new SourceSpan(line.Position, line.Position + lineText.Length);
+            }
+
+            return block.Span;
         }
     }
 }

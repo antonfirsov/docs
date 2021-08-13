@@ -9,7 +9,7 @@ namespace Microsoft.DotNetBlog
         {
             if (context.FrontMatter?.FeaturedImage is string relativePath)
             {
-                var diagnosticSpan = context.Document.GetFrontMatterDiagnosticSpan();
+                var diagnosticSpan = context.Document.GetFrontMatterDiagnosticSpan(BlogFrontMatterFields.FeaturedImage);
 
                 if (!UriHelper.TryGetRelativeOrAbsoluteUri(relativePath, out _))
                 {
