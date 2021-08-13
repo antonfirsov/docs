@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading;
+using System.Threading.Tasks;
 
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
@@ -17,23 +18,25 @@ namespace Microsoft.DotNetBlog
         {
             var links = context.Document.Descendants<LinkInline>();
 
-            var client = new HttpClient();
+            var validatedLinks = new ConcurrentDictionary<string, ValidationResult>(StringComparer.Ordinal);
 
-            // Some CDNs, such as Akamai, will return 404 unless a UserAgent is specified.
-            var assemblyName = GetType().Assembly.GetName();
-            var productName = assemblyName.Name;
-            var productVersion = assemblyName.Version.ToString();
-            client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(productName, productVersion));
+            var uniqueLinks = links.Select(l => l.Url)
+                                   .ToHashSet();
 
-            var validatedLinks = new Dictionary<string, ValidationResult>(StringComparer.Ordinal);
+            var options = new ParallelOptions
+            {
+                MaxDegreeOfParallelism = 4
+            };
+
+            Parallel.ForEach(uniqueLinks, options, link =>
+            {
+                var validationResult = Validate(context.FileName, link);
+                validatedLinks.TryAdd(link, validationResult);
+            });
 
             foreach (var link in links)
             {
-                if (!validatedLinks.TryGetValue(link.Url, out var validationResult))
-                {
-                    validationResult = Validate(client, context.FileName, link);
-                    validatedLinks.Add(link.Url, validationResult);
-                }
+                var validationResult = validatedLinks[link.Url];
 
                 if (validationResult is not null)
                 {
@@ -45,15 +48,20 @@ namespace Microsoft.DotNetBlog
             }
         }
 
-        private static ValidationResult Validate(HttpClient client, string fileName, LinkInline link)
+        private static ValidationResult Validate(string fileName, string link)
         {
-            var retryCount = 3;
+            var client = new HttpClient();
+
+            // Some CDNs, such as Akamai, will return 404 unless a User-Agent is specified.
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36 Edg/92.0.902.67");
+
+            var retryCount = 5;
             Retry:
 
             if (retryCount-- == 0)
                 return new ValidationResult(false, "VR14", "Couldn't validate URL.");
 
-            if (UriHelper.TryGetAbsoluteUri(link.Url, out var url))
+            if (UriHelper.TryGetAbsoluteUri(link, out var url))
             {
                 var isHttp = url.Scheme.StartsWith("http", StringComparison.OrdinalIgnoreCase);
                 if (!isHttp)
@@ -96,10 +104,10 @@ namespace Microsoft.DotNetBlog
                     return new ValidationResult(false, "VR14", $"URL '{url}' doesn't resolve: {ex.Message}");
                 }
             }
-            else if (UriHelper.TryGetRelativeUri(link.Url, out url))
+            else if (UriHelper.TryGetRelativeUri(link, out url))
             {
                 var markdownDirectory = Path.GetDirectoryName(fileName);
-                var fullPath = Path.Join(markdownDirectory, link.Url);
+                var fullPath = Path.Join(markdownDirectory, link);
                 if (!File.Exists(fullPath))
                     return new ValidationResult(true, "VR20", $"Relative URL '{url}' doesn't resolve to file in the repository");
             }
