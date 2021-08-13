@@ -6,7 +6,7 @@ namespace Microsoft.DotNetBlog
     {
         public override void Validate(ValidationContext context)
         {
-            if (context.FrontMatter.DesiredPublicationDate is null)
+            if (context.FrontMatter?.DesiredPublicationDate is null)
                 return;
 
             var root = context.RootDirectory;
