@@ -117,7 +117,13 @@ Some summary or call to action.";
 
         private static DateTime GetDefaultPublicationDate()
         {
-            return AdjustToNextWeekDay(AdjustToNextWeekDay(DateTime.Today).AddDays(3));
+            var numberOfDays = 3;
+            var current = DateTime.Today;
+
+            while (numberOfDays-- > 0)
+                current = AdjustToNextWeekDay(current.AddDays(1));
+
+            return current;
 
             static DateTime AdjustToNextWeekDay(DateTime dateTime)
             {
