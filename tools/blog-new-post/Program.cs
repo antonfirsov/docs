@@ -53,7 +53,7 @@ namespace Microsoft.DotNetBlog
 
             var postTitle = AnsiConsole.Ask<string>("What's the post [cyan]title[/]?");
             var postName = AnsiConsole.Ask("What's the post [cyan]name[/]?", GetDefaultPostName(postTitle));
-            var desiredPublicationDate = AnsiConsole.Ask("What's the desired [cyan]publication date[/]?", GetDefaultPublicationDate());
+            var desiredPublicationDate = AnsiConsole.Ask("What's the desired [cyan]publication date[/]? Please give several days for review and SEO optimization.", GetDefaultPublicationDate());
 
             var categories = AnsiConsole.Prompt(
                 new MultiSelectionPrompt<string>()
@@ -117,7 +117,7 @@ Some summary or call to action.";
 
         private static DateTime GetDefaultPublicationDate()
         {
-            var numberOfDays = 3;
+            var numberOfDays = 4;
             var current = DateTime.Today;
 
             while (numberOfDays-- > 0)
