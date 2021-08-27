@@ -8,15 +8,15 @@ desired_publication_date: 2021-09-01
 summary: High-performance File IO
 ---
 
-For .NET 6, we have made `FileStream` much faster and more reliable, thanks to an almost entire re-write. For same cases, the async implementation is now a few times faster!
+For .NET 6, we made `FileStream` much faster and more reliable, thanks to an almost entire re-write. For same cases, the async implementation is now several times faster!
 
-We also recognized the need of having more high-performance file IO features: concurrent reads and writes, scatter/gather IO and introduced new APIs for them.
+We also recognized the need for more high-performance file IO features: concurrent reads and writes, scatter/gather IO and we introduced new APIs for them.
 
 ## TL;DR
 
 > File I/O is better, stronger, faster! - [Rob Fahrni](https://twitter.com/Fahrni/status/1429848474112069632)
 
-If you are not into details, please see [Summary](#Summary) for a short recap of what was changed.
+If you are not into the details, please see [Summary](#Summary) for a short recap of what was changed.
 
 ## Introduction to FileStream
 
@@ -40,17 +40,17 @@ public FileStream(SafeFileHandle handle, FileAccess access, int bufferSize, bool
   * Buffering is also applied to all `Write*()` methods. That is why calling `Write*()` doesn't guarantee that the data is immediately saved to the file and we need to call `Flush*()` to flush the buffer. On top of that, every operating system implements buffering to reduce disk activity. So most of the sys-calls don't perform actual disk operations, but copy memory from user to kernel space. If we want to force the OS to flush the data to the disk, we need to call `Flush(flushToDisk: true)`.
   * **Buffering is enabled by default** (the default for `bufferSize` is 4096).
   * To **disable the `FileStream` buffering**, just pass `1` (works for every .NET) or `0` (works for .NET 6 preview 6+) as `bufferSize`. 
-  * If you ever needed to disable the OS buffering in a .NET app, please provide your feedback in [#27408](https://github.com/dotnet/runtime/issues/27408) which would help us to prioritize the feature request.
-* `isAsync` allows for controlling whether the file should be opened for asynchronous or synchronous IO. **The default value is `false`, which translates to synchronous IO**. If you open `FileStream` for synchronous IO, but later use any of its `*Async()` methods, they are going to perform synchronous IO (no cancellation support) on a `ThreadPool` thread which might not scale up as well as if the `FileStream` was opened for asynchronous IO. The opposite is also an issue on Windows: if you open `FileStream` for asynchronous IO, but call a synchronous method, it's going to start an asynchronous IO operation and **block waiting for it to complete**.
+  * If you ever needed to disable the OS buffering in a .NET app, please provide your feedback in [#27408](https://github.com/dotnet/runtime/issues/27408) to help us to prioritize the feature request.
+* `isAsync` allows for controlling whether the file should be opened for asynchronous or synchronous IO. **The default value is `false`, which translates to synchronous IO**. If you open `FileStream` for synchronous IO, but later use any of its `*Async()` methods, they are going to perform synchronous IO (no cancellation support) on a thread pool thread which might not scale up as well as if the `FileStream` was opened for asynchronous IO. The opposite is also an issue on Windows: if you open `FileStream` for asynchronous IO, but call a synchronous method, it's going to start an asynchronous IO operation and **block waiting for it to complete**.
 * `options` is a flags enumeration that supports further configuration of behaviors, including `isAsync`.
 
 ## Benchmarks
 
 ### Environment
 
-We have used `FileStream` benchmarks from the [dotnet/performance repository](https://github.com/dotnet/performance/blob/main/src/benchmarks/micro/libraries/System.IO.FileSystem/Perf.FileStream.cs). The harness was obviously [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet) (version `0.13.1`). See the [full historical results from our lab](https://pvscmdupload.blob.core.windows.net/reports/allTestHistory/TestHistoryIndexIndex.html).
+We used `FileStream` benchmarks from the [dotnet/performance repository](https://github.com/dotnet/performance/blob/main/src/benchmarks/micro/libraries/System.IO.FileSystem/Perf.FileStream.cs). The harness was obviously [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet) (version `0.13.1`). See the [full historical results from our lab](https://pvscmdupload.blob.core.windows.net/reports/allTestHistory/TestHistoryIndexIndex.html).
 
-For the purpose of this blog post, we have run the benchmarks on  an `x64` machine (Intel Xeon CPU E5-1650, 1 CPU, 12 logical and 6 physical cores) with an SSD drive. The machine was configured for dual boot of Windows 10 (10.0.18363.1621) and Ubuntu 18.04. The results can't be used for absolute numbers comparison, as on Windows the disk encryption was enabled, using [BitLocker](https://docs.microsoft.com/windows/security/information-protection/bitlocker/bitlocker-overview). For the sake of simplicity we refer to Ubuntu results using term "Unix" as all non-Windows optimizations apply to all Unix-like Operating Systems.
+For the purpose of this blog post, we ran the benchmarks on  an `x64` machine (Intel Xeon CPU E5-1650, 1 CPU, 12 logical and 6 physical cores) with an SSD drive. The machine was configured for dual boot of Windows 10 (10.0.18363.1621) and Ubuntu 18.04. The results can't be used for absolute numbers comparison, as on Windows the disk encryption was enabled, using [BitLocker](https://docs.microsoft.com/windows/security/information-protection/bitlocker/bitlocker-overview). For the sake of simplicity we refer to Ubuntu results using term "Unix" as all non-Windows optimizations apply to all Unix-like Operating Systems.
 
 ### How to read the Results
 
@@ -68,25 +68,25 @@ Legend for reading the tables with benchmark results:
 
 For the table presented above, we can see that the `GetLength` benchmark was taking `1932 ns` to execute on average with .NET 5, and only `58.52 ns` with .NET 6. The ratio column tells us that .NET 6 was on average taking 3% of .NET 5 total time execution. We can also say that .NET 6 is 33 (`1.00 / 0.03`) times faster than .NET 5 for this particular benchmark and environment.
 
-With that in mind, let's take a look at what we have changed.
+With that in mind, let's take a look at what we changed.
 
-## Performance improvements 
+## Performance improvements
 
-Based on feedback from our customers ([#16354](https://github.com/dotnet/runtime/issues/16354), [#25905](https://github.com/dotnet/runtime/issues/25905)) and some additional profiling with Visual Studio Profiler we have identified key CPU bottlenecks of the Windows implementation.
+Based on feedback from our customers ([#16354](https://github.com/dotnet/runtime/issues/16354), [#25905](https://github.com/dotnet/runtime/issues/25905)) and some additional profiling with Visual Studio Profiler we identified key CPU bottlenecks of the Windows implementation.
 
 ![.NET 5 sys-calls](writeasync_cpu_before_callstack.png)
 
-By using [Visual Studio Memory Profiler](https://docs.microsoft.com/visualstudio/profiling/memory-usage?view=vs-2019) we have tracked down all allocations:
+By using [Visual Studio Memory Profiler](https://docs.microsoft.com/visualstudio/profiling/memory-usage?view=vs-2019) we tracked down all allocations:
 
 ![.NET 5 Visual Studio Profiler CallTree](memory_profiling_before.png)
 
 ### Seek and Position
 
-After some decent amount of brainstorming, we got to the conclusion that all performance bottlenecks in `FileStream.ReadAsync()` and `FileStream.WriteAsync()` methods were caused by the fact that when `FileStream` was opened for asynchronous IO, it was synchronizing the file offset with  Windows for every asynchronous operation. A [blog post](https://docs.microsoft.com/archive/blogs/winserverperformance/designing-applications-for-high-performance-part-iii-2) from the Windows Server Performance Team calls the API that allows for doing that (`SetFilePointer()` method) an *anachronism*:
+After some decent amount of brainstorming, we came to the conclusion that all performance bottlenecks in `FileStream.ReadAsync()` and `FileStream.WriteAsync()` methods were caused by the fact that when `FileStream` was opened for asynchronous IO, it was synchronizing the file offset with  Windows for every asynchronous operation. A [blog post](https://docs.microsoft.com/archive/blogs/winserverperformance/designing-applications-for-high-performance-part-iii-2) from the Windows Server Performance Team calls the API that allows for doing that (`SetFilePointer()` method) an *anachronism*:
 
 > The old DOS SetFilePointer API is an anachronism. One should specify the file offset in the overlapped structure even for synchronous I/O. It should never be necessary to resort to the hack of having private file handles for each thread.
 
-We decided to stop doing that for seekable files and simply track the offset only in memory, and use sys-calls that always require us to provide the file offset in an explicit way. We have done that for both Windows and Unix implementation. We discuss this breaking change [later](#Tracking-file-offset-only-in-memory) in this post.
+We decided to stop doing that for seekable files and simply track the offset only in memory, and use sys-calls that always require us to provide the file offset in an explicit way. We did that for both the Windows and the Unix implementation. We discuss this breaking change [later](#Tracking-file-offset-only-in-memory) in this post.
 
 ```csharp
 [Benchmark]
@@ -138,7 +138,7 @@ Since [FileStream.Seek()](https://docs.microsoft.com/dotnet/api/system.io.filest
 |           SeekBackward | .NET 5.0 |      1024 | Asynchronous |     5,354.25 μs |  1.00 |       200 B |
 |           SeekBackward | .NET 6.0 |      1024 | Asynchronous |        66.63 μs |  0.01 |       272 B |
 
-The increased amount of allocated memory comes from the abstraction layer that we have [introduced](https://github.com/dotnet/runtime/pull/47128) to support the .NET 5 Compatibility mode, which also helped increase the code maintainability: we now have a few separate `FileStream` [strategy](https://en.wikipedia.org/wiki/Strategy_pattern) implementations instead of one with _a lot_ of `if` blocks.
+The increased amount of allocated memory comes from the abstraction layer that we [introduced](https://github.com/dotnet/runtime/pull/47128) to support the .NET 5 Compatibility mode, which also helped increase the code maintainability: we now have a few separate `FileStream` [strategy](https://en.wikipedia.org/wiki/Strategy_pattern) implementations instead of one with _a lot_ of `if` blocks.
 
 #### Unix
 
@@ -152,7 +152,7 @@ Unix implementation is no longer performing the `lseek` sys-call and we can obse
 |            SeekForward | .NET 5.0 |      1024 | Asynchronous |       453.645 μs |  1.00 |       281 B |
 |            SeekForward | .NET 6.0 |      1024 | Asynchronous |        19.511 μs |  0.04 |       232 B |
 
-There is no improvement for `SeekBackward` benchmark, which [uses](https://github.com/dotnet/performance/blob/686f552943ccef56e8404ed0a060fcc1e689a2a0/src/benchmarks/micro/libraries/System.IO.FileSystem/Perf.FileStream.cs#L117) `SeekOrigin.End` which requires the file length to be obtained. 
+There is no improvement for `SeekBackward` benchmark, which [uses](https://github.com/dotnet/performance/blob/686f552943ccef56e8404ed0a060fcc1e689a2a0/src/benchmarks/micro/libraries/System.IO.FileSystem/Perf.FileStream.cs#L117) `SeekOrigin.End` which requires the file length to be obtained.
 
 ### Length
 
@@ -180,7 +180,7 @@ public long GetLength(FileShare share)
 ```
 #### Windows
 
-The first-time access have not changed, but every next call to [FileStream.Length](https://docs.microsoft.com/dotnet/api/system.io.filestream.length) can be even few dozens times faster.
+The first-time access have not changed, but every next call to [FileStream.Length](https://docs.microsoft.com/dotnet/api/system.io.filestream.length) is now potentially dozens of times faster.
 
 |    Method |  Runtime | share |        Mean | Ratio |
 |---------- |--------- |------ |------------:|------:|
@@ -191,7 +191,7 @@ Kudos to [@pentp](https://github.com/pentp) who made it also possible for `FileS
 
 #### Unix
 
-In contrary to Windows, we can't cache file length on Unix-like operating systems where the file locking is only [advisory](https://en.wikipedia.org/wiki/File_locking#In_Unix-like_systems), and there is no guarantee that the file length won't be changed by others.
+Unlike Windows, we can't cache file length on Unix-like operating systems where the file locking is only [advisory](https://en.wikipedia.org/wiki/File_locking#In_Unix-like_systems), and there is no guarantee that the file length won't be changed by others.
 
 Speaking of file locking, in .NET 6 preview 7 we have [added](https://github.com/dotnet/runtime/pull/55256) a possibility to disable it on Unix. This can be done by using `System.IO.DisableFileLocking` app context switch or `DOTNET_SYSTEM_IO_DISABLEFILELOCKING` environment variable.
 
@@ -199,9 +199,9 @@ Speaking of file locking, in .NET 6 preview 7 we have [added](https://github.com
 
 #### Windows
 
-After [@benaadams](https://github.com/benaadams) reported [#25905](https://github.com/dotnet/runtime/issues/25905) we have very carefully studied the profiles and [WriteFile](https://docs.microsoft.com/windows/win32/api/fileapi/nf-fileapi-writefile) docs and got to the conclusion that we don't need to extend the file before performing every async write operation. `WriteFile()` extends the file if needed. 
+After [@benaadams](https://github.com/benaadams) reported [#25905](https://github.com/dotnet/runtime/issues/25905) we have very carefully studied the profiles and [WriteFile](https://docs.microsoft.com/windows/win32/api/fileapi/nf-fileapi-writefile) docs and came to the conclusion that we don't need to extend the file before performing every async write operation. `WriteFile()` extends the file if needed.
 
-In the past, we were doing that because we were thinking that `SetFilePointer` (Windows sys-call used to set file position) could not be pointing to a non-existing offset (`offset > endOfFile`). [Docs](https://docs.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setfilepointer#remarks) helped us to invalidate that assumption:
+In the past, we did that because we were thinking that `SetFilePointer` (Windows sys-call used to set file position) could not be pointing to a non-existing offset (`offset > endOfFile`). [Docs](https://docs.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setfilepointer#remarks) helped us to invalidate that assumption:
 
 > It is not an error to set a file pointer to a position beyond the end of the file. The size of the file does not increase until you call the SetEndOfFile, WriteFile, or WriteFileEx function. A write operation increases the size of the file to the file pointer position plus the size of the buffer written, which results in the intervening bytes uninitialized.
 
@@ -290,11 +290,11 @@ async Task WriteAsync(long fileSize, int userBufferSize, FileOptions options, in
 | WriteAsync_NoBuffering | .NET 5.0 | 104857600 |          16384 | Asynchronous |   773,901.50 μs |  1.00 | 1,997,248 B |
 | WriteAsync_NoBuffering | .NET 6.0 | 104857600 |          16384 | Asynchronous |   141,073.78 μs |  0.19 |     1,832 B |
 
-As you can see, [FileStream.WriteAsync()](https://docs.microsoft.com/dotnet/api/system.io.filestream.writeasync) is now be up to few times faster!
+As you can see, [FileStream.WriteAsync()](https://docs.microsoft.com/dotnet/api/system.io.filestream.writeasync) is now potentially several times faster!
 
 #### Unix
 
-Unix-like systems don't expose async file IO APIs (except of the new `io_uring` which we talk about [later](#Whats-Next)). Anytime user asks `FileStream` to perform async file IO operation, a synchronous IO operation is being scheduled to Thread Pool. Once it's dequeued, the blocking operation is performed on a dedicated thread.
+Unix-like systems don't expose async file IO APIs (except of through the new `io_uring` API which we talk about [below](#Whats-Next)). Any time a user asks a `FileStream` to perform async file IO operation, a synchronous IO operation gets scheduled to the thread pool. Once it's dequeued, the blocking operation is performed on a dedicated thread.
 
 In case of `WriteAsync`, Unix implementation was already performing a single sys-call per invocation. But it does not mean that there was no place for other improvements! In [#55123](https://github.com/dotnet/runtime/pull/55123) the amazing [@teo-tsirpanis](https://github.com/teo-tsirpanis) has combined the concept of [IValueTaskSource](https://devblogs.microsoft.com/dotnet/understanding-the-whys-whats-and-whens-of-valuetask/#implementing-ivaluetasksource-ivaluetasksourcetgt) and [IThreadPoolWorkItem](https://docs.microsoft.com/dotnet/api/system.threading.ithreadpoolworkitem) into a single type. By implementing `IThreadPoolWorkItem` interface, the type gained the possibility of queueing itself on the Thread Pool (which normally requires an allocation of a `ThreadPoolWorkItem`). By re-using it, [@teo-tsirpanis](https://github.com/teo-tsirpanis) achieved amortized allocation-free file operations (per `SafeFileHandle`, when used non-concurrently). The optimization applied also to Windows implementation for synchronous file handles, but let's focus on the Unix results:
 
@@ -350,7 +350,7 @@ async ValueTask WriteAsync(Task semaphoreLockTask, ReadOnlyMemory<byte> source, 
 
 #### Windows
 
-Initially, [FileStream.ReadAsync()](https://docs.microsoft.com/dotnet/api/system.io.filestream.readasync) has benefited a lot from file length caching and lack of file offset synchronization (.NET 6 preview 4). But since length can't be cached for files opened with `FileAccess.ReadWrite` or `FileShare.Write`, we have decided to also limit it to a single sys-call (`ReadFile`). After [#56531](https://github.com/dotnet/runtime/pull/56531) got merged (.NET 6 Preview 7), `ReadAsync` ensures that the position is correct after the operation finishes. Without fetching file length before the read operation starts. Some pseudocode:
+[FileStream.ReadAsync()](https://docs.microsoft.com/dotnet/api/system.io.filestream.readasync) benefited a lot from file length caching and lack of file offset synchronization (.NET 6 preview 4). But since length can't be cached for files opened with `FileAccess.ReadWrite` or `FileShare.Write`, we decided to also limit it to a single sys-call (`ReadFile`). After [#56531](https://github.com/dotnet/runtime/pull/56531) was merged (.NET 6 Preview 7), `ReadAsync` ensured that the position is correct after the operation finishes, without fetching the file length before the read operation starts. Some pseudocode:
 
 ```csharp
 public class FileStream
@@ -383,7 +383,7 @@ public class FileStream
 }
 ```
 
-The reduced number of sys-calls and memory allocations (which were exactly the same as for `WriteAsync` described above) has clearly paid off for [FileStream.ReadAsync()](https://docs.microsoft.com/dotnet/api/system.io.filestream.readasync) which is now **up to few times faster**, depending on file size, user buffer size and `FileOptions` used for the creation of `FileStream`:
+The reduced number of sys-calls and memory allocations (which were exactly the same as for `WriteAsync` described above) has clearly paid off for [FileStream.ReadAsync()](https://docs.microsoft.com/dotnet/api/system.io.filestream.readasync) which is now potentially **several times faster**, depending on file size, user buffer size and `FileOptions` used for the creation of `FileStream`:
 
 ```csharp
 [Benchmark]
@@ -430,7 +430,7 @@ async Task<long> ReadAsync(long fileSize, int userBufferSize, FileOptions option
 |  ReadAsync_NoBuffering | .NET 5.0 | 104857600 |          16384 | Asynchronous |   192,485.40 μs |  1.00 | 1,997,248 B |
 |  ReadAsync_NoBuffering | .NET 6.0 | 104857600 |          16384 | Asynchronous |    93,350.07 μs |  0.49 |     1,040 B |
 
-**Note:** As you can see, the size of the user buffer (the `Memory<byte>` passed to `FileStream.ReadAsync`) has a great impact on the total execution time. Reading 1 MB file using 512 byte buffer was taking 3,406.73 μs on average, 2,873.59 μs for a 4 kB buffer and 856.61 μs for 16 kB. By using the right buffer size, we can speed up the read operation even more than 3x! Would you be interested in reading *.NET File IO performance guidelines*? (We want to know it before we invest our time in writing them).
+**Note:** As you can see, the size of the user buffer (the `Memory<byte>` passed to `FileStream.ReadAsync`) has a huge impact on the total execution time. Reading 1 MB file using 512 byte buffer was taking 3,406.73 μs on average, 2,873.59 μs for a 4 kB buffer and 856.61 μs for 16 kB. By using the right buffer size, we can speed up the read operation even more than 3x! Would you be interested in reading *.NET File IO performance guidelines*? (We want to know it before we invest our time in writing them).
 
 #### Unix
 
@@ -514,9 +514,9 @@ private void Write(long fileSize, int userBufferSize, FileOptions options, int s
 
 #### Windows
 
-Prior to .NET 6 Preview 6, sync file operations for async file handles were simply starting async file operation by scheduling a new work item to Thread Pool and blocking current thread until the work was finished. Since we did not know whether given span was pointing to a stack-allocated memory, `FileStream` was also [performing a copy](https://github.com/dotnet/runtime/blob/3d5d26181cd7bc07ea6c6f87710c14ccd043b415/src/libraries/System.Private.CoreLib/src/System/IO/Stream.cs#L317-L330) of given memory buffer to a managed array rented from `ArrayPool`.
+Prior to .NET 6 Preview 6, sync file operations for async file handles were simply starting async file operation by scheduling a new work item to the thread pool and blocking the current thread until the work was finished. Since we did not know whether the given span was pointing to a stack-allocated memory, `FileStream` was also [performing a copy](https://github.com/dotnet/runtime/blob/3d5d26181cd7bc07ea6c6f87710c14ccd043b415/src/libraries/System.Private.CoreLib/src/System/IO/Stream.cs#L317-L330) of the given memory buffer to a managed array rented from `ArrayPool`.
 
-This has been changed in .NET 6 Preview 6 ([#54266](https://github.com/dotnet/runtime/pull/54266)) and now sync operations on `FileStream` opened for async file IO on Windows just allocate a dedicated [wait handle](https://docs.microsoft.com/dotnet/standard/threading/eventwaithandle), start async operation using `ReadFile` or `WriteFile` sys-call and wait for the completion to be signaled by the OS.
+This has been changed in .NET 6 Preview 6 ([#54266](https://github.com/dotnet/runtime/pull/54266)) and now sync operations on `FileStream` opened for async file IO on Windows just allocate a dedicated [wait handle](https://docs.microsoft.com/dotnet/standard/threading/eventwaithandle), start an async operation using `ReadFile` or `WriteFile` sys-call, and wait for the completion to be signaled by the OS.
 
 Some pseudocode:
 
@@ -534,7 +534,7 @@ public class FileStream
             buffer.CopyTo(managed, 0, buffer.Length);
 
             int bytesRead = ReadAsync(managed).GetAwaiter().GetResult();
-            
+
             ArrayPool.Shared<byte>.Return(managed);
 
             return bytesRead;
@@ -558,7 +558,7 @@ public class FileStream
 }
 ```
 
-And again the reads and writes became up to few times faster!
+And again the reads and writes became several times faster!
 
 |                 Method |  Runtime |  fileSize | userBufferSize |      options |            Mean | Ratio |   Allocated |
 |----------------------- |--------- |---------- |--------------- |------------- |----------------:|------:|------------:|
@@ -582,11 +582,11 @@ And again the reads and writes became up to few times faster!
 
 #### Unix
 
-Unix has no separation for async and sync file handles (the `O_ASYNC` flag passed to [open()](https://man7.org/linux/man-pages/man2/open.2.html) has no effect for regular files as of today) so we could not apply a similar optimization to Unix implementation.
+Unix has no separation of async and sync file handles (the `O_ASYNC` flag passed to [open()](https://man7.org/linux/man-pages/man2/open.2.html) has no effect for regular files as of today) so we could not apply a similar optimization to the Unix implementation.
 
 ## Thread-Safe File IO
 
-We recognized the need for **thread-safe File IO**. To make this possible, stateless and offset-based [APIs](https://github.com/dotnet/runtime/issues/24847#issuecomment-848063507) have been introduced in [#53669](https://github.com/dotnet/runtime/pull/53669) which was part of .NET 6 Preview 7:
+We recognized the need for **thread-safe file IO**. To make this possible, stateless and offset-based [APIs](https://github.com/dotnet/runtime/issues/24847#issuecomment-848063507) were introduced in [#53669](https://github.com/dotnet/runtime/pull/53669), which was part of .NET 6 Preview 7:
 
 ```csharp
 namespace System.IO
@@ -633,7 +633,7 @@ async Task ThreadSafeAsync(string path, IReadOnlyList<ReadOnlyMemory<byte>> buff
 
 ## Scatter/Gather IO
 
-[Scatter/Gather IO](https://en.wikipedia.org/wiki/Vectored_I/O) allows reducing the number of expensive sys-calls by passing multiple buffers in a single sys-call. This is another high-performance feature that has been implemented for .NET 6 Preview **7**:
+[Scatter/Gather IO](https://en.wikipedia.org/wiki/Vectored_I/O) allows reducing the number of expensive sys-calls by passing multiple buffers in a single sys-call. This is another high-performance feature that was implemented for .NET 6 Preview **7**:
 
 ```csharp
 namespace System.IO
@@ -665,7 +665,7 @@ async Task OptimalSysCallsAsync(string path, IReadOnlyList<ReadOnlyMemory<byte>>
 
 ### Benchmark
 
-How performing fewer sys-calls affects performance?
+How does performing fewer sys-calls affect performance?
 
 ```csharp
 const int FileSize = 100_000_000;
@@ -692,7 +692,7 @@ public void WriteGather()
     byte[] userBuffer = _buffer;
     IReadOnlyList<ReadOnlyMemory<byte>> buffers = new ReadOnlyMemory<byte>[] { _buffer, _buffer, _buffer, _buffer };
     using SafeFileHandle fileHandle = File.OpenHandle(_filePath, FileMode.Create, FileAccess.Write, FileShare.Read, FileOptions.DeleteOnClose);
-            
+
     long bytesWritten = 0;
     for (int i = 0; i < FileSize / (userBuffer.Length * 4); i++)
     {
@@ -722,7 +722,7 @@ We have observed 8% gain due to fewer sys-calls:
 
 ## Preallocation Size
 
-We have [implemented](https://github.com/dotnet/runtime/pull/51111/) one more performance and reliability feature that allows users to specify the file preallocation size: [#45946](https://github.com/dotnet/runtime/issues/45946).
+We [implemented](https://github.com/dotnet/runtime/pull/51111/) one more performance and reliability feature: we allow users to specify the file preallocation size: [#45946](https://github.com/dotnet/runtime/issues/45946).
 
 When `PreallocationSize` is specified, .NET requests the OS to ensure the disk space of a given size is allocated in advance. From a performance perspective, the write operations don't need to extend the file and it's less likely that the file is going to be fragmented. From a reliability perspective, write operations will no longer fail due to running out of space since the space has already been reserved.
 
@@ -838,7 +838,7 @@ Moreover, we have [hidden](https://github.com/dotnet/runtime/pull/52587) the `[O
 
 On Windows, for `FileStream` opened for asynchronous IO with buffering enabled, calls to `ReadAsync()` ([#16341](https://github.com/dotnet/runtime/issues/16341)) and `FlushAsync()` ([#27643](https://github.com/dotnet/runtime/issues/27643)) were performing **blocking** calls when they were filling or flushing the buffer.
 
-In order to fix that, we have introduced synchronization in [#48813](https://github.com/dotnet/runtime/pull/48813). **When buffering is enabled, all async operations are serialized**.
+In order to fix that, we introduced synchronization in [#48813](https://github.com/dotnet/runtime/pull/48813). **When buffering is enabled, all async operations are serialized**.
 
 This introduced the first breaking change: `FileStream.Position` is now updated **after** the asynchronous operation completes, not before the operation is started. `FileStream` has never been thread-safe, but for those of you who were starting multiple asynchronous operations and not awaiting them, you won't observe an updated `Position` before awaiting the operations (the order of the operations is not going to change). The recommended approach is to use the new APIs for Scatter/Gather IO.
 
@@ -846,7 +846,7 @@ Since this is an anti-pattern, and should be rare, we won't go into details, but
 
 ### Tracking file offset only in memory
 
-None of the `FileStream.Read*()` and `FileStream.Write*()` operations synchronize the offset with the OS anymore. The current offset can be obtained **only** with a call to `FileStream.Position` or `FileStream.Seek(0, SeekOrigin.Current)`. If you obtain the handle by calling `FileStream.SafeFileHandle`, and ask the OS for the current offset for the given handle by using the `SetFilePointerEx` or `lseek` sys-call, it won't always return the same value as `FileStream.Position`. It works in the other direction as well: if you obtain the `FileStream.SafeFileHandle` and use a sys-call that modifies the offset, `FileStream.Position` won't reflect the change. Since we believe that this is a very niche scenario, we won't describe the breaking change in detail here. For more details, please refer to [#50860](https://github.com/dotnet/runtime/issues/50860).
+None of the `FileStream.Read*()` and `FileStream.Write*()` operations synchronize the offset with the OS any more. The current offset can be obtained **only** with a call to `FileStream.Position` or `FileStream.Seek(0, SeekOrigin.Current)`. If you obtain the handle by calling `FileStream.SafeFileHandle`, and ask the OS for the current offset for the given handle by using the `SetFilePointerEx` or `lseek` sys-call, it won't always return the same value as `FileStream.Position`. It works in the other direction as well: if you obtain the `FileStream.SafeFileHandle` and use a sys-call that modifies the offset, `FileStream.Position` won't reflect the change. Since we believe that this is a very niche scenario, we won't describe the breaking change in detail here. For more details, please refer to [#50860](https://github.com/dotnet/runtime/issues/50860).
 
 ### .NET 5 compatibility mode
 
@@ -866,9 +866,11 @@ Or using the following environment variable:
 set DOTNET_SYSTEM_IO_USENET5COMPATFILESTREAM=1
 ```
 
-This mode is going to be [removed](https://github.com/dotnet/runtime/issues/55196) in .NET 7. Please let us know if there is any scenario that can't be implemented in .NET 6 without using the .NET 5 compatibility mode.
+We plan to [remove this](https://github.com/dotnet/runtime/issues/55196) compatibility mode in .NET 7. Please let us know if there is any scenario that can't be implemented in .NET 6 without using the .NET 5 compatibility mode.
 
 ## What's Next?
+
+There are more performance improvements to come.
 
 We have already started working on adding support for a new `FileMode` that is going to allow for atomic appends to end of file: [#53432](https://github.com/dotnet/runtime/issues/53432#issuecomment-902478772).
 
@@ -876,15 +878,26 @@ We are considering adding `io_uring` support as part of our .NET 7 planning. If 
 
 ## Summary
 
-In .NET 6, we've made several improvements to file IO:
+When you upgrade to .NET 6, you should see substantial improvements to file IO:
 
-* Async file IO can be now up to few times faster and allocation-free.
-* Async file IO on Windows is not using blocking APIs anymore.
-* New stateless and offset-based APIs for thread-safe file IO have been introduced. Some overloads accept multiple buffers at a time, allowing to reduce the number of sys-calls.
+* Async file IO can potentially be several times faster and allocation-free.
+* Async file IO on Windows is no longer using blocking APIs.
+* New stateless and offset-based APIs for thread-safe file IO have been introduced. Some overloads accept multiple buffers at a time, allowing us to reduce the number of sys-calls.
 * New APIs for specifying file preallocation size have been introduced. Both performance and reliability can be improved by using them.
-* `FileStream.Position` is not synchronized with the OS anymore (it's tracked only in memory).
+* `FileStream.Position` is not synchronized with the OS any more (it's tracked only in memory).
 * `FileStream.Position` is updated after the async operation has completed, not before it was started.
 * Users can request .NET 5 compatibility mode using a configuration file or an environment variable.
 * `FileStream` behavior for edge cases has been aligned for both Windows and Unix.
 
 Let us know what you think!
+
+Thanks to the crew that worked on this:
+
+[@adamsitnik](https://github.com/adamsitnik)
+[@benadams](https://github.com/benadams)
+[@carlossanlop](https://github.com/carlossanlop)
+[@jozkee](https://github.com/jozkee)
+[@pentp](https://github.com/pentp)
+[@stephentoub](https://github.com/stephentoub)
+[@teo-tsirpanis](https://github.com/teo-tsirpanis)
+and others!
