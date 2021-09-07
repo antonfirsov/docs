@@ -46,7 +46,7 @@ In other words:
 
 1. Request access to the [dotnet team in the microsoft org](https://repos.opensource.microsoft.com/microsoft/teams/dotnet/join/)
 2. Submit a PR to [dotnet-blog](https://github.com/microsoft/dotnet-blog)
-    * Author post in Markdown. You can use [this template](templates/blank.md).
+    * Author post in Markdown. Run the `new-post` shell script in the root, it will create the boilerplate for you.
     * To pick a publication date, consult the [blogging schedule](https://tasks.office.com/microsoft.onmicrosoft.com/en-US/Home/Planner#/plantaskboard?planId=wHOgFOjggEyrykcunh6oQpUAARuD).
       We generally only publish one post per day per blog and we don't publish
       on Fridays. Also, you need to add buffering for review and SEO. Plan for a
