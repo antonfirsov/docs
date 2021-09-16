@@ -13,6 +13,9 @@ namespace Microsoft.DotNetBlog
                 if (string.IsNullOrEmpty(context.FrontMatter.PostTitle))
                     MustSpecifyField(context, BlogFrontMatterFields.PostTitle);
 
+                if (string.IsNullOrEmpty(context.FrontMatter.FeaturedImage))
+                    MustSpecifyField(context, BlogFrontMatterFields.FeaturedImage);
+
                 if (string.IsNullOrEmpty(context.FrontMatter.Summary))
                     MustSpecifyField(context, BlogFrontMatterFields.Summary);
 
