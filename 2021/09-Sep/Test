@@ -1,0 +1,17 @@
+---
+post_title: 'I am a Test'
+username: jaymesingleton
+categories: dotnet, Xamarin
+tags: dotnet, xamarin
+featured_image: check instructions below  
+summary: This blog is testing the new automated system.
+---
+
+
+#This is a Test
+Testing links <a href="https://devblogs.microsoft.com/">for DevBlog workflow</a>.
+- I am part of a list
+- Me too!
+
+##This is a Smaller Header 
+[video src="https://giphy.com/embed/Pjr0NCGk4WMQPQtg0C"]
