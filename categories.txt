@@ -32,6 +32,7 @@ Networking
 Performance
 Security
 Spark for .NET
+SQL Server
 Static Analysis
 Support
 TPL
