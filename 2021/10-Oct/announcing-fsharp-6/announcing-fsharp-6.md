@@ -82,7 +82,7 @@ In new code, we recommend the systematic use of `expr[idx]` as the indexing synt
  
 ## Making F# faster: Struct representations for partial active patterns 
  
-F# includes [the active patterns](https://docs.microsoft.com/dotnet/fsharp/language-reference/active-patterns) feature that allows users to extend pattern matching in intuitive and powerful ways. In F# 6 we've augmented that feature with optional [Struct representations for active patterns] (https://github.com/fsharp/fslang-design/blob/main/FSharp-6.0/FS-1039-struct-representation-for-active-patterns.md). This allows you to use an attribute to constrain a partial active pattern to return a [value option](https://docs.microsoft.com/dotnet/fsharp/language-reference/value-options):
+F# includes [the active patterns](https://docs.microsoft.com/dotnet/fsharp/language-reference/active-patterns) feature that allows users to extend pattern matching in intuitive and powerful ways. In F# 6 we've augmented that feature with optional [Struct representations for active patterns](https://github.com/fsharp/fslang-design/blob/main/FSharp-6.0/FS-1039-struct-representation-for-active-patterns.md). This allows you to use an attribute to constrain a partial active pattern to return a [value option](https://docs.microsoft.com/dotnet/fsharp/language-reference/value-options):
 
 ```fsharp
 [<return: Struct>]
@@ -181,9 +181,9 @@ For example, consider the following `iterate` function to traverse an array:
 ```fsharp
 let inline iterateTwice ([<InlineIfLambda>] action) (array: 'T[]) = 
     for j = 0 to array.Length-1 do 
-        action array.[j]
+        action array[j]
     for j = 0 to array.Length-1 do 
-        action array.[j]
+        action array[j]
 ```
 
 If the callsite is
@@ -201,9 +201,9 @@ then after inlining and other optimizations the code becomes:
 let arr = [| 1.. 100 |]
 let mutable sum = 0
 for j = 0 to array.Length-1 do 
-    sum <- array.[i] + x
+    sum <- array[i] + x
 for j = 0 to array.Length-1 do 
-    sum <- array.[i] + x
+    sum <- array[i] + x
 ```
 
 Unlike previous versions of F#, this optimization applied regardless of the size of the lambda expression involved. This feature can also be used to implement loop unrolling and similar transformations reliably.
@@ -245,7 +245,7 @@ In F# 5.0 and before, upcasts were needed for the return expression when impleme
 open System
 open System.IO
   
-let findInputSource () : TextReader = 
+let findInputSource() : TextReader = 
     if DateTime.Now.DayOfWeek = DayOfWeek.Monday then  
         // On Monday a TextReader
         Console.In
@@ -257,7 +257,7 @@ let findInputSource () : TextReader =
 Here the branches of the conditional compute a TextReader and StreamReader respectively, and the upcast was added to make both branches have type TextReader. In F# 6, these upcasts are now added automatically. This means the code can now be simpler:
 
 ```fsharp
-let findInputSource () : TextReader = 
+let findInputSource() : TextReader = 
     if DateTime.Now.DayOfWeek = DayOfWeek.Monday then  
         // On Monday a TextReader
         Console.In
@@ -320,7 +320,7 @@ let purchaseOrder = XElement.Load("PurchaseOrder.xml")
 let partNos = purchaseOrder.Descendants("Item")
 ```
 
-You may optionally enable the warning `/warnon:3390` to show a warning at every point implicit numeric widening is used, as described below.
+You may optionally enable the warning `/warnon:3390` to show a warning at every point op_Implicit is used for method arguments.
 
 #### Optional warnings for implicit conversions
 
@@ -389,23 +389,23 @@ As with other functions in `NativePtr` these functions are inlined and their use
 
 ## Making F# more uniform: Additional numeric types with unit annotations
 
-F# supports [Units of Measure](https://docs.microsoft.com/dotnet/fsharp/language-reference/units-of-measure), allowing annotation tags to be added to numeric types. However, in previous versions not all numeric types supported these annotations. In F# 6, the following types or type abbreviation aliases now support unit-of-measure annotations, the new additions are shown in bold:
+F# supports [Units of Measure](https://docs.microsoft.com/dotnet/fsharp/language-reference/units-of-measure), allowing annotation tags to be added to numeric types. However, in previous versions not all numeric types supported these annotations. In F# 6, the following types or type abbreviation aliases now support unit-of-measure annotations, the new additions are shown with `+`:
 
  F# alias     | CLR Type
 --------------|------------------
-`float32`/**`single`**     | `System.Single`
-`float`/**`double`**     | `System.Double`
+`float32`/`single`+     | `System.Single`
+`float`/`double`+     | `System.Double`
 `decimal` | `System.Decimal `
-`sbyte`/**`int8`**       | `System.SByte`
+`sbyte`/`int8`+       | `System.SByte`
 `int16`       | `System.Int16`
-`int`/**`int32`**      | `System.Int32`
+`int`/`int32`+      | `System.Int32`
 `int64`      | `System.Int64`
-**`byte`**/**`uint8`**       | `System.Byte`
-**`uint16`**     | `System.UInt16`
-**`uint`**/**`uint32`**     | `System.UInt32`
-**`uint64`**     | `System.UIn64`
-**`nativeint`**  | `System.IntPtr`
-**`unativeint`** | `System.UIntPtr`
+`byte`+/`uint8`+       | `System.Byte`
+`uint16`+     | `System.UInt16`
+`uint`+/`uint32`+     | `System.UInt32`
+`uint64`+     | `System.UIn64`
+`nativeint`+  | `System.IntPtr`
+`unativeint`+ | `System.UIntPtr`
 
 For example, you can annotate an unsigned integer as follows:
 
@@ -432,7 +432,7 @@ For example, consider the following F# 5.0 code:
 let r = ref 0
 
 let doSomething() =
-    printfn "doing something”
+    printfn "doing something"
     r := !r + 1
 ```
 
@@ -442,7 +442,7 @@ First, in modern F# coding reference cells are rarely needed, as `let mutable` c
 let mutable r = 0
 
 let doSomething() =
-    printfn "doing something”
+    printfn "doing something"
     r <- r + 1
 ```
 
@@ -452,7 +452,7 @@ If reference cells are used, then the in F# 6 an informational warning is emitte
 let r = ref 0
 
 let doSomething() =
-    printfn "doing something”
+    printfn "doing something"
     r.Value <- r.Value + 1
 ```
 
@@ -583,6 +583,14 @@ In October, the F# community has worked on an initiative to add code examples fo
 * Functions and methods in advanced modules such as [Quotations](https://fsharp.github.io/fsharp-core-docs/reference/fsharp-quotations-fsharpexpr.html) now have examples.
 
 You can contribute to this initiative via [this GitHub issue](https://github.com/dotnet/fsharp/issues/12124). 
+
+## System.Text.Json support for common F# types
+
+Starting with .NET 6 System.Text.Json will have built-in support for common F# types. An example is shown below.
+
+![System.Text.Json example](json.jpg)
+
+User-defined discriminated unions are not yet supported in this way. Thank you to [Eirik Tsarpalis](https://github.com/eiriktsarpalis) for contributing this to .NET.
 
 ## General Improvements in .NET 6
 
