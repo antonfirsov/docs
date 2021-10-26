@@ -7,21 +7,27 @@
 AI Machine Learning
 Apache
 ASP.NET
+ASP.NET Core
 Async
 Azure
 Big Data
+Blazor
 C#
+Cloud
 Code reviews
+Community Standup
 Concurrency
+Containers
+Conversations
 Debugging
 Docker
-Dot.Net
 Entity Framework
 ErrorProne.NET
 F#
 Game Development
 GC
-GitHub Action
+GitHub Actions
+IoT
 JSON
 Lifecycle
 LOH
@@ -31,6 +37,7 @@ ML.NET
 Networking
 Performance
 Security
+SignalR
 Spark for .NET
 SQL Server
 Static Analysis
@@ -40,6 +47,8 @@ Tye
 Visual Basic
 Visual Studio
 Visual Studio Code
+WCF
+WebHooks
 WinForms
 WPF
 XAML
