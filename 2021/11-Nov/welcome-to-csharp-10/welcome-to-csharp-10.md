@@ -287,7 +287,7 @@ In general, when you see parameter types of the form `SomethingInterpolatedStrin
 Sometimes you want to do the work of building the string only under certain conditions. An example is `Debug.Assert`:
 
 ``` c#
-Debug.Assert(condition, $"{SomethingExpensiveHappensHere()");
+Debug.Assert(condition, $"{SomethingExpensiveHappensHere()}");
 ```
 
 In most cases, the condition will be true and the second parameter is unused. However, all of the arguments are computed on every call, needlessly slowing down execution. `Debug.Assert` now has an overload with a custom interpolated string builder, which ensures that the second argument isn't even evaluated unless the condition is false.
