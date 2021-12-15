@@ -1,33 +1,31 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 using YamlDotNet.Serialization;
 
-namespace Microsoft.DotNetBlog
+namespace Microsoft.DotNetBlog;
+
+public sealed class BlogFrontMatter
 {
-    public sealed class BlogFrontMatter
+    public string? PostTitle { get; set; }
+    public string? Username { get; set; }
+    public string? Categories { get; set; }
+    public string? FeaturedImage { get; set; }
+    public string? Summary { get; set; }
+    public string? MicrosoftAlias { get; set; }
+
+    [YamlMember(Alias = "desired_publication_date")]
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public string? DesiredPublicationDateText { get; set; }
+
+    [YamlIgnore]
+    public DateTime? DesiredPublicationDate
     {
-        public string PostTitle { get; set; }
-        public string Username { get; set; }
-        public string Categories { get; set; }
-        public string FeaturedImage { get; set; }
-        public string Summary { get; set; }
-        public string MicrosoftAlias { get; set; }
-        
-        [YamlMember(Alias = "desired_publication_date")]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public string DesiredPublicationDateText { get; set; }
-
-        [YamlIgnore]
-        public DateTime? DesiredPublicationDate
+        get
         {
-            get
-            {
-                if (!DateTime.TryParse(DesiredPublicationDateText, out var date))
-                    return null;
+            if (!DateTime.TryParse(DesiredPublicationDateText, out var date))
+                return null;
 
-                return date;
-            }
+            return date;
         }
     }
 }

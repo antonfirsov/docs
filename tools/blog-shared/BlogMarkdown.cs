@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
 
 using Markdig;
 using Markdig.Extensions.Yaml;
@@ -9,37 +8,36 @@ using Markdig.Syntax;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-namespace Microsoft.DotNetBlog
+namespace Microsoft.DotNetBlog;
+
+public static class BlogMarkdown
 {
-    public static class BlogMarkdown
+    private static readonly MarkdownPipeline _pipeline = new MarkdownPipelineBuilder()
+        .UsePipeTables()
+        .UseYamlFrontMatter()
+        .UsePreciseSourceLocation()
+        .Build();
+
+    public static MarkdownDocument Parse(string markdown)
     {
-        private static readonly MarkdownPipeline _pipeline = new MarkdownPipelineBuilder()
-            .UsePipeTables()
-            .UseYamlFrontMatter()
-            .UsePreciseSourceLocation()
-            .Build();
+        return MarkdownParser.Parse(markdown, _pipeline);
+    }
 
-        public static MarkdownDocument Parse(string markdown)
+    public static bool TryGetFrontMatter(this MarkdownDocument document, [MaybeNullWhen(false)] out BlogFrontMatter frontMatter)
+    {
+        if (document.FirstOrDefault() is YamlFrontMatterBlock frontMatterBlock)
         {
-            return MarkdownParser.Parse(markdown, _pipeline);
+            var yaml = string.Join(Environment.NewLine, frontMatterBlock.Lines);
+            var deserializer = new DeserializerBuilder()
+                .WithNamingConvention(UnderscoredNamingConvention.Instance)
+                .IgnoreUnmatchedProperties()
+                .Build();
+
+            frontMatter = deserializer.Deserialize<BlogFrontMatter>(yaml);
+            return true;
         }
 
-        public static bool TryGetFrontMatter(this MarkdownDocument document, out BlogFrontMatter frontMatter)
-        {
-            if (document.FirstOrDefault() is YamlFrontMatterBlock frontMatterBlock)
-            {
-                var yaml = string.Join(Environment.NewLine, frontMatterBlock.Lines);
-                var deserializer = new DeserializerBuilder()
-                    .WithNamingConvention(UnderscoredNamingConvention.Instance)
-                    .IgnoreUnmatchedProperties()
-                    .Build();
-
-                frontMatter = deserializer.Deserialize<BlogFrontMatter>(yaml);
-                return true;
-            }
-
-            frontMatter = null;
-            return false;
-        }
+        frontMatter = null;
+        return false;
     }
 }

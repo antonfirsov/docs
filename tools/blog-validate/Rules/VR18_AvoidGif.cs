@@ -1,32 +1,27 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-
-using Markdig.Syntax;
+﻿using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 
-namespace Microsoft.DotNetBlog
+namespace Microsoft.DotNetBlog;
+
+internal sealed class VR18_AvoidGif : ValidationRule
 {
-    internal sealed class VR18_AvoidGif : ValidationRule
+    public override void Validate(ValidationContext context)
     {
-        public override void Validate(ValidationContext context)
+        var links = context.Document.Descendants<LinkInline>()
+                                    .Where(i => i.IsImage);
+
+        foreach (var link in links)
         {
-            var links = context.Document.Descendants<LinkInline>()
-                                        .Where(i => i.IsImage);
+            if (!UriHelper.TryGetRelativeOrAbsoluteUri(link.Url, out var url))
+                continue;
 
-            foreach (var link in links)
-            {
-                if (!UriHelper.TryGetRelativeOrAbsoluteUri(link.Url, out var url))
-                    continue;
+            var local = url.IsAbsoluteUri ? url.LocalPath : link.Url;
+            var extension = Path.GetExtension(local);
 
-                var local = url.IsAbsoluteUri ? url.LocalPath : link.Url;
-                var extension = Path.GetExtension(local);
+            var isGif = string.Equals(extension, ".gif", StringComparison.OrdinalIgnoreCase);
 
-                var isGif = string.Equals(extension, ".gif", StringComparison.OrdinalIgnoreCase);
-
-                if (isGif)
-                    context.Warning("VR18", link, "Avoid GIF for videos because they can't be stopped and thus aren't accessible. Use .mp4 instead.");
-            }
+            if (isGif)
+                context.Warning("VR18", link, "Avoid GIF for videos because they can't be stopped and thus aren't accessible. Use .mp4 instead.");
         }
     }
 }

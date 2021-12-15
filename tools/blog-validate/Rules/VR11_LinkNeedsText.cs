@@ -2,22 +2,21 @@
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 
-namespace Microsoft.DotNetBlog
+namespace Microsoft.DotNetBlog;
+
+internal sealed class VR11_LinkNeedsText : ValidationRule
 {
-    internal sealed class VR11_LinkNeedsText : ValidationRule
+    public override void Validate(ValidationContext context)
     {
-        public override void Validate(ValidationContext context)
+        var links = context.Document.Descendants<LinkInline>();
+
+        foreach (var link in links)
         {
-            var links = context.Document.Descendants<LinkInline>();
+            if (link.IsImage)
+                continue;
 
-            foreach (var link in links)
-            {
-                if (link.IsImage)
-                    continue;
-
-                if (string.IsNullOrEmpty(link.FirstChild?.ToString()))
-                    context.Error("VR11", link, "Link must have text");
-            }
+            if (string.IsNullOrEmpty(link.FirstChild?.ToString()))
+                context.Error("VR11", link, "Link must have text");
         }
     }
 }

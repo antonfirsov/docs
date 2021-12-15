@@ -1,144 +1,137 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.IO;
-using System.Linq;
+﻿using System.Collections.Concurrent;
 using System.Net;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 
-namespace Microsoft.DotNetBlog
+namespace Microsoft.DotNetBlog;
+
+internal sealed class VR14_LinkShouldResolve : ValidationRule
 {
-    internal sealed class VR14_LinkShouldResolve : ValidationRule
+    public override void Validate(ValidationContext context)
     {
-        public override void Validate(ValidationContext context)
+        var links = context.Document.Descendants<LinkInline>();
+
+        var validatedLinks = new ConcurrentDictionary<string, ValidationResult?>(StringComparer.Ordinal);
+
+        var uniqueLinks = links.Select(l => l.Url)
+                               .ToHashSet();
+
+        var options = new ParallelOptions
         {
-            var links = context.Document.Descendants<LinkInline>();
+            MaxDegreeOfParallelism = 4
+        };
 
-            var validatedLinks = new ConcurrentDictionary<string, ValidationResult>(StringComparer.Ordinal);
+        Parallel.ForEach(uniqueLinks, options, link =>
+        {
+            var validationResult = Validate(context.FileName, link);
+            validatedLinks.TryAdd(link, validationResult);
+        });
 
-            var uniqueLinks = links.Select(l => l.Url)
-                                   .ToHashSet();
+        foreach (var link in links)
+        {
+            var validationResult = validatedLinks[link.Url];
 
-            var options = new ParallelOptions
+            if (validationResult is not null)
             {
-                MaxDegreeOfParallelism = 4
-            };
-
-            Parallel.ForEach(uniqueLinks, options, link =>
-            {
-                var validationResult = Validate(context.FileName, link);
-                validatedLinks.TryAdd(link, validationResult);
-            });
-
-            foreach (var link in links)
-            {
-                var validationResult = validatedLinks[link.Url];
-
-                if (validationResult is not null)
-                {
-                    if (validationResult.IsError)
-                        context.Error(validationResult.Id, link, validationResult.Message);
-                    else
-                        context.Warning(validationResult.Id, link, validationResult.Message);
-                }
+                if (validationResult.IsError)
+                    context.Error(validationResult.Id, link, validationResult.Message);
+                else
+                    context.Warning(validationResult.Id, link, validationResult.Message);
             }
         }
+    }
 
-        private static ValidationResult Validate(string fileName, string link)
+    private static ValidationResult? Validate(string fileName, string link)
+    {
+        var client = new HttpClient();
+
+        // Some CDNs, such as Akamai, will return 404 unless a User-Agent is specified.
+        client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36 Edg/92.0.902.67");
+
+        var retryCount = 5;
+    Retry:
+
+        if (retryCount-- == 0)
+            return new ValidationResult(false, "VR14", "Couldn't validate URL.");
+
+        if (UriHelper.TryGetAbsoluteUri(link, out var url))
         {
-            var client = new HttpClient();
+            var isHttp = url.Scheme.StartsWith("http", StringComparison.OrdinalIgnoreCase);
+            if (!isHttp)
+                return null;
 
-            // Some CDNs, such as Akamai, will return 404 unless a User-Agent is specified.
-            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36 Edg/92.0.902.67");
-
-            var retryCount = 5;
-            Retry:
-
-            if (retryCount-- == 0)
-                return new ValidationResult(false, "VR14", "Couldn't validate URL.");
-
-            if (UriHelper.TryGetAbsoluteUri(link, out var url))
+            try
             {
-                var isHttp = url.Scheme.StartsWith("http", StringComparison.OrdinalIgnoreCase);
-                if (!isHttp)
-                    return null;
+                using var response = client.GetAsync(url).GetAwaiter().GetResult();
 
-                try
+                if (response.StatusCode == HttpStatusCode.TooManyRequests)
                 {
-                    using var response = client.GetAsync(url).GetAwaiter().GetResult();
+                    var delay = TimeSpan.FromSeconds(10);
 
-                    if (response.StatusCode == HttpStatusCode.TooManyRequests)
+                    if (response.Headers.TryGetValues("Retry-After", out var retryAfterValues))
                     {
-                        var delay = TimeSpan.FromSeconds(10);
-
-                        if (response.Headers.TryGetValues("Retry-After", out var retryAfterValues))
+                        foreach (var value in retryAfterValues)
                         {
-                            foreach (var value in retryAfterValues)
+                            if (int.TryParse(value, out var seconds))
                             {
-                                if (int.TryParse(value, out var seconds))
-                                {
-                                    delay = TimeSpan.FromSeconds(seconds);
-                                }
+                                delay = TimeSpan.FromSeconds(seconds);
                             }
                         }
-
-                        Thread.Sleep(delay);
-
-                        goto Retry;
                     }
 
-                    if (IsForwardLink(url) && !IsForwarded(response))
-                        throw new Exception("The URL wasn't forwarded");
+                    Thread.Sleep(delay);
 
-                    if (IsForwarded(response))
-                        return null;
-
-                    response.EnsureSuccessStatusCode();
+                    goto Retry;
                 }
-                catch (Exception ex)
-                {
-                    return new ValidationResult(false, "VR14", $"URL '{url}' doesn't resolve: {ex.Message}");
-                }
+
+                if (IsForwardLink(url) && !IsForwarded(response))
+                    throw new Exception("The URL wasn't forwarded");
+
+                if (IsForwarded(response))
+                    return null;
+
+                response.EnsureSuccessStatusCode();
             }
-            else if (UriHelper.TryGetRelativeUri(link, out url))
+            catch (Exception ex)
             {
-                var markdownDirectory = Path.GetDirectoryName(fileName);
-                var fullPath = Path.Join(markdownDirectory, link);
-                if (!File.Exists(fullPath))
-                    return new ValidationResult(true, "VR20", $"Relative URL '{url}' doesn't resolve to file in the repository");
+                return new ValidationResult(false, "VR14", $"URL '{url}' doesn't resolve: {ex.Message}");
             }
-
-            return null;
         }
-
-        private static bool IsForwardLink(Uri url)
+        else if (UriHelper.TryGetRelativeUri(link, out url))
         {
-            return string.Equals(url.Host, "aka.ms", StringComparison.OrdinalIgnoreCase) ||
-                   string.Equals(url.Host, "go.microsoft.com", StringComparison.OrdinalIgnoreCase);
+            var markdownDirectory = Path.GetDirectoryName(fileName);
+            var fullPath = Path.Join(markdownDirectory, link);
+            if (!File.Exists(fullPath))
+                return new ValidationResult(true, "VR20", $"Relative URL '{url}' doesn't resolve to file in the repository");
         }
 
-        private static bool IsForwarded(HttpResponseMessage response)
+        return null;
+    }
+
+    private static bool IsForwardLink(Uri url)
+    {
+        return string.Equals(url.Host, "aka.ms", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(url.Host, "go.microsoft.com", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsForwarded(HttpResponseMessage response)
+    {
+        return response.StatusCode == HttpStatusCode.Moved ||
+               response.StatusCode == HttpStatusCode.MovedPermanently;
+    }
+
+    private sealed class ValidationResult
+    {
+        public ValidationResult(bool isError, string id, string message)
         {
-            return response.StatusCode == HttpStatusCode.Moved ||
-                   response.StatusCode == HttpStatusCode.MovedPermanently;
+            IsError = isError;
+            Id = id;
+            Message = message;
         }
 
-        private sealed class ValidationResult
-        {
-            public ValidationResult(bool isError, string id, string message)
-            {
-                IsError = isError;
-                Id = id;
-                Message = message;
-            }
-
-            public bool IsError { get; }
-            public string Id { get; }
-            public string Message { get; }
-        }
+        public bool IsError { get; }
+        public string Id { get; }
+        public string Message { get; }
     }
 }

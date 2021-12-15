@@ -1,33 +1,30 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
+﻿using System.Globalization;
 
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 
-namespace Microsoft.DotNetBlog
+namespace Microsoft.DotNetBlog;
+
+internal sealed class VR10_LinkShouldNotIncludeLocale : ValidationRule
 {
-    internal sealed class VR10_LinkShouldNotIncludeLocale : ValidationRule
+    public override void Validate(ValidationContext context)
     {
-        public override void Validate(ValidationContext context)
+        var links = context.Document.Descendants<LinkInline>();
+
+        foreach (var link in links)
         {
-            var links = context.Document.Descendants<LinkInline>();
+            if (!UriHelper.TryGetAbsoluteUri(link.Url, out var url))
+                continue;
 
-            foreach (var link in links)
-            {
-                if (!UriHelper.TryGetAbsoluteUri(link.Url, out var url))
-                    continue;
+            var isMicrosoftDotCom = url.Host.Equals("microsoft.com", StringComparison.OrdinalIgnoreCase) ||
+                                    url.Host.EndsWith(".microsoft.com", StringComparison.OrdinalIgnoreCase);
 
-                var isMicrosoftDotCom = url.Host.Equals("microsoft.com", StringComparison.OrdinalIgnoreCase) ||
-                                        url.Host.EndsWith(".microsoft.com", StringComparison.OrdinalIgnoreCase);
+            var locale = CultureInfo.GetCultures(CultureTypes.AllCultures)
+                                    .Where(c => !string.IsNullOrEmpty(c.Name))
+                                    .FirstOrDefault(c => url.Segments.Any(s => s.Equals(c.Name + "/", StringComparison.OrdinalIgnoreCase)));
 
-                var locale = CultureInfo.GetCultures(CultureTypes.AllCultures)
-                                        .Where(c => !string.IsNullOrEmpty(c.Name))
-                                        .FirstOrDefault(c => url.Segments.Any(s => s.Equals(c.Name + "/", StringComparison.OrdinalIgnoreCase)));
-
-                if (isMicrosoftDotCom && locale != null)
-                    context.Error("VR10", link, $"The host '{url.Host} shouldn't use locales. Remove '{locale.Name}' from the URL.");
-            }
+            if (isMicrosoftDotCom && locale != null)
+                context.Error("VR10", link, $"The host '{url.Host} shouldn't use locales. Remove '{locale.Name}' from the URL.");
         }
     }
 }

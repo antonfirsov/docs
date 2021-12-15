@@ -1,21 +1,20 @@
 ﻿using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 
-namespace Microsoft.DotNetBlog
+namespace Microsoft.DotNetBlog;
+
+internal sealed class VR22_LinksMustBeWellFormedUris : ValidationRule
 {
-    internal sealed class VR22_LinksMustBeWellFormedUris : ValidationRule
+    public override void Validate(ValidationContext context)
     {
-        public override void Validate(ValidationContext context)
+        var links = context.Document.Descendants<LinkInline>();
+
+        foreach (var link in links)
         {
-            var links = context.Document.Descendants<LinkInline>();
+            if (UriHelper.TryGetRelativeOrAbsoluteUri(link.Url, out _))
+                continue;
 
-            foreach (var link in links)
-            {
-                if (UriHelper.TryGetRelativeOrAbsoluteUri(link.Url, out _))
-                    continue;
-
-                context.Error("VR22", link, $"'{link.Url}' is not a valid URI");
-            }
+            context.Error("VR22", link, $"'{link.Url}' is not a valid URI");
         }
     }
 }

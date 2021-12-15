@@ -1,47 +1,44 @@
-﻿using System;
+﻿namespace Microsoft.DotNetBlog;
 
-namespace Microsoft.DotNetBlog
+public struct LinePosition : IEquatable<LinePosition>
 {
-    public struct LinePosition : IEquatable<LinePosition>
+    public LinePosition(int line, int column)
     {
-        public LinePosition(int line, int column)
-        {
-            Line = line;
-            Column = column;
-        }
+        Line = line;
+        Column = column;
+    }
 
-        public int Line { get; }
-        public int Column { get; }
+    public int Line { get; }
+    public int Column { get; }
 
-        public override bool Equals(object obj)
-        {
-            return obj is LinePosition position && Equals(position);
-        }
+    public override bool Equals(object? obj)
+    {
+        return obj is LinePosition position && Equals(position);
+    }
 
-        public bool Equals(LinePosition other)
-        {
-            return Line == other.Line &&
-                   Column == other.Column;
-        }
+    public bool Equals(LinePosition other)
+    {
+        return Line == other.Line &&
+               Column == other.Column;
+    }
 
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Line, Column);
-        }
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Line, Column);
+    }
 
-        public static bool operator ==(LinePosition left, LinePosition right)
-        {
-            return left.Equals(right);
-        }
+    public static bool operator ==(LinePosition left, LinePosition right)
+    {
+        return left.Equals(right);
+    }
 
-        public static bool operator !=(LinePosition left, LinePosition right)
-        {
-            return !(left == right);
-        }
+    public static bool operator !=(LinePosition left, LinePosition right)
+    {
+        return !(left == right);
+    }
 
-        public override string ToString()
-        {
-            return $"{Line + 1},{Column + 1}";
-        }
+    public override string ToString()
+    {
+        return $"{Line + 1},{Column + 1}";
     }
 }

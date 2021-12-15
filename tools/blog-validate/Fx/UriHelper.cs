@@ -1,64 +1,63 @@
-﻿using System;
+﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Microsoft.DotNetBlog
+namespace Microsoft.DotNetBlog;
+
+internal static class UriHelper
 {
-    internal static class UriHelper
+    public static bool TryGetRelativeOrAbsoluteUri(string text, [MaybeNullWhen(false)] out Uri uri)
     {
-        public static bool TryGetRelativeOrAbsoluteUri(string text, out Uri uri)
+        try
         {
-            try
+            uri = new Uri(text, UriKind.RelativeOrAbsolute);
+            return true;
+        }
+        catch (Exception)
+        {
+            uri = null;
+            return false;
+        }
+    }
+
+    public static bool TryGetAbsoluteUri(string text, [MaybeNullWhen(false)] out Uri uri)
+    {
+        try
+        {
+            var u = new Uri(text, UriKind.RelativeOrAbsolute);
+            if (u.IsAbsoluteUri)
             {
-                uri = new Uri(text, UriKind.RelativeOrAbsolute);
+                uri = u;
                 return true;
             }
-            catch (Exception)
-            {
-                uri = null;
-                return false;
-            }
         }
-
-        public static bool TryGetAbsoluteUri(string text, out Uri uri)
+        catch (Exception)
         {
-            try
-            {
-                var u = new Uri(text, UriKind.RelativeOrAbsolute);
-                if (u.IsAbsoluteUri)
-                {
-                    uri = u;
-                    return true;
-                }
-            }
-            catch (Exception)
-            {
-            }
-
-            uri = null;
-            return false;
         }
 
-        public static bool TryGetRelativeUri(string text, out Uri uri)
+        uri = null;
+        return false;
+    }
+
+    public static bool TryGetRelativeUri(string text, [MaybeNullWhen(false)] out Uri uri)
+    {
+        try
         {
-            try
+            var u = new Uri(text, UriKind.RelativeOrAbsolute);
+            if (!u.IsAbsoluteUri && !IsAnchor(text))
             {
-                var u = new Uri(text, UriKind.RelativeOrAbsolute);
-                if (!u.IsAbsoluteUri && !IsAnchor(text))
-                {
-                    uri = u;
-                    return true;
-                }
+                uri = u;
+                return true;
             }
-            catch (Exception)
-            {
-            }
-
-            uri = null;
-            return false;
         }
-
-        private static bool IsAnchor(string text)
+        catch (Exception)
         {
-            return text.Trim().StartsWith("#");
         }
+
+        uri = null;
+        return false;
+    }
+
+    private static bool IsAnchor(string text)
+    {
+        return text.Trim().StartsWith("#");
     }
 }

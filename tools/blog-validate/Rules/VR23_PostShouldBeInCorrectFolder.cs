@@ -1,24 +1,21 @@
-using System.IO;
+namespace Microsoft.DotNetBlog;
 
-namespace Microsoft.DotNetBlog
+internal sealed class VR23_PostShouldBeInCorrectFolder : ValidationRule
 {
-    internal sealed class VR23_PostShouldBeInCorrectFolder : ValidationRule
+    public override void Validate(ValidationContext context)
     {
-        public override void Validate(ValidationContext context)
-        {
-            if (context.FrontMatter?.DesiredPublicationDate is null)
-                return;
+        if (context.FrontMatter?.DesiredPublicationDate is null)
+            return;
 
-            var root = context.RootDirectory;
-            var date = context.FrontMatter.DesiredPublicationDate.Value;
-            var year = date.Year.ToString();
-            var month = date.ToString("MM-MMM");
-            var name = Path.GetFileNameWithoutExtension(context.FileName);
-            var expectedDirectory = Path.Join(root, year, month, name);
-            var actualDirectory = Path.GetDirectoryName(context.FileName);
+        var root = context.RootDirectory;
+        var date = context.FrontMatter.DesiredPublicationDate.Value;
+        var year = date.Year.ToString();
+        var month = date.ToString("MM-MMM");
+        var name = Path.GetFileNameWithoutExtension(context.FileName);
+        var expectedDirectory = Path.Join(root, year, month, name);
+        var actualDirectory = Path.GetDirectoryName(context.FileName);
 
-            if (actualDirectory != expectedDirectory)
-                context.Error("VR23", context.Document, $"The post should be in directory '{expectedDirectory}'");
-        }
+        if (actualDirectory != expectedDirectory)
+            context.Error("VR23", context.Document, $"The post should be in directory '{expectedDirectory}'");
     }
 }

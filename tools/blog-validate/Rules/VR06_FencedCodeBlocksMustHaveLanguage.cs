@@ -1,18 +1,15 @@
-﻿using System.Linq;
+﻿using Markdig.Syntax;
 
-using Markdig.Syntax;
+namespace Microsoft.DotNetBlog;
 
-namespace Microsoft.DotNetBlog
+internal sealed class VR06_FencedCodeBlocksMustHaveLanguage : ValidationRule
 {
-    internal sealed class VR06_FencedCodeBlocksMustHaveLanguage: ValidationRule
+    public override void Validate(ValidationContext context)
     {
-        public override void Validate(ValidationContext context)
-        {
-            var unfencedBlocks = context.Document.Descendants<FencedCodeBlock>()
-                                                 .Where(b => string.IsNullOrEmpty(b.Info));
+        var unfencedBlocks = context.Document.Descendants<FencedCodeBlock>()
+                                             .Where(b => string.IsNullOrEmpty(b.Info));
 
-            foreach (var block in unfencedBlocks)
-                context.Error("VR06", block, "Fenced code blocks should specify a language");
-        }
+        foreach (var block in unfencedBlocks)
+            context.Error("VR06", block, "Fenced code blocks should specify a language");
     }
 }

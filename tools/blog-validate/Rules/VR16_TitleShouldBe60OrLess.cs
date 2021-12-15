@@ -1,16 +1,15 @@
-﻿namespace Microsoft.DotNetBlog
-{
-    internal sealed class VR16_TitleShouldBe60OrLess : ValidationRule
-    {
-        public override void Validate(ValidationContext context)
-        {
-            if (context.FrontMatter != null)
-            {
-                var diagnosticSpan = context.Document.GetFrontMatterDiagnosticSpan(BlogFrontMatterFields.PostTitle);
+﻿namespace Microsoft.DotNetBlog;
 
-                if (context.FrontMatter.PostTitle?.Length > 60)
-                    context.Warning("VR16", diagnosticSpan, "'post_title' should be 60 characters or less");
-            }
+internal sealed class VR16_TitleShouldBe60OrLess : ValidationRule
+{
+    public override void Validate(ValidationContext context)
+    {
+        if (context.FrontMatter != null)
+        {
+            var diagnosticSpan = context.Document.GetFrontMatterDiagnosticSpan(BlogFrontMatterFields.PostTitle);
+
+            if (context.FrontMatter.PostTitle?.Length > 60)
+                context.Warning("VR16", diagnosticSpan, "'post_title' should be 60 characters or less");
         }
     }
 }

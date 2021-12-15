@@ -1,83 +1,80 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
+﻿using System.Diagnostics;
 
 using Humanizer;
 
 using Spectre.Console;
 
-namespace Microsoft.DotNetBlog
+namespace Microsoft.DotNetBlog;
+
+internal static class Program
 {
-    internal static class Program
+    private static void Main()
     {
-        private static void Main()
+        var authorInformation = AuthorInformation.Load();
+        if (authorInformation is null)
         {
-            var authorInformation = AuthorInformation.Load();
-            if (authorInformation is null)
+            AnsiConsole.Render(new Rule { Title = "[gray]User information[/]", Alignment = Justify.Left });
+
+            var microsoftAlias = AnsiConsole.Ask("What's your Microsoft [cyan]alias[/]?", GetDefaultMicrosoftAlias());
+
+            if (!AnsiConsole.Confirm("Do you know your WordPress user name?"))
             {
-                AnsiConsole.Render(new Rule { Title = "[gray]User information[/]", Alignment = Justify.Left });
+                AnsiConsole.MarkupLine("Check the [cyan]Username[/] field in your WordPress profile.");
 
-                var microsoftAlias = AnsiConsole.Ask("What's your Microsoft [cyan]alias[/]?", GetDefaultMicrosoftAlias());
+                var profileUrl = "https://devblogs.microsoft.com/dotnet/wp-admin/profile.php";
 
-                if (!AnsiConsole.Confirm("Do you know your WordPress user name?"))
+                if (!OperatingSystem.IsWindows())
                 {
-                    AnsiConsole.MarkupLine("Check the [cyan]Username[/] field in your WordPress profile.");
-
-                    var profileUrl = "https://devblogs.microsoft.com/dotnet/wp-admin/profile.php";
-
-                    if (!OperatingSystem.IsWindows())
-                    {
-                        AnsiConsole.MarkupLine("[gray]Navigate to the following URL in your browser:[/]");
-                        AnsiConsole.MarkupLine(profileUrl);
-                    }
-                    else
-                    {
-                        AnsiConsole.MarkupLine("[gray]Hit any key to open browser[/]");
-                        Console.ReadKey();
-                        Process.Start(new ProcessStartInfo
-                        {
-                            FileName = profileUrl,
-                            UseShellExecute = true
-                        });
-                    }
+                    AnsiConsole.MarkupLine("[gray]Navigate to the following URL in your browser:[/]");
+                    AnsiConsole.MarkupLine(profileUrl);
                 }
-
-                var wordPressUserName = AnsiConsole.Ask<string>("What's your [cyan]WordPress user name[/]?");
-
-                authorInformation = new AuthorInformation(microsoftAlias, wordPressUserName);
-                authorInformation.Save();
+                else
+                {
+                    AnsiConsole.MarkupLine("[gray]Hit any key to open browser[/]");
+                    Console.ReadKey();
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = profileUrl,
+                        UseShellExecute = true
+                    });
+                }
             }
 
-            AnsiConsole.Render(new Rule { Title = "[gray]Create blog post[/]", Alignment = Justify.Left });
+            var wordPressUserName = AnsiConsole.Ask<string>("What's your [cyan]WordPress user name[/]?");
 
-            var postTitle = AnsiConsole.Ask<string>("What's the post [cyan]title[/]?");
-            var postName = AnsiConsole.Ask("What's the post [cyan]name[/]?", GetDefaultPostName(postTitle));
-            var desiredPublicationDate = AnsiConsole.Ask("What's the desired [cyan]publication date[/]? Please give several days for review and SEO optimization.", GetDefaultPublicationDate());
+            authorInformation = new AuthorInformation(microsoftAlias, wordPressUserName);
+            authorInformation.Save();
+        }
 
-            var categories = AnsiConsole.Prompt(
-                new MultiSelectionPrompt<string>()
-                    .Title("What are the post [cyan]categories[/]?")
-                    .NotRequired()
-                    .PageSize(20)
-                    .MoreChoicesText("[grey](Move up and down to reveal more categories)[/]")
-                    .InstructionsText("[grey](Press [blue]<space>[/] to toggle a categorie, [green]<enter>[/] to accept)[/]")
-                    .AddChoices(GetCategories()
-                )
-            );
+        AnsiConsole.Render(new Rule { Title = "[gray]Create blog post[/]", Alignment = Justify.Left });
 
-            var path = $"{desiredPublicationDate.Year}/{desiredPublicationDate:MM-MMM}/{postName}/{postName}.md";
+        var postTitle = AnsiConsole.Ask<string>("What's the post [cyan]title[/]?");
+        var postName = AnsiConsole.Ask("What's the post [cyan]name[/]?", GetDefaultPostName(postTitle));
+        var desiredPublicationDate = AnsiConsole.Ask("What's the desired [cyan]publication date[/]? Please give several days for review and SEO optimization.", GetDefaultPublicationDate());
 
-            if (File.Exists(path))
-            {
-                var overwrite = AnsiConsole.Confirm("Post already exists. [cyan]Overwrite[/]?", false);
-                if (!overwrite)
-                    return;
-            }
+        var categories = AnsiConsole.Prompt(
+            new MultiSelectionPrompt<string>()
+                .Title("What are the post [cyan]categories[/]?")
+                .NotRequired()
+                .PageSize(20)
+                .MoreChoicesText("[grey](Move up and down to reveal more categories)[/]")
+                .InstructionsText("[grey](Press [blue]<space>[/] to toggle a categorie, [green]<enter>[/] to accept)[/]")
+                .AddChoices(GetCategories()
+            )
+        );
 
-            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+        var path = $"{desiredPublicationDate.Year}/{desiredPublicationDate:MM-MMM}/{postName}/{postName}.md";
 
-            var post = @$"---
+        if (File.Exists(path))
+        {
+            var overwrite = AnsiConsole.Confirm("Post already exists. [cyan]Overwrite[/]?", false);
+            if (!overwrite)
+                return;
+        }
+
+        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+
+        var post = @$"---
 post_title: {postTitle}
 username: {authorInformation.WordPressUserName}
 microsoft_alias: {authorInformation.MicrosoftAlias}
@@ -99,104 +96,103 @@ H1.
 
 Some summary or call to action.";
 
-            File.WriteAllText(path, post);
-        }
+        File.WriteAllText(path, post);
+    }
 
-        private static string GetDefaultPostName(string postTitle)
+    private static string GetDefaultPostName(string postTitle)
+    {
+        return string.Concat(postTitle.Replace("#", "sharp")
+                                      .Replace(".NET", "dotnet", StringComparison.OrdinalIgnoreCase)
+                                      .Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c)))
+                     .Kebaberize();
+    }
+
+    private static string GetDefaultMicrosoftAlias()
+    {
+        return Environment.UserName;
+    }
+
+    private static DateTime GetDefaultPublicationDate()
+    {
+        var numberOfDays = 4;
+        var current = DateTime.Today;
+
+        while (numberOfDays-- > 0)
+            current = AdjustToNextWeekDay(current.AddDays(1));
+
+        return current;
+
+        static DateTime AdjustToNextWeekDay(DateTime dateTime)
         {
-            return string.Concat(postTitle.Replace("#", "sharp")
-                                          .Replace(".NET", "dotnet", StringComparison.OrdinalIgnoreCase)
-                                          .Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c)))
-                         .Kebaberize();
-        }
-
-        private static string GetDefaultMicrosoftAlias()
-        {
-            return Environment.UserName;
-        }
-
-        private static DateTime GetDefaultPublicationDate()
-        {
-            var numberOfDays = 4;
-            var current = DateTime.Today;
-
-            while (numberOfDays-- > 0)
-                current = AdjustToNextWeekDay(current.AddDays(1));
-
-            return current;
-
-            static DateTime AdjustToNextWeekDay(DateTime dateTime)
+            return dateTime.DayOfWeek switch
             {
-                return dateTime.DayOfWeek switch
-                {
-                    DayOfWeek.Friday => dateTime.AddDays(3),
-                    DayOfWeek.Saturday => dateTime.AddDays(2),
-                    DayOfWeek.Sunday => dateTime.AddDays(1),
-                    _ => dateTime
-                };
-            }
-        }
-
-        private static string[] GetCategories()
-        {
-            var fileName = Path.GetFullPath("categories.txt");
-            if (!File.Exists(fileName))
-                return Array.Empty<string>();
-
-            return File.ReadAllLines(fileName);
+                DayOfWeek.Friday => dateTime.AddDays(3),
+                DayOfWeek.Saturday => dateTime.AddDays(2),
+                DayOfWeek.Sunday => dateTime.AddDays(1),
+                _ => dateTime
+            };
         }
     }
 
-    internal sealed class AuthorInformation
+    private static string[] GetCategories()
     {
-        public AuthorInformation(string microsoftAlias, string wordPressUserName)
+        var fileName = Path.GetFullPath("categories.txt");
+        if (!File.Exists(fileName))
+            return Array.Empty<string>();
+
+        return File.ReadAllLines(fileName);
+    }
+}
+
+internal sealed class AuthorInformation
+{
+    public AuthorInformation(string microsoftAlias, string wordPressUserName)
+    {
+        MicrosoftAlias = microsoftAlias;
+        WordPressUserName = wordPressUserName;
+    }
+
+    public string MicrosoftAlias { get; }
+    public string WordPressUserName { get; }
+
+    private static string GetFileName()
+    {
+        return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Microsoft", ".NET Blog", "user.txt");
+    }
+
+    public static bool Delete()
+    {
+        var fileName = GetFileName();
+        if (File.Exists(fileName))
         {
-            MicrosoftAlias = microsoftAlias;
-            WordPressUserName = wordPressUserName;
+            File.Delete(fileName);
+            return true;
         }
 
-        public string MicrosoftAlias { get; }
-        public string WordPressUserName { get; }
+        return false;
+    }
 
-        private static string GetFileName()
+    public static AuthorInformation? Load()
+    {
+        var fileName = GetFileName();
+        if (File.Exists(fileName))
         {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Microsoft", ".NET Blog", "user.txt");
-        }
-
-        public static bool Delete()
-        {
-            var fileName = GetFileName();
-            if (File.Exists(fileName))
+            var lines = File.ReadAllLines(fileName);
+            if (lines.Length == 2)
             {
-                File.Delete(fileName);
-                return true;
+                var microsoftAlias = lines[0];
+                var wordPressUserName = lines[1];
+                return new AuthorInformation(microsoftAlias, wordPressUserName);
             }
-
-            return false;
         }
 
-        public static AuthorInformation? Load()
-        {
-            var fileName = GetFileName();
-            if (File.Exists(fileName))
-            {
-                var lines = File.ReadAllLines(fileName);
-                if (lines.Length == 2)
-                {
-                    var microsoftAlias = lines[0];
-                    var wordPressUserName = lines[1];
-                    return new AuthorInformation(microsoftAlias, wordPressUserName);
-                }
-            }
+        return null;
+    }
 
-            return null;
-        }
-
-        public void Save()
-        {
-            var fileName = GetFileName();
-            Directory.CreateDirectory(Path.GetDirectoryName(fileName)!);
-            File.WriteAllLines(fileName, new[] { MicrosoftAlias, WordPressUserName });
-        }
+    public void Save()
+    {
+        var fileName = GetFileName();
+        Directory.CreateDirectory(Path.GetDirectoryName(fileName)!);
+        File.WriteAllLines(fileName, new[] { MicrosoftAlias, WordPressUserName });
     }
 }
