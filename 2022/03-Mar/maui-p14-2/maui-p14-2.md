@@ -10,8 +10,6 @@ summary: .NET MAUI Preview 14 has shipped with...
 
 Preview 14 of .NET Multi-platform App UI is now available in Visual Studio 2022 17.2 Preview 2. This release includes a hefty volume of issue resolutions and completed features, and one new feature that will be a welcome addition for desktop developers: the MenuBar. While desktop app navigation and menus are often designed into the content window of many modern applications (think Teams left sidebar or Maps top tabs), there's still a strong need for a traditional menu that resides at the top of the app window on Windows, and in the title bar on macOS.  
 
-![image of MenuBar on Windows](images/menubar.png)
-
 Menus may be expressed in XAML or in C# for any `ContentPage`. Begin by adding a `MenuBarItem` to the page's `MenuBarItems` collection, and add `MenuFlyoutItem`s for direct children, or `MenuFlyoutSubItem`s for containers of other `MenuFlyoutItem`s.
 
 ```xaml
@@ -125,8 +123,6 @@ The [`PickOptions`](https://docs.microsoft.com/dotnet/api/xamarin.essentials.pic
 * FilePickerFileType.Pdf
 * FilePickerFileType.Png
 * FilePickerFileType.Videos
-
-![gif of file picking working on Windows](images/maui_filepicker.gif)
 
 ## Connectivity
 
