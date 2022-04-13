@@ -16,7 +16,7 @@ To acquire .NET MAUI RC1, [install or update Visual Studio 2022 Preview](https:/
 
 To use .NET MAUI RC1 on Mac, follow the [command line instructions](https://github.com/dotnet/maui/wiki/macOS-Install) on the wiki. Support for .NET MAUI in Visual Studio 2022 for Mac will ship formally in a future preview.
 
-Release Candidate [release notes are on GitHub](https://github.com/dotnet/maui/releases/tag/6.0.300-rc.1). For additional information about getting started with .NET MAUI, refer to our [documentation](https://docs.microsoft.com/dotnet/maui/get-started/installation), and the [migration tip sheet](https://github.com/dotnet/maui/wiki/Migration-to-Release-Candidate) for a list of changes to adopt when upgrading projects.
+Release Candidate [release notes are on GitHub](https://github.com/dotnet/maui/releases/tag/6.0.300-rc.1). For additional information about getting started with .NET MAUI, refer to our [documentation](https://docs.microsoft.com/dotnet/maui/get-started/installation), and the [migration tip sheet](https://github.com/dotnet/maui/wiki/Migrating-to-RC1) for a list of changes to adopt when upgrading projects.
 
 > **What about Xamarin support?** The [Xamarin Support Policy](https://dotnet.microsoft.com/platform/support/policy/xamarin) is still in effect which covers those products for 2 years after initial release. The last release was November of 2021, and so support will continue through November 2023.
 
@@ -138,6 +138,6 @@ For more examples on how you can easily modify the look and feel of controls at 
 
 Install the latest preview of Visual Studio 2022 for Windows (17.2 Preview 3) following our [simple guide](https://docs.microsoft.com/dotnet/maui/get-started/first-app?pivots=devices-android) and build your first multi-platform application today. 
 
-![CTA Button here to dot.net/maui](https://dotnet.net/maui)
+![CTA Button here to dot.net/maui](https://dot.net/maui)
 
 We'd love to hear from you! As you encounter any issues, file a [report on GitHub at dotnet/maui](https://github.com/dotnet/maui/issues/new/choose).
