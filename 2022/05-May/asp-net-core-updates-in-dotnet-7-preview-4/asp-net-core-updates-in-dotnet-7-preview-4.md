@@ -569,9 +569,9 @@ var app = builder.Build();
 
 app.UseRateLimiter(new RateLimiterOptions
 {
-    Limiter = PartitionedRateLimiter.Create<HttpContext, int>(resource =>
+    Limiter = PartitionedRateLimiter.Create<HttpContext, string>(resource =>
     {
-        return RateLimitPartition.CreateConcurrencyLimiter(1,
+        return RateLimitPartition.CreateConcurrencyLimiter("MyLimiter",
             _ => new ConcurrencyLimiterOptions(1, QueueProcessingOrder.NewestFirst, 1));
     })
 });
@@ -579,7 +579,7 @@ app.UseRateLimiter(new RateLimiterOptions
 app.Run();
 ```
 
-The `int` passed as the first argument to `CreateConcurrencyLimiter` is a key used to distinguish different component limiters in the `PartitionedRateLimiter`.
+The `string` passed as the first argument to `CreateConcurrencyLimiter` is a key used to distinguish different component limiters in the `PartitionedRateLimiter`.
 
 You can also configure the limiting behavior based on attributes of the resource passed in:
 
@@ -589,16 +589,16 @@ var app = builder.Build();
 
 app.UseRateLimiter(new RateLimiterOptions
 {
-    Limiter = PartitionedRateLimiter.Create<HttpContext, int>(resource =>
+    Limiter = PartitionedRateLimiter.Create<HttpContext, string>(resource =>
     {
         if (resource.Request.Path.StartsWithSegment("/api")
         {
-            return RateLimitPartition.CreateConcurrencyLimiter(1,
+            return RateLimitPartition.CreateConcurrencyLimiter("WebApiLimiter",
                 _ => new ConcurrencyLimiterOptions(2, QueueProcessingOrder.NewestFirst, 2));
         }
         else
         {
-            return RateLimitPartition.CreateConcurrencyLimiter(2,
+            return RateLimitPartition.CreateConcurrencyLimiter("DefaultLimiter",
                 _ => new ConcurrencyLimiterOptions(1, QueueProcessingOrder.NewestFirst, 1));
         }
     })
