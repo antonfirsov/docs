@@ -5,7 +5,7 @@ microsoft_alias: salagarw
 featured_image: blogpst-NET.png
 categories: .NET Framework, WinForms, WPF
 summary: Summary of your post, shown on the home page next to the featured image
-desired_publication_date: 2022-05-17
+desired_publication_date: 2022-05-24
 ---
 
 We are releasing the May 2022 Cumulative Update Preview Updates for .NET Framework.  
