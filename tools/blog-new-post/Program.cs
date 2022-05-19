@@ -50,6 +50,7 @@ internal static class Program
 
         var postTitle = AnsiConsole.Ask<string>("What's the post [cyan]title[/]?");
         var postName = AnsiConsole.Ask("What's the post [cyan]name[/]?", GetDefaultPostName(postTitle));
+        var postSlug = AnsiConsole.Ask("What's the post [cyan]slug[/]?", GetDefaultPostName(postTitle));
         var desiredPublicationDate = AnsiConsole.Ask("What's the desired [cyan]publication date[/]? Please give several days for review and SEO optimization.", GetDefaultPublicationDate());
 
         var categories = AnsiConsole.Prompt(
@@ -76,6 +77,8 @@ internal static class Program
 
         var post = @$"---
 post_title: {postTitle}
+author1: {authorInformation.WordPressUserName}
+post_slug: {postSlug}
 username: {authorInformation.WordPressUserName}
 microsoft_alias: {authorInformation.MicrosoftAlias}
 featured_image: path/relative/to/your/post/image.png

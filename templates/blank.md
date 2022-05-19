@@ -1,6 +1,7 @@
 ---
 post_title: 'Your post title'
-username: Your username on WordPress, see https://devblogs.microsoft.com/dotnet/wp-admin/profile.php
+author1: Your username on WordPress, see https://devblogs.microsoft.com/dotnet/wp-admin/profile.php
+post_slug: this is the slug that is in wordpress for the URL: 'csharp-11-is-awesome'
 microsoft_alias: Your Microsoft alias, without the domain, like 'immol'
 featured_image: path/relative/to/your/post/image.png
 categories: .NET, .NET Core
