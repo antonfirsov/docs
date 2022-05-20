@@ -35,7 +35,9 @@ internal sealed class Validator
         Console.WriteLine($"Summary    : {context.FrontMatter?.Summary}");
         Console.WriteLine($"Categories : {context.FrontMatter?.Categories}");
         Console.WriteLine($"Image      : {context.FrontMatter?.FeaturedImage}");
-        Console.WriteLine($"Username   : {context.FrontMatter?.Username}");
+        Console.WriteLine($"Author 1   : {context.FrontMatter?.Author1}");
+        Console.WriteLine($"Author 2   : {context.FrontMatter?.Author2}");
+        Console.WriteLine($"Author 3   : {context.FrontMatter?.Author3}");
         Console.WriteLine($"Alias      : {context.FrontMatter?.MicrosoftAlias}");
         Console.WriteLine($"#Links     : {links.Count:N0}");
 

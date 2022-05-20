@@ -15,8 +15,11 @@ internal sealed class VR02_MetadataRequired : ValidationRule
             if (string.IsNullOrEmpty(context.FrontMatter.Summary))
                 MustSpecifyField(context, BlogFrontMatterFields.Summary);
 
-            if (string.IsNullOrEmpty(context.FrontMatter.Username))
-                MustSpecifyField(context, BlogFrontMatterFields.Username);
+            if (string.IsNullOrEmpty(context.FrontMatter.Author1))
+                MustSpecifyField(context, BlogFrontMatterFields.Author1);
+
+            if (string.IsNullOrEmpty(context.FrontMatter.Author2) && !string.IsNullOrEmpty(context.FrontMatter.Author3))
+                MustSpecifyField(context, BlogFrontMatterFields.Author3, $"Must specify '{BlogFrontMatterFields.Author2}' when '{BlogFrontMatterFields.Author3}' is specified.");
 
             if (string.IsNullOrEmpty(context.FrontMatter.Categories))
                 MustSpecifyField(context, BlogFrontMatterFields.Categories);
@@ -27,9 +30,10 @@ internal sealed class VR02_MetadataRequired : ValidationRule
             if (context.FrontMatter.DesiredPublicationDate == null)
                 MustSpecifyField(context, BlogFrontMatterFields.DesiredPublicationDate);
 
-            static void MustSpecifyField(ValidationContext context, string field)
+            static void MustSpecifyField(ValidationContext context, string field, string? text = null)
             {
-                context.Error("VR02", context.Document.GetFrontMatterDiagnosticSpan(field), $"Must specify '{field}'");
+                text ??= $"Must specify '{field}'";
+                context.Error("VR02", context.Document.GetFrontMatterDiagnosticSpan(field), text);
             }
         }
     }
