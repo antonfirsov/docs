@@ -1,8 +1,8 @@
 ---
 post_title: Announcing .NET 7 Preview 5
-username: angelpe@microsoft.com
 microsoft_alias: angelpe
-author1: angelpe@microsoft.com
+author1: angelos.petropoulos@outlook.com
+post_slug: announcing-dotnet-7-preview-5
 categories: .NET
 featured_image: dotnet7-preview5.jpg
 desired_publication_date: 2022-06-14
