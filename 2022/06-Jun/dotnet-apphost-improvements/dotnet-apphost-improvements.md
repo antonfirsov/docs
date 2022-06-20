@@ -2,7 +2,6 @@
 post_title: Improving .NET host error messages and supportability
 author1: rlander@microsoft.com
 post_slug: dotnet-apphost-improvements
-username: rlander@microsoft.com
 microsoft_alias: rlander
 featured_image: new-runtime-not-found-gui.png
 categories: .NET, .NET Core
