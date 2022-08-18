@@ -62,22 +62,6 @@ We are collaborating with community members around the globe through local in-pe
 
 Join us at an [in-person event near you](https://dev.to/dotnet/local-net-maui-events-happening-around-the-world-2h8i), or catch a live stream from one of our [Microsoft Reactor events](https://docs.microsoft.com/events/learntv/reactor-netmaui-2022/).
 
-### Host your own event
-## Catch all the session recordings
- 
-All sessions are available on-demand sessions online on the [.NET YouTube channel](https://www.youtube.com/playlist?list=PLdo4fOcmZ0oWePZU3W162NJ9vcXqgpMVc) and [Microsoft Docs Events page](https://docs.microsoft.com/events/dotnetconf-focus-on-maui/). 
-
-In addition to the live sessions, we also had several on-demand with some great deep-dive content for building apps with .NET MAUI:
-
-- [Upgrading your JS Apps with .NET MAUI](https://www.youtube.com/watch?v=L5u6ImX6MfY&list=PLdo4fOcmZ0oWePZU3W162NJ9vcXqgpMVc&index=17) - [Alyssa Nicoll](https://twitter.com/AlyssaNicoll) 
-- [Creating Accessible Apps with .NET MAUI](https://www.youtube.com/watch?v=sU_sR2eL2JM&list=PLdo4fOcmZ0oWePZU3W162NJ9vcXqgpMVc&index=16) - [Rachel Kang](https://twitter.com/therachelkang)
-- [Performance Improvements in .NET MAUI](https://www.youtube.com/watch?v=Wsizdg3xnf4&list=PLdo4fOcmZ0oWePZU3W162NJ9vcXqgpMVc&index=18) - [Jonathan Peppers](https://twitter.com/JonathanPeppers)
-- [Error monitoring for .NET MAUI with Sentry](https://www.youtube.com/watch?v=RW3hiukVXZQ&list=PLdo4fOcmZ0oWePZU3W162NJ9vcXqgpMVc&index=24) - [Matt Johnson-Pint](https://twitter.com/mattjohnsonpint)
-- [Binding Native Libraries for .NET MAUI](https://www.youtube.com/watch?v=oibfI-ZsmzQ&list=PLdo4fOcmZ0oWePZU3W162NJ9vcXqgpMVc&index=19) - [Kinfey Lo](https://twitter.com/LJH8304)
-- [Syncing data with Azure Mobile Apps and .NET MAUI](https://www.youtube.com/watch?v=7ZcchuKWODQ&list=PLdo4fOcmZ0oWePZU3W162NJ9vcXqgpMVc&index=21) - [Adrian Hall](https://twitter.com/FizzyInTheHall)
-- [Unit Testing For Your .NET MAUI Applications](https://www.youtube.com/watch?v=b4OJSmgMAaw&list=PLdo4fOcmZ0oWePZU3W162NJ9vcXqgpMVc&index=25) - [Allan Ritchie](https://twitter.com/allanritchie911)
-- [.NET Community Toolkit 8.0 - MVVM Goodness for .NET MAUI](https://www.youtube.com/watch?v=OP9g5dM0bgk&list=PLdo4fOcmZ0oWePZU3W162NJ9vcXqgpMVc&index=23) - [Sergio Pedri](https://twitter.com/SergioPedri)
-
 ## Get the slides and demo code
 
 Want the slides and demo code so you can follow along, or use in your own events? They're [available on GitHub](https://github.com/dotnet-presentations/dotNETConf/tree/master/2022/FocusOnMAUI/Technical), including the fancy [.NET MAUI - Point of Sale demo app](https://github.com/dotnet/maui-samples/tree/main/6.0/Apps/PointOfSale) from the keynote.
