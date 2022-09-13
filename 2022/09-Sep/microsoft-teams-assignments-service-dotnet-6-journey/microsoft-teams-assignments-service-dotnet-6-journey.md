@@ -68,5 +68,5 @@ While the variation in the chart makes it hard to state precise figures, it's pr
 
 Following this migration, we have been able to scale in our compute resources (without affecting overall latency or throughput of the system) and have been able to reduce our monthly compute costs by nearly 37%.
 
-We'll be making further improvements throughout the summer, but all in all, .NET 6 has us feeling pretty great about the number of students and teachers we'll be able to support this coming fall when the northern hemisphere heads back to school!
+We'll be making further improvements throughout the coming year, but all in all, .NET 6 has us feeling pretty great about the number of students and teachers we'll be able to support this fall as the northern hemisphere heads back to school!
 
