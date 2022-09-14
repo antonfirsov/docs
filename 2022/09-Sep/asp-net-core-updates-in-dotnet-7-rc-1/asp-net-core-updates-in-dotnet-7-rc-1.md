@@ -401,7 +401,7 @@ public class MyRateLimiterPolicy : IRateLimiterPolicy<string>
 You could add an instance of it directly to an endpoint as follows:
 
 ```csharp
-app.MapGet("/", () => "Hello World!").RequireRateLimiting<WebApplication, string>(new MyRateLimiterPolicy());
+app.MapGet("/", () => "Hello World!").RequireRateLimiting(new MyRateLimiterPolicy());
 ```
 
 Finally, we've updated the `RateLimiterOptions` convenience methods to take an `Action<Options>` rather than an `Options` instance and also added an `IServiceCollection` extension method for using rate limiting. So, to enable all of the preceding rate limiting policies in your app, you could do the following:
