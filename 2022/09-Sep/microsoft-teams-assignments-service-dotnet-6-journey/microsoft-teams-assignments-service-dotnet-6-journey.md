@@ -4,7 +4,7 @@ author1: kevinh@microsoft.com
 post_slug: microsoft-teams-assignments-service-dotnet-6-journey
 username: kevinh@microsoft.com
 microsoft_alias: kevinh
-featured_image: backpack.svg
+featured_image: backpack.png
 categories: .NET, ASP.NET Core, Developer Stories
 summary: The Assignments and Grades features in Teams have seen exponential growth in usage as schools around the world have undergone a digital transformation. To better meet the needs of teachers and students, we have recently migrated our backend service to .NET 6.
 desired_publication_date: 2022-09-14
