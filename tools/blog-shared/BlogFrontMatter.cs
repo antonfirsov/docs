@@ -10,6 +10,7 @@ public sealed class BlogFrontMatter
     public string? Author1 { get; set; }
     public string? Author2 { get; set; }
     public string? Author3 { get; set; }
+    public string? Tags { get; set; }
     public string? Categories { get; set; }
     public string? FeaturedImage { get; set; }
     public string? Summary { get; set; }
