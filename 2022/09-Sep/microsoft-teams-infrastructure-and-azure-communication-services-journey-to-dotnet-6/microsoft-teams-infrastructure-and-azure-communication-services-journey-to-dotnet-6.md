@@ -1,6 +1,8 @@
 ---
 post_title: Microsoft Teams’ Infrastructure and Azure Communication Services’ Journey to .NET 6
 author1: siavashfathi
+author2: armanraina
+author3: bhbhatta
 post_slug: microsoft-teams-infrastructure-and-azure-communication-services-journey-to-dotnet-6
 username: siavashfathi
 microsoft_alias: siavashfathi
@@ -8,6 +10,7 @@ featured_image: Picture1.png
 categories: .NET, .NET Core, Developer Stories
 summary: Microsoft Teams’ infrastructure team, or Intelligent Conversation and Communications Cloud (IC3), aspires to be the industry leading platform with reliable and high-quality audio and video calling, meetings, and chat experiences that work any time, from anywhere, on any device. A key element of our platform evolution is the migration from .NET Framework to the latest version of .NET LTS, currently .NET 6.
 desired_publication_date: 2022-09-28
+tags: .net 6, microsoft teams, migration, upgrade
 ---
 
 Microsoft Teams’ infrastructure team, or Intelligent Conversation and Communications Cloud (IC3), aspires to be the industry leading platform with reliable and high-quality audio and video calling, meetings, and chat experiences that work any time, from anywhere, on any device. We use our core capabilities to power Microsoft Teams and enable third-party partners to bring intelligent conversations to life in their own product using  Azure Communication Services. We learn from each conversation, every call, and meeting to make the next one better.
@@ -68,8 +71,6 @@ After moving completely to .NET Core and deprecating .NET FW, we scaled down our
 We were able to see Azure Compute cost reduction of up to 50% per month, on average we observed 24% monthly cost reduction after migrating to .NET 6. The reduction in cores reduced Azure spend by 24%.
 
 ![Messaging Domain Instance reduction trend](Picture4.jpg)
-
-![Messaging Cost reduction trend](Picture5.png)
 
 ### Next steps
 
