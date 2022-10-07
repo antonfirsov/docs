@@ -220,7 +220,7 @@ Standard 2.0 but there were…challenges.
 We hit many, many issues attempting to convert hundreds of projects to
 .NET Standard. Remember those 500 NuGet package references? What happens
 when you convert a project to .NET Standard that depends on a NuGet
-package that in turn targets .NET 4.6? That’s won’t build – a .NET
+package that in turn targets .NET 4.6? That won’t build – a .NET
 Standard library can only depend on other .NET Standard libraries. So
 you have to find a new version of the NuGet package that supports .NET
 Standard 2.0.
