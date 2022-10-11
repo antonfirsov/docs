@@ -80,6 +80,149 @@ For more information on why .NET 7 is the fastest version yet, check out these r
 - [Performance Improvements in .NET 7](https://devblogs.microsoft.com/dotnet/performance_improvements_in_net_7/)
 - [Regular Expression Improvements in .NET 7](https://devblogs.microsoft.com/dotnet/regular-expression-improvements-in-dotnet-7/)
 
+## WebSockets over HTTP/2
+The WebSocket Protocol over HTTP/2 is based on the [RFC 8441](https://www.rfc-editor.org/rfc/rfc8441.html). It uses a different approach than web sockets over HTTP/1.1 due to the multiplexing nature of the HTTP/2 connection. It allows to have streams of both protocols (WebSockets and plain HTTP/2) in one connection simultaneously and therefore use the network more efficiently. To manage the connection with several streams of one or both protocols, you have to provide a custom `HttpMessageInvoker`. In that case, you should use the overlapping options from the invoker instead of `ClientWebSocketOptions`.
+
+In case the server does not support WebSockets over HTTP/2 or does not support HTTP/2 protocol at all, you can allow downgrade to WebSockets over HTTP/1.1 by setting up the respective policy in the `ClientWebSocketOptions`. By default, `ClientWebSocket` uses HTTP/1.1 version and `RequestVersionOrLower` policy, therefore WebSockets over HTTP/2 won't be used by default.
+
+### Usage
+```c#
+var handler = new SocketsHttpHandler();
+
+ClientWebSocket ws = new();
+ws.Options.HttpVersion = HttpVersion.Version20;
+// to disable downgrade
+ws.Options.HttpVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
+// by default downgrade is enabled:
+// ws.Options.HttpVersionPolicy = HttpVersionPolicy.RequestVersionOrLower;
+
+ws.ConnectAsync(uri, new HttpMessageInvoker(handler), cancellationToken);
+```
+
+### References
+See https://github.com/dotnet/runtime/issues/69669
+
+## Support using ICU library by default on Windows Server 2019
+
+.NET started to use the ICU library for globalization support in .NET 5.0 and up. Windows Server 2019 was lacking ICU support. Services and apps running on Windows Server 2019 which want to use ICU, needed to deploy ICU and enable some configuration to use it as described in the [doc](https://docs.microsoft.com/dotnet/core/extensions/globalization-icu#app-local-icu). In .NET 7.0, the ICU will be supported by default on Windows Server 2019.
+
+### References
+
+See https://github.com/dotnet/runtime/issues/62329, https://github.com/dotnet/runtime/pull/72656, and https://github.com/dotnet/docs/issues/30319
+
+## Improve the calculation precision of Add methods in DateTime and DateTimeOffset
+
+Improved the calculation precision of the `DateTime` and `DateTimeOffset` methods `AddDays`, `AddHours`, `AddMinutes`, `AddSeconds`, `AddMilliseconds`, and `AddMicroseconds` to produce a better result. 
+
+### References
+
+https://github.com/dotnet/runtime/issues/66815 and https://github.com/dotnet/runtime/pull/73198
+
+## System.Diagnostics.TraceSource can now be initialized from the app.config file
+Primarily to make it easier to migrate from .NET Framework, support was added for initializing a `TraceSource` and related types including `Switch` and `TraceListener` from the application's config file.
+
+Note that an explicit call must be made to enable this functionality through `System.Diagnostics.TraceConfiguration.Register()`.
+
+### Usage
+A package reference to `System.Configuration.ConfigurationManager` is required.
+
+An example C# console app named `ConsoleApp1` would use a config file named `ConsoleApp1.dll.config` and placed in the application's bin folder.
+
+Sample of a config file:
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <system.diagnostics>
+    <sources>
+      <source name ="MyTraceSource" switchName="MainToggle" switchType="System.Diagnostics.SourceSwitch" />
+    </sources>
+    <switches>
+      <add name = "MainToggle" value="Error" /> <!-- Set to Off to disable logging -->
+    </switches>
+  </system.diagnostics>
+</configuration>
+```
+
+and C#
+```c#
+using System.Diagnostics;
+
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            TraceConfiguration.Register(); // Required to enable reading from the config file.
+            
+            // Get the configured TraceSource
+            TraceSource ts = new TraceSource("MyTraceSource", SourceLevels.Error);
+
+            // Add a listener
+            TextWriterTraceListener listener = new("TextWriterOutput.log", "myListener");
+            ts.Listeners.Add(listener);
+
+            // The "MainToggle" SourceSwitch in the config file is set to Error, so this will log:
+            ts.TraceEvent(TraceEventType.Error, 101, "Error message.");
+            listener.Flush();
+        }
+    }
+}
+```
+
+### References
+See https://github.com/dotnet/runtime/issues/23937 and https://github.com/dotnet/runtime/pull/73087
+
+## Support XmlSchema Import/Export with DataContractSerializer
+
+.NET 7.0-RC1 brings the return of XmlSchema importing and exporting from .NET Framework 4.8 in the DataContractSerializer space. The API is as similar to the 4.8 API as possible to enable easy porting of code from .NET Framework. The export functionality is a built-in feature along with DataContractSerializer in the 7.0 SDK. The import functionality is available in an add-on package named System.Runtime.Serialization.Schema. (This package is not part of the 7.0 SDK as it depends on System.CodeDom, which is also shipped as a separate package.)
+
+### References
+
+See https://github.com/dotnet/runtime/issues/72243, and the 4.8 [Export](https://docs.microsoft.com/dotnet/api/system.runtime.serialization.xsddatacontractexporter?view=netframework-4.8) and [Import](https://docs.microsoft.com/dotnet/api/system.runtime.serialization.xsddatacontractimporter?view=netframework-4.8) API docs for the Framework feature that preceded this work.
+
+## Detecting HTTP/2 and HTTP/3 protocol errors
+
+When using `HttpClient` with the default `SocketsHttpHandler`, it's possible now to detect [HTTP/2](https://datatracker.ietf.org/doc/html/rfc7540#section-7) and [HTTP/3](https://datatracker.ietf.org/doc/html/rfc9114/#section-8.1) protocol error codes (not to be confused with HTTP status codes!). This feature is useful for advanced applications like gRPC.
+
+### Usage
+#### When calling HttpClient methods
+
+```csharp
+using var client = new HttpClient();
+
+try
+{
+    var response = await client.GetStringAsync("https://myservice");
+}
+catch (HttpRequestException ex) when (ex.InnerException is HttpProtocolException protocolException)
+{
+    Console.WriteLine("HTTP2/3 protocol error code: " + protocolException.ErrorCode);
+}
+```
+
+#### When calling response stream methods
+
+```csharp
+using var client = new HttpClient();
+using var response = awaitclient.GetAsync("https://myservice", HttpCompletionOption.ResponseHeadersRead);
+using var responseStream = await response.Content.ReadAsStreamAsync();
+using var memoryStream = new MemoryStream();
+
+try
+{
+    await responseStream.CopyToAsync(memoryStream);
+}
+catch (HttpProtocolException protocolException)
+{
+    Console.WriteLine("HTTP2/3 protocol error code: " + protocolException.ErrorCode);
+}
+```
+
+### References
+
+See dotnet/runtime#70684
+
 ## Contributor spotlight: Filip Navara
 
 A huge "Thank you" goes out to all our community members. We deeply appreciate your thoughtful contributions. We asked contributor [@filipnavara](https://github.com/filipnavara) to share his thoughts.
