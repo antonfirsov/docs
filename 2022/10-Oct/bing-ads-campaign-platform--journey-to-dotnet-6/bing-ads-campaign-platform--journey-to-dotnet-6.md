@@ -15,7 +15,7 @@ post_date: 2022-10-07 08:15:00
 The campaign platform component of Microsoft’s [search advertising
 platform](https://about.ads.microsoft.com/get-started/online-advertising-solutions)
 is central to delivering a great experience to our advertising platform
-users. It supports over 450,000 advertisers, providing the engine under
+users. It supports millions of advertisers, providing the engine under
 the hood allowing them to create ad campaigns that reach customers with
 maximum impact.
 
