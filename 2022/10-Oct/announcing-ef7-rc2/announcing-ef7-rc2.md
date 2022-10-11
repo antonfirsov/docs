@@ -32,7 +32,7 @@ Most relational databases support columns that contain JSON documents. The JSON 
 
 EF7 contains provider-agnostic support for JSON columns, with an implementation for SQL Server. This support allows mapping of aggregates built from .NET types to JSON documents. Normal LINQ queries can be used on the aggregates, and these will be translated to the appropriate query constructs needed to drill into the JSON. EF7 also supports updating and saving changes to the JSON documents.
 
-> [!NOTE]
+> **NOTE**
 > SQLite support for JSON is [planned for post EF7](https://github.com/dotnet/efcore/issues/28816). The [PostgreSQL](https://github.com/npgsql/efcore.pg) and [Pomelo MySQL](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql) providers already contain some support for JSON columns. We will be working with the authors of those providers to align JSON support across all providers.
 
 ### Mapping to JSON columns
@@ -93,7 +93,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 }
 ```
 
-> [!TIP]
+> **TIP**
 > The code shown in this post comes from the [samples on GitHub](https://github.com/dotnet/EntityFramework.Docs) for the [What's New in EF7](https://learn.microsoft.com/ef/core/what-is-new/ef-core-7.0/whatsnew) documentation. Specifically, this code comes from [JsonColumnsSample.cs](https://github.com/dotnet/EntityFramework.Docs/tree/main/samples/core/Miscellaneous/NewInEFCore7/JsonColumnsSample.cs).
 
 By default, EF Core relational database providers map aggregate types like this to the same table as the owning entity type. That is, each property of the `ContactDetails` and `Address` classes are mapped to a column in the `Authors` table.
@@ -185,7 +185,7 @@ The `Authors` table will now contain a JSON column for `ContactDetails` populate
 | 4   | Arthur Vickers   | {<br/>&nbsp;&nbsp;"Phone":"01632 12348",<br/>&nbsp;&nbsp;"Address": {<br/>&nbsp;&nbsp;&nbsp;&nbsp;"City":"Chigley",<br/>&nbsp;&nbsp;&nbsp;&nbsp;"Country":"UK",<br/>&nbsp;&nbsp;&nbsp;&nbsp;"Postcode":"CH1 5ZH",<br/>&nbsp;&nbsp;&nbsp;&nbsp;"Street":"15a Main St"<br/>&nbsp;&nbsp;}<br/>}        |
 | 5   | Brice Lambson    | {<br/>&nbsp;&nbsp;"Phone":"01632 12349",<br/>&nbsp;&nbsp;"Address": {<br/>&nbsp;&nbsp;&nbsp;&nbsp;"City":"Chigley",<br/>&nbsp;&nbsp;&nbsp;&nbsp;"Country":"UK",<br/>&nbsp;&nbsp;&nbsp;&nbsp;"Postcode":"CH1 5ZH",<br/>&nbsp;&nbsp;&nbsp;&nbsp;"Street":"4 Main St"<br/>&nbsp;&nbsp;}<br/>}          |
 
-> [!TIP]
+> **TIP**
 > This use of aggregates is very similar to the way JSON documents are mapped when using the EF Core provider for Azure Cosmos DB. JSON columns bring the capabilities of using EF Core against document databases to documents embedded in a relational database.
 
 The JSON documents shown above are very simple, but this mapping capability can also be used with more complex document structures. For example, consider another aggregate type from our sample model, used to represent metadata about a post:
@@ -273,7 +273,7 @@ modelBuilder.Entity<Post>().OwnsOne(
     });
 ```
 
-> [!TIP]
+> **TIP**
 > `ToJson` is only needed on the aggregate root to map the entire aggregate to a JSON document.
 
 With this mapping, EF7 can create and query into a complex JSON document like this:
@@ -427,7 +427,7 @@ LEFT JOIN [Authors] AS [a] ON [p].[AuthorId] = [a].[Id]
 WHERE CAST(JSON_VALUE([p].[Metadata],'$.Views') AS int) > 3000
 ```
 
-> [!TIP]
+> **TIP**
 > Consider creating indexes to improve query performance in JSON documents. For example, see [Index Json data](https://learn.microsoft.com/sql/relational-databases/json/index-json-data) when using SQL Server.
 
 ### Updating JSON columns
