@@ -4,7 +4,7 @@ author1: mtreit
 post_slug: bing-ads-campaign-platform-journey-to-dotnet-6
 username: mtreit
 microsoft_alias: mtreit
-featured_image: media/image3.png
+featured_image: image3.png
 categories: .NET, .NET Core, WCF, Developer Stories
 tags: .NET 6, migration
 summary: Bing Ads Campaign Platform - our journey migrating a large .NET Framework codebase to .NET 6.
@@ -22,7 +22,7 @@ maximum impact.
 In a given second this platform will process thousands of web requests,
 with a typical latency of under 100 milliseconds for a given request.
 
-<img src="./media/image0.png" />
+![Requests per second graph](image0.png)
 
 Behind the scenes, dozens of distributed services work in concert to
 support all of the rich functionality provided by the platform.
@@ -48,7 +48,7 @@ over 600 C# projects.
 
 Breaking down the code:
 
-<img src="./media/image1.png"  />
+![Table showing code breakdown by lines of code](image1.png)
 
 So, more than 7 million lines of C# code and more than 8 million lines
 total. Counting lines of code does not tell you everything about a
@@ -192,7 +192,7 @@ where [.NET
 Standard](https://devblogs.microsoft.com/dotnet/introducing-net-standard/)
 came in.
 
-<img src="./media/image2.png" />
+![Diagram showing .NET Standard](image2.png)
 
 As the diagram shows, a library targeting the subset of APIs supported
 by .NET Standard can be consumed by both .NET Framework projects and
@@ -368,7 +368,7 @@ be true and then some.
 This graph shows the improvement in latency for one of our services that
 resulted simply from changing it to target .NET and recompiling.
 
-<img src="./media/image3.png" />
+![Graph showing improvement in latency](image3.png)
 
 You can tell where in the time axis we flipped to the new service
 running as .NET.
@@ -380,7 +380,7 @@ the advantage of the many runtime improvements made by the .NET team.
 Here is another example where we looked at the memory usage both before
 and after moving to Core WCF for another service:
 
-<img src="./media/image4.png" />
+![Table showing memory usage before and after moving to Core WCF](image4.png)
 
 We achieved a 40 to 50 percent reduction in memory usage simply by
 making the change to .NET.
@@ -411,7 +411,7 @@ participated in Microsoft’s annual hackathon and got a chance to
 showcase how with good design and using high-performance techniques, you
 can achieve impressive performance metrics.
 
-<img src="./media/image5.png" />
+![Hash Ripper results showing 916K hashes checked in 64ms](image5.png)
 
 The project involved optimizing the calculation of how similar two
 64-byte buffers were to each other, based on how many two-bit pairs were
@@ -466,7 +466,7 @@ As [this
 benchmark](https://github.com/Treit/MiscBenchmarks/tree/main/ComparingByteArrays)
 shows, this is close to 25 times faster than the naïve approach!
 
-<img src="./media/image6.png" />
+![Benchmark table showing 25 times speed improvement](image6.png)
 
 Rewriting some of our code to specifically take advantage of new
 language and runtime features like this is going to continue to be a fun
