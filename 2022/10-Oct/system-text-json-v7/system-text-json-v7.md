@@ -15,7 +15,7 @@ post_date: 2022-10-13 08:15:00
 
 In .NET 7, our focus for System.Text.Json has been to substantially improve extensibility of the library, adding new performance-oriented features and addressing high impact reliability and consistency issues. More specifically, .NET 7 sees the release of [contract customization](https://learn.microsoft.com/dotnet/standard/serialization/system-text-json/custom-contracts), which gives you more control over how types are serialized or deserialized, polymorphic serialization for user-defined [type hierarchies](https://learn.microsoft.com/dotnet/standard/serialization/system-text-json/polymorphism#serialize-properties-of-derived-classes), [required member support](https://learn.microsoft.com/dotnet/standard/serialization/system-text-json/required-properties), and much more.
 
-## Getting the latest bits
+### Getting the latest bits
 
 You can try out the new features by using the latest build of [System.Text.Json NuGet package](https://www.nuget.org/packages/System.Text.Json) or the [latest SDK for .NET 7](https://dotnet.microsoft.com/download/dotnet/7.0), which is currently RC.
 
@@ -148,16 +148,22 @@ For example, consider how the `UseUppercasePropertyNames` modifier above would i
 
 JsonSerializerOptions options0 = new()
 {
-    TypeInfoResolver = new DefaultJsonTypeInfoResolver() { Modifiers = { ExcludeV0Members, UseUppercasePropertyNames } }
+    TypeInfoResolver = new DefaultJsonTypeInfoResolver
+    { 
+        Modifiers = { ExcludeV0Members, UseUppercasePropertyNames } 
+    }
 };
 JsonSerializerOptions options1 = new()
 {
-    TypeInfoResolver = new DefaultJsonTypeInfoResolver() { Modifiers = { UseUppercasePropertyNames, ExcludeV0Members } }
+    TypeInfoResolver = new DefaultJsonTypeInfoResolver 
+    {
+        Modifiers = { UseUppercasePropertyNames, ExcludeV0Members }
+    }
 };
 
 Employee employee = FetchEmployee();
-string json = JsonSerializer.Serialize(employee, options0); // {"NAME":"Jane Doe","ROLE":"Contractor"}
-string json = JsonSerializer.Serialize(employee, options1); // {"NAME":"Jane Doe","ROLE":"Contractor","ROLE_V0":"Temp"}
+JsonSerializer.Serialize(employee, options0); // {"NAME":"Jane Doe","ROLE":"Contractor"}
+JsonSerializer.Serialize(employee, options1); // {"NAME":"Jane Doe","ROLE":"Contractor","ROLE_V0":"Temp"}
 
 static void ExcludeV0Members(JsonTypeInfo jsonTypeInfo)
 {
@@ -186,7 +192,8 @@ Even though not always possible, it is a good idea to design modifiers with comp
 ```cs
 static void AddDiagnosticDataProperty(JsonTypeInfo typeInfo)
 {
-    if (typeInfo.Kind == JsonTypeInfoKind.Object && typeInfo.Properties.All(prop => prop.Name != "Data"))
+    if (typeInfo.Kind == JsonTypeInfoKind.Object && 
+        typeInfo.Properties.All(prop => prop.Name != "Data"))
     {
         JsonPropertyInfo propertyInfo = typeInfo.CreateJsonPropertyInfo(string, "Data");
         propertyInfo.Get = obj => GetDiagnosticData(obj);
@@ -217,9 +224,11 @@ static void DetectIgnoreDataMemberAttribute(JsonTypeInfo typeInfo)
 
     foreach (JsonPropertyInfo propertyInfo in typeInfo.Properties)
     {
-        if (propertyInfo.AttributeProvider?.IsDefined(typeof(IgnoreDataMemberAttribute), inherit: true) == true)
+        if (propertyInfo.AttributeProvider is ICustomAttributeProvider provider &&
+            provider.IsDefined(typeof(IgnoreDataMemberAttribute), inherit: true))
         {
-            // Disable both serialization and deserialization by unsetting getter and setter delegates
+            // Disable both serialization and deserialization 
+            // by unsetting getter and setter delegates
             propertyInfo.Get = null;
             propertyInfo.Set = null;
         }
@@ -251,8 +260,8 @@ var options = new JsonSerializerOptions
     }
 };
 
-Console.WriteLine(JsonSerializer.Serialize(new MyPoco { IgnoreNegativeValues = false, Value = -1 }, options)); // {"Value":-1}
-Console.WriteLine(JsonSerializer.Serialize(new MyPoco { IgnoreNegativeValues = true, Value = -1 }, options)); // {}
+JsonSerializer.Serialize(new MyPoco { IgnoreNegativeValues = false, Value = -1 }, options); // {"Value":-1}
+JsonSerializer.Serialize(new MyPoco { IgnoreNegativeValues = true, Value = -1 }, options); // {}
 
 static void IgnoreNegativeValues(JsonTypeInfo typeInfo)
 {
@@ -547,14 +556,15 @@ var options = new JsonSerializerOptions
 JsonSerializer.Deserialize<Person>("""{"Age": 42}""", options); // serialization now succeeds
 ```
 
-### JsonSerializerOptions.Default https://github.com/dotnet/runtime/issues/61093
+### [JsonSerializerOptions.Default](https://github.com/dotnet/runtime/issues/61093)
 
 System.Text.Json maintains a default instance of `JsonSerializerOptions` to be used in cases where no `JsonSerializerOptions` argument has been passed by the user. This (read-only) instance can now be accessed by users via the `JsonSerializerOptions.Default` static property. It can be useful in cases where users need to query the default `JsonTypeInfo` or `JsonConverter` for a given type:
 
 ```C#
 public class MyCustomConverter : JsonConverter<int>
 {
-    private readonly static JsonConverter<int> s_defaultConverter = (JsonConverter<int>)JsonSerializerOptions.Default.GetConverter(typeof(int));
+    private readonly static JsonConverter<int> s_defaultConverter = 
+        (JsonConverter<int>)JsonSerializerOptions.Default.GetConverter(typeof(int));
 
     // custom serialization logic
     public override void Write(Utf8JsonWriter writer, int value, JsonSerializerOptions options)
@@ -586,7 +596,10 @@ class MyClass
 Until today, [`Utf8JsonReader.GetString()`](https://learn.microsoft.com/dotnet/api/system.text.json.utf8jsonreader.getstring?view=net-6.0) has been the only way users could consume decoded JSON strings. This will always allocate a new string, which might be unsuitable for certain performance-sensitive applications. The newly included `CopyString` methods allow copying the unescaped UTF-8 or UTF-16 strings to a buffer owned by the user:
 
 ```C#
-int valueLength = reader.HasReadOnlySequence ? checked((int)ValueSequence.Length) : ValueSpan.Length;
+int valueLength = reader.HasReadOnlySequence 
+    ? checked((int)ValueSequence.Length) 
+    : ValueSpan.Length;
+
 char[] buffer = ArrayPool<char>.Shared.Rent(valueLength);
 int charsRead = reader.CopyString(buffer);
 ReadOnlySpan<char> source = buffer.Slice(0, charsRead);
@@ -601,11 +614,15 @@ Or if handling UTF-8 is preferable:
 ReadOnlySpan<byte> source = stackalloc byte[0];
 if (!reader.HasReadOnlySequence && !reader.ValueIsEscaped)
 {
-    source = reader.ValueSpan; // No need to copy to an intermediate buffer if value is span without escape sequences
+    // No need to copy to an intermediate buffer if value is span without escape sequences
+    source = reader.ValueSpan;
 }
 else
 {
-    int valueLength = reader.HasReadOnlySequence ? checked((int)ValueSequence.Length) : ValueSpan.Length;
+    int valueLength = reader.HasReadOnlySequence 
+        ? checked((int)ValueSequence.Length) 
+        : ValueSpan.Length;
+
     Span<byte> buffer = valueLength <= 256 ? stackalloc byte[256] : new byte[valueLength];
     int bytesRead = reader.CopyString(buffer);
     source = buffer.Slice(0, bytesRead);
