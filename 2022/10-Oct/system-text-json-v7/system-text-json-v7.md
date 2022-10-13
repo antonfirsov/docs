@@ -145,7 +145,6 @@ The `DefaultJsonTypeInfoResolver.Modifiers` property allows developers to specif
 For example, consider how the `UseUppercasePropertyNames` modifier above would interact with a modifier that filters out properties that are only used in a hypothetical "v0" version of a serialization schema:
 
 ```cs
-
 JsonSerializerOptions options0 = new()
 {
     TypeInfoResolver = new DefaultJsonTypeInfoResolver
@@ -153,6 +152,7 @@ JsonSerializerOptions options0 = new()
         Modifiers = { ExcludeV0Members, UseUppercasePropertyNames } 
     }
 };
+
 JsonSerializerOptions options1 = new()
 {
     TypeInfoResolver = new DefaultJsonTypeInfoResolver 
