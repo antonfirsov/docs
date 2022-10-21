@@ -8,8 +8,8 @@ featured_image: blogpst-NET.png
 categories: .NET Framework, WPF
 tags: .NET Framework
 summary: October 2022 Cumulative Update Preview for .NET Framework
-desired_publication_date: 2022-10-18
-post_date: 2022-10-18 12:00:00
+desired_publication_date: 2022-10-25
+post_date: 2022-10-25 12:00:00
 ---
 
 Today, we are releasing the October 2022 Cumulative Update Preview for .NET Framework.  
