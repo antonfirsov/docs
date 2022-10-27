@@ -1,7 +1,7 @@
 ---
 post_title: Slaying Zombie ‘No Repro’ Crashes with Infer#
 author1: matjin
-post_slug: Turn Visual Studio into a one-stop-shop for your security and performance needs with Infer#
+post_slug: slaying-zombie-no-repo-crashes-with-infersharp
 username: matjin
 microsoft_alias: matjin
 featured_image: title.png
