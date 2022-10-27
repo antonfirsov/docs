@@ -103,6 +103,7 @@ The answer is yes. Let’s see what Infer# found:
 It reports “*Resource dynamically allocated by constructor System.IO.FileStream(…)is not closed after the last access at…*” The problem lies in the construction of the `OwnsResources` class itself. The stream field gets initialized twice: once in its field initialization and again in the constructor. This is clear if we look at the bytecode, which is what Infer# uses to produce its analysis*:
 
 ![bytecode](bytecode.png)
+*You might notice that the first created object is stored into the stream field, whereas the second one is followed by an invocation of stream’s setter method. A naïve approach might not realize that these both have the ultimate effect of storing the object into the field. Infer#’s semantic analysis of stream’s setter method determines this equivalence.
 
 Removing one of the assignments and rerunning Infer# confirms that the issue is fixed:
 
@@ -142,10 +143,9 @@ You can easily specify more flows of your own, reusing sources and sinks as need
 ## Try it today!
 
 By using a framework whose analysis stretches across all input assemblies, Infer# can detect issues that wouldn’t be easy for a human to spot. We’re excited to continue sharing with you the capabilities of the latest semantic analysis technologies. Become a zombie bug slayer today!
+-   Come hear our [.NET Conf 2022](https://www.dotnetconf.net/agenda) talk (same title as this article's) at 7:00 PM PST on November 9
 -	Questions, feature requests, issue reporting: [Infer# GitHub](https://github.com/microsoft/infersharp), or email us at ec550f20.microsoft.com@amer.teams.ms
 -	Developer tool extensions: [VS2022](https://marketplace.visualstudio.com/items?itemName=matthew-jin.infersharp) and [VSCode](https://marketplace.visualstudio.com/items?itemName=matthew-jin.infersharp-ext)
 -	Build time tools: [Github Action](https://github.com/marketplace/actions/infersharp), [Azure Pipelines](https://github.com/microsoft/infersharp/blob/main/.build/azure-pipelines-example-multistage.yml)
 -	Configured Environment: [WSL](https://github.com/microsoft/infersharp/blob/main/RUNNING_INFERSHARP_ON_WINDOWS.md) and [Docker](https://github.com/microsoft/infersharp/blob/main/RUNNING_IN_DOCKER.md)
 
-
-* You might notice that the first created object is stored into the stream field, whereas the second one is followed by an invocation of stream’s setter method. A naïve approach might not realize that these both have the ultimate effect of storing the object into the field. Infer#’s semantic analysis of stream’s setter method determines this equivalence.
