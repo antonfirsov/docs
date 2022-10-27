@@ -100,9 +100,7 @@ The answer is yes. Let’s see what Infer# found:
 
 ![leak_or_not](leak_or_not.png)
 
-It reports “*Resource dynamically allocated by constructor System.IO.FileStream(…)is not closed after the last access at…*” The problem lies in the construction of the `OwnsResources` class itself. The stream field gets initialized twice: once in its field initialization and again in the constructor. This is clear if we look at the bytecode, which is what Infer# uses to produce its analysis[^1]:
-
-[^1]: You might notice that the first created object is stored into the stream field, whereas the second one is followed by an invocation of stream’s setter method. A naïve approach might not realize that these both have the ultimate effect of storing the object into the field. Infer#’s semantic analysis of stream’s setter method determines this equivalence.
+It reports “*Resource dynamically allocated by constructor System.IO.FileStream(…)is not closed after the last access at…*” The problem lies in the construction of the `OwnsResources` class itself. The stream field gets initialized twice: once in its field initialization and again in the constructor. This is clear if we look at the bytecode, which is what Infer# uses to produce its analysis*:
 
 ![bytecode](bytecode.png)
 
@@ -148,3 +146,6 @@ By using a framework whose analysis stretches across all input assemblies, Infer
 -	Developer tool extensions: [VS2022](https://marketplace.visualstudio.com/items?itemName=matthew-jin.infersharp) and [VSCode](https://marketplace.visualstudio.com/items?itemName=matthew-jin.infersharp-ext)
 -	Build time tools: [Github Action](https://github.com/marketplace/actions/infersharp), [Azure Pipelines](https://github.com/microsoft/infersharp/blob/main/.build/azure-pipelines-example-multistage.yml)
 -	Configured Environment: [WSL](https://github.com/microsoft/infersharp/blob/main/RUNNING_INFERSHARP_ON_WINDOWS.md) and [Docker](https://github.com/microsoft/infersharp/blob/main/RUNNING_IN_DOCKER.md)
+
+
+* You might notice that the first created object is stored into the stream field, whereas the second one is followed by an invocation of stream’s setter method. A naïve approach might not realize that these both have the ultimate effect of storing the object into the field. Infer#’s semantic analysis of stream’s setter method determines this equivalence.
