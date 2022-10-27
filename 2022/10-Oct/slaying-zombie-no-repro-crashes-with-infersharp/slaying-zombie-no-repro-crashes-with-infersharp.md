@@ -64,7 +64,7 @@ Does the following method contain a resource leak or not?
         }
     }
 ```
-The answer is no. Infer# determines this by producing method summaries that represent the semantics of `OwnsStreamReader`’s constructor and Dispose(). It determines that the Dispose() method takes care of the StreamReader, whose Dispose() in turn takes care of the FileStream object. The using statement ensures that the Dispose() function is invoked.
+The answer is *no*. Infer# determines this by producing method summaries that represent the semantics of `OwnsStreamReader`’s constructor and Dispose(). It determines that the Dispose() method takes care of the StreamReader, whose Dispose() in turn takes care of the FileStream object. The using statement ensures that the Dispose() function is invoked.
 
 Let’s look at another example:
 ```csharp
@@ -96,7 +96,7 @@ Is there a resource leak in the following method?
             }
         }
 ```
-The answer is yes. Let’s see what Infer# found:
+The answer is *yes*. Let’s see what Infer# found:
 
 ![leak_or_not](leak_or_not.png)
 
