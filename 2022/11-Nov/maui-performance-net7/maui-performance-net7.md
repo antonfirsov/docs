@@ -4,8 +4,8 @@ author1: jopepper@microsoft.com
 post_slug: dotnet-7-performance-improvements-in-dotnet-maui
 microsoft_alias: jopepper
 categories: .NET MAUI, .NET, Performance
-desired_publication_date: 2022-11-03
-post_date: 2022-11-03 10:01:00
+desired_publication_date: 2022-11-02
+post_date: 2022-11-02 10:01:00
 featured_image: LOLsNET6Chart.png
 tags: .net maui, .net 7, performance
 summary: What improvements did we bring to .NET MAUI in .NET 7? Click to find out more!
