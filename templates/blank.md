@@ -4,9 +4,11 @@ author1: Your username on WordPress, see https://devblogs.microsoft.com/dotnet/w
 post_slug: this is the slug that is in wordpress for the URL: 'csharp-11-is-awesome'
 microsoft_alias: Your Microsoft alias, without the domain, like 'immol'
 featured_image: image.png
-categories: .NET, .NET Core
+categories: .NET
 summary: Summary of your post, shown on the home page next to the featured image
 desired_publication_date: The date you want to publish the post, such as 'YYYY-MM-DD'
+tags: ios, .net maui, other tag
+post_date: The date you want to schedule in wordpress when merged, such as 2022-11-08 10:00:00
 ---
 
 This is the introduction to your post. It's the post's first paragraph. Don't

@@ -86,6 +86,7 @@ categories: {string.Join(", ", categories)}
 tags: tag1, tag2, tag3
 summary: UPDATE: Summary of your post, shown on the home page next to the featured image
 desired_publication_date: {desiredPublicationDate:yyyy-MM-dd}
+post_date: {desiredPublicationDate:yyyy-MM-dd} 10:05:00
 ---
 
 This is the introduction to your post. It's the post's first paragraph. Don't
