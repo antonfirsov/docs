@@ -3,11 +3,11 @@ post_title: .NET 7 is Available Today
 microsoft_alias: jodou
 author1: jondouglas
 author2: jeremy-likness
-author3: angelos-petropoulos
+author3: angelos.petropoulos@outlook.com
 post_slug: announcing-dotnet-7
 categories: .NET
 tags: .net 7, generally available, ga, announcement, .net conf
-featured_image: dotnet7.png
+featured_image: download-dotnet-7.png
 desired_publication_date: 2022-11-08
 post_date: 2022-11-08 08:00:00
 summary: .NET 7 is a modern, fast, unified, and simple development framework to build any applications and is available today.
@@ -91,7 +91,7 @@ Let's highlight some scenarios that you can achieve with .NET starting today:
 
 ### One Base Class Library (BCL)
 
-![.NET Platform](Resources/NET-Platform.png)
+![.NET Platform](Resources/dotnet-platform2.png)
 
 .NET 7 release is the third major release in our .NET unification journey (since .NET 5 in 2016).
 
