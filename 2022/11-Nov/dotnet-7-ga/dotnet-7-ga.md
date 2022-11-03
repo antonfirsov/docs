@@ -10,8 +10,6 @@ post_date: 2022-11-08 11:00:00
 summary: .NET 7 is a modern, fast, unified, and simple release that is available today.
 ---
 
-## .NET 7 is Available Today
-
 [![Download .NET 7](Resources/Download-NET-7.png)](https://dotnet.microsoft.com/download/dotnet/7.0)
 
 [Download .NET 7 today!](https://dotnet.microsoft.com/download/dotnet/7.0)
@@ -187,7 +185,13 @@ TotalAvailableMemoryBytes: 3.83 GiB
 ```
 
 For more information on our partnership with Canonical and ARM, read [.NET 6 is now in Ubuntu 22.04](https://devblogs.microsoft.com/dotnet/dotnet-6-is-now-in-ubuntu-2204).
+
+### 64-bit IBM Power support
+
+In addition to x64 architecture (64-bit Intel/AMD), ARM64 (64-bit ARM) and s390x (64-bit IBM Z), .NET is now also available for the ppc64le (64-bit IBM Power) architecture targeting RHEL 8.7 and RHEL 9.1.
  
+With the availability to now run natively on Power, the 25,000 plus IBM Power customers can consolidate existing .NET apps on Windows x86 to run on the same Power platform as their IBM i and AIX business apps and databases. Doing so can significantly improve sustainability with up to a 5x smaller carbon footprint combined with on-premises pay-as-you-go scaling for RHEL and OpenShift capacity while delivering industry leading end-to-end-enterprise transaction and data security.
+
 ## Modern
 
  .NET 7 is built for modern cloud native apps, mobile clients, edge services and desktop technologies. Create mobile experiences using a single codebase without compromising native performance using .NET MAUI. Build responsive Single Page Applications (SPA) that run in your browser and offline as Progressive Web Apps (PWA) using familiar technologies like C# and Razor templates. These faster modern experiences aren't just for new applications. The .NET Upgrade Assistant will provide feedback about compatibility and in some cases completely migrate your apps to .NET 6 and .NET 7. 
@@ -260,7 +264,7 @@ To learn more about build-in container support, see [Announcing built-in contain
 
 ### Microsoft Orleans
 
-Microsoft Orleans 7.0 will offer a simpler programming model with "plain old CLR object" (POCO) Grains, deliver up to 150% better performance than 3.x, and introduce new serialization and immutability improvements. ASP.NET Core developers can add distributed state with simplicity using Orleans, and be confident their applications will scale horizontally without adding complexity. We’ll continue to invest in bringing Orleans features closer to the ASP.NET stack to ensure your web and API applications are ready for cloud scale, distributed hos                                                                                                                 ting scenarios, or even multi-cloud deployments. With support for most popular storage mechanisms and databases and the ability to run anywhere ASP.NET Core can run, Orleans is a great choice to enable your .NET apps with cloud native, distributed capabilities without needing to learn a new framework or toolset. [Learn more about Orleans 7](https://aka.ms/orleans-7-whats-new).
+Microsoft Orleans 7.0 will offer a simpler programming model with "plain old CLR object" (POCO) Grains, deliver up to 150% better performance than 3.x, and introduce new serialization and immutability improvements. ASP.NET Core developers can add distributed state with simplicity using Orleans, and be confident their applications will scale horizontally without adding complexity. We’ll continue to invest in bringing Orleans features closer to the ASP.NET stack to ensure your web and API applications are ready for cloud scale, distributed hosting scenarios, or even multi-cloud deployments. With support for most popular storage mechanisms and databases and the ability to run anywhere ASP.NET Core can run, Orleans is a great choice to enable your .NET apps with cloud native, distributed capabilities without needing to learn a new framework or toolset. [Learn more about Orleans 7](https://aka.ms/orleans-7-whats-new).
 
 ### Observability
 
@@ -749,11 +753,11 @@ Within a project of the solution, you can then use the respective `<PackageRefer
 
 ## Performance
 
-Performance has been a big part of every .NET release. Every year, the .NET team publishes a blog on the latest improvements. If you haven’t already, do check out [**Performance improvements in .NET 7 post by Stephen Toub**](https://devblogs.microsoft.com/dotnet/performance_improvements_in_net_7/). 
+Performance has been a big part of every .NET release. Every year, the .NET team publishes a blog on the latest improvements. Here's a short blurb from the latest performance post:
 
-[![TechEmpower Improvements](./tejson.jpg)](https://devblogs.microsoft.com/dotnet/performance_improvements_in_net_7/)
+> TL;DR: .NET 7 is fast. Really fast. A thousand performance-impacting PRs went into runtime and core libraries this release, never mind all the improvements in ASP.NET Core and Windows Forms and Entity Framework and beyond. It’s the fastest .NET ever. If your manager asks you why your project should upgrade to .NET 7, you can say “in addition to all the new functionality in the release, .NET 7 is super fast.” - [Stephen Toub](https://devblogs.microsoft.com/dotnet/performance_improvements_in_net_7/)
 
-We’ll provide a short summary of some of the performance improvements to the JIT compiler from [Stephen Toub’s article](https://devblogs.microsoft.com/dotnet/performance_improvements_in_net_7/).
+Below is a short summary of some of the performance improvements to the JIT compiler. If you want a full deep dive into all the changes, take a look at [Performance improvements in .NET 7](https://devblogs.microsoft.com/dotnet/performance_improvements_in_net_7/).
 
 ### On Stack Replacement (OSR)
 
