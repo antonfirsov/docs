@@ -1,13 +1,16 @@
 ---
 post_title: .NET 7 is Available Today
 microsoft_alias: jodou
-author1: JonDouglas
+author1: jondouglas
+author2: jeremy-likness
+author3: angelos-petropoulos
 post_slug: announcing-dotnet-7
 categories: .NET
+tags: .net 7, generally available, ga, announcement, .net conf
 featured_image: dotnet7.png
 desired_publication_date: 2022-11-08
-post_date: 2022-11-08 11:00:00
-summary: .NET 7 is a modern, fast, unified, and simple release that is available today.
+post_date: 2022-11-08 08:00:00
+summary: .NET 7 is a modern, fast, unified, and simple development framework to build any applications and is available today.
 ---
 
 [![Download .NET 7](Resources/Download-NET-7.png)](https://dotnet.microsoft.com/download/dotnet/7.0)
