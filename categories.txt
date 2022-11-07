@@ -14,6 +14,7 @@ Big Data
 Blazor
 C#
 Cloud
+Cloud Native
 Code reviews
 Community Standup
 Concurrency
@@ -38,6 +39,7 @@ Maintenance & Updates
 Maoni
 ML.NET
 Networking
+Orleans
 Performance
 Security
 SignalR
