@@ -17,7 +17,7 @@ summary: .NET 7 is a modern, fast, unified, and simple development framework to 
 
 [Download .NET 7 today!](https://dotnet.microsoft.com/download/dotnet/7.0)
 
-.NET 7 brings your apps [increased performance](https://devblogs.microsoft.com/dotnet/performance_improvements_in_net_7/) and new features for [C# 11](https://devblogs.microsoft.com/dotnet/welcome-to-csharp-11)/[F# 7](https://devblogs.microsoft.com/dotnet/announcing-fsharp-7/), [.NET MAUI](https://devblogs.microsoft.com/dotnet/dotnet-maui-7-ga), [ASP.NET Core/Blazor](https://devblogs.microsoft.com/dotnet/announcing-asp-net-core-in-dotnet-7), Web APIs, [WinForms](https://devblogs.microsoft.com/dotnet/winforms-enhancements-in-dotnet-7), [WPF](https://devblogs.microsoft.com/dotnet/wpf-on-dotnet-7) and more. With .NET 7, you can also easily containerize your .NET 7 projects, set up CI/CD workflows in GitHub actions, and achieve cloud-native observability.
+.NET 7 brings your apps [increased performance](https://devblogs.microsoft.com/dotnet/performance_improvements_in_net_7/) and new features for [C# 11](https://devblogs.microsoft.com/dotnet/welcome-to-csharp-11)/[F# 7](https://devblogs.microsoft.com/dotnet/announcing-fsharp-7/), [.NET MAUI](https://devblogs.microsoft.com/dotnet/dotnet-maui-dotnet-7), [ASP.NET Core/Blazor](https://devblogs.microsoft.com/dotnet/announcing-asp-net-core-in-dotnet-7), Web APIs, [WinForms](https://devblogs.microsoft.com/dotnet/winforms-enhancements-in-dotnet-7), [WPF](https://devblogs.microsoft.com/dotnet/wpf-on-dotnet-7) and more. With .NET 7, you can also easily containerize your .NET 7 projects, set up CI/CD workflows in GitHub actions, and achieve cloud-native observability.
 
 Thanks to the [open-source .NET community](https://github.com/dotnet) for your numerous contributions that helped shape this .NET 7 release. [28k contributions made by over 8900 contributors throughout the .NET 7 release](https://dotnet.microsoft.com/thanks)!
 
@@ -45,7 +45,7 @@ You can [download the free .NET 7 release](https://dotnet.microsoft.com/download
 
 * [ASP.NET Core 7](https://devblogs.microsoft.com/dotnet/announcing-asp-net-core-in-dotnet-7)
 * [Entity Framework Core 7](https://devblogs.microsoft.com/dotnet/announcing-ef7)
-* [.NET MAUI](https://devblogs.microsoft.com/dotnet/dotnet-maui-7-ga)
+* [.NET MAUI](https://devblogs.microsoft.com/dotnet/dotnet-maui-dotnet-7)
 * [Windows Forms](https://devblogs.microsoft.com/dotnet/winforms-enhancements-in-dotnet-7)
 * [WPF](https://devblogs.microsoft.com/dotnet/wpf-on-dotnet-7)
 * [Orleans 7](https://devblogs.microsoft.com/dotnet/whats-new-in-orleans-7/)
@@ -201,7 +201,7 @@ With the availability to now run natively on Power, the 25,000 plus IBM Power cu
  
 ### .NET MAUI
 
-NET MAUI is now part of .NET 7 with tons of improvements, and new features. You can learn about .NET MAUI and the ways it empowers you to build apps for all your mobile devices by reading the latest [.NET MAUI blog announcement](https://devblogs.microsoft.com/dotnet/dotnet-maui-7-ga).
+NET MAUI is now part of .NET 7 with tons of improvements, and new features. You can learn about .NET MAUI and the ways it empowers you to build apps for all your mobile devices by reading the latest [.NET MAUI blog announcement](https://devblogs.microsoft.com/dotnet/dotnet-maui-dotnet-7).
  
 ### Blazor
 
