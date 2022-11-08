@@ -1,6 +1,6 @@
 ---
 post_title: Announcing F# 7
-author1: vlza@microsoft.com
+author1: vlza
 post_slug: announcing-fsharp-7
 username: vlza@microsoft.com
 microsoft_alias: vlza
@@ -301,7 +301,7 @@ In this and future announcements, we will highlight some of the individuals who 
 >
 > Thanks to [Timothé Larivière](https://twitter.com/Tim_Lariviere) and [Florian Verdonck](https://twitter.com/verdonckflorian) for helping me get started with open source.
 
-![Contributor photo](EdgarGonzalez.jpg)
+![Contributor photo of Edgar](EdgarGonzalez.jpg)
 
 ### Florian Verdonck
 
@@ -322,7 +322,7 @@ software it uses in-house. The leaders there believe that targeted open-source
 efforts can improve the operational efficacy of their engineers and encourage me in
 my work.
 
-![Contributor photo](FlorianVerdonck.jpg)
+![Contributor photo of Florian](FlorianVerdonck.jpg)
 
 ### Janusz Wrobel
 
