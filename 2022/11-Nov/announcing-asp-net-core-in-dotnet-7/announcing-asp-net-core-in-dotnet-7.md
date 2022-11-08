@@ -2,7 +2,7 @@
 post_title: Announcing ASP.NET Core in .NET 7
 author1: danroth27
 post_slug: announcing-asp-net-core-in-dotnet-7
-username: daroth@microsoft.com
+username: danroth27
 microsoft_alias: daroth
 featured_image: ./3d-dotnet-bot-jetpack.png
 categories: .NET, ASP.NET, ASP.NET Core, Blazor
