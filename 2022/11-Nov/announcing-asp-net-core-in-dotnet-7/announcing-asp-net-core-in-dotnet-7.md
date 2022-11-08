@@ -1,6 +1,6 @@
 ---
 post_title: Announcing ASP.NET Core in .NET 7
-author1: daroth@microsoft.com
+author1: danroth27
 post_slug: announcing-asp-net-core-in-dotnet-7
 username: daroth@microsoft.com
 microsoft_alias: daroth
