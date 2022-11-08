@@ -9,7 +9,7 @@ categories: F#, .NET
 tags: .net 7, f# 7
 summary: F# 7 is here, see what's new!
 desired_publication_date: 2022-11-08
-post_date: 2022-11-08 11:05:00
+post_date: 2022-11-08 08:59:30
 ---
 
 We’re happy to announce the availability of F# 7, shipping with .NET 7 and Visual Studio 2022. Check out this next step to making it easier for you to write robust, succinct and performant code. You can get F# 7 in the following ways:
