@@ -17,7 +17,7 @@ summary: .NET 7 is a modern, fast, unified, and simple development framework to 
 
 [Download .NET 7 today!](https://dotnet.microsoft.com/download/dotnet/7.0)
 
-.NET 7 brings your apps [increased performance](https://devblogs.microsoft.com/dotnet/performance_improvements_in_net_7/) and new features for [C# 11](https://learn.microsoft.com/dotnet/csharp/whats-new/csharp-11)/[F# 7](https://devblogs.microsoft.com/dotnet/whats-new-in-fsharp-6/), [.NET MAUI](https://devblogs.microsoft.com/dotnet/dotnet-maui-7-ga), [ASP.NET Core/Blazor](https://devblogs.microsoft.com/dotnet/announcing-asp-net-core-in-dotnet-7), Web APIs, [WinForms](https://devblogs.microsoft.com/dotnet/winforms-enhancements-in-dotnet-7), [WPF](https://devblogs.microsoft.com/dotnet/wpf-on-dotnet-7) and more. With .NET 7, you can also easily containerize your .NET 7 projects, set up CI/CD workflows in GitHub actions, and achieve cloud-native observability.
+.NET 7 brings your apps [increased performance](https://devblogs.microsoft.com/dotnet/performance_improvements_in_net_7/) and new features for [C# 11](https://devblogs.microsoft.com/dotnet/welcome-to-csharp-11)/[F# 7](https://devblogs.microsoft.com/dotnet/announcing-fsharp-7/), [.NET MAUI](https://devblogs.microsoft.com/dotnet/dotnet-maui-7-ga), [ASP.NET Core/Blazor](https://devblogs.microsoft.com/dotnet/announcing-asp-net-core-in-dotnet-7), Web APIs, [WinForms](https://devblogs.microsoft.com/dotnet/winforms-enhancements-in-dotnet-7), [WPF](https://devblogs.microsoft.com/dotnet/wpf-on-dotnet-7) and more. With .NET 7, you can also easily containerize your .NET 7 projects, set up CI/CD workflows in GitHub actions, and achieve cloud-native observability.
 
 Thanks to the [open-source .NET community](https://github.com/dotnet) for your numerous contributions that helped shape this .NET 7 release. [28k contributions made by over 8900 contributors throughout the .NET 7 release](https://dotnet.microsoft.com/thanks)!
 
@@ -44,11 +44,11 @@ You can [download the free .NET 7 release](https://dotnet.microsoft.com/download
 .NET 7 releases in conjunction with several other products, libraries, and platforms that include:
 
 * [ASP.NET Core 7](https://devblogs.microsoft.com/dotnet/announcing-asp-net-core-in-dotnet-7)
-* [Entity Framework Core 7](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-7)
+* [Entity Framework Core 7](https://devblogs.microsoft.com/dotnet/announcing-ef7)
 * [.NET MAUI](https://devblogs.microsoft.com/dotnet/dotnet-maui-7-ga)
 * [Windows Forms](https://devblogs.microsoft.com/dotnet/winforms-enhancements-in-dotnet-7)
 * [WPF](https://devblogs.microsoft.com/dotnet/wpf-on-dotnet-7)
-* [Orleans 7](https://aka.ms/orleans-7-whats-new)
+* [Orleans 7](https://devblogs.microsoft.com/dotnet/whats-new-in-orleans-7/)
 
 In this blog post, we'll highlight the major themes the .NET Teams focused on delivering:
 
@@ -267,7 +267,7 @@ To learn more about build-in container support, see [Announcing built-in contain
 
 ### Microsoft Orleans
 
-Microsoft Orleans 7.0 will offer a simpler programming model with "plain old CLR object" (POCO) Grains, deliver up to 150% better performance than 3.x, and introduce new serialization and immutability improvements. ASP.NET Core developers can add distributed state with simplicity using Orleans, and be confident their applications will scale horizontally without adding complexity. We’ll continue to invest in bringing Orleans features closer to the ASP.NET stack to ensure your web and API applications are ready for cloud scale, distributed hosting scenarios, or even multi-cloud deployments. With support for most popular storage mechanisms and databases and the ability to run anywhere ASP.NET Core can run, Orleans is a great choice to enable your .NET apps with cloud native, distributed capabilities without needing to learn a new framework or toolset. [Learn more about Orleans 7](https://aka.ms/orleans-7-whats-new).
+Microsoft Orleans 7.0 will offer a simpler programming model with "plain old CLR object" (POCO) Grains, deliver up to 150% better performance than 3.x, and introduce new serialization and immutability improvements. ASP.NET Core developers can add distributed state with simplicity using Orleans, and be confident their applications will scale horizontally without adding complexity. We’ll continue to invest in bringing Orleans features closer to the ASP.NET stack to ensure your web and API applications are ready for cloud scale, distributed hosting scenarios, or even multi-cloud deployments. With support for most popular storage mechanisms and databases and the ability to run anywhere ASP.NET Core can run, Orleans is a great choice to enable your .NET apps with cloud native, distributed capabilities without needing to learn a new framework or toolset. [Learn more about Orleans 7](https://devblogs.microsoft.com/dotnet/whats-new-in-orleans-7/).
 
 ### Observability
 
@@ -330,7 +330,7 @@ foreach (ref readonly KeyValuePair<string, object?> tag in e.EnumerateTagObjects
 
 ### C# 11 & F# 7
 
-The newest additions to the C# and F# languages are [C# 11](https://learn.microsoft.com/dotnet/csharp/whats-new/csharp-11) and [F# 7](https://devblogs.microsoft.com/dotnet/whats-new-in-fsharp-6/). C# 11 makes new features like generic math possible while simplifying your code with object initialization improvements, raw string literals, and much more. 
+The newest additions to the C# and F# languages are [C# 11](https://devblogs.microsoft.com/dotnet/welcome-to-csharp-11) and [F# 7](https://devblogs.microsoft.com/dotnet/announcing-fsharp-7/). C# 11 makes new features like generic math possible while simplifying your code with object initialization improvements, raw string literals, and much more. 
 
 ### Generic Math
 
