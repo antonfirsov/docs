@@ -11,7 +11,7 @@ categories: .NET,  WPF, XAML
 tags: .net 7, wpf
 summary: Find out what's new in WPF on .NET 7 including accessibility improvements, a focus on performance, and much more.
 desired_publication_date: 2022-11-09
-post_date: 2022-11-09 09:04:00
+post_date: 2022-11-09 08:59:10
 ---
 
 WPF community is filled with so many passionate individuals with truly amazing experiences and this post aims to highlight what has been done in the dotnet/wpf repo in past few months and thanking the amazing people behind all this. We are really grateful for the contributors who have consistently worked towards improving WPF. Here is a quick recap of what was accomplished in the past few months in the dotnet/wpf repository.
