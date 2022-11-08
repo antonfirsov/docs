@@ -1,6 +1,6 @@
 ---
 post_title: What's new in Orleans 7.0
-author1: bradygaster
+author1: bradyg@microsoft.com
 post_slug: whats-new-in-orleans-7
 username: bradygaster
 microsoft_alias: bradyg
