@@ -1,6 +1,6 @@
 ---
 post_title: 'Entity Framework Core 7 (EF7) is available today'
-author1: avickers
+author1: avickers@microsoft.com
 post_slug: announcing-ef7
 microsoft_alias: avickers
 featured_image: ef7.png
