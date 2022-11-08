@@ -6,9 +6,10 @@ post_slug: dotnet-maui-dotnet-7
 microsoft_alias: daortin
 categories: .NET MAUI, .NET
 tags: .net 7
-desired_publication_date: 2022-11-08 07:59:50
+desired_publication_date: 2022-11-08
+post_date: 2022-11-08 08:59:50
 featured_image: images/maui-highlights.png
-summary: .NET MAUI is now available for .NET 7 and is packed with exciting improvements for multi-platform developers including performance improvements, improved tooling, enhanced desktop support, and more!
+summary: '.NET MAUI is now available for .NET 7 and is packed with exciting improvements for multi-platform developers including performance improvements, improved tooling, enhanced desktop support, and more!'
 ---
 
 Six short months ago we introduced you to .NET Multi-platform App UI (MAUI) and today we are excited to announce the general availability of .NET MAUI in our next major release, [.NET 7](https://devblogs.microsoft.com/dotnet/announcing-dotnet-7). Our primary work in .NET MAUI during this shortened timeframe has been on addressing your top feedback reports, improving the performance of `CollectionView`, and introducing desktop features as we have expanded your reach beyond mobile to desktop. This release accompanies the release of Visual Studio 17.4, and the first .NET MAUI features have graduated from preview to stable release on Mac. 
