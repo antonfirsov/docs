@@ -9,7 +9,7 @@ categories: Orleans, Cloud, ASP.NET Core, Cloud Native, ASP.NET
 summary: What's new in Orleans 7.0
 desired_publication_date: 2022-11-08
 tags: asp.net core, performance, .net 7, orleans, cloud native
-post_date: 2022-11-08 13:00:00
+post_date: 2022-11-08 8:59:40
 ---
 
 The .NET 7 release marks an exciting milestone in many ways, but one in particular that's exciting for ASP.NET developers building distributed apps or apps designed to be cloud native and ready for dynamic horizontal scale out is the addition of the Orleans team to the broader .NET team. Bringing Orleans and ASP.NET Core closer together has led to some exciting ideas for the future of how we blend Orleans into the ASP.NET toolchain, and coupled with the huge advances in performance throughout .NET 7 are improvements to Orleans 7 that bring **over 150% improvements** to some areas of the Orleans toolchain. This post will introduce you to some of the new features in Orleans 7. 
