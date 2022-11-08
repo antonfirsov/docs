@@ -9,7 +9,7 @@ categories: .NET
 tags: .net 7, generally available, ga, announcement, .net conf
 featured_image: download-dotnet-7.png
 desired_publication_date: 2022-11-08
-post_date: 2022-11-08 08:00:00
+post_date: 2022-11-08 09:00:00
 summary: .NET 7 is a modern, fast, unified, and simple development framework to build any applications and is available today.
 ---
 
