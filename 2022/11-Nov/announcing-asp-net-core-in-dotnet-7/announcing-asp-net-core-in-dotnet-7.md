@@ -20,7 +20,7 @@ Here's a sampling of the great new features and improvements in ASP.NET Core for
 
 - **Servers and runtime**
     - **[Rating limiting](https://learn.microsoft.com/aspnet/core/performance/rate-limit?view=aspnetcore-7.0)**: Limit the rate of handled requests using flexible endpoint configuration and policies.
-    - **[Output caching](https://learn.microsoft.com/aspnet/core/performance/caching/output?view=aspnetcore-7.0)**: Configure output caching to reduce to more efficiently handle request.
+    - **[Output caching](https://learn.microsoft.com/aspnet/core/performance/caching/output?view=aspnetcore-7.0)**: Configure caching for responses to more efficiently handle requests.
     - **[Request decompression](https://learn.microsoft.com/aspnet/core/fundamentals/middleware/request-decompression?view=aspnetcore-7.0)**: Accept requests with compressed content.
     - **[HTTP/3](https://learn.microsoft.com/aspnet/core?view=aspnetcore-7.0)**: Built-in support for HTTP/3, the latest HTTP version based on the new QUIC multiplexed transport protocol.
     - **[WebSockets over HTTP/2](https://learn.microsoft.com/aspnet/core/fundamentals/websockets?view=aspnetcore-7.0#http2-websockets-support)**: Use WebSockets over HTTP/2 connections.
@@ -54,7 +54,7 @@ To get started with ASP.NET Core in .NET 7, [install the .NET 7 SDK](https://dot
 
 ## Upgrade an existing project
 
-To upgrade an existing ASP.NET Core app from .NET 6 to .NET 7, follow the steps in [Migrate from ASP.NET Core 6.0 to 7.0](https://docs.microsoft.com/aspnet/core/migration/60-to-70)
+To upgrade an existing ASP.NET Core app from .NET 6 to .NET 7, follow the steps in [Migrate from ASP.NET Core 6.0 to 7.0](https://learn.microsoft.com/aspnet/core/migration/60-70)
 
 To upgrade an existing ASP.NET Core app from .NET 7 RC2 to .NET 7, update all ASP.NET Core package references to `7.0.0`.
 
@@ -64,7 +64,7 @@ See also the full list of [breaking changes](https://learn.microsoft.com/dotnet/
 
 ## Join us for the .NET 7 release at .NET Conf 2022
 
-Come celebrate with us and learn all about the .NET 7 release at [.NET Conf 2021](https://dotnetconf.net), a FREE, three day virtual developer event with over 80 sessions featuring speakers from the .NET team and the broader .NET community. The conference starts TODAY and goes from November 8-10. We hope you can join us!
+Come celebrate with us and learn all about the .NET 7 release at [.NET Conf 2022](https://dotnetconf.net), a FREE, three day virtual developer event with over 80 sessions featuring speakers from the .NET team and the broader .NET community. The conference starts TODAY and goes from November 8-10. We hope you can join us!
 
 ## .NET 7 on Azure
 
