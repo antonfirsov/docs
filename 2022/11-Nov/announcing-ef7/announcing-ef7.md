@@ -8,7 +8,7 @@ categories: .NET, Entity Framework
 summary: Announcing EF Core 7 (EF7) with JSON column mapping, bulk updates, TPC, and more!
 desired_publication_date: 2022-11-08
 tags: .net 7, ef core, efcore, ef7
-post_date: 2022-11-08 10:00:00
+post_date: 2022-11-08 11:00:00
 ---
 
 Entity Framework Core (EF Core) 7 is [available on NuGet today](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/7.0.0)!
