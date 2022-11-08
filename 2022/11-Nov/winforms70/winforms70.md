@@ -7,7 +7,7 @@ categories: .NET, .NET Core, WinForms
 tags: .net 7, windows forms, winforms, designer
 summary: Read about the new features that are in Windows Forms in .NET 7 including new accessibility features, High DPI, UI Automation, and more.
 desired_publication_date: 2022-11-09
-post_data: 2022-11-09 09:02:00
+post_date: 2022-11-09 10:02:00
 post_slug: winforms-enhancements-in-dotnet-7
 ---
 
