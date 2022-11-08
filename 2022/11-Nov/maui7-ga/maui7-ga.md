@@ -1,5 +1,5 @@
 ---
-post_title: Announcing .NET MAUI 7 General Availability
+post_title: Announcing .NET MAUI for .NET 7 General Availability
 username: davidortinau
 author1: davidortinau
 post_slug: dotnet-maui-dotnet-7
