@@ -9,7 +9,7 @@ categories: .NET, C#
 tags: .net 7, C# 11
 summary: C# 11 is here! Bringing with it some highly anticipated features including string literals, generic math, required members, and much more.
 desired_publication_date: 2022-11-08
-post_date: 2022-11-08 10:05:00
+post_date: 2022-11-08 11:05:00
 ---
 
 I am excited to announce that C# 11 is out! As always, C# opens some entirely new fronts, even while advancing several themes that have been in motion over past releases. There are many features and many details, which are beautifully covered under [What's new in C# 11](https://learn.microsoft.com/dotnet/csharp/whats-new/csharp-11) on our docs pages. What follows here is an appetizer of some of the highlights - small and big.
