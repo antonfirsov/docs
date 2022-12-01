@@ -1,5 +1,5 @@
 ---
-post_title: What's new in the .NET MAUI Community Toolkit
+post_title: "What's new in the .NET MAUI Community Toolkit"
 author1: kyphi
 post_slug: whats-new-in-the-dotnet-maui-community-toolkit
 username: kyphi
