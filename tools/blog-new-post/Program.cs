@@ -84,7 +84,7 @@ microsoft_alias: {authorInformation.MicrosoftAlias}
 featured_image: path/relative/to/your/post/image.png
 categories: {string.Join(", ", categories)}
 tags: tag1, tag2, tag3
-summary: UPDATE: Summary of your post, shown on the home page next to the featured image
+summary: Summary of your post, shown on the home page next to the featured image
 desired_publication_date: {desiredPublicationDate:yyyy-MM-dd}
 post_date: {desiredPublicationDate:yyyy-MM-dd} 10:05:00
 ---
