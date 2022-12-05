@@ -122,7 +122,7 @@ same. Here is what that means exactly:
   you'd find in `Microsoft.DotNet.DesignTools.Designers.Actions`. It's easiest
   to let Visual Studio do the namespace lookup in those refactoring cases:
 
-    :::image type="content" source="NamespaceLookupInVisualStudio.png" alt-text="Screenshot showing how to look up WinForms Designer-SDK namespaces in Visual Studio":::
+![Screenshot showing how to look up WinForms Designer-SDK namespaces in Visual Studio](NamespaceLookupInVisualStudio.png)
 
 If your control designer however needs to provide a custom Type Editor for a
 property whose type's value need a more complex user interaction, then there is
@@ -148,7 +148,7 @@ for a user to set the value for a certain control property via some data entry
 device. The simplest one: A string editor for a control's property of type
 `string`, whose value is entered via the keyboard in the Property Browser.
 
-:::image type="content" source="EnteringValueInPropertyBrowser.png" alt-text="Entering hexadecimal RGB values for a Background property in the Property Browser":::
+![Entering hexadecimal RGB values for a Background property in the Property Browser](EnteringValueInPropertyBrowser.png)
 
 But not all properties are of type `string`. So, for most of the cases, a [type
 *converter*](https://learn.microsoft.com/dotnet/api/system.componentmodel.typeconverter?view=net-7.0) will
@@ -175,7 +175,7 @@ app](https://github.com/microsoft/winforms-designer-extensibility/tree/main/Samp
 for this scenario. It is a picture browser, which shows the jpeg-Images of a
 folder in a special way:
 
-:::image type="content" source="PictureBrowser_FrameworkSample.gif" alt-text="Animated gif showing the opening of a folder and then a preview of jpegs of different dogs, each jumping in a colored cloud of powder.":::
+![Animated gif showing the opening of a folder and then a preview of jpegs of different dog.](PictureBrowser_FrameworkSample.gif)
 
 In our example app, those are items holding JPeg-image filenames of a folder on
 disk. On the UI-side you have a user control which represents the template for
@@ -193,7 +193,7 @@ So, the data source list which holds the pictures in the list is not completely
 homogenous. Rather, we find two types of elements in it - but we still can use a
 generic list, since the types built an inheritance type hierarchy.
 
-:::image type="content" source="DataSourceElementList.png" alt-text="Data source list of picture and separator elements in the Auto tool window of Visual Studio":::
+![Data source list of picture and separator elements in the Auto tool window of Visual Studio](DataSourceElementList.png)
 
 **DISCLAIMER**: The `TileRepeater` control is a demo for the specific .NET
 WinForms Designer scenario - it lacks a virtual rendering mode. It works fine
@@ -214,7 +214,7 @@ runtime, this happens behind the scenes.
   use a command from the Action List or the Property Browser of Visual Studio
   (by clicking on the *...* button in the grid for that property).
 
-    :::image type="content" source="InitiateEditTemplateItems.png" alt-text="User calling Type Editor of ItemTemplate property via Action List of the TileRepeater control designer":::
+![User calling Type Editor of ItemTemplate property via Action List of the TileRepeater control designer](InitiateEditTemplateItems.png)
 
 2. Since the `TemplateAssignment` type is annotated with the `EditorAttribute`,
   the Type Editor `TemplateAssignmentEditor` is found and instantiated. Since
@@ -226,7 +226,8 @@ runtime, this happens behind the scenes.
   called, e.g. if that has been the Property Browser or an Action List. The
   Service Provider allows the Editor to acquire required Visual Studio services - for example the `WindowsFormsEditorService` to show the actual Dialog in the
   context of Visual Studio.  
-  :::image type="content" source="ClassEditorAnnotation.png" alt-text="Class code annotated with the EditorAttribute":::
+  
+![Class code annotated with the EditorAttribute](ClassEditorAnnotation.png)
 
 3. The UI of the Type Editor is controlled by a ViewModel
   (`TemplateAssignmentViewModel`). That means that code for displaying the UI
@@ -237,7 +238,8 @@ runtime, this happens behind the scenes.
 4. The Type Editor dialog is shown on the screen by passing it to the
   `ShowDialog` method of Visual Studio's editor service. In that dialog, the
   user can now pick the two types which needs to be assigned to each other:
-  :::image type="content" source="TileRepeaterTypeEditor.png" alt-text="The Type Editor of the TileRepeater control allowing to assign data source item and user control template.":::
+  
+![The Type Editor of the TileRepeater control allowing to assign data source item and user control template.](TileRepeaterTypeEditor.png)
 
 5. When the user commits the new setting with *OK*, the dialog calls the
   `OKClick` method in the ViewModel to actually create the new value for the
@@ -315,8 +317,7 @@ Framework. *Only* if your Control or your Control Library needs custom UI Type
 Editors, then you need a Client/Server-solution for your Control library.
 
 That is the reason, the sample folder for this blog post contains yet [another
-version of the sample
-!!REPLACELINK!!](https://github.com/microsoft/winforms-designer-extensibility/tree/main/Samples/TypeEditor/Dotnet/TileRepeater_Medium):
+version of the sample](https://github.com/microsoft/winforms-designer-extensibility/tree/main/Samples/TypeEditor/Dotnet/TileRepeater_Medium):
 
 We won't got to much into this sample - it's pretty much self-explanatory as the
 only difference to a .NET Framework version is that it targets the WinForms
@@ -344,7 +345,7 @@ These solutions are located in the path
 .\\winforms-designer-extensibility\\Templates\\TypeEditor\\src\\TemplateSolutions*.
 ```
 
-:::image type="content" source="TemplateSolutionItems.png" alt-text="Overview of the projects in their solution folders divisions" :::
+![Overview of the projects in their solution folders divisions](TemplateSolutionItems.png)
 
 The actual Solution Templates (which are NuGet packages) are built from these solutions by a batch file (more about that below).
 
@@ -355,7 +356,7 @@ These solutions provide:
   render the content of a composite type named *CustomPropertyStore*, which is
   just the composition of a bunch of properties of different types.
 
-:::image type="content" source="CustomControlWithOpenedActionList.png" alt-text="Custom Control of the Type Editor template in WinForms Designer, showing the expanded action list":::
+![Custom Control of the Type Editor template in WinForms Designer, showing the expanded action list](CustomControlWithOpenedActionList.png)
 
 * Three projects which make up the control's designer:
 
@@ -424,7 +425,7 @@ Visual Studio.
 * Pick one of the newly available Type Editor templates, either for C\# or
   Visual Basic.  
 
-    :::image type="content" source="CreateNewTypeEditorSolution.png" alt-text="The VS new project dialog showing the Type Editor templates":::  
+![The VS new project dialog showing the Type Editor templates](CreateNewTypeEditorSolution.png) 
 
 * Click *Next*.
 * In the *Configure your Project* page, specify the following options:
@@ -756,7 +757,7 @@ The principle approach applied to move a .NET Framework control designer is this
   * *TileRepeater* for CustomControlName,
   * and we Target the solution to either .NET 6 or .NET 7.
 
-    :::image type="content" source="TileRepeaterSolutionNamingElements.png" alt-text="Naming the Type Editor solution template elements for the framework-to.net migration":::
+![Naming the Type Editor solution template elements for the framework-to.net migration](TileRepeaterSolutionNamingElements.png)
 
 The most important thing in the migration process is to figure out which
 components need to go to to what side and why. Obviously, when you're starting
@@ -803,7 +804,7 @@ version to the solution create by the Type Editor .NET template...
 * Our TileRepeater doesn't have a custom Enum, so wouldn't need that code file
   (`TemplateAssignmentEnum`) at all, and can delete it.
 
-    :::image type="content" source="MigratingTheControlClasses.png" alt-text="Showing in solution explorer, which classes to migrate for the control's runtime":::
+![Showing in solution explorer, which classes to migrate for the control's runtime](MigratingTheControlClasses.png)
 
 ### Migrating the ViewModel to server and client areas
 
@@ -872,8 +873,8 @@ Thus the ViewModel class needs to be split in two parts:
 * The project *TileRepeater.Designer.Server* will have the server-side view
   model classes. It will also have a server-side Factory of that ViewModel,
   which is part of the WinForms Designer infrastructure:
-
-    :::image type="content" source="ViewModelSplitting.png" alt-text="Screenshot showing the splitting of the .NET Framework ViewModel classes into server- and client-version for the .NET migration in solution explorer.":::
+  
+![Splitting of the .NET Framework ViewModel classes into server/client-version in solution explorer.](ViewModelSplitting.png)
 
 The original .NET Framework ViewModel class now needs some refactoring.
 
@@ -1242,7 +1243,7 @@ reference the control library.
     server-side ViewModel, the list with template types and the list with
     Tile-user-control types, and returns it to the client ViewModel.
 
-  :::image type="content" source="EndpointClassesInProtocolAndServerProjects.png" alt-text="Screenshot of the protocol and server endpoint classes in the solution explorer":::
+![Screenshot of the protocol and server endpoint classes in the solution explorer](EndpointClassesInProtocolAndServerProjects.png)
 
 * For notifying the server ViewModel that the *OK*-Button of the Type Editor was
   clicked and the selected Template/Tile-user-control combination now needs to
