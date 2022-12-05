@@ -8,15 +8,28 @@ public static class BlogRepo
     {
         TreeChanges changes;
 
-        if (afterCommit != null)
+        if (afterCommit == null)
         {
-            changes = repository.Diff.Compare<TreeChanges>(beforeCommit.Tree, afterCommit.Tree);
+            var indexAndWorkingDirectory = DiffTargets.Index | DiffTargets.WorkingDirectory;
+            changes = repository.Diff.Compare<TreeChanges>(beforeCommit.Tree, indexAndWorkingDirectory);
         }
         else
         {
+            // In our case, before is going to be the target branch of the PR (usually current main) while after
+            // is the latest commit in the PR.
+            // 
+            // In order to compute the changes of the PR, we need to do the equivalent of this:
+            //
+            //   $ git diff before...after
+            //
+            // Notice that there are three dots, not two. This will first find the merge base of before and after
+            // (which is the common ancestor) and then do a diff between it and after.
+            //
+            // This ensures we only get the changes introduced in the PR, not any of the changes that were done to
+            // main after the PR branched off.
 
-            var indexAndWorkingDirectory = DiffTargets.Index | DiffTargets.WorkingDirectory;
-            changes = repository.Diff.Compare<TreeChanges>(beforeCommit.Tree, indexAndWorkingDirectory);
+            var historyDivergence = repository.ObjectDatabase.CalculateHistoryDivergence(beforeCommit, afterCommit);
+            changes = repository.Diff.Compare<TreeChanges>(historyDivergence.CommonAncestor.Tree, afterCommit.Tree);
         }
 
         return changes.Where(c => c.Status != ChangeKind.Deleted)
