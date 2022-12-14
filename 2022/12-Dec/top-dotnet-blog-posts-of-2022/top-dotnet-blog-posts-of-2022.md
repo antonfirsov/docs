@@ -11,8 +11,7 @@ desired_publication_date: 2022-12-30
 post_date: 2022-12-30 10:05:00
 ---
 
-This is the introduction to your post. It's the post's first paragraph. Don't
-put a heading in front of it. The title will be the post's first heading.
+It's been an exciting year for .NET and the .NET blog! We published over 150 blog posts, totaling almost 370K words! Just in case you missed a few, here's a quick summary of some of the top posts of 2022.
 
 ## [Performance Improvements in .NET 7](https://devblogs.microsoft.com/dotnet/performance_improvements_in_net_7/)
 
@@ -58,11 +57,11 @@ With the launch of .NET 7, C# 11 was also released and Mads Torgersen did a [ful
 
 ## Honorable Mentions
 
-Throughout the year the .NET team continued to keep everyone up to date on the progress of .NET 7 and these blog posts continued to get great traction. Beyond the "update" blogs the team also did plenty of feature deep dives and product announcements, here are some of the top blogs in these categories:
+Throughout the year the .NET team continued to keep everyone up to date on the progress of .NET 7 and these blog posts continued to get great traction. Beyond the "update" posts the team also did plenty of feature deep dives and product announcements, here are some of the top posts in these categories:
 
 * [Announcing Rate Limiting for .NET](https://devblogs.microsoft.com/dotnet/announcing-rate-limiting-for-dotnet/)
 * [.NET 6 is now in Ubuntu 22.04](https://devblogs.microsoft.com/dotnet/dotnet-6-is-now-in-ubuntu-2204/)
 * [Announcing built-in container support for the .NET SDK](https://devblogs.microsoft.com/dotnet/announcing-builtin-container-support-for-the-dotnet-sdk/)
 * [CoreWCF 1.0 has been Released, WCF for .NET Core and .NET 5+](https://devblogs.microsoft.com/dotnet/corewcf-v1-released/)
 
-There you have it, the top .NET blogs of 2022! What were your favorites? What do you want to see more of in 2023? Let us know in the comments below!
+There you have it, the top .NET blog posts of 2022! What were your favorites? What do you want to see more of in 2023? Let us know in the comments below!
