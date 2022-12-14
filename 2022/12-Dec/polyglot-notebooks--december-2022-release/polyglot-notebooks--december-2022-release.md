@@ -1,5 +1,5 @@
 ---
-post_title: Polyglot Notebooks - December 2022 Release
+post_title: Polyglot Notebooks - Now with .NET 7, C# 11, and F# 7 Support!
 author1: clregio@microsoft.com
 post_slug: polyglot-notebooks--december-2022-release
 username: clregio@microsoft.com
