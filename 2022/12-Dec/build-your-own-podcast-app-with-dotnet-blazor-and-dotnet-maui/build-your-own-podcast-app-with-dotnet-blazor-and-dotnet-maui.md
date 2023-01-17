@@ -156,7 +156,7 @@ If you are interested in containers and microservices be sure to watch some of t
 * [State of Azure + .NET](https://www.youtube.com/watch?v=NBbI52liUR4)
 
 ## Playwright Tests
-[Playwright](https://playwright.dev/) is an open source testing framework from Microsfot that enables reliable end-to-end testing for modern web apps. As the team was working on backend and frontend updates, they wanted to ensure that the core scenarios of the podcast app didn't break. They setup several Playwright tests and integrated it into their CI pipeline so they ran with every pull request. 
+[Playwright](https://playwright.dev/) is an open source testing framework from Microsoft that enables reliable end-to-end testing for modern web apps. As the team was working on backend and frontend updates, they wanted to ensure that the core scenarios of the podcast app didn't break. They setup several Playwright tests and integrated it into their CI pipeline so they ran with every pull request. 
 
 ![Playwright run results from GitHub Actions](playwright-tests.png)
 
