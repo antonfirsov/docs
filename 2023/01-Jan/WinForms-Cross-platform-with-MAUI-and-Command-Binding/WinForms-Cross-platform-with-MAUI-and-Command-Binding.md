@@ -1,5 +1,5 @@
 ---
-post_title: Using Bindings in Windows Forms apps to go Cross-Platform
+post_title: Using Command Binding in Windows Forms apps to go Cross-Platform
 post_slug: winforms-cross-platform-dotnet-maui-command-binding
 username: klloeffe@microsoft.com
 microsoft_alias: klloeffe
@@ -216,13 +216,13 @@ these areas:
 * A unit test project, which shows how using ViewModels enables you to write
   unit tests for a UI based on an UI-Controller abstraction like MVVM.
 
-    :::image type="content" source="SampleAppSolution.png" alt-text="Screenshot of the sample app in the solution explorer showing the 4 projects .NET MAUI, WinForms, UnitTest and ViewModel.":::
+  ![Screenshot of the sample app in the solution explorer showing the 4 projects .NET MAUI, WinForms, UnitTest and ViewModel.](SampleAppSolution.png)
 
 **NOTE:** This blog post is not an introduction to .NET MAUI. There are a lot of
 resources on the web, showing the basic approach of MVVM with XAML-based UI
 stacks, an [Introduction to .NET MAUI](https://learn.microsoft.com/dotnet/architecture/maui/introduction), many examples, and lots of [really good YouTube videos](https://www.youtube.com/watch?v=DuNLR_NJv8U).
 
-:::image type="content" source="MauiWinFormsEditor.gif" alt-text="Animated gif which shows the WinForms and the Android version of the sample editor in action.":::
+![Animated gif which shows the WinForms and the Android version of the sample editor in action.](MauiWinFormsEditor.gif)
 
 ## Command Binding for calling methods inside the UI-controller
 
@@ -407,7 +407,7 @@ where it makes sense. Examples:
 Now, let's put all of the puzzle pieces we've covered so far together, and apply
 them in a very simple WinForms App:
 
-:::image type="content" source="SimpleWinFormsMvvmView.png" alt-text="A WinForms form in the Designer with a CheckBox, a Button, a Label, serving as a sample MVVM view.":::
+![A WinForms form in the Designer with a CheckBox, a Button, a Label, serving as a sample MVVM view.](SimpleWinFormsMvvmView.png)
 
 The idea here is to have a form which is controlled by a ViewModel, providing a
 Command and properties to bind against the CheckBox control and the Label. When
@@ -570,7 +570,7 @@ steps:
   find the `SampleCommand` property in the Design Binding Picker and assign it to
   the Button's `Command` property.
 
-    :::image type="content" source="PickCommandFromDesignBindingPicker.png" alt-text="Screenshot showing how to pick a command from a ViewModel in the Design Binding Picker.":::
+    ![Screenshot showing how to pick a command from a ViewModel in the Design Binding Picker.](PickCommandFromDesignBindingPicker.png)
 
 8. Select the CheckBox control in the form, and bind its `Checked` property to
   the ViewModel's `CommandAvailability` property. Please note from the following
@@ -583,7 +583,7 @@ steps:
   property from the BindingSource. Successive bindings on this form should now
   be picked directly from that BindingSource instance.
 
-    :::image type="content" source="BindCheckPropertyToCommandAvailibility.png" alt-text="Screenshot showing the binding of the CheckBox against CommandAvailability of the ViewModel.":::
+    ![Screenshot showing the binding of the CheckBox against CommandAvailability of the ViewModel.](BindCheckPropertyToCommandAvailibility.png)    
 
 9. Select the Label control in the form, and bind its `Text` property to the
   ViewModel's `CommandResult` property.
@@ -612,7 +612,7 @@ reference](https://www.nuget.org/packages/CommunityToolkit.Mvvm/)
 _CommunityToolkit.Mvvm_ to the project which is hosting the ViewModel classes
 for your app.
 
-:::image type="content" source="AddMvvmCommunityToolkitNuGet.png" alt-text="Screenshot showing how to add the Microsoft CommunityToolkit.MVVM package to a project":::
+![Screenshot showing how to add the Microsoft CommunityToolkit.MVVM package to a project](AddMvvmCommunityToolkitNuGet.png)
 
 The introduction to the MVVM community toolkit explains the steps in more
 detail.
@@ -723,13 +723,13 @@ If you omit this, and you use preview features of the WinForms runtime, like the
 `Command` property of a button control in .NET 7, you would see the following
 error message:
 
-:::image type="content" source="PreviewFeaturesErrorList.png" alt-text="Screenshot of the error list tool window showing messages which result from using runtime features  marked in preview.":::
+![Screenshot of the error list tool window showing messages which result from using runtime features  marked in preview.](PreviewFeaturesErrorList.png)
 
 In addition, if you tried to bind against a property of the runtime in preview,
 instead of the Design Binding Picker, you would see an error message, stating
 that you needed to enable preview features as described.
 
-:::image type="content" source="PreviewFeaturesDesignBindingPicker.png" alt-text="Screenshot of the Design Binding Picker which gives a message that it doesn't allow binding to Control properties which are in preview.":::
+![Screenshot of the Design Binding Picker with message that binding to properties in preview is not allowed.](PreviewFeaturesDesignBindingPicker.png)
 
 ## Reusing WinForms ViewModels in .NET MAUI Apps
 
