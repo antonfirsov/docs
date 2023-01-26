@@ -15,8 +15,10 @@ post_date: 2023-01-25 10:15:00
 Large line-of-business WinForms applications can often benefit from the use of
 the Model-View-ViewModel (MVVM) pattern to simplify maintenance, reuse, and unit
 testing. In this post, I'll explain the important concepts and architectural
-patterns, then explain how you can leverage modern libraries, .NET 7 features,
-and Visual Studio tooling to efficiently modernize your WinForms applications.
+patterns of MVVM including data binding and command binding. Then we will take a look at how you can leverage modern libraries, .NET 7 features,
+and Visual Studio tooling to efficiently modernize your WinForms applications. By the end, you will see how this approach sets your application up to go cross-platform with popular frameworks like .NET MAUI which can leverage the MVVM code across iOS, Android, Mac, and Windows.
+
+## Say Goodbye to Code-behind: WinForms meets MVVM & .NET MAUI
 
 One of the features that has led WinForms to its overwhelming popularity as a
 RAD (rapid application development) tool is often, for large line-of-business
