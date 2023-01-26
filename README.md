@@ -62,16 +62,10 @@ In other words:
 5. Coordinate review with the **@microsoft/dotnet-blog-owners**
     * All errors reported by the CI validation need to be addressed, otherwise
       your post won't be staged properly in WordPress
-    * Once your post is merged, it will be automatically staged in WordPress
+    * Once your post is merged, it will be automatically scheduled in WordPress
 6. [Review staged post in WordPress](https://devblogs.microsoft.com/dotnet/wp-admin/edit.php)
-    * Review title, author, categories, and tags
-7. Wait for SEO
-    * Merging also creates an issue in this repo that is assigned to our vendor
-      for SEO
-    * They will do that by editing the WordPress post
-    * Once they are done, they will assign the issue back to you
-    * At this point, you should schedule your post for the agreed upon
-      publication date and you're done
+    * Preview post
+    * Ensure it looks right (title, author, categories, tags, and scheduling settings)
 
 ## Instructions for reviewers
 
