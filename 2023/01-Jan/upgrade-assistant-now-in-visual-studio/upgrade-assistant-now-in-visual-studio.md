@@ -6,16 +6,14 @@ username: olga.gavrysh
 microsoft_alias: oliag
 featured_image: upgrade-assistant-welcome.png
 categories: .NET, .NET Core, .NET Framework, ASP.NET, ASP.NET Core, WinForms, WPF
-summary: Summary of your post, shown on the home page next to the featured image
+summary: The .NET Upgrade Assistant is now available as an experimental extension in Visual Studio to easily enable to update your apps and projects to the latest version of .NET.
 desired_publication_date: 2023-01-30
 post_date: 2023-01-30 10:05:00
 ---
 
 Now you can upgrade any .NET application to the latest version of .NET inside of Visual Studio! We are happy to introduce it as a [Visual Studio extension](https://marketplace.visualstudio.com/items?itemName=WebToolsTeam.aspnetprojectmigrations) and will upgrade your .NET Framework or .NET Core web- and desktop apps. Some project types are in development and coming soon, see the details below.
 
-Check out the video of how to upgrade your projects.
-
-![.NET Upgrade Assistant video](https://TBD)
+<iframe width="752" height="423" src="https://www.youtube.com/embed/3mPb4KAbz4Y" title="Upgrade Your .NET Projects Faster with Visual Studio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Why upgrade and to what version?
 
