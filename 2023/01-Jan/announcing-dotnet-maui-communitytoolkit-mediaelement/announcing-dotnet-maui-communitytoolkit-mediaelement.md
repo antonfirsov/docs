@@ -6,9 +6,9 @@ microsoft_alias: joverslu
 featured_image: featured-image-mediaelement.png
 categories: .NET, .NET MAUI
 summary: .NET MAUI Community Toolkit MediaElement v1.0 is now available! Check out how to get started with playing audio and (live) video in your .NET MAUI app.
-desired_publication_date: '2023-01-31'
+desired_publication_date: '2023-01-30'
 tags: ios, .net maui, android, windows, macos, tizen, video, mediaelement
-post_date: '2023-01-31 10:00:00'
+post_date: '2023-01-30 10:00:00'
 ---
 
 One of the most anticipated controls for .NET MAUI has been released; MediaElement. With MediaElement you can easily play audio and video from within your .NET MAUI app, in this post you'll learn everything you need to know about this first version and the plans we have for the future!
