@@ -563,11 +563,14 @@ steps:
 4. Find the row for the `Command` property, and open the Design Binding Picker by
     clicking the arrow-down button at the end of the cell.
 
-    :::image type="content" source="EngageAddDataSourceDialog.png" alt-text="Screenshot showing the open Design Binding Picker to add a new object data source.":::
+    ![Screenshot showing the open Design Binding Picker to add a new object data source.](EngageAddDataSourceDialog.png)
 
 5. In the Design Binding Picker, click on _Add new Object Data Source_.
 6. The Designer now shows the _Add Object Data Source_-Dialog. In this dialog,
   click on the class you want to add, and then click _OK_.
+
+    ![Screenshot showing the new Add Object Data Source dialog.](AddNewDataSourceDialog.png)
+
 7. After closing the dialog, the new data source becomes available, and you can
   find the `SampleCommand` property in the Design Binding Picker and assign it to
   the Button's `Command` property.
