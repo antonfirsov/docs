@@ -11,7 +11,7 @@ tags: ios, .net maui, android, windows, macos, tizen, video, mediaelement
 post_date: '2023-01-30 10:00:00'
 ---
 
-One of the most anticipated controls for .NET MAUI has been released; MediaElement. With MediaElement you can easily play audio and video from within your .NET MAUI app, in this post you'll learn everything you need to know about this first version and the plans we have for the future!
+One of the most anticipated controls for .NET MAUI has been released; MediaElement. With MediaElement you can easily play audio and video from within your .NET MAUI app, in this post you'll learn everything you need to know about this first version and the plans we have for the future! The Media Element is part of the  [.NET MAUI Community Toolkit](https://github.com/communityToolkit/Maui/), a community-created library that is supported by amazing developers around the globe both from the community and Microsoft.
 
 ## What is MediaElement?
 
@@ -103,6 +103,8 @@ I also have made a video where I walk you through some basics on getting started
 <iframe width="752" height="423" src="https://www.youtube.com/embed/_sp4RG0I0x4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## The future of MediaElement
+
+First, I want to give a huge thanks to the community members that not only helped get this control into the .NET MAUI Community Toolkit, but all the other features as well. If you haven't checked it out yet, please do. 
 
 For this initial released we focused on  the core functionality and made sure that that is solid. But from here on out, we can start adding all kinds of amazing features!
 
