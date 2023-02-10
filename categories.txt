@@ -1,5 +1,6 @@
 .NET
 .NET Core
+.NET Fundamentals
 .NET Framework
 .NET Internals
 .NET MAUI
