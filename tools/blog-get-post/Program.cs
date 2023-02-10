@@ -181,13 +181,21 @@ internal static class Program
             return 0;
         }
 
-        Console.WriteLine($"::set-output name=pull_request_number::{pullRequestNumber}");
-        Console.WriteLine($"::set-output name=pull_request_is_closed::{pullRequestIsClosed.ToString().ToLower()}");
-        Console.WriteLine($"::set-output name=pull_request_is_merged::{pullRequestIsMerged.ToString().ToLower()}");
-        Console.WriteLine($"::set-output name=title::{frontMatter.PostTitle}");
-        Console.WriteLine($"::set-output name=alias::{frontMatter.MicrosoftAlias}");
-        Console.WriteLine($"::set-output name=date::{frontMatter.DesiredPublicationDate?.ToString("yyyy-MM-dd")}");
-
+        var githubOutputPath = Environment.GetEnvironmentVariable("GITHUB_OUTPUT");
+        if (!string.IsNullOrEmpty(githubOutputPath))
+        {
+            File.AppendAllLines(
+                githubOutputPath,
+                new[]{
+                    $"pull_request_number={pullRequestNumber}",
+                    $"pull_request_is_closed={pullRequestIsClosed.ToString().ToLower()}",
+                    $"pull_request_is_merged={pullRequestIsMerged.ToString().ToLower()}",
+                    $"title={frontMatter.PostTitle}",
+                    $"alias={frontMatter.MicrosoftAlias}",
+                    $"date={frontMatter.DesiredPublicationDate?.ToString("yyyy-MM-dd")}",
+                }
+            );
+        }
 
         Console.WriteLine($"pull_request_number = {pullRequestNumber}");
         Console.WriteLine($"pull_request_is_closed = {pullRequestIsClosed.ToString().ToLower()}");
