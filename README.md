@@ -17,6 +17,8 @@ $ ./new-post
 This will ask you some questions and will create the necessary boilerplate for
 the blog post.
 
+Ensure to follow the [instructions](#instructions-for-bloggers) below.
+
 ## Format and Structure
 
 The blogs posts must be authored in Markdown using [this template](templates/blank.md).
