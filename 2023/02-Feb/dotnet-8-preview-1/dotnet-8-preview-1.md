@@ -1,8 +1,8 @@
 ---
 post_title: Announcing .NET 8 Preview 1
 post_slug: announcing-dotnet-8-preview-1
-username: jeremy_likness
-author1: jeremy_likness
+username: jeremy-likness
+author1: jeremy-likness
 microsoft_alias: jeliknes
 categories: .NET
 tags: .net 8
