@@ -24,7 +24,7 @@ In ASP.NET Core today, we have a few different ways to build web UI:
 
 Many modern web apps need to use a combination of these approaches, both server-side rendering and client-side rendering. Maybe your home page or blog is best handled with server-side rendering so that it loads fast and is easily indexed, while the more elaborate functionality of your app needs the responsiveness of running from the client. Currently, with .NET, this requires using multiple different frameworks together: MVC, Razor Pages, and Blazor.
 
-In .NET 8 we're working to combine the benefits of server-side and client-side rendering into a single full-stack programming model based on Blazor. We're currently calling this effort "Blazor United". Blazor United will enable you to use a single Blazor-based architecture for server-side rendering and full client-side interactivity with Blazor Server or WebAssembly. That's all within a single project with the ability to easily switch between different rendering modes and even mix them in the same page. Blazor United will also enable new rendering capabilities, like streaming rendering and progressive enhancement of navigations and form posts.
+In .NET 8 we're working to combine the benefits of server-side and client-side rendering into a single full-stack programming model based on Blazor. We're currently calling this effort "Blazor United". Blazor United will enable you to use a single Blazor-based architecture for server-side rendering and full client-side interactivity with Blazor Server or WebAssembly. That's all within a single project with the ability to easily switch between different rendering modes and even mix them in the same page. Blazor United will also enable new rendering capabilities, like [streaming rendering](https://github.com/dotnet/aspnetcore/issues/46352) and [progressive enhancement of navigations and form posts](https://github.com/dotnet/aspnetcore/issues/46399).
 
 Check out the following video of an early prototype of Blazor United to see many of these new capabilities in action:
 
@@ -52,7 +52,7 @@ In additional to above themes, we plan to make many addition improvements across
 
 ## What's new in .NET 8 Preview 1?
 
-.NET 8 Preview 1 is the first of many .NET 8 preview releases in preparation for the .NET 8 release in November 2022. 
+.NET 8 Preview 1 is the first of many .NET 8 preview releases in preparation for the .NET 8 release in November 2023.
 
 Here's a summary of what's new in ASP.NET Core in this preview release:
 
