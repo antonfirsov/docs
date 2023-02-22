@@ -12,9 +12,9 @@ post_date: 2023-02-21 08:00:00
 summary: .NET 8 Preview 1 introduces a roadmap for the year ahead, native AOT compilation, enhanced container and Linux support, and significant performance improvements.
 ---
 
-Welcome to .NET 8! The first preview is ready for you to download: [claim your copy of  the first .NET 8 preview](https://dotnet.microsoft.com/download/dotnet/8.0) and start building applications today. Scroll down to see the list of features included in this preview. .NET 8 is a [long-term support (LTS) release](https://dotnet.microsoft.com/platform/support/policy/dotnet-core). This blog post covers the major themes and goals that drive the prioritization and selection of enhancements to develop. .NET 8 preview and release candidate builds will be delivered monthly. As usual, the final release will be delivered sometime in November at [.NET Conf](https://www.dotnetconf.net/).
+Welcome to .NET 8! The first preview is ready for you to download: [claim your copy of  the first .NET 8 preview](https://dotnet.microsoft.com/next) and start building applications today. Scroll down to see the list of features included in this preview. .NET 8 is a [long-term support (LTS) release](https://dotnet.microsoft.com/platform/support/policy/dotnet-core). This blog post covers the major themes and goals that drive the prioritization and selection of enhancements to develop. .NET 8 preview and release candidate builds will be delivered monthly. As usual, the final release will be delivered sometime in November at [.NET Conf](https://www.dotnetconf.net/).
 
-[![Download .NET 8 Preview 1](dotnet-8-preview-1.png)](https://dotnet.microsoft.com/download/dotnet/8.0)
+[![Download .NET 8 Preview 1](dotnet-8-preview-1.png)](https://dotnet.microsoft.com/next)
 
 Releases of .NET include products, libraries, runtime, and tooling, and represent a collaboration across multiple teams inside and outside Microsoft. The broader themes covered in this blog post do not encompass all of the key scenarios and investments for .NET 8. They represent large areas but are just a part of all the important work going into .NET 8. We plan to make broad investments in ASP.NET Core, Blazor, EF Core, WinForms, WPF, and other platforms. You can learn more about these areas by reading the product roadmaps:
 
