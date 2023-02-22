@@ -28,7 +28,7 @@ In .NET 8 we're working to combine the benefits of server-side and client-side r
 
 Check out the following video of an early prototype of Blazor United to see many of these new capabilities in action:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/48G_CEGXZZM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[iframe width="752" height="423" src="https://www.youtube.com/embed/48G_CEGXZZM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen]
 
 Related GitHub issue: [dotnet/aspnetcore#46636](https://github.com/dotnet/aspnetcore/issues/46636)
 
@@ -77,9 +77,9 @@ Here's a summary of what's new in ASP.NET Core in this preview release:
 
 ## Get started
 
-To get started with ASP.NET Core in .NET 8 Preview 8, [install the .NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0).
+To get started with ASP.NET Core in .NET 8 Preview 8, [install the .NET 8 SDK](https://dotnet.microsoft.com/next).
 
-If you're on Windows using Visual Studio, we recommend installing the latest [Visual Studio 2022 preview](https://visualstudio.com/preview). If you're on macOS, we recommend installing the latest [Visual Studio 2022 for Mac preview](https://visualstudio.microsoft.com/vs/mac/preview/).
+If you're on Windows using Visual Studio, we recommend installing the latest [Visual Studio 2022 preview](https://visualstudio.com/preview). Visual Studio for Mac support for .NET 8 previews isn’t available yet but is coming soon.
 
 ## Upgrade an existing project
 
@@ -275,7 +275,7 @@ HTTP/3 is an exciting new Internet technology that was standardized in June 2022
 
 .NET 7 added support for HTTP/3 to ASP.NET Core and Kestrel. ASP.NET Core apps could choose to turn it on. In .NET 8 we're enabling HTTP/3 (alongside HTTP/1.1 and HTTP/2) by default.
 
-![A screenshot of a browser. HTTP/3 in the network tab is highlighted](http3.png)
+![A screenshot of a browser. HTTP/3 in the network tab is highlighted](https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/02/http3.png)
 
 For more information about HTTP/3 and its requirements, see [Use HTTP/3 with the ASP.NET Core Kestrel web server](https://learn.microsoft.com/aspnet/core/fundamentals/servers/kestrel/http3).
 
