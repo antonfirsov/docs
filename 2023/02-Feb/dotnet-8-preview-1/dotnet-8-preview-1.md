@@ -112,7 +112,7 @@ In case you're not familiar with AOT, here are a few benefits AOT provides:
 
 .NET developers can use container images to package and deploy their applications in a lightweight, portable format that runs across different environments and can be easily deployed to the cloud. Preview 1 includes the following improvements in how container images can be used for .NET applications:
 
-**Update default Linux distro to Debian 12**: Container images now use Debian 12 (Bookworm) the LTS (Long-term support) version that shipped earlier this year. In order to give our community plenty of time for the transition, we try to adopt it with Preview 1. 
+**Update default Linux distro to Debian 12**:.NET container images now use [Debian 12 (Bookworm)](https://www.debian.org/releases/bookworm/), which we [expect to be released mid-2023](https://lists.debian.org/debian-devel-announce/2023/02/msg00003.html). [Debian is used for convenience tags like `8.0`](https://github.com/dotnet/dotnet-docker/blob/main/documentation/supported-tags.md#multi-platform-tags) and Debian-specific tags like `8.0-bookworm-slim`.
 
 **Tagging change**: .NET 8 preview container images will use the `8.0-preview` tag (not `8.0`) and transition to `8.0` with the Release Candidate releases. The goal of this approach is to more clearly describe preview releases as such. This change was made based on a [community request](https://github.com/dotnet/dotnet-docker/issues/3531).
 
