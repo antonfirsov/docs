@@ -168,15 +168,15 @@ Button[] thisRound = Random.Shared.GetItems(s_allButtons, 31);
 
 #### System.Numerics and System.Runtime.Intrinsics
 
-We reimplemented `Vector256<T>` to internally be `2x Vector128<T>` ops where possible: https://github.com/dotnet/runtime/pull/76221. This allows partial acceleration of some functions when `Vector128.IsHardwareAccelerated == true` but `Vector256.IsHardwareAccelerated == false`, such as on Arm64.
+We reimplemented `Vector256<T>` to internally be `2x Vector128<T>` ops where possible: [dotnet/runtime#76221](https://github.com/dotnet/runtime/pull/76221). This allows partial acceleration of some functions when `Vector128.IsHardwareAccelerated == true` but `Vector256.IsHardwareAccelerated == false`, such as on Arm64.
 
-Added the initial managed implementation of `Vector512<T>`: https://github.com/dotnet/runtime/pull/76642. Much like the previous work item, this is implemented interanlly as `2x Vector256<T>` ops (and therefore indirectly as 4x Vector128<T> ops). This allows partial acceleration of some functions even when `Vector512.IsHardwareAccelerated == false`. -- NOTE: There is no direct acceleration for Vector512<T> yet, even when the underlying hardware supports it. Such functionality should be enabled in a future preview.
+Added the initial managed implementation of `Vector512<T>`: [dotnet/runtime#76642](https://github.com/dotnet/runtime/pull/76642). Much like the previous work item, this is implemented internally as `2x Vector256<T>` ops (and therefore indirectly as 4x Vector128<T> ops). This allows partial acceleration of some functions even when `Vector512.IsHardwareAccelerated == false`. -- NOTE: There is no direct acceleration for Vector512<T> yet, even when the underlying hardware supports it. Such functionality should be enabled in a future preview.
 
-Rewrote Matrix3x2 and Matrix4x4 to better take advantage of hardware acceleration: https://github.com/dotnet/runtime/pull/80091. This resulted in up to 48x perf improvements for some benchmarks. 6-10x improvements were more common. -- NOTE: Improvements to `Quaternion` and `Plane` will be coming in Preview 2
+Rewrote Matrix3x2 and Matrix4x4 to better take advantage of hardware acceleration: [dotnet/runtime#80091](https://github.com/dotnet/runtime/pull/80091). This resulted in up to 48x perf improvements for some benchmarks. 6-10x improvements were more common. -- NOTE: Improvements to `Quaternion` and `Plane` will be coming in Preview 2
 
-Hardware Intrinsics are now annotated with the `ConstExpected` attribute: https://github.com/dotnet/runtime/pull/80192. This ensures that users are aware when the underlying hardware expects a constant and therefore when a non-constant value may unexpectedly hurt performance.
+Hardware Intrinsics are now annotated with the `ConstExpected` attribute: [dotnet/runtime#80192](https://github.com/dotnet/runtime/pull/80192). This ensures that users are aware when the underlying hardware expects a constant and therefore when a non-constant value may unexpectedly hurt performance.
 
-Added the `Lerp` API to `IFloatingPointIeee754<TSelf>` and therefore to `float` (`System.Single`), `double` (`System.Double`), and `System.Half`: https://github.com/dotnet/runtime/pull/81186. This allows efficiently and correctly performing a linear interpolation between two values.
+Added the `Lerp` API to `IFloatingPointIeee754<TSelf>` and therefore to `float` (`System.Single`), `double` (`System.Double`), and `System.Half`: [dotnet/runtime#81186](https://github.com/dotnet/runtime/pull/81186). This allows efficiently and correctly performing a linear interpolation between two values.
 
 #### JSON improvements
 
@@ -346,8 +346,8 @@ It is easiest to demonstrate the feature, with `dotnet publish`:
 Note that `PublishRelease` and `PackRelease` also exist in .NET 7 starting with the 7.0.200 SDK. They are opt-in in .NET 7 and must be set to `true` to provide the same behavior.
 
 See the breaking change docs: 
-* https://learn.microsoft.com/dotnet/core/compatibility/sdk/8.0/dotnet-publish-config
-* https://learn.microsoft.com/dotnet/core/compatibility/sdk/8.0/dotnet-pack-config 
+* [dotnet publish](https://learn.microsoft.com/dotnet/core/compatibility/sdk/8.0/dotnet-publish-config)
+* [dotnet pack](https://learn.microsoft.com/dotnet/core/compatibility/sdk/8.0/dotnet-pack-config)
 
 ### Linux support
 
