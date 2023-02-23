@@ -4,7 +4,7 @@ author1: danroth27
 post_slug: asp-net-core-updates-in-dotnet-8-preview-1
 username: danroth27
 microsoft_alias: daroth
-featured_image: ./dotnet-bot_scene_surveying.png
+featured_image: asp_blog_image.png
 categories: .NET, ASP.NET, ASP.NET Core, Blazor
 summary: .NET 8 Preview 1 is now available! Check out what's new in ASP.NET Core in this update and learn about the roadmap for ASP.NET Core in .NET 8.
 desired_publication_date: 2023-02-21
