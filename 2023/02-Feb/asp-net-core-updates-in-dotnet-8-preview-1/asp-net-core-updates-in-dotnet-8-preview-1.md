@@ -1,8 +1,8 @@
 ---
 post_title: ASP.NET Core updates in .NET 8 Preview 1
-author1: daroth@microsoft.com
+author1: danroth27
 post_slug: asp-net-core-updates-in-dotnet-8-preview-1
-username: daroth@microsoft.com
+username: danroth27
 microsoft_alias: daroth
 featured_image: ./dotnet-bot_scene_surveying.png
 categories: .NET, ASP.NET, ASP.NET Core, Blazor
