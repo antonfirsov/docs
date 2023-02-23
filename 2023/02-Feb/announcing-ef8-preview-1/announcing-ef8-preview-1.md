@@ -3,7 +3,7 @@ post_title: 'EF Core 8 Preview 1: Raw, lazy, and on-time'
 author1: avickers
 post_slug: announcing-ef8-preview-1
 microsoft_alias: avickers
-featured_image: ef8p1.png
+featured_image: EFC_blog_image.png
 categories: .NET, Entity Framework
 summary: Announcing Entity Framework Core 8 (EF8)Preview 1 with raw SQL queries, lazy-loading, DateOnly/TimeOnly and more!
 desired_publication_date: 2023-02-21
