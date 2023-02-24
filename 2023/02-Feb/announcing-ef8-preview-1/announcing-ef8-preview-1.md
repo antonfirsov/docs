@@ -1,6 +1,6 @@
 ---
 post_title: 'EF Core 8 Preview 1: Raw, lazy, and on-time'
-author1: avickers
+author1: avickers@microsoft.com
 post_slug: announcing-ef8-preview-1
 microsoft_alias: avickers
 featured_image: EFC_blog_image.png
