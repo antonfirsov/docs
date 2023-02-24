@@ -21,9 +21,9 @@ internal sealed class Validator
                                      .ToArray();
     }
 
-    public IReadOnlyList<Diagnostic> Validate(string rootDirectory, string fileName, IEnumerable<string> categories)
+    public async Task<IReadOnlyList<Diagnostic>> ValidateAsync(string rootDirectory, string fileName, IEnumerable<string> categories)
     {
-        var markdown = File.ReadAllText(fileName);
+        var markdown = await File.ReadAllTextAsync(fileName);
         var document = BlogMarkdown.Parse(markdown);
 
         var context = new ValidationContext(rootDirectory, document, fileName, categories);
@@ -42,7 +42,7 @@ internal sealed class Validator
         Console.WriteLine($"#Links     : {links.Count:N0}");
 
         foreach (var rule in _rules)
-            rule.Validate(context);
+            await rule.ValidateAsync(context);
 
         return context.Diagnostics;
     }

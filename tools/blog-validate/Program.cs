@@ -14,7 +14,7 @@ namespace Microsoft.DotNetBlog;
 
 internal static class Program
 {
-    private static int Main(string[] args)
+    private static async Task<int> Main(string[] args)
     {
         var exeName = Path.GetFileNameWithoutExtension(Environment.GetCommandLineArgs()[0]);
         var help = false;
@@ -139,7 +139,7 @@ internal static class Program
 
         try
         {
-            return Run(directory, affectedFiles, categories) ? 0 : 1;
+            return await RunAsync(directory, affectedFiles, categories) ? 0 : 1;
         }
         catch (Exception ex)
         {
@@ -161,11 +161,11 @@ internal static class Program
         }
     }
 
-    private static bool Run(string rootDirectory, string[]? affectedFiles, string[] categories)
+    private static async Task<bool> RunAsync(string rootDirectory, string[]? affectedFiles, string[] categories)
     {
         var files = FindMarkdownFiles(rootDirectory, affectedFiles);
 
-        var diagnostics = Validate(rootDirectory, files, categories);
+        var diagnostics = await ValidateAsync(rootDirectory, files, categories);
 
         var isInsideGitHubAction = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true";
 
@@ -237,14 +237,14 @@ internal static class Program
         return list.ToArray();
     }
 
-    private static IReadOnlyList<Diagnostic> Validate(string rootDirectory, IEnumerable<string> fileNames, IEnumerable<string> categories)
+    private static async Task<IReadOnlyList<Diagnostic>> ValidateAsync(string rootDirectory, IEnumerable<string> fileNames, IEnumerable<string> categories)
     {
         var validator = new Validator();
         var result = new List<Diagnostic>();
 
         foreach (var fileName in fileNames)
         {
-            var diagnostics = validator.Validate(rootDirectory, fileName, categories);
+            var diagnostics = await validator.ValidateAsync(rootDirectory, fileName, categories);
             result.AddRange(diagnostics);
         }
 
