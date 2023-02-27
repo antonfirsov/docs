@@ -229,7 +229,7 @@ In some environments, firewalls and anti-virus tools block the download or use o
 
 To try out the new Webcil format with a WebAssembly Browser App:
 
-1. Install the `wasm-experimental` workload: `dotnet install wasm-experimental`
+1. Install the `wasm-experimental` workload: `dotnet workload install wasm-experimental`
 2. Create a new app: `dotnet new wasmbrowser`
 3. Add the `WasmEnableWebcil` property to the `.csproj` file:
 
