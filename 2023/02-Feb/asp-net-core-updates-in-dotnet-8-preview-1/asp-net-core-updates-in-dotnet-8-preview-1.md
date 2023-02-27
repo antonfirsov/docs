@@ -128,7 +128,7 @@ High quality code is easier to debug, test, and service. In .NET 8, we're invest
 
 **Recommends setting or appending to a HeaderDictionary instead of adding**
 
-The `IHeaderDictionary.Add` API throws if duplicate keys are added. Typically, you'll typically want to set, override, or append to a header using the indexer or `IHeaderDictionary.Append` API. This analyzer warns on usage of the `IHeaderDictionary.Add` API and provides a codefixer that recommends leveraging an indexer or the `Append` API.
+The `IHeaderDictionary.Add` API throws if duplicate keys are added. Typically, you'll want to set, override, or append to a header using the indexer or `IHeaderDictionary.Append` API. This analyzer warns on usage of the `IHeaderDictionary.Add` API and provides a codefixer that recommends leveraging an indexer or the `Append` API.
 
 ```csharp
 var context = new DefaultHttpContext();
@@ -142,7 +142,7 @@ Thanks to community member [@david-acker](https://github.com/david-acker) for th
 
 **Warns if a parameter type passed to a route handler does not implement the correct interfaces**
 
-Minimal APIs supports simple binding from the elements of the HttpContext using rules defined in the `TryParse` or `BindAsync` implementations of a type. These implementations must conform to a certain signature in order to be leveraged by the binding logic in the framework. Starting in .NET 8, you'll receive a warning if a type that doesn't implement the appropriate interface is used.
+Minimal APIs support simple binding from the elements of the `HttpContext` using rules defined in the `TryParse` or `BindAsync` implementations of a type. These implementations must conform to a certain signature in order to be leveraged by the binding logic in the framework. Starting in .NET 8, you'll receive a warning if a type that doesn't implement the appropriate interface is used.
 
 For example, the code sample below will trigger a warning because the `Customer` type does not implement a `BindAsync` method with the appropriate signature.
 
@@ -153,7 +153,7 @@ app.MapGet("/customers/{customer}", (Customer customer) => {}); // ASP0021 warni
 
 public class Customer
 {
-    public async static Task<Customer> BindAsync(HttpContext context) => return new Customer();
+    public async static Task<Customer> BindAsync(HttpContext context) => new Customer();
 }
 ```
 
