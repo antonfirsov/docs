@@ -12,9 +12,11 @@ desired_publication_date: 2023-02-27
 post_date: 2023-02-27 10:05:00
 ---
 
-We are constantly working on improving the F# editor experience in the Visual Studio and now we are launching a highly requested features, Hinting. Hints for F# mean that you will no longer have to hover to get information when coding, check it out:
+We are constantly working on improving the F# editor experience in the Visual Studio and now we are launching a highly requested feature, Hinting. Hints for F# mean that you will no longer have to hover to get information when coding, check it out:
 
-![Video with the demo of F# hints](hints-demo.mp4)
+<center>
+[video width="800" height="234" mp4="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/02/hints-demosong. Artistideo]
+</center>
 
 <details>
 <summary>Code</summary>
