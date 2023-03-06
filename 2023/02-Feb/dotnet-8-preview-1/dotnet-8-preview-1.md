@@ -41,7 +41,7 @@ Stay current with what's new and coming by reading our [What's New in .NET 8 doc
 * [Known issues](https://github.com/dotnet/core/blob/main/release-notes/8.0/known-issues.md)
 * [GitHub issue tracker](https://github.com/dotnet/core/issues)
 
-.NET 8 has been tested with 17.6 Preview 1. We recommend that you use the [preview channel builds](https://visualstudio.com/preview) if you want to try .NET 8 with the Visual Studio family of products. Visual Studio for Mac support for .NET 8 previews isn’t available yet but is coming soon.
+.NET 8 has been tested with 17.6 Preview 1. We recommend that you use the [preview channel builds](https://visualstudio.com/preview) if you want to try .NET 8 with the Visual Studio family of products. Visual Studio for Mac support for .NET 8 previews is not currently supported.
 
 ## Welcome to .NET 8
 
