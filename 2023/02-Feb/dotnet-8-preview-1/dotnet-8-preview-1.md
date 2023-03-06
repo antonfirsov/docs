@@ -252,7 +252,7 @@ We keep improving `System.Text.Json`, focusing on the performance and reliabilit
 
   Thanks, [@YohDeadfall](https://github.com/YohDeadfall) for contributing the implementation.
 
-- **Add `JsonSerializer.MakeReadOnly()` and `IsReadOnly` APIs [dotnet/runtime#74431](https://github.com/dotnet/runtime/pull/74431)**
+- **Add `JsonSerializerOptions.MakeReadOnly()` and `JsonSerializerOptions.IsReadOnly` APIs [dotnet/runtime#74431](https://github.com/dotnet/runtime/pull/74431)**
 
   The `JsonSerializerOptions` class has always been using freezable semantics, but up until now freezing could only be done implicitly by passing the instance to one of the `JsonSerializer` methods. The addition of the new APIs makes it possible for users to explicitly control when their `JsonSerializerOptions` instance should be frozen:
 
@@ -269,7 +269,7 @@ We keep improving `System.Text.Json`, focusing on the performance and reliabilit
   }
   ```
 
-#### New Performance-Focused Types in the Core Libraries
+#### New performance-focused types in the core libraries
 
 Multiple new types have been added to the core libraries to enable developers to improve the performance of their code in common scenarios.
 
