@@ -77,7 +77,7 @@ Here's a summary of what's new in ASP.NET Core in this preview release:
 
 ## Get started
 
-To get started with ASP.NET Core in .NET 8 Preview 8, [install the .NET 8 SDK](https://dotnet.microsoft.com/next).
+To get started with ASP.NET Core in .NET 8 Preview 1, [install the .NET 8 SDK](https://dotnet.microsoft.com/next).
 
 If you're on Windows using Visual Studio, we recommend installing the latest [Visual Studio 2022 preview](https://visualstudio.com/preview). Visual Studio for Mac support for .NET 8 previews isn’t available yet but is coming soon.
 
