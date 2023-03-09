@@ -2,6 +2,7 @@
 post_title: Generate images with AI using Stable Diffusion, C#, and ONNX Runtime
 username: 'luquinta@microsoft.com'
 author1: 'luquinta@microsoft.com'
+author2: 'cassieb'
 microsoft_alias: 'luquinta'
 post_slug: generate-ai-images-stable-diffusion-csharp-onnx-runtime
 featured_image: stable-diffusion-input-output.png
