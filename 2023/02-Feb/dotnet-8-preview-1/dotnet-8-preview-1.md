@@ -206,8 +206,8 @@ We keep improving `System.Text.Json`, focusing on the performance and reliabilit
   `System.Text.Json` now supports serializing properties from interface hierarchies:
 
   ```csharp
-  IDerived value = new Derived { Base = 0, Derived =1 };
-  JsonSerializer.Serialize(value); // {"Base":0,"Derived":1}
+  IDerived value = new Derived { Base = 0, DerivedProp =1 };
+  JsonSerializer.Serialize(value); // {"Base":0,"DerivedProp":1}
   
   public interface IBase
   {
@@ -216,13 +216,13 @@ We keep improving `System.Text.Json`, focusing on the performance and reliabilit
   
   public interface IDerived : IBase
   {
-      public int Derived { get; set; }
+      public int DerivedProp { get; set; }
   }
   
   public class Derived : IDerived
   {
       public int Base { get; set; }
-      public int Derived { get; set; }
+      public int DerivedProp { get; set; }
   }
   ```
 
