@@ -17,9 +17,10 @@ Here's a summary of what's new in this preview release:
 
 - Blazor `QuickGrid` component
 - Improved Blazor WebAssembly performance with the jiterpreter
-- New web item templates
 - New analyzer to detect multiple `FromBody` attributes
 - New APIs in `ProblemDetails` to support more resilient integrations
+- New `IResettable` interface in `ObjectPool`
+- Performance improvements to named pipes transport
 
 For more details on the ASP.NET Core work planned for .NET 8 see the full [ASP.NET Core roadmap for .NET 8](https://aka.ms/aspnet/roadmap) on GitHub.
 
@@ -41,7 +42,7 @@ See also the full list of [breaking changes](https://docs.microsoft.com/dotnet/c
 
 ## Blazor `QuickGrid` component
 
-The Blazor `QuickGrid` component is now part of .NET 8! `QuickGrid` is a high performance grid component for displaying data in tabular form. `QuickGrid` is built to be simple and convenient to display your data, while still providing powerful features like sorting, filtering, paging, and virtualization.
+The Blazor `QuickGrid` component is now part of .NET 8! `QuickGrid` is a high performance grid component for displaying data in tabular form. `QuickGrid` is built to be a simple and convenient way to display your data, while still providing powerful features like sorting, filtering, paging, and virtualization.
 
 To get started with `QuickGrid`:
 
@@ -85,9 +86,11 @@ You can see various examples of `QuickGrid` in action on the [QuickGrid demo sit
 
 ## Improved Blazor WebAssembly performance with the jiterpreter
 
-Blazor WebAssembly apps are able to run .NET code in browser thanks to a small .NET runtime implemented in WebAssembly that gets downloaded with the app. This runtime is a .NET IL interpreter that is fully functional, reasonably small in size, and allows for fast developer iteration, but lacks the runtime performance benefits of native code execution through just-in-time (JIT) compilation. JITing to WebAssembly requires creating new WebAssembly modules on the fly and instantiating them, which poses unique challenges that would significantly complicate the runtime. Blazor WebAssembly apps can choose instead to compile ahead-of-time (AOT) to WebAssembly to improve runtime performance but at the expense of a much larger download size. Also, since some common .NET coding patterns are incompatible with AOT, the .NET IL interpreter is still needed as a fallback mechanism to maintain full functionality.
+The jiterpreter is a new runtime feature in .NET 8 that enables partial JIT support in the .NET IL interpreter to achieve improved runtime performance.
 
-The jiterpreter is a new runtime feature in .NET 8 that enables partial JIT support in the .NET IL interpreter to achieve improved runtime performance. The jiterpreter works by providing optimized execution for interpreter bytecodes, replacing large groups of them with tiny blobs of WebAssembly code. By leveraging the interpreter as a baseline, we are able to optimize the most important parts of the app without having to handle more complex or obscure cases. While the jiterpreter isn't a full JIT implementation, it significantly improves runtime performance without the size and build time overhead of AOT. The jiterpreter helps when using AOT too by optimizing cases where the runtime has to fallback to the interpreter.
+Blazor WebAssembly apps are able to run .NET code in browser thanks to a small .NET runtime implemented in WebAssembly that gets downloaded with the app. This runtime is a .NET IL interpreter that is fully functional, reasonably small in size, and allows for fast developer iteration, but lacks the runtime performance benefits of native code execution through just-in-time (JIT) compilation. JITing to WebAssembly requires creating new WebAssembly modules on the fly and instantiating them, which poses unique challenges for the runtime. Blazor WebAssembly apps can instead choose to compile ahead-of-time (AOT) to WebAssembly to improve runtime performance but at the expense of a much larger download size. Since some common .NET coding patterns are incompatible with AOT, the .NET IL interpreter is still needed as a fallback mechanism to maintain full functionality.
+
+The jiterpreter optimizes execution of interpreter bytecodes by replacing them with tiny blobs of WebAssembly code. By leveraging the interpreter as a baseline, we're able to optimize the most important parts of the app without having to handle more complex or obscure cases and without overly complicating the runtime. While the jiterpreter isn't a full JIT implementation, it significantly improves runtime performance without the size and build time overhead of AOT. The jiterpreter helps when using AOT too by optimizing cases where the runtime has to fallback to the interpreter.
 
 In .NET 8 Preview 2 The jiterpreter is automatically enabled for your Blazor WebAssembly Release builds. It is not yet supported in Debug builds or while debugging.
 
@@ -103,7 +106,7 @@ We're still working to improve the jiterpreter with [additional optimizations](h
 
 ## New analyzer to detect multiple `FromBody` attributes
 
-In addition to the analyzers added in preview1, we're introducing a new analyzer in this release that provides a helpful warning if you are attempting to resolve more than one parameter from the body in a minimal API. For example, the new analyzer will warn on the following code.
+In addition to the analyzers added in Preview 1, we're introducing a new analyzer in this release that provides a helpful warning if you are attempting to resolve more than one parameter from the body in a minimal API. For example, the new analyzer will warn on the following code.
 
 ```csharp
 // ASP0024
@@ -118,7 +121,7 @@ app.MapPost("/todos", ([FromBody] Todo todo, ClaimsPrincipal user) => ...);
 
 ## New APIs in `ProblemDetails` to support more resilient integrations
 
-In .NET 7, we introduced the `ProblemDetailsService` to improve the experience for generating responses that comply with the ProblemDetails specification. In this release, we've introduced a new API to make it easier for implementers to implement fallback behavior if the `ProlemDetailsService` was not able to generate a `ProblemDetail`. The new `TryWriteAsync` API can be used as follows in user middlewares:
+In .NET 7, we introduced the `ProblemDetailsService` to improve the experience for generating responses that comply with the ProblemDetails specification. In this release, we've introduced a new API to make it easier for implementers to implement fallback behavior if the `ProlemDetailsService` was not able to generate a `ProblemDetail`. The new `TryWriteAsync` API can be used as follows in user middleware:
 
 ```csharp
 var problemDetailsService = httpContext.RequestServices.GetService<IProblemDetailsService>();
@@ -129,11 +132,11 @@ if (problemDetailsService == null ||
 }
 ```
 
-## New `IResettable` interface in ObjectPool
+## New `IResettable` interface in `ObjectPool`
 
 [Microsoft.Extensions.ObjectPool](https://www.nuget.org/packages/Microsoft.Extensions.ObjectPool/) provides support for pooling object instances in memory. Apps can use an object pool if the values are expensive to allocate or initialize.
 
-In preview 2 we're making the object pool easier to use by adding the `IResettable` interface. Reusable types often need to be reset back to a default state between uses. `IResettable` types are automatically reset when returned to an object pool.
+In Preview 2 we're making the object pool easier to use by adding the `IResettable` interface. Reusable types often need to be reset back to a default state between uses. `IResettable` types are automatically reset when returned to an object pool.
 
 ```csharp
 public class ReusableBuffer : IResettable
@@ -162,7 +165,7 @@ finally
 
 ## Performance improvements to named pipes transport
 
-In preview 1 we announced support for [using named pipes with Kestrel](https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-dotnet-8-preview-1/#support-for-named-pipes-in-kestrel).
+In Preview 1 we announced support for [using named pipes with Kestrel](https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-dotnet-8-preview-1/#support-for-named-pipes-in-kestrel).
 
 In preview 2 we've improved named pipe connection performance. Kestrel's named pipe transport now accepts connections in parallel, and reuses `NamedPipeServerStream` instances.
 
@@ -171,7 +174,7 @@ Time to create 100,000 connections:
 * **Before:** 5.916 seconds
 * **After:** 2.374 seconds
 
-These improvements were suggested by the community. Thanks to the folks at [Unity](https://unity.com/) for helping contribute to this area.
+These improvements were suggested by the community. Thanks to the folks at [Unity](https://unity.com/) for helping contribute to this area!
 
 ## Give feedback
 
