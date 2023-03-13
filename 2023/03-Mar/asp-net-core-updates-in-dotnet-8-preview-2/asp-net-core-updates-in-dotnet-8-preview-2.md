@@ -56,9 +56,9 @@ To get started with `QuickGrid`:
 
     ```razor
     <QuickGrid Items="@people">
-        <PropertyColumn Property="@(p => p.PersonId)" Sortable="true" />
-        <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
-        <PropertyColumn Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
+        <PropertyColumn Property="@(p => p.PersonId)" Title="ID" Sortable="true" />
+        <PropertyColumn Property="@(p => p.Name)" Title="Name" Sortable="true" />
+        <PropertyColumn Property="@(p => p.BirthDate)" Title="Birth date" Format="yyyy-MM-dd" Sortable="true" />
     </QuickGrid>
 
     @code {
@@ -75,6 +75,7 @@ To get started with `QuickGrid`:
         }.AsQueryable();
     }
     ```
+![QuickGrid](quickgrid.png)
 
 You can see various examples of `QuickGrid` in action on the [QuickGrid demo site](https://aka.ms/blazor/quickgrid).
 
@@ -92,7 +93,7 @@ Blazor WebAssembly apps are able to run .NET code in browser thanks to a small .
 
 The jiterpreter optimizes execution of interpreter bytecodes by replacing them with tiny blobs of WebAssembly code. By leveraging the interpreter as a baseline, we're able to optimize the most important parts of the app without having to handle more complex or obscure cases and without overly complicating the runtime. While the jiterpreter isn't a full JIT implementation, it significantly improves runtime performance without the size and build time overhead of AOT. The jiterpreter helps when using AOT too by optimizing cases where the runtime has to fallback to the interpreter.
 
-In .NET 8 Preview 2 The jiterpreter is automatically enabled for your Blazor WebAssembly Release builds. It is not yet supported in Debug builds or while debugging.
+In .NET 8 Preview 2 The jiterpreter is automatically enabled for your Blazor WebAssembly apps. You don't have to do anything extra to turn it on.
 
 The jiterpreter can significantly speed up the performance of low level operations. For example, the following micro benchmark test for `Span<byte>.Reverse()` and `String.Normalize()` ran **46.7%** and **86.9%** faster respectively:
 
@@ -106,12 +107,14 @@ We're still working to improve the jiterpreter with [additional optimizations](h
 
 ## New analyzer to detect multiple `FromBody` attributes
 
-In addition to the analyzers added in Preview 1, we're introducing a new analyzer in this release that provides a helpful warning if you are attempting to resolve more than one parameter from the body in a minimal API. For example, the new analyzer will warn on the following code.
+In addition to the [analyzers added in Preview 1](https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-dotnet-8-preview-1/#new-analyzers-for-api-development), we're introducing a new analyzer in this release that provides a helpful warning if you are attempting to resolve more than one parameter from the body in a minimal API. For example, the new analyzer will warn on the following code.
 
 ```csharp
 // ASP0024
 app.MapPost("/todos", ([FromBody] Todo todo, [FromBody] User user) => ...);
 ```
+
+![FromBody analyzer](frombody-analyzer.png)
 
 To resolve the analyzer warning, limit each handler to have one parameter resolved from the body.
 
@@ -121,7 +124,7 @@ app.MapPost("/todos", ([FromBody] Todo todo, ClaimsPrincipal user) => ...);
 
 ## New APIs in `ProblemDetails` to support more resilient integrations
 
-In .NET 7, we introduced the `ProblemDetailsService` to improve the experience for generating responses that comply with the ProblemDetails specification. In this release, we've introduced a new API to make it easier for implementers to implement fallback behavior if the `ProlemDetailsService` was not able to generate a `ProblemDetail`. The new `TryWriteAsync` API can be used as follows in user middleware:
+In .NET 7, we introduced the `ProblemDetailsService` to improve the experience for [generating error responses](https://learn.microsoft.com/aspnet/core/fundamentals/minimal-apis/handle-errrors#problem-details) that comply with the ProblemDetails specification. In this release, we've introduced a new API to make it easier for implementers to implement fallback behavior if the `ProlemDetailsService` was not able to generate a `ProblemDetail`. The new `TryWriteAsync` API can be used as follows in user middleware:
 
 ```csharp
 var problemDetailsService = httpContext.RequestServices.GetService<IProblemDetailsService>();
@@ -134,7 +137,7 @@ if (problemDetailsService == null ||
 
 ## New `IResettable` interface in `ObjectPool`
 
-[Microsoft.Extensions.ObjectPool](https://www.nuget.org/packages/Microsoft.Extensions.ObjectPool/) provides support for pooling object instances in memory. Apps can use an object pool if the values are expensive to allocate or initialize.
+[Microsoft.Extensions.ObjectPool](https://learn.microsoft.com/aspnet/core/performance/objectpool) provides support for pooling object instances in memory. Apps can use an object pool if the values are expensive to allocate or initialize.
 
 In Preview 2 we're making the object pool easier to use by adding the `IResettable` interface. Reusable types often need to be reset back to a default state between uses. `IResettable` types are automatically reset when returned to an object pool.
 
