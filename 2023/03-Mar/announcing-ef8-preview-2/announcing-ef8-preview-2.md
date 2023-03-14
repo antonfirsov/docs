@@ -8,7 +8,7 @@ categories: .NET, Entity Framework
 summary: Announcing Entity Framework Core 8 (EF8) Preview 2 with support for JSON columns in SQLite and HierarchyId in SQL Server/Azure SQL
 desired_publication_date: 2023-03-14
 tags: .net 8, ef core, efcore, ef8, entity framework
-post_date: 2023-03-14 10:00:00
+post_date: 2023-03-14 10:02:00
 ---
 
 The second preview of Entity Framework Core (EF Core) 8 is [available on NuGet today](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/8.0.0-preview.2.23128.3)!

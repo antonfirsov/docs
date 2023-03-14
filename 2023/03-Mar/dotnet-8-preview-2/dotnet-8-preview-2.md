@@ -8,11 +8,11 @@ categories: .NET
 tags: .net 8
 featured_image: dotnet-8-preview-2.png
 desired_publication_date: 2023-03-14
-post_date: 2023-03-14 08:00:00
+post_date: 2023-03-14 10:00:00
 summary: .NET 8 Preview 2 contains a few updates/new features from Preview 1, including introspection support for function pointers, as well as some other runtime and libraries improvements. 
 ---
 
-We're excited to share what's new in [.NET 8 Preview 2](https://dotnet.microsoft.com/next). This release is a quick follow-up to the larger [Preview 1 release](https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-preview-1/). You'll continue to see many more features show up with these monthly releases. .NET 8 is a [long-term support (LTS) release](https://dotnet.microsoft.com/platform/support/policy/dotnet-core). .NET 6 and 7 users will want to follow this release closely. We've focused on making it a straightforward upgrade path.
+We're excited to share what's new in [.NET 8 Preview 2](https://dotnet.microsoft.com/next). This release is a quick follow-up to the larger [Preview 1 release](https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-preview-1/). You'll continue to see many more features show up with these monthly releases. .NET 6 and 7 users will want to follow this release closely. We've focused on making it a straightforward upgrade path.
 
 You can [download .NET 8 Preview 2](https://dotnet.microsoft.com/download/dotnet/8.0) for Linux, macOS, and Windows.
 
