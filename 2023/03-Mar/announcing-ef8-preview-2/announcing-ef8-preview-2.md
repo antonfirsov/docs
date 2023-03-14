@@ -17,7 +17,7 @@ The second preview of Entity Framework Core (EF Core) 8 is [available on NuGet t
 
 EF Core 8, or just EF8, is the successor to EF Core 7, and is scheduled for release in November 2023, at the same time as .NET 8.
 
-EF8 currently targets .NET 6. This will likely be updated to .NET 8 as we near release.
+EF8 previews currently target .NET 6, and can therefore be used with either .NET 6 (LTS) or .NET 7. This will likely be updated to .NET 8 as we near release.
 
 EF8 will align with .NET 8 as a long-term support (LTS) release. See the [.NET support policy](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) for more information.
 
