@@ -1,7 +1,7 @@
 ---
 post_title: Announcing .NET 8 Preview 2
 post_slug: announcing-dotnet-8-preview-2
-username: albarry4
+username: albarry
 author1: albarry
 microsoft_alias: albarry
 categories: .NET
