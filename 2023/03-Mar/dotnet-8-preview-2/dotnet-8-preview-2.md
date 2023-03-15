@@ -22,7 +22,7 @@ You can [download .NET 8 Preview 2](https://dotnet.microsoft.com/download/dotnet
 * [Known issues](https://github.com/dotnet/core/blob/main/release-notes/8.0/known-issues.md)
 * [GitHub issue tracker](https://github.com/dotnet/core/issues)
 
-Check out what's new in [ASP.NET Core](https://devblogs.microsoft.com/dotnet) and [EF Core](https://devblogs.microsoft.com/dotnet) in the Preview 2 release. Stay current with what's new and coming in [What's New in .NET 8](https://learn.microsoft.com/dotnet/core/whats-new/dotnet-8). It will be kept updated throughout the release.
+Check out what's new in [ASP.NET Core](https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-dotnet-8-preview-2) and [EF Core](https://devblogs.microsoft.com/dotnet/announcing-ef8-preview-2) in the Preview 2 release. Stay current with what's new and coming in [What's New in .NET 8](https://learn.microsoft.com/dotnet/core/whats-new/dotnet-8). It will be kept updated throughout the release.
 
 .NET 8 has been tested with 17.6 Preview 2. We recommend that you use the [preview channel builds](https://visualstudio.com/preview) if you want to try .NET 8 with the Visual Studio family of products. Visual Studio for Mac support for .NET 8 isn’t yet available.
 
@@ -54,11 +54,11 @@ This example will fail validation if its value equals `Guid.Empty`.
 Users can now specify exclusive bounds in their range validation:
 
 ```cs
-[Range(0d, 1d, IsLowerBoundExclusive = false, IsUpperBoundExclusive = false)]
+[Range(0d, 1d, MinimumIsExclusive = true, MaximumIsExclusive = true)]
 public double Sample { get; set; }
 ```
 
-This new attribute accepts any values in the open interval but rejects the boundary values `0` and `1`.
+This attribute accepts any values in the open interval but rejects the boundary values `0` and `1`.
 
 #### LengthAttribute
 
