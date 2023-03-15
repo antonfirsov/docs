@@ -6,6 +6,7 @@ username: danroth27
 microsoft_alias: daroth
 featured_image: asp-net-core-dotnet-8-preview-2.png
 categories: .NET, ASP.NET, ASP.NET Core, Blazor
+tags: .net 8
 summary: .NET 8 Preview 2 is now available! Check out what's new in ASP.NET Core in this update.
 desired_publication_date: 2023-03-14
 post_date: 2023-03-14 10:05:00
