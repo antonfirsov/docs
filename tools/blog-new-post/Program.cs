@@ -81,7 +81,7 @@ author1: {authorInformation.WordPressUserName}
 post_slug: {postSlug}
 username: {authorInformation.WordPressUserName}
 microsoft_alias: {authorInformation.MicrosoftAlias}
-featured_image: path/relative/to/your/post/image.png
+featured_image: image.png
 categories: {string.Join(", ", categories)}
 tags: tag1, tag2, tag3
 summary: Summary of your post, shown on the home page next to the featured image
