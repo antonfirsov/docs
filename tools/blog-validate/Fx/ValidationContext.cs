@@ -2,7 +2,7 @@
 
 namespace Microsoft.DotNetBlog;
 
-internal sealed class ValidationContext
+internal sealed class ValidationContext : IDisposable
 {
     private readonly List<Diagnostic> _diagnostics = new List<Diagnostic>();
 
@@ -15,6 +15,13 @@ internal sealed class ValidationContext
 
         if (document.TryGetFrontMatter(out var frontMatter))
             FrontMatter = frontMatter;
+
+        AuthorValidator = new AuthorValidator();
+    }
+
+    public void Dispose()
+    {
+        AuthorValidator.Dispose();
     }
 
     public string RootDirectory { get; }
@@ -22,6 +29,7 @@ internal sealed class ValidationContext
     public MarkdownDocument Document { get; }
     public string FileName { get; }
     public SortedSet<string> Categories { get; }
+    public AuthorValidator AuthorValidator { get; }
 
     public IReadOnlyList<Diagnostic> Diagnostics => _diagnostics;
 
