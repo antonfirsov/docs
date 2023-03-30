@@ -20,7 +20,9 @@ When would you need this? When you build an x64 container image on an Arm64 mach
 docker build --platform linux/amd64 -t app .
 ```
 
-These improvements will be included in the .NET SDK, in .NET 8 Preview 3 ([#30762](https://github.com/dotnet/sdk/pull/30762)) and 7.0.300 ([#31319](https://github.com/dotnet/sdk/pull/31319)).
+This [Dockerfile](https://github.com/dotnet/dotnet-docker/blob/main/samples/aspnetapp/Dockerfile.alpine-non-root) demonstrates the pattern we've adopted.
+
+These improvements will be included in the .NET SDK, in .NET 8 Preview 3 ([#30762](https://github.com/dotnet/sdk/pull/30762)) and 7.0.300 ([#31319](https://github.com/dotnet/sdk/pull/31319)). Aspects of this new pattern work with existing releases.
 
 There are really two different scenarios at play, which I'm calling "multi-platform".
 
@@ -187,9 +189,11 @@ There are a few lines in this Dockerfile that do something special that help us 
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/nightly/sdk:8.0-preview-alpine AS build
 ```
 
-Note: We're using a `nightly` image here. After .NET 8 Preview 3, the same thing will work with the non-nightly image. I'll update this post at that time.
-
 The Dockerfile format enables specifying the `--platform` switch for a `FROM` statement and to use a built-in `ARG` to provide the value. In this case, we're saying that the `$BUILDPLATFORM` (AKA the local machine architecture) should always be used. On an Arm64 machine, this will always be Arm64, even if targeting x64.
+
+This pattern doesn't actually require .NET 8. It works with any .NET version. In fact, it will work with any multi-platform tag, like for Node.js or Java. It's just a Docker feature.
+
+However, we're using a `nightly` image here so that we can take advantage of the features that come next. The `-a $TARGETARCH` feature required two different changes in .NET 8. After we ship Preview 3, then a `nightly` image won't be needed.
 
 ```dockerfile
 RUN dotnet restore -a $TARGETARCH
