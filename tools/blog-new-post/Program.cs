@@ -1,8 +1,7 @@
 ﻿using System.Diagnostics;
-
 using Humanizer;
-
 using Spectre.Console;
+using LibGit2Sharp;
 
 namespace Microsoft.DotNetBlog;
 
@@ -10,6 +9,13 @@ internal static class Program
 {
     private static void Main()
     {
+        string branch = TryGetBranchName();
+        if (branch == "main")
+        {
+            AnsiConsole.MarkupLine($"[red]You are working in the main branch. Please create a working branch for the new post.[/]");
+            return;
+        }
+
         var authorInformation = AuthorInformation.Load();
         if (authorInformation is null)
         {
@@ -102,6 +108,21 @@ H1.
 Some summary or call to action.";
 
         File.WriteAllText(path, post);
+    }
+
+    private static string TryGetBranchName()
+    {
+        try
+        {
+            var repo = new Repository(Directory.GetCurrentDirectory());
+            var branch = repo.Head.FriendlyName;
+            return branch;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Unable to get current branch: {e.Message}");
+            return string.Empty;
+        }
     }
 
     private static string GetDefaultPostName(string postTitle)
