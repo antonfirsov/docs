@@ -62,26 +62,26 @@ We've updated the [Modernize ASP.NET Framework to ASP.NET Core with the .NET Upg
 
 [Mike Rousos](https://devblogs.microsoft.com/dotnet/author/mikerou/) shares his experience working with customers to modernize their ASP.NET apps. In this [18 part video series](https://aka.ms/modernize-aspnet-videos), he walks you through the process of upgrading a [more complex ASP.NET MVC 5 (.NET Framework) app](https://github.com/mjrousos/UpgradeSample) to ASP.NET Core 7, using all the latest tools including the Visual Studio Upgrade Assistant extension, [YARP based incremental migration](https://learn.microsoft.com/aspnet/core/migration/inc/overview), and the [Upgrade Planner](https://apisof.net/upgrade-planner). This walkthrough shows some more advanced issues that you might encounter when upgrading your apps, such as sharing session state, static resources, and authentication over the course of an incremental migration that may span weeks or months.
 
-1. [.NET Migration Overview](https://youtu.be/zHgYDZK3MrA)
-1. [Why Upgrade to .NET?](https://youtu.be/zHgYDZK3MrA)
-1. [Getting Started with .NET Upgrade Assistant](https://youtu.be/zHgYDZK3MrA)
-1. [Analyzing a Solution with .NET Upgrade Planner](https://youtu.be/zHgYDZK3MrA)
-1. [Upgrade Analysis with .NET Upgrade Assistant](https://youtu.be/zHgYDZK3MrA)
-1. [Upgrading a Project with .NET Upgrade Assistant](https://youtu.be/zHgYDZK3MrA)
-1. [Intro to the Upgrade Assistant Visual Studio Extension](https://youtu.be/zHgYDZK3MrA)
-1. [Creating a New Project with the Upgrade Assistant Visual Studio Extension](https://youtu.be/zHgYDZK3MrA)
-1. [Migrating an Endpoint with the Upgrade Assistant Visual Studio Extension](https://youtu.be/zHgYDZK3MrA)
-1. [Migrating a Class Library with System.Web Dependencies](https://youtu.be/zHgYDZK3MrA)
-1. [Using System.Web Adapters to Share Session State in ASP.NET Upgrade Scenarios](https://youtu.be/zHgYDZK3MrA)
-1. [Using System.Web Adapters to Share Authentication in ASP.NET Upgrade Scenarios](https://youtu.be/zHgYDZK3MrA)
-1. [Sharing Authentication Cookies in ASP.NET Upgrade Scenarios](https://youtu.be/zHgYDZK3MrA)
-1. [Migrating static content from ASP.NET to ASP.NET Core](https://youtu.be/zHgYDZK3MrA)
-1. [Deploying an Incrementally Migrated ASP.NET App to Azure App Service](https://youtu.be/zHgYDZK3MrA)
-1. [ASP.NET to ASP.NET Core Migration Wrap-Up](https://youtu.be/zHgYDZK3MrA)
-1. [Upgrading from WCF to CoreWCF](https://youtu.be/zHgYDZK3MrA)
-1. [Deep Dive into System.Web Adapters](https://youtu.be/zHgYDZK3MrA)
-
 <iframe width="752" height="423" src="https://www.youtube.com/embed/videoseries?list=PLdo4fOcmZ0oWiK8r9OkJM3MUUL7_bOT9z" title="On .NET - Migrating from ASP.NET to ASP.NET Core" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+1. [.NET Migration Overview](https://youtu.be/zHgYDZK3MrA)
+1. [Why Upgrade to .NET?](https://youtu.be/Fb6PsBW2ekg)
+1. [Getting Started with .NET Upgrade Assistant](https://youtu.be/FRrslz_AHzE)
+1. [Analyzing a Solution with .NET Upgrade Planner](https://youtu.be/_nox9CYaA_s)
+1. [Upgrade Analysis with .NET Upgrade Assistant](https://youtu.be/TwAKnZ-XcU4)
+1. [Upgrading a Project with .NET Upgrade Assistant](https://youtu.be/ttangBEcZfo)
+1. [Intro to the Upgrade Assistant Visual Studio Extension](https://youtu.be/B2vz98yfskc)
+1. [Creating a New Project with the Upgrade Assistant Visual Studio Extension](https://youtu.be/LQxSX_gkNj4)
+1. [Migrating an Endpoint with the Upgrade Assistant Visual Studio Extension](https://youtu.be/RpGnyN8c5qw)
+1. [Migrating a Class Library with System.Web Dependencies](https://youtu.be/TB7nfriQuGI)
+1. [Using System.Web Adapters to Share Session State in ASP.NET Upgrade Scenarios](https://youtu.be/_XG3EYRcgY8)
+1. [Using System.Web Adapters to Share Authentication in ASP.NET Upgrade Scenarios](https://youtu.be/5hEghsFQB48)
+1. [Sharing Authentication Cookies in ASP.NET Upgrade Scenarios](https://youtu.be/WF-8Yz8QKcw)
+1. [Migrating static content from ASP.NET to ASP.NET Core](https://youtu.be/SmP38AW4KkY)
+1. [Deploying an Incrementally Migrated ASP.NET App to Azure App Service](https://youtu.be/u5Hspwt50O0)
+1. [ASP.NET to ASP.NET Core Migration Wrap-Up](https://youtu.be/rPEZ3_-CjDM)
+1. [Upgrading from WCF to CoreWCF](https://youtu.be/w2FUHYLR0hM)
+1. [Deep Dive into System.Web Adapters](https://youtu.be/zXoGXbB3JDI)
 
 ## Resources for Xamarin upgrades
 
