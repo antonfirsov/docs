@@ -93,26 +93,26 @@ The following table summarizes ASP.NET Core feature compatibility with native AO
 
 | Feature | Fully Supported | Partially Supported | Not Supported |
 | - | - | - | - |
-| gRPC | <span aria-hidden="true">✔️</span><span class="visually-hidden">Fully supported</span> | | |
-| Minimal APIs | | <span aria-hidden="true">✔️</span><span class="visually-hidden">Partially supported</span> | |
+| gRPC | <span aria-hidden="true">✅</span><span class="visually-hidden">Fully supported</span> | | |
+| Minimal APIs | | <span aria-hidden="true">✅</span><span class="visually-hidden">Partially supported</span> | |
 | MVC | | | <span aria-hidden="true">❌</span><span class="visually-hidden">Not supported</span> |
 | Blazor | | |<span aria-hidden="true">❌</span><span class="visually-hidden">Not supported</span> |
 | SignalR | | | <span aria-hidden="true">❌</span><span class="visually-hidden">Not supported</span> |
 | Authentication | | | <span aria-hidden="true">❌</span><span class="visually-hidden">Not supported</span> (JWT soon) |
-| CORS | <span aria-hidden="true">✔️</span><span class="visually-hidden">Fully supported</span> | | |
-| Health checks | <span aria-hidden="true">✔️</span><span class="visually-hidden">Fully supported</span> | | |
-| Http logging | <span aria-hidden="true">✔️</span><span class="visually-hidden">Fully supported</span> | | |
-| Localization | <span aria-hidden="true">✔️</span><span class="visually-hidden">Fully supported</span>| | |
-| Output caching | <span aria-hidden="true">✔️</span><span class="visually-hidden">Fully supported</span> | | |
-| Rate limiting | <span aria-hidden="true">✔️</span><span class="visually-hidden">Fully supported</span> | | |
-| Request decompression | <span aria-hidden="true">✔️</span><span class="visually-hidden">Fully supported</span> | | |
-| Response caching | <span aria-hidden="true">✔️</span><span class="visually-hidden">Fully supported</span> | | |
-| Response compression | <span aria-hidden="true">✔️</span><span class="visually-hidden">Fully supported</span> | | |
-| Rewrite | <span aria-hidden="true">✔️</span><span class="visually-hidden">Fully supported</span> | | |
+| CORS | <span aria-hidden="true">✅</span><span class="visually-hidden">Fully supported</span> | | |
+| Health checks | <span aria-hidden="true">✅</span><span class="visually-hidden">Fully supported</span> | | |
+| Http logging | <span aria-hidden="true">✅</span><span class="visually-hidden">Fully supported</span> | | |
+| Localization | <span aria-hidden="true">✅</span><span class="visually-hidden">Fully supported</span>| | |
+| Output caching | <span aria-hidden="true">✅</span><span class="visually-hidden">Fully supported</span> | | |
+| Rate limiting | <span aria-hidden="true">✅</span><span class="visually-hidden">Fully supported</span> | | |
+| Request decompression | <span aria-hidden="true">✅</span><span class="visually-hidden">Fully supported</span> | | |
+| Response caching | <span aria-hidden="true">✅</span><span class="visually-hidden">Fully supported</span> | | |
+| Response compression | <span aria-hidden="true">✅</span><span class="visually-hidden">Fully supported</span> | | |
+| Rewrite | <span aria-hidden="true">✅</span><span class="visually-hidden">Fully supported</span> | | |
 | Session | | |<span aria-hidden="true">❌</span><span class="visually-hidden">Not supported</span> |
 | SPA | | |<span aria-hidden="true">❌</span><span class="visually-hidden">Not supported</span> |
-| Static files | <span aria-hidden="true">✔️</span><span class="visually-hidden">Fully supported</span> | | |
-| WebSockets | <span aria-hidden="true">✔️</span><span class="visually-hidden">Fully supported</span> | | |
+| Static files | <span aria-hidden="true">✅</span><span class="visually-hidden">Fully supported</span> | | |
+| WebSockets | <span aria-hidden="true">✅</span><span class="visually-hidden">Fully supported</span> | | |
 
 During .NET 8, you can keep track of [current known issues regarding ASP.NET Core and native AOT compatibility here](https://github.com/dotnet/core/issues/8288).
 
