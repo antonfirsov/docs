@@ -1,5 +1,5 @@
 ---
-post_title: '.NET MAUI in .NET 8 Preview 3: Lite and familiar'
+post_title: 'Announcing .NET MAUI in .NET 8 Preview 3'
 author1: davidortinau
 post_slug: announcing-dotnet-maui-in-dotnet-8-preview-3
 microsoft_alias: daortin
@@ -8,7 +8,7 @@ categories: .NET, .NET MAUI
 summary: .NET MAUI makes it's way to .NET 8 Preview 3 and is full of new quality improvements for developers across the entire framework. In addition, we are introducing NuGet packages even greater flexibility going forward.
 desired_publication_date: 2023-04-11
 tags: .net 8, .net maui
-post_date: 2023-04-11 10:02:00
+post_date: 2023-04-11 10:07:00
 ---
 
 The third preview of .NET Multi-platform App UI (MAUI) in .NET 8 is now available. This release we are focusing on improving the quality of the UI controls, layout, and memory management. Also new in .NET 8 we are introducing NuGet packages for your flexibility to preview future builds and lock your applications to a specific version.
