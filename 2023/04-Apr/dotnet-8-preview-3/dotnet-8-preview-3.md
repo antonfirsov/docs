@@ -63,13 +63,16 @@ The layout of the `.artifacts` directory will be of the form `<ArtifactsPath>\<T
 
 * `Type of Output` is used to group different categories of build outputs like binaries, intermediate/generated files, published applications, or NuGet packages, and
 * `Pivots` is used to flatten out all of the different options that are used to differentiate builds, like `Configuration` and `RuntimeIdentifier`.
+
+Some examples of paths that would be created under the new format are:
+
 * `.artifacts\bin\debug` - The build output path for a simple project when you run `dotnet build`.
 * `.artifacts\obj\debug` - The intermediate output path for a simple project when you run `dotnet build`.
 * `.artifacts\bin\MyApp\debug_net8.0` - The build output path for the `net8.0` build of a multi-targeted project.
 * `.artifacts\publish\MyApp\release_linux-x64` - The publish path for a simple app when publishing for `linux-x64`.
 * `.artifacts\package\release` - The folder where the release `.nupkg` will be created for a project.
 
-We think that this unified output structure addresses concerns that we've heard from users and gives us a foundation we can build on for the future. The `Type of Output` and `Pivots` sections enable us to add new kinds of outputs or builds without drastically changing the layout in the future. Anchoring all of the outputs in a single folder makes it easier for tools to include, ignore, or manipulate the build outputs.
+We think that this unified output structure addresses concerns that we've heard from users and gives us a foundation we can build on for the future. The `Type of Output` and `Pivots` sections enable us to add new kinds of outputs or builds without drastically changing the layout in the future. Anchoring all of the outputs in a single folder makes it easier for tools to include, ignore, or manipulate the build outputs. We'd love to hear about your experiences enabling and using the new layout in [this SurveyMonkey survey](https://aka.ms/dotnet/sdk/simplified-output-path-survey)
 
 ### `dotnet workload clean` command
 
