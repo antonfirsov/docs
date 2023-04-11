@@ -12,7 +12,7 @@ desired_publication_date: 2023-04-11
 post_date: 2023-04-11 10:05:00
 ---
 
-[.NET 8 Preview 3](https://dotnet.microsoft.com/next) is now available. It includes changes to build paths, workloads, Microsoft.Extensions, and containers. It also includes performance improvements in the JIT, for Arm64, and dynamic PGO. You may want to read the [Preview 2](https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-preview-2/) post if you missed the March preview.
+[.NET 8 Preview 3](https://dotnet.microsoft.com/next) is now available. It includes changes to build paths, workloads, Microsoft.Extensions, and containers. It also includes performance improvements in the JIT, for Arm64, and dynamic PGO. If you missed the March preview, you may want to read the [Preview 2](https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-preview-2/) post.
 
 You can [download .NET 8 Preview 3](https://dotnet.microsoft.com/download/dotnet/8.0) for Linux, macOS, and Windows.
 
@@ -24,7 +24,7 @@ You can [download .NET 8 Preview 3](https://dotnet.microsoft.com/download/dotnet
 
 Check out what's new in [C#](https://devblogs.microsoft.com/dotnet/csharp-12-previews-primary-constructors-for-classes-and-structs), [ASP.NET Core](https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-dotnet-8-preview-3), [EF Core](https://devblogs.microsoft.com/dotnet), and [.NET MAUI](https://devblogs.microsoft.com/dotnet/announcing-dotnet-maui-8-preview-3) in the Preview 3 release. Stay current with [What's New in .NET 8](https://learn.microsoft.com/dotnet/core/whats-new/dotnet-8). [.NET Docs](https://learn.microsoft.com/dotnet/fundamentals/) will be updated throughout the release.
 
-.NET 8 has been tested with 17.6 Preview 3. We recommend that you use the [preview channel builds](https://visualstudio.com/preview) if you want to try .NET 8 with the Visual Studio family of products. Visual Studio for Mac support for .NET 8 isn’t yet available.
+.NET 8 has been tested with 17.6 Preview 3. If you want to try .NET 8 with the Visual Studio family of products, we recommend that you use the [preview channel builds](https://visualstudio.com/preview). Visual Studio for Mac support for .NET 8 isn’t yet available.
 
 Let's take a look at some new features.
 
@@ -32,23 +32,26 @@ Let's take a look at some new features.
 
 ## SDK
 
-The following improvements were made in the .NET SDK.
+There were several improvements made to the SDK, as well as a breaking change. For more information about the breaking change, see [.NET SDK No Longer Changes Encoding Upon Exit](https://github.com/dotnet/docs/issues/34471).
 
-See [.NET SDK No Longer Changes Encoding Upon Exit](https://github.com/dotnet/docs/issues/34471) to read about a breaking change that was made in Preview 3.
+The improvements made to the .NET SDK were the following:
 
 ### Simplified output path
 
-.NET applications can be built in many different ways, and as a result users of the platform have gotten familiar with a very deep and complex set of output paths for different build artifacts. Folders like `bin`, `obj`, `publish`, and the many different permutations and arrangements of those are muscle memory for many .NET developers. Similarly strong is the concept of per-project directories for these outputs.  However, over time we've gotten feedback from both new and long-standing .NET users that this layout is difficult to use (because the layout can change drastically via relatively simple MSBuild changes) and difficult for tools to anticipate (because the per-project layout makes it hard to be sure that you've gotten the outputs for every project).
+.NET applications can be built in many different ways, and as a result, users of the platform have gotten familiar with a very deep and complex set of output paths for different build artifacts. Folders like `bin`, `obj`, `publish`, and the many different permutations and arrangements of those are muscle memory for many .NET developers. Similarly strong is the concept of per-project directories for these outputs.  However, over time we've gotten feedback from both new and long-standing .NET users that this layout is:
+
+* Difficult to use because the layout can change drastically via relatively simple MSBuild changes.
+* Difficult for tools to anticipate because the per-project layout makes it hard to be sure that you've gotten the outputs for every project.
 
 To address both of these challenges and make the build outputs easier to use and more consistent, the .NET SDK has [introduced an option](https://github.com/dotnet/sdk/pull/29599) that creates a more unified, simplified output path structure.
 
 The new output path focuses on:
 
-* Gathering all of the build outputs in a common location,
-* Separating the build outputs by project under this common location, and
-* Flattening the overall build output layouts to a maximum of three levels deep
+* Gathering all of the build outputs in a common location.
+* Separating the build outputs by project under this common location.
+* Flattening the overall build output layouts to a maximum of three levels deep.
 
-To opt into the new output path layout, you need to set the `UseArtifactsOutput` property in a `Directory.Build.props` file. The easiest way to get started is to run `dotnet new buildprops` in the root of your repository, and then open the generated `Directory.Build.props` file and add the following to the `PropertyGroup` in that file:
+To opt into the new output path layout, you need to set the `UseArtifactsOutput` property in a `Directory.Build.props` file. The easiest way to get started is to run `dotnet new buildprops` in the root of your repository, open the generated `Directory.Build.props` file, and then add the following to the `PropertyGroup` in that file:
 
 ```xml
 <UseArtifactsOutput>true</UseArtifactsOutput>
@@ -60,18 +63,17 @@ The layout of the `.artifacts` directory will be of the form `<ArtifactsPath>\<T
 
 * `Type of Output` is used to group different categories of build outputs like binaries, intermediate/generated files, published applications, or NuGet packages, and
 * `Pivots` is used to flatten out all of the different options that are used to differentiate builds, like `Configuration` and `RuntimeIdentifier`.
+* `.artifacts\bin\debug` - The build output path for a simple project when you run `dotnet build`.
+* `.artifacts\obj\debug` - The intermediate output path for a simple project when you run `dotnet build`.
+* `.artifacts\bin\MyApp\debug_net8.0` - The build output path for the `net8.0` build of a multi-targeted project.
+* `.artifacts\publish\MyApp\release_linux-x64` - The publish path for a simple app when publishing for `linux-x64`.
+* `.artifacts\package\release` - The folder where the release `.nupkg` will be created for a project.
 
-* `.artifacts\bin\debug` - The build output path for a simple project when you run `dotnet build`
-* `.artifacts\obj\debug` - The intermediate output path for a simple project when you run `dotnet build`
-* `.artifacts\bin\MyApp\debug_net8.0` - The build output path for the `net8.0` build of a multi-targeted project
-* `.artifacts\publish\MyApp\release_linux-x64` - The publish path for a simple app when publishing for `linux-x64`
-* `.artifacts\package\release` - The folder where the release `.nupkg` will be created for a project
-
-We think that this unified output structure addresses concerns that we've heard from users and gives us a foundation we can build on for the future. The `Type of Output` and `Pivots` sections enable us to add new kinds of outputs, or new kinds of builds, without drastically changing the layout in the future. Anchoring all of the outputs in a single folder makes it easier for tools to include, ignore, or manipulate the build outputs.
+We think that this unified output structure addresses concerns that we've heard from users and gives us a foundation we can build on for the future. The `Type of Output` and `Pivots` sections enable us to add new kinds of outputs or builds without drastically changing the layout in the future. Anchoring all of the outputs in a single folder makes it easier for tools to include, ignore, or manipulate the build outputs.
 
 ### `dotnet workload clean` command
 
-Over the course of several .NET SDK and Visual Studio updates, it's possible for workload packs (the actual units of functionality, tools, and templates that a workload is comprised of) to be left behind. This can happen for a number of reasons, but in every case it's confusing for end users. Some users go so far as to manually delete workload directories from their SDK install locations, which the SDK team really doesn't recommend! Instead of that drastic measure, this preview we've [implemented a new command](https://github.com/dotnet/sdk/pull/30266) to help clean up leftover workload packs.
+Over the course of several .NET SDK and Visual Studio updates, it's possible for workload packs (the actual units of functionality, tools, and templates that a workload is comprised of) to be left behind. This can happen for a number of reasons, but in every case it's confusing for end users. Some users go so far as to manually delete workload directories from their SDK install locations, which the SDK team really doesn't recommend! Instead of that drastic measure, in this preview we've [implemented a new command](https://github.com/dotnet/sdk/pull/30266) to help clean up leftover workload packs.
 
 The new command is:
 
@@ -79,9 +81,9 @@ The new command is:
 dotnet workload clean
 ```
 
-Next time you encounter issues managing workloads, consider using `workload clean` to safely restore to a known-good state before trying again.
+Next time you encounter issues managing workloads, consider using `dotnet workload clean` to safely restore to a known-good state before trying again.
 
-`clean` has two modes of operation, discussed next.
+`clean` has two modes of operation, which are discussed next.
 
 #### `dotnet workload clean`
 
@@ -89,15 +91,13 @@ Runs workload [garbage collection](https://github.com/dotnet/designs/blob/main/a
 
 It will clean up orphaned packs from uninstalled versions of the .NET SDK or packs where installation records for the pack no longer exist. It will only do this for the given SDK version or older. If you have a newer SDK version installed, you will need to repeat the command.
 
-If Visual Studio is installed and has been managing workloads as well, `dotnet workload clean` will list all Visual Studio Workloads installed on the machine and warn that they must be uninstalled via Visual Studio instead of the .NET SDK CLI. This is to provide clarity as to why some workloads are not cleaned/uninstalled after running dotnet workload clean.
+If Visual Studio is installed and has been managing workloads as well, `dotnet workload clean` will list all Visual Studio Workloads installed on the machine and warn that they must be uninstalled via Visual Studio instead of the .NET SDK CLI. This is to provide clarity as to why some workloads are not cleaned/uninstalled after running `dotnet workload clean`.
 
 #### `dotnet workload clean --all`
 
-Rich Note: I don't quite get this. Will need help here.
+Unlike `workload clean`, `workload clean --all` runs garbage collection irregularly, meaning that it cleans every existing pack on the machine that isn't from Visual Studio and is of the current SDK workload installation type (either file-based or MSI-based).
 
-Unlike `workload clean`, `workload clean --all` runs garbage collection irregularly, meaning that it cleans every existing pack on the machine that is not from Visual Studio, and is of the current SDK workload installation type. (Either File-Based or MSI-Based.)
-
-Because of this, it also removes all workload installation records for the running .NET SDK feature band and below. `workload clean` does not yet remove installation records, as the manifests are currently the only way to map a pack to the workload ID, but the manifest files may not exist for orphaned packs.
+Because of this, it also removes all workload installation records for the running .NET SDK feature band and below. `workload clean` doesn't yet remove installation records, as the manifests are currently the only way to map a pack to the workload ID, but the manifest files may not exist for orphaned packs.
 
 ## Runtime
 
@@ -124,13 +124,13 @@ builder.Clear();
 
 ### Introducing the configuration binding source generator
 
-[Application configuration in ASP.NET Core](https://learn.microsoft.com/aspnet/core/fundamentals/configuration/?view=aspnetcore-7.0) is performed using one or more configuration providers. Configuration providers read data (as key-value pairs) from a variety of sources such as settings files (e.g. appsettings.json), environment variables, Azure Key Vault etc.
+[Application configuration in ASP.NET Core](https://learn.microsoft.com/aspnet/core/fundamentals/configuration/?view=aspnetcore-7.0) is performed using one or more configuration providers. Configuration providers read data (as key-value pairs) from a variety of sources such as settings files (for example, `appsettings.json`), environment variables, Azure Key Vault etc.
 
-At the core of this mechanism is [`ConfigurationBinder`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.configurationbinder?view=dotnet-plat-ext-7.0), an extension class that provides `Bind` and `Get` methods that map configuration values ([`IConfiguration`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration?view=dotnet-plat-ext-7.0) instances) to strongly-typed objects. `Bind` takes an instance, while `Get` creates one on behalf of the caller. The current approach currently uses reflection which causes issues for trimming and Native AOT.
+At the core of this mechanism is [`ConfigurationBinder`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.configurationbinder?view=dotnet-plat-ext-7.0), an extension class that provides `Bind` and `Get` methods that map configuration values ([`IConfiguration`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration?view=dotnet-plat-ext-7.0) instances) to strongly-typed objects. `Bind` takes an instance, while `Get` creates one on behalf of the caller. The current approach uses reflection which causes issues for trimming and Native AOT.
 
 In .NET 8, we are [using a source generator](https://github.com/dotnet/runtime/pull/82179) that generates reflection-free and AOT-friendly binding implementations. The generator probes for [Configure](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.optionsconfigurationservicecollectionextensions.configure?view=dotnet-plat-ext-7.0#microsoft-extensions-dependencyinjection-optionsconfigurationservicecollectionextensions-configure-1(microsoft-extensions-dependencyinjection-iservicecollection-microsoft-extensions-configuration-iconfiguration)), [Bind](https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.configurationbinder.bind?view=dotnet-plat-ext-7.0), and [Get](https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.configurationbinder.get?view=dotnet-plat-ext-7.0) calls that we can retrieve type info from.
 
-Here's example of code that invokes the binder:
+The following example shows code that invokes the binder:
 
 ```cs
 using Microsoft.AspNetCore.Builder;
@@ -177,15 +177,15 @@ When the generator is enabled in a project, the generated methods are implicitly
 </PropertyGroup>
 ```
 
-In preview 4, we will add the enabling mechanism to the .NET SDK so that the NuGet package reference is not required to use the source generator.
+In preview 4, we'll add the enabling mechanism to the .NET SDK, so that the NuGet package reference isn't required to use the source generator.
 
 ### Native code generation
 
-The following improvements were made to the JIT compiler.
+The following improvements were made to the JIT compiler:
 
 #### Arm64
 
-The following optimizations were made for the Arm64 architecture.
+The following optimizations were made for the Arm64 architecture:
 
 - [PR#83089](https://github.com/dotnet/runtime/pull/83089) converts `OR(condition, condition)` to `CCMP`. It lets the JIT emit `CCMP` on arm64 for bitwise-or between relational comparisons.
 - [PR #83176](https://github.com/dotnet/runtime/pull/83176) optimized `x < 0` and `x >= 0` for arm64 and gave good improvements ([here](https://github.com/dotnet/perf-autofiling-issues/issues/14422), [here](https://github.com/dotnet/perf-autofiling-issues/issues/14416) and [here](https://github.com/dotnet/perf-autofiling-issues/issues/14430)).
@@ -201,7 +201,7 @@ The following optimizations were made for the Arm64 architecture.
 
 #### General Optimizations
 
-The following general performance changes were made.
+The following general performance changes were made:
 
 - [runtime #79381](https://github.com/dotnet/runtime/pull/79381) extends emitter peephole optimization and eliminated `mov` in more scenarios.
 - [runtime #82793](https://github.com/dotnet/runtime/pull/82793) folded unreachable cases for `switch` in early phase of JIT, `importer`, and improved throughput up to 0.06%.
@@ -213,15 +213,15 @@ The following general performance changes were made.
 
 We're continuing to improve the capabilities and experience of using .NET in containers. In this release, we're focused on security and targeting multiple architectures.
 
-See [Secure your .NET cloud apps with rootless Linux Containers](https://devblogs.microsoft.com/dotnet/securing-containers-with-rootless/) and [SDK Containers – Support for Authentication and Cross-architecture Builds](https://devblogs.microsoft.com/dotnet/updates-to-container-support-in-the-dotnet-sdk/) for recent updates.
+For recent updates, see [Secure your .NET cloud apps with rootless Linux Containers](https://devblogs.microsoft.com/dotnet/securing-containers-with-rootless/) and [SDK Containers – Support for Authentication and Cross-architecture Builds](https://devblogs.microsoft.com/dotnet/updates-to-container-support-in-the-dotnet-sdk/).
 
-See [Breaking change: Multi-platform .NET 8 tags no longer support Windows containers](https://github.com/dotnet/dotnet-docker/discussions/4549) to learn about a recent tagging-related change.
+To learn about a recent tagging-related change, see [Breaking change: Multi-platform .NET 8 tags no longer support Windows containers](https://github.com/dotnet/dotnet-docker/discussions/4549).
 
 ### Building multi-platform container images
 
 It is now common to use both Arm64 and x64 machines on a regular basis. x64 machines have been around for decades, however, Arm64 dev machines (like Apple Macs) and [Arm64 cloud nodes](https://learn.microsoft.com/azure/aks/use-multiple-node-pools#add-an-arm64-node-pool) are relatively new. Docker supports using and building [multi-platform images](https://docs.docker.com/build/building/multi-platform/) that work across multiple environments. We've developed a new pattern that enables you to mix and match architectures with the .NET images you build.
 
-Imagine you are on an Apple Mac and want to target an x64 cloud service in Azure. You can build the image by using the `--platform` switch as follows.
+Imagine you're on an Apple Mac and want to target an x64 cloud service in Azure. You can build the image by using the `--platform` switch as follows.
 
 ```bash
 docker build --pull -t app --platform linux/amd64 .
@@ -253,7 +253,7 @@ This [sample](https://github.com/dotnet/dotnet-docker/blob/main/samples/aspnetap
 
 ### Environment Variable for non-root user UID value
 
-We've added an environment variable for the UID for the non-root user that we added in Preview 1. We realized that the [Kubernetes `runAsNonRoot` test](https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted) required that the container user be set via UID not name. At the same time, we wanted to avoid developers needed to apply a special number across (collectively) thousands of Dockerfiles. Instead, we are exposing that value -- `64198` -- in an environment variable.
+We've added an environment variable for the UID for the non-root user that we added in Preview 1. We realized that the [Kubernetes `runAsNonRoot` test](https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted) required that the container user be set via UID not name. At the same time, we wanted to avoid developers needing to apply a special number across (collectively) thousands of Dockerfiles. Instead, we're exposing that value -- `64198` -- in an environment variable.
 
 You can see that used in this [Dockerfile](https://github.com/dotnet/dotnet-docker/blob/e5bc76bca49a1bbf9c11e74a590cf6a9fe9dbf2a/samples/aspnetapp/Dockerfile.alpine-non-root#L27):
 
@@ -305,7 +305,7 @@ Know somebody who is contributing to .NET that we should feature in future posts
 
 ## Summary
 
-.NET 8 Preview 3 contains exciting new features and improvements that would not be possible without the hard work and dedication of a diverse team of engineers at Microsoft and a passionate open source community. We want to extend our [sincere thanks to everyone who has contributed to .NET 8 so far](https://dotnet.microsoft.com/thanks), whether it was through code contributions, bug reports, or providing feedback.
+.NET 8 Preview 3 contains exciting new features and improvements that would not be possible without the hard work and dedication of a diverse team of engineers at Microsoft and a passionate open-source community. We want to extend our [sincere thanks to everyone who has contributed to .NET 8 so far](https://dotnet.microsoft.com/thanks), whether it was through code contributions, bug reports, or providing feedback.
 
 Your contributions have been instrumental in the making .NET 8 Previews, and we look forward to continuing to work together to build a brighter future for .NET and the entire technology community.
 
