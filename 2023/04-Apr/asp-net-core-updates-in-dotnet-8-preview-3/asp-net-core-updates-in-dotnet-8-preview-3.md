@@ -9,7 +9,7 @@ categories: .NET, ASP.NET, ASP.NET Core, Blazor
 tags: .net 8
 summary: .NET 8 Preview 3 is now available! Check out what's new in ASP.NET Core in this update.
 desired_publication_date: 2023-04-11
-post_date: 2023-04-11 10:05:00
+post_date: 2023-04-11 10:06:00
 ---
 
 [.NET 8 Preview 3 is now available](https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-preview-3) and includes many great new improvements to ASP.NET Core.
@@ -291,7 +291,7 @@ To try out server-side rendering with Blazor:
     builder.Services.AddRazorComponents();
     ```
 
-1. Map endpoints for you components by calling `MayRazorComponents<TComponent>()`. You'll need to add a using directive for your component:
+1. Map endpoints for you components by calling `MapRazorComponents<TComponent>()`. You'll need to add a using directive for your component:
 
     ```csharp
     @using WebApp1
