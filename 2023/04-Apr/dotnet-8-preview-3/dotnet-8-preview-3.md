@@ -6,7 +6,7 @@ username: jiacjian@microsoft.com
 microsoft_alias: jiacjian
 featured_image: dotnet-8-preview-3.png
 categories: .NET, .NET Core, ASP.NET Core, C#
-tags: .net 8
+tags: .net 8, featured
 summary: .NET 8 Preview 3 is now available, with  changes to build paths, workloads, Microsoft.Extensions, and containers. It also includes performance improvements in the JIT, for Arm64, and dynamic PGO.
 desired_publication_date: 2023-04-11
 post_date: 2023-04-11 10:05:00
