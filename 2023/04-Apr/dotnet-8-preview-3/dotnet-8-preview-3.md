@@ -22,7 +22,7 @@ You can [download .NET 8 Preview 3](https://dotnet.microsoft.com/download/dotnet
 * [Known issues](https://github.com/dotnet/core/blob/main/release-notes/8.0/known-issues.md)
 * [GitHub issue tracker](https://github.com/dotnet/core/issues)
 
-Check out what's new in [C#](https://devblogs.microsoft.com/dotnet/csharp-12-previews-primary-constructors-for-classes-and-structs), [ASP.NET Core](https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-dotnet-8-preview-3), [EF Core](https://devblogs.microsoft.com/dotnet), and [.NET MAUI](https://devblogs.microsoft.com/dotnet/announcing-dotnet-maui-8-preview-3) in the Preview 3 release. Stay current with [What's New in .NET 8](https://learn.microsoft.com/dotnet/core/whats-new/dotnet-8). [.NET Docs](https://learn.microsoft.com/dotnet/fundamentals/) will be updated throughout the release.
+Check out what's new in [C#](https://devblogs.microsoft.com/dotnet/check-out-csharp-12-preview), [ASP.NET Core](https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-dotnet-8-preview-3), [EF Core](https://devblogs.microsoft.com/dotnet/tag/entity-framework/), and [.NET MAUI](https://devblogs.microsoft.com/dotnet/announcing-dotnet-maui-8-preview-3) in the Preview 3 release. Stay current with [What's New in .NET 8](https://learn.microsoft.com/dotnet/core/whats-new/dotnet-8). [.NET Docs](https://learn.microsoft.com/dotnet/fundamentals/) will be updated throughout the release.
 
 .NET 8 has been tested with 17.6 Preview 3. If you want to try .NET 8 with the Visual Studio family of products, we recommend that you use the [preview channel builds](https://visualstudio.com/preview). Visual Studio for Mac support for .NET 8 isn’t yet available.
 
