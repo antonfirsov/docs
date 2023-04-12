@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Humanizer.Core" Version="2.11.10" />
-    <PackageReference Include="LibGit2Sharp" Version="0.26.2" />
+    <PackageReference Include="LibGit2Sharp" Version="0.27.1" />
     <PackageReference Include="Spectre.Console" Version="0.41.0" />
   </ItemGroup>
 
