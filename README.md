@@ -1,10 +1,13 @@
 # .NET Blog
 
-[WordPress] | [Schedule] | [Tutorial]
+[WordPress] | [Schedule] | [Local Tutorial] | [Codespaces Tutorial]
 
 This repository is for reviewing and authoring our blog posts.
 
-Blogging for the first time? Check out the video [tutorial].
+Blogging for the first time? Check out one of our tutorials:
+
+* [Local Tutorial]
+* [Codespaces Tutorial]
 
 ## Creating a new post
 
@@ -124,4 +127,5 @@ you bound the build command to) or via the command line by invoking
 [License]: https://microsoft.sharepoint.com/:w:/t/dd_vsblog/EdbLLTgQuLRGuPVzkLnn8ewBfpXexWoMA-bquVRbDMxMlQ?e=LZQdoB
 [WordPress]: https://devblogs.microsoft.com/dotnet/
 [Schedule]: https://tasks.office.com/microsoft.onmicrosoft.com/en-US/Home/Planner#/plantaskboard?groupId=fdff90ed-0b3b-4caa-a30a-efb4dd47665f&planId=wHOgFOjggEyrykcunh6oQpUAARuD
-[Tutorial]: https://msit.microsoftstream.com/video/619b0840-98dc-b561-c7a4-f1ebf7e10ab0
+[Local Tutorial]: https://msit.microsoftstream.com/video/619b0840-98dc-b561-c7a4-f1ebf7e10ab0
+[Codespaces Tutorial]: https://microsoft.sharepoint.com/:v:/t/DotNetTeam/ERYggqFwUWhFsdw_lROALbMBJRmI2NckeFaOGLJLUudzKw?e=jY9MsH
