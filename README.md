@@ -8,10 +8,20 @@ Blogging for the first time? Check out the video [tutorial].
 
 ## Creating a new post
 
+Create your own codespace that is pre-configured for you, or open one that you already created. No need to Fork.
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=microsoft/dotnet-blog)
+
 The easiest way to get started is by running this command:
 
+Windows:
 ```text
 $ ./new-post
+```
+
+Mac/Linux/Codespaces:
+```text
+$ ./new-post.sh
 ```
 
 This will ask you some questions and will create the necessary boilerplate for
