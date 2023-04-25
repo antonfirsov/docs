@@ -16,7 +16,9 @@ post_date: 2023-02-21 10:05:00
 
 In .NET 8 we plan to make broad investments across ASP.NET Core. Below are some of the areas we plan to focus on:
 
-## Blazor United
+## Full stack web UI with Blazor
+
+> Note: Previously this section was titled "Blazor United", but to avoid confusion we're no longer using that name. Instead we're focusing on the new features and enhancements we're adding to Blazor in .NET 8 to enable full stack web UI development.
 
 In ASP.NET Core today, we have a few different ways to build web UI:
 
@@ -25,9 +27,9 @@ In ASP.NET Core today, we have a few different ways to build web UI:
 
 Many modern web apps need to use a combination of these approaches, both server-side rendering and client-side rendering. Maybe your home page or blog is best handled with server-side rendering so that it loads fast and is easily indexed, while the more elaborate functionality of your app needs the responsiveness of running from the client. Currently, with .NET, this requires using multiple different frameworks together: MVC, Razor Pages, and Blazor.
 
-In .NET 8 we're working to combine the benefits of server-side and client-side rendering into a single full-stack programming model based on Blazor. We're currently calling this effort "Blazor United". Blazor United will enable you to use a single Blazor-based architecture for server-side rendering and full client-side interactivity with Blazor Server or WebAssembly. That's all within a single project with the ability to easily switch between different rendering modes and even mix them in the same page. Blazor United will also enable new rendering capabilities, like [streaming rendering](https://github.com/dotnet/aspnetcore/issues/46352) and [progressive enhancement of navigations and form posts](https://github.com/dotnet/aspnetcore/issues/46399).
+In .NET 8 we're working to combine the benefits of server-side and client-side rendering into a single full-stack programming model based on Blazor. Blazor in .NET 8 will enable you to use a single Blazor-based architecture for server-side rendering and full client-side interactivity with Blazor Server or WebAssembly. That's all within a single project with the ability to easily switch between different rendering modes and even mix them in the same page. Blazor in .NET 8 will also enable new rendering capabilities, like [streaming rendering](https://github.com/dotnet/aspnetcore/issues/46352) and [progressive enhancement of navigations and form posts](https://github.com/dotnet/aspnetcore/issues/46399).
 
-Check out the following video of an early prototype of Blazor United to see many of these new capabilities in action:
+Check out the following video of an early prototype that demonstrates many of these new capabilities in action:
 
 [iframe width="752" height="423" src="https://www.youtube.com/embed/48G_CEGXZZM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen]
 
