@@ -54,6 +54,23 @@ In addition to full sessions at Build there will be live Q&A sessions if ou are 
 * [.NET Application Migration to the cloud](https://build.microsoft.com/sessions/e26fcc5a-dc48-4467-9042-a83854456e6d?source=sessions)
 * [.NET Languages](https://build.microsoft.com/sessions/d17eb062-58dc-4b08-a798-21974061e890?source=sessions)
 
+## Attend the Expert Meet-Up
+
+If you're attending Build in person, don't miss the chance to engage in deep technical conversations with Microsoft Experts, community experts, and creators. This is a great opportunity to get your questions answered and network with peers while connecting with the vibrant .NET community.
+
+There are various areas where you can interact with different experts, including:
+
+* **ASP.NET Core (Razor, MVC, Blazor)** - Learn how to build fast, secure web apps for the cloud and more with .NET
+* **Backend APIs** - Discuss backend APIs that are secure, fast, and scale for any application
+* **Cloud native & Cloud first** - Find out about microservices, minimal web APIs, and containerized apps
+* **Mobile and Desktop** - Discuss creating cross-platform, native apps for Windows, macOS, iOS and Android
+* **Machine Learning / AI** - Discuss how to integrate AI and ML into your existing .NET apps
+* **Data / EF Core** - Talk about developing apps that access many different DBs with .NET
+* **C#, F#, Visual Basic** - Ask questions about features on any of the .NET languages
+* **Modernization** - Find out about modernizing your apps without significantly alternating the code
+* **Distributed Systems** - Talk about scalable and fault tolerant systems
+* **Game Development** - Discuss creating games for PC, Mac, consoles, mobile, & VM/AR with .NET
+
 ## Hangout with Scott Hanselman
 
 There's also a featured session with Scott Hanselman that you'll want to bookmark:
