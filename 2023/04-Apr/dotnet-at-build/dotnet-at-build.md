@@ -67,7 +67,7 @@ There are various areas where you can interact with different experts, including
 * **Machine Learning / AI** - Discuss how to integrate AI and ML into your existing .NET apps
 * **Data / EF Core** - Talk about developing apps that access many different DBs with .NET
 * **C#, F#, Visual Basic** - Ask questions about features on any of the .NET languages
-* **Modernization** - Find out about modernizing your apps without significantly alternating the code
+* **Modernization** - Find out about modernizing your apps without significantly changing the code
 * **Distributed Systems** - Talk about scalable and fault tolerant systems
 * **Game Development** - Discuss creating games for PC, Mac, consoles, mobile, & VM/AR with .NET
 
