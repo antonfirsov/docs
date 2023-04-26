@@ -1,9 +1,10 @@
 ---
-post_title: "Get started with OpenAI Completions in .NET"
-username: 'luquinta@microsoft.com'
-author1: 'luquinta@microsoft.com'
+post_title: 'Get started with OpenAI Completions in .NET'
+username: luquinta@microsoft.com
+
+author1: luquinta@microsoft.com
 post_slug: getting-started-azure-openai-completions-dotnet
-microsoft_alias: 'luquinta'
+microsoft_alias: luquinta
 featured_image: ./dotnet-openai-completions.png
 categories: .NET, Machine Learning, AI Machine Learning
 tags: .NET, Machine Learning, OpenAI, Azure OpenAI
