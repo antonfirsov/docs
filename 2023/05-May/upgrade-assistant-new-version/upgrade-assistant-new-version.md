@@ -1,11 +1,12 @@
 ---
-post_title: Announcing GA Release of the .NET Upgrade Assistant!
+post_title: Announcing a new version of the .NET Upgrade Assistant with support for .NET MAUI and Azure Functions!
 author1: olga.gavrysh
-post_slug: upgrade-assistant-new-version-april-23
+post_slug: upgrade-assistant-general-availability
 username: olga.gavrysh
 microsoft_alias: oliag
 featured_image: xamarin-lib-changes.png
 categories: .NET, .NET Core, .NET Framework, ASP.NET, ASP.NET Core, WinForms, WPF
+tags: migration, upgrade assistant
 summary: The new version of .NET Upgrade Assistant is available in Visual Studio Marketplace with lots of updates and new features!
 desired_publication_date: 2023-05-02
 post_date: 2023-05-02 10:00:00
