@@ -4,7 +4,7 @@ author1: katiesavage
 post_slug: codespaces-template-blazor-portfolio-website
 username: katiesavage
 microsoft_alias: katiesavage
-featured_image: codespace-site-feature-image.png
+featured_image: codespace-site-feature-image2.png
 categories: .NET, Blazor, C#, Visual Studio Code
 tags: github, codespaces, blazor, students
 summary: Create, customize, and deploy your own portfolio website in minutes without installing any tools.
@@ -56,7 +56,7 @@ This template shows you how to build your website using Blazor. [Blazor](https:/
 
 When you're finished, your site will look something like this! 
 
-![Finished Blazor WASM portfolio site](blazorwasm-portfolio-site.gif)
+![Finished Blazor WASM portfolio site](blazorwasm-portfolio-site2.gif)
 
 
 ## Continue Learning
