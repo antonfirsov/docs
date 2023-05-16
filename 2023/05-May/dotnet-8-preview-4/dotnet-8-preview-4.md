@@ -1,8 +1,8 @@
 ---
 post_title: Announcing .NET 8 Preview 4
-author1: jodou@microsoft.com
+author1: JonDouglas
 post_slug: announcing-dotnet-8-preview-4
-username: jodou@microsoft.com
+username: JonDouglas
 microsoft_alias: jodou
 featured_image: dotnet-8-preview-4.png
 categories: .NET, .NET Core, .NET MAUI, ASP.NET Core, Azure, C#, Maintenance & Updates
@@ -46,7 +46,7 @@ We often get feedback from users that the default MSBuild output (internally kno
 
 Here's what it looks like:
 
-![scl-good](modernbuildoutput.gif)
+![Screenshot showing console build output](modernbuildoutput.gif)
 
 The new output can be enabled using `/tl`, optionally with one of the following options:
 * `auto` - the default, which checks if the terminal is capable of using the new features and isn't using a redirected standard output before enabling the new logger,
@@ -63,7 +63,7 @@ Once enabled, the new logger shows you the restore phase, followed by the build 
 
 There weren't any diagnostics for that example - let's look at another build of the same project where a typo has been introduced:
 
-![scl-error](modernbuildoutputdiagnostics.gif)
+![Screenshot showing console output with error diagnostics](modernbuildoutputdiagnostics.gif)
 
 Here you can clearly see the project and typo error outlined.
 
@@ -105,6 +105,7 @@ To try out the new version of the feature, we've made it easier to generate the 
 Please go try out these changes and continue to let us know what you think at [our survey for the feature](https://aka.ms/dotnet/sdk/simplified-output-path-survey).
 
 ## Template Engine: secure experience with packages from Nuget.org
+
 In .NET 8 we're integrating several of NuGet.org's security-related features into the Template Engine, especially in the `dotnet new` experience.
 
 ### Improvements
@@ -136,8 +137,8 @@ For more information, see https://github.com/dotnet/core/issues/7688.
 
 ## NuGet: Auditing package dependencies for security vulnerabilities
 
-- https://github.com/NuGet/Home/issues/8087
-- https://github.com/NuGet/Home/pull/12310
+* https://github.com/NuGet/Home/issues/8087
+* https://github.com/NuGet/Home/pull/12310
 
 `dotnet restore` will produce a report of security vulnerabilities with the affected package name, the severity of the vulnerability, and a link to the advisory for more details when you opt-in to NuGet security auditing.
 
@@ -191,10 +192,12 @@ You can set the `<NuGetAuditLevel>` MSBuild property to the desired level in whi
 With .NET 8 Preview 4, we've introduced the new `IUtf8SpanFormattable` interface, which like its `ISpanFormattable` cousin, can be implemented on a type to enable writing out a string-like representation of that type to a destination span. Whereas `ISpanFormattable` targets UTF16 and `Span<char>`, `IUtf8SpanFormattable` targets UTF8 and `Span<byte>`.  It's also been implemented on all of the primitive types (plus others), with the exact same shared logic (thanks to static abstract interfaces) whether targeting `string`, `Span<char>`, or `Span<byte>`, which means it has full support for all formats (including the "B" binary specifier that's also new in .NET 8 Preview 4) and all cultures. This means you can now format directly to UTF8 from `Byte`, `Complex`, `Char`, `DateOnly`, `DateTime`, `DateTimeOffset`, `Decimal`, `Double`, `Guid`, `Half`, `IPAddress`, `IPNetwork`, `Int16`, `Int32`, `Int64`, `Int128`, `IntPtr`, `NFloat`, `SByte`, `Single`, `Rune`, `TimeOnly`, `TimeSpan`, `UInt16`, `UInt32`, `UInt64`, `UInt128`, `UIntPtr`, and `Version`.
 
 In addition, the new `Utf8.TryWrite` methods now provide a UTF8-based counterpart to the existing `MemoryExtensions.TryWrite` UTF16-based methods.  These methods rely on the [interpolated string handler support introduced in .NET 6 and C# 10](https://devblogs.microsoft.com/dotnet/string-interpolation-in-c-10-and-net-6/), such that you can use interpolated string syntax to format a complex expression directly into a span of UTF8 bytes, e.g.
+
 ```C#
 static bool FormatHexVersion(short major, short minor, short build, short revision, Span<byte> utf8Bytes, out int bytesWritten) =>
     Utf8.TryWrite(utf8Bytes, CultureInfo.InvariantCulture, $"{major:X4}.{minor:X4}.{build:X4}.{revision:X4}", out bytesWritten);
 ```
+
 The implementation recognizes `IUtf8SpanFormattable` on the format values and uses their implementations to write their UTF8 representations directly to the destination span.
 
 The implementation also utilizes the new `Encoding.TryGetBytes` method, which along with its `Encoding.TryGetChars` counterpart, supports encoding/decoding into a destination span as long as the span is long enough to hold the resulting state, and returning false rather than throwing an exception if it's not.
@@ -206,56 +209,54 @@ We expect more UTF8 improvements, including but not limited to improvements to t
 The introduction of the **TimeProvider** abstract class adds time abstraction, which enables time mocking in test scenarios. This functionality is also supported by other features that rely on time progression, such as `Task.Delay` and `Task.Async`. This means that even Task operations can be easily mocked using the time abstraction. The abstraction supports essential time operations such as retrieving local and UTC time, obtaining a timestamp for performance measurement, and creating timers. 
 
 ```C#
-    public abstract class TimeProvider
-    {
-        public static TimeProvider System { get; }
-        protected TimeProvider() 
-        public virtual DateTimeOffset GetUtcNow()
-        public DateTimeOffset GetLocalNow()
-        public virtual TimeZoneInfo LocalTimeZone { get; }
-        public virtual long TimestampFrequency { get; }
-        public virtual long GetTimestamp()
-        public TimeSpan GetElapsedTime(long startingTimestamp)
-        public TimeSpan GetElapsedTime(long startingTimestamp, long endingTimestamp)
-        public virtual ITimer CreateTimer(TimerCallback callback, object? state,TimeSpan dueTime, TimeSpan period)
-    }
+public abstract class TimeProvider
+{
+    public static TimeProvider System { get; }
+    protected TimeProvider() 
+    public virtual DateTimeOffset GetUtcNow()
+    public DateTimeOffset GetLocalNow()
+    public virtual TimeZoneInfo LocalTimeZone { get; }
+    public virtual long TimestampFrequency { get; }
+    public virtual long GetTimestamp()
+    public TimeSpan GetElapsedTime(long startingTimestamp)
+    public TimeSpan GetElapsedTime(long startingTimestamp, long endingTimestamp)
+    public virtual ITimer CreateTimer(TimerCallback callback, object? state,TimeSpan dueTime, TimeSpan period)
+}
 
-    public interface ITimer : IDisposable, IAsyncDisposable
-    {
-        bool Change(TimeSpan dueTime, TimeSpan period);
-    }
+public interface ITimer : IDisposable, IAsyncDisposable
+{
+    bool Change(TimeSpan dueTime, TimeSpan period);
+}
 
-    public partial class CancellationTokenSource : IDisposable
-    {
-        public CancellationTokenSource(TimeSpan delay, TimeProvider timeProvider)
-    }
+public partial class CancellationTokenSource : IDisposable
+{
+    public CancellationTokenSource(TimeSpan delay, TimeProvider timeProvider)
+}
 
-    public sealed partial class PeriodicTimer : IDisposable
-    {
-        public PeriodicTimer(TimeSpan period, TimeProvider timeProvider) 
-    }
+public sealed partial class PeriodicTimer : IDisposable
+{
+    public PeriodicTimer(TimeSpan period, TimeProvider timeProvider) 
+}
 
-    public partial class Task : IAsyncResult, IDisposable
-    {
-        public static Task Delay(System.TimeSpan delay, System.TimeProvider timeProvider)
-        public static Task Delay(System.TimeSpan delay, System.TimeProvider timeProvider, System.Threading.CancellationToken cancellationToken)
-        
-        public Task WaitAsync(TimeSpan timeout, TimeProvider timeProvider)
-        public Task WaitAsync(TimeSpan timeout, TimeProvider timeProvider, CancellationToken cancellationToken) 
-    }
+public partial class Task : IAsyncResult, IDisposable
+{
+    public static Task Delay(System.TimeSpan delay, System.TimeProvider timeProvider)
+    public static Task Delay(System.TimeSpan delay, System.TimeProvider timeProvider, System.Threading.CancellationToken cancellationToken)
+    
+    public Task WaitAsync(TimeSpan timeout, TimeProvider timeProvider)
+    public Task WaitAsync(TimeSpan timeout, TimeProvider timeProvider, CancellationToken cancellationToken) 
+}
 
-    public partial class Task<TResult> : Task
-    {
-        public new Task<TResult> WaitAsync(TimeSpan timeout, TimeProvider timeProvider)
-        public new Task<TResult> WaitAsync(TimeSpan timeout, TimeProvider timeProvider, CancellationToken cancellationToken) 
-     }
-
+public partial class Task<TResult> : Task
+{
+    public new Task<TResult> WaitAsync(TimeSpan timeout, TimeProvider timeProvider)
+    public new Task<TResult> WaitAsync(TimeSpan timeout, TimeProvider timeProvider, CancellationToken cancellationToken) 
+}
 ```
 
 Furthermore, we have made the abstraction available in .NET 8.0 and created a netstandard 2.0 library called Microsoft.Bcl.TimeProvider. This enables the use of the abstraction on supported versions of the .NET Framework and earlier versions of .NET.
 
 ```C#
-
 namespace System.Threading.Tasks
 {
     public static class TimeProviderTaskExtensions
@@ -271,30 +272,29 @@ namespace System.Threading.Tasks
 ### Usage Examples
 
 ```C#
+//  Get System time
+DateTimeOffset utcNow= TimeProvider.System.GetUtcNow();
+DateTimeOffset localNow = TimeProvider.System.GetLocalNow();
 
-	//  Get System time
-    DateTimeOffset utcNow= TimeProvider.System.GetUtcNow();
-    DateTimeOffset localNow = TimeProvider.System.GetLocalNow();
-
-    // Create a time provider that work with a time zone different than the local time zone 
-    private class ZonedTimeProvider : TimeProvider
+// Create a time provider that work with a time zone different than the local time zone 
+private class ZonedTimeProvider : TimeProvider
+{
+    private TimeZoneInfo _zoneInfo;
+    public ZonedTimeProvider(TimeZoneInfo zoneInfo) : base()
     {
-        private TimeZoneInfo _zoneInfo;
-        public ZonedTimeProvider(TimeZoneInfo zoneInfo) : base()
-        {
-            _zoneInfo = zoneInfo ?? TimeZoneInfo.Local;
-        }
-        public override TimeZoneInfo LocalTimeZone { get => _zoneInfo; }
-        public static TimeProvider FromLocalTimeZone(TimeZoneInfo zoneInfo) => new ZonedTimeProvider(zoneInfo);
+        _zoneInfo = zoneInfo ?? TimeZoneInfo.Local;
     }
+    public override TimeZoneInfo LocalTimeZone { get => _zoneInfo; }
+    public static TimeProvider FromLocalTimeZone(TimeZoneInfo zoneInfo) => new ZonedTimeProvider(zoneInfo);
+}
 
-    // Create a time using a time provider 
-    ITimer timer = timeProvider.CreateTimer(callBack, state, delay, Timeout.InfiniteTimeSpan);
-    
-    // Measure a period using the system time provider 
-    long providerTimestamp1 = TimeProvider.System.GetTimestamp();
-    long providerTimestamp2 = TimeProvider.System.GetTimestamp();
-	var period = GetElapsedTime(providerTimestamp1, providerTimestamp2);
+// Create a time using a time provider 
+ITimer timer = timeProvider.CreateTimer(callBack, state, delay, Timeout.InfiniteTimeSpan);
+
+// Measure a period using the system time provider 
+long providerTimestamp1 = TimeProvider.System.GetTimestamp();
+long providerTimestamp2 = TimeProvider.System.GetTimestamp();
+var period = GetElapsedTime(providerTimestamp1, providerTimestamp2);
 ```
 
 https://github.com/dotnet/runtime/issues/36617
@@ -304,6 +304,7 @@ https://github.com/dotnet/runtime/issues/36617
 SIMD support has been a staple in .NET for many years, since we [first introduced](https://devblogs.microsoft.com/dotnet/update-to-simd-support/) support back in .NET Framework. In .NET Core 3.0, we [expanded](https://devblogs.microsoft.com/dotnet/hardware-intrinsics-in-net-core/) that support to include the platform specific hardware intrinsics APIs for x86/x64. We expanded that again with support for Arm64 in .NET 5 and then by introducing the cross platform hardware intrinsics in .NET 7. .NET 8 is no exception and is continuing to further our support by introducing `System.Runtime.Intrinsics.Vector512<T>` and its acceleration on x86/x64 hardware with AVX-512 support.
 
 `AVX-512` itself brings along several key features of which Preview 4 adds support for the first three. The last is still a work in progress that we hope to share more details around at a future date:
+
 * Support for 512-bit vector operations
 * Support for an additional 16 SIMD registers
 * Support for additional instructions available for 128-bit, 256-bit, and 512-bit vectors
@@ -450,14 +451,18 @@ for comparison previously we'd see our input but since there was no settable pro
 
 ## System.Text.Json Improvements
 
-### `JsonSerializer.IsReflectionEnabledByDefault` https://github.com/dotnet/runtime/pull/83844
+### `JsonSerializer.IsReflectionEnabledByDefault`
+
+* https://github.com/dotnet/runtime/pull/83844
 
 The `JsonSerializer` class exposes a number of serialization and deserialization methods that accept an optional `JsonSerializerOptions` parameter. If left unspecified, these methods will default to using the reflection-based serializer. In the context of trimmed/Native AOT applications, this default can create issues with respect to application size: even if the user takes care to pass a source generated `JsonSerializerOptions` value, it will still result in the reflection components being rooted by the trimmer.
 
 System.Text.Json now ships with the `System.Text.Json.JsonSerializer.IsReflectionEnabledByDefault` feature switch that controls default behavior of the `JsonSerializer` methods. Setting the switch to `false` at publish time now avoids accidental rooting of reflection components. It should be noted that with the switch disabled this code
+
 ```C#
 JsonSerializer.Serialize(new { Value = 42 });
 ```
+
 will now fail with a `NotSupportedException`. A configured `JsonSerializerOptions` will need to be passed explicitly for the method to work.
 
 Furthermore, the value of the feature switch is reflected in the `JsonSerializer.IsReflectionEnabledByDefault` property which is treated as a link-time constant. Library authors building on top of System.Text.Json can rely on the property to configure their defaults without accidentally rooting reflection components:
@@ -480,7 +485,9 @@ static JsonSerializerOptions GetDefaultOptions()
 }
 ```
 
-### `JsonSerializerOptions.TypeInfoResolverChain` https://github.com/dotnet/runtime/issues/83095
+### `JsonSerializerOptions.TypeInfoResolverChain`
+
+* https://github.com/dotnet/runtime/issues/83095
 
 When shipped in .NET 7, the contract customization feature added support for chaining source generators by means of the `JsonTypeInfoResolver.Combine` method:
 
@@ -507,21 +514,29 @@ public partial class JsonSerializerOptions
     public IList<IJsonTypeInfoResolver> TypeInfoResolverChain { get; }
 }
 ```
+
 The options instance as defined in the original example can now be manipulated as follows:
+
 ```C#
 options.TypeInfoResolverChain.Count; // 3
 options.TypeInfoResolverChain.RemoveAt(0);
 options.TypeInfoResolverChain.Count; // 2
 ```
+
 It should be noted that the `TypeInfoResolver` and `TypeInfoResolverChain` properties are always kept in sync, so a change to one property will force an update to the other.
 
-### Obsoleting `JsonSerializerOptions.AddContext` https://github.com/dotnet/runtime/issues/83280
+### Obsoleting `JsonSerializerOptions.AddContext`
+
+* https://github.com/dotnet/runtime/issues/83280
 
 The [`JsonSerializerOptions.AddContext`](https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions.addcontext?view=net-8.0) has been superseded by the `TypeInfoResolver` and `TypeInfoResolverChain` properties, so it is now being marked as obsolete.
 
-### Unspeakable type support https://github.com/dotnet/runtime/issues/82457
+### Unspeakable type support
+
+* https://github.com/dotnet/runtime/issues/82457
 
 Compiler-generated or "unspeakable" types have been challenging to support in weakly typed source gen scenaria. In .NET 7, the following application
+
 ```C#
 object value = Test();
 JsonSerializer.Serialize(value, MyContext.Default.Options);
@@ -538,15 +553,20 @@ async IAsyncEnumerable<int> Test()
 [JsonSerializable(typeof(IAsyncEnumerable<int>))]
 internal partial class MyContext : JsonSerializerContext {}
 ```
+
 fails with the error
+
 ```text
 Metadata for type 'Program+<<<Main>$>g__Test|0_5>d' was not provided by TypeInfoResolver of type 'MyContext'
 ```
+
 Which is because the compiler-generated type `Program+<<<Main>$>g__Test|0_5>d` cannot be explicitly specified by the source generator.
 
 Starting with Preview 4, System.Text.Json will perform run-time nearest-ancestor resolution to determine the most appropriate supertype with which to serialize the value (in this case, `IAsyncEnumerable<int>`).
 
-### `JsonSerializerOptions.TryGetTypeInfo` https://github.com/dotnet/runtime/pull/84411
+### `JsonSerializerOptions.TryGetTypeInfo`
+
+* https://github.com/dotnet/runtime/pull/84411
 
 Preview 4 now includes a `Try-` variant of the [`GetTypeInfo`](https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions.gettypeinfo?view=net-8.0) method which returns false if no metadata for the specified type has been found.
 
@@ -558,7 +578,8 @@ In this preview release, we have introduced a new feature in our register alloca
 
 The register allocation algorithm used in RyuJIT is based on a "Linear Scan" approach. It scans the program to identify the lifetime of all variables, referred to as "intervals" in the literature, and assigns a single register to each variable at each use. To determine the best register to assign at a given point, the algorithm needs to identify which variables are live at that point and do not overlap with other variables. It then selects a register from a set of available free registers, using heuristics to determine the best register set at the point of allocation. If no registers are available because they are all assigned to intervals, the algorithm identifies the best register that can be "spilled" and assigned at that location. Spilling involves storing the value of a register on the stack and retrieving it later when needed, which is an expensive operation that the register allocator tries to minimize.
 
-Arm64 has two instructions, [TBL](https://developer.arm.com/documentation/dui0801/g/A64-SIMD-Vector-Instructions/TBL--vector-) and [TBX](https://developer.arm.com/documentation/dui0801/g/A64-SIMD-Vector-Instructions/TBX--vector-), which are used for table vector lookup. These instructions take a "tuple" as one of their operands, which can contain 2, 3, or 4 entities. In [PR# 80297](https://github.com/dotnet/runtime/pull/80297), we added two sets of APIs, VectorTableLookup and VectorTableLookupExtension, under the AdvSimd namespace for these instructions. However, these instructions require that all entities in the tuple are present in consecutive registers. To better understand this requirement, let's look at an example. 
+Arm64 has two instructions, [TBL](https://developer.arm.com/documentation/dui0801/g/A64-SIMD-Vector-Instructions/TBL--vector-) and [TBX](https://developer.arm.com/documentation/dui0801/g/A64-SIMD-Vector-Instructions/TBX--vector-), which are used for table vector lookup. These instructions take a "tuple" as one of their operands, which can contain 2, 3, or 4 entities. In [PR# 80297](https://github.com/dotnet/runtime/pull/80297), we added two sets of APIs, VectorTableLookup and VectorTableLookupExtension, under the AdvSimd namespace for these instructions. However, these instructions require that all entities in the tuple are present in consecutive registers. To better understand this requirement, let's look at an example.
+
 ```c#
 public static Vector128<byte> Test(float f)
 {
@@ -570,7 +591,9 @@ public static Vector128<byte> Test(float f)
         d = AdvSimd.Arm64.VectorTableLookup((d, e, e, b), c); 
 }
 ```
-Here is the generated code for the method. 
+
+Here is the generated code for the method.
+
 ```asm
             movz    x0, #0xD1FFAB1E      // code for helloworld:Produce1():System.Runtime.Intrinsics.Vector128`1[ubyte]
             movk    x0, #0xD1FFAB1E LSL #16
@@ -595,14 +618,18 @@ Here is the generated code for the method.
             add     v0.16b, v0.16b, v16.16b
 
 ```
+
 In the given example, VectorTableLookup() takes a tuple consisting of 4 vectors d, e, e, and b, which are passed in consecutive registers v16 through v19. Even though the 2nd and 3rd value are the same variable e, they are still passed in different registers v17 and v18. This introduces the complexity of finding not only multiple free (or busy) registers (2, 3, or 4) for instructions tbl and tbx, but also consecutive registers. In order to accommodate this new requirement, our algorithm had to be updated at various stages, such as checking ahead of time if consecutive registers are free when assigning a register to the first entity of the tuple, ensuring that assigned registers are consecutive if the variables are already assigned registers and they are not consecutive, and adding stress testing scenarios to handle alternate registers when available.
 In [PR #85189](https://github.com/dotnet/runtime/pull/85189), @MihaZupan used the VectorTableLookup in ProbabilisticMap’s IndexOf method and got 30% improvement. 
 
 ### Optimized ThreadStatic field access
+
 Accessing fields that are marked with `ThreadStatic` had to go through the helper calls which would access the thread local storage (TLS) of current thread and module before accessing the field data. In [PR #82973](https://github.com/dotnet/runtime/pull/82973), we inlined all that code and with that, the field’s value can be retrieved without going into the helper. This improves the performance of field access by 10X. 
 
 ### Arm64
+
 We continued improving the code quality of Arm64 and our friends @SwapnilGaikwad and @a74nh at Arm made some good contributions in this release.
+
 - In [PR #84350](https://github.com/dotnet/runtime/pull/84350), pairs of "str wzr" were optimized and replaced with "str xzr".
 - In [PR #84135](https://github.com/dotnet/runtime/pull/84135), peephole optimizations of ldp/stp were enable for SIMD registers.
 - In [PR #83458](https://github.com/dotnet/runtime/pull/83458), a load was replaced with cheaper mov instruction when possible.
@@ -617,6 +644,7 @@ Until now, the load/store pair peephole optimization was not performed if one of
  `>>>` operator is optimized to ShiftRightLogical intrinsics on Arm64 in [PR#85258](https://github.com/dotnet/runtime/pull/85258).
 
 ### Community PRs (Many thanks to JIT community contributors!)
+
 - @SingleAccretion contributed [20 PRs]( https://github.com/dotnet/runtime/pulls?q=is%3Apr+is%3Amerged+label%3Aarea-CodeGen-coreclr+closed%3A2023-03-21..2023-04-25++-milestone%3A7.0.x+author%3Asingleaccretion) in Preview 4. Much of this work focused on internal cleanup and simplifying of the concepts required to be understood by everyone working on the JIT. For example, many node types in the JIT’s internal IR were completely removed in favor of more regular or simpler representations.
 - @Ruihan-Yin added a macro on zmm registers on LinearScan::buildPhysRegRecords, [PR#83862](https://github.com/dotnet/runtime/pull/83862).
 - Please refer CodeGen Arm64 section for the contributions from @a74nh and @SwapnilGaikwad.
@@ -624,10 +652,12 @@ Until now, the load/store pair peephole optimization was not performed if one of
 ### Code vectorization
 
 JIT/NativeAOT can now unroll and auto-vectorize various memory operations such as comparison, copying and zeroing with SIMD (including AVX-512 instructions on x64!) if it can determinate their sizes in compile time:
+
 - [PR#83255](https://github.com/dotnet/runtime/pull/83255) made stackalloc zeroing 2-3X faster with SIMD
 - [PR#83638](https://github.com/dotnet/runtime/pull/83638), [PR#83740](https://github.com/dotnet/runtime/pull/83740) and [PR#84530](https://github.com/dotnet/runtime/pull/84530) enabled auto-vectorization for various "copy buffer" like operations.
 - [PR#83945](https://github.com/dotnet/runtime/pull/83945) did the same for comparisons including SequenceEqual and StartsWith for all types of primitives.
 A good example of a pattern JIT can now auto-vectorize is the following snippet:
+
 ```csharp
 bool CopyFirst50Items(ReadOnlySpan<int> src, Span<int> dst) => 
     src.Slice(0, 50).TryCopyTo(dst);
@@ -659,6 +689,7 @@ G_M1291_IG05:
        int3     
 ; Total bytes of code: 96
 ```
+
 Here JIT used 3 ZMM (AVX-512) registers to perform memmove-like operation inlined (even if src and dst overlap). A similar codegen will be generated for compile-time constant data e.g. utf8 literals:
 
 ```csharp
@@ -667,6 +698,7 @@ bool StartsWithHeader(Span<int> dst) => dst.StartsWith("text/html"u8);
 ```
 
 ### General Optimizations
+
 - [PR#83911](https://github.com/dotnet/runtime/pull/83911) Static initializations are now cheaper in NativeAOT.
 - [PR#84213](https://github.com/dotnet/runtime/pull/84213) and [PR#84231](https://github.com/dotnet/runtime/pull/84231) improved bound check elimination for `arr[arr.Length - cns]` and `arr[index % arr.Length]` patterns.
 - Forward substitution optimization is enabled for more cases such as small types, [PR#83969](https://github.com/dotnet/runtime/pull/83969).
@@ -679,11 +711,11 @@ bool StartsWithHeader(Span<int> dst) => dst.StartsWith("text/html"u8);
 ![Lachlan Ennis](lachlanennis.png)
 
 My name is Lachlan Ennis and I am a Full Stack Software Developer at Expert1 writing software for small/medium sized finance companies in Australia.I live in the city of Brisbane in Queensland, Australia. I graduated from QUT (Queensland University of Technology) with a Bachelors in Information Technology, but learnt most of my coding skills on the job. We write out software primarily in .NET using MSSQL. We also use Winforms for our products.
- 
+
 My first contributions to .NET were in dotnet/msbuild, where I used code analysis to improve code quality and performance. This helped msbuild get closer in line with dotnet/runtime with its coding standards and enabled code analysis rules. I then moved to working on winforms when I stumbled on an issue discussing the interop layer of winforms and how to improve it. I had previously done some minor work in msbuild around some interop and saw how difficult it could be. I suggested that Winforms use CsWin32 as it used source generators to create the PInvokes as well as friendly overloads. This then led down a rabbit hole of raised issues and PRs in Microsoft/CsWin32 and Microsoft/Win32Metadata to get the required APIs made available for Winforms.
- 
+
 After working on the interop changes I moved to the issue queue to help investigate the backlog. Often the issues need someone to drive the investigation until there is enough information for the winforms team to take over, or if it's obvious enough a PR to fix the issue. I also helped build on the community effort to null annotate the winforms code base.
- 
+
 Working on dotnet open source software has really helped expand my knowledge in dotnet, C#, and winforms. The Winforms team has been incredibly helpful in that regard with thorough reviews and advice in PRs and issues.
 
 ## Summary
