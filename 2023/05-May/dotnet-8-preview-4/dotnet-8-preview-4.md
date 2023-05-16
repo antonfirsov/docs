@@ -127,9 +127,9 @@ The NuGet team has a plan of record for gradually moving over to a secure-by-def
 
 ## NuGet: signed package verification on Linux
 
-Starting with .NET 8 Preview 4 SDK, NuGet will verify signed packages on Linux by default.  Verification remains enabled on Windows and disabled on macOS.
+Starting with .NET 8 Preview 4 SDK, NuGet will [verify signed packages ](https://learn.microsoft.com/nuget/reference/signed-packages-reference) on Linux by default.  Verification remains enabled on Windows and disabled on macOS.
 
-For most Linux users, verification should just work transparently.  However, users with an existing root certificate bundle located at `/etc/pki/ca-trust/extracted/pem/objsign-ca-bundle.pem` may see trust failures accompanied by [NU3042](https://learn.microsoft.com/nuget/reference/errors-and-warnings/nu3042).
+For most Linux users, [verification should just work transparently](https://github.com/dotnet/sdk/blob/main/src/Layout/redist/trustedroots/README.md).  However, users with an existing root certificate bundle located at `/etc/pki/ca-trust/extracted/pem/objsign-ca-bundle.pem` may see trust failures accompanied by [NU3042](https://learn.microsoft.com/nuget/reference/errors-and-warnings/nu3042).
 
 Users can opt out of verification by setting the environment variable `DOTNET_NUGET_SIGNATURE_VERIFICATION` to `false`. Please give your [feedback to help the NuGet team improve the experience on Linux!](https://github.com/NuGet/Home/issues)
 
