@@ -2,14 +2,14 @@
 post_title: Client Support for Calling WCF/CoreWCF with System.ServiceModel 6.0 Is Here! 
 author1: samsp@microsoft.com
 post_slug: wcf-client-60-has-been-released
-username: samsp
+username: samsp@microsoft.com
 microsoft_alias: samsp
 featured_image: CoreWCFImage.png
 categories: .NET, .NET Core, Support, WCF
 tags: System.ServiceModel, WCF, CoreWCF, WCF Client
 summary: The System.ServiceModel 6.0 packages have been released, they provide client suppport for calling into WCF and CoreWCF Services.
 desired_publication_date: 2023-05-16
-post_date: 2023-05-16 10:05:00
+post_date: 2023-05-18 10:05:00
 ---
 
 `System.ServiceModel.*` are a set of NuGet packages that provide the client functionality for calling into WCF or CoreWCF services from .NET applications. These packages, collectively known as the WCF Client, are developed and supported by Microsoft, and open-sourced at [https://github.com/dotnet/wcf](https://github.com/dotnet/wcf) 
