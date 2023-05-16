@@ -330,9 +330,6 @@ The `WebApplication.CreateSlimBuilder` API, introduced in .NET 8 Preview 3, init
 - Console logging
 - Logging configuration
 
-<a id="auth"></a>
-## Authentication and Authorization
-
 ### API template JSON configuration changes
 
 We introduced the new API project template in .NET 8 Preview 3. In Preview 4, projects created with this template using the `--aot` option, have changed to insert the app's source-generated `JsonSerializationContext` into the beginning of the `JsonSerializerOptions.TypeInfoResolverChain`. The previously generated code used the now-obsolete `JsonSerializerOptions.AddContext<T>` API and any project created with the Preview 3 version of the template should be updated to call the new API.
@@ -345,6 +342,9 @@ You can read more about the new `JsonSerializerOptions.TypeInfoResolverChain` AP
 Support for JSON serialization of `IAsyncEnumerable<T>` implementations implemented by the C# compiler is now supported, opening up their use in ASP.NET Core projects configured to publish native AOT. This is useful in scenarios where your route handler returns the result of calling an API that utilizes `IAsyncEnumerable<T>` and `yield return` to asynchonously return an enumeration, e.g. materializing rows from a database query ([example](https://github.com/aspnet/Benchmarks/blob/7058cf6424321ecf5cc1442f8e1a0a06fdd5a19f/src/BenchmarksApps/TodosApi/TodoApi.cs#L16-L17)).
 
 You can read more about the JSON serializer support for unspeakable types in the [.NET 8 Preview 4 blog post](https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-preview-4).
+
+<a id="auth"></a>
+## Authentication and Authorization
 
 ### Identity API endpoints
 
