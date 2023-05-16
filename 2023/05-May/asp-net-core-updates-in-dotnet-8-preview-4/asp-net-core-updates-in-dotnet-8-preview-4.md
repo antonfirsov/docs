@@ -66,9 +66,7 @@ For example, to render a page you might need to make a long running database que
 
 To enable streaming rendering, you'll first need to add the new Blazor script.
 
-```html
-<script src="_framework/blazor.web.js" suppress-error="BL9992"></script>
-```
+<pre><code class="language-html">&lt;script src="_framework/blazor.web.js" suppress-error="BL9992"&gt;&lt;/script&gt;</code></pre>
 
 Note that if you're adding this script to a Blazor component, like your layout component, you'll need to add the `suppress-error="BL9992"` attribute to avoid getting an error about using script tags in components.
 
@@ -354,7 +352,7 @@ We're excited to introduce `MapIdentityApi<TUser>()` which is an extension metho
 
 In addition to user registration and login, the identity API endpoints will support features like two-factor authentication and email verification in upcoming previews. You can find a list of planned features in the issues labeled [feature-token-identity](https://github.com/dotnet/aspnetcore/issues?q=is%3Aopen+label%3Afeature-token-identity+sort%3Aupdated-desc) on the ASP.NET Core GitHub repository.
 
-The following shows the `Program.cs` of an ASP.NET Core app that uses `MapIdentityApi` to enable both opaque bearer token and cookie authentication. To individually enable cookie or token authentication, you can call the existing `AddCookie` or the new `AddBearerToken` `AuthenticationBuilder` extension methods directly. Both are done for you by the `AddIdentityEndpoints` method below:
+The following shows the `Program.cs` of an ASP.NET Core app that uses `MapIdentityApi` to enable both opaque bearer token and cookie authentication. To individually enable cookie or token authentication, you can call the existing `AddCookie` or the new `AddBearerToken` `AuthenticationBuilder` extension methods directly. Both are done for you by the `AddIdentityApiEndpoints` method below:
 
 ```csharp
 // usings ... 
@@ -366,7 +364,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddDbContext<ApplicationDbContext>(
     options => options.UseSqlite(builder.Configuration["ConnectionString"]));
 
-builder.Services.AddIdentityEndpoints<IdentityUser>()
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 var app = builder.Build();
