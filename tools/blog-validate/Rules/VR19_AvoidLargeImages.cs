@@ -7,7 +7,7 @@ internal sealed class VR19_AvoidLargeImages : ValidationRule
 {
     public override void Validate(ValidationContext context)
     {
-        var thresholdBytes = 200 * 1024;
+        var thresholdBytes = 512 * 1024;
 
         var links = context.Document.Descendants<LinkInline>()
                                     .Where(i => i.IsImage);
