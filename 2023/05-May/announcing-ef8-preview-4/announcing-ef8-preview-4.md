@@ -11,7 +11,7 @@ tags: .net 8, ef core, efcore, ef8, entity framework
 post_date: 2023-05-16 10:00:00
 ---
 
-The fourth preview of Entity Framework Core (EF Core) 8 is [available on NuGet today](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/absoluteLatest)!
+The fourth preview of Entity Framework Core (EF Core) 8 is [available on NuGet today](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/8.0.0-preview.4.23259.3)!
 
 ## Basic information
 
@@ -221,7 +221,7 @@ That's the exact same SQL we saw above for a parameter - but applied to a column
 var tags = new[] { "Tag1", "Tag2" };
 
 var blogs = await context.Blogs
-    .Where(b => b.Tags.Intersect(tags).Count() >= tags.Length)
+    .Where(b => b.Tags.Intersect(tags).Count() >= 2)
     .ToArrayAsync();
 ```
 
@@ -333,7 +333,7 @@ The fourth preview brings primitive collection support for SQL Server and SQLite
 EF8 is distributed exclusively as a set of NuGet packages. For example, to add the SQL Server provider to your project, you can use the following command using the dotnet tool:
 
 ```bash
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version <VERSION>
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 8.0.0-preview.4.23259.3
 ```
 
 ## Installing the EF8 Command Line Interface (CLI)
@@ -343,13 +343,13 @@ The `dotnet-ef` tool must be installed before executing EF8 Core migration or sc
 To install the tool globally, use:
 
 ```bash
-dotnet tool install --global dotnet-ef --version <VERSION>
+dotnet tool install --global dotnet-ef --version 8.0.0-preview.4.23259.3
 ```
 
 If you already have the tool installed, you can upgrade it with the following command:
 
 ```bash
-dotnet tool update --global dotnet-ef --version <VERSION>
+dotnet tool update --global dotnet-ef --version 8.0.0-preview.4.23259.3
 ```
 
 ## The .NET Data Community Standup
@@ -370,8 +370,8 @@ The following links are provided for easy reference and access.
 
 - EF Core Community Standup Playlist: [aka.ms/efstandups](https://aka.ms/efstandups)
 - Main documentation: [aka.ms/efdocs](https://aka.ms/efdocs)
-- What's New in EF Core 8: [aka.ms/ef7-new](https://aka.ms/ef7-new)
-- What's New in EF Core 7: [aka.ms/ef8-new](https://aka.ms/ef8-new)
+- What's New in EF Core 8: [aka.ms/ef8-new](https://aka.ms/ef8-new)
+- What's New in EF Core 7: [aka.ms/ef7-new](https://aka.ms/ef7-new)
 - Issues and feature requests for EF Core: [github.com/dotnet/efcore/issues](https://github.com/dotnet/efcore/issues)
 - Entity Framework Roadmap: [aka.ms/efroadmap](https://aka.ms/efroadmap)
 - Bi-weekly updates: [aka.ms/ef-news](https://aka.ms/ef-news)
