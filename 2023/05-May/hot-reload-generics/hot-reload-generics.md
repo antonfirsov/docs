@@ -23,7 +23,7 @@ The supported generic scenarios for Hot Reload are:
 + Edit existing (static, instance) method on a (non)generic type.
 + Edit existing (static, instance) generic method on a (non)generic type.
 
-To test out these features yourself, you can download the latest Visual Studio 17.7 preview or the latest .NET 8 preview. Find out what else is coming for developers in Announcing .NET 8 Preview 4 and other posts on the .NET blog. (add links) Hot Reload is available for use anywhere you use .NET.
+To test out these features yourself, you can download the latest Visual Studio 17.7 preview or the latest .NET 8 preview. Hot Reload is available for use anywhere you use .NET.
 
 ### Example 1 - Add new static generic method to a non-generic type
 
@@ -92,4 +92,4 @@ The following issue was filed in GitHub: [Blazor Hot Reload generic](https://git
 
 ### Want More?
 
-Try this feature out today using .NET 8 preview 4 and Visual Studio preview 17.7 and let us know what other Rude Edits you want us to tackle via Help > Send Feedback > Suggest a Feature in Visual Studio, or on our [GitHub](https://github.com/dotnet/runtime/issues/new/choose)!
+Try this feature out today using .NET 8 Preview 4 and Visual Studio preview 17.7 and let us know what other Rude Edits you want us to tackle via Help > Send Feedback > Suggest a Feature in Visual Studio, or on our [GitHub](https://github.com/dotnet/runtime/issues/new/choose)!
