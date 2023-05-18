@@ -118,7 +118,8 @@ internal sealed class VR14_LinkShouldResolve : ValidationRule
     private static bool IsForwarded(HttpResponseMessage response)
     {
         return response.StatusCode == HttpStatusCode.Moved ||
-               response.StatusCode == HttpStatusCode.MovedPermanently;
+               response.StatusCode == HttpStatusCode.MovedPermanently ||
+               response.IsSuccessStatusCode;
     }
 
     private sealed class ValidationResult
