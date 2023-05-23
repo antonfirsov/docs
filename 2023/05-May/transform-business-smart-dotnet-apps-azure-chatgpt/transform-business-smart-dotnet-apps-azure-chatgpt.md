@@ -36,7 +36,7 @@ AI is at the core of Bing Chat. Bing Chat uses AI to take in complex queries, su
 
 Now that you have a sense of what intelligent applications are, let’s look at a sample application built with .NET, Azure, and ChatGPT.
 
-[video src="./dotnet-openai-chat-app.mp4"]
+[video src="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/05/dotnet-openai-chat-app.mp4"]
 
 Let’s say you have an internal enterprise knowledgebase which contains information about job roles, health care plans, and other business documents.
  
