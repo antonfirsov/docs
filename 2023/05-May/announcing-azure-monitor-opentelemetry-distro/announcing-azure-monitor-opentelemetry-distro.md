@@ -30,7 +30,7 @@ Before we get into the details of the Azure Monitor OpenTelemetry Distro, we wan
 
 With the help of the OpenTelemetry SDK, logging using ILogger now supports the automatic capturing of Activity IDs for correlation to traces, so all three signal types are now available for full end-to-end observability. The video shows how to see this correlation in Application Insights.
 
-![Log Correlation in Application Insights](dotnet_blog.mp4)
+[video src="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/05/dotnet_blog.mp4"]
 
 ## How to make OpenTelemetry easier to use on Azure?
 
