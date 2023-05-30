@@ -45,9 +45,11 @@ else
 
 This code requests microphone and speech recognition permissions, then starts listening for speech input, in a result it will set any recognised text to the `RecognitionText` variable.
 
-<video controls width="500" height="250">
-    <source src="SpeechToTextWindows.mp4" type="video/mp4" />
-</video>
+<center>
+
+[video width="540" height="540" mp4="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/05/SpeechToTextWindows-1.mp4"][/video]
+
+</center>
 
 When using `SpeechToText`, it captures and handles all exceptions while returning the result of the operation. However, if you prefer to specifically handle certain exceptions, such as when the user cancels the operation, you can enclose your code within a try/catch block and utilize the `EnsureSuccess` method:
 
