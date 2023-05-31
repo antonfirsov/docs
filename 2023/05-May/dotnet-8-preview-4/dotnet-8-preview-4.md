@@ -706,7 +706,7 @@ bool StartsWithHeader(Span<int> dst) => dst.StartsWith("text/html"u8);
 - [PR#84427](https://github.com/dotnet/runtime/pull/84427) improved the scalability of PGO instrumentation
 - We continued to improve JIT loop optimization capabilities. In preview 4, we improved reachability sets computation, [PR#84204](https://github.com/dotnet/runtime/pull/84204).
 
-## Community spotlight (Lachlan Ennis)
+## Community spotlight ([Lachlan Ennis](https://github.com/elachlan))
 
 ![Lachlan Ennis](lachlanennis.png)
 
