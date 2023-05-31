@@ -85,13 +85,11 @@ internal static class Program
 post_title: {postTitle}
 author1: {authorInformation.WordPressUserName}
 post_slug: {postSlug}
-username: {authorInformation.WordPressUserName}
 microsoft_alias: {authorInformation.MicrosoftAlias}
 featured_image: image.png
 categories: {string.Join(", ", categories)}
 tags: tag1, tag2, tag3
 summary: Summary of your post, shown on the home page next to the featured image
-desired_publication_date: {desiredPublicationDate:yyyy-MM-dd}
 post_date: {desiredPublicationDate:yyyy-MM-dd} 10:05:00
 ---
 
