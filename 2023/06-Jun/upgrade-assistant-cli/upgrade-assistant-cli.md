@@ -20,7 +20,7 @@ The .NET Upgrade Assistant is a tool that helps you upgrade your application to 
 
 We have just updated the [.NET Upgrade Assistant CLI tool](https://learn.microsoft.com/dotnet/core/porting/upgrade-assistant-install#install-the-net-global-tool) with a new engine used in the Visual Studio extension of Upgrade Assistant. Now you can port any type of app and leverage the power of AI in your upgrading journey.
 
-[video src="upgrade-assistant-cli.mp4"]
+[video src="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/05/upgrade-assistant-cli.mp4"]
 
 To install this global .NET tool, use the following command:
 
