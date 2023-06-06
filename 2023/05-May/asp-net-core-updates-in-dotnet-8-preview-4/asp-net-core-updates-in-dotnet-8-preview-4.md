@@ -348,7 +348,7 @@ You can read more about the JSON serializer support for unspeakable types in the
 
 ### Identity API endpoints
 
-We're excited to introduce `MapIdentityApi<TUser>()` which is an extension method adds two new API endpoints (`/register` and `/login`). The main goal of the `MapIdentityApi` is to make it easy for developers to use ASP.NET Core Identity for authentication in JavaScript-based single page apps (SPA) or Blazor apps. Instead of using the default UI provided by ASP.NET Core Identity, which is based on Razor Pages, `MapIdentityApi` adds JSON API endpoints that are more suitable for SPA apps and non-browser apps.
+We're excited to introduce `MapIdentityApi<TUser>()` which is an extension method that adds two new API endpoints (`/register` and `/login`). The main goal of the `MapIdentityApi` is to make it easy for developers to use ASP.NET Core Identity for authentication in JavaScript-based single page apps (SPA) or Blazor apps. Instead of using the default UI provided by ASP.NET Core Identity, which is based on Razor Pages, `MapIdentityApi` adds JSON API endpoints that are more suitable for SPA apps and non-browser apps.
 
 In addition to user registration and login, the identity API endpoints will support features like two-factor authentication and email verification in upcoming previews. You can find a list of planned features in the issues labeled [feature-token-identity](https://github.com/dotnet/aspnetcore/issues?q=is%3Aopen+label%3Afeature-token-identity+sort%3Aupdated-desc) on the ASP.NET Core GitHub repository.
 
