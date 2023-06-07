@@ -2,7 +2,7 @@
   "profiles": {
     "blog-validate": {
       "commandName": "Project",
-      "commandLineArgs": "P:\\blog"
+      "commandLineArgs": "../.."
     }
   }
 }

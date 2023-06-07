@@ -27,8 +27,8 @@ internal sealed class VR02_MetadataRequired : ValidationRule
             if (string.IsNullOrEmpty(context.FrontMatter.MicrosoftAlias))
                 MustSpecifyField(context, BlogFrontMatterFields.MicrosoftAlias);
 
-            if (context.FrontMatter.DesiredPublicationDate == null)
-                MustSpecifyField(context, BlogFrontMatterFields.DesiredPublicationDate);
+            if (context.FrontMatter.PostDate == null)
+                MustSpecifyField(context, BlogFrontMatterFields.PostDate);
 
             static void MustSpecifyField(ValidationContext context, string field, string? text = null)
             {

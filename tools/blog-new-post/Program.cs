@@ -57,7 +57,7 @@ internal static class Program
         var postTitle = AnsiConsole.Ask<string>("What's the post [cyan]title[/]?");
         var postName = AnsiConsole.Ask("What's the post [cyan]name[/] (used for md file name)?", GetDefaultPostName(postTitle));
         var postSlug = AnsiConsole.Ask("What's the post [cyan]slug[/] (used on blog in wordpress)?", GetDefaultPostName(postTitle));
-        var desiredPublicationDate = AnsiConsole.Ask("What's the desired [cyan]publication date[/]? Please give several days for review and SEO optimization.", GetDefaultPublicationDate());
+        var postDate = AnsiConsole.Ask("What's the desired [cyan]publication date[/]? Please give several days for review and SEO optimization.", GetDefaultPublicationDate());
 
         var categories = AnsiConsole.Prompt(
             new MultiSelectionPrompt<string>()
@@ -70,7 +70,7 @@ internal static class Program
             )
         );
 
-        var path = $"{desiredPublicationDate.Year}/{desiredPublicationDate:MM-MMM}/{postName}/{postName}.md";
+        var path = $"{postDate.Year}/{postDate:MM-MMM}/{postName}/{postName}.md";
 
         if (File.Exists(path))
         {
@@ -90,7 +90,7 @@ featured_image: image.png
 categories: {string.Join(", ", categories)}
 tags: tag1, tag2, tag3
 summary: Summary of your post, shown on the home page next to the featured image
-post_date: {desiredPublicationDate:yyyy-MM-dd} 10:05:00
+post_date: {postDate:yyyy-MM-dd} 10:05:00
 ---
 
 This is the introduction to your post. It's the post's first paragraph. Don't

@@ -16,16 +16,16 @@ public sealed class BlogFrontMatter
     public string? Summary { get; set; }
     public string? MicrosoftAlias { get; set; }
 
-    [YamlMember(Alias = "desired_publication_date")]
+    [YamlMember(Alias = "post_date")]
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public string? DesiredPublicationDateText { get; set; }
+    public string? PostDateText { get; set; }
 
     [YamlIgnore]
-    public DateTime? DesiredPublicationDate
+    public DateTime? PostDate
     {
         get
         {
-            if (!DateTime.TryParse(DesiredPublicationDateText, out var date))
+            if (!DateTime.TryParse(PostDateText, out var date))
                 return null;
 
             return date;

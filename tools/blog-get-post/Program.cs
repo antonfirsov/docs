@@ -192,7 +192,7 @@ internal static class Program
                     $"pull_request_is_merged={pullRequestIsMerged.ToString().ToLower()}",
                     $"title={frontMatter.PostTitle}",
                     $"alias={frontMatter.MicrosoftAlias}",
-                    $"date={frontMatter.DesiredPublicationDate?.ToString("yyyy-MM-dd")}",
+                    $"date={frontMatter.PostDate?.ToString("yyyy-MM-dd")}",
                 }
             );
         }
@@ -202,7 +202,7 @@ internal static class Program
         Console.WriteLine($"pull_request_is_merged = {pullRequestIsMerged.ToString().ToLower()}");
         Console.WriteLine($"title = {frontMatter.PostTitle}");
         Console.WriteLine($"alias = {frontMatter.MicrosoftAlias}");
-        Console.WriteLine($"date = {frontMatter.DesiredPublicationDate?.ToString("yyyy-MM-dd")}");
+        Console.WriteLine($"date = {frontMatter.PostDate?.ToString("yyyy-MM-dd")}");
         return 0;
     }
 }
