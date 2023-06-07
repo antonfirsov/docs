@@ -95,24 +95,12 @@ To upgrade your Xamarin.Forms app to .NET MAUI:
 
 Azure Functions is a serverless compute platform that enables you to run code without provisioning or managing infrastructure. There are four major versions of Azure Functions: 1.x, 2.x, 3.x, and 4.x. Each version has its own set of features and capabilities.
 
-- **Version 1.x** is the oldest version of Azure Functions. It is no longer supported and should not be used for new development.
+- **Version 1.x** is the oldest version of Azure Functions. It is still supported for .NET Framework but should not be used for new development.
+- **Version 2.x** is a major upgrade from version 1.x and includes a number of new features, such as support for multiple languages, improved performance, and a more flexible deployment model.
+- **Version 3.x** is a major upgrade from version 2.x and includes a few new features, such as improved integration with Azure Event Grid.
+- **Version 4.x** is a major upgrade from version 3.x and includes a number of new features, such as support for .NET 6, improved performance, and a more secure architecture.
 
-- **Version 2.x** was released in 2017. It is a major upgrade from version 1.x and includes a number of new features, such as support for multiple languages, improved performance, and a more flexible deployment model.
-
-- **Version 3.x** was released in 2018. It is a minor update to version 2.x and includes a few new features, such as support for Azure Durable Functions and improved integration with Azure Event Grid.
-
-- **Version 4.x** was released in 2020. It is a major upgrade from version 3.x and includes a number of new features, such as support for .NET 6, improved performance, and a more secure architecture.
-
-Also different versions of Azure Functions are supported in different .NET versions. The following table summarizes the key differences between the different versions of Azure Functions:
-
-| Feature | Version 1.x | Version 2.x | Version 3.x | Version 4.x |
-|--------------|-----------|------------|------------|------------|
-| Supported .NET | .NET Framework 4.6.1 or later | .NET Core 2.1 or later | .NET Core 3.1 or later  | .NET 6 or later |
-| Supported languages | C#, JavaScript, Python, PowerShell | C#, JavaScript, Python, PowerShell, Java | C#, JavaScript, Python, PowerShell, Java | C#, JavaScript, Python, PowerShell, Java, Go |
-| Performance | Good  | Better | Best | Best |
-| Deployment model | Isolated | Isolated | Isolated | Isolated or shared |
-| Features | Basic | Advanced | Advanced | Advanced |
-| Support | End of life | Active | Active | Active |
+Each version of Azure Functions supports specific versions of .NET. You can find more information in the [documentation](https://learn.microsoft.com/azure/azure-functions/migrate-version-1-version-4?tabs=v4%2Cazure-cli%2Cwindows&pivots=programming-language-csharp).
 
 When you are upgrading your Azure Functions project to the latest .NET, the tool will automatically upgrade the version of Azure Functions to **v4** isolated since it is the best and recommended version.
 
