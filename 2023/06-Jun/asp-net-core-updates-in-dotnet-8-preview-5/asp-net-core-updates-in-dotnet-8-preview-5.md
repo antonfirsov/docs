@@ -60,11 +60,11 @@ See also the full list of [breaking changes](https://docs.microsoft.com/dotnet/c
 
 **.NET 7**
 
-![ASP.NET Core debugging before](httpcontext-debugging-before.png)
+![ASP.NET Core debugging before](https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/06/httpcontext-debugging-before.png)
 
 **.NET 8**
 
-![ASP.NET Core debugging after](httpcontext-debugging-after.png)
+![ASP.NET Core debugging after](https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/06/httpcontext-debugging-after.png)
 
 We want to keep improving ASP.NET Core debugging. If you have suggestions about other commonly used or hard-to-debug types, let us know in the comments or on [the aspnetcore GitHub repo](https://github.com/dotnet/aspnetcore/issues/48205).
 
