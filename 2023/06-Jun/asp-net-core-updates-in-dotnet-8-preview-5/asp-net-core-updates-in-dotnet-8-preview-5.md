@@ -23,7 +23,7 @@ Here's a summary of what's new in this preview release:
 - [Blazor](#blazor)
     - New Blazor Web App project template
     - Blazor router integration with endpoint routing
-    - Blazor Server interactive render mode
+    - Enable interactivity for individual components with Blazor Server
     - Improved packaging of Webcil files
     - Blazor Content Security Policy (CSP) compatibility
 - [API authoring](#api-authoring)
@@ -208,12 +208,12 @@ The root `App` component in the Blazor Web App template defines the root HTML co
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>BlazorApp71</title>
+    <title>BlazorWebApp1</title>
     <base href="/" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
     <link rel="icon" type="image/png" href="favicon.png" />
-    <link href="BlazorApp71.styles.css" rel="stylesheet" />
+    <link href="BlazorWebApp1.styles.css" rel="stylesheet" />
     <HeadOutlet />
 </head>
 
@@ -245,7 +245,7 @@ The new Blazor Web App template includes a couple of sample pages with routes. *
 
 Note that each page navigation currently requires a full page load. By default the app isn't set up for client routing, and we haven't added support for enhanced page navigation yet. Enhanced navigation is coming soon in a future .NET 8 preview.
 
-### Blazor Server interactive render mode
+### Enable interactivity for individual components with Blazor Server
 
 In .NET 8 Preview 5 we can now enable interactivity for individual components using the Blazor Server rendering mode. You can enable interactivity with Blazor Server using the `AddServerComponents` extension method, and then enable interactivity for specific components using the new `[RenderModeServer]` attribute.
 
