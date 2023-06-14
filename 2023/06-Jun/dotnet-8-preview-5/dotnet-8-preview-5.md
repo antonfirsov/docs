@@ -165,9 +165,9 @@ If necessary, you can opt out of Dynamic PGO via
 
 in your `.csproj` or via similar settings in the runtime config or environment.
 
-### NativeAOT: Optimized ThreadStatic field access for GC-type
+### Optimized ThreadStatic field access for GC-type
 
-Field accesses that are marked as [`ThreadStaticLocal` are now optimized for primitive types](https://github.com/dotnet/runtime/pull/82973). Reference type fields have been [optimized](https://github.com/dotnet/runtime/pull/85619) as well. These changes have led some really good improvements in a number of benchmarks: ([133 on windows/arm64](https://github.com/dotnet/perf-autofiling-issues/issues/17925), [23 on windows/x64](https://github.com/dotnet/perf-autofiling-issues/issues/17801), [16](https://github.com/dotnet/perf-autofiling-issues/issues/17908), [13](https://github.com/dotnet/perf-autofiling-issues/issues/17798), [11](https://github.com/dotnet/perf-autofiling-issues/issues/17855) improvements).
+Field accesses that are marked as [`ThreadStaticLocal` are now optimized for primitive types](https://github.com/dotnet/runtime/pull/82973). With [PR#85619](https://github.com/dotnet/runtime/pull/85619), we have optimized reference type field access as well. These changes have led some really good improvements in a number of benchmarks: ([133 on windows/arm64](https://github.com/dotnet/perf-autofiling-issues/issues/17925), [23 on windows/x64](https://github.com/dotnet/perf-autofiling-issues/issues/17801), [16](https://github.com/dotnet/perf-autofiling-issues/issues/17908), [13](https://github.com/dotnet/perf-autofiling-issues/issues/17798), [11](https://github.com/dotnet/perf-autofiling-issues/issues/17855) improvements).
 
 ### Arm64
 
