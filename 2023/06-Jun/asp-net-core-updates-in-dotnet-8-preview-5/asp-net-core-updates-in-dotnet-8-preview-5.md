@@ -133,6 +133,8 @@ public interface IExceptionHandler
 }
 ```
 
+Thanks to [Arvin Kahbazi](https://github.com/Kahbazi) for contributing this feature!
+
 <a id="signalr"></a>
 
 ## SignalR
