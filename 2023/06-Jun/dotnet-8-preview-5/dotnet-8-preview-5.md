@@ -58,7 +58,7 @@ Consumers can now use the code below to create a meter factory and use it to eas
 
 ### Enabling the creation of Meters and Instruments with Tags
 
-Meters and Instruments [can also be created]((https://github.com/dotnet/runtime/pull/86740) with attached key-value pair tags. This feature allows aggregators of published metric measurements to differentiate the aggregated values based on these tags.
+Meters and Instruments [can also be created](https://github.com/dotnet/runtime/pull/86740) with attached key-value pair tags. This feature allows aggregators of published metric measurements to differentiate the aggregated values based on these tags.
 
 ```C#
             MeterOptions options = new MeterOptions("name")
