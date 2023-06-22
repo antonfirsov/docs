@@ -59,7 +59,7 @@ This year's conference will highlight discussions on diverse topics, including:
             </td>
             <td>
                 <img src="https://fsharpconf.com/photos/kathleen.jpg" width="50" />
-                <p>Kathleen Dollard</p>
+                <p>Kathleen Dollard, Vlad Zarytovskii, & Chet Husk</p>
             </td>
             <td>.NET Languages PM and Friends Talk About F#</td>
         </tr>
