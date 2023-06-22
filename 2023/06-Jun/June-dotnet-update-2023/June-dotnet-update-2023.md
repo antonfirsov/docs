@@ -1,13 +1,45 @@
 ---
-post_title: .NET June 2023 Updates – .NET 7.0.7, .NET 6.0.18
+post_title: .NET June 2023 Updates – .NET 7.0.8, .NET 6.0.19
 author1: rbhanda@microsoft.com
 post_slug: june-2023-updates
 username: rbhanda@microsoft.com
 microsoft_alias: rbhanda
 featured_image: dotnet-bot_handybot.png
 categories: .NET, Maintenance & Updates, .NET Core
-summary: Check out June 2023 updates for .NET 7.0 and .NET 6.0
-post_date: 2023-06-13 12:00:00
+summary: Check out latest June 2023 updates for .NET 7.0 and .NET 6.0
+post_date: 2023-06-22 12:00:00
+---
+
+## Update -- June 22, 2023
+
+We have released a second update this month to address a regression in our earlier release (June 13th). The new versions are .NET 6.0.19 and .NET 7.0.8. The regression is functional and doesn't require action on your part unless you are affected by the issue.
+
+### Regression 
+The NET 6.0.18 and 7.0.7 updates update added constraints to PFX certificate loading to fix a DoS vulnerability (CVE-2023-29331). We created a specific exception message with a link to a known issue KB https://support.microsoft.com/kb/5025823 to describe these behavioral changes.
+
+We learned from customer reports during the week of June 13, 2023 that .NET 6.0.18 and 7.0.7 may fail to import PKCS12 blobs whose private keys are protected by a null password. Callers may non-deterministically observe a `CryptographicException` being thrown by the `X509Certificate` constructor on those runtimes. This regression was unintentional and a fix is being offered for affected applications.
+
+Also documented at [.NET June OOB Updates][KB-Number].
+
+### Download Update
+
+
+You can download [7.0.8](https://dotnet.microsoft.com/download/dotnet/7.0) and [6.0.19](https://dotnet.microsoft.com/download/dotnet/6.0) versions for Windows, macOS, and Linux, for x86, x64, Arm32, and Arm64.
+
+* Installers and binaries: [7.0.8](https://dotnet.microsoft.com/download/dotnet/7.0) | [6.0.19](https://dotnet.microsoft.com/download/dotnet/6.0) 
+* Release notes: [7.0.8](https://github.com/dotnet/core/blob/main/release-notes/7.0/7.0.8/7.0.8.md) | [6.0.19](https://github.com/dotnet/core/blob/main/release-notes/6.0/6.0.19/6.0.19.md) | 
+* [Container images](https://mcr.microsoft.com/catalog?search=dotnet/)
+* Linux packages: [7.0.8](https://github.com/dotnet/core/blob/main/release-notes/7.0/install-linux.md) | [6.0.19](https://github.com/dotnet/core/blob/main/release-notes/6.0/install-linux.md)
+* [Release feedback/issue](https://github.com/dotnet/core/issues/XXXX)
+
+### Do I need to install 6.0.19 / 7.0.8?
+
+There is no need to install these updates unless you are affected by the functional regression listed at [KB5028608](https://support.microsoft.com/kb/5028608). If you are not affected by the functional regression described above, you can safely remain on 6.0.18 / 7.0.7. 
+
+### Is 6.0.19 / 7.0.8 a security update?
+
+No. These updates contain no new security fixes beyond what already shipped in 6.0.18 / 7.0.7. As long as you are running at least 6.0.18 or 7.0.7, you are protected with all of the latest available security fixes.
+
 ---
 
 Today, we are releasing the [.NET June 2023 Updates](https://github.com/dotnet/announcements/issues/xxxx). These updates contain security and non-security improvements. [Your app may be vulnerable](https://github.com/dotnet/core/blob/main/release-notes/6.0/cve.md) if you have not deployed a recent .NET update.
@@ -115,4 +147,5 @@ See release notes for Visual Studio compatibility for [.NET 7.0](https://github.
 [wpf-7-0-7]: https://github.com/dotnet/wpf/issues?q=milestone%3A7.0.7+is%3Aclosed+label%3Aservicing-approved+
 [wpf-6-0-18]: https://github.com/dotnet/wpf/issues?q=milestone%3A6.0.18+is%3Aclosed+label%3Aservicing-approved+
 [templating-7-0-7]: https://github.com/dotnet/templating/issues?q=milestone%3A7.0.7+is%3Aclosed+label%3Aservicing-approved+
+[KB-Number]: https://support.microsoft.com/kb/5028608
 
