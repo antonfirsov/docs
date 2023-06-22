@@ -176,10 +176,9 @@ This year's conference will highlight discussions on diverse topics, including:
             </td>
             <td>
                 <img src="https://fsharpconf.com/photos/don.png" width="50" />
-                <p>Don Syme</p>
+                <p>TBA - You Don't Want to Miss This!</p>
             </td>
-            <td>A Brief Appearance of a Mystery Guest
-                (TBA)</td>
+            <td>A Brief Appearance of a Mystery Guest</td>
         </tr>
         <tr>
             <td>
@@ -243,7 +242,7 @@ This year's conference will highlight discussions on diverse topics, including:
             </td>
             <td>
                 <img src="https://fsharpconf.com/photos/prague-fsharp.jpg" width="50" />
-                <p>F# Team - MSFT Prague</p>
+                <p>Petr Pokorny, Petr Semkin, Adam Boniecki, Tomas Grosupe</p>
             </td>
             <td>News From the dotnet/fsharp
                 Repository</td>
