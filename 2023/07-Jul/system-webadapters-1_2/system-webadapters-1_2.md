@@ -1,8 +1,7 @@
 ---
 post_title: Introducing System.Web Adapters v1.2 with new APIs and scenarios
-author1: twsouthwick
+author1: tasou
 post_slug: systemweb-adapters-1_2
-username: twsouthwick
 microsoft_alias: tasou
 featured_image: dotnet-bot_scene_archaeologists.png
 categories: .NET, .NET Core, .NET Framework, ASP.NET, ASP.NET Core
