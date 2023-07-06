@@ -1,17 +1,18 @@
 ---
-post_title: Improvements to the Caching Abstraction in .NET
+post_title: Improvements to the Caching Abstraction in ASP.NET Core
 author1: cawa
 author2: marcgravell
 post_slug: caching-abstraction-improvements-in-aspnetcore
 username: cawa@microsoft.com
 microsoft_alias: cawa
-featured_image: dotnet-bot_handybot.png
-categories: .NET, .NET Core
+featured_image: using-statement.png
+categories: .NET, .NET Core, ASP.NET, ASP.NET Core
+tags: redis, caching
 summary: We are updating caching in ASP.NET Core to be more intuitive and reliable
-post_date: 2023-07-06 10:00:00
+post_date: 2023-07-07 10:00:00
 ---
 
-We are improving the caching abstraction in .NET to make it more intuitive and reliable. This blog showcases [a sample project](https://github.com/mgravell/DistributedCacheDemo) with reusable extension methods for [Distributed Caching](https://learn.microsoft.com/aspnet/core/performance/caching/distributed?view=aspnetcore-7.0) to greatly simplify the repetitive code on object serialization when setting cached values. It also provides guidance on best practices so developers can focus on business logic. We are actively working on bringing this experience into the .NET framework, ETA post .NET 8.
+We are improving the caching abstraction in .NET to make it more intuitive and reliable. This blog showcases [a sample project](https://github.com/mgravell/DistributedCacheDemo) with reusable extension methods for [Distributed Caching](https://learn.microsoft.com/aspnet/core/performance/caching/distributed?view=aspnetcore-7.0) to greatly simplify the repetitive code on object serialization when setting cached values. It also provides guidance on best practices so developers can focus on business logic. We are actively working on bringing this experience into the .NET and our current ETA is post .NET 8, but we wanted to share early progress and get feedback.
 
 ## Background
 
@@ -46,20 +47,20 @@ The [WeatherAPI-DistributedCache](https://github.com/CawaMS/WeatherAPI-Distribut
 
 1. Add the [Distributed Cache service](https://github.com/CawaMS/WeatherAPI-DistributedCache/blob/319b4dfca458812ef66dff734ab2a32311033bae/Program.cs#L4) in `Program.cs` by:
 
-1. Adding [Microsoft.Extensions.Caching.StackExchangeRedis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis) to your project
-2. Adding the following code:
+   1. Adding [Microsoft.Extensions.Caching.StackExchangeRedis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis) to your project
+   1. Adding the following code:
 
-    ```C#
-    builder.Services.AddStackExchangeRedisCache(options =>
-
-    {
-
-    options.Configuration = builder.Configuration.GetConnectionString("MyRedisConStr");
-
-    options.InstanceName = "SampleInstance";
-
-    });
-    ```
+       ```C#
+       builder.Services.AddStackExchangeRedisCache(options =>
+   
+       {
+   
+       options.Configuration = builder.Configuration.GetConnectionString("MyRedisConStr");
+   
+       options.InstanceName = "SampleInstance";
+   
+       });
+       ```
 
 1. Use the extension methods in [Weather Controller class](https://github.com/CawaMS/WeatherAPI-DistributedCache/blob/main/Controllers/WeatherForecastController.cs) that contains business logic. Per **Figure 2,** include the using statement to access the extension methods.
 
