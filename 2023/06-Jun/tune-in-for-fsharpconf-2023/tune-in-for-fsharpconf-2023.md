@@ -61,7 +61,7 @@ This year's conference will highlight discussions on diverse topics, including:
                 <img src="https://fsharpconf.com/photos/kathleen.jpg" width="50" />
                 <p>Kathleen Dollard, Vlad Zarytovskii, & Chet Husk</p>
             </td>
-            <td>.NET Languages PM and Friends Talk About F#</td>
+            <td><a href="https://www.youtube.com/watch?v=yhM0qq4aUbA&list=PLdo4fOcmZ0oX_35CaKKDex9mNiN-tVaBn&index=1&pp=gAQBiAQB">.NET Languages PM and Friends Talk About F#</a></td>
         </tr>
         <tr>
             <td>
@@ -74,7 +74,7 @@ This year's conference will highlight discussions on diverse topics, including:
                 <img src="https://fsharpconf.com/photos/john.jpg" width="50" />
                 <p>John Azariah</p>
             </td>
-            <td>Scientific Computing with F#</td>
+            <td><a href="https://www.youtube.com/watch?v=ssvz6kdM4X8&list=PLdo4fOcmZ0oX_35CaKKDex9mNiN-tVaBn&index=2&pp=gAQBiAQB">Scientific Computing with F#</a></td>
         </tr>
         <tr>
             <td>
@@ -87,7 +87,7 @@ This year's conference will highlight discussions on diverse topics, including:
                 <img src="https://fsharpconf.com/photos/mark.jpg" width="50" />
                 <p>Mark Seemann with Tomas Petricek</p>
             </td>
-            <td>Discussion: Are Free Monads Really Free?</td>
+            <td><a href="https://www.youtube.com/watch?v=_0eLrObsBUY&list=PLdo4fOcmZ0oX_35CaKKDex9mNiN-tVaBn&index=3&pp=gAQBiAQB">Discussion: Are Free Monads Really Free?</a></td>
         </tr>
         <tr>
             <td>
@@ -100,7 +100,7 @@ This year's conference will highlight discussions on diverse topics, including:
                 <img src="https://fsharpconf.com/photos/james.jpg" width="50" />
                 <p>James Randall</p>
             </td>
-            <td>A Whirlwind Tour of Creating an F# Version of the Classic Wolfenstein 3D</td>
+            <td><a href="https://www.youtube.com/watch?v=GnRRETVa1qo&list=PLdo4fOcmZ0oX_35CaKKDex9mNiN-tVaBn&index=4&pp=gAQBiAQB">A Whirlwind Tour of Creating an F# Version of the Classic Wolfenstein 3D</a></td>
         </tr>
         <tr>
             <td>
@@ -113,7 +113,7 @@ This year's conference will highlight discussions on diverse topics, including:
                 <img src="https://fsharpconf.com/photos/amp.jpg" width="50" />
                 <p>Edgar Gonzalez, David Schaefer, Jimmy Byrd &amp; Florian Verdonck</p>
             </td>
-            <td>Amplifying F#</td>
+            <td><a href="https://www.youtube.com/watch?v=69VVSnng8TY&list=PLdo4fOcmZ0oX_35CaKKDex9mNiN-tVaBn&index=5&pp=gAQBiAQB">Amplifying F#</a></td>
         </tr>
         <tr>
             <td>
@@ -126,7 +126,7 @@ This year's conference will highlight discussions on diverse topics, including:
                 <img src="https://fsharpconf.com/photos/maxime.jpg" width="50" />
                 <p>Maxime Mangel</p>
             </td>
-            <td>Fable.Form: Unlock your Forms Super Powers</td>
+            <td><a href="https://www.youtube.com/watch?v=TI4qJzd4DkU&list=PLdo4fOcmZ0oX_35CaKKDex9mNiN-tVaBn&index=6&pp=gAQBiAQB">Fable.Form: Unlock your Forms Super Powers</a></td>
         </tr>
         <tr>
             <td>
@@ -139,7 +139,7 @@ This year's conference will highlight discussions on diverse topics, including:
                 <img src="https://fsharpconf.com/photos/lars.jpg" width="50" />
                 <p>Lars Furu Kjelsaas</p>
             </td>
-            <td>Handling a Complex Domain with Readable Code</td>
+            <td><a href="https://www.youtube.com/watch?v=C6zjm1I4Hyk&list=PLdo4fOcmZ0oX_35CaKKDex9mNiN-tVaBn&index=7&pp=gAQBiAQB">Handling a Complex Domain with Readable Code</a></td>
         </tr>
         <tr>
             <td>
@@ -152,7 +152,7 @@ This year's conference will highlight discussions on diverse topics, including:
                 <img src="https://fsharpconf.com/photos/chris.jpg" width="50" />
                 <p>Christopher Simon</p>
             </td>
-            <td>Ubiquitous F# in Contextive, the Ubiquitous Language Tool</td>
+            <td><a href="https://www.youtube.com/watch?v=bf1as7nTFEY&list=PLdo4fOcmZ0oX_35CaKKDex9mNiN-tVaBn&index=8&pp=gAQBiAQB">Ubiquitous F# in Contextive, the Ubiquitous Language Tool</a></td>
         </tr>
         <tr class="sep">
             <td>
@@ -178,7 +178,7 @@ This year's conference will highlight discussions on diverse topics, including:
                 <img src="https://fsharpconf.com/photos/don.png" width="50" />
                 <p>TBA - You Don't Want to Miss This!</p>
             </td>
-            <td>A Brief Appearance of a Mystery Guest</td>
+            <td><a href="https://www.youtube.com/watch?v=UVbfNyGnZa0&list=PLdo4fOcmZ0oX_35CaKKDex9mNiN-tVaBn&index=9&pp=gAQBiAQB">Don Syme Live at fsharpConf 2023</a></td>
         </tr>
         <tr>
             <td>
@@ -191,8 +191,7 @@ This year's conference will highlight discussions on diverse topics, including:
                 <img src="https://fsharpconf.com/photos/georg.jpg" width="50" />
                 <p>Georg Haaser</p>
             </td>
-            <td>FSharp.&shy;Data.&shy;Adaptive - Taming
-                Mutation/td>
+            <td><a href="https://www.youtube.com/watch?v=UThMnaRNvHQ&list=PLdo4fOcmZ0oX_35CaKKDex9mNiN-tVaBn&index=10&pp=gAQBiAQB">FSharp.Data.Adaptive - Taming Mutation</a></td>
         </tr>
         <tr>
             <td>
@@ -205,7 +204,7 @@ This year's conference will highlight discussions on diverse topics, including:
                 <img src="https://fsharpconf.com/photos/beth.jpg" width="50" />
                 <p>Beth Milhollin</p>
             </td>
-            <td>My Leap from R to F#</td>
+            <td><a href="https://www.youtube.com/watch?v=3NzoRsuaFx0&list=PLdo4fOcmZ0oX_35CaKKDex9mNiN-tVaBn&index=11&pp=gAQBiAQB">My Leap from R to F#</a></td>
         </tr>
         <tr>
             <td>
@@ -218,7 +217,7 @@ This year's conference will highlight discussions on diverse topics, including:
                 <img src="https://fsharpconf.com/photos/paul.png" width="50" />
                 <p>Paul Biggar</p>
             </td>
-            <td>Building Darklang in F#</td>
+            <td><a href="https://www.youtube.com/watch?v=83rWblCoopw&list=PLdo4fOcmZ0oX_35CaKKDex9mNiN-tVaBn&index=12&pp=gAQBiAQB">Building Darklang in F#</a></td>
         </tr>
         <tr>
             <td>
@@ -231,7 +230,7 @@ This year's conference will highlight discussions on diverse topics, including:
                 <img src="https://fsharpconf.com/photos/pawel.jpg" width="50" />
                 <p>Paweł Stadnicki</p>
             </td>
-            <td>City as a Function</td>
+            <td><a href="https://www.youtube.com/watch?v=hpWNqDeIHkQ&list=PLdo4fOcmZ0oX_35CaKKDex9mNiN-tVaBn&index=13&pp=gAQBiAQB">City as a Function</a></td>
         </tr>
         <tr>
             <td>
@@ -244,8 +243,7 @@ This year's conference will highlight discussions on diverse topics, including:
                 <img src="https://fsharpconf.com/photos/prague-fsharp.jpg" width="50" />
                 <p>Petr Pokorny, Petr Semkin, Adam Boniecki, Tomas Grosupe</p>
             </td>
-            <td>News From the dotnet/fsharp
-                Repository</td>
+            <td><a href="https://www.youtube.com/watch?v=AqxzG9zo2jg&list=PLdo4fOcmZ0oX_35CaKKDex9mNiN-tVaBn&index=14&pp=gAQBiAQB">News From the dotnet/fsharp Repository</a></td>
         </tr>
     </tbody>
 </table>
