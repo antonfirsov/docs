@@ -14,9 +14,9 @@ Join the F# Community online Monday, June 26th for the live streaming of the fou
 
 F# boasts a dynamic open-source community that contributes to an expansive range of libraries, tools, and applications. These span areas from web development frameworks and domain-driven development tools to data analytics and scientific computing. The aim of fsharpConf is to unite this community, facilitating a platform to explore both foundational principles and innovative ideas in the world of F#.
 
-<iframe width="752" height="423" src="https://www.youtube.com/embed/lHjJQoYTO5s" title="FSharpConf 2023 on YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="752" height="423" src="https://www.youtube.com/embed/videoseries?list=PLdo4fOcmZ0oX_35CaKKDex9mNiN-tVaBn" title="FSharpConf 2023 on YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-- **Where?** [.NET YouTube](https://www.youtube.com/watch?v=lHjJQoYTO5s), [fsharpconf.com](https://fsharpconf.com), [@fsharpconf on Twitter](https://twitter.com/fsharpconf) and [@fsharpconf@mastodon.social](https://mastodon.social/@fsharpconf)
+- **Where?** [.NET YouTube](https://www.youtube.com/playlist?list=PLdo4fOcmZ0oX_35CaKKDex9mNiN-tVaBn), [fsharpconf.com](https://fsharpconf.com), [@fsharpconf on Twitter](https://twitter.com/fsharpconf) and [@fsharpconf@mastodon.social](https://mastodon.social/@fsharpconf)
 - **When?** June 26, starting at 6am PST / 9am EST / 3pm CET
 - **What?** 14 x 30-minute talks and discussions on all things F#!
 
