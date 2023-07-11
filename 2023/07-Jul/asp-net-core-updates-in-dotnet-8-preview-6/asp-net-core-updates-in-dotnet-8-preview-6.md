@@ -338,12 +338,12 @@ app.MapGet("/", (HttpContext context, IAntiforgery antiforgery) =>
     return Results.Content(html, "text/html");
 });
 
-app.MapPost("/todo", async Task<Results<Ok<Todo>, BadRequest<string>>> ([FromForm] todo, HttpContext context, IAntiforgery antiforgery) =>
+app.MapPost("/todo", async Task<Results<Ok<Todo>, BadRequest<string>>> ([FromForm] Todo todo, HttpContext context, IAntiforgery antiforgery) =>
 {
     try
     {
         await antiforgery.ValidateRequestAsync(context);
-        return Results.Ok(Todo);
+        return Results.Ok(todo);
     }
     catch (AntiforgeryValidationException e)
     {
