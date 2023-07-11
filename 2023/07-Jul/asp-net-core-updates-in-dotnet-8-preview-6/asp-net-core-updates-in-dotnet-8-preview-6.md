@@ -40,7 +40,7 @@ For more details on the ASP.NET Core work planned for .NET 8 see the full [ASP.N
 
 To get started with ASP.NET Core in .NET 8 Preview 6, [install the .NET 8 SDK](https://dotnet.microsoft.com/next).
 
-If you're on Windows using Visual Studio, we recommend installing the latest [Visual Studio 2022 preview](https://visualstudio.com/preview). If you're using Visual Studio Code, you can try out the new [C# Dev Kit](https://devblogs.microsoft.com/visualstudio/announcing-csharp-dev-kit-for-visual-studio-code/). Visual Studio for Mac support for .NET 8 previews isn’t available at this time.
+If you're on Windows using Visual Studio, we recommend installing the latest [Visual Studio 2022 preview](https://visualstudio.com/preview). If you're using Visual Studio Code, you can try out the new [C# Dev Kit](https://devblogs.microsoft.com/visualstudio/announcing-csharp-dev-kit-for-visual-studio-code/). If you are on macOS, you can now develop using Visual Studio for Mac 17.6.1 after enabling the preview feature for .NET 8 in Preferences.
 
 ## Upgrade an existing project
 
