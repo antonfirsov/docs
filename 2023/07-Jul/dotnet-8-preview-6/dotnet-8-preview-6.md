@@ -6,7 +6,7 @@ username: juyoo@microsoft.com
 microsoft_alias: juyoo
 featured_image: dotnet-8-preview-6.png
 categories: .NET, .NET Core, ASP.NET Core, C#
-tags: .net 8, featured
+tags: .net 8, featured, featured-preview
 summary: We're thrilled to announce .NET 8 Preview 6 which is packed with plenty of library updates, a new WASM mode, more source generators, constant performance improvements, and NativeAOT support on iOS.
 post_date: 2023-07-11 10:05:00
 ---
