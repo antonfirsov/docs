@@ -33,8 +33,15 @@ public static class BlogMarkdown
                 .IgnoreUnmatchedProperties()
                 .Build();
 
-            frontMatter = deserializer.Deserialize<BlogFrontMatter>(yaml);
-            return true;
+            try
+            {
+                frontMatter = deserializer.Deserialize<BlogFrontMatter>(yaml);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         frontMatter = null;
