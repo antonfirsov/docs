@@ -343,18 +343,6 @@ Currently the COM source generator has the following limitations. We do not expe
 - No support for using the `new` keyword to activate a COM CoClass.
   - Use `LibraryImportAttribute` to P/Invoke to the `CoCreateInstance` API to activate the CoClass.
 
-## Support for HTTPS proxy
-https://github.com/dotnet/runtime/issues/31113
-
-While `HttpClient` supported various proxy types for a while, they all allows man-in-the-middle to see what site the client is connecting to. (even for HTTPS URIs) HTTPS proxy allows to create encrypted channel between client and the proxy so all the subsequent request can be handled with full privacy. 
-
-### HTTPS proxy usage
-
-* Unix: `export all_proxy=https://x.x.x.x:3218`
-* Windows: `set all_proxy=https://x.x.x.x:3218` 
-
-This can be also controlled programmatically via [WebProxy](https://learn.microsoft.com/dotnet/api/system.net.webproxy?view=net-7.0).
-
 ## System.Security: SHA-3 Support
 
 [Support for the SHA-3 hashing primitives](https://github.com/dotnet/runtime/issues/20342) is now available on platforms that offer SHA-3. This is currently Linux with OpenSSL 1.1.1+ and Windows 11 build 25324+.
