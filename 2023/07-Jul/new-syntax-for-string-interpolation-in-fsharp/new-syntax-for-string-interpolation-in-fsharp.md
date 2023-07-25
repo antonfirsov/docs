@@ -118,12 +118,12 @@ This could come up when working with a templating engine, perhaps something like
 <details>
 <summary>Code</summary>
 
-<pre><code class="language-fsharp">let template = $$$"""
-<div class="{{{classAttr}}}">
-  <p>{{title}}</p>
-  <div><img alt="item" src="{{itemImageUrl}}"></div>
-  <button type="button" class="add" (click)="add(item)">Add</button>
-</div>
+<pre><code class="language-html">let template = $$$"""
+&lt;div class=&quot;{{{classAttr}}}&quot;&gt;
+  &lt;p&gt;{{title}}&lt;/p&gt;
+  &lt;div&gt;&lt;img alt=&quot;item&quot; src=&quot;{{itemImageUrl}}&quot;&gt;&lt;/div&gt;
+  &lt;button type=&quot;button&quot; class=&quot;add&quot; (click)=&quot;add(item)&quot;&gt;Add&lt;/button&gt;
+&lt;/div&gt;
 """</code></pre>
 
 </details>
