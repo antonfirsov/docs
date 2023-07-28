@@ -5,9 +5,8 @@ post_slug: this is the slug that is in wordpress for the URL: 'csharp-11-is-awes
 microsoft_alias: Your Microsoft alias, without the domain, like 'immol'
 featured_image: image.png
 categories: .NET
+tags: tag1, tag2, tag3
 summary: Summary of your post, shown on the home page next to the featured image
-desired_publication_date: The date you want to publish the post, such as 'YYYY-MM-DD'
-tags: ios, .net maui, other tag
 post_date: The date you want to schedule in wordpress when merged, such as 2022-11-08 10:00:00
 ---
 
