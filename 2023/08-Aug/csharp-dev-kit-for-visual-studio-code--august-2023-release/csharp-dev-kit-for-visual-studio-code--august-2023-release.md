@@ -5,7 +5,7 @@ post_slug: csharp-dev-kit-for-visual-studio-code--august-2023-release
 microsoft_alias: midumont
 featured_image: CSharp-Dev-Kit-Logo.png
 categories: .NET
-tags: .NET, C#, Visual Studio Code
+tags: .NET, C#, Visual Studio Code, C# Dev Kit
 summary: The C# Dev Kit for Visual Studio Code experience just got better! Today we released an updated version of the C# extension for Visual Studio Code that provides language server support for C# Dev Kit.
 post_date: 2023-08-02 11:05:00
 ---
