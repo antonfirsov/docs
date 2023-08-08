@@ -23,6 +23,8 @@ The dates for [.NET Conf 2023](https://dotnetconf.net/) have been announced! Joi
 * [Known issues](https://github.com/dotnet/core/blob/main/release-notes/8.0/known-issues.md)
 * [GitHub issue tracker](https://github.com/dotnet/core/issues)
 
+> Note: .NET 8 Preview 7 is incompatible with [C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit). We're in the process of resolving it and will update this [tracking bug](https://github.com/microsoft/vscode-dotnettools/issues/318) with progress.
+
 There are several exciting posts you should check out as well:
 
 - [ASP.NET Core](https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-dotnet-8-preview-7) describes new token antiforgery middleware with API and Blazor support, identity API updates, native AOT improvements, and more.
