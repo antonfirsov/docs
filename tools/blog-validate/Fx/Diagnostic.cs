@@ -4,7 +4,7 @@ namespace Microsoft.DotNetBlog;
 
 internal class Diagnostic
 {
-    public Diagnostic(bool isWarning, string id, MarkdownDocument document, string fileName, SourceSpan span, string message)
+    public Diagnostic(bool isWarning, string id, MarkdownDocument document, string fileName, SourceSpan span, string message, string suggestion = "")
     {
         IsWarning = isWarning;
         Id = id;
@@ -12,6 +12,7 @@ internal class Diagnostic
         Span = span;
         LinePositionSpan = document.GetLinePosition(span);
         Message = message;
+        Suggestion = suggestion;
     }
 
     public bool IsWarning { get; }
@@ -20,4 +21,5 @@ internal class Diagnostic
     public SourceSpan Span { get; }
     public LinePositionSpan LinePositionSpan { get; }
     public string Message { get; }
+    public string Suggestion { get; set; }
 }

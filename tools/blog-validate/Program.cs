@@ -1,5 +1,5 @@
 ﻿using LibGit2Sharp;
-
+using Microsoft.DotNetBlog.Fx;
 using Mono.Options;
 
 namespace Microsoft.DotNetBlog;
@@ -168,6 +168,8 @@ internal static class Program
         var diagnostics = await ValidateAsync(rootDirectory, files, categories);
 
         var isInsideGitHubAction = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true";
+        var GitHubService = new GitHubService();
+        string validationSummary = "| Issue | File | Line | Message | Suggestion |\n| --- | --- | --- | --- | --- |\n";
 
         foreach (var d in diagnostics)
         {
@@ -179,6 +181,11 @@ internal static class Program
                 var line = d.LinePositionSpan.Start.Line + 1;
                 var col = d.LinePositionSpan.Start.Column + 1;
                 Console.WriteLine($"::{severity} file={path},line={line},col={col}::{d.Id}: {d.Message}");
+                validationSummary += $"| {(d.IsWarning ? "👀" : "❌")} {d.Id} | {Path.GetFileName(path)} | {line} | {d.Message} | {d.Suggestion} |\n";
+                if (!string.IsNullOrEmpty(d.Suggestion))
+                {
+                    await GitHubService.TryAddSuggestion(d.Suggestion, path, line);
+                }
             }
             else
             {
@@ -193,8 +200,18 @@ internal static class Program
             }
         }
 
-        var hasErrors = diagnostics.Any(d => !d.IsWarning);
-        return !hasErrors;
+        int errorCount = diagnostics.Count(d => !d.IsWarning);
+
+        if (isInsideGitHubAction)
+        {
+            if (errorCount > 0)
+            {
+                validationSummary = $"## {errorCount} error(s)\n\n All errors must be fixed before this pull request can be merged \n{validationSummary}";
+                await GitHubService.AddComment(validationSummary);
+            }
+        }
+
+        return errorCount == 0;
     }
 
     private static IEnumerable<string> FindMarkdownFiles(string directory, string[]? affectedFiles)

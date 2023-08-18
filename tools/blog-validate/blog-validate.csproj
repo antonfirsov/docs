@@ -12,6 +12,7 @@
     <PackageReference Include="LibGit2Sharp" Version="0.27.0-preview-0034" />
     <PackageReference Include="Markdig" Version="0.21.1" />
     <PackageReference Include="Mono.Options" Version="6.6.0.161" />
+    <PackageReference Include="Octokit" Version="7.0.1" />
     <PackageReference Include="YamlDotNet" Version="8.1.2" />
   </ItemGroup>
 

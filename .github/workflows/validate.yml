@@ -27,4 +27,6 @@ jobs:
       run: dotnet build tools/blog-tools.sln --configuration Release --no-restore --nologo
 
     - name: Validate
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}  
       run: dotnet run --project tools/blog-validate/blog-validate.csproj -- . --categories categories.txt --base-ref $GITHUB_BASE_REF --ref $GITHUB_SHA
