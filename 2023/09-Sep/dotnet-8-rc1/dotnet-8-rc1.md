@@ -25,7 +25,7 @@ The dates for [.NET Conf 2023](https://dotnetconf.net/) have been announced! Joi
 
 There are several exciting posts you should check out as well:
 
-- [ASP.NET Core Updates in .NET 8 RC1](https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-dotnet-8-preview-7)
+- [ASP.NET Core Updates in .NET 8 RC1](https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-dotnet-8-rc-1)
 - [.NET MAUI Updates in .NET 8 RC1](https://devblogs.microsoft.com/dotnet/announcing-dotnet-maui-in-dotnet-8-rc-1)
 - [Visual Studio 2022 17.8 Preview 2](https://aka.ms/vs/v178P2)
 - [Entity Framework Updates in .NET 8 RC1](https://devblogs.microsoft.com/dotnet/announcing-ef8-rc1)
