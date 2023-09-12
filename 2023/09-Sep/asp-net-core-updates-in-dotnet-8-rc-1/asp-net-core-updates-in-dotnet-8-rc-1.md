@@ -10,7 +10,7 @@ summary: .NET 8 Release Candidate 1 is now available! Check out what's new in AS
 post_date: 2023-09-12 10:05:00
 ---
 
-[.NET 8 Release Candidate 1 (RC1) is now available](https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-rc-1) and includes many great new improvements to ASP.NET Core!
+[.NET 8 Release Candidate 1 (RC1) is now available](https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-rc1) and includes many great new improvements to ASP.NET Core!
 
 This is the first of two release candidates that we plan to share before the final .NET 8 release later this year. Most of the planned features and changes for .NET 8 are part of this release candidate and are ready for you to try out. You can find the full list of [what's new in ASP.NET Core in .NET 8](https://learn.microsoft.com/aspnet/core/release-notes/aspnetcore-8.0) in the docs. A few areas (particularly Blazor) still have some significant changes pending. We expect to complete those changes for the next .NET 8 release candidate.
 
@@ -26,7 +26,7 @@ Here's a summary of what's new in this preview release:
     - Routing improvements
     - Trigger a page refresh
     - Pass through arbitrary attributes to `QuickGrid`
-    - Determine if a form field has associated validation messages
+    - Determine if a form field is valid
     - Configure the .NET WebAssembly runtime
     - Trim .NET IL after ahead-of-time (AOT) compilation
 - [Identity](#identity)
@@ -255,7 +255,7 @@ The `QuickGrid` component will now pass through any additional attributes to the
 
 Thank you [@ElderJames](https://github.com/ElderJames) for this contribution!
 
-### Determine if a form field has associated validation messages
+### Determine if a form field is valid
 
 The new `EditContext.IsValid(FieldIdentifier)` API can be used to determine if a field is valid without having to get the validation messages.
 
