@@ -11,7 +11,7 @@ tags: .net 8, ef core, efcore, ef8, entity framework
 post_date: 2023-09-12 10:10:00
 ---
 
-The first release candidate of Entity Framework Core (EF Core) 8 is [available on NuGet today](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/8.0.0-rc.1.23453.1)!
+The first release candidate of Entity Framework Core (EF Core) 8 is [available on NuGet today](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/8.0.0-rc.1.23419.6)!
 
 ## Basic information
 
@@ -551,7 +551,7 @@ Complex type limitations in EF8 include:
 EF8 is distributed exclusively as a set of NuGet packages. For example, to add the SQL Server provider to your project, you can use the following command using the dotnet tool:
 
 ```bash
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 8.0.0-rc.1.23453.1
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 8.0.0-rc.1.23419.6
 ```
 
 ## Installing the EF8 Command Line Interface (CLI)
@@ -561,13 +561,13 @@ The `dotnet-ef` tool must be installed before executing EF8 Core migration or sc
 To install the tool globally, use:
 
 ```bash
-dotnet tool install --global dotnet-ef --version 8.0.0-rc.1.23453.1
+dotnet tool install --global dotnet-ef --version 8.0.0-rc.1.23419.6
 ```
 
 If you already have the tool installed, you can upgrade it with the following command:
 
 ```bash
-dotnet tool update --global dotnet-ef --version 8.0.0-rc.1.23453.1
+dotnet tool update --global dotnet-ef --version 8.0.0-rc.1.23419.6
 ```
 
 ## The .NET Data Community Standup
