@@ -44,8 +44,8 @@ namespace Microsoft.DotNetBlog.Fx
                           {body}
                           ```
                           """;
-            var comment = new PullRequestReviewCommentCreate(formattedBody, Commit, file, position);
             try {
+                var comment = new PullRequestReviewCommentCreate(formattedBody, Commit, file, position);
                 await client.PullRequest.ReviewComment.Create(Owner, Repo, PullRequestNumber, comment);
              }
             catch (Exception ex)
