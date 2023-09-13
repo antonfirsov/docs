@@ -19,13 +19,13 @@ internal sealed class VR25_AuthorsShouldBeValid : ValidationRule
             {
                 var isValid = await context.AuthorValidator.IsValidAsync(author); 
                 if (!isValid)
-                    context.Warning("VR25", span, $"{author} may not be valid, please login to WordPress and validate your username in your profile.");
+                    context.Warning("VR25", span, $"{author} may not be valid. Visit https://devblogs.microsoft.com/dotnet/wp-admin/profile.php and check the username field.");
             }
             catch (Exception ex)
             {
                 Console.WriteLine("exception");
                 Console.WriteLine(ex);
-                context.Warning("VR25", span, $"Unable to validate author username. Visit https://devblogs.microsoft.com/dotnet/wp-admin/profile.php and check the user name field.");
+                context.Warning("VR25", span, $"Unable to validate author username. Visit https://devblogs.microsoft.com/dotnet/wp-admin/profile.php and check the username field.");
             }
         }
     }
