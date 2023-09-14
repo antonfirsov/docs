@@ -103,6 +103,8 @@ See [Use HTTP/3 with the ASP.NET Core Kestrel web server](https://learn.microsof
 
 In .NET 8 Preview 7, we introduced support for [keyed services in DI](https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-preview-7/#keyed-services-support-in-microsoft-extensions-dependencyinjection). Starting in .NET 8 RC1, it's now possible to use keyed services in apps using minimal APIs, controller-based APIs, and SignalR hubs. To leverage the new keyed services support, annotate the target parameter with the `[FromKeyedServices("keyName")]` attribute.
 
+> Note: [Resolving keyed services in the constructor of an MVC controller or SignalR hub](https://github.com/dotnet/aspnetcore/issues/50687) is not currently supported.
+
 The following sample showcases this support in minimal APIs and controllers:
 
 ```csharp
