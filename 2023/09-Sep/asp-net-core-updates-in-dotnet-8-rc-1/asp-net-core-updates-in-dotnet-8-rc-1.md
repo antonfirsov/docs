@@ -301,9 +301,9 @@ If you hit any issues using this new trimming option for AOT compiled WebAssembl
 
 ## Identity
 
-### Removed `username` property
+### Removed `username` property from Identity API JSON payloads
 
-To simplify the mapped identity APIs and align more closely with the existing Identity UIs, the `username` property has been removed. Username and email are now the same and the field will be named `Email` moving forward (or `NewEmail` in the case of registering a user).
+To simplify `MapIdentityApi<TUser>()` and align more closely with the existing Identity UIs, the `username` property has been removed from request and response JSON payloads. Username and email are now the same and the field will be named `Email` moving forward (or `NewEmail` in the case of registering a user).
 
 <a id="spa"></a>
 
