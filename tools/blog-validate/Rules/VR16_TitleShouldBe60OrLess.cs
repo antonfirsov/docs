@@ -8,8 +8,8 @@ internal sealed class VR16_TitleShouldBe60OrLess : ValidationRule
         {
             var diagnosticSpan = context.Document.GetFrontMatterDiagnosticSpan(BlogFrontMatterFields.PostTitle);
 
-            if (context.FrontMatter.PostTitle?.Length > 60)
-                context.Warning("VR16", diagnosticSpan, "'post_title' should be 60 characters or less");
+            if (context.FrontMatter.PostTitle?.Length > 80)
+                context.Warning("VR16", diagnosticSpan, "'post_title' should be ideally be 80 characters or less for SEO optimizations.");
         }
     }
 }
