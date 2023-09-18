@@ -486,7 +486,7 @@ This is what an example session might look like:
     }
     ```
 
-1. Call a protected API using the token by setting the `Authentication` header of the request to `Bearer xxx` where `xxx` is the `access_token`.
+1. Call a protected API using the token by setting the `Authorization` header of the request to `Bearer xxx` where `xxx` is the `access_token`.
 1. When the user's credentials expire or are about to expire, **POST** to the `/refresh` endpoint and pass the `refresh_token`.
 
     ```json
