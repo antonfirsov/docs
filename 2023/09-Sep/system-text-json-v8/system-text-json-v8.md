@@ -42,7 +42,7 @@ public partial class MyContext : JsonSerializerContext { }
 
 ### Combining source generators
 
-The [contract customization](https://learn.microsoft.com/dotnet/standard/serialization/system-text-json/custom-contracts) feature was added in .NET 7 and added support for chaining source generators by means of the `JsonTypeInfoResolver.Combine` method. This makes it possible to combine contracts from multiple source generated contexts inside a single `JsonSerializerOptions` instance:
+The [contract customization](https://learn.microsoft.com/dotnet/standard/serialization/system-text-json/custom-contracts) feature introduced in .NET 7 added support for chaining source generators by means of the `JsonTypeInfoResolver.Combine` method. This makes it possible to combine contracts from multiple source generated contexts inside a single `JsonSerializerOptions` instance:
 
 ```csharp
 var options = new JsonSerializerOptions
@@ -99,7 +99,7 @@ async IAsyncEnumerable<int> Test()
 }
 
 [JsonSerializable(typeof(IAsyncEnumerable<int>))]
-internal partial class MyContext : JsonSerializerContext { }
+public partial class MyContext : JsonSerializerContext { }
 ```
 
 producing the error message
@@ -110,7 +110,7 @@ Metadata for type 'Program+<<<Main>$>g__Test|0_5>d' was not provided by TypeInfo
 
 This happens because the compiler-generated type `Program+<<<Main>$>g__Test|0_5>d` cannot be explicitly specified by the source generator.
 
-Starting with .NET 8, System.Text.Json will perform run-time nearest-ancestor resolution to determine the most appropriate supertype with which to serialize the value (in this case, `IAsyncEnumerable<int>`), making the above snippet work as expected outputting the JSON array:
+Starting with .NET 8, System.Text.Json will perform run-time nearest-ancestor resolution to determine the most appropriate supertype with which to serialize the value (in this case, `IAsyncEnumerable<int>`), making the above snippet output a JSON array as expected:
 
 ```text
 [0,1,2,3,4]
@@ -147,21 +147,33 @@ public partial class MyContext : JsonSerializerContext { }
 The [`JsonSourceGenerationOptions` attribute](https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonsourcegenerationoptionsattribute) lets users specify compile-time configuration for a small subset of settings available in the `JsonSerializerOptions` class. Users looking to configure the source generator using settings beyond what was available on the attribute needed to manually create a `JsonSerializerContext` instance:
 
 ```csharp
-var options = new JsonSerializerOptions(JsonSerializerDefaults.Web) { AllowTrailingCommas = true, DefaultBufferSize = 10 };
+var options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
+{
+    AllowTrailingCommas = true,
+    DefaultBufferSize = 10
+};
+
 var context = new MyContext(options);
 
+public record MyPoco(int Id, string Title);
+
 [JsonSerializable(typeof(MyPoco))]
-internal partial class MyContext : JsonSerializerContext {}
+public partial class MyContext : JsonSerializerContext { }
 ```
 
 The attribute has now been augmented with most settings available in `JsonSerializerOptions`, so the above can now be rendered as follows:
 
 ```csharp
-var context = MyContext.Default;
+MyContext context = MyContext.Default;
 
-[JsonSourceGenerationOptions(JsonSerializerDefaults.Web, AllowTrailingCommas = true, DefaultBufferSize = 10)]
+public record MyPoco(int Id, string Title);
+
+[JsonSourceGenerationOptions(
+    JsonSerializerDefaults.Web, 
+    AllowTrailingCommas = true, 
+    DefaultBufferSize = 10)]
 [JsonSerializable(typeof(MyPoco))]
-internal partial class MyContext : JsonSerializerContext {}
+public partial class MyContext : JsonSerializerContext {}
 ```
 
 ### Disabling reflection defaults
@@ -234,11 +246,11 @@ This release includes a large number of bug fixes, performance improvements, and
 * [dotnet/runtime#87980](https://github.com/dotnet/runtime/pull/87980) adds a number of new diagnostic warnings.
 * [dotnet/runtime#87136](https://github.com/dotnet/runtime/pull/87136) fixes a number of bugs related to accessibility modifier resolution.
 * [dotnet/runtime#87383](https://github.com/dotnet/runtime/pull/87383) ensures that types of ignored or inaccessible properties are not included by the generator.
-* [dotnet/runtime#87484](https://github.com/dotnet/runtime/pull/87484) fixes issues related to JsonNumberHandling support.
-* [dotnet/runtime#87632](https://github.com/dotnet/runtime/pull/87632) fixes support support for recursive collection types.
+* [dotnet/runtime#87484](https://github.com/dotnet/runtime/pull/87484) fixes issues related to `JsonNumberHandling` support.
+* [dotnet/runtime#87632](https://github.com/dotnet/runtime/pull/87632) fixes support for recursive collection types.
 * [dotnet/runtime#84208](https://github.com/dotnet/runtime/pull/84208) fixes custom converter support for nullable structs.
 * [dotnet/runtime#87796](https://github.com/dotnet/runtime/pull/87796) fixes a number of bugs in the compile-time attribute parsing implementation.
-* [dotnet/runtime#87829](https://github.com/dotnet/runtime/pull/87829) adds support for nesting JsonSerializerContext declarations within arbitrary type kinds.
+* [dotnet/runtime#87829](https://github.com/dotnet/runtime/pull/87829) adds support for nesting `JsonSerializerContext` declarations within arbitrary containing types.
 
 ## Populate read-only members
 
@@ -305,7 +317,21 @@ public class MyPoco
 }
 ```
 
-or the corresponding property on `JsonSourceGenerationOptionsAttribute` in the source generator.
+or the corresponding property on `JsonSourceGenerationOptionsAttribute` if using the source generator:
+
+```csharp
+MyPoco result = JsonSerializer.Deserialize("""{ "Values" : [1,2,3] }""", MyContext.Default.MyPoco);
+Console.WriteLine(result.Values.Count); // 3
+
+public class MyPoco
+{
+    public IList<int> Values { get; } = new List<int>();
+}
+
+[JsonSourceGenerationOptions(PreferredObjectCreationHandling = JsonObjectCreationHandling.Populate)]
+[JsonSerializable(typeof(MyPoco))]
+public partial class MyContext : JsonSerializerContext { }
+```
 
 ### Final notes
 
@@ -359,27 +385,67 @@ Many thanks to [@YohDeadfall](https://github.com/YohDeadfall) for contributing t
 
 ## Interface hierarchy support
 
-System.Text.Json now supports serializing properties from interface hierarchies:
+The new version fixes support for interface hierarchy serialization. The code:
 
 ```csharp
-IDerived value = new Derived { Base = 0, Derived = 1 };
-JsonSerializer.Serialize(value); // {"Base":0,"Derived":1}
+IDerived value = new Implementation { Base = 0, Derived = 1 };
+string json = JsonSerializer.Serialize(value);
+Console.WriteLine(json);
 
 public interface IBase
 {
-  public int Base { get; set; }
+    public int Base { get; set; }
 }
 
 public interface IDerived : IBase
 {
-  public int Derived { get; set; }
+    public int Derived { get; set; }
 }
 
-public class Derived : IDerived
+public class Implementation : IDerived
 {
-  public int Base { get; set; }
-  public int DerivedProp { get; set; }
+    public int Base { get; set; }
+    public int Derived { get; set; }
 }
+```
+
+Will output `{"Derived":1}` in .NET 7 and earlier versions. Starting with .NET 8 it will serialize all properties in the type hierarchy:
+
+```json
+{"Derived":1,"Base":0}
+```
+
+which is similar to how class hierarchies are handled.
+
+It should be noted that interface hierarchies admit multiple inheritance, so in rare cases where there are diamond ambiguities:
+
+```csharp
+IDiamond value = new Implementation { Value = 0 };
+string json = JsonSerializer.Serialize(value);
+Console.WriteLine(json);
+
+public interface IBase1
+{
+    public int Value { get; set; }
+}
+
+public interface IBase2
+{
+    public int Value { get; set; }
+}
+
+public interface IDiamond : IBase1, IBase2 { }
+
+public class Implementation : IDiamond
+{
+    public int Value { get; set; }
+}
+```
+
+the serializer will reject the type altogether:
+
+```text
+System.InvalidOperationException: The JSON property name for 'IDiamond.Value' collides with another property.
 ```
 
 ## Built-in support for `Half`, `Int128` and `UInt128`
@@ -395,12 +461,12 @@ Console.WriteLine(JsonSerializer.Serialize(new object[] { Half.MaxValue, Int128.
 
 `Memory<T>` and `ReadOnlyMemory<T>` are now supported out of the box, with semantics being equivalent to arrays:
 
-* Serializes to Base64 encoded JSON strings for `Memory<byte>`/`ReadOnlyMemory<byte>` values.
+* Serializes to Base64 encoded JSON strings for `Memory<byte>` and `ReadOnlyMemory<byte>` values.
 * Serializes to JSON arrays for all other types.
 
 ```csharp
-JsonSerializer.Serialize<Memory<int>>(new int[] { 1, 2, 3 }); // [1,2,3]
 JsonSerializer.Serialize<ReadOnlyMemory<byte>>(new byte[] { 1, 2, 3 }); // "AQID"
+JsonSerializer.Serialize<ReadOnlyMemory<int>>(new int[] { 1, 2, 3 }); // [1,2,3]
 ```
 
 ## Single-usage `JsonSerializerOptions` analyzer
@@ -413,11 +479,11 @@ JsonSerializer.Serialize<MyPoco>(value, new JsonSerializerOptions { WriteIndente
 
 will result in metadata caches being recomputed _on each serialization operation_. Even though we mitigated some of these performance issues in .NET 7 using a shared cache scheme, it is still the case that caching and reusing `JsonSerializerOptions` singletons in user code is the optimal course of action.
 
-For this purpose, we shipped analyzer [CA1869](https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1869) which will emit a relevant warning whenever it detects single-user options instances.
+For this purpose, we shipped analyzer [CA1869](https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1869) which will emit a relevant warning whenever it detects single-use options instances.
 
 ## Extend `JsonIncludeAttribute` and `JsonConstructorAttribute` support to non-public members
 
-The `JsonIncludeAttribute` and `JsonConstructorAttribute` are attributes that let users opt specific members into the serialization contract for a given type (properties/fields and constructors respectively). Until now these were limited to public members, but this has now been relaxed to include non-public members:
+The `JsonIncludeAttribute` and `JsonConstructorAttribute` are annotations that let users opt specific members into the serialization contract for a given type (properties/fields and constructors respectively). Until now these were limited to public members, but this has now been relaxed to include non-public members:
 
 ```csharp
 string json = JsonSerializer.Serialize(new MyPoco(42)); // {"X":42}
@@ -443,11 +509,11 @@ public class MyPoco
 }
 ```
 
-works as expected in the reflection serializer but will produce the [SYSLIB1038](https://learn.microsoft.com/dotnet/fundamentals/syslib-diagnostics/syslib1038) diagnostic if used with the source generator.
+works as expected in the reflection serializer, but is not supported by the source generator and will result in a [SYSLIB1038](https://learn.microsoft.com/dotnet/fundamentals/syslib-diagnostics/syslib1038) diagnostic warning being issued.
 
 ## `IJsonTypeInfoResolver.WithAddedModifier`
 
-This new [extension method](https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.jsontypeinforesolver.withaddedmodifier) enables making modifications to serialization contracts of arbitrary `IJsonTypeInfoResolver` instances:
+This new [extension method](https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.jsontypeinforesolver.withaddedmodifier) enables making modifications to serialization contracts of arbitrary `IJsonTypeInfoResolver` instances, including `JsonSerializerContext`:
 
 ```csharp
 var options = new JsonSerializerOptions
@@ -470,31 +536,41 @@ public record MyPoco(int value);
 public partial class MyContext : JsonSerializerContext { }
 ```
 
-In effect, this extends the [`DefaultJsonTypeInfoResolver.Modifiers`](https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.defaultjsontypeinforesolver.modifiers) API to arbitrary `IJsonTypeInfoResolver` instances.
+In effect, this extends the [`DefaultJsonTypeInfoResolver.Modifiers`](https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.defaultjsontypeinforesolver.modifiers) API to any `IJsonTypeInfoResolver` instance.
 
-## `JsonSerializerOptions.MakeReadOnly`
+## `JsonSerializerOptions.MakeReadOnly()`
 
-The `JsonSerializerOptions` has always had freezable semantics, in other words it is mutable until the first serialization operation happens, after which time it can no longer be modified. The newly added `MakeReadOnly` methods make it possible to explicitly freeze the instance for further modification without requiring a full-blown serialization operation:
+Since released, the `JsonSerializerOptions` type was designed to have freezable semantics. In other words, instances are mutable until the first serialization operation occurs, after which time they can no longer be modified.
+
+The newly added `MakeReadOnly` methods make it possible to explicitly freeze the instance for further modification without requiring a full-blown serialization operation:
 
 ```csharp
 static JsonSerializerOptions CreateDefaultOptions()
 {
     var options = new JsonSerializerOptions 
     { 
-        WriteIndented = true,
-        TypeInfoResolver = new DefaultJsonTypeInfoResolver() 
+        TypeInfoResolver = new DefaultJsonTypeInfoResolver(),
+        WriteIndented = true
     };
 
-    options.MakeReadOnly();
+    options.MakeReadOnly(); // prevent accidental modification outside the method
     return options;
 }
 ```
 
-The type also comes with an `IsReadOnly` property reflecting its current state.
+The type now also comes with an `IsReadOnly` property reflecting its current state:
+
+```csharp
+JsonSerializerOptions options = new();
+Console.WriteLine(options.IsReadOnly); // False
+
+JsonSerializer.Serialize("value", options);
+Console.WriteLine(options.IsReadOnly); // True
+```
 
 ## Additional `JsonNode` functionality
 
-The `JsonNode`` APIs now come with the following new methods:
+The `JsonNode` APIs now come with the following new methods:
 
 ```csharp
 namespace System.Text.Json.Nodes;
@@ -510,13 +586,13 @@ public partial class JsonNode
     // Determines the JsonValueKind of the current node.
     public JsonValueKind GetValueKind(JsonSerializerOptions options = null);
 
-    // If node is the value of a property in the parent object, returns its name. Throws InvalidOperationException otherwise.
+    // If node is the value of a property in the parent object, returns its name.
     public string GetPropertyName();
    
-    // If node is the element of a parent JsonArray, returns its index. Throws InvalidOperationException otherwise.
+    // If node is an element of a parent JsonArray, returns its index.
     public int GetElementIndex();
 
-    // Replaces this instance with a new value, updating the parent object/array accordingly.
+    // Replaces this instance with a new value, updating the parent node accordingly.
     public void ReplaceWith<T>(T value);
 }
 
@@ -530,7 +606,7 @@ public partial class JsonArray
 For example, deep cloning:
 
 ```csharp
-JsonNode node = JsonNode.Parse("{\"Prop\":{\"NestedProp\":42}}");
+JsonNode node = JsonNode.Parse("""{ "Prop" : { "NestedProp" : 42 }""");
 JsonNode other = node.DeepClone();
 bool same = JsonNode.DeepEquals(node, other); // true
 ```
