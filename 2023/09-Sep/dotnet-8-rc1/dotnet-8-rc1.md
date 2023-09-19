@@ -228,6 +228,38 @@ Not all of the compiled methods are trimmable. At runtime, there are various sce
 
 We would like to invite everyone to try out this new feature and file any discovered issues to help us improve the user experience further. Issues can be filed directly to [dotnet/runtime repository](https://github.com/dotnet/runtime).
 
+## WPF Hardware Acceleration in RDP
+
+https://github.com/dotnet/wpf/pull/7684
+
+In the past, all WPF applications accessed remotely had to use software rendering, even if the system had hardware rendering capabilities. We have added a new option that enables application developers to opt-in for hardware acceleration for RDP by utilizing an AppContext switch. 
+
+Hardware acceleration refers to the use of a computer's graphics processing unit (GPU) to speed up the rendering of graphics and visual effects in an application. This can result in improved performance and more seamless, responsive graphics. In contrast, software rendering relies solely on the computer's central processing unit (CPU) to render graphics, which can be slower and less effective.
+
+### How to enable Hardware Acceleration in RDP for WPF app?
+
+We offer two methods for enabling hardware acceleration in RDP:
+
+1. By adding the `RuntimeHostConfigurationOption` in the `*.csproj` file, as demonstrated below:
+   
+```xml
+<ItemGroup>
+      <RuntimeHostConfigurationOption Include="Switch.System.Windows.Media.EnableHardwareAccelerationInRdp" Value="true" />
+</ItemGroup>
+```
+
+2. By adding the `configProperty` in the `*.runtimeconfig.json` file, as shown below:
+
+```json
+ "configProperties": {
+      "Switch.System.Windows.Media.EnableHardwareAccelerationInRdp": true
+    } 
+```
+
+### Final note
+
+We would like to invite everyone to try out this new feature and file any discovered issues to help us improve the user experience further. Issues can be filed directly to [dotnet/wpf repository](https://github.com/dotnet/wpf).
+
 ## Community Contributor
 This month's community contributer is Jakub Majocha.  Here's a little about him in his own words:
 
