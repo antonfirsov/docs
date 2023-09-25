@@ -15,6 +15,11 @@ post_date: 2023-02-14 08:00:00
 
 This first post in the series provides a breadth overview of the pillars and the design-point of the platform. It describes "what you get" at a foundational level when you choose .NET and is intended to be a sufficient and facts-focused framing that you can use to describe the platform to others. Subsequent posts will go into more detail on these same topics since this post doesn't quite do any of these features justice. This post doesn't describe tools, like Visual Studio, nor does it cover higher-level libraries and application models like those provided by ASP.NET.
 
+Follow up posts:
+
+- [How Async/Await Really Works in C#](https://devblogs.microsoft.com/dotnet/how-async-await-really-works/)
+- [The convenience of .NET](https://devblogs.microsoft.com/dotnet/the-convenience-of-dotnet)
+
 Before getting into the details, it is worth talking about .NET usage. It is used by millions of developers, to create cloud, client, and other apps on [multiple operating systems and chip architectures](https://github.com/dotnet/core/blob/main/release-notes/7.0/supported-os.md). It is also run in some well-known places, like [Azure](https://azure.microsoft.com/), [StackOverflow](https://wouterdekort.com/2022/05/25/the-stackoverflow-journey-to-dotnet6/), and [Unity](https://blog.unity.com/technology/unity-and-net-whats-next). It is common to find .NET used in companies of all sizes, but particularly larger ones. In many places, it is a good technology to know to get a job.
 
 ## .NET design point
