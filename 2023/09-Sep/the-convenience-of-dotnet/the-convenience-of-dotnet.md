@@ -18,17 +18,11 @@ The next posts go into much more detail on specific API families, with a lot of 
 
 Let's start the series with a more general exploration of how the .NET platform delivers on convenience.
 
-## Convenience starts with choice
-
-The most convenient code is compact and straightforward, often with a few options (at most) to vary behavior. [File.ReadAllText()](https://learn.microsoft.com/dotnet/api/system.io.file.readalltext) is a good example. It returns the contents of a (text) file as a `string` that you can read and process. The lowest-level code enables a lot of flexibility, control, and performance optimization, but requires more careful use. Looking at you, [File.OpenHandle()](https://learn.microsoft.com/dotnet/api/system.io.file.openhandle). It exposes an [operating system handle](https://en.wikipedia.org/wiki/Handle_(computing)) with very little getting in your way to read through a file (as bytes) with maximum performance.
-
-You might wonder why we need all these APIs. They all do the same thing, right? The first is that each of these options is the right tool for the job in different circumstances and is convenient for that circumstance. In fact, the .NET developer community consistently requests a broad sprectrum of APIs from us and we're happy to deliver them. The second is that we had to build the low-level APIs in order to make the high-level ones. It's a lot like towers of lego blocks. In theory, we could have exposed only the high-level APIs by making the low-level ones private, but that's neither desirable nor practical.
-
-Some developer stacks expose high-level APIs that are built on native code libraries, but are missing useful lower-level APIs. The native code libraries are often written in a way that makes it impractical to expose their lower-level APIs to a managed language, so they are not. That's quite limiting. With .NET, we have a very strong philosophy that all of our APIs should be written in C#, which means that both high- and low-level APIs are available for you to use. It also means you can read the code of all the APIs you use in C# (on GitHub), like the [`File` class](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/IO/File.cs).
-
 ## Convenience is a spectrum
 
 I like using the terms "convenience" and "control", to describe the two ends of the "convenience spectrum". Convenience is descriptive of the experience of writing code and control of your ability to define its behavior.
+
+The most convenient code is compact and straightforward, often with at most a few options to vary behavior (as "choice" is itself a complexity). [`File.ReadAllText()`](https://learn.microsoft.com/dotnet/api/system.io.file.readalltext) is a good example. It returns the contents of a (text) file as a `string` that you can read and process. The lowest-level code enables a lot of flexibility, control, and performance optimization, but requires more careful use. Looking at you, [`File.OpenHandle()`](https://learn.microsoft.com/dotnet/api/system.io.file.openhandle) and [`RandomAccess.Read()`](https://learn.microsoft.com/dotnet/api/system.io.randomaccess.read), which together expose an [operating system handle](https://en.wikipedia.org/wiki/Handle_(computing)) with very little getting in your way to read through a file (as bytes) with maximum performance.
 
 I'm going to show you a couple lists of APIs. It's OK if they don't look familiar. These APIs start with the most raw concepts and formats (the highest degree of control) and end with the most packaged and refined concepts (the most convenient).
 
@@ -52,6 +46,14 @@ Note: The APIs are listed as the primary API + their most likely companion API o
 
 A key takeaway is that there is no clear break between convenient and control patterns in these lists. The end of one convenience pattern overlaps with the start of the next control pattern. One person's convenience is another's control. That's the definition of a spectrum.
 
+## Convenience starts with choice
+
+You might wonder why we need all these APIs. They all do the same thing, right? The first is that each of these options is the right tool for the job in different circumstances and is convenient for that circumstance. In fact, the .NET developer community consistently requests a broad sprectrum of APIs from us and we're happy to deliver them. The second is that we had to build the low-level APIs in order to make the high-level ones. It's a lot like towers of lego blocks. In theory, we could have exposed only the high-level APIs by making all the low-level ones private, but that's neither desirable nor practical in the general case.
+
+Some developer stacks primarily expose high-level APIs that are built on native code libraries, but are missing useful lower-level APIs. The native code libraries are often written in a way that makes it impractical to expose the lower-level APIs to a managed language, so they are not. That's quite limiting. With .NET, we have a strong philosophy that the library functionality we build should be written in C#, which means that both high- and low-level APIs are available for you to use. It also means you can read the code of all the APIs you use in C# (on GitHub), like the [`File` class](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/IO/File.cs).
+
+Of course, there are places where we haven't exposed all of the layers; every new API we expose is something we'll have effectively forever, and requires design and direct testing and maintenance and documentation and compatibility constraints and so on.  We're thus selective in which layers we expose when, and are constantly re-evaluating whether additional support should be exposed. The previously mentioned `File.ReadAllText`, for example, has been around for many, many years, whereas the cited `RandomAccess.Read` was only recently introduced. Our long-term trend has been to make lower-level APIs available where there is a compelling case.
+
 ## Convenience enables collaboration
 
 The .NET libraries exposes a broad set of functionality for you to use. In many cases (like with the `File` type), much of the related functionality is exposed in one place and designed to work as a larger coherent system. That means you can use more convenient APIs in one part of your code and higher-control APIs elsewhere and it can all be made to work together, nicely.
@@ -72,7 +74,7 @@ The other side of the coin is that the more efficient the convenience APIs are, 
 
 ## Breaking the spectrum
 
-There are a few cases where a single API covers the majority of use cases. This only happens when an API with a simple constract is an absolute workhorse and is required by a lot of scenarios.
+There are a few cases where a single API covers the majority of use cases. This only happens when an API with a simple contract is an absolute workhorse and is required by a lot of scenarios.
 
 The `string` class APIs are a key example. `IndexOf` and `IndexOfAny` are two favorites. We use these APIs pervasively in the .NET platform and they are used just as much by .NET developers. You can see how many [PRs have targeted those APIs](https://github.com/dotnet/runtime/pulls?q=is%3Apr+IndexOf).
 
