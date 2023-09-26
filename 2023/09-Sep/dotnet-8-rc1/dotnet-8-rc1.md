@@ -42,7 +42,7 @@ RC1 sees the inclusion of IAsyncEnumerable streaming deserialization extension m
 ```C#
 const string RequestUri = "https://api.contoso.com/books";
 using var client = new HttpClient();
-IAsyncEnumerable<Book> books = await client.GetFromJsonAsAsyncEnumerable<Book>(RequestUri);
+IAsyncEnumerable<Book> books = client.GetFromJsonAsAsyncEnumerable<Book>(RequestUri);
 
 await foreach (Book book in books)
 {
