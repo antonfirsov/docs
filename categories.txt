@@ -7,6 +7,7 @@
 .NET nanoFramework
 AI Machine Learning
 Apache
+Arm64
 ASP.NET
 ASP.NET Core
 Async
