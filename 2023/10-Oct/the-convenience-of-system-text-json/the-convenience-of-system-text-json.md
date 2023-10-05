@@ -136,7 +136,7 @@ The first two tests were run on my Intel i7 machine. The last was run on my MacB
 
 The key takeaway is that these APIs can run very fast when they are kept busy with data to process. That's the effective difference between the remote and local numbers. The Apple M1 performance numbers tells us that [.NET performance on Arm64](https://devblogs.microsoft.com/dotnet/this-arm64-performance-in-dotnet-8/) is very good at this point. Those numbers are shockingly good.
 
-What's up with `Utf8JsonReader`? It's supposed to be _really_, right? Ha! Just wait, just wait.
+What's up with `Utf8JsonReader`? It's supposed to be _really_ fast, right? Ha! Just wait, just wait.
 
 I tried a [medium size document](https://github.com/richlander/convenience/blob/main/releasejson/fakejson/fake-releases-compact.json) -- `9.41` kB -- and found no significant difference.
 
