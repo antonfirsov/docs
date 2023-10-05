@@ -16,6 +16,8 @@ This post kicks off a new series, exploring convenient solutions to common tasks
 
 The next posts go into much more detail on specific API families, with a lot of code and performance numbers, to fully explore these convenient solutions.
 
+- [The Convenience of System.Text.Json](https://devblogs.microsoft.com/dotnet/the-convenience-of-system-text-json/)
+
 Let's start the series with a more general exploration of how the .NET platform delivers on convenience.
 
 ## Convenience is a spectrum
@@ -92,4 +94,4 @@ I'm looking forward to sharing some in-depth analysis and exploration of the con
 
 Thanks to [David Fowler](https://github.com/davidfowl), [Jan Kotas](https://github.com/jkotas), and [Stephen Toub](https://github.com/stephentoub) for their help contributing to these posts.
 
-You can keep up to date with this series by subscribing to the [Convenience of .NET](https://devblogs.microsoft.com/dotnet/tag/convenience-of-dotnet/) tag feed in your favorite RSS reader or subscribe to the entire blog via [email below](https://devblogs.microsoft.com/dotnet/convenience-of-dotnet/#subscribe_form).
+You can keep up to date with this series by subscribing to the [Convenience of .NET](https://devblogs.microsoft.com/dotnet/tag/convenience-of-dotnet/) tag feed in your favorite RSS reader or subscribe to the entire blog via [email below](https://devblogs.microsoft.com/dotnet/#subscribe_form).
