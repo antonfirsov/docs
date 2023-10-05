@@ -232,9 +232,9 @@ The top-level method is pretty compact.
 public static async Task<int> MakeReportWebAsync(string url)
 {
     using HttpClient httpClient= new();
-    MajorRelease release = await httpClient.GetFromJsonAsync<MajorRelease>(url, OPTIONS) ?? throw new Exception(Error.BADJSON);
+    MajorRelease release = await httpClient.GetFromJsonAsync<MajorRelease>(url, _options) ?? throw new Exception(Error.BADJSON);
     Report report = new(DateTime.Today.ToShortDateString(), [ GetVersion(release) ]);
-    string reportJson =  JsonSerializer.Serialize(report, OPTIONS);
+    string reportJson =  JsonSerializer.Serialize(report, _options);
     WriteJsonToConsole(reportJson);
     return reportJson.Length;
 }
@@ -408,7 +408,7 @@ public static async Task<int> MakeReportAsync(string url)
     };
 
     // Generate JSON
-    string reportJson = report.ToJsonString(OPTIONS);
+    string reportJson = report.ToJsonString(_options);
     WriteJsonToConsole(reportJson);
     return reportJson.Length;
 }
