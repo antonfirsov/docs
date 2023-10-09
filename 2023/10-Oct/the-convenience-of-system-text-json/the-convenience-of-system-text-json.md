@@ -24,11 +24,11 @@ These are the APIs we're going to analyze (covering all three of those flavors):
 
 - [`System.Text.Json.JsonSerializer`](https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializer)
 - [`Newtonsoft.Json.JsonSerializer`](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonSerializer.htm)
-- [`System.Text.JsonDocument`](https://learn.microsoft.com/dotnet/api/system.text.json.jsondocument)
-- [`System.Text.Utf8JsonReader`](https://learn.microsoft.com/dotnet/api/system.text.json.utf8jsonreader)
-- [`System.Text.Utf8JsonWriter`](https://learn.microsoft.com/dotnet/api/system.text.json.utf8jsonwriter)
+- [`System.Text.Json.Nodes.JsonNode  `](https://learn.microsoft.com/dotnet/api/system.text.json.nodes.jsonnode)
+- [`System.Text.Json.Utf8JsonReader`](https://learn.microsoft.com/dotnet/api/system.text.json.utf8jsonreader)
+- [`System.Text.Json.Utf8JsonWriter`](https://learn.microsoft.com/dotnet/api/system.text.json.utf8jsonwriter)
 
-Note: `Newtonsoft.Json` also offers [DOM](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm), [reader](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonReader.htm), and [writer](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonWriter.htm) APIs. This post doesn't look at those.
+Note: `Newtonsoft.Json` also offers [DOM](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm), [reader](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonReader.htm), and [writer](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonWriter.htm) APIs. `System.Text.Json` also offers a read-only DOM API with [`System.Text.Json.JsonDocument`](https://learn.microsoft.com/dotnet/api/system.text.json.jsondocument). This post doesn't look at those, however they all offer valuable capapabilities.
 
 Next, we'll look at an app that has been implemented multiple times -- for each of those APIs -- testing their approachability and efficiency. 
 
@@ -102,11 +102,11 @@ I love solutions that are easy and approchable. Lines of code is our best proxy 
 
 These measurement are for the whole app, including the types defined for the serializer. The code is written in an idiomatic way with healthy use of newer (terse) syntax.
 
-The chart tells a clear story. `JsonSerializer` (both of them) and `JsonDocument` are the most convenient APIs (based on line count). `JsonSerializer` is an easy choice if you have types defined for the JSON you want to read or write. These days, it's convenient to quickly create a set of types to model your JSON domain with the introduction of [`record` types](https://devblogs.microsoft.com/dotnet/c-9-0-on-the-record/). In fact, the app uses `record` types for that reason. Otherwise, the lines of code difference between `JsonSerializer` and `JsonDocument` isn't all that meaningful. It's more of a question if you like using an automatic serializer or a DOM API. I am happy using either of them.
+The chart tells a clear story. `JsonSerializer` (both of them) and `JsonNode` are the most convenient APIs (based on line count). `JsonSerializer` is an easy choice if you have types defined for the JSON you want to read or write. These days, it's convenient to quickly create a set of types to model your JSON domain with the introduction of [`record` types](https://devblogs.microsoft.com/dotnet/c-9-0-on-the-record/). In fact, the app uses `record` types for that reason. Otherwise, the lines of code difference between `JsonSerializer` and `JsonNode` isn't all that meaningful. It's more of a question if you like using an automatic serializer or a DOM API. I am happy using either of them.
 
-The `Utf8JsonReader` API is our low-level workhorse API. It's actually what `JsonSerializer` and `JsonDocument` are built on. It is a great choice if you want more control over how a JSON document is read, for example to skip parts of it. The API assumes a deep understanding of .NET and JSON type systems and how to write low-level reliable code. The higher line count is a direct result of that.
+The `Utf8JsonReader` API is our low-level workhorse API. It's actually what `JsonSerializer` and `JsonNode` are built on. It is a great choice if you want more control over how a JSON document is read, for example to skip parts of it. The API assumes a deep understanding of .NET and JSON type systems and how to write low-level reliable code. The higher line count is a direct result of that.
 
-`JsonSerializer` and `JsonDocument` are clearly the default options since they don't require much code to write a JSON-driven algorithm. Let's see if there is a compelling reason to consider `Utf8JsonReader` in the performance measurements, since the cost of getting something working is much higher.
+`JsonSerializer` and `JsonNode` are clearly the default options since they don't require much code to write a JSON-driven algorithm. Let's see if there is a compelling reason to consider `Utf8JsonReader` in the performance measurements, since the cost of getting something working is much higher.
 
 ### Small document
 
@@ -174,7 +174,7 @@ Let's look at memory usage.
 
 <img title="Performance results for large JSON file" src="json-memory-large-document.png" width="75%" />
 
-These results are roughly similar to the clustering we saw with the small document, but JsonDocument seems to be more affected by the target data being so far into the document.
+These results are roughly similar to the clustering we saw with the small document, but JsonNode seems to be more affected by the target data being so far into the document.
 
 ### Large document -- Stress test
 
@@ -365,13 +365,13 @@ Json.NET doesn't provide a source generator option. It's also not compatible wit
 
 > Bottom line: The Json.NET `JsonSerializer` is an excellent JSON implementation and has served millions of .NET developers well for many years. If you are happy with it, you should continue using it.
 
-## JsonDocument
+## JsonNode
 
-`JsonDocument` is a typical document object model API that both provides an alternate API for the JSON types system (like `JsonObject`, `JsonArray`, and `JsonNode`) while integrating with the .NET type system as much as possible (`JsonArray` is an `IEnumerable`). Most of the API is oriented on a dictionary key-value style syntax.
+`JsonNode` is a typical document object model API that both provides an alternate API for the JSON type system (using `JsonObject`, `JsonArray`, and `JsonValue` to represent JSON objects, arrays and primitive values respectively) while integrating with the .NET type system as much as possible (`JsonArray` is an `IEnumerable`). Most of the API is oriented on a dictionary key-value style syntax.
 
 Implementation:
 
-- [`JsonDocumentBenchmark`](https://github.com/richlander/convenience/blob/main/releasejson/releasejson/JsonDocumentBenchmark.cs)
+- [`JsonNodeBenchmark`](https://github.com/richlander/convenience/blob/main/releasejson/releasejson/JsonNodeBenchmark.cs)
 
 This coding pattern is quite different. It seems like 3x the code, but that's because I've chosen to include much more of the actual implementation in the primary method. Given the DOM paradigm, I think this makes sense. In actuality, this code is pretty compact given that we're starting to do the heavy lifting of serialization ourselves. It's also straightforward to read, particularly with the nested `report` code.
 
@@ -418,11 +418,11 @@ The rest of the code has much the same pattern. `GetReportForReleases` is primar
 
 There are a few highlights to call out with this implementation. 
 
-- `JsonDocument` isn't integrated with `HttpClient` in the same way as `JsonSerializer` but it doesn't really matter. `JsonNode.ParseAsync` is happy to accept a `Stream` from `HttpClient` and there is no one-liner that makes sense for `JsonDocument`.
+- `JsonNode` isn't integrated with `HttpClient` in the same way as `JsonSerializer` but it doesn't really matter. `JsonNode.ParseAsync` is happy to accept a `Stream` from `HttpClient` and there is no one-liner that makes sense for `JsonNode`.
 - The DOM API can return `null` from a key-value request, like from `doc["not-a-propertyname-in-this-schema"]`.
-- Generating JSON with `JsonDocument` is delightful since you can use types and C# expressions while visualizing a nesting pattern that almost looks like JSON (if you squint). 
+- Generating JSON with `JsonNode` is delightful since you can use types and C# expressions while visualizing a nesting pattern that almost looks like JSON (if you squint). 
 
-> Bottom line: `JsonDocument` is a great API if you like the DOM access pattern or cannot generate types needed to use a serializer. It is your default choice if you want the absolute quickest path to programmatically read and write JSON.
+> Bottom line: `JsonNode` is a great API if you like the DOM access pattern or cannot generate types needed to use a serializer. It is your default choice if you want the absolute quickest path to programmatically read and write JSON. It is ideally suited if you want to read, manipulate and write JSON documents. For read-only querying of JSON text you might want to consider using the faster `JsonDocument` instead.
 
 ## Utf8JsonReader
 
@@ -605,7 +605,7 @@ I'll share the highlights on what's going on across these two methods.
 - `JsonStreamReader.UpdateState` saves off the state of the `Utf8JsonReader` so that it can be recreated when it is next needed. Again, the reader cannot be stored in some instance field because it is a `ref struct`.
 - `[NotNullWhen(returnValue:true)]` is a helpful attribute for communicating when an `out` value can be trusted to be non-null.
 
-Why all this focus on ref structs and why did the team make this design choice? `Utf8JsonReader` uses `ReadOnlySpan<T>` pervasively throughout its implementation, which has the (large) benefit of avoiding copying JSON data. `ReadOnlySpan<T>` is a `ref struct` so therefore `Utf8JsonReader` must be as well. For example, a JSON string -- like from `Utf8JsonRead.ValueSpan` -- is a low-cost `ReadOnlySpan<byte>` pointing into the `rentedArray` buffer created at the start of the program. This design choice requires a little extra care to use, but is worth it for the performance value it delivers. Also, this extra complexity is hidden from view for `JsonSerializer` and `JsonDocument` users. It's only developers directly using `Utf8JsonReader` that need to care.
+Why all this focus on ref structs and why did the team make this design choice? `Utf8JsonReader` uses `ReadOnlySpan<T>` pervasively throughout its implementation, which has the (large) benefit of avoiding copying JSON data. `ReadOnlySpan<T>` is a `ref struct` so therefore `Utf8JsonReader` must be as well. For example, a JSON string -- like from `Utf8JsonRead.ValueSpan` -- is a low-cost `ReadOnlySpan<byte>` pointing into the `rentedArray` buffer created at the start of the program. This design choice requires a little extra care to use, but is worth it for the performance value it delivers. Also, this extra complexity is hidden from view for `JsonSerializer` and `JsonNode` users. It's only developers directly using `Utf8JsonReader` that need to care.
 
 To be clear, using `ReadOnlySpan<T>` doesn't force a type to become a `ref struct`. The line where that happens is when you need to [store a ref struct as a (typically private) field](https://github.com/dotnet/runtime/blob/f08cbb88a074f5fd5c1b31751f44baa8c1d91cd6/src/libraries/System.Text.Json/src/System/Text/Json/Reader/Utf8JsonReader.cs#L24). `Utf8JsonReader` does that, hence `ref struct`.
 
