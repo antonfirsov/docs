@@ -98,7 +98,7 @@ Each implementation has been measured in terms of:
 
 I love solutions that are easy and approchable. Lines of code is our best proxy metric for that.
 
-<img title="Json Serializers -- lines of code to use them" src="json-loc.png" width="75%" />
+<img title="Json Serializers -- lines of code to use them" src="json-api-loc.png" width="75%" />
 
 These measurement are for the whole app, including the types defined for the serializer. The code is written in an idiomatic way with healthy use of newer (terse) syntax.
 
@@ -112,7 +112,7 @@ The `Utf8JsonReader` API is our low-level workhorse API. It's actually what `Jso
 
 The first performance test uses a [small test document](https://github.com/richlander/convenience/blob/main/releasejson/fakejson/fake-one-release-only.json), requested from a remote URL. It is is 905 bytes and describes a single .NET 6 release.
 
-<img title="Performance speed results for small JSON file" src="json-speed-small-document-remote.png" width="75%" />
+<img title="Performance speed results for small JSON file" src="json-api-speed-small-document-remote.png" width="75%" />
 
 The APIs are tied in a dead heat! That's a shock, right? All of these APIs are very good, but we should expect more of a difference. My theory (which should play out in the rest of the analysis) is that they are all equally waiting on the network. Put another way, the CPU is more than able to keep up with the network and any differences between the implementations is hidden by the dominant network cost.
 
@@ -120,7 +120,7 @@ As an aside, I added some logging to the `Utf8JsonReader` implementation (to dia
 
 50ms of compute is a lot, particularly for only 905 bytes of JSON. Let's try some local access options.
 
-<img title="Performance speed results for small JSON file" src="json-speed-small-document-local.png" width="75%" />
+<img title="Performance speed results for small JSON file" src="json-api-speed-small-document-local.png" width="75%" />
 
 OK. These numbers look much better. We're now well into sub-millisecond results. To be clear, I only changed the source of the data. The implementations are all based on `Stream` so it is easy to switch out one `Stream` producer for another.
 
@@ -142,7 +142,7 @@ I tried a [medium size document](https://github.com/richlander/convenience/blob/
 
 Let's look at memory usage for the small document test, using `Environment.WorkingSet`.
 
-<img title="Performance memory results for small JSON file" src="json-memory-small-document.png" width="75%" />
+<img title="Performance memory results for small JSON file" src="json-api-memory-small-document.png" width="75%" />
 
 Here, we're seeing clustering among the `System.Text.Json` APIs with `Newtonsoft.Json` as the outlier. Let's be very clear at what is going on here. `System.Text.Json` was built a decade or so after `Newtonsoft.Json` and had the benefit of using a whole new set of platform APIs oriented on making high-performance code much easier to write, for both speed and memory usage.
 
@@ -154,7 +154,7 @@ In particular, the `System.Text.Json` implementations are oriented on 8-bit Unic
 
 The next performance test uses a [larger test document](https://github.com/richlander/convenience/blob/main/releasejson/fakejson/fake-releases.json). It is `1.17 MB` and is (a copy of) the official [`release.json` file for .NET 6](https://github.com/dotnet/core/blob/main/release-notes/6.0/releases.json).
 
-<img title="Performance results for large JSON file" src="json-speed-large-document-remote.png" width="75%" />
+<img title="Performance results for large JSON file" src="json-api-speed-large-document-remote.png" width="75%" />
 
 Wow! That's a big difference. Hold up. Why is `Utf8Reader` performance so much better with this large document?
 
@@ -166,13 +166,13 @@ If you have large JSON documents where only slices of them need to be read, then
 
 Let's try the same tests locally again.
 
-<img title="Performance results for large JSON file" src="json-speed-large-document-local.png" width="75%" />
+<img title="Performance results for large JSON file" src="json-api-speed-large-document-local.png" width="75%" />
 
 This is where we're really seeing the `System.Text.Json` family shine. Again, these APIs are able to crunch through JSON data quickly, particularly when it close by.
 
 Let's look at memory usage.
 
-<img title="Performance results for large JSON file" src="json-memory-large-document.png" width="75%" />
+<img title="Performance results for large JSON file" src="json-api-memory-large-document.png" width="75%" />
 
 These results are roughly similar to the clustering we saw with the small document, but JsonNode seems to be more affected by the target data being so far into the document.
 
@@ -180,11 +180,11 @@ These results are roughly similar to the clustering we saw with the small docume
 
 I [modified the document](https://github.com/richlander/convenience/blob/main/releasejson/fakejson/fake-release-near-end.json) so that the latest security patch was much further back in time. I pushed it back almost two years, all the way to the `6.0.1` release (as compared to [6.0.20+ now](https://github.com/dotnet/core/blob/main/release-notes/6.0/releases.json)), to see how that changed the results. That means that the `Utf8JsonReader` has to do a lot more work (a kind of relative stress test), possibly more similar to the other implementations. That should show up in the results.
 
-<img title="Performance results for large JSON file" src="json-speed-large-document2-remote.png" width="75%" />
+<img title="Performance results for large JSON file" src="json-api-speed-large-document2-remote.png" width="75%" />
 
 All the implementations are taking longer since most of the JSON needs to be read. The performance order is still the same, but the values are a lot tighter.
 
-<img title="Performance results for large JSON file" src="json-speed-large-document2-local.png" width="75%" />
+<img title="Performance results for large JSON file" src="json-api-speed-large-document2-local.png" width="75%" />
 
 That's the local performance. The values are a lot slower than the previous two documents (for the stated reasons), however, the `System.Text.Json` implementations are able to quickly process the megabyte of JSON.
 
@@ -214,13 +214,13 @@ I wrote three implementations with `JsonSerializer` to evaluate if there were si
 
 Let's see what the numbers tell us, with the small document, on my Apple M1 machine.
 
-<img title="JsonSerializer performance results for small JSON file on MacBook M1" src="jsonserializer-speed-small-document-local.png" width="75%" />
+<img title="JsonSerializer performance results for small JSON file on MacBook M1" src="jsonserializer-api-speed-small-document-local.png" width="75%" />
 
 That's a pretty tight range (for each measurement type). I added `string` as a new measurement type. It brings the JSON one step closer to the API since it is loaded in memory before the benchmark runs.
 
 Here's the same thing with the bigger 1MB+ document.
 
-<img title="JsonSerializer performance results for small JSON file on MacBook M1" src="jsonserializer-speed-large-document-local.png" width="75%" />
+<img title="JsonSerializer performance results for small JSON file on MacBook M1" src="jsonserializer-api-speed-large-document-local.png" width="75%" />
 
 Again, we're seeing that the API performs much better as the data gets closer. We're also seeing that the source generator provides some advantage, but not much.
 
@@ -442,13 +442,13 @@ The third implementation copies UTF8 data directly from the reader to the writer
 
 These implementations are different enough that we should look at results again, for these three approaches, using `JsonSerializer` as the baseline.
 
-<img title="Lines of code using UTF8JsonReader" src="json-loc-utf8.png"  width="75%" />
+<img title="Lines of code using UTF8JsonReader" src="json-api-loc-utf8.png"  width="75%" />
 
 The "raw" implementation pulls ahead of the other `Utf8JsonReader` implementations. The `JsonSerializer` implementation continues to stand as a great baseline for straightforward code. 
 
 Let's look at the performance of these three implementations.
 
-<img title="Utf8JsonReader performance results for large JSON file on MacBook M1" src="utf8json-speed-large-document-local.png" width="75%" />
+<img title="Utf8JsonReader performance results for large JSON file on MacBook M1" src="utf8json-api-speed-large-document-local.png" width="75%" />
 
 These are measured by reading the large JSON document from the local file system on my MacBook M1. The "Raw" approach was consistently faster (not just in this specific benchmark).    
 
