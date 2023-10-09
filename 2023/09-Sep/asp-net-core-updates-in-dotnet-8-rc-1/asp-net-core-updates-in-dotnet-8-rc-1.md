@@ -56,7 +56,7 @@ See also the full list of [breaking changes](https://docs.microsoft.com/dotnet/c
 <a id="servers"></a>
 
 ## Servers & middleware
-
+</br>
 ### HTTP/3 disabled by default
 
 HTTP/3 is no longer enabled by default in Kestrel. This change returns the Kestrel HTTP protocol behavior back to its .NET 7 state, but differs from all .NET 8 previews.
@@ -98,7 +98,7 @@ See [Use HTTP/3 with the ASP.NET Core Kestrel web server](https://learn.microsof
 <a id="apis"></a>
 
 ## API authoring
-
+</br>
 ### Support for keyed services in minimal APIs, MVC, and SignalR
 
 In .NET 8 Preview 7, we introduced support for [keyed services in DI](https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-preview-7/#keyed-services-support-in-microsoft-extensions-dependencyinjection). Starting in .NET 8 RC1, it's now possible to use keyed services in apps using minimal APIs, controller-based APIs, and SignalR hubs. To leverage the new keyed services support, annotate the target parameter with the `[FromKeyedServices("keyName")]` attribute.
@@ -163,7 +163,7 @@ public class MyHub : Hub
 <a id="blazor"></a>
 
 ## Blazor
-
+</br>
 ### Blazor Web App template updates
 
 In .NET 8 we've been adding capabilities to Blazor so that you can use Blazor components full stack for all of your web UI needs. You can now render Blazor components statically from the server in response to requests, progressively enhance the experience with enhanced navigation & form handling, stream server-rendered updates, and add rich interactivity where it's needed using Blazor Server or Blazor WebAssembly. To optimize the app load time, Blazor can also auto-select whether to use Blazor Server or Blazor WebAssembly at runtime.
@@ -296,7 +296,7 @@ If you hit any issues using this new trimming option for AOT compiled WebAssembl
 <a id="identity"></a>
 
 ## Identity
-
+</br>
 ### Removed `username` property from Identity API JSON payloads
 
 To simplify `MapIdentityApi<TUser>()` and align more closely with the existing Identity UIs, the `username` property has been removed from request and response JSON payloads. Username and email are now the same and the field will be named `Email` moving forward (or `NewEmail` in the case of registering a user).
@@ -304,7 +304,7 @@ To simplify `MapIdentityApi<TUser>()` and align more closely with the existing I
 <a id="spa"></a>
 
 ## Single page apps (SPA)
-
+</br>
 ### Standard .NET template options
 
 The Visual Studio templates for using ASP.NET Core with popular frontend JavaScript frameworks like Angular, React, and Vue now support the standard .NET template options, including specifying a target .NET framework version, enabling OpenAPI support, and much more.
@@ -327,7 +327,7 @@ After updating to .NET 8 RC1, you may need to update to use the names in dashboa
 For more information about available metrics in .NET 8, including a complete list of the counters available and their names, see [Semantic Conventions for .NET metrics](https://github.com/lmolkova/semantic-conventions/blob/dotnet8-metrics/docs/dotnet/README.md).
 
 ## Known Issues
-
+</br>
 ### ASP.NET Redis-based output-cache
 
 There is a known regression in the Redis-based output-cache for ASP.NET (new in .NET 8, announced in Preview 6); this feature will not work in RC1. The cause has been identified and resolved for RC2.
