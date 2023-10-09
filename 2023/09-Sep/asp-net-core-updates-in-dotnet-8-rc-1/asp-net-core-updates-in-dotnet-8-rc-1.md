@@ -194,28 +194,26 @@ The component names and content have been cleaned up to match their function:
 
 The `App` component is now clean and simple:
 
-```razor
-<!DOCTYPE html>
-<html lang="en">
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <base href="/" />
-    <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" href="app.css" />
-    <link rel="stylesheet" href="BlazorApp51.styles.css" />
-    <link rel="icon" type="image/png" href="favicon.png" />
-    <HeadOutlet />
-</head>
+&lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /&gt;
+    &lt;base href="/" /&gt;
+    &lt;link rel="stylesheet" href="bootstrap/bootstrap.min.css" /&gt;
+    &lt;link rel="stylesheet" href="app.css" /&gt;
+    &lt;link rel="stylesheet" href="BlazorApp51.styles.css" /&gt;
+    &lt;link rel="icon" type="image/png" href="favicon.png" /&gt;
+    &lt;HeadOutlet /&gt;
+&lt;/head&gt;
 
-<body>
-    <Routes />
-    <script src="_framework/blazor.web.js"></script>
-</body>
+&lt;body&gt;
+    &lt;Routes /&gt;
+    &lt;script src="_framework/blazor.web.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
 
-</html>
-```
+&lt;/html&gt;</code></pre>
 
 We made several change to the `App` component to clear it up:
 
@@ -267,16 +265,14 @@ Thank you [@ElderJames](https://github.com/ElderJames) for this contribution!
 
 You can now configure various .NET runtime options during [startup](https://learn.microsoft.com/aspnet/core/blazor/fundamentals/startup) when running on WebAssembly using the `configureRuntime` function:
 
-```html
-<script src="_framework/blazor.webassembly.js" autostart="false"></script>
-<script>
+<pre><code class="language-html">&lt;script src="_framework/blazor.webassembly.js" autostart="false"&gt;&lt;/script&gt;
+&lt;script&gt;
   Blazor.start({
-    configureRuntime: dotnet => {
+    configureRuntime: dotnet =&gt; {
         dotnet.withEnvironmentVariable("CONFIGURE_RUNTIME", "true");
     }
   });
-</script>
-```
+&lt;/script&gt;</code></pre>
 
 The .NET runtime instance can now accessed from `Blazor.runtime`.
 
