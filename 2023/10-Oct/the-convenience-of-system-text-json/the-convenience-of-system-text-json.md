@@ -635,7 +635,6 @@ I've skipped how [`JsonStreamReader`](https://github.com/richlander/convenience/
 > Bottom line: `Utf8JsonReader` is a great and capable API and the rest of the `System.Text.Json` stack is built on top of it. In certain scenarios, it is the best choice since it offers maxiumum flexiblity. It requires a higher level of skill to navigate the interaction with lower-level APIs and concepts. If you have the need and the skill, this type can deliver.
 
 ## Summary
-
 The purpose of this post was to demonstrate that `System.Text.Json` offers JSON reading and writing APIs for every developer and scenario. The APIs cover the spectrum of convenience to control, both in terms of the coding patterns and the performane you can achieve.
 
 The punchline of the post is that the convenient option -- `JsonSerializer` -- delivers great performance and that it is competitive in all the scenarios I tested. That's a great result.
