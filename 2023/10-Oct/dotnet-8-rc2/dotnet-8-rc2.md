@@ -23,7 +23,7 @@ The dates for [.NET Conf 2023](https://dotnetconf.net/) have been announced! Joi
 * [Known issues](https://github.com/dotnet/core/blob/main/release-notes/8.0/known-issues.md)
 * [GitHub issue tracker](https://github.com/dotnet/core/issues)
 
-> [!IMPORTANT]
+> ⚠️IMPORTANT
 > .NET SDK 8.0.100-rc.2 _must_ be used with Visual Studio 17.8 Preview 3 due to a dependency error with Razor tooling. See [this SDK Announcement](https://github.com/dotnet/sdk/issues/35810) for more details.
 
 There are several exciting posts you should check out as well:
@@ -44,40 +44,40 @@ Now there are READMEs for the following Microsoft packages:
 
 | Package | Status |
 | :--- | :---: |
-| Microsoft.Extensions.DependencyInjection | :white_check_mark: |
-| Microsoft.Extensions.Logging | :white_check_mark:|
-| Microsoft.Extensions.DependencyInjection.Abstractions | :white_check_mark: |
-| Microsoft.Extensions.Hosting | :white_check_mark: |
-| Microsoft.Extensions.Hosting.WindowsServices | :white_check_mark: |
-| Microsoft.Extensions.Logging.Abstractions | :white_check_mark:|
-| Microsoft.Extensions.Http | :white_check_mark: |
-| System.IO.Ports | :white_check_mark: |
-| System.Data.OleDb | :white_check_mark: |
-| Microsoft.Extensions.Options | :white_check_mark:|
-| System.Management | :white_check_mark: |
-| Microsoft.Extensions.Options.ConfigurationExtensions |:white_check_mark:|
-| Microsoft.Extensions.Caching.Memory | :white_check_mark: |
-| Microsoft.Extensions.Logging.Console |:white_check_mark:|
-| Microsoft.Extensions.Hosting.Abstractions | :white_check_mark: |
-| System.Text.Encoding.CodePages |:white_check_mark: |
-| Microsoft.Bcl.AsyncInterfaces | :white_check_mark: |
-| System.DirectoryServices.AccountManagement | :white_check_mark: |
-| System.Speech | :white_check_mark: |
-| System.DirectoryServices | :white_check_mark: |
-| Microsoft.Extensions.Logging.Debug |:white_check_mark: |
-| System.Net.Http.Json | :white_check_mark: |
-| System.Data.Odbc | :white_check_mark: |
-| Microsoft.Extensions.Primitives |:white_check_mark: |
-| Microsoft.Bcl.Numerics (new package) | :white_check_mark:  |
-| Microsoft.Bcl.TimeProvider (new package) |:white_check_mark: |
-| Microsoft.Extensions.Configuration |:white_check_mark: |
-| Microsoft.Extensions.Configuration.Abstractions |:white_check_mark: |
-| Microsoft.Extensions.Configuration.Binder |:white_check_mark: |
-| Microsoft.Extensions.Logging.EventLog |:white_check_mark: |
-| System.Diagnostics.EventLog |:white_check_mark: |
-| System.Net.Http.WinHttpHandler |:white_check_mark: |
-| System.Text.Json |:white_check_mark: |
-| System.Threading.Channels |:white_check_mark: |
+| Microsoft.Extensions.DependencyInjection | ✅ |
+| Microsoft.Extensions.Logging | ✅|
+| Microsoft.Extensions.DependencyInjection.Abstractions | ✅ |
+| Microsoft.Extensions.Hosting | ✅ |
+| Microsoft.Extensions.Hosting.WindowsServices | ✅ |
+| Microsoft.Extensions.Logging.Abstractions | ✅|
+| Microsoft.Extensions.Http | ✅ |
+| System.IO.Ports | ✅ |
+| System.Data.OleDb | ✅ |
+| Microsoft.Extensions.Options | ✅|
+| System.Management | ✅ |
+| Microsoft.Extensions.Options.ConfigurationExtensions |✅|
+| Microsoft.Extensions.Caching.Memory | ✅ |
+| Microsoft.Extensions.Logging.Console |✅|
+| Microsoft.Extensions.Hosting.Abstractions | ✅ |
+| System.Text.Encoding.CodePages |✅ |
+| Microsoft.Bcl.AsyncInterfaces | ✅ |
+| System.DirectoryServices.AccountManagement | ✅ |
+| System.Speech | ✅ |
+| System.DirectoryServices | ✅ |
+| Microsoft.Extensions.Logging.Debug |✅ |
+| System.Net.Http.Json | ✅ |
+| System.Data.Odbc | ✅ |
+| Microsoft.Extensions.Primitives |✅ |
+| Microsoft.Bcl.Numerics (new package) | ✅  |
+| Microsoft.Bcl.TimeProvider (new package) |✅ |
+| Microsoft.Extensions.Configuration |✅ |
+| Microsoft.Extensions.Configuration.Abstractions |✅ |
+| Microsoft.Extensions.Configuration.Binder |✅ |
+| Microsoft.Extensions.Logging.EventLog |✅ |
+| System.Diagnostics.EventLog |✅ |
+| System.Net.Http.WinHttpHandler |✅ |
+| System.Text.Json |✅ |
+| System.Threading.Channels |✅ |
 
 ## MSBuild: Simple CLI-based project evaluation
 
