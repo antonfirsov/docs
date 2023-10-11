@@ -301,7 +301,7 @@ The results of this code are the same as those from the TorchSharp example. Whil
 
 #### After Tensor Primitives
 
-`TensorPrimitives` simplifies these choices. If you just need a handful of operations, you don't need to take on an external dependency into your project. 
+`TensorPrimitives` simplifies these choices. If you just need a handful of operations, you don't need to take on a large external dependency into your project. 
 
 ```csharp
 using System.Numerics.Tensors;
@@ -317,11 +317,11 @@ var top3MoviesTensorPrimitives =
         .Take(3);
 ```
 
-Similarly, for libraries who make use of these operations such as Semantic Kernel and ML.NET, they can replace many of their existing implementation with TensorPrimitives so they can focus on their competitive advantages and deliver features faster. 
+Similarly, for libraries who make use of these operations such as Semantic Kernel and ML.NET, they can replace many of their existing implementation with `TensorPrimitives` so they can focus on their competitive advantages and deliver features faster. 
 
 ### Current State
 
-Currently, Tensor Primitives provides vectorized implementations for operations like:
+Currently, `TensorPrimitives` provides vectorized implementations for operations like:
 
 - CosineSimilarity
 - SoftMax
