@@ -1,5 +1,5 @@
 ---
-post_title: 'Announcing .NET MAUI in .NET 8 Release Candidate 2: More Quality'
+post_title: 'Announcing .NET MAUI in .NET 8 RC 2: More Quality'
 author1: davidortinau
 post_slug: announcing-dotnet-maui-in-dotnet-8-rc-2
 microsoft_alias: daortin
@@ -19,13 +19,13 @@ In addition to our narrowed focus on regressions we have also increased the batt
 Highlights from this release:
 
 **Performance Improvements:**
-Several performance improvements were made, including enhancements to the performance of ActivityExtensions.GetWindowFrame on Android, and "Setter Specificity" performance. These optimizations contribute to smoother app performance. ([#17241](https://github.com/dotnet/maui/pull/17241), [#17527](https://github.com/dotnet/maui/pull/17527), [#17364](https://github.com/dotnet/maui/pull/17364), [#17230](https://github.com/dotnet/maui/pull/17230), [#17505](https://github.com/dotnet/maui/pull/17505), [#17545](https://github.com/dotnet/maui/pull/17545)).
+Several performance improvements were made, including enhancements to the performance of ActivityExtensions.GetWindowFrame on Android, and "Setter Specificity" performance. These optimizations contribute to smoother app performance. ([#17241](https://github.com/dotnet/maui/pull/17241), [#17364](https://github.com/dotnet/maui/pull/17364), [#17230](https://github.com/dotnet/maui/pull/17230), [#17505](https://github.com/dotnet/maui/pull/17505), [#17545](https://github.com/dotnet/maui/pull/17545)).
 
 **UI and Control Fixes:**
-Several fixes and updates were made to controls and UI elements, including fixes related to CollectionView, TabBar visibility, RoundRectangle Borders, and Android text alignment. With these your app UI is more consistent and visually accurate across platforms. ([#16870](https://github.com/dotnet/maui/pull/16870), [#17240](https://github.com/dotnet/maui/pull/17240), [#17261](https://github.com/dotnet/maui/pull/17261), [#17311](https://github.com/dotnet/maui/pull/17311), [#17353](https://github.com/dotnet/maui/pull/17353), [#17348](https://github.com/dotnet/maui/pull/17348), [#17379](https://github.com/dotnet/maui/pull/17379), [#17411](https://github.com/dotnet/maui/pull/17411), [#17430](https://github.com/dotnet/maui/pull/17430), [#17436](https://github.com/dotnet/maui/pull/17436), [#17450](https://github.com/dotnet/maui/pull/17450), [#17539](https://github.com/dotnet/maui/pull/17539), [#17594](https://github.com/dotnet/maui/pull/17594)).
+Several fixes and updates were made to controls and UI elements, including fixes related to CollectionView, TabBar visibility, RoundRectangle Borders, and Android text alignment. With these your app UI is more consistent and visually accurate across platforms. ([#16870](https://github.com/dotnet/maui/pull/16870), [#17240](https://github.com/dotnet/maui/pull/17240), [#17261](https://github.com/dotnet/maui/pull/17261),  [#17353](https://github.com/dotnet/maui/pull/17353), [#17430](https://github.com/dotnet/maui/pull/17430), [#17594](https://github.com/dotnet/maui/pull/17594)), [#17567](https://github.com/dotnet/maui/pull/17567)).
 
 **Platform-Specific Fixes:**
-Several platform-specific fixes were made, including drag-and-drop functionality, tab bar appearance, and specific platform behaviors, ensuring a consistent user experience across platforms. ([#15748](https://github.com/dotnet/maui/pull/15748), [#16561](https://github.com/dotnet/maui/pull/16561), [#17567](https://github.com/dotnet/maui/pull/17567), [#17495](https://github.com/dotnet/maui/pull/17495), [#17041](https://github.com/dotnet/maui/pull/17041), [#17358](https://github.com/dotnet/maui/pull/17358), [#17524](https://github.com/dotnet/maui/pull/17524), [#17530](https://github.com/dotnet/maui/pull/17530)).
+Several platform-specific fixes were made, including drag-and-drop functionality, tab bar appearance, and specific platform behaviors, ensuring a consistent user experience across platforms. ([#15748](https://github.com/dotnet/maui/pull/15748), [#16561](https://github.com/dotnet/maui/pull/16561), [#17495](https://github.com/dotnet/maui/pull/17495), [#17041](https://github.com/dotnet/maui/pull/17041), [#17358](https://github.com/dotnet/maui/pull/17358).
 
 The release also includes numerous other bug fixes, enhancements, and contributions. Check out the full release notes for more details.
 
@@ -42,7 +42,7 @@ Alternatively, you can acquire 7.0.96 by upgrading to Visual Studio 17.7.5.
 
 ## Bonus 2: Xcode 15 and Android API 34
 
-Xamarin developers can now use Xcode 15 to target the latest versions (e.g iOS 17, iPad 17), and build for Android API 34 in order to be compliant with store policies. To do this, install Visual Studio 17.8 Preview 3 or the latest stable version of Visual Studio for Mac and configure your environment as usual. This does not provide newer platform APIs, but does enable existing projects to continue building while you complete your upgrades to .NET 8 and .NET MAUI regardless of the [Xamarin end-of-support date next year](https://dotnet.microsoft.com/platform/support/policy/xamarin).
+Xamarin developers can now use [Xcode 15 to target the latest versions (e.g iOS 17, iPadOS 17)](https://github.com/xamarin/xamarin-macios/releases/tag/xamarin-ios-16.4.0.18), and target [Android API 34](https://learn.microsoft.com/xamarin/android/release-notes/13/13.2) in order to be compliant with store policies. To do this, install Visual Studio 17.8 Preview 3 or the latest stable version of Visual Studio for Mac and configure your environment as usual. This does not provide newer platform APIs, but does enable existing projects to continue building while you complete your upgrades to .NET 8 and .NET MAUI regardless of the [Xamarin end-of-support date next year](https://dotnet.microsoft.com/platform/support/policy/xamarin).
 
 ## How to update
 
