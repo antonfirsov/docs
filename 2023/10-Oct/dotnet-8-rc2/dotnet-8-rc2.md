@@ -30,7 +30,7 @@ There are several exciting posts you should check out as well:
 
 - [ASP.NET Core Updates in .NET 8 RC2](https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-dotnet-8-rc-2)
 - [.NET MAUI Updates in .NET 8 RC2](https://devblogs.microsoft.com/dotnet/announcing-dotnet-maui-in-dotnet-8-rc-2)
-- [Visual Studio 2022 17.8 Preview 3](https://aka.ms/vs/v178P3)
+- [Visual Studio 2022 17.8 Preview 3](https://devblogs.microsoft.com/visualstudio/visual-studio-2022-17-8-preview-3-is-here/)
 - [Entity Framework Updates in .NET 8 RC2](https://devblogs.microsoft.com/dotnet/announcing-ef8-rc2)
 - [What's New in .NET 8](https://learn.microsoft.com/dotnet/core/whats-new/dotnet-8) describes all the new features in .NET 8. For a broader view of the platform, read [Why .NET?](https://devblogs.microsoft.com/dotnet/why-dotnet/).
 
