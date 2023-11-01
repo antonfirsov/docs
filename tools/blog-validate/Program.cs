@@ -168,7 +168,7 @@ internal static class Program
         var diagnostics = await ValidateAsync(rootDirectory, files, categories);
 
         var isInsideGitHubAction = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true";
-        var GitHubService = new GitHubService();
+        var gitHubService = isInsideGitHubAction ? new GitHubService() : null;
         string validationSummary = "| Issue | File | Line | Message | Suggestion |\n| --- | --- | --- | --- | --- |\n";
 
         foreach (var d in diagnostics)
@@ -176,7 +176,7 @@ internal static class Program
             var path = Path.GetRelativePath(rootDirectory, d.FileName);
             var severity = d.IsWarning ? "warning" : "error";
 
-            if (isInsideGitHubAction)
+            if (gitHubService is not null)
             {
                 var line = d.LinePositionSpan.Start.Line + 1;
                 var col = d.LinePositionSpan.Start.Column + 1;
@@ -184,7 +184,7 @@ internal static class Program
                 validationSummary += $"| {(d.IsWarning ? "👀" : "❌")} {d.Id} | {Path.GetFileName(path)} | {line} | {d.Message} | {d.Suggestion} |\n";
                 if (!string.IsNullOrEmpty(d.Suggestion))
                 {
-                    await GitHubService.TryAddSuggestion(d.Suggestion, path, line);
+                    await gitHubService.TryAddSuggestion(d.Suggestion, path, line);
                 }
             }
             else
@@ -202,13 +202,10 @@ internal static class Program
 
         int errorCount = diagnostics.Count(d => !d.IsWarning);
 
-        if (isInsideGitHubAction)
+        if (gitHubService is not null && errorCount > 0)
         {
-            if (errorCount > 0)
-            {
-                validationSummary = $"## {errorCount} error(s)\n\n All errors must be fixed before this pull request can be merged \n{validationSummary}";
-                await GitHubService.AddComment(validationSummary);
-            }
+            validationSummary = $"## {errorCount} error(s)\n\n All errors must be fixed before this pull request can be merged \n{validationSummary}";
+            await gitHubService.AddComment(validationSummary);
         }
 
         return errorCount == 0;
