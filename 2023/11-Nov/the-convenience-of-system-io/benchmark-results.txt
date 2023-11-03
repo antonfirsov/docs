@@ -1,0 +1,182 @@
+// * Summary *
+
+BenchmarkDotNet v0.13.9+228a464e8be6c580ad9408e98f18813f6407fb5a, Manjaro Linux
+Intel Core i7-7700K CPU 4.20GHz (Kaby Lake), 1 CPU, 8 logical and 4 physical cores
+.NET SDK 8.0.100
+  [Host]     : .NET 8.0.0 (8.0.23.52507), X64 RyuJIT AVX2
+  DefaultJob : .NET 8.0.0 (8.0.23.52507), X64 RyuJIT AVX2
+
+
+| Method                           | FilePath             | Mean         | Ratio | Gen0     | Gen1     | Gen2    | Allocated | Alloc Ratio |
+|--------------------------------- |--------------------- |-------------:|------:|---------:|---------:|--------:|----------:|------------:|
+| FileOpenHandleCharSearchValues   | Clari(...)1.txt [37] | 1,293.246 us |  1.00 |        - |        - |       - |     730 B |        1.00 |
+| FileOpenCharSearchValues         | Clari(...)1.txt [37] | 1,347.876 us |  1.04 |        - |        - |       - |     898 B |        1.23 |
+| FileOpenHandleChar               | Clari(...)1.txt [37] | 2,043.210 us |  1.58 |        - |        - |       - |     732 B |        1.00 |
+| FileOpenHandleRune               | Clari(...)1.txt [37] | 2,279.594 us |  1.76 |        - |        - |       - |     676 B |        0.93 |
+| FileOpenHandleAsciiCheat         | Clari(...)1.txt [37] |   795.276 us |  0.61 |        - |        - |       - |     673 B |        0.92 |
+| FileOpenTextChar                 | Clari(...)1.txt [37] | 2,055.364 us |  1.59 |        - |        - |       - |    8244 B |       11.29 |
+| FileOpenTextCharLines            | Clari(...)1.txt [37] | 2,199.124 us |  1.70 |        - |        - |       - |    8244 B |       11.29 |
+| FileOpenTextCharIndexOfAny       | Clari(...)1.txt [37] | 7,148.067 us |  5.53 |        - |        - |       - |    8247 B |       11.30 |
+| FileOpenTextCharSearchValues     | Clari(...)1.txt [37] | 1,399.505 us |  1.08 |   1.9531 |        - |       - |    8242 B |       11.29 |
+| FileOpenTextReadLine             | Clari(...)1.txt [37] | 1,938.240 us |  1.50 | 335.9375 |        - |       - | 1419618 B |    1,944.68 |
+| FileOpenTextReadLineSearchValues | Clari(...)1.txt [37] | 1,847.498 us |  1.43 | 337.8906 |        - |       - | 1419616 B |    1,944.68 |
+| FileReadLines                    | Clari(...)1.txt [37] | 1,962.752 us |  1.52 | 335.9375 |        - |       - | 1419674 B |    1,944.76 |
+| FileReadAllLines                 | Clari(...)1.txt [37] | 2,892.266 us |  2.24 | 253.9063 | 156.2500 | 78.1250 | 1775860 B |    2,432.68 |
+|                                  |                      |              |       |          |          |         |           |             |
+| FileOpenHandleCharSearchValues   | Clari(...)ry.md [27] |    10.563 us |  1.00 |   0.1678 |        - |       - |     704 B |        1.00 |
+| FileOpenCharSearchValues         | Clari(...)ry.md [27] |     9.690 us |  0.91 |   0.1984 |        - |       - |     872 B |        1.24 |
+| FileOpenHandleChar               | Clari(...)ry.md [27] |    11.110 us |  1.05 |   0.1678 |        - |       - |     704 B |        1.00 |
+| FileOpenHandleRune               | Clari(...)ry.md [27] |    10.883 us |  1.03 |   0.1526 |        - |       - |     648 B |        0.92 |
+| FileOpenHandleAsciiCheat         | Clari(...)ry.md [27] |     9.171 us |  0.87 |   0.1526 |        - |       - |     648 B |        0.92 |
+| FileOpenTextChar                 | Clari(...)ry.md [27] |    11.114 us |  1.05 |   1.9531 |        - |       - |    8216 B |       11.67 |
+| FileOpenTextCharLines            | Clari(...)ry.md [27] |    11.681 us |  1.10 |   1.9531 |        - |       - |    8216 B |       11.67 |
+| FileOpenTextCharIndexOfAny       | Clari(...)ry.md [27] |    18.929 us |  1.79 |   1.9531 |        - |       - |    8216 B |       11.67 |
+| FileOpenTextCharSearchValues     | Clari(...)ry.md [27] |    11.165 us |  1.05 |   1.9531 |        - |       - |    8216 B |       11.67 |
+| FileOpenTextReadLine             | Clari(...)ry.md [27] |    11.149 us |  1.05 |   2.4872 |        - |       - |   10417 B |       14.80 |
+| FileOpenTextReadLineSearchValues | Clari(...)ry.md [27] |    11.458 us |  1.08 |   2.4872 |        - |       - |   10417 B |       14.80 |
+| FileReadLines                    | Clari(...)ry.md [27] |    11.073 us |  1.05 |   2.5024 |        - |       - |   10473 B |       14.88 |
+| FileReadAllLines                 | Clari(...)ry.md [27] |    11.028 us |  1.04 |   2.5635 |        - |       - |   10841 B |       15.40 |
+
+// * Summary *
+
+BenchmarkDotNet v0.13.9+228a464e8be6c580ad9408e98f18813f6407fb5a, Manjaro Linux
+Intel Core i7-7700K CPU 4.20GHz (Kaby Lake), 1 CPU, 8 logical and 4 physical cores
+.NET SDK 8.0.100
+  [Host]     : .NET 8.0.0 (8.0.23.52507), X64 RyuJIT AVX2
+  DefaultJob : .NET 8.0.0 (8.0.23.52507), X64 RyuJIT AVX2
+
+
+| Method                           | FilePath             | Mean         | Ratio | 
+|--------------------------------- |--------------------- |-------------:|------:|-
+| FileOpenHandleCharSearchValues   | Clari(...)1.txt [37] | 1,276.698 us |  1.00 | 
+| FileOpenCharSearchValues         | Clari(...)1.txt [37] | 1,307.796 us |  1.02 | 
+| FileOpenHandleChar               | Clari(...)1.txt [37] | 2,133.906 us |  1.67 | 
+| FileOpenHandleRune               | Clari(...)1.txt [37] | 2,289.211 us |  1.79 | 
+| FileOpenHandleAsciiCheat         | Clari(...)1.txt [37] |   780.232 us |  0.61 | 
+| FileOpenTextChar                 | Clari(...)1.txt [37] | 2,080.196 us |  1.63 | 
+| FileOpenTextCharLines            | Clari(...)1.txt [37] | 2,181.774 us |  1.71 | 
+| FileOpenTextCharIndexOfAny       | Clari(...)1.txt [37] | 7,104.676 us |  5.57 | 
+| FileOpenTextCharSearchValues     | Clari(...)1.txt [37] | 1,352.505 us |  1.06 | 
+| FileOpenTextReadLine             | Clari(...)1.txt [37] | 1,921.094 us |  1.50 | 
+| FileOpenTextReadLineSearchValues | Clari(...)1.txt [37] | 1,764.206 us |  1.38 | 
+| FileReadLines                    | Clari(...)1.txt [37] | 1,906.429 us |  1.49 | 
+| FileReadAllLines                 | Clari(...)1.txt [37] | 2,852.338 us |  2.23 | 
+|                                  |                      |              |       | 
+| FileOpenHandleCharSearchValues   | Clari(...)ry.md [27] |     9.871 us |  1.00 | 
+| FileOpenCharSearchValues         | Clari(...)ry.md [27] |     9.334 us |  0.95 | 
+| FileOpenHandleChar               | Clari(...)ry.md [27] |    10.549 us |  1.07 | 
+| FileOpenHandleRune               | Clari(...)ry.md [27] |    10.632 us |  1.08 | 
+| FileOpenHandleAsciiCheat         | Clari(...)ry.md [27] |     8.828 us |  0.89 | 
+| FileOpenTextChar                 | Clari(...)ry.md [27] |    10.774 us |  1.09 | 
+| FileOpenTextCharLines            | Clari(...)ry.md [27] |    11.614 us |  1.18 | 
+| FileOpenTextCharIndexOfAny       | Clari(...)ry.md [27] |    18.833 us |  1.91 | 
+| FileOpenTextCharSearchValues     | Clari(...)ry.md [27] |    10.586 us |  1.07 | 
+| FileOpenTextReadLine             | Clari(...)ry.md [27] |    10.314 us |  1.04 | 
+| FileOpenTextReadLineSearchValues | Clari(...)ry.md [27] |    11.007 us |  1.12 | 
+| FileReadLines                    | Clari(...)ry.md [27] |    10.704 us |  1.08 | 
+| FileReadAllLines                 | Clari(...)ry.md [27] |    10.585 us |  1.07 | 
+
+
+
+[rich@kelowna count]$ dotnet --version
+8.0.100-rtm.23527.22
+[rich@kelowna count]$ which dotnet
+/home/rich/dotnet-rtm/dotnet
+[rich@kelowna count]$ echo $DOTNET_ROOT
+/home/rich/dotnet-rtm
+
+[rich@kelowna count]$ dotnet build -c Release -o app
+[rich@kelowna count]$ ls -l app
+total 112
+-rwxr-xr-x 1 rich rich 72520 Oct 30 12:16 count
+-rw-r--r-- 1 rich rich  1280 Oct 30 12:16 count.deps.json
+-rw-r--r-- 1 rich rich 16384 Oct 30 12:16 count.dll
+-rw-r--r-- 1 rich rich 15212 Oct 30 12:16 count.pdb
+-rw-r--r-- 1 rich rich  1540 Oct 30 12:16 count.runtimeconfig.json
+
+[rich@kelowna count]$ docker run --rm mcr.microsoft.com/dotnet/nightly/sdk:8.0-jammy-aot dotnet --version
+8.0.100-rtm.23523.2
+[rich@kelowna count]$ docker run --rm -v $(pwd):/source -w /source mcr.microsoft.com/dotnet/nightly/sdk:8.0-jammy-aot dotnet publish -o /source/napp
+[rich@kelowna count]$ ls -l napp
+total 4936
+-rwxr-xr-x 1 root root 1944896 Oct 30 12:17 count
+-rwxr-xr-x 1 root root 3107720 Oct 30 12:17 count.dbg
+
+
+## WC
+
+[rich@kelowna count]$ time wc ../Clarissa_Harlowe/clarissa_volume1.txt 
+ 11716 110023 610515 ../Clarissa_Harlowe/clarissa_volume1.txt
+
+real	0m0.009s
+user	0m0.005s
+sys	0m0.005s
+
+[rich@kelowna count]$ time wc ../Clarissa_Harlowe/*
+  11716  110023  610515 ../Clarissa_Harlowe/clarissa_volume1.txt
+  12124  110407  610557 ../Clarissa_Harlowe/clarissa_volume2.txt
+  11961  109622  606948 ../Clarissa_Harlowe/clarissa_volume3.txt
+  12168  111908  625888 ../Clarissa_Harlowe/clarissa_volume4.txt
+  12626  108592  614062 ../Clarissa_Harlowe/clarissa_volume5.txt
+  12434  107576  607619 ../Clarissa_Harlowe/clarissa_volume6.txt
+  12818  112713  628322 ../Clarissa_Harlowe/clarissa_volume7.txt
+  12331  109785  611792 ../Clarissa_Harlowe/clarissa_volume8.txt
+  11771  104934  598265 ../Clarissa_Harlowe/clarissa_volume9.txt
+      9     153    1044 ../Clarissa_Harlowe/summary.md
+ 109958  985713 5515012 total
+
+real	0m0.026s
+user	0m0.026s
+sys	0m0.000s
+
+## Native AOT
+
+[rich@kelowna count]$ time ./napp/count ../Clarissa_Harlowe/clarissa_volume1.txt
+    11716  110023  610515 ../Clarissa_Harlowe/clarissa_volume1.txt
+
+real	0m0.004s
+user	0m0.003s
+sys	0m0.000s
+
+[rich@kelowna count]$ time ./napp/count ../Clarissa_Harlowe/
+    11716  110023  610515 ../Clarissa_Harlowe/clarissa_volume1.txt
+    12124  110407  610557 ../Clarissa_Harlowe/clarissa_volume2.txt
+    11961  109622  606948 ../Clarissa_Harlowe/clarissa_volume3.txt
+    12168  111908  625888 ../Clarissa_Harlowe/clarissa_volume4.txt
+    12626  108593  614062 ../Clarissa_Harlowe/clarissa_volume5.txt
+    12434  107576  607619 ../Clarissa_Harlowe/clarissa_volume6.txt
+    12818  112713  628322 ../Clarissa_Harlowe/clarissa_volume7.txt
+    12331  109785  611792 ../Clarissa_Harlowe/clarissa_volume8.txt
+    11771  104934  598265 ../Clarissa_Harlowe/clarissa_volume9.txt
+        9     153    1044 ../Clarissa_Harlowe/summary.md
+   109958  985714  5515012 total
+
+real	0m0.022s
+user	0m0.028s
+sys	0m0.004s
+
+## CoreCLR
+
+[rich@kelowna count]$ time ./app/count ../Clarissa_Harlowe/clarissa_volume1.txt 
+    11716  110023  610515 ../Clarissa_Harlowe/clarissa_volume1.txt
+
+real	0m0.069s
+user	0m0.033s
+sys	0m0.016s
+
+[rich@kelowna count]$ time ./app/count ../Clarissa_Harlowe/
+    11716  110023  610515 ../Clarissa_Harlowe/clarissa_volume1.txt
+    12124  110407  610557 ../Clarissa_Harlowe/clarissa_volume2.txt
+    11961  109622  606948 ../Clarissa_Harlowe/clarissa_volume3.txt
+    12168  111908  625888 ../Clarissa_Harlowe/clarissa_volume4.txt
+    12626  108593  614062 ../Clarissa_Harlowe/clarissa_volume5.txt
+    12434  107576  607619 ../Clarissa_Harlowe/clarissa_volume6.txt
+    12818  112713  628322 ../Clarissa_Harlowe/clarissa_volume7.txt
+    12331  109785  611792 ../Clarissa_Harlowe/clarissa_volume8.txt
+    11771  104934  598265 ../Clarissa_Harlowe/clarissa_volume9.txt
+        9     153    1044 ../Clarissa_Harlowe/summary.md
+   109958  985714  5515012 total
+
+real	0m0.124s
+user	0m0.095s
+sys	0m0.010s
