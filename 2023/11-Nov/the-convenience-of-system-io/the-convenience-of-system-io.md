@@ -39,7 +39,7 @@ Next, we’ll look at an app that has been implemented multiple times — for ea
 
 ## The App
 
-The [app](https://github.com/richlander/convenience/tree/wordcount/wordcount/wordcount) counts lines, words, and bytes in a text file. It is modeled on the behavior of [`wc`](https://en.wikipedia.org/wiki/Wc_(Unix)), a popular tool available on Unix-like systems. I assume "wc" stands for "word count".
+The [app](https://github.com/richlander/convenience/tree/main/wordcount/wordcount) counts lines, words, and bytes in a text file. It is modeled on the behavior of [`wc`](https://en.wikipedia.org/wiki/Wc_(Unix)), a popular tool available on Unix-like systems.
 
 Word counting is an algorithm that requires looking at every character in a file. The counting is done by counting spaces and line breaks.
 
@@ -126,7 +126,7 @@ $  wc ../Clarissa_Harlowe/*
  109958  985713 5515012 total
 ```
 
-And with [`count`](https://github.com/richlander/convenience/tree/wordcount/wordcount/count), a standalone copy of [`FileOpenHandleCharSearchValuesBenchmark`](https://github.com/richlander/convenience/blob/wordcount/wordcount/wordcount/FileOpenHandleCharSearchValuesBenchmark.cs):
+And with [`count`](https://github.com/richlander/convenience/tree/main/wordcount/count), a standalone copy of [`FileOpenHandleCharSearchValuesBenchmark`](https://github.com/richlander/convenience/blob/wordcount/wordcount/wordcount/FileOpenHandleCharSearchValuesBenchmark.cs):
 
 ```bash
 $ dotnet run ../Clarissa_Harlowe/
@@ -215,9 +215,9 @@ char[] charBuffer = ArrayPool<char>.Shared.Rent(charBufferSize);
 byte[] buffer = ArrayPool<byte>.Shared.Rent(BenchmarkValues.Size);
 ```
 
-This code shows the two `ArrayPool` arrays that are used (and their sizes). Based on observation, there is a significant performance benefit with a 4k buffer and limited (or none) past that. A 4k buffer seems entirely reasonable to process a 600k file.
+This code shows the two `ArrayPool` arrays that are used (and their sizes). Based on observation, there is a significant performance benefit with a 4k buffer and limited (or none) past that. A 4k buffer seems reasonable to process a 600k file.
 
-I consider the code I wrote to be "app code", where `ArrayPool` use is more appropriate. If the code was library code (like `System.IO`), then I would have used private arrays (or accepted a buffer from the caller). My use of `ArrayPool` arrays also better demonstrates the memory use difference in the underlying APIs. As you can see, the cost of `File.Open` and `File.OpenHandle` is effectively zero (at least, relatively).
+I could have used private arrays (or accepted a buffer from the caller). My use of `ArrayPool` arrays demonstrates the memory use difference in the underlying APIs. As you can see, the cost of `File.Open` and `File.OpenHandle` is effectively zero (at least, relatively).
 
 All that said, the memory use of my `FileOpen` and `FileOpenHandle` benchmarks would show up as very similar to `FileOpenText` if I wasn't using `ArrayPool`. That should give you the idea that `FileOpenText` is pretty good (when not using `StreamReader.ReadLine`). Certainly, my implementations could be updated to use much smaller buffers, but they would run slower.
 
@@ -348,7 +348,7 @@ Here's some (semi-relevant) text from The Hobbit.
 
 I cannot help but think that moon-letters are fantastic [whitespace characters](https://en.wikipedia.org/wiki/Whitespace_character).
 
-Here are the results of a [small utility](https://github.com/richlander/convenience/tree/wordcount/wordcount/codepoints) that prints out information about each Unicode character, using that text.
+Here are the results of a [small utility](https://github.com/richlander/convenience/tree/main/wordcount/codepoints) that prints out information about each Unicode character, using that text. The byte-length, and bytes are specific to being a UTF8 representation.
 
 ```bash
 $ dotnet run elrond.txt | head -n 16
@@ -370,13 +370,84 @@ s,    115, 1, 01110011,
 a,     97, 1, 01100001,
 ```
 
-This information tells us a few things. The opening [quotation mark](https://util.unicode.org/UnicodeJsps/character.jsp?a=201c&B1=Show) character requires three bytes to encode. The remaining characters all require one byte, since they are within the ASCII character range (and the text is UTF8). We also see one whitespace character, the space character. 
+The opening [quotation mark](https://util.unicode.org/UnicodeJsps/character.jsp?a=201c&B1=Show) character requires three bytes to encode. The remaining characters all require one byte since they are within the ASCII character range. We also see one whitespace character, the space character.
 
-The binary representation of the characters that use the one-byte encoding exactly match their codepoint integer values. For example, the binary representation of codepoint "M" (77) is `0b01001101`, the same as integer 77. In contrast, the binary representation of integer `8220` is `0b_100000_00011100`, not the three-byte binary value we see above for `“`. That's because Unicode encodings [describe more than just the codepoint value](https://stackoverflow.com/questions/5290182/how-many-bytes-does-one-unicode-character-take). However, if you write `(char)8220`, you'll still get the intended quotation mark `char`. More generally, `char` and `int` are fully interoperable, while `char` and `byte` (in general) are not.
+The binary representation of the characters that use the one-byte encoding exactly match their codepoint integer values. For example, the binary representation of codepoint "M" (77) is `0b01001101`, the same as integer 77. In contrast, the binary representation of integer `8220` is `0b_100000_00011100`, not the three-byte binary value we see above for `“`. That's because Unicode encodings [describe more than just the codepoint value](https://stackoverflow.com/questions/5290182/how-many-bytes-does-one-unicode-character-take).
 
-In .NET, `char` is the higher-level representation of characters and hides the underlying complexity of Unicode. [Rune](https://learn.microsoft.com/dotnet/api/system.text.rune#rune-in-net-vs-other-languages) is a lower-level concept that describes all Unicode codepoints, including those that join together ([surrogate pairs](https://en.wikipedia.org/wiki/Universal_Character_Set_characters#Surrogates)). `Encoding` is a very useful family of types for converting between various text representations. All of these types are used in the benchmarks. Also, all of the benchmarks (except one that cheats) properly use these types so that Unicode text is correctly processed.
+Here's [another program](https://github.com/richlander/convenience/tree/main/wordcount/printchars) that should provide even more insight.
 
-Let's look at some code.
+```csharp
+using System.Text;
+
+char englishLetter = 'A';
+char fancyQuote =  '“';
+// char emoji = (char)0x1f600; // won't compile
+string emoji = "\U0001f600";
+Encoding encoding = Encoding.UTF8;
+
+PrintChar(englishLetter);
+PrintChar(fancyQuote);
+PrintChar(emoji[0]);
+PrintUnicodeCharacter(emoji);
+
+void PrintChar(char c)
+{
+    int value = (int)c;
+    // Rune rune = new Rune(c); // will throw since emoji[0] is an invalid rune
+    Console.WriteLine($"{c}; bytes: {encoding.GetByteCount([c])}; integer value: {(int)c}; round-trip: {(char)value}");
+}
+
+void PrintUnicodeCharacter(string s)
+{
+    char[] chars = s.ToCharArray();
+    int value = char.ConvertToUtf32(s, 0);
+    Rune r1 = (Rune)value;
+    Rune r2 = new Rune(chars[0], chars[1]);
+    Console.WriteLine($"{s}; chars: {chars.Length}; bytes: {encoding.GetByteCount(chars)}; integer value: {value}; round-trip {char.ConvertFromUtf32(value)};");
+    Console.WriteLine($"{s}; Runes match: {r1 == r2 && r1.Value == value}; {nameof(Rune.Utf8SequenceLength)}: {r1.Utf8SequenceLength}; {nameof(Rune.Utf16SequenceLength)}: {r1.Utf16SequenceLength}");
+}
+```
+
+It prints out the following:
+
+```bash
+A; bytes: 1; integer value: 65; round-trip: A
+“; bytes: 3; integer value: 8220; round-trip: “
+�; bytes: 3; integer value: 55357; round-trip: �
+😀; chars: 2; bytes: 4; integer value: 128512; round-trip 😀;
+😀; Runes match: True; Utf8SequenceLength: 4; Utf16SequenceLength: 2
+```
+
+I can run the app again, switching the encoding to UTF16. I switched the value of `encoding` to `Encoding.Unicode`.
+
+```bash
+A; bytes: 2; integer value: 65; round-trip: A
+“; bytes: 2; integer value: 8220; round-trip: “
+�; bytes: 2; integer value: 55357; round-trip: �
+😀; chars: 2; bytes: 4; integer value: 128512; round-trip 😀;
+😀; Runes match: True; Utf8SequenceLength: 4; Utf16SequenceLength: 2
+```
+
+That tells us a few things:
+
+- The UTF8 encoding has a non-uniform byte encoding.
+- The UTF16 encoding is more uniform.
+- Characters that require a single codepoint can interoperate with `int`, enabling patterns like `(char)8220` or `(char)0x201C`.
+- Characters that require two codepoints can be stored in a `string`, an (UTF32) integer value, or as a `Rune`, enabling patterns like `(Rune)128512`.
+- It is easy to write software with bugs if the code directly handles characters or (even worse) bytes. For example, imagine writing a text search algorithm that supports emoji search terms.
+- Multi-codepoint characters are enough to rune any developer.
+- My terminal supports emoji (and I'm very happy about that).
+
+We can connect those Unicode concepts back to .NET types.
+
+- `string` and `char` use the UTF16 encoding.
+- `Encoding` classes enable processing text between the encodings and `byte` values.
+- `string` supports Unicode characters that require one or two codepoints.
+- [`Rune`](https://learn.microsoft.com/dotnet/api/system.text.rune#rune-in-net-vs-other-languages) can represent all Unicode characters (including [surrogate pairs](https://en.wikipedia.org/wiki/Universal_Character_Set_characters#Surrogates)), unlike `char`.
+
+All of these types are used in the benchmarks. All of the benchmarks (except one that cheats) properly use these types so that Unicode text is correctly processed.
+
+Let's look at the benchmarks.
 
 ## `File.ReadLines` and `File.ReadAllLines`
 
@@ -394,13 +465,13 @@ public static Count Count(string path)
 {
    long wordCount = 0, lineCount = 0, charCount = 0;
 
-   foreach (var line in File.ReadLines(path))
+   foreach (string line in File.ReadLines(path))
    {
       lineCount++;
       charCount += line.Length;
       bool wasSpace = true;
 
-      foreach (var c in line)
+      foreach (char c in line)
       {
             bool isSpace = char.IsWhiteSpace(c);
 
@@ -466,13 +537,13 @@ public static Count Count(string path)
       lineCount++;
       charCount += line.Length;
       ReadOnlySpan<char> text = line.AsSpan().TrimStart();
-      int index = 0;
 
       if (text.Length is 0)
       {
             continue;
       }
 
+      int index = 0;
       while ((index = text.IndexOfAny(BenchmarkValues.WhitespaceSearchValuesNoLineBreak)) > 0)
       {
             wordCount++;
@@ -486,7 +557,7 @@ public static Count Count(string path)
 }
 ```
 
-This benchmark is simply counting spaces. It is taking advantage of the new `SearchValues` type, which can speed up `IndexOfAny` when searching for more than just a few values. The `SearchValues` object is constructed with [whitespace characters](https://util.unicode.org/UnicodeJsps/list-unicodeset.jsp?a=%5B:White_Space=Yes:%5D) except (most) line break characters. We can assume that line break characters are no longer present, since the code is relying on `StreamReader.ReadLine` for that.
+This benchmark is simply counting spaces (that it doesn't trim). It is taking advantage of the new `SearchValues` type, which can speed up `IndexOfAny` when searching for more than just a few values. The `SearchValues` object is constructed with [whitespace characters](https://util.unicode.org/UnicodeJsps/list-unicodeset.jsp?a=%5B:White_Space=Yes:%5D) except (most) line break characters. We can assume that line break characters are no longer present, since the code is relying on `StreamReader.ReadLine` for that.
 
 I could have used this same algorithm for the previous benchmark implementations, however, I wanted to match the most approachable APIs with the most approachable benchmark implementations.
 
@@ -524,10 +595,10 @@ public static Count Count(string path)
    bool wasSpace = true;
 
    char[] buffer = ArrayPool<char>.Shared.Rent(BenchmarkValues.Size);
-   using var stream = File.OpenText(path);
+   using StreamReader reader = File.OpenText(path);
 
    int count = 0;
-   while ((count = stream.Read(buffer)) > 0)
+   while ((count = reader.Read(buffer)) > 0)
    {
       charCount += count;
       Span<char> chars = buffer.AsSpan(0, count);
@@ -581,7 +652,7 @@ It isn't that different to the original implementation. The first block needs to
 
 `Span<T>` is used pervasively in this implementation. Spans provide a cheap way of creating window on an underlying array. They are so cheap that its fine for the implementation to continue slicing all the way to when `chars.Length > 0` is no longer true. I only used that approach with algorithms that required slices >1 characters at once. Otherwise, I used a for loop to iterate over a `Span`, which was faster.
 
-Note: Visual Studio will suggest that `chars.Slice(1)` can be simplified to `chars[1]`. I discovered that the [simplication isn't equivalent](https://github.com/dotnet/roslyn/issues/47629) and shows up as a performance regression in benchmarks. It's much less likely to be a problem in apps.
+Note: Visual Studio will suggest that `chars.Slice(1)` can be simplified to `chars[1..]`. I discovered that the [simplication isn't equivalent](https://github.com/dotnet/roslyn/issues/47629) and shows up as a performance regression in benchmarks. It's much less likely to be a problem in apps.
 
 ```bash
 $ wc ../Clarissa_Harlowe/clarissa_volume1.txt
@@ -633,7 +704,7 @@ public static Count Count(string path)
 
    char[] charBuffer = ArrayPool<char>.Shared.Rent(charBufferSize);
    byte[] buffer = ArrayPool<byte>.Shared.Rent(BenchmarkValues.Size);
-   using var handle = File.OpenHandle(path, FileMode.Open, FileAccess.Read, FileShare.Read, FileOptions.SequentialScan);
+   using Microsoft.Win32.SafeHandles.SafeFileHandle handle = File.OpenHandle(path, FileMode.Open, FileAccess.Read, FileShare.Read, FileOptions.SequentialScan);
 
    // Read content in chunks, in buffer, at count lenght, starting at byteCount
    int count = 0;
@@ -719,7 +790,7 @@ public static Count Count(string path)
    bool wasSpace = true;
 
    byte[] buffer = ArrayPool<byte>.Shared.Rent(BenchmarkValues.Size);
-   using var handle = File.OpenHandle(path, FileMode.Open, FileAccess.Read, FileShare.Read, FileOptions.SequentialScan);
+   using Microsoft.Win32.SafeHandles.SafeFileHandle handle = File.OpenHandle(path, FileMode.Open, FileAccess.Read, FileShare.Read, FileOptions.SequentialScan);
    int index = 0;
 
    // Read content in chunks, in buffer, at count lenght, starting at byteCount
@@ -732,7 +803,7 @@ public static Count Count(string path)
 
       while (bytes.Length > 0)
       {
-            var status = Rune.DecodeFromUtf8(bytes, out Rune rune, out int bytesConsumed);
+            OperationStatus status = Rune.DecodeFromUtf8(bytes, out Rune rune, out int bytesConsumed);
 
             // bad read due to low buffer length
             if (status == OperationStatus.NeedMoreData && count > 0)
@@ -790,7 +861,7 @@ public static Count Count(string path)
    bool wasSpace = true;
 
    byte[] buffer = ArrayPool<byte>.Shared.Rent(BenchmarkValues.Size);
-   using var handle = File.OpenHandle(path, FileMode.Open, FileAccess.Read, FileShare.Read, FileOptions.SequentialScan);
+   using Microsoft.Win32.SafeHandles.SafeFileHandle handle = File.OpenHandle(path, FileMode.Open, FileAccess.Read, FileShare.Read, FileOptions.SequentialScan);
 
    // Read content in chunks, in buffer, at count lenght, starting at byteCount
    int count = 0;
