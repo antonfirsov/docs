@@ -17,6 +17,8 @@ This post kicks off a new series, exploring convenient solutions to common tasks
 The next posts go into much more detail on specific API families, with a lot of code and performance numbers, to fully explore these convenient solutions.
 
 - [The Convenience of System.Text.Json](https://devblogs.microsoft.com/dotnet/the-convenience-of-system-text-json/)
+- [The Convenience of System.IO](https://devblogs.microsoft.com/dotnet/the-convenience-of-system-io/)
+- [Wrathmark: An Interesting Compute Workload (guest post)](https://ricomariani.medium.com/wrathmark-an-interesting-compute-workload-part-1-47d61e0bea43)
 
 Let's start the series with a more general exploration of how the .NET platform delivers on convenience.
 
