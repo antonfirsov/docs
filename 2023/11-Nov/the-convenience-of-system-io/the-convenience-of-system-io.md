@@ -80,7 +80,7 @@ I used that machine for the performance testing in this post. You can see I'm us
 
 I love solutions that are easy and approachable. Lines of code is our best proxy metric for that.
 
-<img title="File API lines of code metric" src ="file-api-loc.png" width="75%" />
+<img title="File API lines of code metric" src ="file-api-approachability-loc.png" width="75%" />
 
 There are two clusters in this chart, at ~35 and ~75 lines. You'll see that these benchmarks boil down to two algorithms with some small differences to accomodate the different APIs. In contrast, the [`wc` implementation](https://github.com/coreutils/coreutils/blob/master/src/wc.c) is quite a bit longer, nearing 1000 lines. It does more, however.
 
