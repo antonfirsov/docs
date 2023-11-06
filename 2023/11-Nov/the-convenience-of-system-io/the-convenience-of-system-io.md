@@ -20,8 +20,8 @@ This post analyzes the convenience and performance of file I/O and text APIs bei
 
 The following `File` APIs (with their companions) are used in the benchmarks.
 
-1. [`File.OpenHandle`](https://learn.microsoft.com/dotnet/api/system.io.file.openhandle) with [`RandomAccess.Read`](https://learn.microsoft.com/dotnet/api/system.io.randomaccess.read#system-io-randomaccess-read(microsoft-win32-safehandles-safefilehandle-system-span((system-byte))-system-int64))
-1. [`File.Open`](https://learn.microsoft.com/dotnet/api/system.io.file.open) with [`FileStream.Read`](https://learn.microsoft.com/dotnet/api/system.io.filestream.read#system-io-filestream-read(system-span((system-byte))))
+1. [`File.OpenHandle`](https://learn.microsoft.com/dotnet/api/system.io.file.openhandle) with [`RandomAccess.Read`](https://learn.microsoft.com/dotnet/api/system.io.randomaccess.read)
+1. [`File.Open`](https://learn.microsoft.com/dotnet/api/system.io.file.open) with [`FileStream.Read`](https://learn.microsoft.com/dotnet/api/system.io.filestream.read)
 1. [`File.OpenText`](https://learn.microsoft.com/dotnet/api/system.io.file.opentext) with [`StreamReader.Read`](https://learn.microsoft.com/dotnet/api/system.io.streamreader.read) and [`StreamReader.ReadLine`](https://learn.microsoft.com/dotnet/api/system.io.streamreader.readline)
 1. [`File.ReadLines`](https://learn.microsoft.com/dotnet/api/system.io.file.readlines) with [`IEnumerable<string>`](https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1)
 1. [`File.ReadAllLines`](https://learn.microsoft.com/dotnet/api/system.io.file.readalllines) with [`string[]`](https://learn.microsoft.com/dotnet/api/system.array)
@@ -80,7 +80,7 @@ I used that machine for the performance testing in this post. You can see I'm us
 
 I love solutions that are easy and approachable. Lines of code is our best proxy metric for that.
 
-<img title="File API lines of code metric" src ="file-api-approachability-loc.png" width="75%" />
+<img title="File API lines of code metric" src ="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/11/file-api-approachability-loc.png" width="75%" />
 
 There are two clusters in this chart, at ~35 and ~75 lines. You'll see that these benchmarks boil down to two algorithms with some small differences to accomodate the different APIs. In contrast, the [`wc` implementation](https://github.com/coreutils/coreutils/blob/master/src/wc.c) is quite a bit longer, nearing 1000 lines. It does more, however.
 
