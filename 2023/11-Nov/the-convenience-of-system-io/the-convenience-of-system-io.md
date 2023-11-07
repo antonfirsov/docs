@@ -330,7 +330,7 @@ user	0m0.025s
 sys	0m0.007s
 ```
 
-That's 4 and 22 milliseconds with native AOT compared to 9 and 25 with `wc`. Those are excellent results and quite competitive! The numbers are so good that I'd almost have to double check, but the numbers validate the computation.
+That's 4 and 22 milliseconds with native AOT compared to 9 and 25 with `wc`. Those are excellent results and quite competitive! The numbers are so good that I'd almost have to double check, but the counts validate the computation.
 
 <img src="native-code-results.png" title="Results of comparing wc and native aot" width="75%" />
 
@@ -374,7 +374,7 @@ The opening [quotation mark](https://util.unicode.org/UnicodeJsps/character.jsp?
 
 The binary representation of the characters that use the one-byte encoding exactly match their codepoint integer values. For example, the binary representation of codepoint "M" (77) is `0b01001101`, the same as integer 77. In contrast, the binary representation of integer `8220` is `0b_100000_00011100`, not the three-byte binary value we see above for `“`. That's because Unicode encodings [describe more than just the codepoint value](https://stackoverflow.com/questions/5290182/how-many-bytes-does-one-unicode-character-take).
 
-Here's [another program](https://github.com/richlander/convenience/tree/main/wordcount/printchars) that should provide even more insight.
+Here's [another program](https://github.com/richlander/convenience/tree/main/wordcount/printchars) that should provide even [more insight](https://learn.microsoft.com/dotnet/standard/base-types/character-encoding-introduction).
 
 ```csharp
 using System.Text;
@@ -434,7 +434,7 @@ That tells us a few things:
 - The UTF16 encoding is more uniform.
 - Characters that require a single codepoint can interoperate with `int`, enabling patterns like `(char)8220` or `(char)0x201C`.
 - Characters that require two codepoints can be stored in a `string`, an (UTF32) integer value, or as a `Rune`, enabling patterns like `(Rune)128512`.
-- It is easy to write software with bugs if the code directly handles characters or (even worse) bytes. For example, imagine writing a text search algorithm that supports emoji search terms.
+- It is easy to write software with bugs if the code directly handles characters or (even worse) bytes. For example, imagine writing a text search algorithm that supports [emoji](https://www.unicode.org/emoji/charts/full-emoji-list.html) search terms.
 - Multi-codepoint characters are enough to rune any developer.
 - My terminal supports emoji (and I'm very happy about that).
 
@@ -706,7 +706,7 @@ public static Count Count(string path)
    byte[] buffer = ArrayPool<byte>.Shared.Rent(BenchmarkValues.Size);
    using Microsoft.Win32.SafeHandles.SafeFileHandle handle = File.OpenHandle(path, FileMode.Open, FileAccess.Read, FileShare.Read, FileOptions.SequentialScan);
 
-   // Read content in chunks, in buffer, at count lenght, starting at byteCount
+   // Read content in chunks, in buffer, at count length, starting at byteCount
    int count = 0;
    while ((count = RandomAccess.Read(handle, buffer, byteCount)) > 0)
    {
@@ -793,7 +793,7 @@ public static Count Count(string path)
    using Microsoft.Win32.SafeHandles.SafeFileHandle handle = File.OpenHandle(path, FileMode.Open, FileAccess.Read, FileShare.Read, FileOptions.SequentialScan);
    int index = 0;
 
-   // Read content in chunks, in buffer, at count lenght, starting at byteCount
+   // Read content in chunks, in buffer, at count length, starting at byteCount
    int count = 0;
    while ((count = RandomAccess.Read(handle, buffer.AsSpan(index), byteCount)) > 0 || index > 0)
    {
@@ -863,7 +863,7 @@ public static Count Count(string path)
    byte[] buffer = ArrayPool<byte>.Shared.Rent(BenchmarkValues.Size);
    using Microsoft.Win32.SafeHandles.SafeFileHandle handle = File.OpenHandle(path, FileMode.Open, FileAccess.Read, FileShare.Read, FileOptions.SequentialScan);
 
-   // Read content in chunks, in buffer, at count lenght, starting at byteCount
+   // Read content in chunks, in buffer, at count length, starting at byteCount
    int count = 0;
    while ((count = RandomAccess.Read(handle, buffer, byteCount)) > 0)
    {
