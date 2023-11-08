@@ -28,20 +28,22 @@ All hackathon participants who submit an app will receive a digital badge. In ad
 
 **🏆 Grand Prize winner:** _The best of the best! This category rewards the solution that meets all judging criteria, wows judges, and has potential real-world value._
 
-* $500 cash prize 💸
+* $1500 cash prize 💸
 
 **🥇 Best Intelligent Apps solution:**
 
-* $100 Azure credits
+* $500 cash prize 💸
 
 **🥇 Best Cloud Native solution:**
 
-* $100 Azure credits
+* $500 cash prize 💸
 
 **🏅 All hackathon participants who submit an app will receive a digital badge.**
 
 We can't wait to see what you will create with .NET 8! Share your journey throughout the hack on social with the #GreatDotNet8Hack hashtag. Let us know if you have any questions. Our team is always here to help you! Follow us on Twitter/X and Mastodon to stay up to date on our latest news and announcements.
 
 Register today and we look forward to meeting you at #GreatDotNet8Hack.
+
+[cta-button align="center" text="Register" url="https://aka.ms/hacktogether/dotnet/register" color="#5C2D91"]
 
 PS: Do you think this blog post was written by a human or AI? 😉
