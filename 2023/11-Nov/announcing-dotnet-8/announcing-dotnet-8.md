@@ -7,7 +7,7 @@ featured_image: Banner.png
 categories: .NET, .NET Core
 tags: .net 8, featured
 summary: "Today Microsoft announced the availability of .NET 8, the latest version of one of the world’s leading programming languages and development platforms."
-post_date: 2023-11-14 10:05:00
+post_date: 2023-11-14 08:00:00
 ---
 
 [![.NET 8 is now available](Banner.png)](https://dotnet.microsoft.com/download/dotnet/8.0)
@@ -16,7 +16,7 @@ Today we are happy to announce the [availability of .NET 8](https://aka.ms/get-d
 
 .NET 8 reshapes the way we build intelligent cloud-native applications and high-traffic services that scale on demand. Whether you’re deploying to Linux or Windows using containers or a cloud app model of your choice, .NET 8 makes building apps easier. It includes new built-in cloud-native components and libraries that are used today by the many services at Microsoft you know and love, to help you with fundamental challenges including observability, resiliency, scalability, manageability, and much more.
 
-[![.NET 8 - Cloud Native Features](Cloud-Native-dotnet-8.png)](https://aka.ms/aspireannouncement)
+[![.NET 8 – Cloud Native Features](Cloud-Native-dotnet-8.png)](https://aka.ms/aspireannouncement)
 
 Integrate large language models like OpenAI’s GPT directly into your .NET app. Use a single powerful component model to handle all your web UI needs with Blazor. Deploy your mobile applications to the latest version of iOS and Android with .NET MAUI. Discover new language enhancements that make your code more concise and expressive with C# 12.  
 
