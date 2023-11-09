@@ -22,25 +22,48 @@ Microsoft will offer [long term support for .NET 8 for at least three years](htt
 
 Let’s look at what’s new.
 
-## [.NET Aspire — An opinionated stack to build observable, production-ready cloud native applications](https://aka.ms/aspireannouncement)
+## What's new in .NET 8
+
+The .NET 8 release includes improvements across all workloads with major enhancements to:
+
+- Cloud Native
+  - [.NET Aspire](#net-aspire-an-opinionated-stack-to-build-observable-production-ready-cloud-native-applications)
+  - [Containers](#net-8-container-enhancements-more-secure-compact-and-developer-friendly)
+
+- Optimized Execution
+  - [Performance](#unparalleled-performance-experience-the-fastest-net-to-date)
+  - [Native AOT](#native-aot-journey-towards-higher-density-sustainable-compute)
+
+- AI/ML Innovation
+  - [Infuse AI into your .NET Applications](#artificial-intelligence-build-your-next-copilot-with-net)
+
+- Framework Advancements
+  - [Blazor](#blazor-build-full-stack-web-applications-with-net)
+  - [.NET MAUI](#net-maui-elevated-performance-reliability-and-developer-experience)
+
+- Language & Tools
+  - [C# 12](#c-12-features-simplified-syntax-for-better-developer-productivity)
+  - [Visual Studio](#best-productivity-in-visual-studio-family-of-tools)
+
+## [.NET Aspire – An opinionated stack to build observable, production-ready cloud native applications](https://aka.ms/aspireannouncement)
 
 .NET Aspire is a stack for building resilient, observable, and configurable cloud-native applications with .NET. It includes a curated set of components enhanced for cloud-native by including telemetry, resilience, configuration, and health checks by default. Combined with a sophisticated but simple local developer experience, Aspire makes it easy to discover, acquire, and configure essential dependencies for cloud native applications on day 1 as well as day 100.
 
 [![.NET Aspire](Aspire.png)](https://aka.ms/aspireannouncement)
 
-## [.NET 8 Container Enhancements — More secure, compact, and developer-friendly](https://devblogs.microsoft.com/dotnet/securing-containers-with-rootless/) 
+## [.NET 8 Container Enhancements – More secure, compact, and developer-friendly](https://devblogs.microsoft.com/dotnet/securing-containers-with-rootless/) 
 
 Package your applications into containers more easily and more securely than ever with .NET. New non-root options in our base images seamlessly work together with the built-in SDK tooling, making your containers even more secure. Deploy your containerized apps faster due to smaller .NET base images - including new variants of our images that work with Trimming and Native AOT to deliver truly minimal application sizes. Opt in to even more security hardening with the new Chiseled Ubuntu image variants to reduce your attack surface even further. Use the enhanced SDK tooling to build multi-platform container images to pick the best architecture for your use case.
 
 [![Modern containers](Containers.png)](https://devblogs.microsoft.com/dotnet/securing-containers-with-rootless/)
 
-## [Unparalleled Performance — Experience the fastest .NET to date](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/)
+## [Unparalleled Performance – Experience the fastest .NET to date](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/)
 
 A new code generator called Dynamic Profile-Guided Optimization (PGO) that optimizes your code based on real-world usage is enabled by default and can improve the performance of your apps up to 20%. The AVX-512 instruction set is now supported. This support enables you to perform parallel operations on 512-bit vectors of data, meaning you can process much more data in less time. The primitive types (numerical and beyond) now implement a new formattable and parsable interface, which enable them to directly format and parse as UTF-8 without any transcoding overhead.
 
 [![TechEmpower requests per second (RPS)](Performance.png)](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/)
 
-## [Native AoT — Journey towards higher density sustainable compute](https://learn.microsoft.com/dotnet/core/deploying/native-aot)
+## [Native AoT – Journey towards higher density sustainable compute](https://learn.microsoft.com/dotnet/core/deploying/native-aot)
 
 Compile your .NET apps into native code that runs faster, uses less memory, and starts instantly. No need to wait for the JIT (just-in-time) compiler to compile the code at runtime. No need to deploy the JIT compiler and IL code. AOT apps deploy just the code that's needed for your app. Your app is now empowered to run in restricted environments where a JIT compiler is not allowed.
 
@@ -50,7 +73,7 @@ Compile your .NET apps into native code that runs faster, uses less memory, and 
 ### After AOT
 [![After AOT](AfterAOT.png)](https://learn.microsoft.com/dotnet/core/deploying/native-aot)
 
-## [Artificial Intelligence — Build your next copilot with .NET](https://aka.ms/dotnet-genai)
+## [Artificial Intelligence – Infuse AI into your .NET applications](https://aka.ms/dotnet-genai)
 
 OpenAI's large language models have transformed the field of AI and provided developers with the ability to create unique AI-powered experiences in their applications. In .NET 8, we made significant investments in several areas, such as `System.Numerics`, samples, and tools to facilitate our developers in utilizing these models and seamlessly integrating them into their applications.
 
@@ -66,19 +89,19 @@ Having access to samples and reference templates is crucial for a smooth develop
 
 ![AI-chatbot](https://github.com/Azure-Samples/azure-search-openai-demo-csharp/assets/2546640/b79090b8-6a8b-45f4-b42b-e21e22b1661a)
 
-## [Blazor — Build full stack web applications with .NET](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor)
+## [Blazor – Build full stack web applications with .NET](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor)
 
 Blazor in .NET 8 can use both the server and client together to handle all your web UI needs. It's full stack web UI! Blazor now has expanded support for server-side rendering with components, including static server rendering, enhanced navigation & form handling, and streaming rendering, so you can optimize page load time and elevate the user experience. You can then enable rich interactivity for components wherever needed by specifying an interactive render mode based on Blazor Server or Blazor WebAssembly. You can even use both in the same app and automatically shift users from the server to the client at runtime to improve app load time and scalability. Your .NET code runs significantly faster on WebAssembly thanks to the new "Jiterpreter" based runtime, and new built in components for displaying data, defining section outlets, and handling authentication help you stay productive.
 
 ![Full stack Blazor](Blazor.png)
 
-## [.NET MAUI — Elevated performance, reliability, and developer experience](https://devblogs.microsoft.com/dotnet/announcing-dotnet-maui-in-dotnet-8)
+## [.NET MAUI – Elevated performance, reliability, and developer experience](https://devblogs.microsoft.com/dotnet/announcing-dotnet-maui-in-dotnet-8)
 
 .NET MAUI provides you a single project system and single codebase to build WinUI, Mac Catalyst, iOS, and Android applications. Native AOT (experimental) now supports targeting iOS-like platforms. [A new Visual Studio Code extension for .NET MAUI](https://aka.ms/maui-devkit-blog) gives you the tools you need to develop cross-platform .NET mobile and desktop apps. Xcode 15 and Android API 34 are now supported allowing you to target the latest version of iOS and Android. A plethora of quality improvements were made to the [areas of performance](https://devblogs.microsoft.com/dotnet/dotnet-8-performance-improvements-in-dotnet-maui), controls and UI elements, and platform-specific behavior, such as desktop interaction adding better click handling, keyboard listeners, and more.
 
 [![.NET MAUI Visual Studio Code Extension](dotnetMAUIin8.png)](https://devblogs.microsoft.com/dotnet/announcing-dotnet-maui-in-dotnet-8)
 
-## [C# 12 Features — Simplified syntax for better developer productivity](https://devblogs.microsoft.com/dotnet/announcing-csharp-12)
+## [C# 12 Features – Simplified syntax for better developer productivity](https://devblogs.microsoft.com/dotnet/announcing-csharp-12)
 
 [C# 12 makes your coding experience more productive and enjoyable.](https://devblogs.microsoft.com/dotnet/announcing-csharp-12) You can now create primary constructors in any class and struct with a simple and elegant syntax. No more boilerplate code to initialize your fields and properties. Be delighted when creating arrays, spans, and other collection types with a concise and expressive syntax. Use new default values for parameters in lambda expressions. No more overloading or null checks to handle optional arguments. You can even use the `using` alias directive to alias any type, not just named types!
 
@@ -111,7 +134,7 @@ Alongside this great .NET 8 release, we have a set of great tools that help you 
 
 and updated [enhancements to debugging views](https://devblogs.microsoft.com/dotnet/debugging-enhancements-in-dotnet-8/) when using .NET 8:
 
-![Visual Studio debugging screenshot of HttpContext in .NET 8](httpcontext-debugging-after.png)
+![Visual Studio debugging screenshot of HttpContext in .NET 8](https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/09/httpcontext-debugging-after.png)
 
 Visual Studio helps your inner loop also with the updated auth improvements in .NET 8 and combined with debugger delighters like JWT visualizer just make writing web apps a joy in Visual Studio 2022.
 
