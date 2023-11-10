@@ -12,9 +12,9 @@ post_date: 2023-11-14 08:00:00
 
 [Download .NET 8 today!](https://aka.ms/get-dotnet-8)
 
-<a href="https://dotnet.microsoft.com/download/dotnet/8.0"><img class="aligncenter" src="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/11/Banner3.png" alt=".NET 8 is now available" width="600" /></a>
-
 We are happy to announce the availability of [.NET 8](https://aka.ms/get-dotnet-8), the latest [LTS](https://dotnet.microsoft.com/platform/support/policy) version of one of the world’s leading development platforms, starting today. .NET 8 delivers thousands of performance, stability, and security improvements, as well as platform and tooling enhancements that help increase developer productivity and speed of innovation. The .NET team, our partners, and the .NET community will be talking about what’s new in .NET 8 as well as what people are building with .NET today to meet their needs of tomorrow at  [.NET Conf 2023, a three day virtual event (November 14-16)](https://www.dotnetconf.net/). Come, join us!
+
+<a href="https://dotnet.microsoft.com/download/dotnet/8.0"><img class="aligncenter" src="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/11/Banner3.png" alt=".NET 8 is now available" width="600" /></a>
 
 With this release, .NET reshapes the way we build intelligent, cloud-native, applications and high-traffic services that scale on demand. Whether you’re deploying to Linux or Windows, using containers or a cloud app model of your choice, .NET 8 makes building these apps easier. It includes a set of proven libraries that are used today by the many high-scale services at Microsoft to help you with fundamental challenges around observability, resiliency, scalability, manageability, and more.
 
