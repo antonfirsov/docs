@@ -28,15 +28,15 @@ All hackathon participants who submit an app will receive a digital badge. In ad
 
 **🏆 Grand Prize winner:** _The best of the best! This category rewards the solution that meets all judging criteria, wows judges, and has potential real-world value._
 
-* $1500 cash prize 💸
+* $500 per individual, up to $1500 total for a team of three 💸
 
 **🥇 Best Intelligent Apps solution:**
 
-* $500 cash prize 💸
+* $500 cash prize per team 💸
 
 **🥇 Best Cloud Native solution:**
 
-* $500 cash prize 💸
+* $500 cash prize per team 💸
 
 **🏅 All hackathon participants who submit an app will receive a digital badge.**
 
