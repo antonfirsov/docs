@@ -73,7 +73,7 @@ Blazor in .NET 8 can use both the server and client together to handle all your 
 
 ## [C# 12 Features - Simplified syntax for better developer productivity](https://devblogs.microsoft.com/dotnet/announcing-csharp-12)
 
-[C# 12 makes your coding experience more productive and enjoyable.](https://devblogs.microsoft.com/dotnet/announcing-csharp-12) You can now create primary constructors in any class and struct with a simple and elegant syntax. No more boilerplate code to initialize your fields and properties. Be delighted when creating arrays, spans, and other collection types with a concise and expressive syntax. Use new default values for parameters in lambda expressions. No more overloading or null checks to handle optional arguments. You can even use the `using` alias directive to alias any type, not just named types!
+C# 12 makes your coding experience more productive and enjoyable. You can now create primary constructors in any class and struct with a simple and elegant syntax. No more boilerplate code to initialize your fields and properties. Be delighted when creating arrays, spans, and other collection types with a concise and expressive syntax. Use new default values for parameters in lambda expressions. No more overloading or null checks to handle optional arguments. You can even use the `using` alias directive to alias any type, not just named types!
 
 **Collection expressions**
 
@@ -94,7 +94,7 @@ int[] row2 = [7, 8, 9];
 int[][] twoDFromVariables = [row0, row1, row2];
 ```
 
-See more about the latest version of C# in [Announcing C# 12](https://learn.microsoft.com/dotnet/csharp/whats-new/csharp-12).
+See more about the latest version of C# in [Announcing C# 12](https://devblogs.microsoft.com/dotnet/announcing-csharp-12).
 
 ## [NET 8 support across Visual Studio family of tools](https://aka.ms/VS/v178GA)
 
