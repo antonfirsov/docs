@@ -50,7 +50,7 @@ Package your applications with [containers more easily and more securely than ev
 
 Compile your .NET apps into [native code](https://learn.microsoft.com/dotnet/core/deploying/native-aot) that uses less memory and starts instantly. No need to wait for the JIT (just-in-time) compiler to compile the code at runtime. No need to deploy the JIT compiler and IL code. AOT apps deploy just the code that’s needed for your app. Your app is now empowered to run in restricted environments where a JIT compiler is not allowed.
 
-[![Before and After AOT](AOTOptimizations2.png)](https://learn.microsoft.com/dotnet/core/deploying/native-aot)
+[![Before and After AOT](AOTOptimizations3.png)](https://learn.microsoft.com/dotnet/core/deploying/native-aot)
 
 ## Artificial Intelligence - Infuse AI into your .NET applications
 
