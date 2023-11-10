@@ -10,7 +10,7 @@ summary: "Today Microsoft announced the availability of .NET 8, the latest versi
 post_date: 2023-11-14 08:00:00
 ---
 
-[Download .NET 8 today!](https://aka.ms/get-dotnet-8)
+[cta-button align='center' text='Download .NET 8 today!' url='https://aka.ms/get-dotnet-8'  color='#5c33b8']
 
 We are happy to announce the availability of [.NET 8](https://aka.ms/get-dotnet-8), the latest [LTS](https://dotnet.microsoft.com/platform/support/policy) version of one of the world’s leading development platforms, starting today. .NET 8 delivers thousands of performance, stability, and security improvements, as well as platform and tooling enhancements that help increase developer productivity and speed of innovation. The .NET team, our partners, and the .NET community will be talking about what’s new in .NET 8 as well as what people are building with .NET today to meet their needs of tomorrow at  [.NET Conf 2023, a three day virtual event (November 14-16)](https://www.dotnetconf.net/). Come, join us!
 
