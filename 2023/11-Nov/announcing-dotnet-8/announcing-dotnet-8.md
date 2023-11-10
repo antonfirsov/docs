@@ -78,20 +78,17 @@ C# 12 makes your coding experience more productive and enjoyable. You can now cr
 **Collection expressions**
 
 ```csharp
-// Create an array:
-int[] a = [1, 2, 3, 4, 5, 6, 7, 8];
+// Create a list:
+List<int> a = [1, 2, 3, 4, 5, 6, 7, 8];
 
 // Create a span
-Span<int> b  = ['a', 'b', 'c', 'd', 'e', 'f', 'h', 'i'];
+Span<char> b  = ['a', 'b', 'c', 'd', 'e', 'f', 'h', 'i'];
 
-// Create a jagged 2D array:
-int[][] twoD = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
-
-// create a jagged 2D array from variables:
-int[] row0 = [1, 2, 3];
-int[] row1 = [4, 5, 6];
-int[] row2 = [7, 8, 9];
-int[][] twoDFromVariables = [row0, row1, row2];
+// Use the spread operator to concatenate
+int[] array1 = [1, 2, 3];
+int[] array2 = [4, 5, 6];
+int[] array3 = [7, 8, 9];
+int[] fullArray = [..array1, ..array2, ..array3]; // contents is [1, 2, 3, 4, 5, 6, 7, 8, 9]
 ```
 
 See more about the latest version of C# in [Announcing C# 12](https://devblogs.microsoft.com/dotnet/announcing-csharp-12).
