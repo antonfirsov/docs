@@ -10,71 +10,68 @@ summary: "Today Microsoft announced the availability of .NET 8, the latest versi
 post_date: 2023-11-14 08:00:00
 ---
 
-[![.NET 8 is now available](Banner.png)](https://dotnet.microsoft.com/download/dotnet/8.0)
+[![.NET 8 is now available](Banner1.png)](https://dotnet.microsoft.com/download/dotnet/8.0)
 
-Today we are happy to announce the [availability of .NET 8](https://aka.ms/get-dotnet-8), the latest [LTS](https://dotnet.microsoft.com/platform/support/policy) version of one of the world’s leading development platforms. .NET 8 delivers thousands of performance, stability, and security improvements, as well as platform and tooling enhancements that help increase developer productivity and speed of innovation. The .NET team, our partners, and the .NET community will be talking about what’s new in .NET 8 as well as what people are building with .NET today to meet their needs of tomorrow at [dotnetConf, a three day virtual event (November 14-16)](https://www.dotnetconf.net/). Come, join us!
+[Download .NET 8 today!](https://aka.ms/get-dotnet-8)
 
-.NET 8 reshapes the way we build intelligent cloud-native applications and high-traffic services that scale on demand. Whether you’re deploying to Linux or Windows using containers or a cloud app model of your choice, .NET 8 makes building apps easier. It includes new built-in cloud-native components and libraries that are used today by the many services at Microsoft you know and love, to help you with fundamental challenges including observability, resiliency, scalability, manageability, and much more.
+We are happy to announce the availability of [.NET 8](https://aka.ms/get-dotnet-8), the latest [LTS](https://dotnet.microsoft.com/platform/support/policy) version of one of the world’s leading development platforms, starting today. .NET 8 delivers thousands of performance, stability, and security improvements, as well as platform and tooling enhancements that help increase developer productivity and speed of innovation. The .NET team, our partners, and the .NET community will be talking about what’s new in .NET 8 as well as what people are building with .NET today to meet their needs of tomorrow at  [.NET Conf 2023, a three day virtual event (November 14-16)](https://www.dotnetconf.net/). Come, join us!
 
-[![.NET 8 – Cloud Native Features](Cloud-Native-dotnet-8.png)](https://aka.ms/aspireannouncement)
+With this release, .NET reshapes the way we build intelligent, cloud-native, applications and high-traffic services that scale on demand. Whether you’re deploying to Linux or Windows, using containers or a cloud app model of your choice, .NET 8 makes building these apps easier. It includes a set of proven libraries that are used today by the many high-scale services at Microsoft to help you with fundamental challenges around observability, resiliency, scalability, manageability, and more.
 
-Integrate large language models like OpenAI’s GPT directly into your .NET app. Use a single powerful component model to handle all your web UI needs with Blazor. Deploy your mobile applications to the latest version of iOS and Android with .NET MAUI. Discover new language enhancements that make your code more concise and expressive with C# 12.  
+[![.NET 8 - Cloud Native Features](Cloud-Native-dotnet8.png)](https://aka.ms/aspireannouncement)
+
+Integrate large language models (LLMs) like OpenAI’s GPT directly into your .NET app. Use a single powerful component model to handle all your web UI needs with Blazor. Deploy your mobile applications to the latest version of iOS and Android with .NET MAUI. Discover new language enhancements that make your code more concise and expressive with C# 12.  
 
 Let’s look at what’s new in .NET 8. 
 
-## [Unparalleled Performance – Experience the fastest .NET to date](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/)
+## [Unparalleled Performance - Experience the fastest .NET to date](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/)
 
-.NET 8 comes with thousands of performance improvements across the stack. A new code generator called Dynamic Profile-Guided Optimization (PGO) that optimizes your code based on real-world usage is enabled by default and can improve the performance of your apps up to 20%. The AVX-512 instruction set is now supported. This support enables you to perform parallel operations on 512-bit vectors of data, meaning you can process much more data in less time. The primitive types (numerical and beyond) now implement a new formattable and parsable interface, which enable them to directly format and parse as UTF-8 without any transcoding overhead.
+.NET 8 comes with thousands of performance [improvements](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/) [across](https://devblogs.microsoft.com/dotnet/performance-improvements-in-aspnet-core-8/) [the](https://devblogs.microsoft.com/dotnet/dotnet-8-performance-improvements-in-dotnet-maui/) [stack](https://devblogs.microsoft.com/dotnet/this-arm64-performance-in-dotnet-8/). A new code generator called Dynamic Profile-Guided Optimization (PGO) that optimizes your code based on real-world usage is enabled by default and can improve the performance of your apps up to 20%. The AVX-512 instruction set is supported and used in .NET 8. It enables you to perform parallel operations on 512-bit vectors of data, meaning you can process much more data in less time. The primitive types (numerical and beyond) now implement a new formattable and parsable interface, which enable them to directly format and parse as UTF-8 without any transcoding overhead.
 
-[![TechEmpower requests per second (RPS)](Performance.png)](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/)
+[![TechEmpower requests per second (RPS)](Performance1.png)](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/)
 
-## [.NET Aspire – An opinionated stack to build observable, production-ready cloud native applications](https://aka.ms/aspireannouncement)
+## [.NET Aspire - An opinionated stack to build observable, production-ready cloud native applications](https://aka.ms/aspireannouncement)
 
 .NET Aspire is a stack for building resilient, observable, and configurable cloud-native applications with .NET. It includes a curated set of components enhanced for cloud-native by including telemetry, resilience, configuration, and health checks by default. Combined with a sophisticated but simple local developer experience, Aspire makes it easy to discover, acquire, and configure essential dependencies for cloud native applications on day 1 as well as day 100. The first preview of .NET Aspire is available today.
 
-[![.NET Aspire](Aspire.png)](https://aka.ms/aspireannouncement)
+[![.NET Aspire](Aspire-CTAs.png)](https://aka.ms/aspireannouncement)
 
-## [.NET 8 Container Enhancements – More secure, compact, and productive](https://devblogs.microsoft.com/dotnet/securing-containers-with-rootless/) 
+## [.NET 8 Container Enhancements - More secure, compact, and productive](https://devblogs.microsoft.com/dotnet/securing-containers-with-rootless/) 
 
-Package your applications into containers more easily and more securely than ever with .NET. New non-root options in our base images seamlessly work together with the built-in SDK tooling, making your containers even more secure. Deploy your containerized apps faster due to smaller .NET base images – including new variants of our images that work with Trimming and Native AOT to deliver truly minimal application sizes. Opt in to even more security hardening with the new Chiseled Ubuntu image variants to reduce your attack surface even further. Use the enhanced SDK tooling to build multi-platform container images to pick the best architecture for your use case.
+Package your applications with containers more easily and more securely than ever with .NET. Every .NET image includes a non-root user, enabling more secure containers with one-line configuration. The .NET SDK tooling publishes container images without a Dockerfile and are non-root by default. Deploy your containerized apps faster due to smaller .NET base images – including new experimental variants of our images that deliver truly minimal application sizes for native AOT. Opt-in to even more security hardening with the new Chiseled Ubuntu image variants to reduce your attack surface even further. Using Dockerfiles or SDK tooling, build apps and container images for any architecture.
 
-[![Modern containers](Containers.png)](https://devblogs.microsoft.com/dotnet/securing-containers-with-rootless/)
+[![Modern containers](Containers1.png)](https://devblogs.microsoft.com/dotnet/securing-containers-with-rootless/)
 
-## [Native AoT – Journey towards higher density sustainable compute](https://learn.microsoft.com/dotnet/core/deploying/native-aot)
+## [Native AoT - Journey towards higher density sustainable compute](https://learn.microsoft.com/dotnet/core/deploying/native-aot)
 
 Compile your .NET apps into native code that uses less memory and starts instantly. No need to wait for the JIT (just-in-time) compiler to compile the code at runtime. No need to deploy the JIT compiler and IL code. AOT apps deploy just the code that’s needed for your app. Your app is now empowered to run in restricted environments where a JIT compiler is not allowed.
 
-### Before AOT
-[![Before AOT](BeforeAOT.png)](https://learn.microsoft.com/dotnet/core/deploying/native-aot)
+### AOT — Optimizations
+[![Before and After AOT](AOTOptimizations1.png)](https://learn.microsoft.com/dotnet/core/deploying/native-aot)
 
-### After AOT
-[![After AOT](AfterAOT.png)](https://learn.microsoft.com/dotnet/core/deploying/native-aot)
+## [Artificial Intelligence - Infuse AI into your .NET applications](https://aka.ms/dotnet-genai)
 
-## [Artificial Intelligence – Infuse AI into your .NET applications](https://aka.ms/dotnet-genai)
+Generative AI and large language models are transforming the field of AI, providing developers the ability to create unique AI-powered experiences in their applications. .NET 8 makes it simple for you to leverage AI via first class out of the box AI features in the .NET SDK and seamless integration with several tools. 
 
-Generative AI and large language models are transforming the field of AI, providing developers the ability to create unique AI-powered experiences in their applications. .NET 8 makes it simple for you to leverage AI via first class out of the box AI features in the .NET SDK and seamless integration with several tools.  
+.NET 8 brings several enhancements to the `System.Numerics` library to improve its compatibility with Generative AI workloads, such as integrating Tensor Primitives. With the rise of AI-enabled apps, new tools and SDKs emerged. We collaborated with numerous internal and external partners such as Azure OpenAI, Azure Cognitive Search, [Milvus](https://milvus.io/docs/v2.2.x/install-csharp.md), [Qdrant](https://github.com/qdrant/qdrant-dotnet), and Microsoft Teams, to ensure .NET developers have easy access to various AI models, services, and platforms through their respective SDKs.  Additionally, the open-source [Semantic Kernel](https://learn.microsoft.com/semantic-kernel/overview/) SDK simplifies the integration of these AI components into new and existing applications, to help you deliver innovative user experiences.
 
-.NET 8 bring several enhancements to the `System.Numerics` library to improve its compatibility with Generative AI workloads, such as integrating Tensor Primitives.
+Various samples and reference templates, showcasing patterns and practices, are now available to make it easy for developers to get started - [Customer Chatbot](https://github.com/dotnet-architecture/eShop), [Retrieval Augmented Generation](https://github.com/Azure-Samples/azure-search-openai-demo-csharp), [Developing Apps using Azure AI services](https://devblogs.microsoft.com/dotnet/demystifying-retrieval-augmented-generation-with-dotnet/) 
 
-With the rise of AI-enabled apps, new tools and SDKs emerged. We collaborated with numerous internal and external partners such as Azure OpenAI, Azure Cognitive Search, [Milvus](https://milvus.io/docs/v2.2.x/install-csharp.md), [Qdrant](https://github.com/qdrant/qdrant-dotnet), and Microsoft Teams, to ensure .NET developers have easy access to various AI models, services, and platforms through their respective SDKs.  Additionally, the open-source [Semantic Kernel](https://learn.microsoft.com/semantic-kernel/overview/) SDK simplifies the integration of these AI components into new and existing applications, to help you deliver innovative user experiences.
+[![Infuse AI dotnet apps](InfuseAIdotnetapps1.png)](https://github.com/Azure-Samples/azure-search-openai-demo-csharp/assets/2546640/b79090b8-6a8b-45f4-b42b-e21e22b1661a)
 
-Various samples and reference templates, showcasing patterns and practices, are now available to make it easy for developers to get started – [Customer Chatbot](https://github.com/dotnet-architecture/eShop), [Retrieval Augmented Generation](https://github.com/Azure-Samples/azure-search-openai-demo-csharp), [Developing Apps using Azure AI services](https://devblogs.microsoft.com/dotnet/demystifying-retrieval-augmented-generation-with-dotnet/) 
-
-[![Infuse AI dotnet apps](InfuseAIdotnetapps.png)](https://github.com/Azure-Samples/azure-search-openai-demo-csharp/assets/2546640/b79090b8-6a8b-45f4-b42b-e21e22b1661a)
-
-## [Blazor – Build full stack web applications with .NET](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor)
+## [Blazor - Build full stack web applications with .NET](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor)
 
 Blazor in .NET 8 can use both the server and client together to handle all your web UI needs. It’s full stack web UI! With several new enhancements focused towards optimizing page load time, scalability, and elevating the user experience, developers can now use Blazor Server and Blazor WebAssembly in the same app, automatically shifting users from the server to the client at runtime. Your .NET code runs significantly faster on WebAssembly thanks to the new “Jiterpreter” based runtime and new built in components. As a part enhancing the overall [authentication, authorization, and identity management in .NET 8](https://devblogs.microsoft.com/dotnet/whats-new-with-identity-in-dotnet-8/), Blazor now supports generating a full Blazor-based Identity UI.
 
-![Full stack Blazor](Blazor.png)
+![Full stack Blazor](Blazor2.png)
 
-## [.NET MAUI – Elevated performance, reliability, and developer experience](https://devblogs.microsoft.com/dotnet/announcing-dotnet-maui-in-dotnet-8)
+## [.NET MAUI - Elevated performance, reliability, and developer experience](https://devblogs.microsoft.com/dotnet/announcing-dotnet-maui-in-dotnet-8)
 
 .NET MAUI provides you a single project system and single codebase to build WinUI, Mac Catalyst, iOS, and Android applications. Native AOT (experimental) now supports targeting iOS-like platforms. [A new Visual Studio Code extension for .NET MAUI](https://aka.ms/maui-devkit-blog) gives you the tools you need to develop cross-platform .NET mobile and desktop apps. Xcode 15 and Android API 34 are now supported allowing you to target the latest version of iOS and Android. A plethora of quality improvements were made to the [areas of performance](https://devblogs.microsoft.com/dotnet/dotnet-8-performance-improvements-in-dotnet-maui), controls and UI elements, and platform-specific behavior, such as desktop interaction adding better click handling, keyboard listeners, and more.
 
-[![.NET MAUI Visual Studio Code Extension](dotnetMAUIin8.png)](https://devblogs.microsoft.com/dotnet/announcing-dotnet-maui-in-dotnet-8)
+[![.NET MAUI Visual Studio Code Extension](dotnetMAUIin8-1.png)](https://devblogs.microsoft.com/dotnet/announcing-dotnet-maui-in-dotnet-8)
 
-## [C# 12 Features – Simplified syntax for better developer productivity](https://devblogs.microsoft.com/dotnet/announcing-csharp-12)
+## [C# 12 Features - Simplified syntax for better developer productivity](https://devblogs.microsoft.com/dotnet/announcing-csharp-12)
 
 [C# 12 makes your coding experience more productive and enjoyable.](https://devblogs.microsoft.com/dotnet/announcing-csharp-12) You can now create primary constructors in any class and struct with a simple and elegant syntax. No more boilerplate code to initialize your fields and properties. Be delighted when creating arrays, spans, and other collection types with a concise and expressive syntax. Use new default values for parameters in lambda expressions. No more overloading or null checks to handle optional arguments. You can even use the `using` alias directive to alias any type, not just named types!
 
@@ -97,7 +94,7 @@ int[] row2 = [7, 8, 9];
 int[][] twoDFromVariables = [row0, row1, row2];
 ```
 
-See [What's new in C# 12](https://learn.microsoft.com/dotnet/csharp/whats-new/csharp-12) for more feature examples.
+See more about the latest version of C# in [Announcing C# 12](https://learn.microsoft.com/dotnet/csharp/whats-new/csharp-12).
 
 ## [NET 8 support across Visual Studio family of tools](https://aka.ms/VS/v178GA)
 
