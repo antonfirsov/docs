@@ -20,7 +20,7 @@ But what we heard from developers is that we needed to do more. Building apps fo
 
 To help you simplify cloud app complexity, we're introducing...
 
-[![.NET Aspire](dotnetAspire-CTAs.png)](https://akams/dotnet-aspire)
+[![.NET Aspire](dotnetAspire-CTAs.png)](https://aka.ms/dotnet-aspire)
 
 .NET Aspire is an *opinionated* stack for building resilient, observable, and configurable cloud-native applications with .NET. It includes a curated set of components enhanced for cloud-native by including service discovery, telemetry, resilience, and health checks by default. Combined with a sophisticated but simple local developer experience, .NET Aspire makes it easy to discover, acquire, and configure essential dependencies for cloud native applications on day 1 as well as day 100, for new and existing .NET apps using .NET 8+.
 
@@ -39,7 +39,7 @@ The starter application is designed to get you up and running with a working .NE
 
 You will notice two new projects that you haven't seen before `<appname>.AppHost` and `<appname>.ServiceDefaults`.
 
-The `AppHost` project will run any .NET projects, containers, or executables needed as part of getting your distributed application. When in Visual Studio, debugging will attach to all the running projects allowing you to step into and across each service in your application. We will dig deeper into this project and what the code in it is like later in the post [link].
+The `AppHost` project will run any .NET projects, containers, or executables needed as part of getting your distributed application. When in Visual Studio, debugging will attach to all the running projects allowing you to step into and across each service in your application. We will dig deeper into this project and what the code in it is like [later in the post](#application-model).
 
 The `ServiceDefaults` project contains common logic that applies to each of the projects in the application. This is where cross cutting concerns like service discovery, telemetry, and health check endpoints are configured. We wanted this to be consistent across all the projects but also understand that teams and organizations will likely want to tweak some of the settings. Shared code in the project was the most discoverable and developer friendly mechanism we could find to achieve those goals.
 
@@ -55,7 +55,7 @@ We can also see logs across all projects, and even a distributed trace showing a
 
 ![dotnetAspire-Distributed-Trace](dotnetAspire-Distributed-Trace.png)
 
-The developer dashboard is your home for getting all your development time diagnostics data together and narrowing down slowdowns and bugs on your development machine. It uses all the same open standards as you would use in production when you configure your production telemetry systems like Grafana+Prometheus, Application Insights etc. We will go deeper into the dashboard's capabilities later in the post as well [link].
+The developer dashboard is your home for getting all your development time diagnostics data together and narrowing down slowdowns and bugs on your development machine. It uses all the same open standards as you would use in production when you configure your production telemetry systems like Grafana+Prometheus, Application Insights etc. We will go deeper into the dashboard [later in this post](#developer-dashboard).
 
 A few years ago we worked on an experiment called Project Tye, many of the learnings from that experiment are now available in .NET Aspire, including this dashboard that we first tried out in that experiment. If you enjoyed Project Tye and wanted it to continue then we think you will love .NET Aspire.
 
@@ -101,7 +101,7 @@ builder.AddProject<Projects.AspireApp_Web>("webfrontend")
 builder.Build().Run();
 ```
 
-This code executes because the `AppHost` is your startup project. It runs your projects, their dependencies and configures them appropriately allowing them to communicate. One of our goals is to remove ports and connection strings from your developer flow as much as possible. We do this via a service discovery [link] mechanism that allows developers use logical names instead of addresses and ports when making HTTP calls. You can see here that I name my API `apiservice` then pass that as a reference to the frontend and can then use `apiservice` as a name when making HTTP calls via `HttpClientFactory`. The calls made using this method will also automatically retry and handle transient failures thanks to an integration with the Polly project [link].
+This code executes because the `AppHost` is your startup project. It runs your projects, their dependencies and configures them appropriately allowing them to communicate. One of our goals is to remove ports and connection strings from your developer flow as much as possible. We do this via a [service discovery](#service-discovery) mechanism that allows developers use logical names instead of addresses and ports when making HTTP calls. You can see here that I name my API `apiservice` then pass that as a reference to the frontend and can then use `apiservice` as a name when making HTTP calls via `HttpClientFactory`. The calls made using this method will also automatically retry and handle transient failures thanks to an integration with the [Polly project](https://github.com/App-vNext/Polly).
 
 The AppHost sets up your application dependencies and requirements, and .NET Aspire tooling fulfills those in your dev loop.
 
@@ -112,11 +112,11 @@ The AppHost sets up your application dependencies and requirements, and .NET Asp
 We are going to start our deep dive with components. .NET Aspire Components are designed to solve the pain that we heard from customers getting started with Cloud Native development, that there was a lot of techniques/configuration you had to get right and that it wasn't obvious what path to start with. We help this by being opinionated about what a component needs to provide, mandating that all components at a minimum provide resiliency defaults, health checks, setup telemetry, and integrate with DI. To highlight that, let's look at what an app ready for production might do to configure Redis in their app:
 
 1. Add the Redis package with the Redis client library.
-2. Discover and add a health checks library so your app can respond to the Redis being unavailable. This is frequently missed but useful in practice.
-3. Add Redis to DI and configure connection strings. This is tricky because you need to know what lifetime the Redis client library types should have. Which requires research.
-4. Configure Redis client library to send log output to your telemetry system.
+1. Discover and add a health checks library so your app can respond to the Redis being unavailable. This is frequently missed but useful in practice.
+1. Add Redis to DI and configure connection strings. This is tricky because you need to know what lifetime the Redis client library types should have. Which requires research.
+1. Configure Redis client library to send log output to your telemetry system.
 1. Logs and Metrics are different and require different plumbing.
-5. Decide what resiliency policy & logic is needed and configure Redis or wrap calls with a library like Poly that can implement resiliency policies. This again requires research into the capabilities of Redis and knowledge of what resiliency policy you should have, which is frequently not something you know starting out and results in people shipping without it until something breaks in production that could've been avoided with a retry policy with exponential backoff.
+1. Decide what resiliency policy & logic is needed and configure Redis or wrap calls with a library like Poly that can implement resiliency policies. This again requires research into the capabilities of Redis and knowledge of what resiliency policy you should have, which is frequently not something you know starting out and results in people shipping without it until something breaks in production that could've been avoided with a retry policy with exponential backoff.
 
 If we contrast that with using .NET Aspire:
 
@@ -135,7 +135,7 @@ A Component must do the following to be considered ready for use:
 
 Our initial set of components are are below, and more documentation can be found at <https://learn.microsoft.com/dotnet/aspire/components-overview?branch=aspire>
 
-**Cloud-agnostic components**
+### Cloud-agnostic components
 
 | **Component** | **Description** |
 | --- | --- |
@@ -148,7 +148,7 @@ Our initial set of components are are below, and more documentation can be found
 | [SQL Server Entity Framework Core](https://learn.microsoft.com/dotnet/aspire/database/sql-server-entity-framework-component) | Provides a client library for accessing SQL Server databases using Entity Framework Core. |
 | [SQL Server](https://learn.microsoft.com/dotnet/aspire/database/sql-server-component) | Provides a client library for accessing SQL Server databases. |
 
-**Azure specific components**
+### Azure specific components
 
 | **Component** | **Description** |
 | --- | --- |
@@ -190,11 +190,62 @@ builder.Build().Run();
 
 The "webfrontend" project can now make HTTP requests to `http://apiservice` without ever worrying about port mapping. The Redis connection string is even more transparent as the Aspire component configures the Redis Client to use the connection string provided automatically. This removes a large source of error prone setup in your development flow and streamlines both getting started and onboarding. If you are using Service Discovery in production, even if only the default Kubernetes features, then this will also mirror production more closely than manual configuration.
 
-Our initial set of resources are are below:
+Our initial set of resources are are below, Method is the method you would call to add that resource in your `AppHost` project:
 
-// TBD: table of resources
+### Built-in Resources
+
+| Method | Resource type | Description |
+|--|--|--|
+| `AddProject` | `ProjectResource` | A .NET project, for example ASP.NET Core web apps. |
+| `AddContainer` | `ContainerResource` | A container image, such as a Docker image. |
+| `AddExecutable` | `ExecutableResource` | An executable file. |
+
+### Cloud Agnostic Extensions
+Each of these methods become available when you add the NuGet package (component) for the corresponding resource.
+
+| Method | Resource type | Description |
+|--|--|--|
+| `AddPostgresConnection` | `PostgresConnectionResource` | Adds a Postgres connection resource. |
+| `AddPostgresContainer` | `PostgresContainerResource` | Adds a Postgres container resource. |
+| `AddPostgresContainer(...).AddDatabase` | `PostgresDatabaseResource` | Adds a Postgres database resource. |
+| `AddRabbitMQConnection` | `RabbitMQConnectionResource` | Adds a RabbitMQ connection resource. |
+| `AddRabbitMQContainer` | `RabbitMQContainerResource` | Adds a RabbitMQ container resource. |
+| `AddRedisContainer` | `RedisContainerResource` | Adds a Redis container resource. |
+| `AddSqlServerConnection` | `SqlServerConnectionResource` | Adds a SQL Server connection resource. |
+| `AddSqlServerContainer` | `SqlServerContainerResource` | Adds a SQL Server container resource. |
+| `AddSqlServerContainer(...).AddDatabase` | `SqlServerDatabaseResource` | Adds a SQL Server database resource. |
+
+### Azure Specific Extensions
+Each of these methods become available when you add the NuGet package (component) for the corresponding resource.
+
+| Method | Resource type | Description |
+|--|--|--|
+| `AddAzureStorage` | `AzureStorageResource` | Adds an Azure Storage resource. |
+| `AddAzureStorage(...).AddBlobs` | `AzureBlobStorageResource` | Adds an Azure Blob Storage resource. |
+| `AddAzureStorage(...).AddQueues` | `AzureQueueStorageResource` | Adds an Azure Queue Storage resource. |
+| `AddAzureStorage(...).AddTables` | `AzureTableStorageResource` | Adds an Azure Table Storage resource. |
+| `AddAzureCosmosDB` | `AzureCosmosDBResource` | Adds an Azure Cosmos DB resource. |
+| `AddAzureKeyVault` | `AzureKeyVaultResource` | Adds an Azure Key Vault resource. |
+| `AddAzureRedisResource` | `AzureRedisResource` | Adds an Azure Redis resource. |
+| `AddAzureServiceBus` | `AzureServiceBusResource` | Adds an Azure Service Bus resource. |
 
 You can find more about how orchestration works in the .NET Aspire docs: [.NET Aspire orchestration overview - .NET | Microsoft Learn](https://learn.microsoft.com/dotnet/aspire/app-host-overview)
+
+### Developer Dashboard
+The .NET Aspire dashboard is only visible while the AppHost app is running and will launch automatically when you start the project. The left navigation provides links to the different parts of the dashboard we will describe here. Additionally, the cog icon in the upper right of the dashboard provides access to the settings page, which allows you to configure your dashboard experience.
+
+- *Projects*: The projects page is the home page of the dashboard, it lists all the project resources in your application. It's main function is to show you the state of each project and to give you the URLs to parts of the app. It will also show a badge when an error has been logged for a project allowing you to easily zero in on problems.
+- *Containers*: This page is the same as the projects page, but for the container resources of your application. In our tour above the Redis cache container would be displayed here.
+- *Executables*: This page is the same as the projects page, but for the executable resources of your application.
+- *Logs*: The logs section of the dashbaord provides access the logs of all the parts of your application in a cental location.
+    - *Project Logs*: The output from the logging provider in your .NET projects can be viewed here, you can switch between each project and each log severity is represented with a different color.
+    - *Container Logs*: This page is the same as the Project Logs but for containers.
+    - *Executable Logs*: This page is the same as the Project Logs but for executables.
+    - *Structured Logs*: The structured logs page provides filterable view of all your logs. The structured logs maintain the properties of your log messages so that they can be individually filtered/searched on, whereas the other logs pages have all properties merged into a single string log message.
+  - *Traces*: The Traces page shows the path of a single action through all the parts of your application, a distributed trace. This view can be highly valuable in finding bottlenecks, slowdowns, and other diagnosing other behaviors that only appear when the full system is being used and not in isolation. We showed a screenshot of the traces view in the tour section above, highlighting how you can see a single action using the Redis Cache, API, and frontend all in one view.
+  - *Metrics*: The Metrics page shows all the [metrics](https://learn.microsoft.com/dotnet/core/diagnostics/built-in-metrics) for your application.
+
+Learn more about the dashboard here: [.NET Aspire Dashboard](https://learn.microsoft.com/dotnet/aspire/dashboard)
 
 ### Observability
 
@@ -230,7 +281,7 @@ While .NET Aspire itself doesn't natively provide a direct mechanism to deploy y
 
 With this manifest, we've enabled getting your Aspire application into Azure using Azure Container Apps in the simplest and fastest way possible. Working with new capabilities in the Azure Developer CLI and .NET Aspire, these combined experiences enable you to quickly detect an Aspire environment, understand the application, and immediately provision and deploy the Azure resources in one step.
 
-<p>[iframe width="752" height="423" src="azdinit-fast-dotnet-aspire.mp4" title=".NET Aspire - AZD Init Fast Start" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen]</p>
+[video src="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/11/azdinit-fast-aspire.mp4"]
 
 _(Note: portions of this video are sped up. The aspire-starter app typically takes ~5 minutes to provision and deploy)_
 
