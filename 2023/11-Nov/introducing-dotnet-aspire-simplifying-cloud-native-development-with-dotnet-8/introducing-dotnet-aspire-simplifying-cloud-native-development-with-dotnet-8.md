@@ -232,7 +232,7 @@ Each of these methods become available when you add the NuGet package (component
 You can find more about how orchestration works in the .NET Aspire docs: [.NET Aspire orchestration overview - .NET | Microsoft Learn](https://learn.microsoft.com/dotnet/aspire/app-host-overview)
 
 ### Developer Dashboard
-The .NET Aspire dashboard is only visible while the AppHost app is running and will launch automatically when you start the project. The left navigation provides links to the different parts of the dashboard we will describe here. Additionally, the cog icon in the upper right of the dashboard provides access to the settings page, which allows you to configure your dashboard experience.
+The .NET Aspire dashboard is only visible while the AppHost is running and will launch automatically when you start the project. The left navigation provides links to the different parts of the dashboard we will describe here. Additionally, the cog icon in the upper right of the dashboard provides access to the settings page, which allows you to configure your dashboard experience.
 
 - *Projects*: The projects page is the home page of the dashboard, it lists all the project resources in your application. It's main function is to show you the state of each project and to give you the URLs to parts of the app. It will also show a badge when an error has been logged for a project allowing you to easily zero in on problems.
 - *Containers*: This page is the same as the projects page, but for the container resources of your application. In our tour above the Redis cache container would be displayed here.
