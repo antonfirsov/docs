@@ -30,7 +30,7 @@ Let’s look at what’s new in .NET 8.
 
 Every year we talk about the performance gains across .NET. This year we continue our quest to push the performance of .NET to new heights. From the latest TechEmpower benchmarks with .NET 8, we’re seeing improvements in the JSON API scenario of 18%, hitting nearly one million requests per second with ASP.NET Core Minimal APIs.
 
-[![TechEmpower requests per second (RPS)](Performance1.png)](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/)
+[![TechEmpower requests per second (RPS)](Performance.png)](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/)
 
 The Fortunes scenario is closer to a real-world workload, including database access and server-side HTML rendering. In this test, we see an even larger improvement of 24%, now over 300K requests per second with ASP.NET Core.
 
@@ -96,7 +96,7 @@ int[] fullArray = [..array1, ..array2, ..array3]; // contents is [1, 2, 3, 4, 5,
 
 See more about the latest version of C# in [Announcing C# 12](https://devblogs.microsoft.com/dotnet/announcing-csharp-12).
 
-## NET 8 support across Visual Studio family of tools
+## .NET 8 support across Visual Studio family of tools
 
 We have a set of great tools that help you be the most productive in your development workflow and take advantage of .NET 8 today. Released alongside .NET 8, the [Visual Studio 2022 17.8 release](https://aka.ms/vs/v178GA) brings support for .NET 8, C# 12 language enhancements, and various new productivity features. [VS Code and C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit) is a great way to get started with .NET 8 if you are learning and/or want to quickly kick the tires of the runtime and is available on Linux, macOS, or in a GitHub Codespace. The new [GitHub Codespaces template for .NET](https://github.com/codespaces), which comes is the SDK and a set of configured extensions, is one of the fastest ways to get started with .NET 8. 
 
