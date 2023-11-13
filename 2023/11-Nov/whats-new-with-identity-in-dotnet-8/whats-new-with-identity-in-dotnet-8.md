@@ -90,7 +90,7 @@ Map the routes for the identity endpoints. This code should be placed after the 
 app.MapIdentityApi<MyUser>();
 ```
 
-The app is now ready for authentication and authorization! To secure an endpoint, use the `.RequireAuthentication()` extension method where you define the auth route. If you are using a controller-based solution, you can add the `[Authorize]` attribute to the controller or action.
+The app is now ready for authentication and authorization! To secure an endpoint, use the `.RequireAuthorization()` extension method where you define the auth route. If you are using a controller-based solution, you can add the `[Authorize]` attribute to the controller or action.
 
 To test the app, run it and navigate to the Swagger UI. Expand the secured endpoint, select  **try it out**, and select **execute**. The endpoint is reported as `404 - not found`, which is arguably more secure than reporting a `401 - not authorized` because it doesn't reveal that the endpoint exists.
 
@@ -170,7 +170,7 @@ When you log in and authorize the app, you will be redirected back and authentic
 
 A major motivation for adding the new identity APIs was to make it easier for developers to secure their browser-based apps including Single Page Apps (SPA) and Blazor WebAssembly. It doesn't matter if you use the built-in identity provider, a custom login or a cloud-based service like [Microsoft Entra](https://www.microsoft.com/security/business/microsoft-entra), the end result is an identity that is either authenticated with claims and roles, or not authenticated. In Blazor, you can secure a razor component by adding the `[Authorize]` attribute to the component or to the page that hosts the component. You can also secure a route by adding the `.RequireAuthorization()` extension method to the route definition.
 
-The full source code for this example is available in the [Blazor samples repo](https://github.com/dotnet/blazor-samples/tree/main/8.0/BlazorWasmStandaloneWithIdentity).
+The full source code for this example is available in the [Blazor samples repo](https://github.com/dotnet/blazor-samples/tree/main/8.0/BlazorWebAssemblyStandaloneWithIdentity).
 
 The `AuthorizeView` tag provides a simple way to handle content the user has access to. The authentication state can be accessed via the `context` property. Consider the following:
 
