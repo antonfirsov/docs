@@ -948,9 +948,8 @@ The comparisons were done across three different approaches:
 
 
 ### `async` improvements
-`Bind` of `Async<>` within `task{}` should start on the same thread: 
-https://github.com/dotnet/fsharp/pull/14499
-
+- `Bind` of `Async<>` within `task{}` [now starts on the same thread](https://github.com/dotnet/fsharp/pull/14499)
+    * This saves resources by keeping the computation on the same .NET thread and not starting a new one
 - `MailBoxProcessor` [now comes](https://github.com/dotnet/fsharp/pull/14929) with a public `.Dispose()` member
     * Better discoverability that `MailboxProcessor` implements `IDisposable` and thus must be disposed
     * Removes need to manually cast to `IDisposable`, as in `(mailboxProcessor :> IDisposable).Dispose()` before disposing
