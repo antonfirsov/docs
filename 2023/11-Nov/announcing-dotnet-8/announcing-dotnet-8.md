@@ -30,7 +30,7 @@ Let’s look at what’s new in .NET 8.
 
 Every year we talk about the performance gains across .NET. This year we continue our quest to push the performance of .NET to new heights. From the latest TechEmpower benchmarks with .NET 8, we’re seeing improvements in the JSON API scenario of 18%, hitting nearly one million requests per second with ASP.NET Core Minimal APIs.
 
-[![TechEmpower requests per second (RPS)](Performance.png)](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/)
+[![TechEmpower requests per second (RPS)](Performance2.png)](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/)
 
 The Fortunes scenario is closer to a real-world workload, including database access and server-side HTML rendering. In this test, we see an even larger improvement of 24%, now over 300K requests per second with ASP.NET Core.
 
