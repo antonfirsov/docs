@@ -190,49 +190,37 @@ builder.Build().Run();
 
 The "webfrontend" project can now make HTTP requests to `http://apiservice` without ever worrying about port mapping. The Redis connection string is even more transparent as the Aspire component configures the Redis Client to use the connection string provided automatically. This removes a large source of error prone setup in your development flow and streamlines both getting started and onboarding. If you are using Service Discovery in production, even if only the default Kubernetes features, then this will also mirror production more closely than manual configuration.
 
-Our initial set of resources are are below, Method is the method you would call to add that resource in your `AppHost` project:
+Our initial set of resources are are below:
 
 ### Built-in Resources
 
-| Method | Resource type | Description |
-|--|--|--|
-| `AddProject` | `ProjectResource` | A .NET project, for example ASP.NET Core web apps. |
-| `AddContainer` | `ContainerResource` | A container image, such as a Docker image. |
-| `AddExecutable` | `ExecutableResource` | An executable file. |
+- Project: A .NET project, for example ASP.NET Core web apps.
+- Container: A container image, such as a Docker image.
+- Executable: An executable file.
 
 ### Cloud Agnostic Extensions
-Each of these methods become available when you add the NuGet package (component) for the corresponding resource.
+Each of these become available when you add the NuGet package (component) for the corresponding resource. For each of these you can either have .NET Aspire launch a container during development or connect to an existing/external resource via connection strings.
 
-| Method | Resource type | Description |
-|--|--|--|
-| `AddPostgresConnection` | `PostgresConnectionResource` | Adds a Postgres connection resource. |
-| `AddPostgresContainer` | `PostgresContainerResource` | Adds a Postgres container resource. |
-| `AddPostgresContainer(...).AddDatabase` | `PostgresDatabaseResource` | Adds a Postgres database resource. |
-| `AddRabbitMQConnection` | `RabbitMQConnectionResource` | Adds a RabbitMQ connection resource. |
-| `AddRabbitMQContainer` | `RabbitMQContainerResource` | Adds a RabbitMQ container resource. |
-| `AddRedisContainer` | `RedisContainerResource` | Adds a Redis container resource. |
-| `AddSqlServerConnection` | `SqlServerConnectionResource` | Adds a SQL Server connection resource. |
-| `AddSqlServerContainer` | `SqlServerContainerResource` | Adds a SQL Server container resource. |
-| `AddSqlServerContainer(...).AddDatabase` | `SqlServerDatabaseResource` | Adds a SQL Server database resource. |
+- Postgress
+- RabbitMQ
+- Redis 
+- SQL Server
 
 ### Azure Specific Extensions
-Each of these methods become available when you add the NuGet package (component) for the corresponding resource.
+Each of these methods become available when you add the NuGet package (component) for the corresponding resource. Azure Storage is currently the only one of these resources that supports running a local container, the rest require connection information for actual Azure resources.
 
-| Method | Resource type | Description |
-|--|--|--|
-| `AddAzureStorage` | `AzureStorageResource` | Adds an Azure Storage resource. |
-| `AddAzureStorage(...).AddBlobs` | `AzureBlobStorageResource` | Adds an Azure Blob Storage resource. |
-| `AddAzureStorage(...).AddQueues` | `AzureQueueStorageResource` | Adds an Azure Queue Storage resource. |
-| `AddAzureStorage(...).AddTables` | `AzureTableStorageResource` | Adds an Azure Table Storage resource. |
-| `AddAzureCosmosDB` | `AzureCosmosDBResource` | Adds an Azure Cosmos DB resource. |
-| `AddAzureKeyVault` | `AzureKeyVaultResource` | Adds an Azure Key Vault resource. |
-| `AddAzureRedisResource` | `AzureRedisResource` | Adds an Azure Redis resource. |
-| `AddAzureServiceBus` | `AzureServiceBusResource` | Adds an Azure Service Bus resource. |
+- Azure Storage (blobs, Tables, Queues)
+- Azure Cosmos DB
+- Azure KeyVault
+- Azure Redis Cache
+- Azure Service Bus
 
 You can find more about how orchestration works in the .NET Aspire docs: [.NET Aspire orchestration overview - .NET | Microsoft Learn](https://learn.microsoft.com/dotnet/aspire/app-host-overview)
 
 ### Developer Dashboard
 The .NET Aspire dashboard is only visible while the AppHost is running and will launch automatically when you start the project. The left navigation provides links to the different parts of the dashboard we will describe here. Additionally, the cog icon in the upper right of the dashboard provides access to the settings page, which allows you to configure your dashboard experience.
+
+![dotnetAspire-Developer-Dashboard](dotnetAspire-Developer-Dashboard.png)
 
 - *Projects*: The projects page is the home page of the dashboard, it lists all the project resources in your application. It's main function is to show you the state of each project and to give you the URLs to parts of the app. It will also show a badge when an error has been logged for a project allowing you to easily zero in on problems.
 - *Containers*: This page is the same as the projects page, but for the container resources of your application. In our tour above the Redis cache container would be displayed here.
@@ -273,13 +261,13 @@ One of the key pieces of building any distributed application is the ability to 
 
 Learn more about service discovery here: [Service discovery in .NET Aspire](https://learn.microsoft.com/dotnet/aspire/service-discovery/overview)
 
-### Deploying an Aspire Application
+### Deploying a .NET Aspire Application
 
-The final artifacts of a .NET Aspire application are .NET apps and configuration that can be deployed to your cloud environments. With the strong container-first mindset of Aspire, the .NET SDK native container builds serve as a valuable tool to publish these apps to containers with ease.
+The final artifacts of a .NET Aspire application are .NET apps and configuration that can be deployed to your cloud environments. With the strong container-first mindset of .NET Aspire, the .NET SDK native container builds serve as a valuable tool to publish these apps to containers with ease.
 
 While .NET Aspire itself doesn't natively provide a direct mechanism to deploy your applications to their final destinations, the Application Model as described above knows all about the application, it's dependencies, configurations, and connections to each services. The application model can produce a manifest definition that describes all of these relationships and dependencies that tools can consume, augment, and build upon for deployment.
 
-With this manifest, we've enabled getting your Aspire application into Azure using Azure Container Apps in the simplest and fastest way possible. Working with new capabilities in the Azure Developer CLI and .NET Aspire, these combined experiences enable you to quickly detect an Aspire environment, understand the application, and immediately provision and deploy the Azure resources in one step.
+With this manifest, we've enabled getting your .NET Aspire application into Azure using Azure Container Apps in the simplest and fastest way possible. Working with new capabilities in the Azure Developer CLI and .NET Aspire, these combined experiences enable you to quickly detect a .NET Aspire environment, understand the application, and immediately provision and deploy the Azure resources in one step.
 
 [video src="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/11/azdinit-fast-aspire.mp4"]
 
@@ -307,19 +295,19 @@ You will then be prompted with the following to confirm the project and action.
 
 This will create an `AppHost` and `ServiceDefaults` project, the project you selected will already be added to the `AppHost`. You can now launch the AppHost project and will see the developer dashboard. From here you can add a reference to the `ServiceDefaults` project and call the `AddServiceDefaults()` method on your application builder. This will setup Open Telemetry, health check endpoints, service discovery, and the default resiliency patterns for this project.
 
-// TBD: Command line instructions?
+When not using Visual Studio you can still add the `AppHost` and `ServiceDefaults` projects to an existing solution using `dotnet new`, but they will not already reference an existing project like in the example above.
 
-You can now switch over to Aspire components if you are using any of the services that have components. This may mean you can remove some explicit configuration if your already setup what the component does yourself. You are also free to use components in any .NET 8 app without orchestration. This will get you resiliency and other configuration applied to the component, but you will not get the rest of Aspire like the dashboard, service discovery, and automatic ports, urls, or connection strings.
+You can now switch over to .NET Aspire components if you are using any of the services that have components. This may mean you can remove some explicit configuration if your already setup what the component does yourself. You are also free to use components in any .NET 8 app without orchestration. This will get you resiliency and other configuration applied to the component, but you will not get the rest of .NET Aspire like the dashboard, service discovery, and automatic ports, urls, or connection strings.
 
 ## Conclusion
 
-We're really excited to deliver this first preview of Aspire to you today. Building on rock solid foundation of fundamentals and an incredibly productive API surface in .NET 8, we're confident you're going to love the productivity in building your cloud native apps using Aspire.
+We're really excited to deliver this first preview of .NET Aspire to you today. Building on rock solid foundation of fundamentals and an incredibly productive API surface in .NET 8, we're confident you're going to love the productivity in building your cloud native apps using .NET Aspire.
 
 Get started today with these resources:
 
 - Get the tools \<download VS version X\>
 - Get the packages \<any additional\>
-- Build your first Aspire solution \<link to learn\>
-- Explore an existing Aspire solution \<link to repo with devcontainer enabled for remote/and Codespaces\>
+- Build your first .NET Aspire solution \<link to learn\>
+- Explore an existing .NET Aspire solution \<link to repo with devcontainer enabled for remote/and Codespaces\>
 
-Most importantly, we want to hear what's working for you and what we can improve. Aspire is a part of the .NET platform and foundation and is an open source project alongside the platform. Engage with us here at https://github.com/dotnet/aspire.
+Most importantly, we want to hear what's working for you and what we can improve. .NET Aspire is a part of the .NET platform and foundation and is an open source project alongside the platform. Engage with us here at https://github.com/dotnet/aspire.
