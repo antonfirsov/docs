@@ -971,7 +971,6 @@ Below is a wall created from the profile pictures listed at GitHub's [automated 
 ![DedSec256](https://avatars.githubusercontent.com/u/26364714?s=60&v=4)
 ![Happypig375](https://avatars.githubusercontent.com/u/19922066?s=60&v=4)
 ![KevinRansom](https://avatars.githubusercontent.com/u/5175830?s=60&v=4)
- <img src="https://avatars.githubusercontent.com/u/29605222?s=60&v=4" width="60">
 ![MattGal](https://avatars.githubusercontent.com/u/7862010?s=60&v=4)
 ![NikolaMilosavljevic](https://avatars.githubusercontent.com/u/9423618?s=60&v=4)
 ![NinoFloris](https://avatars.githubusercontent.com/u/4218809?s=60&v=4)
@@ -996,10 +995,11 @@ Below is a wall created from the profile pictures listed at GitHub's [automated 
 ![psfinaki](https://avatars.githubusercontent.com/u/5451366?s=60&v=4)
 ![rosskuehl](https://avatars.githubusercontent.com/u/94796738?s=60&v=4)
 ![safesparrow](https://avatars.githubusercontent.com/u/2478401?s=60&v=4)
-<img src="https://avatars.githubusercontent.com/u/87944?s=60&v=4" width="60">
 ![tboby](https://avatars.githubusercontent.com/u/447391?s=60&v=4)
 ![teo-tsirpanis](https://avatars.githubusercontent.com/u/12659251?s=60&v=4)
 ![vzarytovskii](https://avatars.githubusercontent.com/u/1260985?s=60&v=4)
+<img src="https://avatars.githubusercontent.com/u/29605222?s=60&v=4" width="60">
+<img src="https://avatars.githubusercontent.com/u/87944?s=60&v=4" width="60">
 
 
 We want to thank all contributors, community members and users of F#. On top of that, we want to call out the following heavily contributing members and a selection of their recent work in the [F# repository](https://github.com/dotnet/fsharp) explicitly:
