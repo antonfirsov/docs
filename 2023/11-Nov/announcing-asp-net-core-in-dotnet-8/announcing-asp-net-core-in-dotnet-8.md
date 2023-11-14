@@ -7,7 +7,7 @@ featured_image: asp-net-core-dotnet-8.png
 categories: .NET, ASP.NET, ASP.NET Core, Blazor
 tags: .net 8
 summary: .NET 8 is now available! Check out all the new features and improvements in ASP.NET Core in this release.
-post_date: 2023-11-14 10:05:00
+post_date: 2023-11-14 8:05:00
 ---
 
 ASP.NET Core in .NET 8 is your complete solution for modern web development. It handles all of your web development needs from the frontend to the backend. You can build beautiful, richly interactive web experiences with Blazor, and high-performance backend APIs and services that are reliable and secure. ASP.NET Core in .NET 8 is perfect for building cloud-native apps, and great tooling in Visual Studio and Visual Studio Code supercharges your productivity. With ASP.NET Core in .NET 8, every developer is a full stack developer!
@@ -460,11 +460,11 @@ You can read all about the new route tooling features in James Newton-King's [AS
 
 For example, here's what examining the `HttpContext` looks like with .NET 7:
 
-![Debugging HttpContext with .NET 7](../../09-Sep/debugging-improvements-in-dotnet-8/httpcontext-debugging-before.png)
+![Debugging HttpContext with .NET 7](https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/06/httpcontext-debugging-before.png)
 
 Here's what it looks like with .NET 8, where the most important values are visible right away:
 
-![Debugging HttpContext with .NET 8](../../09-Sep/debugging-improvements-in-dotnet-8/httpcontext-debugging-after.png)
+![Debugging HttpContext with .NET 8](https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/06/httpcontext-debugging-after.png)
 
 Check out all the new ASP.NET debugging improvements in James Newton-King's post on [Debugging Enhancements in .NET 8](https://devblogs.microsoft.com/dotnet/debugging-enhancements-in-dotnet-8/) blog post.
 
