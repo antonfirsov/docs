@@ -5,7 +5,7 @@ post_slug: introducing-dotnet-aspire-simplifying-cloud-native-development-with-d
 microsoft_alias: glennc
 featured_image: dotnet-Aspire.png
 categories: .NET, .NET Core, ASP.NET, ASP.NET Core, C#, Cloud, Cloud Native, Linux, Visual Studio, Visual Studio Code
-tags: cloud native, distribute, scalable, observable opentelemetry, otel, stack, azure, tag3
+tags: cloud native, distribute, scalable, observable opentelemetry, otel, stack, azure
 summary: 'Introducing .NET Aspire: A cloud ready stack for building observable, production ready, distributed applications'
 post_date: 2023-11-14 08:01:00
 ---
@@ -308,9 +308,7 @@ We're really excited to deliver this first preview of .NET Aspire to you today. 
 
 Get started today with these resources:
 
-- Get the tools \<download VS version X\>
-- Get the packages \<any additional\>
+- [Download the Aspire workload using the Visual Studio Installer](https://learn.microsoft.com/dotnet/aspire/setup-tooling?tabs=visual-studio#install-net-aspire)
 - [Build your first .NET Aspire solution](https://learn.microsoft.com/dotnet/aspire/get-started/quickstart-build-your-first-aspire-app)
-- Explore an existing .NET Aspire solution \<link to repo with devcontainer enabled for remote/and Codespaces\>
 
-Most importantly, we want to hear what's working for you and what we can improve. .NET Aspire is a part of the .NET platform and foundation and is an open source project alongside the platform. Engage with us here at https://github.com/dotnet/aspire.
+Most importantly, we want to hear what's working for you and what we can improve. .NET Aspire is a part of the .NET platform and foundation and is an open source project alongside the platform. Engage with us here at [https://github.com/dotnet/aspire](https://github.com/dotnet/aspire).
