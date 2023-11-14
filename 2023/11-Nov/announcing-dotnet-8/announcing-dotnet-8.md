@@ -14,7 +14,7 @@ post_date: 2023-11-14 08:00:00
 
 We are happy to announce the availability of [.NET 8](https://aka.ms/get-dotnet-8), the latest [LTS](https://dotnet.microsoft.com/platform/support/policy/dotnet-core#release-types) version of one of the world’s leading development platforms, starting today. .NET 8 delivers thousands of performance, stability, and security improvements, as well as platform and tooling enhancements that help increase developer productivity and speed of innovation. The .NET team, our partners, and the .NET community will be talking about what’s new in .NET 8 as well as what people are building with .NET today to meet their needs of tomorrow at  [.NET Conf 2023, a three day virtual event (November 14-16)](https://www.dotnetconf.net/). Come, join us!
 
-<a href="https://dotnet.microsoft.com/download/dotnet/8.0"><img class="aligncenter" src="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/11/Banner3.png" alt=".NET 8 is now available" width="600" /></a>
+<a href="https://dotnet.microsoft.com/download/dotnet/8.0"><img class="aligncenter" src="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/11/Banner4.png" alt=".NET 8 is now available" width="600" /></a>
 
 With this release, .NET reshapes the way we build intelligent, cloud-native applications and high-traffic services that scale on demand. Whether you’re deploying to Linux or Windows, using containers or a cloud app model of your choice, .NET 8 makes building these apps easier. It includes a set of proven libraries that are used today by the many high-scale services at Microsoft to help you with fundamental challenges around observability, resiliency, scalability, manageability, and more.
 
@@ -38,7 +38,7 @@ The Fortunes scenario is closer to a real-world workload, including database acc
 
 .NET Aspire is a stack for building resilient, observable, and configurable cloud-native applications with .NET. It includes a curated set of components enhanced for cloud-native by including telemetry, resilience, configuration, and health checks by default. Combined with a sophisticated but simple local developer experience, .NET Aspire makes it easy to discover, acquire, and configure essential dependencies for cloud-native applications on day 1 as well as day 100. The [first preview](https://aka.ms/aspireannouncement) of .NET Aspire is available today.
 
-[![.NET Aspire](Aspire-CTAs.png)](https://aka.ms/aspireannouncement)
+[![.NET Aspire](Aspire-CTAs1.png)](https://aka.ms/aspireannouncement)
 
 ## .NET 8 Container Enhancements - More secure, compact, and productive 
 
@@ -50,7 +50,7 @@ Package your applications with [containers more easily and more securely than ev
 
 Compile your .NET apps into [native code](https://learn.microsoft.com/dotnet/core/deploying/native-aot) that uses less memory and starts instantly. No need to wait for the JIT (just-in-time) compiler to compile the code at run time. No need to deploy the JIT compiler and IL code. AOT apps deploy just the code that’s needed for your app. Your app is now empowered to run in restricted environments where a JIT compiler isn't allowed.
 
-[![Before and After AOT](AOTOptimizations3.png)](https://learn.microsoft.com/dotnet/core/deploying/native-aot)
+[![Before and After AOT](AOTOptimizations4.png)](https://learn.microsoft.com/dotnet/core/deploying/native-aot)
 
 ## Artificial Intelligence - Infuse AI into your .NET applications
 
