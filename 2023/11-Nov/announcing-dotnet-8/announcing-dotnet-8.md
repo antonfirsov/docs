@@ -59,7 +59,7 @@ Generative AI and large language models are transforming the field of AI, provid
 .NET 8 brings several enhancements to the `System.Numerics` library to improve its compatibility with Generative AI workloads, such as integrating Tensor Primitives. With the rise of AI-enabled apps, new tools and SDKs emerged. We collaborated with numerous internal and external partners, such as [Azure OpenAI](https://azure.microsoft.com/products/ai-services/openai-service), [Azure Cognitive Search](https://azure.microsoft.com/free/ai-services/?ef_id=_k_b34c5d449bf4175800e738086ecc7267_k_&OCID=AIDcmm5edswduu_SEM__k_b34c5d449bf4175800e738086ecc7267_k_&msclkid=b34c5d449bf4175800e738086ecc7267), [Milvus](https://milvus.io/docs/v2.2.x/install-csharp.md), [Qdrant](https://github.com/qdrant/qdrant-dotnet), and [Microsoft Teams](https://github.com/microsoft/teams-ai), to ensure .NET developers have easy access to various AI models, services, and platforms through their respective SDKs. Additionally, the open-source [Semantic Kernel](https://learn.microsoft.com/semantic-kernel/overview/) SDK simplifies the integration of these AI components into new and existing applications, to help you deliver innovative user experiences.
 
 Various samples and reference templates, showcasing patterns and practices, are now available to make it easy for developers to get started:
-- [Customer Chatbot](https://github.com/dotnet-architecture/eShop)
+- [Customer Chatbot](https://github.com/dotnet/eShop)
 - [Retrieval Augmented Generation](https://github.com/Azure-Samples/azure-search-openai-demo-csharp)
 - [Developing Apps using Azure AI services](https://devblogs.microsoft.com/dotnet/demystifying-retrieval-augmented-generation-with-dotnet/) 
 
