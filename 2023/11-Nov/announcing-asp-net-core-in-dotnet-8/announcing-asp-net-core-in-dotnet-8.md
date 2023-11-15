@@ -340,7 +340,7 @@ public class TodosController : Controller
 }
 ```
 
-You can find a full list of the new [generic attributes for MVC](https://learn.microsoft.com/core/release-notes/aspnetcore-8.0#support-for-generic-attributes) in the release notes.
+You can find a full list of the new [generic attributes for MVC](https://learn.microsoft.com/aspnet/core/release-notes/aspnetcore-8.0#support-for-generic-attributes) in the release notes.
 
 ## Identity API endpoints
 
