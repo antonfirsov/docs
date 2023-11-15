@@ -20,7 +20,7 @@ But what we heard from developers is that we needed to do more. Building apps fo
 
 To help you simplify cloud app complexity, we're introducing...
 
-[![.NET Aspire](dotnetAspire-CTAs.png)](https://aka.ms/dotnet-aspire)
+[![.NET Aspire](Aspire-CTAs1.png)](https://aka.ms/dotnet-aspire)
 
 .NET Aspire is an *opinionated* stack for building resilient, observable, and configurable cloud-native applications with .NET. It includes a curated set of components enhanced for cloud-native by including service discovery, telemetry, resilience, and health checks by default. Combined with a sophisticated but simple local developer experience, .NET Aspire makes it easy to discover, acquire, and configure essential dependencies for cloud-native apps on day 1 as well as day 100, for new and existing .NET apps using .NET 8+.
 
@@ -34,7 +34,7 @@ To start with, let's take a tour of the new `.NET Aspire Starter` template and t
 
 The starter app is designed to get you up and running with a working .NET Aspire solution that you can try out. The app is made up of two projects and a Redis cache. The front-end project is a Blazor web application that calls a back-end API for weather information.
 
-![dotnetAspire-Solution-Explorer](dotnetAspire-Solution-Explorer.png)
+![dotnetAspire-Solution-Explorer](dotnetAspire-Solution-Explorer2.png)
 
 You'll notice two new projects that you haven't seen before `<appname>.AppHost` and `<appname>.ServiceDefaults`.
 
@@ -42,17 +42,17 @@ The `AppHost` project will run any .NET projects, containers, or executables nee
 
 The `ServiceDefaults` project contains common service-centric logic that applies to each of the projects in the app. This is where cross cutting concerns like service discovery, telemetry, and health check endpoints are configured. We wanted this to be consistent across all the projects but also understand that teams and organizations will likely want to tweak some of the settings. Shared code in the project was the most discoverable and developer friendly mechanism we could find to achieve those goals.
 
-### Developer Dashboard
+### Dashboard - Your Central Hub for App Monitoring and Inspection
 
-If you run this starter application using <kbd>F5</kbd> in Visual Studio or `dotnet run` on the command-line, then you are taken to the developer dashboard.
+Launching a .NET Aspire starter application with <kbd>F5</kbd> in Visual Studio or dotnet run via command-line, brings you to the developer dashboard. This dashboard serves as an essential tool for debugging distributed applications, presenting a unified view of your services alongside their logs, metrics, and traces.
 
-![dotnetAspire-Developer-Dashboard](dotnetAspire-Developer-Dashboard.png)
+This Dashboard is not merely a window into your cloud-native application; it's an interactive platform that provides valuable insights into your projects and highlights any errors, allowing for deeper investigation. Below is an image showing a project with an identified error, indicated by a red dot:
 
-The developer dashboard is your first line debugger for a distributed application. It lists all your services, collects and displays logs, metrics, and traces for all the parts of your solution in a centralized view.
+![dotnetAspire-Developer-Dashboard](dotnet-Aspire-dashboard-projects-errors.png)
 
 We can also see logs across all projects, and even a distributed trace showing a request to the weather page. Traces are an indispensable tool in diagnosing problems in distributed systems.
 
-![dotnetAspire-Distributed-Trace](dotnetAspire-Distributed-Trace.png)
+![dotnetAspire-Distributed-Trace](dotnet-Aspire-trace-view-filter.png)
 
 The developer dashboard is your home for getting all your development time diagnostics data together and troubleshooting slowdowns and bugs on your development machine. It uses all the same open standards as you would use in production when you configure your production telemetry systems like Grafana+Prometheus, Application Insights, etc. We'll go deeper into the dashboard [later in this post](#developer-dashboard).
 
@@ -223,7 +223,7 @@ You can find more about how orchestration works in the .NET Aspire docs: [.NET A
 
 The .NET Aspire dashboard is only visible while the AppHost is running and will launch automatically when you start the project. The left navigation provides links to the different parts of the dashboard we will describe here. Additionally, the cog icon in the upper right of the dashboard provides access to the settings page, which allows you to configure your dashboard experience.
 
-![dotnetAspire-Developer-Dashboard](Aspire-Developer-Dashboard2.png)
+![dotnetAspire-Developer-Dashboard](dotnet-Aspire-metrics-view.png)
 
 - *Projects*: The projects page is the home page of the dashboard, it lists all the project resources in your application. It's main function is to show you the state of each project and to give you the URLs to parts of the app. It will also show a badge when an error has been logged for a project allowing you to easily zero in on problems.
 - *Containers*: This page is the same as the projects page, but for the container resources of your application. In our tour above the Redis cache container would be displayed here.
