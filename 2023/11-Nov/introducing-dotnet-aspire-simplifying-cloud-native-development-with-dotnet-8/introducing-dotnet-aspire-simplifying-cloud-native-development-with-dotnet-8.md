@@ -1,6 +1,6 @@
 ---
 post_title: 'Introducing .NET Aspire: Simplifying Cloud-Native Development with .NET 8'
-author1: glennc
+author1: glennc@microsoft.com
 post_slug: introducing-dotnet-aspire-simplifying-cloud-native-development-with-dotnet-8
 microsoft_alias: glennc
 featured_image: dotnet-Aspire.png
@@ -248,7 +248,7 @@ This means that for an app to be observable then:
 2. That data needs to be sent somewhere that you can access.
 3. Tools to view/query/make sense of the data need to exist.
 
-In .NET we have been investing more and more into Open Telemetry both as the format of the data, adopting Open Telemetry naming and structure for data, as well as the Open Telemetry Protocol (OLTP) for getting data out of your application and into an ecosystem of tools.
+In .NET we have been investing more and more into Open Telemetry both as the format of the data, adopting Open Telemetry naming and structure for data, as well as the Open Telemetry Protocol (OTLP) for getting data out of your application and into an ecosystem of tools.
 
 In .NET Aspire we provide the code to wire-up Open Telemetry by default in the `ServiceDefaults` project. We used shared code because there are conventions like the name of your health endpoints that we expect some people will want to customize for their project or company. When experimenting we found that shared code gave a better experience for defining these types of defaults that people could tweak rather than putting them in a library with configuration settings.
 
@@ -310,5 +310,10 @@ Get started today with these resources:
 
 - [Download the Aspire workload using the Visual Studio Installer](https://learn.microsoft.com/dotnet/aspire/setup-tooling?tabs=visual-studio#install-net-aspire)
 - [Build your first .NET Aspire solution](https://learn.microsoft.com/dotnet/aspire/get-started/quickstart-build-your-first-aspire-app)
+
+We also have some samples showcasing a few things we think are interesting:
+- Node frontend with .NET Backend: [https://github.com/dotnet/aspire-samples/tree/main/samples/AspireWithNode](https://github.com/dotnet/aspire-samples/tree/main/samples/AspireWithNode)
+- DAPR integration: [https://github.com/dotnet/aspire-samples/tree/main/samples/AspireWithDapr](https://github.com/dotnet/aspire-samples/tree/main/samples/AspireWithDapr)
+- The eShop sample application all running with Aspire: [https://github.com/dotnet/eshop](https://github.com/dotnet/eshop)
 
 Most importantly, we want to hear what's working for you and what we can improve. .NET Aspire is a part of the .NET platform and foundation and is an open source project alongside the platform. Engage with us here at [https://github.com/dotnet/aspire](https://github.com/dotnet/aspire).
