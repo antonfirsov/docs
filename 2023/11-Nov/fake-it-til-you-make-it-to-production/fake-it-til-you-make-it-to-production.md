@@ -18,11 +18,12 @@ created have been folded into .NET 8 for the benefit of the entire .NET
 ecosystem.
 
 We knew starting the R9 project that asking service teams to adopt
-our technology will be challenging. Teams have a very high bar
-for quality and predictability and if we don't meet that it might
-be a long time before they give it another look, if ever. We therefore
+our technology would be challenging. Teams have a very high quality bar
+and if we didn't meet that bar, it might
+be a long time before they gave us another look, if ever. We therefore
 put a strong emphasis on quality, establishing a target of 100% code
-coverage, embracing mutation testing, and adopting a zero-bug policy.
+coverage, embracing [mutation testing](https://stryker-mutator.io/), and
+adopting a zero-bug policy.
 
 ## Why we Started Faking It
 
@@ -33,17 +34,17 @@ able to successfully deploy, monitor, and repair their services. We
 needed to make sure our telemetry was part of the solution, not the
 problem.
 
-At first, we were timidly using generated mocks (using the Moq package)
+At first, we were timidly using generated mocks (using the [Moq package](https://www.nuget.org/packages/Moq))
 to capture telemetry from our components in ad hoc ways. Although this
 technically worked, it was ugly. Mocking using Moq usually requires tests
 to assume the internal structure of the components being tested, which
 makes tests brittle as they become susceptible to break when the internal
- structure of a component is refactored. Since it was clumsy to write, we
-ended up with very few tests validating telemetry throughout our code base.
+structure of a component is refactored. Since it was clumsy to write, we
+ended up with few tests validating telemetry throughout our code base.
 
 After a while, it became clear that to achieve our quality objectives,
-we would need to improve how telemetry is tested, which lead me to
-create the logging and metric fakes. The model was successful as
+we would need to improve how telemetry is tested, which led me to
+create the logging and metric fakes. The model was successful as R9
 developers quickly embraced it and the quality of our telemetry tests
 improved dramatically. The fakes model caught on within the team, we
 created several other fakes to help improve both our tests and our
@@ -75,24 +76,26 @@ At some point, we searched through a bunch of internal Microsoft code
 bases and found literally hundreds of variations of `IClock` and
 associated types to use in testing. Clearly, this was a common problem
 that deserved some attention. This work ultimately led to the
-introduction of the `TimeProvider` type in .NET 8.
+introduction of the [`TimeProvider`](https://learn.microsoft.com/dotnet/api/system.timeprovider)
+type in .NET 8.
 
 ## Fakes in .NET 8
 
 .NET 8 introduces several fakes to simplify test authoring. In this
 article, I’ll describe the logging fake, the metering fake, and the time
-provider fake. We won’t have the space to cover those here, but be on
+provider fake. We don’t have the space to cover those here, but be on
 the lookout for other useful fakes such as the fake host, fake
-redactors, and fake data taxonomy.
+redactor, and fake data taxonomy.
 
 ## Logging Fake
 
 The idea behind the logging fake is to use a custom implementation of
-`ILogger` whose job is to capture and accumulate all state being logged in
+[`ILogger`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger)
+whose job is to capture and accumulate all state being logged in
 an in-memory buffer such that it can be inspected from a test suite.
 
-Getting started is easy, you can just create a `FakeLogger` instance and
-pass it to any code that is asking for an `ILogger` or `ILogger<T>`:
+Getting started is easy, you can just create a [`FakeLogger`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.testing.fakelogger)
+instance and pass it to any code that is asking for an `ILogger` or `ILogger<T>`:
 
 ```csharp
 [Fact]
@@ -109,16 +112,16 @@ public static void TestLogging()
 ```
 
 Sometimes, code wants an `ILoggerProvider` out of which it creates its own
-logger. For those cases, you can use the `FakeLoggerProvider` type either
-directly or through dependency injection.
+logger. For those cases, you can use the [`FakeLoggerProvider`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.testing.fakeloggerprovider)
+ type either directly or through dependency injection.
 
 Once you’ve got a logger provider or logger wired-in, anything logged
 will be captured in a `FakeLogCollector` object. If you manually created
 the logger, you can get the collector via the `FakeLogger.Collector`
 property. If you used `FakeLoggerProvider` instead and you don’t have
 immediate access to the logger object in your code, you can then use the
-`GetFakeLogCollector` method to extract the `FakeLogCollector` used by the
-logger instances created by dependency injection.
+`GetFakeLogCollector` method to extract the [`FakeLogCollector`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.testing.fakelogcollector)
+used by the logger instances created by dependency injection.
 
 Once you have the `FakeLogCollector` object, you can do one of these
 things:
@@ -176,7 +179,7 @@ metric updates and making it easy for you to inspect the resulting
 state. Since metrics integrate very differently into .NET than logging
 does, the fake model is also different and simpler.
 
-The `MetricCollector` object lets you record all updates to a metric
+The [`MetricCollector<T>`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.diagnostics.metrics.testing.metriccollector-1) object lets you record all updates to a metric
 instrument or observable instrument. Once you’ve created the collector,
 you can use the `LastMeasurement` property to query the last update to the
 instrument or call `GetMeasurementSnapshot` to get a list of all the
@@ -184,7 +187,7 @@ measurements captured for the instrument.
 
 There are several different constructors for the `MetricCollector` class,
 each letting you specify the specific instrument to collect from in a
-different way, which tailors to most uses cases.
+different way, which tailors to most use cases.
 
 Here’s an example showing how to use the `MetricCollector` type:
 
@@ -256,7 +259,7 @@ public static void TestMetering()
 
 ## TimeProvider Fake
 
-The `TimeProvider` type is new to .NET 8 and it provides a simple set of
+The [`TimeProvider`](https://learn.microsoft.com/dotnet/api/system.timeprovider) type is new to .NET 8 and it provides a simple set of
 methods to get the current time, get the current time zone, and create
 timers. This is like functionality already present in .NET, except for
 the fact the methods are not static. Instead, they are instance methods
@@ -282,7 +285,7 @@ provider, which you get from `TimeProvider.System`, tracks real-world
 time, the apparent passage of time is instead entirely controlled by the
 fake time provider.
 
-The `FakeTimeProvider` type lets you do the following special things:
+The [`FakeTimeProvider`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.time.testing.faketimeprovider) type lets you do the following special things:
 
 - You can set the specific time that the provider returns to callers.
 
