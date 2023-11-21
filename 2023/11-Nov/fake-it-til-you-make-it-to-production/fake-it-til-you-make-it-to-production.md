@@ -106,7 +106,7 @@ public static void TestLogging()
     var c1 = new ClassToTest1(logger1);
 
     // a logger with a specific logging category
-    var logger2 = mew FakeLogger<ClassToTest2>();
+    var logger2 = new FakeLogger<ClassToTest2>();
     var c2 = new ClassToTest2(logger2);
 }
 ```
@@ -148,7 +148,7 @@ public static void TestLogging()
     // create a fake logger for this test
     var logger = new FakeLogger();
     
-    // pass the fake logged in to the code being tested/
+    // pass the fake logger in to the code being tested
     var c = new ClassToTest1(logger);
 
     // trigger the code to do some work
@@ -336,7 +336,7 @@ public async Task TestTime()
     var classToTest = new KeepAlive(logger, timeProvider);
 
     // wait 2 real-world seconds
-    await Task.Delay(2);
+    await Task.Delay(2000);
 
     // confirm that nothing has been logged yet
     Assert.Equal(0, logger.Collector.Count);
@@ -345,7 +345,7 @@ public async Task TestTime()
     timeProvider.Advance(TimeSpan.FromMilliseconds(999));
 
     // wait 2 real-world seconds
-    await Task.Delay(2);
+    await Task.Delay(2000);
 
     // confirm that nothing has been logged yet
     Assert.Equal(0, logger.Collector.Count);
@@ -354,7 +354,7 @@ public async Task TestTime()
     timeProvider.Advance(TimeSpan.FromMilliseconds(1));
 
     // wait 2 real-world seconds
-    await Task.Delay(2);
+    await Task.Delay(2000);
 
     // confirm that one thing has been logged
     Assert.Equal(1, logger.Collector.Count);
