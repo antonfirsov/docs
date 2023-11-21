@@ -9,14 +9,15 @@ summary: '.NET chiseled Ubuntu container images are now GA and can be used in pr
 post_date: 2023-11-21 10:05:00
 ---
 
-.NET chiseled Ubuntu container images are now GA and can be used in production, for .NET 6, 7, and 8. Chiseled images are the result of a long-term partnership and design collaboration between Canonical and Microsoft. We [announced chiseled containers](https://devblogs.microsoft.com/dotnet/dotnet-6-is-now-in-ubuntu-2204/) just over a year ago, as a new direction. They are now ready for you to use in your production environment and to take advantage of the value they offer.
+.NET chiseled Ubuntu container images are now GA and can be used in production, for .NET 6, 7, and 8. Canonical also [announced the general availability of chiseled Ubuntu containers](https://canonical.com/blog/chiselled-ubuntu-ga). Chiseled images are the result of a long-term partnership and design collaboration between Canonical and Microsoft. We [announced chiseled containers](https://devblogs.microsoft.com/dotnet/dotnet-6-is-now-in-ubuntu-2204/) just over a year ago, as a new direction. They are now ready for you to use in your production environment and to take advantage of the value they offer.
+
+The images are available in our container repos with the following tag: `8.0-jammy-chiseled`. .NET 6 and 7 variants differ only by version number. These images rely on [Ubuntu 22.04 (Jammy Jellyfish)](https://discourse.ubuntu.com/t/jammy-jellyfish-release-notes/24668), as referenced by `jammy` in the tag name.
 
 We made a few videos on this topic over the last year, which provide a great overview:
 
+- [Chiselled Ubuntu Containers](https://www.youtube.com/watch?v=o8NILnbjhQ4)
 - [.NET Containers advancements in .NET 8 | .NET Conf 2023](https://www.youtube.com/watch?v=scIAwLrruMY)
-- [Using .NET with Chiseled Ubuntu Containers | .NET Conf 2022](https://www.youtube.com/watch?v=FLGFzlWF4Gs)
 - [.NET in Ubuntu and Chiseled Containers](https://www.youtube.com/watch?v=pnsYc8GskCw)
-- [How We Built Ubuntu Distroless Containers](https://www.youtube.com/watch?v=RMqjQ_i9eP0)
 
 We also published a [container workshop](https://github.com/richlander/container-workshop) for .NET Conf that uses chiseled containers for many of its examples. The workshop also uses OCI publish, which pairs well with chiseled containers.
 
