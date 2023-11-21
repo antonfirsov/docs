@@ -28,7 +28,7 @@ Or add it directly in the C# project file:
 </ItemGroup>
 ```
 
-You can now use the recommended `AddStandardResilience` extension on the `IHttpClientBuilder`:
+You can now use the recommended `AddStandardResilienceHandler` extension on the `IHttpClientBuilder`:
 
 ```csharp
 var services = new ServiceCollection();
@@ -40,7 +40,7 @@ services.AddHttpClient("my-client")
         });
 ```
 
-Example above uses `AddStandardResilience` to add a pipeline (rate limiter, total timeout, retry, circuit breaker, attempt timeout) of resilience strategies to the HTTP client. See [standard resilience pipeline](#standard-resilience-pipeline) section to learn more.
+Example above uses `AddStandardResilienceHandler` to add a pipeline (rate limiter, total timeout, retry, circuit breaker, attempt timeout) of resilience strategies to the HTTP client. See [standard resilience pipeline](#standard-resilience-pipeline) section to learn more.
 
 A more real-world example would rely on hosting, such as that described in the [.NET Generic Host](https://learn.microsoft.com/dotnet/core/extensions/generic-host) article. Using the [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting) NuGet package, the above example becomes:
 
@@ -68,7 +68,6 @@ var httpClient = host.Services
 HttpResponseMessage response = await httpClient.GetAsync("https://jsonplaceholder.typicode.com/comments");
 ```
 
-> [!NOTE]
 > To use the registered `my-client`, resolve `IHttpClientFactory` from dependency injection and use the `CreateClient` method to create an HTTP client.
 
 For advanced scenarios, the APIs support building your own custom HTTP resilience pipeline:
@@ -177,10 +176,9 @@ services.AddHttpClient("my-client")
         .AddStandardResilienceHandler();
 ```
 
-> [!NOTE]
 > Invoking `AddStandardResilienceHandler` returns an `IHttpStandardResiliencePipelineBuilder` instance which exposes additional extensions for configuring the standard pipeline.
 
-The example above employs default options where for both retries and circuit breaker strategies, the following outcomes are handled:
+The previous example uses default options where for both retries and circuit breaker strategies, the following outcomes are handled:
 
 - Any status code *500* or above.
 - *429* (Too Many Requests).
@@ -229,7 +227,6 @@ The previous example:
 - Employs `Configure` that takes `IConfiguration` to bind options from *my-section*.
 - Uses another `Configure` showcasing the support for configuration chaining.
 
-> [!NOTE]
 > The standard resilience handler supports dynamic reloading of options. If the `configuration` changes, the resilience pipeline dynamically refreshes, using the new configuration for request handling. This enhancement is enabled by the [dynamic reloads](https://www.pollydocs.org/advanced/dependency-injection.html#dynamic-reloads) feature of the Polly library.
 
 ## Standard hedging pipeline
@@ -325,7 +322,6 @@ In this example:
 - Two groups with multiple endpoints are added. With ordered groups, every request selects a single endpoint from each group sequentially. After exhausting all groups, hedging stops, even if `MaxHedgedAttempts` is not met.
 - The `Weight` property indicates the probability of selecting that endpoint. In the example above, there is a *95%* chance of selecting the endpoint `https://example.net/api/a` and a *5%* chance for the `https://example.net/api/b` endpoint.
 
-> [!NOTE]
 > While the example employs ordered groups via `ConfigureOrderedGroups`, the API also offers `ConfigureWeightedGroups`, which permits group selection based on weight.
 
 Visit the official [customize hedging handler route selection](https://learn.microsoft.com/dotnet/core/resilience/http-resilience?tabs=dotnet-cli#customize-hedging-handler-route-selection) documentation to learn more about routing in hedging.
@@ -402,7 +398,6 @@ Initial attempts are lengthy since hedging tries to obtain a response from the u
 
 See [circuit breaker state diagram](https://www.pollydocs.org/strategies/circuit-breaker.html#state-diagram) to learn more about states of circuit breaker and the state transitions.
 
-> [!NOTE]
 > In situations like the one described above, after a certain duration, you might observe increased latency for a single request. In terms of circuit breakers, this is a probing request checking endpoint health. Probing requests might exhibit increased latencies. If probing is successful, the circuit breaker is closed, allowing hedging to reconnect with the primary endpoint.
 
 ## Custom resilience pipeline
@@ -507,7 +502,6 @@ info: Polly[0]
       Resilience event occurred. EventName: 'OnReload', Source: 'my-client-custom-pipeline//(null)', Operation Key: '', Result: ''
 ```
 
-> [!NOTE]
 > Dynamic reloads are automatically enabled for both the standard resilience pipeline and the standard hedging pipeline.
 
 Visit the official [dynamic reload](https://learn.microsoft.com/dotnet/core/resilience/http-resilience#dynamic-reload) documentation to learn more.
