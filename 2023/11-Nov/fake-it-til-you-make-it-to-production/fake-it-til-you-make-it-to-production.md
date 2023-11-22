@@ -34,9 +34,9 @@ able to successfully deploy, monitor, and repair their services. We
 needed to make sure our telemetry was part of the solution, not the
 problem.
 
-At first, we were timidly using generated mocks (using the [Moq package](https://www.nuget.org/packages/Moq))
+At first, we were timidly using generated mocks
 to capture telemetry from our components in ad hoc ways. Although this
-technically worked, it was ugly. Mocking using Moq usually requires tests
+technically worked, it was ugly. Using this approach usually requires tests
 to assume the internal structure of the components being tested, which
 makes tests brittle as they become susceptible to break when the internal
 structure of a component is refactored. Since it was clumsy to write, we
@@ -293,7 +293,7 @@ The [`FakeTimeProvider`](https://learn.microsoft.com/dotnet/api/microsoft.extens
   callers.
 
 - You can set an amount by which the specific time that the provider
-  returns is incremented any time the provider’s time is read.
+  returns is automatically incremented any time the provider’s time is read.
 
 Controlling the provider’s time is like a superpower. If your code calls
 `Task.Delay` with a fake provider and a delay of 1 second, `Task.Delay` will
