@@ -6,6 +6,7 @@ microsoft_alias: Your Microsoft alias, without the domain, like 'immol'
 featured_image: image.png
 categories: .NET
 tags: tag1, tag2, tag3
+# ai_note: show # Uncomment this if you used AI to generate part of the content. 
 summary: Summary of your post, shown on the home page next to the featured image
 post_date: The date you want to schedule in wordpress when merged, such as 2022-11-08 10:00:00
 ---
