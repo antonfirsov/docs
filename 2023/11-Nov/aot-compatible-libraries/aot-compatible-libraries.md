@@ -1,12 +1,12 @@
 ---
-post_title: How to make native AOT compatible libraries
+post_title: How to make libraries compatible with native AOT
 author1: eerhardt
 post_slug: creating-aot-compatible-libraries
 microsoft_alias: eerhardt
 featured_image: aot-compatible-libraries.png
 categories: .NET, .NET Core, ASP.NET Core, Cloud Native
 tags: asp.net core, performance, .net 8, cloud, cloud native
-summary: How to make .NET libraries compatible with native AOT
+summary: Provides strategies and case studies for making .NET libraries compatible with native AOT
 post_date: 2023-11-30 10:05:00
 ---
 
@@ -207,7 +207,7 @@ The `StackExchange.Redis` library is a popular .NET library for interacting with
 
 Let's start with the dependency, because it is best to address warnings at the lowest layer first. [mgravell/Pipelines.Sockets.Unofficial#73](https://github.com/mgravell/Pipelines.Sockets.Unofficial/pull/73) skips some optimizations that are using incompatible APIs.
 
-![Reflection Emit in Pipelines.Sockets.Unofficial](Pipelines.Sockets.Unofficial.RefEmit.png)
+![Reflection Emit in Pipelines.Sockets.Unofficial](PipelinesSocketsUnofficialRefEmit.png)
 
 This code is using `System.Reflection.Emit` to generate IL to read the value of a field from an object. This is done for performance reasons because using normal reflection is slower than just reading a field. However, in a native AOT application this code will fail because there is no JIT compiler to compile the IL to machine code. To solve this, a check is added for `RuntimeFeature.IsDynamicCodeSupported`, which returns `true` when the current runtime allows for generating dynamic code and `false` when it doesn't. In the case of native AOT, this is always `false` and the `DynamicMethod` code is skipped. The fallback to normal reflection is always used.
 
@@ -215,7 +215,7 @@ Taking a step back and looking at what the code is trying to accomplish, we can 
 
 Another incompatible optimization was the following:
 
-![MakeGenericType in Pipelines.Sockets.Unofficial](Pipelines.Sockets.Unofficial.MakeGenericType.png)
+![MakeGenericType in Pipelines.Sockets.Unofficial](PipelinesSocketsUnofficialMakeGenericType.png)
 
 This code is using reflection to fill in a generic type at runtime, and then get a static property off of the resulting type. Calling `MakeGenericType` on a statically unknown type is not AOT compatible because of the way generics and value types (i.e. structs) work. The .NET runtime generates specialized code for each instantiation of a generic type with a value type. If the specialized code hasn't been generated ahead of time for the specific value type, like `int` or `float`, the .NET AOT runtime will fail because it can't generate it dynamically. The fix was the same as above, to skip this optimization when running in an AOT'd application, which removes the warning.
 
@@ -223,13 +223,13 @@ You may have spotted a problem with the existing code: that the result of the re
 
 Back on the StackExchange.Redis library, [StackExchange/StackExchange.Redis#2451](https://github.com/StackExchange/StackExchange.Redis/pull/2451) addressed the main two issues with its code.
 
-![TryGetCount in StackExchange.Redis](StackExchange.Redis.TryGetCount.png)
+![TryGetCount in StackExchange.Redis](StackExchangeRedisTryGetCount.png)
 
 This code is using a `System.Threading.Channels.Channel<T>` and trying to get the count of items in the `Channel`. When the original code was written, `ChannelReader<T>` didn't contain a `Count` property. It was added in a later version. So this code opted to use private reflection to get the value. Since the `_queue.GetType()` is not a statically known type (it will be one of the derived types of `Channel<T>`) this reflection is not compatible with trimming. The fix here is to take advantage of the new `CanCount` and `Count` APIs when available - which they are in the versions of .NET that support trimming and AOT - and keep using reflection when they aren't.
 
 Second, some warnings showed up in a method using reflection.
 
-![TryGetAzureRoleInstanceId in StackExchange.Redis](StackExchange.Redis.TryGetAzureRoleInstanceId.png)
+![TryGetAzureRoleInstanceId in StackExchange.Redis](StackExchangeRedisTryGetAzureRoleInstanceId.png)
 
 This change shows that some reflection usages can be statically verifiable, while others aren't. Previously, the code was looping through all the assemblies in the application, checking for an assembly with a specific name, and then finding a type by name and retrieving property values off of the type. This code raised a few trimming warnings because trimming, by design, will remove assemblies and types it doesn't see being used statically in the application. With a little bit of rewriting, specifically using `Type.GetType` with a constant, fully-qualified type name, the tooling is able to statically know which types are being acted upon. The tooling will preserve the necessary members on these types, if they are found. Thus the tooling no longer emits warnings, and the code is now compatible.
 
@@ -267,40 +267,40 @@ OpenTelemetry is an observability framework that allows developers to understand
 
 The first fix which blocked this library from being used in a native AOT application was [open-telemetry/opentelemetry-dotnet#4542](https://github.com/open-telemetry/opentelemetry-dotnet/pull/4542). The problem was `MakeGenericType` being called with a value type that the tooling couldn't statically analyze.
 
-![MakeGenericType issue in OpenTelemetry](OpenTelemetry.MakeGenericType.Issue.png)
+![MakeGenericType issue in OpenTelemetry](OpenTelemetryMakeGenericTypeIssue.png)
 
 When `RegisterSlot<int>()` or `RegisterSlot<double>()` is called, this code is using reflection to dynamically fill in a generic type, and then invoking the constructor on the `ContextSlotType`. Since this API is public, any open generic type could be set on `ContextSlotType`. And then any value type could be filled into the `RegisterSlot<T>` method.
 
 The fix was to make a small breaking change and only accept 2 or 3 specific types to be set on `ContextSlotType`, which in practice are the only types customers used.
 
-![MakeGenericType fix 1 in OpenTelemetry](OpenTelemetry.MakeGenericType.Fix1.png)
+![MakeGenericType fix 1 in OpenTelemetry](OpenTelemetryMakeGenericTypeFix1.png)
 
 These types are hard-coded so they are not trimmed away. Now the AOT tooling can see all the code needed to make this work.
 
-![MakeGenericType fix 2 in OpenTelemetry](OpenTelemetry.MakeGenericType.Fix2.png)
+![MakeGenericType fix 2 in OpenTelemetry](OpenTelemetryMakeGenericTypeFix2.png)
 
 Another issue was how `System.Linq.Expressions` was being used in an `ActivityInstrumentationHelper` class. This was another case of using private reflection to workaround not having public API. [open-telemetry/opentelemetry-dotnet#4513](https://github.com/open-telemetry/opentelemetry-dotnet/pull/4513) changed the Expressions code to ensure the necessary properties were being preserved.
 
-![Expression.Property in OpenTelemetry](OpenTelemetry.ExpressionProperty.png)
+![Expression.Property in OpenTelemetry](OpenTelemetryExpressionProperty.png)
 
 The trimming tools can't statically determine which property is being referenced with `Expression.Property(Expression, string propertyName)`, and the API is annotated to produce warnings when you call it. Instead, if you use the overload `Expression.Property(Expression, PropertyInfo)` and get the PropertyInfo in a way the tooling can understand, the code can be made trim compatible.
 
 [open-telemetry/opentelemetry-dotnet#4695](https://github.com/open-telemetry/opentelemetry-dotnet/pull/4695) was then made to completely remove `System.Linq.Expressions` usage in the library.
 
-![RemoveExpressions 1 in OpenTelemetry](OpenTelemetry.RemoveExpressions1.png)
-![RemoveExpressions 2 in OpenTelemetry](OpenTelemetry.RemoveExpressions2.png)
+![RemoveExpressions 1 in OpenTelemetry](OpenTelemetryRemoveExpressions1.png)
+![RemoveExpressions 2 in OpenTelemetry](OpenTelemetryRemoveExpressions2.png)
 
 While Expressions can be used in native AOT applications, when you `Lambda.Compile()` an Expression, it uses an interpreter to evaluate the Expression. This is not ideal and can cause performance degradation. If possible, removing `Expression.Compile()` usage when in native AOT applications is recommended.
 
 Next up is a common false-positive case for trimming warnings. When using `EventSource`, it is common to pass more than 3 primitive values, or values of different types, to the `WriteEvent` method. But when you don't match the primitive overloads, you fall into the overload that uses an `object[] args` for the parameters. Because these values get serialized using reflection, this API is annotated with `[RequiresUnreferencedCode]` and gives warnings wherever it is called. [open-telemetry/opentelemetry-dotnet#4428](https://github.com/open-telemetry/opentelemetry-dotnet/pull/4428) was opened to add these suppressions.
 
-![EventSource in OpenTelemetry](OpenTelemetry.EventSource.png)
+![EventSource in OpenTelemetry](OpenTelemetryEventSource.png)
 
 This false-positive occurred so often that a [new API in EventSource](https://github.com/dotnet/runtime/pull/83751) was made in .NET 8 to make this false-positive almost entirely go away.
 
 Another simple fix was made in [open-telemetry/opentelemetry-dotnet#4688](https://github.com/open-telemetry/opentelemetry-dotnet/pull/4688) to flow `[DynamicallyAccessedMembers]` attributes through the library. For example:
 
-![DynamicallyAccessedMembers in OpenTelemetry](OpenTelemetry.DynamicallyAccessedMembers.png)
+![DynamicallyAccessedMembers in OpenTelemetry](OpenTelemetryDynamicallyAccessedMembers.png)
 
 Next, several exporters in OpenTelemetry use JSON serialization to turn Arrays of objects into a string. As discussed previously, using `JsonSerializer.Serialize` without a `JsonTypeInfo` is not compatible with trimming or AOT. [open-telemetry/opentelemetry-dotnet#4679](https://github.com/open-telemetry/opentelemetry-dotnet/pull/4679) converted these places to use the `System.Text.Json` source generator in OpenTelemetry.
 
@@ -335,8 +335,8 @@ One of the more complex changes was [open-telemetry/opentelemetry-dotnet#4675](h
 
 The remaining issue with `PropertyFetcher` was to ensure the `MakeGenericType` call would always work in native AOT'd applications.
 
-![MakeGenericType fix 3 in OpenTelemetry](OpenTelemetry.MakeGenericType.Fix3.png)
-![MakeGenericType fix 4 in OpenTelemetry](OpenTelemetry.MakeGenericType.Fix4.png)
+![MakeGenericType fix 3 in OpenTelemetry](OpenTelemetryMakeGenericTypeFix3.png)
+![MakeGenericType fix 4 in OpenTelemetry](OpenTelemetryMakeGenericTypeFix4.png)
 
 The mitigation here is taking advantage of the fact that if `MakeGenericType` is only called with reference types (i.e. classes and not structs), the .NET runtime will reuse the same machine code for all reference types.
 
@@ -352,7 +352,7 @@ With SQL Client, this isn't the case. And because the underlying SqlClient libra
 
 Finally, [open-telemetry/opentelemetry-dotnet#4859](https://github.com/open-telemetry/opentelemetry-dotnet/pull/4859) fixed the last warnings in the `OpenTelemetry.Exporter.OpenTelemetryProtocol` library.
 
-![ClearInsteadOfDynamicMethod in OpenTelemetry](OpenTelemetry.ClearInsteadOfDynamicMethod.png)
+![ClearInsteadOfDynamicMethod in OpenTelemetry](OpenTelemetryClearInsteadOfDynamicMethod.png)
 
 The issue here was the same as above in the `StackExchange.Redis` library. This code was using private reflection against an object in the `Google.Protobuf` library, and generating a `DynamicMethod` for faster performance. A newer version of `Google.Protobuf` added a `.Clear()` API which makes this private reflection no longer necessary. So the fix was simply to update to the new version, and use the new API.
 
@@ -378,7 +378,7 @@ The source generator will inspect all the properties on the `HttpStandardResilie
 
 The validator can then be registered with dependency injection (DI), to add it to the services in the application.
 
-![OptionsValidator usage in Extensions](Extensions.OptionsValidatorUsage.png)
+![OptionsValidator usage in Extensions](ExtensionsOptionsValidatorUsage.png)
 
 In this case the validator is registered to be executed immediately when the application starts instead of the first time the `HttpStandardResilienceOptions` is used. This helps catch configuration issues before the website accepts traffic. It also ensures the first request doesn't need to incur the cost of this validation.
 
@@ -396,7 +396,7 @@ Once enabled, this source generator finds all calls to the `Microsoft.Extensions
 
 Lastly, some code was inspecting all the values of an `enum`. In earlier versions of .NET, the way to do this was to call `Enum.GetValues(typeof(MyEnum))`. However, this API isn't compatible with AOT because an array of `MyEnum` needs to be created at runtime, and the AOT code might not contain the specific code for `MyEnum[]`.
 
-![Enum.GetValues in Extensions](Extensions.EnumGetValues.png)
+![Enum.GetValues in Extensions](ExtensionsEnumGetValues.png)
 
 The fix is to take advantage of a relatively new API: `Enum.GetValues<TEnum>()` when running on a target framework that supports it. This API guarantees the `TEnum[]` code is generated. When not on a new .NET target framework, the code continues to use the older API.
 
