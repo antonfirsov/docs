@@ -94,6 +94,8 @@ The idea behind the logging fake is to use a custom implementation of
 whose job is to capture and accumulate all state being logged in
 an in-memory buffer such that it can be inspected from a test suite.
 
+You'll find the logging fake in the [Microsoft.Extensions.Diagnostics.Testing](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.Testing) package.
+
 Getting started is easy, you can just create a [`FakeLogger`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.testing.fakelogger)
 instance and pass it to any code that is asking for an `ILogger` or `ILogger<T>`:
 
@@ -178,6 +180,8 @@ The metric fake uses a similar model of capturing all the reported
 metric updates and making it easy for you to inspect the resulting
 state. Since metrics integrate very differently into .NET than logging
 does, the fake model is also different and simpler.
+
+You'll find the metering fake in the [Microsoft.Extensions.Diagnostics.Testing](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.Testing) package.
 
 The [`MetricCollector<T>`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.diagnostics.metrics.testing.metriccollector-1) object lets you record all updates to a metric
 instrument or observable instrument. Once you’ve created the collector,
@@ -284,6 +288,8 @@ provider is there as a manually controlled clock. Whereas the system
 provider, which you get from `TimeProvider.System`, tracks real-world
 time, the apparent passage of time is instead entirely controlled by the
 fake time provider.
+
+You'll find the time provider fake in the [Microsoft.Extensions.TimeProvider.Testing](https://www.nuget.org/packages/Microsoft.Extensions.TimeProvider.Testing) package.
 
 The [`FakeTimeProvider`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.time.testing.faketimeprovider) type lets you do the following special things:
 
