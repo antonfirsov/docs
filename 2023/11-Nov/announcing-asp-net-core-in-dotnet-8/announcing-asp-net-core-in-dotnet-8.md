@@ -168,7 +168,7 @@ The [following prerequisites](https://learn.microsoft.com/dotnet/core/deploying/
 
 On Windows, install [Visual Studio 2022](https://visualstudio.microsoft.com/vs/), and include the "Desktop development with C++" workload with all default components.
 
-![A screenshot of the 'Desktop development with C++' workload in the Visual Studio 2022 installer](./vs-install-c++-workload.png)
+![A screenshot of the 'Desktop development with C++' workload in the Visual Studio 2022 installer](./vs-install-cpp-workload.png)
 
 On Linux, install the compiler toolchain and developer packages for libraries that the .NET runtime depends on:
 
