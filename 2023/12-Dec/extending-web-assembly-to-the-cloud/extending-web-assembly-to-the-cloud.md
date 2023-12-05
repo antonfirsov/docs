@@ -33,9 +33,9 @@ The standard WIT types start with `wasi-` and define the "platform". You can thi
 
 These posts do a great job of framing WASI in more detail.
 
-- https://hacks.mozilla.org/2019/03/standardizing-wasi-a-webassembly-system-interface/
-- https://bytecodealliance.org/articles/announcing-the-bytecode-alliance
-- https://bytecodealliance.org/articles/webassembly-the-updated-roadmap-for-developers
+- [Standardizing WASI: A system interface to run WebAssembly outside the web](https://hacks.mozilla.org/2019/03/standardizing-wasi-a-webassembly-system-interface/)
+- [Announcing the Bytecode Alliance: Building a secure by default, composable future for WebAssembly](https://bytecodealliance.org/articles/announcing-the-bytecode-alliance)
+- [WebAssembly: An Updated Roadmap for Developers](https://bytecodealliance.org/articles/webassembly-the-updated-roadmap-for-developers)
 
 The promise on the horizon is being able to take an existing .NET app or library and compile it to a Wasm target. Our design instinct is to implement WIT interfaces relatively high into the .NET stack (like create an ADO.NET Data Provider for [`wasi-sql`](https://github.com/WebAssembly/wasi-sql)), which would enable existing code (including many existing NuGet packages) to just work, particularly for code without native dependencies.
 
@@ -292,8 +292,7 @@ Those are interesting results. We've got interpretation, AOT, and JIT code gener
 
 Note: `Main method` is the time to run `main`, as measured by `StopWatch`. `Process` is the complete process duration, as measured by `time`.
 
-This chart shows all of the results in context, including those in the [The convenience of System.IO]
-(https://devblogs.microsoft.com/dotnet/the-convenience-of-system-io/#performance-parity-with-wc) post.
+This chart shows all of the results in context, including those in the [The convenience of System.IO](https://devblogs.microsoft.com/dotnet/the-convenience-of-system-io/#performance-parity-with-wc) post.
 
 `wasmtime` JIT compiles the Wasm code to the target environment (in this case to Linux+x64). It's possible to AOT the Wasm code, using [`wamr`](https://bytecodealliance.github.io/wamr.dev/blog/introduction-to-wamr-running-modes/), for example. I'll leave that for another post.
 
