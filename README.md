@@ -150,3 +150,123 @@ you bound the build command to) or via the command line by invoking
 [Schedule]: https://tasks.office.com/microsoft.onmicrosoft.com/en-US/Home/Planner#/plantaskboard?groupId=fdff90ed-0b3b-4caa-a30a-efb4dd47665f&planId=wHOgFOjggEyrykcunh6oQpUAARuD
 [Local Tutorial]: https://msit.microsoftstream.com/video/619b0840-98dc-b561-c7a4-f1ebf7e10ab0
 [Codespaces Tutorial]: https://microsoft.sharepoint.com/:v:/t/DotNetTeam/ERYggqFwUWhFsdw_lROALbMBJRmI2NckeFaOGLJLUudzKw?e=jY9MsH
+
+## Highlighting code blocks
+
+As you probably know, you can wrap a snippet of code in triple back ticks, you can give hint at the syntax colorizer to use. Here's an example where we specified `csharp`:
+````
+```csharp
+public static int Main()
+{
+    return 1;
+}
+```
+````
+and here's how it looks rendered:
+```csharp
+public static int Main()
+{
+    return 1;
+}
+```
+
+If you put in no hint at all, or one that highlight.js doesn't recognize, it will attempt to infer a "best fit" colorizer, but it's better to be explicit. For example, it will typically recognize x86asm, despite some of our old posts using the hint 'assembler' which it doesn't recognize.
+
+Below is a table of some common hints that are good to use. Some are synonyms of others, use whichever you prefer.
+
+| good hints    |
+| ------------- |
+| armasm        |
+| bash          |
+| c             |
+| c#            |
+| c++           |
+| cmd           |
+| csharp        |
+| cshtml        |
+| fsharp        |
+| groovy        |
+| html          |
+| http          |
+| ini           |
+| java          |
+| javascript    |
+| js            |
+| json          |
+| markdown      |
+| md            |
+| plaintext     |
+| powershell    |
+| razor         |
+| sh            |
+| shell         |
+| sql           |
+| text          |
+| ts            |
+| txt           |
+| typescript    |
+| vb            |
+| x86asm        |
+| xml           |
+| yaml          |
+| yml           |
+
+Full information is [here](https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md). It's subject to change, and the blog site may choose to exclude some languages in its build.
+
+Until 12/2023, we used prettify.js, whose hints don't all map to highlight.js. Here's a mapping in case you're used to prettify hints or want to fix an old post.
+
+| old           | new                                                            |
+| ------------- | -------------------------------------------------------------- |
+| asm           | x86asm (but should infer)                                      |
+| aspx-csharp   | use 'csharp'                                                   |
+| assembly      | x86asm (but should infer)                                      |
+| bash          | OK                                                             |
+| c             | OK                                                             |
+| c#            | OK                                                             |
+| c++           | OK                                                             |
+| cli           | use 'dos' or 'sh' as appropriate                               |
+| cmd           | OK                                                             |
+| console       | OK, but prefer 'sh' as it doesn't mean 'cmd'                   |
+| cs            | OK                                                             |
+| csharp        | OK                                                             |
+| cshtml        | OK                                                             |
+| csproj        | use 'xml'                                                      |
+| csv           | not supported by highlight.js, use 'text'                      |
+| diff          | OK                                                             |
+| dockerfile    | OK                                                             |
+| f#            | OK                                                             |
+| fsharp        | OK                                                             |
+| groovy        | OK                                                             |
+| html          | OK                                                             |
+| http          | OK                                                             |
+| il            | not supported by highlight.js, use 'text'                      |
+| ini           | OK                                                             |
+| java          | OK                                                             |
+| javascript    | OK                                                             |
+| js            | OK                                                             |
+| json          | OK                                                             |
+| log           | use 'text'                                                     |
+| markdown      | OK                                                             |
+| md            | OK                                                             |
+| mermaid       | not supported by highlight.js                                  |
+| none          | use 'text'                                                     |
+| output        | use 'text'                                                     |
+| plaintext     | OK                                                             |
+| powershell    | OK                                                             |
+| proto         | OK                                                             |
+| qml           | OK                                                             |
+| razor         | OK                                                             |
+| sh            | OK                                                             |
+| shell         | OK                                                             |
+| sql           | OK                                                             |
+| text          | OK                                                             |
+| ts            | OK                                                             |
+| txt           | OK                                                             |
+| typescript    | OK                                                             |
+| vb            | OK                                                             |
+| visual basic  | use 'vb'                                                       |
+| xaml          | oddly not known by highlight.js, use 'xml' if not autodetected |
+| xml           | OK                                                             |
+| yaml          | OK                                                             |
+| yml           | OK                                                             |
+
