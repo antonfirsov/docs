@@ -4,7 +4,7 @@ author1: mapichov
 author2: knatalia
 post_slug: dotnet-8-networking-improvements
 microsoft_alias: mapichov
-featured_image: dotnet-bot.png
+featured_image: dotnet8-networking-improvments.png
 categories: .NET, Networking
 tags: .net 8, http, metrics, http, sockets
 summary: Introducing new networking features in .NET 8 including HTTP space, metrics, sockets and more!
@@ -816,6 +816,8 @@ Console.WriteLine($"{ip2} {(ipNet.Contains(ip2) ? "belongs" : "doesn't belong")}
 // 2a01:110:8012::1742:4244 belongs to 2a01:110:8012::/96
 // 2a01:110:8012:1010:914e:2451:16ff:ffff doesn't belong to 2a01:110:8012::/96
 ```
+
+Note that this type should not be confused with the [`Microsoft.AspNetCore.HttpOverrides.IPNetwork`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.httpoverrides.ipnetwork) class that existed in ASP.NET Core since 1.0. We expect that ASP.NET APIs will eventually migrate to the new `System.Net.IPNetwork` type ([dotnet/aspnetcore#46157](https://github.com/dotnet/aspnetcore/issues/46157)).
 
 ## Final Notes
 
