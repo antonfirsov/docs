@@ -37,7 +37,7 @@ As a brief overview:
   * Introduces `X86Serialize` for `x86`/`x64`
   * Brings the API surface exposed by the above vector types and `Vector<T>` to a parity
   * See also: https://devblogs.microsoft.com/dotnet/performance_improvements_in_net_7/
-* 2023 - .NET 8 - Wasm support and AVX-512
+* 2023 - .NET 8 - [Wasm](https://webassembly.org/) support and AVX-512
   * Introduces `PackedSimd` and `WasmBase` for `Wasm`
   * Introduces `Vector512<T>`
   * Introduces `Avx512F`, `Avx512BW`, `Avx512CD`, `Avx512DQ`, and `Avx512Vbmi` for `x86`/`x64`
@@ -47,7 +47,7 @@ Because of this work, with every release .NET libraries and applications gain mo
 
 ## WebAssembly Support
 
-[WebAssembly](https://webassembly.org/), or Wasm for short, is essentially code that runs in your browser and which allows a much higher performance profile than typical interpreted scripting support. As a platform, Wasm has started providing underlying SIMD (Single Instruction, Multiple Data) support so that core algorithms can be accelerated and .NET has correspondingly opted to expose support for this functionality via hardware intrinsics.
+[WebAssembly](https://devblogs.microsoft.com/dotnet/extending-web-assembly-to-the-cloud/), or Wasm for short, is essentially code that runs in your browser and which allows a much higher performance profile than typical interpreted scripting support. As a platform, Wasm has started providing underlying SIMD (Single Instruction, Multiple Data) support so that core algorithms can be accelerated and .NET has correspondingly opted to expose support for this functionality via hardware intrinsics.
 
 This support is very similar to the foundations that other platforms provide and so we won't go into it in significant detail. Rather, you can simply expect that your existing cross platform algorithms using `Vector128<T>` will implicitly light up where supported. If you want to take more direct advantage of functionality that is unique to Wasm, then you can explicitly use the APIs exposed by the `PackedSimd` and `WasmBase` classes in the `System.Runtime.Intrinsics.Wasm` namespace.
 
