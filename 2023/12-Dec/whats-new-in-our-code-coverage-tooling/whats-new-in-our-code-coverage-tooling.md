@@ -33,6 +33,7 @@ Introducing our new tool, dotnet-coverage! It performs following tasks:
 - Merges coverage reports. [Example](https://github.com/microsoft/codecoverage/blob/main/samples/Calculator/scenarios/scenario18/README.md)
 - Instruments binaries. [Example](https://github.com/microsoft/codecoverage/blob/main/samples/Calculator/scenarios/scenario10/README.md)
 - Calculates code coverage for each test separately. [Example](https://github.com/microsoft/codecoverage/blob/main/samples/Calculator/scenarios/scenario16/README.md)
+
 Visit [dotnet-coverage](https://aka.ms/dotnet-coverage) documentation to learn more.
 
 ## Auto-Merge for solutions
