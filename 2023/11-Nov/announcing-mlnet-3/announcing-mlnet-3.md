@@ -114,6 +114,26 @@ Both the NER and QA trainers are included in the [Microsoft.ML.TorchSharp 3.0.0 
 
 Shortly after we released ML.NET 2.0, we announced training hardware acceleration powered by Intel oneDAL as part of the first preview of ML.NET 3.0. Intel oneDAL ([Intel oneAPI Data Analytics Library](https://www.intel.com/content/www/us/en/developer/tools/oneapi/onedal.html)) is a library that helps speed up data analysis by providing highly optimized algorithmic building blocks for all stages of the data analytics and machine learning process. Intel oneDAL makes use of the SIMD extensions in 64-bit architectures, which are featured in Intel and AMD CPUs.
 
+The following tables compare the acceleration factor, which is the ratio of the execution time of ML.NET to the execution time (measured in milliseconds) of Intel OneDAL accelerated algorithms in ML.NET, for different algorithms, sample sizes, feature sizes, tree numbers, and leaf numbers. Higher is better. On the VM and synthetic dataset that were used for this benchmark, you can see anywhere from 2-3x acceleration when using Intel OneDAL for training and inference with supported algorithms in ML.NET.
+
+**Random Forest Binary**
+
+| # of Rows | # of Columns | # of Trees | # of Leaves | Acceleration |
+| --- | --- | --- | --- | --- |
+| 5000 | 8 | 100 | 128| 3.240486 |
+| 5000 | 16 | 100| 128| 3.381002 |
+| 10000 | 8 | 100| 128| 2.635085 |
+| 10000 | 16| 100 | 128 | 2.664615 |
+
+**Random Forest Regression**
+
+| # of Rows | # of Columns | # of Trees | # of Leaves | Acceleration |
+| --- | --- | --- | --- | --- |
+| 5000 | 8 | 100 | 128 | 3.958769 |
+| 5000 | 16 | 100 | 128 | 3.766758 |
+| 10000 | 8 | 100 | 128 | 2.728647 |
+| 10000 | 16 | 100 | 128 | 3.198436 |
+
 Refer back to the [Accelerate ML.NET training with Intel oneDAL](https://devblogs.microsoft.com/dotnet/accelerate-ml-net-training-with-intel-onedal/) blog post for more on this feature set.
 
 ## Automated Machine Learning (AutoML)
