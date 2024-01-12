@@ -1,22 +1,22 @@
 ---
-post_title: Introducing Blazor Sortable
+post_title: Sortable Lists for Blazor using a SortableJS Component
 author1: buhollan@microsoft.com
 post_slug: introducing-blazor-sortable
 microsoft_alias: buhollan
 featured_image: blazor-sortable.gif
 categories: .NET, ASP.NET, Blazor, C#
 tags: blazor, csharp, aspnet
-summary: Introducing Blazor Sortable, a Blazor component for creating sortable lists of items using SortableJS.
+summary: Blazor Sortable is a new a open source community Blazor component for creating sortable lists of items using SortableJS.
 post_date: 2024-01-15 10:05:00
 ---
 
-Today I'd like to share with you a new open source project called "[Bazor Sortable](https://blazorsortable.theurlist.com)" for creating sortable lists of items using Blazor and SortableJS.
+A common feature for web apps is sortable lists. [SortableJS](https://github.com/SortableJS/Sortable) is one of my favorite JavaScript libraries and I missed it when developing with Blazor. To remedy this, I decided to wrap SortableJS to make it a Blazor component, named [Bazor Sortable](https://blazorsortable.theurlist.com), that I have made open source on GitHub that I think you will love. In this post will walk you through how to add it into your own Blazor web apps. 
 
 Check the demo out here: [https://blazorsortable.theurlist.com](https://blazorsortable.theurlist.com)
 
 ![A screenshot of the blazor sortable demos](./simple-list.gif)
 
-Every Friday, [Jon Galloway](https://twitter.com/jongalloway) (you've never heard of him but he's cool trust) and I work on rebuilding a real app called [theurlist.com](https://theurlist.com) in Blazor. The stream is called "Burke Learns Blazor" on Twitch and DotNet YouTube ([Like and Subscribe!](https://www.youtube.com/@dotnet/)). And we'd love for you to join us. Mostly because we need all the help we can get with this thing because I have no idea what I'm doing.
+Every Friday, [Jon Galloway](https://twitter.com/jongalloway) (you've never heard of him but he's cool trust) and I work on rebuilding a real app called [theurlist.com](https://theurlist.com) in Blazor. The stream is called "[Burke Learns Blazor](https://dotnet.microsoft.com/live/burke-learns-blazor)" on Twitch and .NET YouTube ([Like and Subscribe!](https://www.youtube.com/@dotnet/)). And we'd love for you to join us. Mostly because we need all the help we can get with this thing because I have no idea what I'm doing.
 
 We ended up needing a sortable list component for this rebuild, and while there are a few "Blazor Sortable" examples out there, I kinda had my heart set on [SortableJS](https://github.com/SortableJS/Sortable). SortableJS is a brilliant library for building sortable lists of items with virtually every feature you could need - sorting, sorting between lists, cloning items, filtering, custom animation easing, lumbar support. OK - not that last one, but that's, like, that's the only thing it doesn't have.
 
@@ -180,7 +180,7 @@ If you style the `SortableList` from a parent page/component (i.e. Index.razor.c
 
 I feel like nobody is going to read that last paragraph and there will be much wailing and gnashing of teeth. But I tried. I'm sorry in advance.
 
-## Bro, why not HTML5 Drag and Drop?
+## Why not HTML5 Drag and Drop?
 
 Fair question and one that I certainly looked into before going to a JavaScript solution. The long and short of it is that the native HTML5 support for drag and drop simply isn't robust enough for a decent sortable. For instance, there is no way to style much of the behaviour of the drag and drop. It looks...goofy...and there isn't anything you can really do about it. It also has [pretty flaky support](https://caniuse.com/?search=drag) across browsers. There are some essential properties that only work in Chrome.
 
