@@ -7,7 +7,7 @@ featured_image: blazor-sortable.gif
 categories: .NET, ASP.NET, Blazor, C#
 tags: blazor, csharp, aspnet
 summary: Introducing Blazor Sortable, a Blazor component for creating sortable lists of items using SortableJS.
-post_date: 2024-01-12 10:05:00
+post_date: 2024-01-15 10:05:00
 ---
 
 Today I'd like to share with you a new open source project called "[Bazor Sortable](https://blazorsortable.theurlist.com)" for creating sortable lists of items using Blazor and SortableJS.
