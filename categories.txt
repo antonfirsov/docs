@@ -1,11 +1,12 @@
 .NET
+.NET Aspire
 .NET Core
 .NET Fundamentals
 .NET Framework
 .NET Internals
 .NET MAUI
 .NET nanoFramework
-AI Machine Learning
+AI
 Apache
 Arm64
 ASP.NET
