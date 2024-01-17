@@ -10,7 +10,9 @@ summary: Blazor Sortable is a new a open source community Blazor component for c
 post_date: 2024-01-15 10:05:00
 ---
 
-A common feature for web apps is sortable lists. [SortableJS](https://github.com/SortableJS/Sortable) is one of my favorite JavaScript libraries and I missed it when developing with Blazor. To remedy this, I decided to wrap SortableJS to make it a Blazor component, named [Bazor Sortable](https://blazorsortable.theurlist.com), that I have made open source on GitHub that I think you will love. In this post will walk you through how to add it into your own Blazor web apps. 
+A common feature for web apps is sortable lists. [SortableJS](https://github.com/SortableJS/Sortable) is one of my favorite JavaScript libraries and I missed it when developing with Blazor. To remedy this, I decided to wrap SortableJS to make it a Blazor component, named [Bazor Sortable](https://blazorsortable.theurlist.com), that I have made open source on GitHub that I think you will love. In this post I will walk you through how to add it into your own Blazor web apps. 
+
+> Note: Blazor Sortable is an open-source community component and not an official component from Microsoft. The Fluent UI for Blazor team is working on integrating a sortable component in an upcoming release of Fluent UI for Blazor. You can try the [Fluent UI Sortable Demo](https://black-pebble-0dc79cb03-1334.westeurope.3.azurestaticapps.net/SortableList) today.
 
 Check the demo out here: [https://blazorsortable.theurlist.com](https://blazorsortable.theurlist.com)
 
@@ -189,3 +191,5 @@ All of that said, SortableJS actually will try and use HTML5 drag and drop and f
 ## Get Blazor Sortable
 
 Check out [Blazor Sortable](https://blazorsortable.theurlist.com) and let us know what you think! You can do a lot with it, including cloning items, disabling sorting on certain items, specifying drag handles and more. We haven't implemented every single feature of SortableJS. Yet. Pull requests are welcome! 😉
+
+> Blazor Sortable is an open-source community project. 
