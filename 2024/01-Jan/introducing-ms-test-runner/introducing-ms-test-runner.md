@@ -9,7 +9,7 @@ featured_image: introducing-mstest-runner.png
 categories: .NET, C#, Performance
 tags: csharp, testing, mstest, dotnet
 summary: MSTest runner is a new, light-weight and portable runner for MSTest tests available in the .NET CLI, Visual Studio, and more!
-post_date: 2024-01-18 10:05:00
+post_date: 2024-01-24 10:05:00
 ---
 
 It is our pleasure to introduce MSTest runner, a new lightweight runner for MSTest tests. This new runner makes tests more portable and reliable, makes tests run faster and is extensible to provide you with an a la carte testing experience to add the tools you need to be successful.
