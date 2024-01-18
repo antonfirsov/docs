@@ -26,7 +26,7 @@ internal sealed class Validator
         var markdown = await File.ReadAllTextAsync(fileName);
         var document = BlogMarkdown.Parse(markdown);
 
-        using var context = new ValidationContext(rootDirectory, document, fileName, categories);
+        using var context = new ValidationContext(rootDirectory, document, fileName, categories, markdown);
         var links = document.Descendants<LinkInline>().Select(l => l.Url).ToHashSet();
 
         Console.WriteLine($"Root       : {context.RootDirectory}");

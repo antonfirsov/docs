@@ -1,4 +1,6 @@
-﻿using Octokit;
+﻿using GitHub;
+using GitHub.Authentication;
+using GitHub.Client;
 using System.Text.RegularExpressions;
 
 namespace Microsoft.DotNetBlog.Fx
@@ -9,45 +11,55 @@ namespace Microsoft.DotNetBlog.Fx
         private string Owner;
         private string Repo;
         private int PullRequestNumber;
-        private string Commit;
         private GitHubClient client;
 
-        public GitHubService()
+        public GitHubService(string token, string repo, string githubRef)
         {
-            string token = Environment.GetEnvironmentVariable("GITHUB_TOKEN") ?? string.Empty;
-            Commit = Environment.GetEnvironmentVariable("GITHUB_COMMITID") ?? string.Empty;
-            string fullRepo = Environment.GetEnvironmentVariable("GITHUB_REPOSITORY") ?? string.Empty;
-            string githubRef = Environment.GetEnvironmentVariable("GITHUB_REF") ?? string.Empty;
-
             if (Regex.Match(githubRef, @"refs\/pull\/(\d+)\/merge").Success)
             {
                 int.TryParse(Regex.Match(githubRef, @"refs\/pull\/(\d+)\/merge").Groups[1].Value, out PullRequestNumber);
             }
 
-            Owner = fullRepo.Split('/')[0];
-            Repo = fullRepo.Split('/')[1];
+            Owner = repo.Split('/')[0];
+            Repo = repo.Split('/')[1];
 
-            Console.WriteLine($"Owner: {Owner}");
-            Console.WriteLine($"Repo: {Repo}");
-            Console.WriteLine($"PullRequestNumber: {PullRequestNumber}");
-            Console.WriteLine($"Commit: {Commit}");
-
-            client = new GitHubClient(new ProductHeaderValue(ClientProductHeader));
-            var tokenAuth = new Credentials(token);
-            client.Credentials = tokenAuth;
+            var request = RequestAdapter.Create(new TokenAuthenticationProvider(ClientProductHeader, token));
+            client = new GitHubClient(request);
         }
 
-        public async Task TryAddSuggestion(string body, string file, int position)
+        public async Task TryAddSuggestion(string body, string message, string file, int position, string commit)
         {
-            string formattedBody = """
-                          ```
+            string formattedBody = $"""
+                          ```suggestion
                           {body}
                           ```
+                          {message}
                           """;
-            try {
-                var comment = new PullRequestReviewCommentCreate(formattedBody, Commit, file, position);
-                await client.PullRequest.ReviewComment.Create(Owner, Repo, PullRequestNumber, comment);
-             }
+            try
+            {
+                var comment = new GitHub.Repos.Item.Item.Pulls.Item.Comments.CommentsPostRequestBody
+                {
+                    Body = formattedBody,
+                    CommitId = commit,
+                    Path = file,
+                    Line = position
+                };
+                await client.Repos[Owner][Repo].Pulls[PullRequestNumber].Comments.PostAsync(comment);
+            }
+            catch (GitHub.Models.ValidationError ex)
+            {
+                Console.WriteLine(ex.MessageEscaped);
+                foreach (var error in ex.Errors)
+                {
+                    Console.WriteLine(error.Message);
+                }
+                Console.WriteLine($"Exception details: {ex}");
+            }
+            catch (GitHub.Models.BasicError ex)
+            {
+                Console.WriteLine(ex.MessageEscaped);
+                Console.WriteLine($"Exception details: {ex}");
+            }
             catch (Exception ex)
             {
                 Console.WriteLine("::group::{Suggestion failed}");
@@ -58,7 +70,25 @@ namespace Microsoft.DotNetBlog.Fx
 
         public async Task AddComment(string body)
         {
-            await client.Issue.Comment.Create(Owner, Repo, PullRequestNumber, body);
+            try
+            {
+                // Leaving a simple comment on a PR, rather than a pull request review comment
+                // requires using the Issue Comment API using the PR # as Issue #
+                // https://docs.github.com/en/rest/issues/comments#create-an-issue-comment
+                var comment = await client.Repos[Owner][Repo].Issues[PullRequestNumber].Comments.PostAsync(
+                    new GitHub.Repos.Item.Item.Issues.Item.Comments.CommentsPostRequestBody
+                    {
+                        Body = body,
+                    });
+            }
+            catch (GitHub.Models.ValidationError ex)
+            {
+                Console.WriteLine(ex.MessageEscaped);
+            }
+            catch (GitHub.Models.BasicError ex)
+            {
+                Console.WriteLine(ex.MessageEscaped);
+            }
         }
     }
 }

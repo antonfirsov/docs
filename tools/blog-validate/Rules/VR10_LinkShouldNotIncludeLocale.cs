@@ -26,7 +26,17 @@ internal sealed class VR10_LinkShouldNotIncludeLocale : ValidationRule
 
             if (isMicrosoftDotCom && locale != null)
             {
-                string suggestion = link.Url.Replace($"/{locale.Name}/", "/", StringComparison.OrdinalIgnoreCase);
+                var paragraph = link.Parent;
+                string content = context.Markdown.Substring(paragraph.Span.Start, paragraph.Span.Length);
+
+                // If the link is contained in a nested stucture like a bulleted list, get the parent markdown
+                if (link?.Parent?.ParentBlock?.Parent?.Line == link.Line)
+                {
+                    var parentSpan = link.Parent.ParentBlock.Parent.Span;
+                    content = context.Markdown.Substring(parentSpan.Start, parentSpan.Length);
+                }
+
+                string suggestion = content.Replace($"/{locale.Name}/", "/", StringComparison.OrdinalIgnoreCase);
                 context.Error("VR10", link, $"The host '{url.Host} shouldn't use locales. Remove '{locale.Name}' from the URL.", suggestion);
             }
         }

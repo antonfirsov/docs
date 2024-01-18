@@ -166,49 +166,74 @@ internal static class Program
         var files = FindMarkdownFiles(rootDirectory, affectedFiles);
 
         var diagnostics = await ValidateAsync(rootDirectory, files, categories);
+        var errors = diagnostics.Where(d => !d.IsWarning).ToArray();
+        var warnings = diagnostics.Where(d => d.IsWarning).ToArray();
 
         var isInsideGitHubAction = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true";
-        var gitHubService = isInsideGitHubAction ? new GitHubService() : null;
-        string validationSummary = "| Issue | File | Line | Message | Suggestion |\n| --- | --- | --- | --- | --- |\n";
 
-        foreach (var d in diagnostics)
+        string token = Environment.GetEnvironmentVariable("GITHUB_TOKEN") ?? string.Empty;
+        string commit = Environment.GetEnvironmentVariable("COMMIT_ID") ?? Environment.GetEnvironmentVariable("GITHUB_SHA") ?? string.Empty;
+        string fullRepo = Environment.GetEnvironmentVariable("GITHUB_REPOSITORY") ?? string.Empty;
+        string githubRef = Environment.GetEnvironmentVariable("GITHUB_REF") ?? string.Empty;
+
+        var gitHubService = isInsideGitHubAction ? new GitHubService(token, fullRepo, githubRef) : null;
+        string validationSummary = "| Issue | File | Line | Message |\n| --- | --- | --- | --- |\n";
+
+        Console.ForegroundColor = ConsoleColor.Red;
+
+        foreach (var e in errors)
         {
-            var path = Path.GetRelativePath(rootDirectory, d.FileName);
-            var severity = d.IsWarning ? "warning" : "error";
+            var path = Path.GetRelativePath(rootDirectory, e.FileName);
 
             if (gitHubService is not null)
             {
-                var line = d.LinePositionSpan.Start.Line + 1;
-                var col = d.LinePositionSpan.Start.Column + 1;
-                Console.WriteLine($"::{severity} file={path},line={line},col={col}::{d.Id}: {d.Message}");
-                validationSummary += $"| {(d.IsWarning ? "👀" : "❌")} {d.Id} | {Path.GetFileName(path)} | {line} | {d.Message} | {d.Suggestion} |\n";
-                if (!string.IsNullOrEmpty(d.Suggestion))
+                var line = e.LinePositionSpan.Start.Line + 1;
+                var col = e.LinePositionSpan.Start.Column + 1;
+                Console.WriteLine($"::Error file={path},line={line},col={col}::{e.Id}: {e.Message}");
+                validationSummary += $"| ❌ {e.Id} | {Path.GetFileName(path)} | {line} | {e.Message} |\n";
+                if (!string.IsNullOrEmpty(e.Suggestion))
                 {
-                    await gitHubService.TryAddSuggestion(d.Suggestion, path, line);
+                    await gitHubService.TryAddSuggestion(e.Suggestion, e.Message, path, line, commit);
                 }
             }
             else
             {
-                if (d.IsWarning)
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                else
-                    Console.ForegroundColor = ConsoleColor.Red;
-
-                Console.WriteLine($"{path}({d.LinePositionSpan}): {severity}: {d.Id}: {d.Message}");
-
-                Console.ResetColor();
+                Console.WriteLine($"{path}({e.LinePositionSpan}): Error: {e.Id}: {e.Message}");
             }
         }
 
-        int errorCount = diagnostics.Count(d => !d.IsWarning);
-
-        if (gitHubService is not null && errorCount > 0)
+        if (gitHubService is not null && errors.Length > 0)
         {
-            validationSummary = $"## {errorCount} error(s)\n\n All errors must be fixed before this pull request can be merged \n{validationSummary}";
+            validationSummary = $"## {errors.Length} error(s)\n\n All errors must be fixed before this pull request can be merged. \n{validationSummary}";
             await gitHubService.AddComment(validationSummary);
         }
 
-        return errorCount == 0;
+        validationSummary = "| Issue | File | Line | Message |\n| --- | --- | --- | --- |\n";
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        foreach (var w in warnings)
+        {
+            var path = Path.GetRelativePath(rootDirectory, w.FileName);
+
+            if (gitHubService is not null)
+            {
+                var line = w.LinePositionSpan.Start.Line + 1;
+                var col = w.LinePositionSpan.Start.Column + 1;
+                Console.WriteLine($"::Warning file={path},line={line},col={col}::{w.Id}: {w.Message}");
+                validationSummary += $"| 👀 {w.Id} | {Path.GetFileName(path)} | {line} | {w.Message} |\n";
+            }
+            else
+            {
+                Console.WriteLine($"{path}({w.LinePositionSpan}): Warning: {w.Id}: {w.Message}");
+            }
+        }
+
+        if (gitHubService is not null && warnings.Length > 0)
+        {
+            validationSummary = $"## {warnings.Length} warning(s)\n\n Warnings should be checked and corrected if necessary but will not block merging. \n{validationSummary}";
+            await gitHubService.AddComment(validationSummary);
+        }
+
+        return errors.Length == 0;
     }
 
     private static IEnumerable<string> FindMarkdownFiles(string directory, string[]? affectedFiles)

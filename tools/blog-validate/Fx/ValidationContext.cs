@@ -6,11 +6,12 @@ internal sealed class ValidationContext : IDisposable
 {
     private readonly List<Diagnostic> _diagnostics = new List<Diagnostic>();
 
-    public ValidationContext(string rootDirectory, MarkdownDocument document, string fileName, IEnumerable<string> categories)
+    public ValidationContext(string rootDirectory, MarkdownDocument document, string fileName, IEnumerable<string> categories, string markdown)
     {
         RootDirectory = rootDirectory;
         Document = document;
         FileName = fileName;
+        Markdown = markdown;
         Categories = new SortedSet<string>(categories, StringComparer.OrdinalIgnoreCase);
 
         if (document.TryGetFrontMatter(out var frontMatter))
@@ -30,6 +31,7 @@ internal sealed class ValidationContext : IDisposable
     public string FileName { get; }
     public SortedSet<string> Categories { get; }
     public AuthorValidator AuthorValidator { get; }
+    public string Markdown { get; }
 
     public IReadOnlyList<Diagnostic> Diagnostics => _diagnostics;
 
