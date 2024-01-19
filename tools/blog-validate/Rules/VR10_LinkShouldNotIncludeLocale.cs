@@ -37,7 +37,7 @@ internal sealed class VR10_LinkShouldNotIncludeLocale : ValidationRule
                 }
 
                 string suggestion = content.Replace($"/{locale.Name}/", "/", StringComparison.OrdinalIgnoreCase);
-                context.Error("VR10", link, $"The host '{url.Host} shouldn't use locales. Remove '{locale.Name}' from the URL.", suggestion);
+                context.Error(this.GetType().Name, link, $"The host '{url.Host} shouldn't use locales. Remove '{locale.Name}' from the URL.", suggestion);
             }
         }
     }

@@ -22,7 +22,7 @@ internal sealed class VR17_AvoidJpeg : ValidationRule
                          string.Equals(extension, ".jpeg", StringComparison.OrdinalIgnoreCase);
 
             if (isJpeg)
-                context.Warning("VR17", link, "Avoid JPEG files for screenshots and use PNG instead.");
+                context.Warning(this.GetType().Name, link, "Avoid JPEG files for screenshots and use PNG instead.");
         }
     }
 }

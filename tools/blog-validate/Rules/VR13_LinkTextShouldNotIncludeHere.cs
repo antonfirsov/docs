@@ -17,7 +17,7 @@ internal sealed class VR13_LinkTextShouldNotIncludeHere : ValidationRule
                 continue;
 
             if (text.Contains("here"))
-                context.Warning("VR13", link, "Links shouldn't include 'here' or 'click here'. Instead, describe what is being linked to.");
+                context.Warning(this.GetType().Name, link, "Links shouldn't include 'here' or 'click here'. Instead, describe what is being linked to.");
         }
     }
 }

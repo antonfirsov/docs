@@ -33,7 +33,7 @@ internal sealed class VR09_LinkMustBeHttps : ValidationRule
             if (!isHttp || isSecure)
                 continue;
 
-            context.Error("VR09", link, $"The host '{url.Host}' requires https");
+            context.Error(this.GetType().Name, link, $"The host '{url.Host}' requires https");
         }
     }
 }

@@ -19,7 +19,7 @@ internal sealed class VR26_NoBoilerplate : ValidationRule
             var actualText = fieldGetter(context.FrontMatter);
             
             if (actualText == boilerplateText)
-                context.Error("VR26", diagnosticSpan, $"'{fieldName}' must be set to a value other than the default");
+                context.Error(this.GetType().Name, diagnosticSpan, $"'{fieldName}' must be set to a value other than the default");
         }
     }
 }

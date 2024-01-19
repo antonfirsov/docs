@@ -16,7 +16,7 @@ internal sealed class VR11_LinkNeedsText : ValidationRule
                 continue;
 
             if (string.IsNullOrEmpty(link.FirstChild?.ToString()))
-                context.Error("VR11", link, "Link must have text");
+                context.Error(this.GetType().Name, link, "Link must have text");
         }
     }
 }

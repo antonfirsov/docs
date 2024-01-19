@@ -12,9 +12,9 @@ internal sealed class VR24_AliasShouldBeValid : ValidationRule
             return;
 
         if (alias.Contains("@"))
-            context.Error("VR24", diagnosticSpan, $"The Microsoft alias should not be an email.");
+            context.Error(this.GetType().Name, diagnosticSpan, $"The Microsoft alias should not be an email.");
 
         if (alias.Contains("\\"))
-            context.Error("VR24", diagnosticSpan, $"The Microsoft alias should not contain the domain.");
+            context.Error(this.GetType().Name, diagnosticSpan, $"The Microsoft alias should not contain the domain.");
     }
 }

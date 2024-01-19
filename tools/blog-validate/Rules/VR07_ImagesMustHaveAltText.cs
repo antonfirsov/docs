@@ -13,7 +13,7 @@ internal sealed class VR07_ImagesMustHaveAltText : ValidationRule
         foreach (var image in images)
         {
             if (string.IsNullOrWhiteSpace(image.FirstChild?.ToString()))
-                context.Error("VR07", image, "Image must have alt text");
+                context.Error(this.GetType().Name, image, "Image must have alt text");
         }
     }
 }

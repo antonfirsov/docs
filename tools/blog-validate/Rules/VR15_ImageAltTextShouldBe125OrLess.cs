@@ -17,7 +17,7 @@ internal sealed class VR15_ImageAltTextShouldBe125OrLess : ValidationRule
                 continue;
 
             if (altText.Length > 125)
-                context.Error("VR15", image, "Image alt text should 125 characters or less");
+                context.Error(this.GetType().Name, image, "Image alt text should 125 characters or less");
         }
     }
 }

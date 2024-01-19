@@ -53,7 +53,7 @@ internal sealed class VR14_LinkShouldResolve : ValidationRule
     Retry:
 
         if (retryCount-- == 0)
-            return new ValidationResult(false, "VR14", "Couldn't validate URL.");
+            return new ValidationResult(false, "VR14_LinkShouldResolve", "Couldn't validate URL.");
 
         if (UriHelper.TryGetAbsoluteUri(link, out var url))
         {
@@ -95,7 +95,7 @@ internal sealed class VR14_LinkShouldResolve : ValidationRule
             }
             catch (Exception ex)
             {
-                return new ValidationResult(false, "VR14", $"URL '{url}' doesn't resolve: {ex.Message}");
+                return new ValidationResult(false, "VR14_LinkShouldResolve", $"URL '{url}' doesn't resolve: {ex.Message}");
             }
         }
         else if (UriHelper.TryGetRelativeUri(link, out url))
@@ -103,7 +103,7 @@ internal sealed class VR14_LinkShouldResolve : ValidationRule
             var markdownDirectory = Path.GetDirectoryName(fileName);
             var fullPath = Path.Join(markdownDirectory, link);
             if (!File.Exists(fullPath))
-                return new ValidationResult(true, "VR20", $"Relative URL '{url}' doesn't resolve to file in the repository");
+                return new ValidationResult(true, "VR14_LinkShouldResolve", $"Relative URL '{url}' doesn't resolve to file in the repository");
         }
 
         return null;

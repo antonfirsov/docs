@@ -33,7 +33,7 @@ internal sealed class VR02_MetadataRequired : ValidationRule
             static void MustSpecifyField(ValidationContext context, string field, string? text = null)
             {
                 text ??= $"Must specify '{field}'";
-                context.Error("VR02", context.Document.GetFrontMatterDiagnosticSpan(field), text);
+                context.Error("VR02_MetadataRequired", context.Document.GetFrontMatterDiagnosticSpan(field), text);
             }
         }
     }

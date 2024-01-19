@@ -10,7 +10,7 @@ internal sealed class VR20_FeaturedImageShouldExist : ValidationRule
 
             if (!UriHelper.TryGetRelativeOrAbsoluteUri(relativePath, out _))
             {
-                context.Warning("VR20", diagnosticSpan, $"'featured_image' must be a valid URL.");
+                context.Warning(this.GetType().Name, diagnosticSpan, $"'featured_image' must be a valid URL.");
             }
             else if (UriHelper.TryGetRelativeUri(relativePath, out var url))
             {
@@ -18,7 +18,7 @@ internal sealed class VR20_FeaturedImageShouldExist : ValidationRule
                 var fullPath = Path.Join(markdownDirectory, relativePath);
                 if (!File.Exists(fullPath))
                 {
-                    context.Error("VR20", diagnosticSpan, $"'featured_image' must either be an absolute URL or refer to a file in the repository.");
+                    context.Error(this.GetType().Name, diagnosticSpan, $"'featured_image' must either be an absolute URL or refer to a file in the repository.");
                 }
             }
         }

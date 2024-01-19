@@ -11,7 +11,7 @@ internal sealed class VR03_FirstBlockShouldBeParagraph : ValidationRule
         {
             if (!(firstBlock is ParagraphBlock))
             {
-                context.Warning("VR03", firstBlock, "First block should be a paragraph with the introduction");
+                context.Warning(this.GetType().Name, firstBlock, "First block should be a paragraph with the introduction");
             }
         }
     }

@@ -16,6 +16,6 @@ internal sealed class VR21_PickExistingCategories : ValidationRule
         var diagnosticSpan = context.Document.GetFrontMatterDiagnosticSpan(BlogFrontMatterFields.Categories);
 
         foreach (var unknownCategory in unknownCategories)
-            context.Error("VR21", diagnosticSpan, $"Category '{unknownCategory}' doesn't exist. If you need to create it, please add it to categories.txt in the repo root.");
+            context.Error(this.GetType().Name, diagnosticSpan, $"Category '{unknownCategory}' doesn't exist. If you need to create it, please add it to categories.txt in the repo root.");
     }
 }

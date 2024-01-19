@@ -21,7 +21,7 @@ internal sealed class VR12_ImageAltTextShouldNotBeDuplicated : ValidationRule
                 continue;
 
             if (!altTextSet.Add(altText))
-                context.Warning("VR12", image, "The alt text was already used with a different URL. Copy/paste error?");
+                context.Warning(this.GetType().Name, image, "The alt text was already used with a different URL. Copy/paste error?");
         }
     }
 }

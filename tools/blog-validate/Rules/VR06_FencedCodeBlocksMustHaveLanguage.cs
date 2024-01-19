@@ -16,11 +16,11 @@ internal sealed class VR06_FencedCodeBlocksMustHaveLanguage : ValidationRule
         {
             if (string.IsNullOrEmpty(block.Info))
             {
-                context.Error("VR06", block, "Fenced code blocks should specify a language");
+                context.Error(this.GetType().Name, block, "Fenced code blocks should specify a language");
             }
             else if (!languages.Contains(block.Info))
             {
-                context.Warning("VR06", block, $"Fenced code blocks should specify a language from the following list: {_languages}");
+                context.Warning(this.GetType().Name, block, $"Fenced code blocks should specify a language from the following list: {_languages}");
             }
         }
     }

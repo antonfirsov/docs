@@ -12,6 +12,6 @@ internal sealed class VR05_CodeBlocksMustBeFenced : ValidationRule
                                                          !(b is YamlFrontMatterBlock));
 
         foreach (var block in unfencedBlocks)
-            context.Error("VR05", block, "You should use fenced code blocks");
+            context.Error(this.GetType().Name, block, "You should use fenced code blocks");
     }
 }

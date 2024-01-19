@@ -16,6 +16,6 @@ internal sealed class VR23_PostShouldBeInCorrectFolder : ValidationRule
         var actualDirectory = Path.GetDirectoryName(context.FileName);
 
         if (actualDirectory != expectedDirectory)
-            context.Error("VR23", context.Document, $"The post should be in directory '{expectedDirectory}'");
+            context.Error(this.GetType().Name, context.Document, $"The post should be in directory '{expectedDirectory}'");
     }
 }

@@ -13,7 +13,7 @@ internal sealed class VR08_HeadersCannotIncreaseByMoreThan1Level : ValidationRul
         {
             var delta = header.Level - previousLevel;
             if (delta > 1)
-                context.Error("VR08", header, "Headings cannot increase by more than one level");
+                context.Error(this.GetType().Name, header, "Headings cannot increase by more than one level");
 
             previousLevel = header.Level;
         }

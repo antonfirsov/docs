@@ -21,7 +21,7 @@ internal sealed class VR18_AvoidGif : ValidationRule
             var isGif = string.Equals(extension, ".gif", StringComparison.OrdinalIgnoreCase);
 
             if (isGif)
-                context.Warning("VR18", link, "Avoid GIF for videos because they can't be stopped and thus aren't accessible. Use .mp4 instead.");
+                context.Warning(this.GetType().Name, link, "Avoid GIF for videos because they can't be stopped and thus aren't accessible. Use .mp4 instead.");
         }
     }
 }

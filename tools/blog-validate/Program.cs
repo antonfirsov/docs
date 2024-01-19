@@ -177,7 +177,8 @@ internal static class Program
         string githubRef = Environment.GetEnvironmentVariable("GITHUB_REF") ?? string.Empty;
 
         var gitHubService = isInsideGitHubAction ? new GitHubService(token, fullRepo, githubRef) : null;
-        string validationSummary = "| Issue | File | Line | Message |\n| --- | --- | --- | --- |\n";
+        const string validationHeader = "| Issue | File | Line | Message |\n| --- | --- | --- | --- |\n";
+        string validationSummary = validationHeader;
 
         Console.ForegroundColor = ConsoleColor.Red;
 
@@ -187,14 +188,7 @@ internal static class Program
 
             if (gitHubService is not null)
             {
-                var line = e.LinePositionSpan.Start.Line + 1;
-                var col = e.LinePositionSpan.Start.Column + 1;
-                Console.WriteLine($"::Error file={path},line={line},col={col}::{e.Id}: {e.Message}");
-                validationSummary += $"| ❌ {e.Id} | {Path.GetFileName(path)} | {line} | {e.Message} |\n";
-                if (!string.IsNullOrEmpty(e.Suggestion))
-                {
-                    await gitHubService.TryAddSuggestion(e.Suggestion, e.Message, path, line, commit);
-                }
+                validationSummary = await ProcessDiagnostic(commit, gitHubService, validationSummary, e, path);
             }
             else
             {
@@ -208,7 +202,7 @@ internal static class Program
             await gitHubService.AddComment(validationSummary);
         }
 
-        validationSummary = "| Issue | File | Line | Message |\n| --- | --- | --- | --- |\n";
+        validationSummary = validationHeader;
         Console.ForegroundColor = ConsoleColor.Yellow;
         foreach (var w in warnings)
         {
@@ -216,10 +210,7 @@ internal static class Program
 
             if (gitHubService is not null)
             {
-                var line = w.LinePositionSpan.Start.Line + 1;
-                var col = w.LinePositionSpan.Start.Column + 1;
-                Console.WriteLine($"::Warning file={path},line={line},col={col}::{w.Id}: {w.Message}");
-                validationSummary += $"| 👀 {w.Id} | {Path.GetFileName(path)} | {line} | {w.Message} |\n";
+                validationSummary = await ProcessDiagnostic(commit, gitHubService, validationSummary, w, path);
             }
             else
             {
@@ -234,6 +225,30 @@ internal static class Program
         }
 
         return errors.Length == 0;
+    }
+
+    private static async Task<string> ProcessDiagnostic(string commit, GitHubService gitHubService, string validationSummary, Diagnostic d, string path)
+    {
+        string marker = d.IsWarning ? "⚠️" : "❌";
+
+        // Get short id from the diagnostic id by splitting on _ and taking the first part
+        // e.g. VR01_InvalidFrontMatter would become VR01
+        var id = d.Id.Split('_')[0];
+
+        var line = d.LinePositionSpan.Start.Line + 1;
+        var col = d.LinePositionSpan.Start.Column + 1;
+        Console.WriteLine($"::{marker} file={path},line={line},col={col}::{id}: {d.Message}");
+
+        var ruleName = d.Id;
+        string link = $"https://github.com/microsoft/dotnet-blog/wiki/{ruleName}";
+
+        validationSummary += $"| {marker} [{id}]({link}) | {Path.GetFileName(path)} | {line} | {d.Message} |\n";
+        if (!string.IsNullOrEmpty(d.Suggestion))
+        {
+            await gitHubService.TryAddSuggestion(d.Suggestion, d.Message, path, line, commit);
+        }
+
+        return validationSummary;
     }
 
     private static IEnumerable<string> FindMarkdownFiles(string directory, string[]? affectedFiles)
