@@ -54,6 +54,8 @@ internal static class Program
 
         AnsiConsole.Render(new Rule { Title = "[gray]Create blog post[/]", Alignment = Justify.Left });
 
+        var usesAI = AnsiConsole.Confirm("Did this blog post use AI to help in its creation?");
+
         var postTitle = AnsiConsole.Ask<string>("What's the post [cyan]title[/]?");
         var postName = AnsiConsole.Ask("What's the post [cyan]name[/] (used for md file name)?", GetDefaultPostName(postTitle));
         var postSlug = AnsiConsole.Ask("What's the post [cyan]slug[/] (used on blog in wordpress)?", GetDefaultPostName(postTitle));
@@ -65,7 +67,7 @@ internal static class Program
                 .NotRequired()
                 .PageSize(20)
                 .MoreChoicesText("[grey](Move up and down to reveal more categories)[/]")
-                .InstructionsText("[grey](Press [blue]<space>[/] to toggle a categorie, [green]<enter>[/] to accept)[/]")
+                .InstructionsText("[grey](Press [blue]<space>[/] to toggle a categories, [green]<enter>[/] to accept)[/]")
                 .AddChoices(GetCategories()
             )
         );
@@ -89,6 +91,7 @@ microsoft_alias: {authorInformation.MicrosoftAlias}
 featured_image: image.png
 categories: {string.Join(", ", categories)}
 tags: tag1, tag2, tag3
+ai_note: {(usesAI ? "show" : "hide")}
 summary: Summary of your post, shown on the home page next to the featured image
 post_date: {postDate:yyyy-MM-dd} 10:05:00
 ---
