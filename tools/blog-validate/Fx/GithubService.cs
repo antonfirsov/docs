@@ -1,23 +1,24 @@
 ﻿using GitHub;
 using GitHub.Authentication;
 using GitHub.Client;
+using GitHub.Models;
 using System.Text.RegularExpressions;
 
 namespace Microsoft.DotNetBlog.Fx
 {
-    public class GitHubService
+    public partial class GitHubService
     {
         private const string ClientProductHeader = "blog-validate";
-        private string Owner;
-        private string Repo;
-        private int PullRequestNumber;
-        private GitHubClient client;
+        private readonly string Owner;
+        private readonly string Repo;
+        private readonly int PullRequestNumber;
+        private readonly GitHubClient client;
 
         public GitHubService(string token, string repo, string githubRef)
         {
-            if (Regex.Match(githubRef, @"refs\/pull\/(\d+)\/merge").Success)
+            if (PullRequestRegex().Match(githubRef).Success)
             {
-                int.TryParse(Regex.Match(githubRef, @"refs\/pull\/(\d+)\/merge").Groups[1].Value, out PullRequestNumber);
+                int.TryParse(PullRequestRegex().Match(githubRef).Groups[1].Value, out PullRequestNumber);
             }
 
             Owner = repo.Split('/')[0];
@@ -46,16 +47,16 @@ namespace Microsoft.DotNetBlog.Fx
                 };
                 await client.Repos[Owner][Repo].Pulls[PullRequestNumber].Comments.PostAsync(comment);
             }
-            catch (GitHub.Models.ValidationError ex)
+            catch (ValidationError ex)
             {
                 Console.WriteLine(ex.MessageEscaped);
-                foreach (var error in ex.Errors)
+                foreach (var error in ex.Errors ?? Enumerable.Empty<ValidationError_errors>())
                 {
                     Console.WriteLine(error.Message);
                 }
                 Console.WriteLine($"Exception details: {ex}");
             }
-            catch (GitHub.Models.BasicError ex)
+            catch (BasicError ex)
             {
                 Console.WriteLine(ex.MessageEscaped);
                 Console.WriteLine($"Exception details: {ex}");
@@ -81,14 +82,17 @@ namespace Microsoft.DotNetBlog.Fx
                         Body = body,
                     });
             }
-            catch (GitHub.Models.ValidationError ex)
+            catch (ValidationError ex)
             {
                 Console.WriteLine(ex.MessageEscaped);
             }
-            catch (GitHub.Models.BasicError ex)
+            catch (BasicError ex)
             {
                 Console.WriteLine(ex.MessageEscaped);
             }
         }
+
+        [GeneratedRegex(@"refs\/pull\/(\d+)\/merge")]
+        private static partial Regex PullRequestRegex();
     }
 }

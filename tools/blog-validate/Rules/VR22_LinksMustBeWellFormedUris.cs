@@ -11,7 +11,7 @@ internal sealed class VR22_LinksMustBeWellFormedUris : ValidationRule
 
         foreach (var link in links)
         {
-            if (UriHelper.TryGetRelativeOrAbsoluteUri(link.Url, out _))
+            if (UriHelper.TryGetRelativeOrAbsoluteUri(link.Url!, out _))
                 continue;
 
             context.Error(this.GetType().Name, link, $"'{link.Url}' is not a valid URI");

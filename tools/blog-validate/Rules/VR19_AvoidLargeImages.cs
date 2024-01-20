@@ -14,7 +14,7 @@ internal sealed class VR19_AvoidLargeImages : ValidationRule
 
         foreach (var link in links)
         {
-            if (!UriHelper.TryGetRelativeUri(link.Url, out var url))
+            if (!UriHelper.TryGetRelativeUri(link.Url!, out var url))
                 continue;
 
             var local = link.Url;

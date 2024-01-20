@@ -14,7 +14,7 @@ internal sealed class VR10_LinkShouldNotIncludeLocale : ValidationRule
 
         foreach (var link in links)
         {
-            if (!UriHelper.TryGetAbsoluteUri(link.Url, out var url))
+            if (!UriHelper.TryGetAbsoluteUri(link.Url!, out var url))
                 continue;
 
             var isMicrosoftDotCom = url.Host.Equals(host, StringComparison.OrdinalIgnoreCase) ||
@@ -27,10 +27,10 @@ internal sealed class VR10_LinkShouldNotIncludeLocale : ValidationRule
             if (isMicrosoftDotCom && locale != null)
             {
                 var paragraph = link.Parent;
-                string content = context.Markdown.Substring(paragraph.Span.Start, paragraph.Span.Length);
+                string content = context.Markdown.Substring(paragraph!.Span.Start, paragraph!.Span.Length);
 
-                // If the link is contained in a nested stucture like a bulleted list, get the parent markdown
-                if (link?.Parent?.ParentBlock?.Parent?.Line == link.Line)
+                // If the link is contained in a nested structure like a bulleted list, get the parent markdown
+                if (link.Parent?.ParentBlock?.Parent?.Line == link.Line)
                 {
                     var parentSpan = link.Parent.ParentBlock.Parent.Span;
                     content = context.Markdown.Substring(parentSpan.Start, parentSpan.Length);

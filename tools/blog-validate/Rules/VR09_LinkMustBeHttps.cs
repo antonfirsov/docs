@@ -5,14 +5,14 @@ namespace Microsoft.DotNetBlog;
 
 internal sealed class VR09_LinkMustBeHttps : ValidationRule
 {
-    private static readonly string[] _knownHosts = new[]
-    {
-            "aka.ms",
-            "dot.net",
-            "dotnetfoundation.org",
-            "github.com",
-            "microsoft.com",
-        };
+    private static readonly string[] _knownHosts =
+    [
+        "aka.ms",
+        "dot.net",
+        "dotnetfoundation.org",
+        "github.com",
+        "microsoft.com"
+    ];
 
     public override void Validate(ValidationContext context)
     {
@@ -20,7 +20,7 @@ internal sealed class VR09_LinkMustBeHttps : ValidationRule
 
         foreach (var link in links)
         {
-            if (!UriHelper.TryGetAbsoluteUri(link.Url, out var url))
+            if (!UriHelper.TryGetAbsoluteUri(link.Url!, out var url))
                 continue;
 
             var isKnownHost = _knownHosts.Any(k => url.Host.Equals(k, StringComparison.OrdinalIgnoreCase) ||

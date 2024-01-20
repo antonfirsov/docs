@@ -14,7 +14,7 @@ internal sealed class VR14_LinkShouldResolve : ValidationRule
 
         var validatedLinks = new ConcurrentDictionary<string, ValidationResult?>(StringComparer.Ordinal);
 
-        var uniqueLinks = links.Select(l => l.Url)
+        var uniqueLinks = links.Select(l => l.Url!)
                                .ToHashSet();
 
         var options = new ParallelOptions
@@ -30,7 +30,7 @@ internal sealed class VR14_LinkShouldResolve : ValidationRule
 
         foreach (var link in links)
         {
-            var validationResult = validatedLinks[link.Url];
+            var validationResult = validatedLinks[link.Url!];
 
             if (validationResult is not null)
             {
@@ -122,17 +122,10 @@ internal sealed class VR14_LinkShouldResolve : ValidationRule
                response.IsSuccessStatusCode;
     }
 
-    private sealed class ValidationResult
+    private sealed class ValidationResult(bool isError, string id, string message)
     {
-        public ValidationResult(bool isError, string id, string message)
-        {
-            IsError = isError;
-            Id = id;
-            Message = message;
-        }
-
-        public bool IsError { get; }
-        public string Id { get; }
-        public string Message { get; }
+        public bool IsError { get; } = isError;
+        public string Id { get; } = id;
+        public string Message { get; } = message;
     }
 }

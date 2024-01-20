@@ -12,7 +12,7 @@ internal sealed class VR18_AvoidGif : ValidationRule
 
         foreach (var link in links)
         {
-            if (!UriHelper.TryGetRelativeOrAbsoluteUri(link.Url, out var url))
+            if (!UriHelper.TryGetRelativeOrAbsoluteUri(link.Url!, out var url))
                 continue;
 
             var local = url.IsAbsoluteUri ? url.LocalPath : link.Url;
