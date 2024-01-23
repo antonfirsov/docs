@@ -12,12 +12,14 @@ post_date: 2023-10-20 10:05:00
 
 > This is a guest blog post by **Jorge Canton** from Plain Concepts. Jorge co-founded the technology start-up Syderis and dedicated over 12 years to specializing in computer graphics, game engines, and graphics tools. Currently, he holds the position of Research Director at <a href=https://www.plainconcepts.com/>Plain Concepts</a>, where he is actively involved in the development of <a href=https://evergine.com//>Evergine</a>, a cutting-edge 3D graphics engine tailored for industry applications.
 
-![Header](header.jpg)
-
 Have you ever used an e-commerce platform and wished you could visualize products from any angle using a 3D representation instead of static images? Have you ever looked at a map of a large shopping mall and thought it would be much easier to navigate if you could explore a 3D map? In this article, we will learn how to achieve all of this and more using .NET .NET MAUI.
+
+<iframe width="800" height="450" src="https://www.youtube.com/embed/vWAXrP69QX4?si=6GqQ1ZnPmwLt6u-u" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## What is Evergine?
 Evergine is a cross-platform 3D engine developed in C# back in 2012. Evergine is renowned for its seamless integration capabilities, making it a top choice for industrial projects. It can easily be incorporated into existing projects or paired with other technologies. With Evergine, you can craft applications compatible with a wide range of platforms, including Windows, Linux, Android, iOS, Hololens, Meta Quest/Quest2/Quest Pro, Pico, and Web.
+
+![Header](header.jpg)
 
 Evergine also boasts seamless integration with various UI technologies, including WPF, Forms, SDL, UWP, Html/Javascript, WinUI, and now, even .NET MAUI. We are committed to staying up to date with the latest .NET versions and tooling to provide our customers with the best possible experience.
 
