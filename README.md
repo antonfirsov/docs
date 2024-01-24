@@ -59,8 +59,14 @@ In other words:
 
 ## Instructions for bloggers
 
+1. [Sign in to the .NET blog](https://devblogs.microsoft.com/dotnet/wp-login.php?redirect_to=https%3A%2F%2Fdevblogs.microsoft.com%2Fdotnet%2F)
+    * Use your `alias@microsoft.com` email
+    * [Request being added as an author](mailto:netblogowners@microsoft.com?subject=Requesting%20access%20to%20the%20.NET%20blog&body=Hey%20.NET%20blog%20owners%2C%0A%0APlease%20add%20me%20to%20the%20.NET%20blog%20as%20an%20author.%0A%0AE-mail%20address%20I%20used%20in%20WordPress%3A%20______%0A%0AThanks%21)
+1. [Setup a profile picture](https://devblogs.microsoft.com/dotnet/wp-admin/profile.php)
+    * It's showcased at the top of every post
+    * If you're not comfortable using an actual photograph, choose something else
 1. Request access to the [dotnet team in the microsoft org](https://repos.opensource.microsoft.com/microsoft/teams/dotnet/join/)
-2. Submit a PR to [dotnet-blog](https://github.com/microsoft/dotnet-blog)
+1. Submit a PR to [dotnet-blog](https://github.com/microsoft/dotnet-blog)
     * Author post in Markdown. Run the `new-post` shell script in the root, it will create the boilerplate for you.
     * To pick a publication date, consult the [blogging schedule](https://tasks.office.com/microsoft.onmicrosoft.com/en-US/Home/Planner#/plantaskboard?planId=wHOgFOjggEyrykcunh6oQpUAARuD).
       We generally only publish one post per day per blog and we don't publish
@@ -68,17 +74,11 @@ In other words:
       minimum of three days between PR creation and publication date.
     * Add subject matter experts (SMEs) from your engineering team/partner team as reviewers
     * We have an integration that will automatically stage the post in WordPress when the PR is merged. For more details, see this guide on [Drafting in GitHub](https://dev.azure.com/devdiv/DevDiv/_wiki/wikis/DevDiv.wiki/10339/Drafting-in-GitHub).
-3. [Sign in to the .NET blog](https://devblogs.microsoft.com/dotnet/wp-login.php?redirect_to=https%3A%2F%2Fdevblogs.microsoft.com%2Fdotnet%2F)
-    * Use your `alias@microsoft.com` email
-    * [Request being added as an author](mailto:netblogowners@microsoft.com?subject=Requesting%20access%20to%20the%20.NET%20blog&body=Hey%20.NET%20blog%20owners%2C%0A%0APlease%20add%20me%20to%20the%20.NET%20blog%20as%20an%20author.%0A%0AE-mail%20address%20I%20used%20in%20WordPress%3A%20______%0A%0AThanks%21)
-4. [Setup a profile picture](https://devblogs.microsoft.com/dotnet/wp-admin/profile.php)
-    * It's showcased at the top of every post
-    * If you're not comfortable using an actual photograph, choose something else
-5. Coordinate review with the **@microsoft/dotnet-blog-owners**
+1. Coordinate review with the **@microsoft/dotnet-blog-owners**
     * All errors reported by the CI validation need to be addressed, otherwise
       your post won't be staged properly in WordPress
     * Once your post is merged, it will be automatically scheduled in WordPress
-6. [Review staged post in WordPress](https://devblogs.microsoft.com/dotnet/wp-admin/edit.php)
+1. [Review staged post in WordPress](https://devblogs.microsoft.com/dotnet/wp-admin/edit.php)
     * Preview post
     * Ensure it looks right (title, author, categories, tags, and scheduling settings)
 
