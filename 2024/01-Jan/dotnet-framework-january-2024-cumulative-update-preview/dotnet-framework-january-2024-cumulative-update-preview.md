@@ -4,7 +4,7 @@ author1: salagarw
 post_slug: dotnet-framework-january-2024-cumulative-update-preview
 microsoft_alias: salagarw
 featured_image: ServicingUpdates.png
-categories: .NET Framework, ASP.NET
+categories: .NET Framework, ASP.NET, Maintenance & Updates
 tags: .NET Framework
 ai_note: hide
 summary: January 2024 Cumulative Update Preview Updates for .NET Framework.
