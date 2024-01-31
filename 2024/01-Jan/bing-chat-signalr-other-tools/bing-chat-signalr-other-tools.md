@@ -122,3 +122,5 @@ We still re-process the entire Markdown and Adaptive Card when streaming these m
 We’re all very excited and passionately working on building a great experience with cool new features. In future blog posts, we hope to share more about how we use SignalR such as the ways that we use groups and the recently introduced stateful reconnect feature to help recover from disconnections. Our team hosts SignalR app ourselves for now, but we are also exploring [Azure SignalR service](https://dotnet.microsoft.com/apps/aspnet/signalr/service) to better manage scalability and availability.
 
 As you’ve hopefully seen over the last few months, there have been many announcements with new integrations such as image generation and copilots for other Microsoft products like Windows, Office Microsoft 365, and Skype. This is just the beginning.
+
+A special thanks to [David Fowler](https://devblogs.microsoft.com/dotnet/author/davifowl) and the SignalR team for helping us with this blog post and along our journey to build Microsoft Copilot.
