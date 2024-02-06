@@ -76,4 +76,6 @@ Quickly try out Grafana + ASP.NET Core using the [.NET Aspire metrics sample app
   * Download [ASP.NET Core Grafana dashboards](https://aka.ms/dotnet/grafana-dashboards).
   * Install [`dotnet-counters`](https://learn.microsoft.com/dotnet/core/diagnostics/dotnet-counters) command-line tool.
 
+ Want to try things hands on? Checkout our new [cloud-native training modules](https://learn.microsoft.com/training/paths/create-microservices-with-dotnet/) on Microsoft Learn.
+
 Thanks for trying out .NET 8 and metrics!
