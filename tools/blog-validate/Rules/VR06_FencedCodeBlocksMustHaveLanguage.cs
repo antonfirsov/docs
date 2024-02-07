@@ -5,7 +5,7 @@ namespace Microsoft.DotNetBlog;
 internal sealed class VR06_FencedCodeBlocksMustHaveLanguage : ValidationRule
 {
     // Create a string with a pipe delimited list of languages
-    private const string _languages = "accesslog,actionscript,apache,armasm,avrasm,bash,c,coffeescript,cpp,csharp,css,diff,django,dockerfile,dsconfig,fsharp,graphql,haml,html,http,java,javascript,json,latex,less,makefile,markdown,nginx,objectivec,php,plaintext,powershell,protobuf,ruby,scala,scss,sql,swift,typescript,vbnet,vbscript,vbscript-html,vim,x86asm,xml,yaml";
+    private const string _languages = "accesslog,actionscript,apache,apacheconf,arm,armasm,as,asm,atom,avrasm,bash,c,c++,cc,cjs,coffee,coffeescript,cpp,cs,csharp,cson,css,cts,cxx,diff,django,docker,dockerfile,dsconfig,f,fs,fsharp,gemspec,gql,graphql,h,h++,haml,hh,hpp,html,http,https,hxx,iced,irb,java,javascript,jinja,js,json,jsp,jsx,latex,less,mak,make,makefile,markdown,md,mjs,mk,mkd,mkdown,mm,mts,nginx,nginxconf,obj-c,obj-c++,objc,objective-c++,objectivec,patch,php,plaintext,plist,podspec,powershell,proto,protobuf,ps,ps1,pwsh,rb,rss,ruby,scala,scss,sh,sql,svg,swift,tex,text,thor,ts,tsx,txt,typescript,vb,vbnet,vbs,vbscript,vbscript-html,vim,wsf,x86asm,xhtml,xjb,xml,xsd,xsl,yaml,yml";
 
     public override void Validate(ValidationContext context)
     {

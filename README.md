@@ -172,7 +172,7 @@ public static int Main()
 
 If you put in no hint at all, or one that highlight.js doesn't recognize, it will attempt to infer a "best fit" colorizer, but it's better to be explicit. For example, it will typically recognize x86asm, despite some of our old posts using the hint 'assembler' which it doesn't recognize.
 
-Below is a table of some common hints that are good to use. Some are synonyms of others, use whichever you prefer.
+Below is a partial table of some common hints that are good to use. Some are synonyms of others, use whichever you prefer.
 
 | good hints    |
 | ------------- |
@@ -181,26 +181,26 @@ Below is a table of some common hints that are good to use. Some are synonyms of
 | c             |
 | c#            |
 | c++           |
-| cmd           |
 | csharp        |
-| cshtml        |
+| diff          |
+| dockerfile    |
 | fsharp        |
-| groovy        |
+| graphql       |
 | html          |
 | http          |
-| ini           |
 | java          |
 | javascript    |
 | js            |
 | json          |
+| makefile      |
 | markdown      |
 | md            |
 | plaintext     |
 | powershell    |
-| razor         |
+| protobuf      |
 | sh            |
-| shell         |
 | sql           |
+| swift         |
 | text          |
 | ts            |
 | txt           |
@@ -210,6 +210,8 @@ Below is a table of some common hints that are good to use. Some are synonyms of
 | xml           |
 | yaml          |
 | yml           |
+
+There is no value that highlights windows bat/cmd files. Use sh or txt.
 
 Full information is [here](https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md). It's subject to change, and the blog site may choose to exclude some languages in its build.
 
