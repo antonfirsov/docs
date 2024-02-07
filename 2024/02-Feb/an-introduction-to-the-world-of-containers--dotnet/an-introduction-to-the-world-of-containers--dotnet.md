@@ -8,7 +8,7 @@ categories: .NET, Cloud Native, Containers
 tags: .NET CLI, docker, containers, linux
 ai_note: show
 summary: Containers are a popular way of packaging and distributing applications in today’s Cloud Native landscape – but what are they, and how can .NET developers integrate them into their workflows?
-post_date: 2024-02-13 10:05:00
+post_date: 2024-02-27 10:05:00
 ---
 
 Containers are a popular way of packaging and distributing applications in today’s Cloud Native landscape – but what are they, and how can .NET developers integrate them into their workflows? Today, let's talk about what containers are, how they relate to Docker, and how the .NET tooling makes it easy for developers to easily streamline the process of creating containers with .NET.
