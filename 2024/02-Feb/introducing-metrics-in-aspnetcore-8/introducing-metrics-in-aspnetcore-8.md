@@ -7,7 +7,7 @@ featured_image: dashboard-screenshot.png
 categories: .NET, .NET Core, ASP.NET Core
 tags: .net 8
 summary: .NET 8 introduces metrics to ASP.NET Core. Check out what is new and discover how easy it is to use metrics and ASP.NET Core to monitor the health and activity of apps.
-post_date: 2024-02-14 10:05:00
+post_date: 2024-02-20 10:05:00
 ---
 
 Metrics report diagnostics about your app. .NET 8 adds over a dozen useful metrics to ASP.NET Core:
