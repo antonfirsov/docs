@@ -182,6 +182,7 @@ Below is a partial table of some common hints that are good to use. Some are syn
 | c#            |
 | c++           |
 | csharp        |
+| cshtml        |
 | diff          |
 | dockerfile    |
 | fsharp        |
@@ -198,6 +199,7 @@ Below is a partial table of some common hints that are good to use. Some are syn
 | plaintext     |
 | powershell    |
 | protobuf      |
+| razor         |
 | sh            |
 | sql           |
 | swift         |
