@@ -31,7 +31,8 @@ internal sealed class VR06_FencedCodeBlocksMustHaveLanguage : ValidationRule
             }
             else if (!_languages.Contains(block.Info))
             {
-                context.Warning(this.GetType().Name, block, $"Fenced code blocks should specify a language from the following list: {_languages}");
+                var languageList = string.Join(", ", _languages);
+                context.Warning(this.GetType().Name, block, $"Fenced code blocks should specify a language from the following list: {languageList}");
             }
         }
     }
