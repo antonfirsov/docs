@@ -25,7 +25,7 @@ When you're developing mobile applications, having a smooth debugging experience
 
 ## Setting Up Dev Tunnels in Visual Studio 2022
 
-Dev Tunnels was officially released with Visual Studio 2022 v17.6, so simply update to the latest version and you are ready to go. You can setup a new Dev Tunnel from the debug dropdown menu inside of Visual Studio to configure it for the active project.
+Dev Tunnels was officially released with Visual Studio 2022 v17.6, so simply update to the latest version and you are ready to go. You can setup a new Dev Tunnel from the debug dropdown menu inside of Visual Studio to configure it for the active project, or from **View > Other Windows > Dev Tunnels**.
 
 !["Debug dropdown showing dev tunnels option with Create tunnel selected"](debug-dropdown-create-selected.png)
 
