@@ -8,7 +8,7 @@ internal sealed class VR06_FencedCodeBlocksMustHaveLanguage : ValidationRule
         """
 
         accesslog,actionscript,apache,apacheconf,arm,armasm,as,asm,atom,avrasm,bash,c,c++,cc,cjs,
-        coffee,coffeescript,cpp,cs,csharp,cshtml,cshtml-razor,cson,css,cts,cxx,diff,django,docker,
+        coffee,coffeescript,cpp,c#,cs,csharp,cshtml,cshtml-razor,cson,css,cts,cxx,diff,django,docker,
         dockerfile,dsconfig,f,fs,fsharp,gemspec,gql,graphql,h,h++,haml,hh,hpp,html,http,https,
         hxx,iced,irb,java,javascript,jinja,js,json,jsp,jsx,latex,less,mak,make,makefile,markdown,
         md,mjs,mk,mkd,mkdown,mm,mts,nginx,nginxconf,obj-c,obj-c++,objc,objective-c++,objectivec,patch,
