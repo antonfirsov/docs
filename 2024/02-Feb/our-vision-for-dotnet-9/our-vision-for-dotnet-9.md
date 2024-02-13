@@ -14,7 +14,7 @@ Welcome to .NET 9! We're at the beginning of another annual release cycle, follo
 
 Today, let's take a look at the .NET 9 focus areas and complementary integrations we plan to deliver in collaboration with partner teams at Microsoft. Our goal is to make .NET development more productive using Visual Studio, Visual Studio Code with the C# Dev Kit, and cloud deployments easier using Azure services. We'll continue to work closely with our industry partners, like Canonical and Red Hat, to ensure that .NET works great wherever you use it.
 
-.NET 9 is shaping up to be another major step forward for the platform. We're delivering [.NET 9 Preview 1](https://aka.ms/dotnet/9/preview1) today and welcome your feedback on [all the new features we've delivered](https://learn.microsoft.com/dotnet/core/whats-new/dotnet-9).
+.NET 9 is shaping up to be another major step forward for the platform. We're delivering [.NET 9 Preview 1](https://aka.ms/dotnet/9/preview1) today and welcome your feedback on [all the new features we've delivered](https://learn.microsoft.com/dotnet/core/whats-new/dotnet-9/overview).
 
 ## Platform for Cloud-Native Developers
 
