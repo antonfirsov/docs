@@ -6,8 +6,8 @@ microsoft_alias: rlander
 featured_image: our-vision-for-dotnet-9.png
 categories: .NET
 tags: .net 9, featured-preview
-summary: "Welcome to .NET 9! Learn about how we're improving .NET for all kinds of apps, with a special focus on cloud native and performance."
-post_date: 2024-02-13 10:00:00
+summary: "Welcome to .NET 9! Learn about how we're improving .NET for all kinds of apps, with a special focus on cloud native, AI, and performance."
+post_date: 2024-02-13 10:06:00
 ---
 
 Welcome to .NET 9! We're at the beginning of another annual release cycle, following the successful launch of .NET 8 a few months back. We recommend that developers transition their apps to [.NET 8](https://devblogs.microsoft.com/dotnet/announcing-dotnet-8/). In this post, we'll share our initial vision for .NET 9, set to be released at .NET Conf 2024 at the end of the year. Our most important focus areas are cloud-native and intelligent app development. You can expect significant investments in performance, productivity, and security, as well as advancements across the platform. 
@@ -52,7 +52,7 @@ There are many other features, projects, and experiments that we will deliver on
 
 [.NET 9 Preview 1](https://aka.ms/dotnet/9/preview1) is now available for download. Going forward, we're going to publish [preview releases to GitHub Discussions](https://github.com/dotnet/core/discussions/9131). We'll tailor our .NET blog content to highlight the advantages of .NET 8, aiming to support your use of .NET 8 in production environments.
 
-[.NET Aspire Preview 3](https://aka.ms/dotnet/aspire/preview) is also shipping today. This release includes UI improvements to the dashboard, and new component support including Azure OpenAI, Kafka. Oracle, MySQL, CosmosDB & Orleans.
+[.NET Aspire Preview 3](https://github.com/dotnet/aspire/discussions/2205) is also shipping today. This release includes UI improvements to the dashboard, and new component support including Azure OpenAI, Kafka. Oracle, MySQL, CosmosDB & Orleans.
 
 If previews are not your thing, please take a look at the [.NET 8 release post](https://devblogs.microsoft.com/dotnet/announcing-dotnet-8/). We've heard a lot of good feedback about early .NET 8 deployments. .NET 9 should be a very easy migration from .NET 8 (and previous releases).
 
