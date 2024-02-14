@@ -40,6 +40,8 @@ post_date: 2024-02-08 10:05:00
   
 ![example interaction with GitHub Copilot Chat here](co-pilotunit-tests.gif)
 
+Released as a separate extension with subscripion you can easily install and start your free trial to test it out today.
+
 ## 4. Git & PR Enhancements
 
 Visual Studio 2022 has made significant strides with integrated [Git features](https://devblogs.microsoft.com/visualstudio/a-year-of-making-you-more-productive-using-git-in-visual-studio/) simplifying the code commit and collaboration process. Developers can now perform Git tasks such as branch creation, commits, and pull requests right from the IDE, streamlining the process of code repository management.
