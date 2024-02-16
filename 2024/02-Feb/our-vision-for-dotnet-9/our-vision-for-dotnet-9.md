@@ -46,7 +46,7 @@ We will be updating the [ChatGPT + Enterprise Data with Azure OpenAI and Cogniti
 
 ## .NET 9 Backlog
 
-These cloud-native and AI projects are just one part of what we'll deliver. Backlogs have been published for [.NET MAUI](https://github.com/dotnet/maui/wiki/Roadmap), [ASP.NET Core and Blazor](https://github.com/dotnet/aspnetcore/issues/51834), [C#](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md#working-set), [F#](https://github.com/dotnet/core/pull/9198), and other runtime and tools components delivered in the .NET SDK. Check out the [.NET 9 Project backlog](https://github.com/dotnet/core/blob/main/roadmap.md) on GitHub for your favorite product areas and features.
+These cloud-native and AI projects are just one part of what we'll deliver. Backlogs have been published for [.NET MAUI](https://github.com/dotnet/maui/wiki/Roadmap), [ASP.NET Core and Blazor](https://github.com/dotnet/aspnetcore/issues/51834), [C#](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md#working-set), [F#](https://github.com/orgs/dotnet/projects/126/views/40?query=is%3Aopen+sort%3Aupdated-desc), and other runtime and tools components delivered in the .NET SDK. Check out the [.NET 9 Project backlog](https://github.com/dotnet/core/blob/main/roadmap.md) on GitHub for your favorite product areas and features.
 
 We are regularly definining new features and updating progress. We'll update our backlog and the [.NET 9 release notes](https://github.com/dotnet/core/tree/main/release-notes/9.0) as we go. We also have some experiements that we're working on, which may become part of a future release.
 
