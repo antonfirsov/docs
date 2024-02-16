@@ -10,7 +10,7 @@ summary: "Welcome to .NET 9! Learn about how we're improving .NET for all kinds 
 post_date: 2024-02-13 10:06:00
 ---
 
-Welcome to .NET 9! We're at the beginning of another annual release cycle, following the successful launch of .NET 8 a few months back. We recommend that developers transition their apps to [.NET 8](https://devblogs.microsoft.com/dotnet/announcing-dotnet-8/). In this post, we'll share our initial vision for .NET 9, set to be released at .NET Conf 2024 at the end of the year. Our most important focus areas are cloud-native and intelligent app development. You can expect significant investments in performance, productivity, and security, as well as advancements across the platform. 
+Welcome to .NET 9! We're at the beginning of another annual release cycle, following the successful launch of .NET 8 a few months back. We recommend that developers transition their apps to [.NET 8](https://devblogs.microsoft.com/dotnet/announcing-dotnet-8/). In this post, we'll share our initial vision for .NET 9, set to be released at .NET Conf 2024 at the end of the year. Our most important focus areas are cloud-native and intelligent app development. You can expect significant investments in performance, productivity, and security, as well as advancements across the platform.
 
 Today, let's take a look at the .NET 9 focus areas and complementary integrations we plan to deliver in collaboration with partner teams at Microsoft. Our goal is to make .NET development more productive using Visual Studio, Visual Studio Code with the C# Dev Kit, and cloud deployments easier using Azure services. We'll continue to work closely with our industry partners, like Canonical and Red Hat, to ensure that .NET works great wherever you use it.
 
@@ -26,7 +26,7 @@ Our Azure Container Apps partners will ensure that .NET 9 apps can be scaled to 
 
 The [eShop](https://github.com/dotnet/eshop) reference architecture sample app that was showcased at .NET Conf last year will be updated to take advantage of these new capabilities and deployment options as .NET 9 evolves throughout the year.
 
-## Tools for Cloud-Native Developers 
+## Tools for Cloud-Native Developers
 
 Our Visual Studio partners plan improvements that support and augment our cloud platform, Native AOT, .NET Aspire, and Azure deployment.
 
@@ -38,7 +38,7 @@ Visual Studio and Visual Studio Code will include new development and deployment
 
 OpenAI has sparked excitement among developers by offering the opportunity to transform their applications with AI. Over the past year, Azure Open AI and .NET have been leveraged to create AI solutions, with Microsoft Copilot being the most popular. We will continue to work with customers looking for ways to use their C# skills to build this new class of apps, and to rapidly invest in our AI platform.
 
-In .NET 8, we expanded our investment beyond ML.NET. We focused on AI workloads, invested in getting started [samples and documentation](https://learn.microsoft.com/collections/d2z1bmomeo55kr?source=learn), and collaborated with the AI ecosystem partners to deliver C# clients for vector databases like [Qdrant](https://github.com/qdrant/qdrant-dotnet) and [Milvus ](https://milvus.io/docs/v2.2.x/install-csharp.md) and libraries like Semantic Kernel. Additionally, we added [TensorPrimitives for .NET](https://github.com/dotnet/runtime/issues/92219).
+In .NET 8, we expanded our investment beyond ML.NET. We focused on AI workloads, invested in getting started [samples and documentation](https://learn.microsoft.com/collections/d2z1bmomeo55kr?source=learn), and collaborated with the AI ecosystem partners to deliver C# clients for vector databases like [Qdrant](https://github.com/qdrant/qdrant-dotnet) and [Milvus](https://milvus.io/docs/v2.2.x/install-csharp.md) and libraries like Semantic Kernel. Additionally, we added [TensorPrimitives for .NET](https://github.com/dotnet/runtime/issues/92219).
  
 Looking ahead towards .NET 9, we are committed to making it even easier for .NET developers to integrate artificial intelligence into their existing and new applications. Developers will find great libraries and documentation for working with OpenAI and OSS models (hosted and local), and we’ll continue collaborating on Semantic Kernel, OpenAI, and Azure SDK to ensure that .NET developers have a first-class experience building intelligent applications.
 
@@ -46,7 +46,7 @@ We will be updating the [ChatGPT + Enterprise Data with Azure OpenAI and Cogniti
 
 ## .NET 9 Backlog
 
-These cloud-native and AI projects are just one part of what we'll deliver. Backlogs have been published for [.NET MAUI](https://github.com/dotnet/maui/wiki/Roadmap), [ASP.NET Core and Blazor](https://github.com/dotnet/aspnetcore/issues/51834), [C#](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md#working-set, and other runtime and tools components delivered in the .NET SDK. Check out the [.NET 9 Project backlog](https://github.com/dotnet/core/blob/main/roadmap.md) on GitHub for your favorite product areas and features.
+These cloud-native and AI projects are just one part of what we'll deliver. Backlogs have been published for [.NET MAUI](https://github.com/dotnet/maui/wiki/Roadmap), [ASP.NET Core and Blazor](https://github.com/dotnet/aspnetcore/issues/51834), [C#](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md#working-set), [F#](https://github.com/dotnet/core/pull/9198), and other runtime and tools components delivered in the .NET SDK. Check out the [.NET 9 Project backlog](https://github.com/dotnet/core/blob/main/roadmap.md) on GitHub for your favorite product areas and features.
 
 We are regularly definining new features and updating progress. We'll update our backlog and the [.NET 9 release notes](https://github.com/dotnet/core/tree/main/release-notes/9.0) as we go. We also have some experiements that we're working on, which may become part of a future release.
 
@@ -60,4 +60,4 @@ If previews are not your thing, please take a look at the [.NET 8 release post](
 
 ## Thank You
 
-.NET is amazing because of all of you, the .NET community, who help drive .NET forward. We want to thank each and every person that has helped make this and every release fantastic by creating issues, commenting, contributing code, creating packages, joining live streams, and being active online and in their local regions.  In the [.NET 9 release notes](https://github.com/dotnet/core/tree/main/release-notes/9.0) you will find community member highlights for each release. 
+.NET is amazing because of all of you, the .NET community, who help drive .NET forward. We want to thank each and every person that has helped make this and every release fantastic by creating issues, commenting, contributing code, creating packages, joining live streams, and being active online and in their local regions.  In the [.NET 9 release notes](https://github.com/dotnet/core/tree/main/release-notes/9.0) you will find community member highlights for each release.
