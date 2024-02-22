@@ -8,7 +8,7 @@ categories: .NET, .NET MAUI
 tags: .net maui, community toolkit, community
 ai_note: hide
 summary: Let's take a look back at all the happeneings from 2023 for the the .NET MAUI Community Toolkit's Journey of Growth, Rich Features, and Expanding Community Collaboration and a sneak peak at what is next.
-post_date: 2024-02-22 10:05:00
+post_date: 2024-02-29 10:05:00
 ---
 
 With 2023 behind, let's take a moment to reflect on the journey of the [.NET MAUI Community Toolkit](https://learn.microsoft.com/dotnet/communitytoolkit/maui/) project and what is next. This open-source library serves as a companion to [.NET MAUI](https://dotnet.microsoft.com/apps/maui), offering developers a rich set of controls, converters, and helpers designed to accelerate app development on the .NET MAUI platform. With a focus on community-driven innovation, it has become an indispensable tool for developers looking to enhance their .NET MAUI applications.
