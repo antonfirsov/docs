@@ -8,7 +8,7 @@ categories: Blazor, ASP.NET Core
 tags: FluentUI, Blazor
 ai_note: hide
 summary: Learn about the origin of the building blocks of the Fluent UI Blazor library. We'll talk about FAST, Web Components, Fluent Design, and more.
-post_date: 2024-02-26 10:05:00
+post_date: 2024-02-28 10:05:00
 ---
 
 It almost seems like a title from the popular movie series, but we are not movie creation material (yet). In this post I will talk about the Fluent UI Blazor library. Where did it come from, what are the building blocks and how do they work together? Lets give the main characters of the library a proper introduction. As they do in movies, in order of appearance...
