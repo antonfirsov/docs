@@ -214,6 +214,45 @@ A few things to take note of: First, Kiota generates clients with a nested build
 
 For more information, see the official [Kiota docs][kiota-docs] and [Kiota GitHub repository][kiota-github-repo].
 
+## Consuming the profanity filter
+
+In any of your GitHub repositories, you can use the profanity filter by adding a workflow file to the `.github/workflows` directory. The following example demonstrates how to use the profanity filter in a workflow:
+
+```yml
+name: Profanity filter
+
+on:
+  issue_comment:
+    types: [created, edited]
+  issues:
+    types: [opened, edited, reopened]
+  pull_request:
+    types: [opened, edited, reopened]
+
+jobs:
+  filter:
+    name: Apply profanity filter
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+    - name: Filter
+      if: ${{ github.actor != 'dependabot[bot]' && github.actor != 'github-actions[bot]'  }}
+      uses: IEvangelist/profanity-filter@main
+      id: profanity-filter
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        replacement-strategy: bold-grawlix
+```
+
+The preceding GitHub Action workflow file demonstrates how to use the profanity filter. The workflow is triggered when an issue comment is created or edited, when an issue is opened, edited, or reopened, or when a pull request is opened, edited, or reopened. The workflow runs on `ubuntu-latest` and has the necessary permissions to write to issues and pull requests. The workflow uses the `IEvangelist/profanity-filter` Action, and specifies the `bold-grawlix` replacement strategy. The `GITHUB_TOKEN` secret is used to authenticate with the GitHub REST API.
+
+With this example workflow in place, you can easily test the profanity filter by creating an issue or pull request with profane content. The profanity filter will detect the profane content and replace it with the specified replacement strategy. The profanity filter will also produce a detailed job summary, which is useful for auditing purposes.
+
+For more information, see the [profanity filter Dogfood.yml][example-workflow].
+
 ## Scrutinizing the results
 
 In the early stages, the profanity filter workflow would build the container image with every run, which was slow, inefficient, and unnecessary. However, after separating the building of the container image, execution time was reduced by 1-2 minutes. Furthermore, compiling with Native AOT resulted in a significantly smaller container image—approximately one fifth the size—and faster startup.
@@ -260,6 +299,7 @@ Initially, the Potty Mouth profanity filter workflow suffered from inefficiency 
 [custom-profane-words-url]: <https://gist.githubusercontent.com/IEvangelist/355ad7852bafedb4365a896d1c545a6c/raw/cbd4cea1592ab5acb518d139240dd5a11f42612c/Example.ProfaneWord.List.txt>
 [dotnet-container-images]: <https://learn.microsoft.com/dotnet/core/docker/container-images>
 [dotnet-publish]: <https://learn.microsoft.com/dotnet/core/docker/publish-as-container>
+[example-workflow]: <https://github.com/IEvangelist/profanity-filter/blob/main/.github/workflows/dogfood.yml>
 [first-post]: <https://devblogs.microsoft.com/dotnet/dotnet-loves-github-actions>
 [generated-approach]: <https://github.com/orgs/octokit/discussions/71>
 [github-actions-and-dotnet]: <https://learn.microsoft.com/dotnet/devops/create-dotnet-github-action>
