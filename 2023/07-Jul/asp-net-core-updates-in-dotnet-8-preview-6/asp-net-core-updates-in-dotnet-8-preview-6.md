@@ -374,10 +374,10 @@ You can now enable kernel-based response buffering when using HTTP.sys using the
 [Output caching](https://learn.microsoft.com/aspnet/core/performance/caching/output) was introduced in .NET 7 and allows entire responses to be cached and replayed, reducing server processing. By default, cached responses are stored in-process, so each server node has a separate and isolated cache that is lost whenever the server process is restarted. As an alternative, we're now introducing the ability to use a Redis backend for output caching, providing consistency between
 server nodes via a shared cache that outlives individual server processes.
 
-To setup Redis-based output caching, add a package reference to `Microsoft.Extensions.Caching.StackExchangeRedis` and then configure the required services by calling `app.Services.AddStackExchangeRedisOutputCache(...)`. The available configuration options are identical to the existing [Redis-based distributed caching](https://learn.microsoft.com/aspnet/core/performance/caching/distributed) options. You can provide your own Redis server, or use a hosted offering such as [Azure Cache for Redis](https://azure.microsoft.com/products/cache/).
+To setup Redis-based output caching, add a package reference to `Microsoft.Extensions.Caching.StackExchangeRedis`, then configure the required services by calling `app.Services.AddStackExchangeRedisOutputCache(...)`. The available configuration options are identical to the existing [Redis-based distributed caching](https://learn.microsoft.com/aspnet/core/performance/caching/distributed) options. You can provide your own Redis server, or use a hosted offering such as [Azure Cache for Redis](https://azure.microsoft.com/products/cache/).
 
 ## Give feedback
 
-We hope you enjoy this preview release of ASP.NET Core in .NET 8. Let us know what you think about these new improvements by filing issues on [GitHub](https://github.com/dotnet/aspnetcore/issues/new).
+We hope that you enjoy this preview release of ASP.NET Core in .NET 8. Let us know what you think about these new improvements by filing issues on [GitHub](https://github.com/dotnet/aspnetcore/issues/new).
 
 Thanks for trying out ASP.NET Core!
