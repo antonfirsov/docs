@@ -1,6 +1,7 @@
 ---
 post_title: Developing Optimized GitHub Actions with .NET and Native AOT
 author1: dapine@microsoft.com
+post_slug: developing-optimized-github-actions-with-net-and-native-aot
 microsoft_alias: dapine
 featured_image: featured.png
 categories: .NET, GitHub Actions
