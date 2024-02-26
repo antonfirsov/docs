@@ -30,6 +30,9 @@ internal sealed class VR02_MetadataRequired : ValidationRule
             if (context.FrontMatter.PostDate == null)
                 MustSpecifyField(context, BlogFrontMatterFields.PostDate);
 
+            if (context.FrontMatter.PostSlug == null)
+                MustSpecifyField(context, BlogFrontMatterFields.PostSlug);
+
             static void MustSpecifyField(ValidationContext context, string field, string? text = null)
             {
                 text ??= $"Must specify '{field}'";

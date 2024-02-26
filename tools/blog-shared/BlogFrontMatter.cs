@@ -15,6 +15,7 @@ public sealed class BlogFrontMatter
     public string? FeaturedImage { get; set; }
     public string? Summary { get; set; }
     public string? MicrosoftAlias { get; set; }
+    public string? PostSlug { get; set; }
 
     [YamlMember(Alias = "post_date")]
     [EditorBrowsable(EditorBrowsableState.Never)]

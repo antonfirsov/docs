@@ -12,4 +12,5 @@ public static class BlogFrontMatterFields
     public const string Summary = "summary";
     public const string MicrosoftAlias = "microsoft_alias";
     public const string PostDate = "post_date";
+    public const string PostSlug = "post_slug";
 }
