@@ -40,9 +40,9 @@ internal sealed class ValidationContext
         Report(isWarning: false, id, o.Span, message, suggestion);
     }
 
-    public void Error(string id, SourceSpan span, string message)
+    public void Error(string id, SourceSpan span, string message, string suggestion = "")
     {
-        Report(isWarning: false, id, span, message);
+        Report(isWarning: false, id, span, message, suggestion);
     }
 
     public void Warning(string id, MarkdownObject o, string message)
