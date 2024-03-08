@@ -7,7 +7,7 @@ microsoft_alias: aycabas
 featured_image: ttk_appTestTool.png
 categories: .NET, ASP.NET Core, Blazor
 tags: teams toolkit, microsoft teams, copilot
-summary: Teams Toolkit for is packed with the new exciting capabilities for .NET developers including new AI Bot templates, CodeLens integration, and new Copilot preview templates.
+summary: Teams Toolkit for Visual Studio is packed with the new exciting capabilities for .NET developers including new AI Bot templates, CodeLens integration, and new Copilot preview templates.
 post_date: 2024-03-07 10:00:00
 ---
 
@@ -69,3 +69,8 @@ Building intelligent chat bots is even simpler now using the AI Assistants Bot p
 ## Build with .NET 8
 We’re happy to share that all the Microsoft Teams App project templates are updated to use .NET 8 by default and new Tab projects are using the new rendering options in Blazor.
 We 💖 your feedback! Developers can [share feedback or issues with the Teams Toolkit product team on GitHub](https://github.com/OfficeDev/TeamsFx/issues), or email the product team directly at ttkfeedback@microsoft.com.
+
+## See it in action
+Want to see more? Checkout the recent episode of On .NET where I joined James to walk through live demos:
+
+<iframe width="800" height="450" src="https://www.youtube.com/embed/DvqnTunnJkQ?si=QidM9sD2ETfJQX0z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
