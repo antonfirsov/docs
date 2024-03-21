@@ -5,7 +5,7 @@ post_slug: introducing-dotnet-smart-components
 microsoft_alias: daroth
 featured_image: smart-paste-address.gif
 categories: .NET, AI, ASP.NET, ASP.NET Core, Blazor
-tags: smart components, openai, azure openai, razor pages, mvc
+tags: smart components, openai, azure openai, razor pages, mvc, Blazor
 ai_note: hide
 summary: Introducing .NET Smart Components, a set of genuinely useful AI-powered UI components that you can quickly and easily add to .NET apps.
 post_date: 2024-03-20 10:05:00
@@ -49,7 +49,7 @@ Learn more: [Smart ComboBox docs](https://github.com/dotnet-smartcomponents/smar
 
 ## Running the samples
 
-You can try out the .NET Smart Components with Blazor or MVC/RazorPages using the [.NET Smart Components sample apps](https://aka.ms/smartcompoennts) on GitHub.
+You can try out the .NET Smart Components with Blazor or MVC/RazorPages using the [.NET Smart Components sample apps](https://aka.ms/smartcomponents) on GitHub.
 
 To get started with the .NET Smart Components sample apps:
 
