@@ -61,31 +61,48 @@ To clarify, all applications built with .NET that run on iOS, will need the belo
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSPrivacyAccessedAPIType</key>
-    <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
-    <key>NSPrivacyAccessedAPITypeReasons</key>
+    <key>NSPrivacyAccessedAPITypes</key>
     <array>
-        <string>C617.1</string>
-    </array>
-</dict>
-<dict>
-    <key>NSPrivacyAccessedAPIType</key>
-    <string>NSPrivacyAccessedAPICategorySystemBootTime</string>
-    <key>NSPrivacyAccessedAPITypeReasons</key>
-    <array>
-        <string>35F9.1</string>
-    </array>
-</dict>
-<dict>
-    <key>NSPrivacyAccessedAPIType</key>
-    <string>NSPrivacyAccessedAPICategoryDiskSpace</string>
-    <key>NSPrivacyAccessedAPITypeReasons</key>
-    <array>
-        <string>E174.1</string>
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>C617.1</string>
+            </array>
+        </dict>
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategorySystemBootTime</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>35F9.1</string>
+            </array>
+        </dict>
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryDiskSpace</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>E174.1</string>
+            </array>
+        </dict>
+        <!--
+            The entry below is only needed when you're using the Preferences API in your app.
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>CA92.1</string>
+            </array>
+        </dict> -->
     </array>
 </dict>
 </plist>
 ```
+
+For .NET MAUI specifically you might need to uncomment that last entry. Only if you use the [Preferences APIs](https://learn.microsoft.com/dotnet/maui/platform-integration/storage/preferences), you will also need the entry for `CA92.1`. The reason why you don't need it otherwise is because the compiler will trim all unused APIs, including the ones used by Preferences, unless you reference them in your code.
 
 To add this file to your .NET for iOS project, copy the above contents and paste them in a file named `PrivacyInfo.xcprivacy` and place that under the `Resources` folder. This is all that is needed to package the file into the iOS app at the root of the bundle.
 
@@ -125,15 +142,15 @@ When you are certain that the warning is not triggered by code in your app, make
 
 For open-source projects, you can easily inspect the code to see if any APIs are used that require an entry in the manifest. Please refer to [Microsoft Learn](https://learn.microsoft.com/dotnet/maui/ios/privacy-manifest#required-reasons-api-use-in-net-maui) for a list of the APIs that require an entry in the privacy manifest. 
 
-If the project author is not able to provide a manifest file for their product, you can solve this by adding the identified required entries in your own `PrivacyInfo.xcprivacy` file. Make sure that you understand what the APIs are used for and what they do so you can confidentily convey this information to your users when needed.
+If the project author is not able to provide a manifest file for their product, you can solve this by adding the identified required entries in your own `PrivacyInfo.xcprivacy` file. Make sure that you understand what the APIs are used for and what they do so you can confidently convey this information to your users when needed.
 
 ### Are you a library author?
 
-Maybe you are a library maintainer yourself, in that case everything described in this blog post and the linked documentation is also applicable to your project. Please make sure that you include a privacy manifest for your product.
+Maybe you are a library maintainer yourself, in that case everything described in this blog post and the linked documentation is also applicable to your project.
 
-If you are unable to do so, at the very least provide your users with the entries that are needed for your library so that app developers can easily add them to their `PrivacyInfo.xcprivacy` file.
+At the time of writing we are still investigating how we can best facilitate you (and therefore your users) with these new requirements by Apple. For the time being our recommendation is to inspect your codebase, identify code that requires entries in the privacy manifest and make that information available to your users so they can add it to their apps manifest. You will probably want to include some explanation of why those entries are needed.
 
-However, we would strongly recommend including the manifest in your project to make the lives of your users easier.
+If you maintain a binding library, you will want to look into updating the native library. Chances are that a privacy manifest file is already included in there. However, binding that new version of the library will not automatically include the required manifest file in the end users app. Please, for the time being, still pass on this information to the users so they can include it manually.
 
 ## Verify adding the manifest
 
