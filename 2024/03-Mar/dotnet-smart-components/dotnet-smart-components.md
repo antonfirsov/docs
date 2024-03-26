@@ -80,6 +80,6 @@ Once you're ready, you can add .NET Smart Components to your existing Blazor, MV
 
 ## Feedback and support
 
-The .NET Smart Components are currently experimental and not officially supported. We want to hear from you whether these components are useful and how we can improve them to best meet your app development needs. To share your thoughts and feedback with us, please [post an issue](https://github.com/dotnet-smartcomponents/smartcomponents/issues) on GitHub.
+The .NET Smart Components are currently experimental and not officially supported. We want to hear from you whether these components are useful and how we can improve them to best meet your app development needs. Please take a moment to share your thoughts and feedback with us by filling out our short [.NET Smart Components survey](https://aka.ms/smartcomponents/survey). You can also report issues and suggest improvements by [creating an issue](https://github.com/dotnet-smartcomponents/smartcomponents/issues) on GitHub.
 
 Thank you for trying out the .NET Smart Components!
