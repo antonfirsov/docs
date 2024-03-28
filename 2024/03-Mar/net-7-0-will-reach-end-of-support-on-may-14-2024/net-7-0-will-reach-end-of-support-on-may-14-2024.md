@@ -1,6 +1,6 @@
 ---
 post_title: .NET 7 will reach End of Support on May 14, 2024
-post_slug: donet-7-end-of-support
+post_slug: dotnet-7-end-of-support
 author1: rbhanda@microsoft.com
 microsoft_alias: rbhanda
 featured_image: dotnet-7-support.png
@@ -22,8 +22,7 @@ You can expect the following after .NET 7 reaches end of support:
 
 - Applications that use this version **will** continue to run.
 - No new security updates will be issued for .NET 7.
-- Applications that use .NET 7 may be insecure. 
-- Computers with .NET 7 installed may be insecure. 
+- Continuing to use an unsupported version will expose you to security vulnerabilities.
 - You may not be able to access technical support for .NET 7 applications.
 
 ## Using .NET 7 apps
@@ -34,11 +33,11 @@ If you're using a .NET 7 app, we recommend reaching out to the software develope
 
 You can upgrade your app to .NET 8 by changing the value of the `TargetFramework` property in your project file to `net8.0`. You will also need to update your development and hosting environments. This process is covered in more detail in [Upgrade to a new .NET version](https://learn.microsoft.com/dotnet/core/install/upgrade).
 
-**Other Useful links for upgrading to .NET 8**
+Resources:
 
 * [.NET 8 Breaking Changes](https://docs.microsoft.com/dotnet/core/compatibility/8.0).
 * [Migrate from ASP.NET Core in .NET 7 to .NET 8](https://learn.microsoft.com/aspnet/core/migration/70-80?view=aspnetcore-8.0&tabs=visual-studio)
-* Use the [.NET upgrade assistant](https://learn.microsoft.com/dotnet/core/porting/upgrade-assistant-overview) to update
+* [.NET Upgrade Assistant](https://learn.microsoft.com/dotnet/core/porting/upgrade-assistant-overview) to update
 * [Upgrading .NET MAUI from .NET 7 to .NET 8](https://github.com/dotnet/maui/wiki/Upgrading-.NET-MAUI-from-.NET-7-to-.NET-8)
 
 ## Visual Studio Compatibility
