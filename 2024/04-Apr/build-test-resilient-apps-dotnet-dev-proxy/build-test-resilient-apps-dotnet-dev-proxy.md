@@ -8,7 +8,7 @@ categories: .NET, ASP.NET Core, .NET Aspire, Cloud
 tags: dev proxy, testing, resiliency
 ai_note: hide
 summary: Learn how to build and test resilient apps in .NET with Dev Proxy to simulate API failures, different network conditions, and a lot more from your local machine.
-post_date: 2024-04-10 10:05:00
+post_date: 2024-04-16 10:05:00
 ---
 
 When building apps that connect to APIs, we typically focus on getting the app to work. But what happens when the API is slow, returns errors, or becomes unavailable? The last thing you want is an angry customer calling you when your app breaks. But it's hard to simulate how your app will handle these scenarios when you don't control the APIs you integrate with. Unless you use Dev Proxy.
