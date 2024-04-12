@@ -2,18 +2,15 @@
 post_title: Secure your .NET cloud apps with rootless Linux Containers
 author1: rlander@microsoft.com
 post_slug: securing-containers-with-rootless
-username: rlander@microsoft.com
 microsoft_alias: rlander
 featured_image: dotnet-bot_cloudapps.png
 categories: .NET Core, Containers, Security
 tags: .net 8, linux, containers
 summary: Learn about patterns for securing your containers with a non-root user, and changes to .NET container images in .NET 8 to enable this behavior.
-desired_publication_date: 2023-03-21
 post_date: 2023-03-21 12:05:00
 ---
 
 > This post was **updated on April 12, 2024** to reflect the latest releases.
-
 
 Starting with [.NET 8](https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-preview-1/#net-container-images), all of our Linux container images will [include a non-root user](https://github.com/dotnet/dotnet-docker/pull/4397). You'll be able to host your .NET containers as a non-root user with one line of code. This platform-level change will make your apps more secure and .NET one of the most secure developer ecosystems. It is a small change with a big impact for [defense in depth](https://en.wikipedia.org/wiki/Defense_in_depth_(computing)).
 
