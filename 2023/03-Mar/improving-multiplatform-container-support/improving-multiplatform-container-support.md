@@ -12,17 +12,45 @@ desired_publication_date: 2023-03-29
 post_date: 2023-03-29 10:05:00
 ---
 
-Docker makes it straightforward to build container images that target a specific hardware architecture (Arm and x64). This is particularly useful if you have an Arm64 M1/M2/M3 Apple Mac and want to build containers for an x64 cloud service. We are encouraging a new pattern for building container images for multiple architectures. It has better performance and better integrates with the [BuildKit](https://www.docker.com/blog/how-to-rapidly-build-multi-architecture-images-with-buildx/) [build model](https://docs.docker.com/build/buildkit/). This approach also opens the door to better optimized multi-platform images using `docker buildx build` with the `--platform` switch. If your development, CI, and production hardware match (all x64 or all Arm64), then these changes may not be important. If your hardware is a mix of Arm64 and x64, then these changes will likely bring welcome improvements.
+> This post was updated on April 15, 2024 to reflect the latest releases, fix broken links, and add illustrative images.
 
-When would you need this? When you build an x64 container image on an Arm64 machine, for example.
+Docker makes it straightforward to build container images that target a specific hardware architecture (Arm and x64). This is particularly useful if you have an Arm64 M1/M2/M3 Apple Mac and want to build containers for an x64 cloud service. We are encouraging a new pattern for building container images for multiple architectures. It has better performance and integrates with the [BuildKit](https://www.docker.com/blog/how-to-rapidly-build-multi-architecture-images-with-buildx/) [build model](https://docs.docker.com/build/buildkit/).
+
+This post is focused on building container images with `docker build`. You can also [build container images directly with the SDK](https://devblogs.microsoft.com/dotnet/streamline-container-build-dotnet-8/) but the pattern discussed in this post isn't required or relevant if you build container images with `dotnet publish`.
+
+## Problem to solve
+
+Many users build x64 .NET container images on Arm64 hardware. Doing that can result in the .NET SDK running in an emulated environment, which doesn't work well. You can see in the following screenshot that `dotnet restore` is taking a very long time to run when run with emulation. The pattern described in this post avoids this problem.
+
+![dotnet restore hangs when run with processor architecture emulation](./docker-build-emulation.png)
+
+## Solution
+
+You can run `docker build` with a multi-platform friendly pattern. It has two aspects.
+
+Use the `--platform` switch with `docker build`, which you already would be doing to target an alternate architecture:
 
 ```bash
 docker build --platform linux/amd64 -t app .
 ```
 
-This [Dockerfile](https://github.com/dotnet/dotnet-docker/blob/main/samples/aspnetapp/Dockerfile.alpine-non-root) demonstrates the pattern we've adopted.
+Use `$BUILDPLATFORM` and `$TARGETARCH` environment variables in your [Dockerfile](https://github.com/dotnet/dotnet-docker/blob/822166bbf88e23cbbbba6fedc3f56b99276a1e96/samples/aspnetapp/Dockerfile) to get the SDK to run natively and cross-compile/publish.
 
-These improvements will be included in the .NET SDK, in .NET 8 Preview 3 ([#30762](https://github.com/dotnet/sdk/pull/30762)) and 7.0.300 ([#31319](https://github.com/dotnet/sdk/pull/31319)). Aspects of this new pattern work with existing releases.
+```Dockerfile
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+```
+
+and
+
+```Dockerfile
+RUN dotnet publish -a $TARGETARCH
+```
+
+This pattern can be used with any .NET version. In particular, we added support for `-a` to support Docker `$TARGETARCH` values (which are really Golang processor architecture values and different from .NET ones) in the .NET 8 SDK ([dotnet/sdk #30762](https://github.com/dotnet/sdk/pull/30762)).
+
+The rest of the post will go into much more detail.
+
+## Multi-platform build
 
 There are really two different scenarios at play, which I'm calling "multi-platform".
 
@@ -30,8 +58,6 @@ There are really two different scenarios at play, which I'm calling "multi-platf
 - Build multiple container images at once, for multiple architectures.
 
 Everything we're going to look at applies to both of these scenarios.
-
-## Multi-platform build
 
 Let's start with the Docker [multi-platform model](https://docs.docker.com/build/building/multi-platform/). We'll assume that the user is using Apple Arm64 hardware. In fact, I'm writing this all on a MacBook Air M1 laptop, which will make it easy for me to demonstrate the behavior.
 
@@ -181,19 +207,17 @@ There are a few characteristics that we want:
 - The result should be optimal.
 - The SDK should always run with the native architecture, both because it is faster and because [.NET doesn't support QEMU](https://github.com/dotnet/core/blob/main/release-notes/6.0/supported-os.md#qemu).
 
-We'll use [Dockerfile.alpine-non-root](https://github.com/dotnet/dotnet-docker/blob/main/samples/aspnetapp/Dockerfile.alpine-non-root). This Dockerfile has been updated for .NET 8 already, both enabling [non-root hosting](https://devblogs.microsoft.com/dotnet/securing-containers-with-rootless/) and multi-platform targeting.
+We'll use [Dockerfile](https://github.com/dotnet/dotnet-docker/blob/main/samples/aspnetapp/Dockerfile). This Dockerfile has been updated for .NET 8, both enabling [non-root hosting](https://devblogs.microsoft.com/dotnet/securing-containers-with-rootless/) and multi-platform targeting.
 
 There are a few lines in this Dockerfile that do something special that help us achieve those characteristics.
 
 ```dockerfile
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/nightly/sdk:8.0-preview-alpine AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ```
 
 The Dockerfile format enables specifying the `--platform` switch for a `FROM` statement and to use a built-in `ARG` to provide the value. In this case, we're saying that the `$BUILDPLATFORM` (AKA the local machine architecture) should always be used. On an Arm64 machine, this will always be Arm64, even if targeting x64.
 
 This pattern doesn't actually require .NET 8. It works with any .NET version. In fact, it will work with any multi-platform tag, like for Node.js or Java. It's just a Docker feature.
-
-However, we're using a `nightly` image here so that we can take advantage of the features that come next. The `-a $TARGETARCH` feature required two different changes in .NET 8. After we ship Preview 3, then a `nightly` image won't be needed.
 
 ```dockerfile
 RUN dotnet restore -a $TARGETARCH
@@ -212,7 +236,7 @@ If you are building an Alpine image and use this pattern, make sure that use an 
 You might be used to seeing `-c Release` in Dockerfiles. We've made that the default for `dotnet publish` with .NET 8, making it optional. We've been working on improving .NET SDK defaults.
 
 ```dockerfile
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-preview-alpine
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 ```
 
 The second (and last) `FROM` statement is a multi-platform tag. It will be affected by the `--platform` switch (from `docker build`). That's what we want.
@@ -222,7 +246,7 @@ Let's try it out.
 ```bash
 % pwd
 /Users/rich/git/dotnet-docker/samples/aspnetapp
-% docker build --pull -t aspnetapp -f Dockerfile.alpine-non-root .
+% docker build --pull -t aspnetapp .
 % docker inspect aspnetapp -f "{{.Os}}/{{.Architecture}}" 
 linux/arm64
 ```
@@ -232,16 +256,16 @@ We see an Arm64 image.
 Let's try targeting x64.
 
 ```bash
-% docker build --pull -t aspnetapp -f Dockerfile.alpine-non-root --platform linux/amd64 .
+% docker build --pull -t aspnetapp --platform linux/amd64 .
 % docker inspect aspnetapp -f "{{.Os}}/{{.Architecture}}"
 linux/amd64
-% docker run --rm --platform linux/amd64 --entrypoint ash aspnetapp -c "uname -a" 
-Linux c61047789bbd 5.15.49-linuxkit #1 SMP PREEMPT Tue Sep 13 07:51:32 UTC 2022 x86_64 Linux
+% docker run --rm --platform linux/amd64 --entrypoint bash aspnetapp -c "uname -a" 
+Linux 70dd5f0635cd 6.6.16-linuxkit #1 SMP Fri Feb 16 11:54:02 UTC 2024 x86_64 GNU/Linux
 ```
 
 That looks great. We have an x64 image.
 
-These changes are first showing up with .NET 8 Preview 3 although you can try it now with our nightly repo (`FROM` statement is listed above). You can try it for .NET 8 apps, but also .NET 6 and 7 apps, too. The .NET 8 SDK can build apps for those earlier versions with this same approach. If you use the `nightly` build for .NET 8 apps, you'll need to [add a .NET 8 `nuget.config`](https://github.com/dotnet/installer#build-status). If you don't want to bother with that, then just wait for Preview 3.
+You can try this pattern for .NET 8 apps, but also .NET 6 and 7 apps, too. The .NET 8 SDK can build apps for those earlier versions with this same approach.
 
 ## Build multi-platform images with `docker buildx`
 
@@ -257,23 +281,34 @@ whimsical_sanderson
 We can now build a multi-platform image for our app.
 
 ```bash
-% docker buildx build --pull -t aspnetapp -f Dockerfile.alpine-non-root --platform linux/arm64,linux/arm,linux/amd64 .
+% docker buildx build --pull -t aspnetapp --platform linux/arm64,linux/arm,linux/amd64 .
 ```
+
+You may see this error:
+
+```bash
+ERROR: Multi-platform build is not supported for the docker driver.
+Switch to a different driver, or turn on the containerd image store, and try again.
+```
+
+Enable the [containerd image store](https://docs.docker.com/desktop/containerd/) to resolve that.
+
+![Enable containerd image store in Docker Desktop](./containerd-image-store.png)
 
 Here, we're building for three architectures. In some environments, you can also specify just the architectures as a short-hand, avoiding repeating "linux".
 
-With that command, you'll see the following warning.
+With that command, you may the following warning.
 
 ```bash
 WARNING: No output specified with docker-container driver. Build result will only remain in the build cache. To push result image into registry use --push or to load image into docker use --load
 ```
 
-If you want to push your image to a registry, you need to add the `--push` argument and use a fully-specified registry name for the `-t` argument. Alternatively, you can use `--load` to export images to your Docker cache. `--load`, however, only works when targeting one architecture at a time.
+If you want to push your image to a registry, you need to add the `--push` argument and use a fully-specified registry name for the `-t` argument.
 
-Let's try `--push` (with my registry; you'll need to switch to your own).
+Let's try `--push` (with my private registry; you'll need to switch to your own).
 
 ```bash
-% docker buildx build --pull --push -t dotnetnonroot.azurecr.io/aspnetapp -f Dockerfile.alpine-non-root --platform linux/arm64,linux/arm,linux/amd64 .
+$ docker buildx build --pull --push -t maplesugar.azurecr.io/aspnetapp --platform linux/arm64,linux/arm,linux/amd64 .
 ```
 
 That command pushed 3 images and 1 tag to the registry.
@@ -281,30 +316,31 @@ That command pushed 3 images and 1 tag to the registry.
 I can now try pulling the image on my Apple laptop. It would work the same on my Raspberry Pi.
 
 ```bash
-% docker run --rm -d -p 8080:8080 dotnetnonroot.azurecr.io/aspnetapp
+$ docker pull maplesugar.azurecr.io/aspnetapp
+$ docker run --rm --name aspnetapp -d -p 8000:8080 maplesugar.azurecr.io/aspnetapp
 08968dcce418db4d6f746bfa3a5f2afdcf66570bc8a726c4f5a4859e8666e354
-% curl http://localhost:8080/Environment
-{"runtimeVersion":".NET 8.0.0-preview.2.23128.3","osVersion":"Linux 5.15.49-linuxkit #1 SMP PREEMPT Tue Sep 13 07:51:32 UTC 2022","osArchitecture":"Arm64","user":"app","processorCount":4,"totalAvailableMemoryBytes":4124512256,"memoryLimit":0,"memoryUsage":29548544}%
-% docker exec 08968dcce418db4d6f746bfa3a5f2afdcf66570bc8a726c4f5a4859e8666e354 uname -a
-Linux 5d4a712c32b9 5.15.49-linuxkit #1 SMP PREEMPT Tue Sep 13 07:51:32 UTC 2022 aarch64 Linux
-% docker kill 08968dcce418db4d6f746bfa3a5f2afdcf66570bc8a726c4f5a4859e8666e354
+$ curl http://localhost:8000/Environment
+{"runtimeVersion":".NET 8.0.4","osVersion":"Debian GNU/Linux 12 (bookworm)","osArchitecture":"Arm64","user":"app","processorCount":8,"totalAvailableMemoryBytes":4113563648,"memoryLimit":0,"memoryUsage":32227328,"hostName":"7a2b079005a5"}
+% docker exec aspnetapp uname -a
+Linux 7a2b079005a5 6.6.22-linuxkit #1 SMP Fri Mar 29 12:21:27 UTC 2024 aarch64 GNU/Linux
+% docker kill aspnetapp
+aspnetapp
 ```
 
 I'll now try the same image on an x64 machine.
 
 ```bash
-$ docker run --rm -d -p 8080:8080 dotnetnonroot.azurecr.io/aspnetapp
+$ docker run --rm --name aspnetapp -d -p 8000:8080 maplesugar.azurecr.io/aspnetapp
 6dac425acc325da1c085608d503d6c884610cfa5b2a7dd93575f20355daec1a2
-$ curl http://localhost:8080/Environment
-{"runtimeVersion":".NET 8.0.0-preview.2.23128.3","osVersion":"Linux 4.4.180+ #42962 SMP Tue Sep 20 22:35:50 CST 2022","osArchitecture":"X64","user":"app","processorCount":8,"totalAvailableMemoryBytes":8096030720,"memoryLimit":9223372036854771712,"memoryUsage":94019584}
-$ docker exec 6dac425acc325da1c085608d503d6c884610cfa5b2a7dd93575f20355daec1a2 uname -a
-Linux 6dac425acc32 4.4.180+ #42962 SMP Tue Sep 20 22:35:50 CST 2022 x86_64 Linux
-$ docker kill 6dac425acc325da1c085608d503d6c884610cfa5b2a7dd93575f20355daec1a2
+$ curl http://localhost:8000/Environment
+{"runtimeVersion":".NET 8.0.4","osVersion":"Debian GNU/Linux 12 (bookworm)","osArchitecture":"X64","user":"app","processorCount":8,"totalAvailableMemoryBytes":67382321152,"memoryLimit":0,"memoryUsage":31629312,"hostName":"78fed92fd353"}
+$ docker exec aspnetapp uname -a
+Linux 78fed92fd353 6.8.0-22-generic #22-Ubuntu SMP PREEMPT_DYNAMIC Thu Apr  4 22:30:32 UTC 2024 x86_64 GNU/Linux
+$ docker kill aspnetapp
+aspnetapp
 ```
 
-The results look good and the process was straightforward.
-
-Note: I won't keep my registry up for long. It is just there for demonstration purposes and to show what's possible.
+The primary difference is the value of the `osArchitecture` property in the JSON returned from the endpoint. We're about to demonstrate that the `maplesugar.azurecr.io/aspnetapp` tag we pushed is indeed a multi-platform image.
 
 ## Summary
 
