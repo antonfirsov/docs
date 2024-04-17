@@ -1,7 +1,7 @@
 ---
 post_title: "Announcing: Azure Developers - .NET Day"
 author1: mehulharry
-post_slug: announcing-azure-developers--dotnet-day
+post_slug: announcing-azure-developers-dotnet-day-2024
 microsoft_alias: mehulharry
 featured_image: azure-developers-dotnet-day-2024.png
 categories: AI, Azure, Cloud Native, Containers, Entity Framework, SQL Server, Visual Studio Code
