@@ -19,9 +19,11 @@ You may remember that [.NET 6 was added to Ubuntu 22.04](https://devblogs.micros
 
 Ubuntu 24.04 container images are already available, for .NET 8+. They include `noble`, `noble-chiseled`, and `noble-chiseled-extra` image flavors.
 
+![neofetch and dotnet logo on Ubuntu 24.04](./noble-neofetch-dotnet.png)
+
 Ubuntu LTS releases are always quite popular. We're excited that .NET is part of Ubuntu 24.04 and expect a lot of .NET developers will start using these new packages and container images in the coming weeks and months.
 
-![neofetch and dotnet logo on Ubuntu 24.04](./noble-neofetch-dotnet.png)
+Please register for a deep-dive talk on [Ubuntu and .NET at Build 2024](https://build.microsoft.com/sessions/fe58e8ce-6a0d-42d9-911f-9ebfe44d6dad?source=sessions).
 
 ## Packages
 
