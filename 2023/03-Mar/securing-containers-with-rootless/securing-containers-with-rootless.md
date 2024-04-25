@@ -16,7 +16,7 @@ Starting with [.NET 8](https://devblogs.microsoft.com/dotnet/announcing-dotnet-8
 
 This change was inspired by our earlier project enabling [.NET in Ubuntu Chiseled containers](https://devblogs.microsoft.com/dotnet/dotnet-6-is-now-in-ubuntu-2204/#net-in-chiseled-ubuntu-containers). Chiseled (AKA "distroless") images are intended to be appliance-like so non-root was an easy design choice for those images. We realized that we could apply the non-root feature of Chiseled containers to all the container images we publish. By doing that, we've raised the security bar for .NET container images.
 
-This post is about the benefit of non-root containers, workflows for creating them, and how they work. A follow-on post will discuss how to best use these images with Kubernetes. Also, if you want a simpler option, you should check out [built-in container support for the .NET SDK](https://devblogs.microsoft.com/dotnet/announcing-builtin-container-support-for-the-dotnet-sdk/).
+This post is about the benefit of non-root containers, workflows for creating them, and how they work. A follow-on post will discuss [how to best use these images with Kubernetes](https://devblogs.microsoft.com/dotnet/running-nonroot-kubernetes-with-dotnet/). Also, if you want a simpler option, you should check out [built-in container support for the .NET SDK](https://devblogs.microsoft.com/dotnet/announcing-builtin-container-support-for-the-dotnet-sdk/).
 
 > Note: [.NET Chiseled images](https://devblogs.microsoft.com/dotnet/announcing-dotnet-chiseled-containers/) are now GA.
 
