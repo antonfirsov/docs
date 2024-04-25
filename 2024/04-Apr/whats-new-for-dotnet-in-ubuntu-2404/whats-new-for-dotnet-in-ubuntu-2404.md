@@ -25,6 +25,8 @@ Ubuntu LTS releases are always quite popular. We're excited that .NET is part of
 
 Please register for a deep-dive talk on [Ubuntu and .NET at Build 2024](https://build.microsoft.com/sessions/fe58e8ce-6a0d-42d9-911f-9ebfe44d6dad?source=sessions).
 
+Want to learn more? Sign up for Microsoft Build 2024, it's free, and [watch our session with experts from Canonical and Microsoft](https://build.microsoft.com/sessions/fe58e8ce-6a0d-42d9-911f-9ebfe44d6dad?source=sessions).
+
 ## Packages
 
 Installing .NET 8 on Ubuntu 24.04 is straightforward.
@@ -110,6 +112,14 @@ aspnetapp    noble-chiseled   e59689894c68   35 minutes ago   119MB
 Microsoft and Canonical are collaborating on servicing and support. To that end, Microsoft gives security and functional fixes (via a private channel) to Canonical ahead of Patch Tuesday releases, with time for building and testing. We do the same thing with Red Hat. It's our goal that .NET fixes are available everywhere, simultaneously.
 
 The official source of .NET packages will be via Ubuntu feeds, as already stated. That raises the question of support. You can file issues for .NET on the [dotnet8 launchpad](https://bugs.launchpad.net/ubuntu/+source/dotnet8) or in the appropriate [dotnet repo](https://github.com/dotnet/core/blob/main/Documentation/core-repos.md). If there is any ambiguity on which organization should resolve the issue, we'll handle that through our partnership.
+
+## Build 2024 Talk
+
+**Title:** Seamlessly leverage .NET on Ubuntu from development to deployment
+
+**Description:** Discover how Canonical and Microsoft streamline .NET development on Ubuntu. Learn about .NET packages in latest Ubuntu releases, the evolution of .NET containers, and the benefits of ultra-secure, optimized chiseled Ubuntu containers.
+
+[cta-button align="center" text="Register now!" url="https://build.microsoft.com/sessions/fe58e8ce-6a0d-42d9-911f-9ebfe44d6dad?source=sessions" color="#0078D4"]
 
 ## Closing
 
