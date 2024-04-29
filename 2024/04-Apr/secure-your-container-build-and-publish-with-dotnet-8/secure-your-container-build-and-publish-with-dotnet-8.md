@@ -146,13 +146,13 @@ I'll show you what that looks like, using this [sample Dockerfile](https://githu
 
 That Dockerfile uses the environment variable we just looked at to define the user. This is the pattern we intend everyone to use, to switch to a non-root user with Dockerfiles. Again, this pattern avoids magic numbers being plastered everywhere and works best with Kubernetes.
 
-Note: Lots of developers will have already made their own user. Continuing with your own user or switching to the built-in one are both fine options.
-
 ```bash
 $ cat Dockerfile | tail -n 2 
 USER $APP_UID
 ENTRYPOINT ["./dotnetapp"]
 ```
+
+Note: Lots of developers will have already made their own user. Continuing with your own user or switching to the built-in one are both fine options.
 
 We can then build and run an image.
 
@@ -179,7 +179,9 @@ ProcessorCount: 8
 TotalAvailableMemoryBytes: 4113563648 (3.83 GiB)
 ```
 
-As you can see, the application is running as the `app` user. As demonstrated, the switch (for Dockerfiles) to enabling non-root hosting is just a one line change.
+As you can see, the application is running as the `app` user.
+
+The switch to enable non-root hosting (in Dockerfiles) is just a one line change.
 
 ## Ubuntu Chiseled images
 
@@ -195,7 +197,7 @@ $ docker inspect --format='{{.Config.User}}' mcr.microsoft.com/dotnet/runtime:8.
 We have a different [sample Dockerfile](https://github.com/dotnet/dotnet-docker/blob/2746ed050286ed81b1b404def75c7c6d06c80bde/samples/dotnetapp/Dockerfile.chiseled) that relies on the user being set in these images.
 
 ```bash
-cat Dockerfile.chiseled | tail -n 4
+$ cat Dockerfile.chiseled | tail -n 4
 FROM mcr.microsoft.com/dotnet/runtime:8.0-jammy-chiseled
 WORKDIR /app
 COPY --from=build /app .
@@ -267,7 +269,7 @@ Here's an example of how to set `runAsNonRoot` in a Pod manifest.
         - containerPort: 8080
 ```
 
-In this example, every container listed (even though there is only one in the example) must be non-root. `securityContext` can also be set on a container. You can see these settings in broader context in [non-root.yaml](https://github.com/dotnet/dotnet-docker/blob/23b937b9aecfcbffdbb4d1cc25049abe38377f76/samples/kubernetes/non-root/non-root.yaml#L20-L22).
+In this example, every container listed (even though there is only one in the example) must be non-root. `securityContext` can also be set on a container. You can see these settings in broader context in [non-root.yaml](https://github.com/dotnet/dotnet-docker/blob/0535bf7c536483266d36066bf2e87115106f2985/samples/kubernetes/non-root/non-root.yaml#L15-L16).
 
 It's really only interesting to see what happens if `runAsNonRoot` is set to `true` and we try to load an image that uses the `root` users.
 
