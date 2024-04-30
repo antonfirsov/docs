@@ -68,6 +68,8 @@ However, it remains true that an attacker with an active RCE vulnerability will 
 
 In contrast, [Ubuntu Chiseled](https://devblogs.microsoft.com/dotnet/announcing-dotnet-chiseled-containers/) and [Chainguard](https://www.chainguard.dev/chainguard-images) base images are appliance-like, taking a different approach than general purpose images. They trade usability and compatibility for security. We endorse this design point.
 
+Note: See [Hardened Container Images: Images for a Secure Supply Chain](https://www.chainguard.dev/unchained/hardened-container-images-images-for-a-secure-supply-chain).
+
 That's a lot of context about base images and a great segue to application images, which (we think) should be built with a security-first philosophy.
 
 ## .NET ecosystem: Non-root by default
