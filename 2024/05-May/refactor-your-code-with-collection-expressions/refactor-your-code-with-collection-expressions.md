@@ -163,11 +163,7 @@ public record class Result(
 
 In the preceding code, the result registry class contains a private `_results` field that is initialized with a `new HashSet<Result>()` constructor expression. In your IDE of choice (that supports these refactoring features), right-click on the `new` keyword, select `Quick Actions and Refactorings...` (or press <kbd>Ctrl</kbd> + <kbd>.</kbd>), and choose `Collection initialization can be simplified`, as shown in the following video:
 
-<!-- markdownlint-disable no-inline-html -->
-<video autoplay="" loop="" class="responsive-video" poster="./refactor-simplify-collection-thumb.png">
-   <source src="./refactor-simplify-collection.mp4" type="video/mp4">
-</video>
-<!-- markdownlint-enable no-inline-html -->
+[video width="1914" height="1032" mp4="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2024/05/refactor-simplify-collection.mp4" poster="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2024/05/refactor-simplify-collection-thumb1.png"][/video]
 
 The code is updated to use the collection expression syntax, as shown in the following code:
 
@@ -262,11 +258,7 @@ internal class Spans
 
 If you right-click on the `stackalloc` keyword, select `Quick Actions and Refactorings...` (or press <kbd>Ctrl</kbd> + <kbd>.</kbd>), and choose `Collection initialization can be simplified`, as shown in the following video:
 
-<!-- markdownlint-disable no-inline-html -->
-<video autoplay="" loop="" class="responsive video" poster="./refactor-collection-ex-thumb.png">
-   <source src="./refactor-collection-ex.mp4" type="video/mp4">
-</video>
-<!-- markdownlint-enable no-inline-html -->
+[video width="1914" height="1032" mp4="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2024/05/refactor-collection-ex.mp4" poster="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2024/05/refactor-collection-ex-thumb1.png"][/video]
 
 The code is updated to use the collection expression syntax, as shown in the following code:
 
