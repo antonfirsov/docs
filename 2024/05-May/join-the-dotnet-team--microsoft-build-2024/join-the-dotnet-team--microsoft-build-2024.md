@@ -17,7 +17,7 @@ Join us either in Seattle or from the comfort of your own home. With a mix of li
 
 ### Dive into .NET: Sessions Not to Miss
 
-Check out the sessions below for a taste of what’s to come. For more details and to reserve your spot, be sure to visit the [Microsoft Build Session Catalog](#).
+Check out the sessions below for a taste of what’s to come. For more details and to reserve your spot, be sure to visit the session link.
 
 | Time (PDT) | Session Title | Format | Location | Direct Link |
 |------------|---------------|--------|----------|-------------|
