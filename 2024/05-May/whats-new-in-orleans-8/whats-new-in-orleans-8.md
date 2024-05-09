@@ -171,7 +171,7 @@ And add Orleans client projects:
 
 ```csharp
 builder.AddProject<Projects.FrontEnd>("frontend")
-   .WithReference(orleans);
+   .WithReference(orleans.AsClient());
 ```
 
 The Silo and client projects declare their use of Orleans with the `UseOrleans` extension method, as previously, but do not need to configure the grain storage or clustering as this has been done centrally in the `AppHost` project.
