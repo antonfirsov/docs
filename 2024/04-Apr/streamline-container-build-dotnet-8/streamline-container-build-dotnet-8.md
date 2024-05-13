@@ -268,6 +268,12 @@ These commands build the sample for the default Debian image then for the Ubuntu
 
 The mechanism that `PublishContainer` uses is more straightforward than one might guess. Container images are compressed files, composed of [layers of compressed files](https://github.com/richlander/container-registry-api). The `PublishContainer` MSBuild Target builds the app, compresses it in the correct format (with metadata), downloads a base image (also a compressed file) from a registry, and then packages the layers together in (again) the correct compressed format. Much of this is accomplished with the (relatively new) [`TarFile` class](https://learn.microsoft.com/dotnet/api/system.formats.tar). In fact, all of this container functionality was implemented only after `TarFile` was added.
 
+> "What about up to date checks?"
+
+Many users build images with `docker build --pull`. That's a good idea to ensure that a new application image uses a fresh base image (for example with CVE fixes). `dotnet publish -t:PublishContainer` does the same thing by default. The image manifest for the specified tag (like `mcr.microsoft.com/dotnet/aspnet:8.0`) is always pulled. If the associated digest doesn't exist in the local cache, then the image is pulled.
+
+`dotnet publish` uses its own cache for images. If you build an application image, it will pull a base image to build on top of. This base image will not affect the images that are maintained by Docker Desktop, for example. The `dotnet publish` cache is maintained in temporary storage, at the location specified by `System.IO.Path.GetTempPath()` on a given machine.
+
 > "Where's the Dockerfile?"
 
 We sometimes get asked if users can see the `Dockerfile` we are using or if it can be modified. There is no `Dockerfile` that is used in this scenario. `docker build` and a `Dockerfile` assumes a Linux operating system, in particular to execute `RUN` commands (like to run `apt`, `curl` or `tar`). We don't have or support anything like that. `PublishContainer` is solely downloading base image layers and then copying one container layer onto another and packaging them up as an [OCI image](https://github.com/opencontainers/image-spec).
