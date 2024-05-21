@@ -24,7 +24,7 @@ You can get started quickly with .NET Aspire:
 
 - **Visual Studio 2022**:
 
-    .NET Aspire is included in the **ASP.NET and web development** workload of Visual Studio 2022 17.10 as a recommended component. If you update from Visual Studio 2022 17.9 to 17.10 and you have the **ASP.NET and web development** workload enabled, you'll have everything you need to get started with .NET Aspire.
+    .NET Aspire is included in the **ASP.NET and web development** workload of [Visual Studio 2022 17.10](https://visualstudio.microsoft.com/vs/) as a recommended component. If you update from Visual Studio 2022 17.9 to 17.10 and you have the **ASP.NET and web development** workload enabled, you'll have everything you need to get started with .NET Aspire.
 
 - **Visual Studio Code C# Dev Kit**:
 
@@ -143,7 +143,8 @@ For those attending Microsoft Build this year, either physically or virtually, t
 
 ### Video shorts
 
-Today, we're launching a series of short videos hosted by members of the .NET Aspire team, introducing key aspects of .NET Aspire, including the App Host project, dashboard, service defaults, service discovery, OpenTelemetry, and more. Check them out at https://aka.ms/aspire/videos.
+Today, we're launching a series of short videos hosted by members of the .NET Aspire team, introducing key aspects of .NET Aspire, including the App Host project, dashboard, service defaults, service discovery, OpenTelemetry, and more. Check them out at [https://aka.ms/aspire/videos](https://aka.ms/aspire/videos).
+
 <iframe width="800" height="450" src="https://www.youtube.com/embed/videoseries?si=_ZWgdpsmTeFlRaFe&amp;list=PLdo4fOcmZ0oUfIayQMrRqaSL55Rkck-GD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ### Learn Path
