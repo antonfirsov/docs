@@ -56,7 +56,7 @@ This link can be split into 3 parts:
 2. The second part `src/libraries/System.Private.CoreLib/src/System/String.cs` can be found in `Document` table.
 3. And the last part `#L388C13-L388C25` is built from `SequencePoints` column of `MethodDebugInformation` table. `SequencePoints` blob will map a range of IL instructions in this method block back to the line numbers of its original source code. For more details, go to [Metadata definition](https://github.com/dotnet/runtime/blob/main/docs/design/specs/PortablePdb-Metadata.md#sequence-points-blob).
 
-![SequencePoints](SequencePoints.png)
+    ![SequencePoints](SequencePoints.png)
 
 We use [System.Reflection.Metadata](https://learn.microsoft.com/dotnet/api/system.reflection.metadata?view=net-8.0) library to iterate all the types/members in this DLL and then match the records in `MethodDebugInformation` table to build the final links.  
 
@@ -127,7 +127,8 @@ As mentioned earlier, our .NET reference docs pipeline operates on a collection 
 
 1. **Reference Assembly**. For example, DLLs in this package [Microsoft.NETCore.App.Ref](https://www.nuget.org/packages/Microsoft.NETCore.App.Ref/8.0.0). Reference assemblies don't have PDBs uploaded to the symbol server which preventing us from generating the links to source. Our current solution is to download the [Runtime package](https://www.nuget.org/packages/Microsoft.NETCore.App.Runtime.linux-x64/8.0.0) and use the assemblies there to download the matched PDBs.
 2. **Source embedded in PDB**. For example, package [System.Threading.AccessControl](https://www.nuget.org/packages/System.Threading.AccessControl/8.0.0) has source being generated at build time into the `obj` folder.
-![Source embedded in PDB](source-embedded-pdb.png)
+
+    ![Source embedded in PDB](source-embedded-pdb.png)
 
     This doesn't help us link to the source code, so instead of using the DLL in `lib` folder we will also look for DLL with the same name in `runtimes` folder.
 
