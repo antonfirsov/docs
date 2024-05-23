@@ -100,7 +100,7 @@ We would like to talk a little more about how we download the correct version of
 Below is a sample PDB download URL and with its format is defined in [portable-pdb-signature](https://github.com/dotnet/symstore/blob/main/docs/specs/SSQP_Key_Conventions.md#portable-pdb-signature).  
 <http://msdl.microsoft.com/download/symbols/System.Private.CoreLib.pdb/8402667829752b9d0b00ebbc1d5a66d9FFFFFFFF/System.Private.CoreLib.pdb>  
 
-From the URL pattern we can observe we need to provide the PDB file name `System.Private.CoreLib.pdb` and a GUID `8402667829752b9d0b00ebbc1d5a66d9FFFFFFFF`. So the question is where we can this information?
+From the URL pattern we can observe we need to provide the PDB file name `System.Private.CoreLib.pdb` and a GUID `8402667829752b9d0b00ebbc1d5a66d9FFFFFFFF`. So the question is where can we find this information?
 
 Previously we used dotPeek to open a DLL to look for the `Source Link` entry. Now we can open it again and check the `Metadata` section.
 
