@@ -12,7 +12,7 @@ summary: '.NET API reference docs now link directly to the source code! Learn ho
 post_date: 2024-05-27 08:00:00
 ---
 
-When developers read API reference, they sometimes have a need or desire to review the corresponding source code. Until recently, the [.NET API reference docs](https://learn.microsoft.com/dotnet/api/) did not provide a link back to the source code, prompting calls from the community for this addition. In response to this feedback, we are happy to announce links connecting docs to the source code are now available on some of our most popular .NET APIs. 
+When developers read API reference, they sometimes have a need or desire to review the corresponding source code. Until recently, the [.NET API reference docs](https://learn.microsoft.com/dotnet/api/) did not provide a link back to the source code, prompting calls from the community for this addition. In response to this feedback, we are happy to announce links connecting docs to the source code are now available on most of our popular .NET APIs. 
 
 In this blog post, we will share details about how we added the links to the docs experience and how we made use of existing APIs to deliver this improvement.
 
