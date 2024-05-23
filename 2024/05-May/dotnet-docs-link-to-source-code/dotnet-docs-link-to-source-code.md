@@ -12,23 +12,24 @@ summary: '.NET API reference docs now link directly to the source code! Learn ho
 post_date: 2024-05-27 08:00:00
 ---
 
-[.NET API reference docs](https://learn.microsoft.com/dotnet/api/) (hereinafter "docs") provides details about the structure and behavior of each public API exposed in .NET. The docs are built from source code with additional information added by our writers and developers. When interacting with the docs, have you ever been curious about reviewing the source code?
+When developers read API reference, they sometimes have a need or desire to review the corresponding source code. Until recently, the [.NET API reference docs](https://learn.microsoft.com/dotnet/api/) did not provide a link back to the source code, prompting calls from the community for this addition. In response to this feedback, we are happy to announce links connecting docs to the source code are now available on some of our most popular .NET APIs. 
 
-Well in response to community feedback, we are happy to announce the docs now provide a link back to the source code. In this blog post, we will share details about how we added the links to the docs experience and how we made use of existing APIs to deliver this improvement.
+In this blog post, we will share details about how we added the links to the docs experience and how we made use of existing APIs to deliver this improvement.
 
 ## Live examples of the links
 
-Before going into implementation details, we would like to showcase where the docs have changed. For .NET APIs that meet our required criteria, the links are included in the `Definition metadata`. The following image from the [`String`](https://learn.microsoft.com/dotnet/api/system.string?view=net-8.0) class demonstrates the placement of this new link:
+Before going into implementation details, we would like to showcase where the docs have changed. For .NET APIs that meet our required criteria (having Source Link enabled, having accessible PDB, and being hosted in a public repository), the links are included in the `Definition metadata`. The following image from the [`String`](https://learn.microsoft.com/dotnet/api/system.string?view=net-8.0) class demonstrates the placement of this new link:
 
-<img width="600" alt="Screenshot of String Class showing placement on the new link to source in the Definition metadata" src="https://github.com/microsoft/dotnet-blog/assets/49200399/06ef2bbf-f0be-4394-ae4c-655da9b97bfb">
+![Screenshot of String Class showing placement on the new link to source in the Definition metadata](string-class-example.png)
+
 
 In cases where overloads are present, the links are included below the overload title. The following image of [`String.IndexOf`](https://learn.microsoft.com/dotnet/api/system.string.indexof?view=net-8.0#system-string-indexof(system-string-system-int32-system-int32)) method demonstrates this pattern:
 
-<img width="600" alt="Screenshot of String.IndexOf Method showing placement on the new link to source below the overload title" src="https://github.com/microsoft/dotnet-blog/assets/49200399/09b9e55e-a210-4d92-9d87-54afbffdec6f">
+![Screenshot of String.IndexOf Method showing placement on the new link to source below the overload title](index-of-example.png)
 
 ## How do we build the links?
 
-The .NET reference docs pipeline operates on a set of DLL files and NuGet packages. They are processed by a variety of tools to process and transform them to the html pages you see on Microsoft Learn. Correctly building the links to source requires an understanding of the relationship between source, binaries, and GitHub, and how to tie them together with some existing .NET APIs. In discussing our goal to surface links to source with developers from the .NET and Roslyn teams, it became clear that our requirement was closely aligned with Visual Studio's [Go to definition](https://github.com/dotnet/roslyn/issues/55834) functionality.
+The .NET reference docs pipeline operates on a set of DLL files and NuGet packages. These are processed by a variety of tools to transform their contents into the HTML pages displayed on Microsoft Learn. Correctly building the links to source requires an understanding of the relationship between source, binaries, and GitHub, and how to tie them together with some existing .NET APIs. In discussing our goal to surface links to source with developers from the .NET and Roslyn teams, it became clear that our requirement was closely aligned with Visual Studio's [Go to definition](https://github.com/dotnet/roslyn/issues/55834) functionality.
 
 With this understanding and the extensive details of `Go to definition` provided by [@davidwengier](https://github.com/davidwengier) in [Go To Definition improvements for external source in Roslyn](https://devblogs.microsoft.com/dotnet/go-to-definition-improvements-for-external-source-in-roslyn/), we were able to apply a similar approach to build links to source for the docs.
 
@@ -54,6 +55,7 @@ This link can be split into 3 parts:
 1. The first part `https://github.com/dotnet/runtime/blob/5535e31a712343a63f5d7d796cd874e563e5ac14` is parsed from Source Link mapping json and is bound to a specific repository commit.
 2. The second part `src/libraries/System.Private.CoreLib/src/System/String.cs` can be found in `Document` table.
 3. And the last part `#L388C13-L388C25` is built from `SequencePoints` column of `MethodDebugInformation` table. `SequencePoints` blob will map a range of IL instructions in this method block back to the line numbers of its original source code. For more details, go to [Metadata definition](https://github.com/dotnet/runtime/blob/main/docs/design/specs/PortablePdb-Metadata.md#sequence-points-blob).
+
 ![SequencePoints](SequencePoints.png)
 
 We use [System.Reflection.Metadata](https://learn.microsoft.com/dotnet/api/system.reflection.metadata?view=net-8.0) library to iterate all the types/members in this DLL and then match the records in `MethodDebugInformation` table to build the final links.  
@@ -85,7 +87,7 @@ Since we know the link's information is available in the PDB, our next step is t
 
 Currently given a DLL, we will look for 3 places to locate the corresponding PDB:  
 
-1. **Embedded PDB**. If \<DebugType\>embedded\</DebugType\> is specified in your csproj, the PDB file will be embedded in this DLL.
+1. **Embedded PDB**. If `<DebugType>`embedded`</DebugType>` is specified in your csproj, the PDB file will be embedded in this DLL.
 2. **PDB on the disk**. You can put your PDB right next to your DLL.
 3. **Microsoft Symbol Server**. There is a public symbol server where we can download the PDB for the DLL.
 
@@ -93,14 +95,15 @@ See the implementation in Roslyn [PdbFileLocatorService.cs](https://github.com/d
 
 ### Finding the correct PDB version
 
-I would like to talk a little more about how we download the correct version of PDB for a given DLL.  
+We would like to talk a little more about how we download the correct version of PDB for a given DLL.  
 
-Below is a sample PDB download URL and its format is defined in [portable-pdb-signature](https://github.com/dotnet/symstore/blob/main/docs/specs/SSQP_Key_Conventions.md#portable-pdb-signature).  
+Below is a sample PDB download URL and with its format is defined in [portable-pdb-signature](https://github.com/dotnet/symstore/blob/main/docs/specs/SSQP_Key_Conventions.md#portable-pdb-signature).  
 <http://msdl.microsoft.com/download/symbols/System.Private.CoreLib.pdb/8402667829752b9d0b00ebbc1d5a66d9FFFFFFFF/System.Private.CoreLib.pdb>  
 
-You can see we need to provide the PDB file name `System.Private.CoreLib.pdb` and a GUID `8402667829752b9d0b00ebbc1d5a66d9FFFFFFFF`in the URL. So the question is where we can get these information?  
+From the URL pattern we can observe we need to provide the PDB file name `System.Private.CoreLib.pdb` and a GUID `8402667829752b9d0b00ebbc1d5a66d9FFFFFFFF`. So the question is where we can this information?
 
 Previously we used dotPeek to open a DLL to look for the `Source Link` entry. Now we can open it again and check the `Metadata` section.
+
 ![Debug Directory](debug-directory.png)
 
 In the above screenshot, we can find this GUID in the `Debug Directory` and the entry must be a portable code view entry. The `Path` attribute of this entry stands for the path to the PDB file which we can get the file name from it.
@@ -159,7 +162,8 @@ If the community shares the same requirement, please comment to vote for us. Tha
 ### Give us your feedback
 
 We would love to get your feedback on using the links so please let us know what you think! And if you find any issue related to the links, don't hesitate to share using the feedback controls or open a GitHub issue on the related docs repo.
-![feedback](feedback.png)
+
+![Screenshot showing placement of the feedback controls](feedback.png)
 
 ### Lastly, acknowledgments
 
