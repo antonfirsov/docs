@@ -12,7 +12,7 @@ summary: '.NET API reference docs now link directly to the source code! Learn ho
 post_date: 2024-05-27 08:00:00
 ---
 
-When developers read API reference, they sometimes have a need or desire to review the corresponding source code. Until recently, the [.NET API reference docs](https://learn.microsoft.com/dotnet/api/) did not provide a link back to the source code, prompting calls from the community for this addition. In response to this feedback, we are happy to announce links connecting docs to the source code are now available on most of our popular .NET APIs. 
+When developers read API reference, they sometimes have a need or desire to review the corresponding source code. Until recently, the [.NET API reference docs](https://learn.microsoft.com/dotnet/api/) did not provide a link back to the source code, prompting calls from the community for this addition. In response to this feedback, we are happy to announce links connecting docs to the source code are now available on most of our popular .NET APIs.
 
 In this blog post, we will share details about how we added the links to the docs experience and how we made use of existing APIs to deliver this improvement.
 
@@ -37,7 +37,7 @@ With this understanding and the extensive details of `Go to definition` provided
 
 [Source Link](https://github.com/dotnet/sourcelink) is a technology that enables .NET developers to debug the source code of assemblies referenced by their applications. Though originally intended for source debugging, Source Link is perfectly adaptable to our scenario. Every .NET project which enabled Source Link will generate a mapping from a relative folder path to an absolute repository URL in PDB (Program Database). This is as described in the [Go To Definition improvements for external source in Roslyn](https://devblogs.microsoft.com/dotnet/go-to-definition-improvements-for-external-source-in-roslyn/#source-link) blog post by [@davidwengier](https://github.com/davidwengier).
 
-To view the `Source Link` entry, you can open the DLL using dotPeek or [ILSpy](https://github.com/icsharpcode/ILSpy). The following screenshot shows an example accessing the `Source Link` entry with dotPeek by navigating to `Portable PDB Metadata` then the `CustomDebugInformation` table:
+To view the `Source Link` entry, you can open the DLL using dotPeek or [ILSpy](https://github.com/icsharpcode/ILSpy). The following screenshot shows an example accessing the `Source Link` entry of `System.Private.CoreLib` with dotPeek by navigating to `Portable PDB Metadata` then the `CustomDebugInformation` table:
 
 ![Source Link in PDB](sourcelink-pdb.png)
   
@@ -53,8 +53,8 @@ For example, the link we built for `String.Clone` method is: <https://github.com
 This link can be split into 3 parts:
 
 1. The first part `https://github.com/dotnet/runtime/blob/5535e31a712343a63f5d7d796cd874e563e5ac14` is parsed from Source Link mapping json and is bound to a specific repository commit.
-2. The second part `src/libraries/System.Private.CoreLib/src/System/String.cs` can be found in `Document` table.
-3. And the last part `#L388C13-L388C25` is built from `SequencePoints` column of `MethodDebugInformation` table. `SequencePoints` blob will map a range of IL instructions in this method block back to the line numbers of its original source code. For more details, go to [Metadata definition](https://github.com/dotnet/runtime/blob/main/docs/design/specs/PortablePdb-Metadata.md#sequence-points-blob).
+2. The second part `src/libraries/System.Private.CoreLib/src/System/String.cs` can be found in `Document` table of the PDB.
+3. And the last part `#L388C13-L388C25` is built from `SequencePoints` column of `MethodDebugInformation` table. `SequencePoints` blob will map a range of IL instructions in this method block back to the line numbers of its original source code as demonstrated in below screenshot. For more details, go to [SequencePoints Metadata definition](https://github.com/dotnet/runtime/blob/main/docs/design/specs/PortablePdb-Metadata.md#sequence-points-blob).
 
     ![SequencePoints](SequencePoints.png)
 
@@ -95,9 +95,9 @@ See the implementation in Roslyn [PdbFileLocatorService.cs](https://github.com/d
 
 ### Finding the correct PDB version
 
-We would like to talk a little more about how we download the correct version of PDB for a given DLL.  
+We would like to talk a little more about how we download the correct version of PDB for a given DLL from Microsoft Symbol Server.
 
-Below is a sample PDB download URL and with its format is defined in [portable-pdb-signature](https://github.com/dotnet/symstore/blob/main/docs/specs/SSQP_Key_Conventions.md#portable-pdb-signature).  
+Below is a sample PDB download URL and with its format defined in [portable-pdb-signature](https://github.com/dotnet/symstore/blob/main/docs/specs/SSQP_Key_Conventions.md#portable-pdb-signature).  
 <http://msdl.microsoft.com/download/symbols/System.Private.CoreLib.pdb/8402667829752b9d0b00ebbc1d5a66d9FFFFFFFF/System.Private.CoreLib.pdb>  
 
 From the URL pattern we can observe we need to provide the PDB file name `System.Private.CoreLib.pdb` and a GUID `8402667829752b9d0b00ebbc1d5a66d9FFFFFFFF`. So the question is where can we find this information?
@@ -136,7 +136,7 @@ As mentioned earlier, our .NET reference docs pipeline operates on a collection 
 
 Once we find the correct DLL/PDB files and successfully build the links to source, we save this information as a JSON file in the target docs GitHub repo.
 
-To understand how we will use this information, we need to revisit the .NET reference docs pipeline. The pipeline creates an XML file for each unique type, which our build system later converts into an HTML page that is presented on Microsoft Learn. To map an API in the XML to its corresponding links to source found in the JSON file we use the unique identifier `DocId`. This value is present in both the XML (`DocId`) and JSON (`DocsId`).
+To understand how we will use this information, we need to revisit the .NET reference docs pipeline. The pipeline creates an XML file for each unique type, which our build system later converts into an HTML page that is presented on Microsoft Learn. To map an API in the XML to its corresponding links to source found in the JSON file we use the unique identifier `DocId`. This value is present in both the XML (`DocId`) and the JSON (`DocsId`).
 
 For example, the `DocId` for `System.String` is [`T:System.String`](https://github.com/dotnet/dotnet-api-docs/blob/main/xml/System/String.xml#L4). This `DocId` value will be used to locate the link to source within the [System.Private.CoreLib.json](https://github.com/dotnet/dotnet-api-docs/blob/main/xml/SourceLinkInformation/net-8.0/System.Private.CoreLib.json) file (for its corresponding version).
 
@@ -151,7 +151,7 @@ To know about how to generate a `DocId`, see [DocCommentId.cs](https://github.co
 
 In our current implementation we are aware of a few limitations:
 
-1. For types with no document info recorded in PDB such as enums or interfaces, a new GUID [TypeDefinitionDocuments](https://github.com/dotnet/roslyn/blob/3226945381c21b8057771851329e7369dac6101a/src/Dependencies/CodeAnalysis.Debugging/PortableCustomDebugInfoKinds.cs#L25) was introduced in `CustomDebugInformation` table to solve this problem. However this information will be trimmed sometimes for some DLLs and makes us unable to produce the links. See the bug details here <https://github.com/dotnet/runtime/issues/100051#issuecomment-2071113430>.
+1. For types with no document info recorded in PDB such as enums or interfaces, a new GUID [TypeDefinitionDocuments](https://github.com/dotnet/roslyn/blob/3226945381c21b8057771851329e7369dac6101a/src/Dependencies/CodeAnalysis.Debugging/PortableCustomDebugInfoKinds.cs#L25) was introduced in `CustomDebugInformation` table to solve this problem. However this information will be trimmed sometimes for some DLLs and makes us unable to produce the links. See the bug details here <https://github.com/dotnet/runtime/issues/100051>.
 2. For class members which are defined without a body (e.g. extern or abstract), there is no line information (SequencePoints) included in the PDB. Because of this, we are unable to direct to a span range and instead direct to the entire file. A future improvement is planned to address this.
 
 ### Another idea for improvement
