@@ -136,7 +136,7 @@ As mentioned earlier, our .NET reference docs pipeline operates on a collection 
 
 Once we find the correct DLL/PDB files and successfully build the links to source, we save this information as a JSON file in the target docs GitHub repo.
 
-To understand how we will use this information, we need to revisit the .NET reference docs pipeline. The pipeline creates an XML file for each unique type, which our build system later converts into an HTML page that is presented on Microsoft Learn. To map an API in the XML to its corresponding links to source found in the JSON file we use the unique identifier `DocId`. This value is present in both the XML (`DocId`) and the JSON (`DocsId`).
+To understand how we will use this information, we need to revisit the .NET reference docs pipeline. The pipeline creates an XML file for each unique type, which our build system later converts into an HTML page that is presented on Microsoft Learn. To map an API in the XML to its corresponding links to source found in the JSON file we use the unique identifier [DocId](https://learn.microsoft.com/dotnet/csharp/language-reference/language-specification/documentation-comments#d42-id-string-format). This value is present in both the XML (`DocId`) and the JSON (`DocsId`).
 
 For example, the `DocId` for `System.String` is [`T:System.String`](https://github.com/dotnet/dotnet-api-docs/blob/main/xml/System/String.xml#L4). This `DocId` value will be used to locate the link to source within the [System.Private.CoreLib.json](https://github.com/dotnet/dotnet-api-docs/blob/main/xml/SourceLinkInformation/net-8.0/System.Private.CoreLib.json) file (for its corresponding version).
 
