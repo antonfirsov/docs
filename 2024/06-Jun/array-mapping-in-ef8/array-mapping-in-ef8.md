@@ -1,13 +1,14 @@
-﻿---
-post_title: "A beginner's guide to mapping arrays in EF Core 8"
+---
+post_title: A beginner's guide to mapping arrays in EF Core 8
 author1: avickers@microsoft.com
 post_slug: array-mapping-in-ef-core-8
 microsoft_alias: avickers
 featured_image: ef8mappingarrays.jpg
 categories: .NET, Entity Framework
 tags: ef core, efcore, entity framework, postgresql, azure sql
-summary: EF Core 8 introduces support for mapping typed arrays of simple values to database columns such that the semantics of the mapping is understood and can be used in the SQL generated from LINQ queries.
-post_date: 2024-06-04 10:00:00
+ai_note: hide
+summary: EF Core 8 introduces support for mapping typed arrays of simple values to database columns so the semantics of the mapping can be used in the SQL generated from LINQ queries.
+post_date: 2024-06-04 10:05:00
 ---
 
 Entity Framework Core blog posts can get difficult fast! In this post, we're going to try to keep it basic, while still imparting more than just trivial information. EF Core 8 has been out for six months now, and one of its great new features is mapping for arrays. Let's jump in!
