@@ -13,7 +13,7 @@ post_date: 2024-05-21 10:05:00
 
 At [Microsoft Build 2024](https://build.microsoft.com/), we're thrilled to unveil a new set of features and tools designed to make .NET development faster and easier.
 
-Explore the [.NET sessions at Microsoft Build 2024](https://devblogs.microsoft.com/dotnet/join-the-dotnet-team-microsoft-build-2024/) to see the new features in action, or [try them yourself](https://aka.ms/dotnet/9/preview4) by downloading .NET 9 Preview 4 today. 
+Explore the [.NET sessions at Microsoft Build 2024](https://www.youtube.com/watch?v=8OviTSFqucI) to see the new features in action, or [try them yourself](https://aka.ms/dotnet/9/preview4) by downloading .NET 9 Preview 4 today. 
 
 ![Overview diagram of .NET and it's frameworks, tools, and ecosystem](./build-dotnet-overview.png)
 
