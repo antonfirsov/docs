@@ -34,4 +34,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}  
         COMMIT_ID: ${{github.event.pull_request.head.sha}}
+        AUTHORS_LIST_URL: ${{secrets.AUTHORS_LIST_URL}}
       run: dotnet run --project tools/blog-validate/blog-validate.csproj -- . --categories categories.txt --base-ref $GITHUB_BASE_REF --ref $GITHUB_SHA

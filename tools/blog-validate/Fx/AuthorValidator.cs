@@ -21,6 +21,11 @@ internal sealed class AuthorValidator
             {
                 var client = new HttpClient();
                 string AuthorsUrl = Environment.GetEnvironmentVariable("AUTHORS_LIST_URL")!;
+                if(string.IsNullOrEmpty(AuthorsUrl))
+                {
+                    Console.WriteLine("AUTHORS_LIST_URL environment variable is not set");
+                    return false;
+                }
                 var response = await client.GetAsync(AuthorsUrl);
                 content = await response.Content.ReadAsStringAsync();
             }
