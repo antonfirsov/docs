@@ -1,8 +1,9 @@
-﻿namespace Microsoft.DotNetBlog;
+﻿using static System.Net.WebRequestMethods;
+
+namespace Microsoft.DotNetBlog;
 
 internal sealed class AuthorValidator
 {
-    private const string AuthorsUrl = "https://dotnetdevblogids.blob.core.windows.net/blogauthors/blog-authors.csv?sp=r&st=2024-01-18T17:57:07Z&se=2025-02-01T01:57:07Z&spr=https&sv=2022-11-02&sr=b&sig=NEyCEfytvioZghOgu5YHfyP7ePRJLS3GIG8Fe30j%2F8E%3D";
     private string[]? authors;
 
     public async Task<bool> IsValidAsync(string author)
@@ -12,13 +13,14 @@ internal sealed class AuthorValidator
             string content;
             var CacheFilePath = GetCacheFileName();
             bool isGitHubActions = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true";
-            if (!isGitHubActions && File.Exists(CacheFilePath))
+            if (!isGitHubActions && System.IO.File.Exists(CacheFilePath))
             {
-                content = await File.ReadAllTextAsync(CacheFilePath);
+                content = await System.IO.File.ReadAllTextAsync(CacheFilePath);
             }
             else
             {
                 var client = new HttpClient();
+                string AuthorsUrl = Environment.GetEnvironmentVariable("AUTHORS_LIST_URL")!;
                 var response = await client.GetAsync(AuthorsUrl);
                 content = await response.Content.ReadAsStringAsync();
             }
