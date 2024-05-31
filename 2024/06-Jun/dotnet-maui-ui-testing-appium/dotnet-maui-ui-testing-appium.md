@@ -23,7 +23,7 @@ At the level that Appium operates, it does not matter with which framework you a
 
 ### What Appium isn't
 
-While we use Appium for our testing, Appium only provides a way to interact with the user-interface and facilitates UI testing. It does _not_ provide a way to actually run tests. For this you can use whatever runner you want. For use with .NET this will likely be NUnit or xUnit. Throughout this blog post we will be using NUnit, where applicable I will call out what might be different when you are using another test runner framework.
+While we use Appium for our testing, Appium only provides a way to interact with the user-interface and facilitates UI testing. It does _not_ provide a way to actually run tests. For this you can use whatever runner you want. For use with .NET this will likely be MSTest, NUnit or xUnit. Throughout this blog post we will be using NUnit, where applicable I will call out what might be different when you are using another test runner framework.
 
 ## Appium & .NET MAUI
 
@@ -101,7 +101,7 @@ Each of the platform projects have a couple of NuGet packages installed:
 * [NUnit](https://www.nuget.org/packages/NUnit); provides test running capabilities to run our tests.
 * [NUnit3TestAdapter](https://www.nuget.org/packages/NUnit3TestAdapter); provides the integration of NUnit test inside of Visual Studio.
 
-If you want to use another test runner framework (like xUnit) you will want to replace the latter two.
+If you want to use another test runner framework (like MSTest or xUnit) you will want to replace the latter two.
 
 #### Code Sharing Considerations
 
@@ -115,7 +115,7 @@ Something that is not very obvious but good to know is that you will want to kee
 
 #### Platform-Specific Setup
 
-In the screenshot above you can see that the UITests.Windows project has 2 files: AppiumSetup.cs and PlatformSpecificSampleTest.cs. We will get into the latter in a minute, for now let's focus on AppiumSetup. This file is present in each of the platform projects and configures Appium and the Appium driver for that platform.
+In the screenshot above you can see that the UITests.Windows project has 2 files: `AppiumSetup.cs` and `PlatformSpecificSampleTest.cs`. We will get into the latter in a minute, for now let's focus on AppiumSetup. This file is present in each of the platform projects and configures Appium and the Appium driver for that platform.
 
 Find the full code for the Windows implementation below, in the full code some helpful comments are added, those are omitted here for brevity.
 
@@ -178,6 +178,12 @@ Especially for iOS and Android it will be important to configure what device or 
 The iOS options let you specify an iOS version and device name which can refer to either a specific Simulator or physical device.
 
 Lastly, the `RunAfterAnyTests` will close the Appium driver that we used and shutdown the Appium server if we started one through our helper code in this project. Again, if you do not wish to use that, simply remove the line that disposes the Appium server.
+
+##### Android Activity Configuration
+
+For running the tests on Android you will need to add something extra to the .NET MAUI app that you want to test. If you go into the `AppiumSetup.cs` under the UITests.Android project, you will notice there are comments in there with instructions. 
+
+The main thing you want to do here is add a `[Register("your.application.identifier.MainActivity")]` attribute to your `MainActivity`. This is needed so that Appium can start your Android app correctly. Make sure that this is added to your `MainActivity` class and the value for the `Register` attribute matched the configuration in your `AppiumSetup.cs`. Please refer to the [sample code repository](https://github.com/dotnet/maui-samples/tree/main/8.0/UITesting/BasicAppiumNunitSample) to see how it all fits together.
 
 ### Writing Tests
 
@@ -250,7 +256,7 @@ In the sample project for each platform I have added such a class. The actual te
 
 ### Running Tests
 
-Appium is a framework that can interact with the UI. It does not actually know how to run tests. This means that you can use a test runner of your liking such as NUnit or xUnit. As mentioned earlier, for this sample we used NUnit, but using another test runner that you are familiar with should be self-explanatory.
+Appium is a framework that can interact with the UI. It does not actually know how to run tests. This means that you can use a test runner of your liking such as MSTest, NUnit or xUnit. As mentioned earlier, for this sample we used NUnit, but using another test runner that you are familiar with should be self-explanatory.
 
 From here there are roughly two ways to run your tests. Either locally on your machine, where everything will flash across your screen and you can inspect the results. Typically this is what you want to do to verify new tests your writing and implementing and not to run full test suites.
 
@@ -312,11 +318,21 @@ Setting up and running with BrowserStack is very easy, but a bit out of scope fo
 
 With a service like BrowserStack's App Automate, you don't have to rely on hosted build agents and emulator setup, just build your app as usual, upload that together with your tests to BrowserStack and they can run it on a variety of physical devices with different configurations in a fraction of the time.
 
+### UI Testing Templates for Your Project
+
+To make it even easier to add all of this to your own .NET MAUI solution, I have created a set of templates. After you have installed these, you can add UI testing projects for your .NET MAUI app just like any other project type from within Visual Studio or using the command-line.
+
+![Visual Studio Add Project dialog showing the templates](uitest-templates.png)
+
+The templates include both project templates using MSTest, NUnit or xUnit as well as item templates to easily add new UI test classes.
+
+For more information about these templates, please refer to the [GitHub repository](https://github.com/jfversluis/Template.Maui.UITesting).
+
 ## Summary
 
 Adding UI tests to your app development is a really powerful tool. It will help you deliver better quality apps with less regressions and helps you release your apps with confidence.
 
-Implementing user-interface testing for your .NET MAUI app is a breeze. Use your favorite test runner framework like NUnit or xUnit and then add Appium in the mix which is a proven, solid UI test framework that just works.
+Implementing user-interface testing for your .NET MAUI app is a breeze. Use your favorite test runner framework like MSTest, NUnit or xUnit and then add Appium in the mix which is a proven, solid UI test framework that just works.
 
 All of that integrates nicely with what Visual Studio offers out of the box so that you can start implementing and debugging tests with help of the Test Explorer or `dotnet test` just as you're used to for other types of testing.
 
