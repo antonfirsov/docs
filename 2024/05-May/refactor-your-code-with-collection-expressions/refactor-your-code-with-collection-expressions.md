@@ -14,8 +14,8 @@ This post is the second in a series of posts covering various refactoring scenar
 
 1. [Refactor your C# code with primary constructors](https://devblogs.microsoft.com/dotnet/csharp-primary-constructors-refactoring/)
 1. Refactor your C# code with collection expressions (this post)
-1. Refactor your C# code by aliasing any type
-1. Refactor your C# code to use default lambda parameters
+1. [Refactor your C# code by aliasing any type](https://devblogs.microsoft.com/dotnet/refactor-your-code-using-alias-any-type/)
+1. [Refactor your C# code to use default lambda parameters](https://devblogs.microsoft.com/dotnet/refactor-your-code-with-default-lambda-parameters/)
 
 These features continue our journey to make our code more readable and maintainable, and these are considered "Everyday C#" features that developers should know.
 

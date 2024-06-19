@@ -11,7 +11,12 @@ summary: Explore C# 12's primary constructors through incremental refactoring of
 post_date: 2024-04-23 10:05:00
 ---
 
-[C# 12 as part of .NET 8][csharp-12] introduced a compelling set of new features! In this post, we explore one of these features, specifically _primary constructors_, explaining its usage and relevance. We'll then demonstrate a sample refactoring to show how it can be applied in your code, discussing the benefits and potential pitfalls. This will help you understand the impact of the change and help influence your adoption of the feature.
+This post is the first in a series of four posts, exploring various C# 12 features.  In this post, we explore one of these features, specifically _primary constructors_, explaining its usage and relevance. We'll then demonstrate a sample refactoring to show how it can be applied in your code, discussing the benefits and potential pitfalls. This will help you understand the impact of the change and help influence your adoption of the feature. Here is a list of posts in this series:
+
+1. Refactor your C# code with primary constructors (this post)
+1. [Refactor your C# code with collection expressions](https://devblogs.microsoft.com/dotnet/refactor-your-code-with-collection-expressions/)
+1. [Refactor your C# code by aliasing any type](https://devblogs.microsoft.com/dotnet/refactor-your-code-using-alias-any-type/)
+1. [Refactor your C# code to use default lambda parameters](https://devblogs.microsoft.com/dotnet/refactor-your-code-with-default-lambda-parameters/)
 
 ## Primary Constructors 1️⃣
 
