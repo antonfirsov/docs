@@ -74,4 +74,12 @@ After this main event presented in English, the world-wide tour of Let's Learn .
 * [July 10th 2024 - Japanese](https://www.youtube.com/watch?v=Cm7mqHZJIgc&list=PLdo4fOcmZ0oVGRpRwbMhUA0KAvMA2mLyN&index=2) with Kazuku Ota and Miho Kurmimoto
 
 
-New Let's Learn .NET Aspire world-wide events will be announced soon, so check back and be sure to subscribe to [.NET on YouTube](https://youtube.com/@dotnet). Hope to see you at an upcoming event!
+New Let's Learn .NET Aspire world-wide events will be announced soon, so check back and be sure to subscribe to [.NET on YouTube](https://youtube.com/@dotnet).
+
+## Host a local user group meetup on .NET Aspire
+
+Calling all user group organizers and speakers! We need your help to bring .NET Aspire to more local .NET communities around the globe! We have the content, we have the training material, and all we need is you! Give a presentation or do a full workshop by organizing a local meetup in your area and let us know about it. We will help promote the event across our social channels and we will do our best to send you some swag ahead of time based on your location.
+
+Once you have your meetup scheduled simply [fill out this form](https://aka.ms/AAr0hen) and let us know about it!
+
+Hope to see you at an upcoming event!
