@@ -24,7 +24,9 @@ Are you ready to take your .NET development skills to the next level? We are thr
 Throughout the day, you'll have opportunities to engage with our speakers through live Q&A sessions, polls, and interactive demos. This is your chance to ask questions, share your experiences, and connect with fellow developers from around the world.
 
 ## Bonus Learning Opportunity
-Before diving into .NET Aspire Developers Day, check out our **Let’s Learn .NET Aspire** event on June 27. This beginner video series will teach you the fundamentals of using C# and .NET to build real-world apps. The June 27 session will delve into building cloud-native apps with .NET Aspire. This series will be streamed live and then available on demand. While it's a great way to get started, it is not a pre-requirement for joining the Developers Day event.
+Before diving into .NET Aspire Developers Day, check out our beginner series of [Let’s Learn .NET Aspire events](https://devblogs.microsoft.com/dotnet/lets-learn-dotnet-aspire/) on June 27th. This series will be streamed live and then available on demand in multiple languages, including Japanese, Portuguese, Korean, and French.
+
+Then join us on June 27th for .NET Aspire Developers Day, where we'll dive deeper into building cloud-native apps with .NET Aspire. However, the Let's Learn events are not a pre-requirement for joining the .NET Aspire Developers Day event.
 
 ## Why Attend?
 - **Learn from the Best:** Gain insights from .NET experts and community leaders who have a wealth of experience and knowledge.
