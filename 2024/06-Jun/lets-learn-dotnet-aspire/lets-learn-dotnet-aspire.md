@@ -21,7 +21,7 @@ We are providing a [full collection]( https://aka.ms/letslearn/dotnet/aspire) fo
 
 The first thing that you will want to do is grab our [full workshop](https://github.com/dotnet-presentations/letslearn-dotnet-aspire) and clone it from GitHub to your local development machine. This repo will give you everything you need including the start and finish projects for the workshop, workshop guides for each step, and the full presentation that you can at any time.
 
-This is an all-new workshop where you'll be building out a weather browser with a Blazor front-end, interacting with live weather data.
+This is an all-new workshop where you'll be building out a weather browser with a Blazor front-end, interacting with live weather data from the US National Weather Service.
 
 ![Workshop weather app screenshot](./aspire-weather-app.jpg)
 
