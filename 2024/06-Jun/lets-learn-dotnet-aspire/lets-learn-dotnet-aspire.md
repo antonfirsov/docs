@@ -70,8 +70,9 @@ After this main event presented in English, the world-wide tour of Let's Learn .
 
 * [June 28th, 2024 - French](https://www.youtube.com/watch?v=jJiqqVPDN4w&list=PLdo4fOcmZ0oVGRpRwbMhUA0KAvMA2mLyN&index=3) with Frank Boucher
 * [July 1st, 2024 - Korean](https://www.youtube.com/watch?v=rTpNgMaVM6g&list=PLdo4fOcmZ0oVGRpRwbMhUA0KAvMA2mLyN&index=2) with Jinseok Kim and Gusam Park
+* [July 10th, 2024 - Mandarin](http://live.bilibili.com/21704593) with Kinfey Lo
 * [July 10th, 2024 - Portuguese](https://www.youtube.com/watch?v=PUCU9ZOOgQ8&list=PLdo4fOcmZ0oVGRpRwbMhUA0KAvMA2mLyN&index=0) with Jorge Arteiro and Alexandre Costa
-* [July 10th 2024 - Japanese](https://www.youtube.com/watch?v=Cm7mqHZJIgc&list=PLdo4fOcmZ0oVGRpRwbMhUA0KAvMA2mLyN&index=2) with Kazuku Ota and Miho Kurmimoto
+* [July 11th, 2024 - Japanese](https://www.youtube.com/watch?v=Cm7mqHZJIgc&list=PLdo4fOcmZ0oVGRpRwbMhUA0KAvMA2mLyN&index=2) with Kazuku Ota and Miho Kurmimoto
 
 
 New Let's Learn .NET Aspire world-wide events will be announced soon, so check back and be sure to subscribe to [.NET on YouTube](https://youtube.com/@dotnet).
