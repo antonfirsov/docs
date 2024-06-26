@@ -73,7 +73,8 @@ After this main event presented in English, the world-wide tour of Let's Learn .
 * [July 10th, 2024 - Mandarin](http://live.bilibili.com/21704593) with Kinfey Lo
 * [July 10th, 2024 - Portuguese](https://www.youtube.com/watch?v=PUCU9ZOOgQ8&list=PLdo4fOcmZ0oVGRpRwbMhUA0KAvMA2mLyN&index=0) with Jorge Arteiro and Alexandre Costa
 * [July 11th, 2024 - Japanese](https://www.youtube.com/watch?v=Cm7mqHZJIgc&list=PLdo4fOcmZ0oVGRpRwbMhUA0KAvMA2mLyN&index=2) with Kazuku Ota and Miho Kurmimoto
-
+* [July 11th, 2024 - Africa](https://www.youtube.com/watch?v=gOwwJiNY-Y0) with Japhlet Nwamu and Someleze Diko
+* [July 12th, 2024 - Vietnamese](https://www.youtube.com/watch?v=gOwwJiNY-Y0) with Thien Nguyen and Thang Chung
 
 New Let's Learn .NET Aspire world-wide events will be announced soon, so check back and be sure to subscribe to [.NET on YouTube](https://youtube.com/@dotnet).
 
