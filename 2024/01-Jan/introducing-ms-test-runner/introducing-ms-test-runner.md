@@ -62,7 +62,7 @@ After making these changes, re-build your test project and your tests will creat
 
 ![Test summary showing 1 passed test.](./passing-tests.png)
 
-[Full example - Simple1](https://github.com/microsoft/testfx/tree/main/samples/mstest-runner/Simple1)
+[Full example - Simple1](https://github.com/microsoft/testfx/tree/main/samples/public/mstest-runner/Simple1)
 
 In the screenshot above you see that we did not need to run `dotnet test`, use `vstest.console` or run in `Visual Studio` to run our tests. Our tests are just a normal console application that discovers and runs tests.
 
@@ -74,7 +74,7 @@ That said the runner does integrate with `dotnet test`, `vstest.console`, `Visua
 
 Running tests directly from an executable removes a lot of the complexity and infrastructure that is normally needed to run tests. Because test projects are no longer special, you can use the existing `dotnet` tooling to do interesting things with your test projects, such as building them as self-contained:
 
-```cli
+```text
 dotnet publish --runtime win-x64 --self-contained
 ```
 
@@ -84,7 +84,7 @@ Or you can use this capability to create a zip file after every failed test run,
 
 Here is another example of running tests against a dotnet application hosted in a docker container that has no dotnet SDK available. A scenario that is a frequent stumbling point for our advanced users:
 
-```cli
+```docker
 RunInDocker> docker build . -t my-server-tests
 
 RunInDocker> docker run my-server-tests
@@ -111,7 +111,7 @@ info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
 Passed! - Failed: 0, Passed: 1, Skipped: 0, Total: 1, Duration: 1.7s - MyServer.Tests.dll (linux-x64 - .NET 8.0.0)
 ```
 
-[Full example - RunInDocker](https://github.com/microsoft/testfx/tree/main/samples/mstest-runner/RunInDocker)
+[Full example - RunInDocker](https://github.com/microsoft/testfx/tree/main/samples/public/mstest-runner/RunInDocker)
 
 Another advantage of MSTest runner portability is that you can now easily debug your tests as you would do for any regular executable. For example, in `Visual Studio` you can now simply:
 
@@ -143,15 +143,15 @@ It also avoids the need for inter-process serialized communication and relies on
 
 In the internal Microsoft projects that switched to use the new MSTest runner, we saw massive savings in both CPU and memory. Some projects seen were able to complete their tests 3 times as fast, while using 4 times less memory when running with `dotnet test`.
 
-Even though those numbers might be impressive, there are much bigger gains to get when you enable parallel test runs in your test project. To help with this, we added a new set of analyzers for [MSTest code analysis](https://learn.microsoft.com/dotnet/core/testing/unit-testing-mstest-analyzers) that promote good practice and correct setup of your tests.
+Even though those numbers might be impressive, there are much bigger gains to get when you enable parallel test runs in your test project. To help with this, we added a new set of analyzers for [MSTest code analysis](https://learn.microsoft.com/dotnet/core/testing/mstest-analyzers/overview) that promote good practice and correct setup of your tests.
 
 ### Reliability
 
 MSTest runner is setting new defaults, that are safer and make it much harder for you to accidentally miss running any of your tests. When making decisions we always err on the side of being stricter, and let you choose when you don’t need this strictness.
 
-For example, MSTest runner will fail by default when there are zero tests run from a project, this can be controlled by `--minimum-expected-tests`, which defaults to `1`. You can set it to `0`, to not fail on you when there are no tests, but you can easily set it to a higher number to prevent regressions:
+For example, MSTest runner will fail by default when there are zero tests run from a project, this can be controlled by `--minimum-expected-tests`, which defaults to `1`, but you can easily set it to a higher number to prevent regressions:
 
-```cli
+```text
 C:\p\testfx\samples\mstest-runner\Simple1> C:\p\testfx\artifacts\bin\Simple1\Debug\net8.0\Simple1.exe --minimum-expected-tests 10
 Microsoft(R) Testing Platform Execution Command Line Tool
 Version: 1.0.0-preview.23622.9+fe96e7475 (UTC 2023/12/22)
@@ -159,6 +159,8 @@ RuntimeInformation: win-x64 - .NET 8.0.0
 Copyright(c) Microsoft Corporation.  All rights reserved.
 Minimum expected tests policy violation, tests ran 1, minimum expected 10 - Failed: 0, Passed: 1, Skipped: 0, Total: 1, Duration: 153ms - Simple1.dll (win-x64 - .NET 8.0.0)
 ```
+
+To not fail on you when there are no tests, you can use `--ignore-exit-code 8`, [learn more about how to ignore some special exit codes.](https://learn.microsoft.com/dotnet/core/testing/unit-testing-platform-exit-codes)
 
 But this is not the only reliability improvement. We wrote MSTest runner from ground up to make it more reliable.
 
