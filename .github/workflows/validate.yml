@@ -14,13 +14,13 @@ jobs:
     steps:
  
     - name: Clone repo with full history
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0 # We need the full history in order to figure
                        # out which files we need to validate.
 
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
 
