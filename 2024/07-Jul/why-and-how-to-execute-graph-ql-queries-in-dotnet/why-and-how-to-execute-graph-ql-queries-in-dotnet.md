@@ -20,7 +20,11 @@ In this post, I will show you how to query a GraphQL API in .NET using Strawberr
 
 This post will familiarize you with GraphQL in a .NET application, and will provide you with context to better understand the Blazor and Maui implementations if you are using those technologies.
 
-Note: You can find the code for this post in the [startrek-demo](https://github.com/fboucher/startrek-demo) GitHub repo.
+## The API and the Database
+
+For this post, I really want to focus on the GraphQL implementation. The sample is using a SQL Server instance paired with a GraphQL API genarated with Data API Builder both running locally in Docker containers - if you really want to follow along you can find the [setup steps and T-SQL script in the repo](https://github.com/FBoucher/startrek-demo#database-and-apis-in-containers). But the important part is that this will work with any data source that you want to expose through GraphQL.
+
+You can also find the code for this post in the [startrek-demo](https://github.com/fboucher/startrek-demo) GitHub repo.
 
 ## Let's create the console application
 
@@ -39,7 +43,7 @@ dotnet new tool-manifest
 dotnet tool install StrawberryShake.Tools --local
 ```
 
-In GraphQL, APIs are defined by a schema. This is similar to how OpenAPI is used to document REST endpoints. Like OpenAPI, you can use the schema to generate the code for .NET clients that are ready "out of the box" to consume their owned data. This is how Strawberry Shake will generate a client for us based on the schema. To download the GraphQL schema and generate the client code specifying the client name "StartrekClient", run the following command:
+In GraphQL, APIs are defined by a schema. This is similar to how OpenAPI is used to document REST endpoints. Like OpenAPI, you can use the schema to generate the code for .NET clients that are ready "out of the box" to consume their owned data. This is how Strawberry Shake will generate a client for us based on the schema. The Startrek GraphQL API is running locally, and accessible at `http://localhost:5000/graphql`. To download the GraphQL schema, and generate the client code specifying the client name "StartrekClient", run the following command:
 
 ```powershell
 dotnet graphql init http://localhost:5000/graphql -n StartrekClient
