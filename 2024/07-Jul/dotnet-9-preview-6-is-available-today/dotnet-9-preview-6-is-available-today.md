@@ -20,27 +20,27 @@ This release contains the following improvements:
 **📚Libraries:**
 - [Improvements to System.Numerics](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#improvements-to-systemnumerics)
 - [Support Primary Constructors in Logging Source Generator](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#support-primary-constructors-in-logging-source-generator)
-- [System.Text.Json](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#systemtextjson)
-- [`[GeneratedRegex]` on properties](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#generatedregex-on-properties)
-- [`Regex.EnumerateSplits`](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#regexenumeratesplits)
-- [`OrderedDictionary<TKey, TValue>`](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#ordereddictionarytkey-tvalue)
-- [`ReadOnlySet<T>`](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#readonlysett)
+- [System.Text.Json enhancements](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#systemtextjson) including a new [JsonSchemaExporter](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#jsonschemaexporter), [nullable annotations recognition](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#respecting-nullable-annotations), [requiring non-optionsl constructor parameters](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#requiring-non-optional-constructor-parameters), [ordering `JsonObject` properties](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#ordering-jsonobject-properties), and new [contract metadata APIs](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#additional-contract-metadata-apis)
+- [`[GeneratedRegex]` can now be used on properties](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#generatedregex-on-properties)
+- New [`EnumerateSplits`](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#regexenumeratesplits) method for `Regex` to split more collection types
+- Introduction of generic `OrderedDictionary` with [`OrderedDictionary<TKey, TValue>`](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#ordereddictionarytkey-tvalue) 
+- New [`ReadOnlySet<T>`](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#readonlysett) when needing to create a read-only wrapper around `ISet<T>`
 - [`allows ref struct` used in many places throughout the libraries](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#allows-ref-struct-used-in-many-places-throughout-the-libraries)
 - [Collection lookups with spans](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#collection-lookups-with-spans)
-- [More span-based APIs](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#more-span-based-apis)
-- [Base64Url](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#base64url)
+- [More span-based APIs](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#more-span-based-apis) including `StartsWith` and `EndsWith` extension methods
+- [Base64Url](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#base64url) for optimized encoding and decoding
 - [SocketsHttpHandler by default in HttpClientFactory](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#socketshttphandler-by-default-in-httpclientfactory)
 - [TLS resume with client certificates on Linux](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#tls-resume-with-client-certificates-on-linux)
-- [`System.Net.ServerSentEvents`](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#systemnetserversentevents)
-- [Introducing the Metrics Gauge Instrument](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#introducing-the-metrics-gauge-instrument)
+- New [`System.Net.ServerSentEvents`](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#systemnetserversentevents) library providing a parser for easily ingesting server-sent events
+- [Introducing the Metrics Gauge Instrument](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md#introducing-the-metrics-gauge-instrument) in `System.Diagnostics.Metrics` to record non-additive values when changes occur
 - Full [release notes](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/libraries.md)
 
 **⏱️Runtime:**
-- [ARM64 Code Generation](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/runtime.md#arm64-code-generation)
-- [Code Layout](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/runtime.md#code-layout)
-- [Loop Optimizations](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/runtime.md#loop-optimizations)
-- [Reduced Address Exposure](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/runtime.md#reduced-address-exposure)
-- [AVX10v1 Support](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/runtime.md#avx10v1-support)
+- [ARM64 Code Generation](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/runtime.md#arm64-code-generation) now adds ability to store operations
+- [Code Layout](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/runtime.md#code-layout) - RyuJIT's block reordering algorithm with a simpler, more global approach
+- [Loop Optimizations](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/runtime.md#loop-optimizations) for code size reduction and performance improvements
+- [Reduced Address Exposure](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/runtime.md#reduced-address-exposure) through RyuJIT improvements to better track usage of local variable address
+- [AVX10v1 Support](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/runtime.md#avx10v1-support), a new SIMD instruction set from Intel
 - [Hardware Intrinsic Code Generation](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/runtime.md#hardware-intrinsic-code-generation)
 - [Constant Folding for Floating Point and SIMD Operations](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/runtime.md#constant-folding-for-floating-point-and-simd-operations)
 - Full [release notes](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/runtime.md)
@@ -48,8 +48,8 @@ This release contains the following improvements:
 **🛠️SDK**
 
 - [NuGetAudit now raises warnings for vulnerabilities in transitive dependencies](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/sdk.md#nugetaudit-now-raises-warnings-for-vulnerabilities-in-transitive-dependencies)
-- [`dotnet nuget why`](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/sdk.md#dotnet-nuget-why)
-- [MSBuild BuildChecks](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/sdk.md#msbuild-buildchecks)
+- Addition of [`dotnet nuget why`](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/sdk.md#dotnet-nuget-why) to find out why a transitive package is being used in your project
+- [MSBuild BuildChecks](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/sdk.md#msbuild-buildchecks) to help users enforce rules and invariants during their builds
 - Full [release notes](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/sdk.md)
 
 You can find detailed release notes for additional features in .NET 9 Preview 6 below:
@@ -61,10 +61,10 @@ You can find detailed release notes for additional features in .NET 9 Preview 6 
 
 ## 🌐ASP.NET Core
 
-- [Fingerprinting of static web assets](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/aspnetcore.md#fingerprinting-of-static-web-assets)
-- [Improved distributed tracing for SignalR](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/aspnetcore.md#improved-distributed-tracing-for-signalr)
-- [Enhancements to Microsoft.AspNetCore.OpenAPI](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/aspnetcore.md#enhancements-to-microsoftaspnetcoreopenapi)
-- [Analyzer to warn when `[Authorize]` is overridden by `[AllowAnymous]`](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/aspnetcore.md#analyzer-to-warn-when-authorize-is-overridden-by-allowanymous-from-farther-away)
+- [Fingerprinting of static web assets](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/aspnetcore.md#fingerprinting-of-static-web-assets) ensuring that stale assets aren't used and enables improved caching behavior for faster load time
+- [Improved distributed tracing for SignalR](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/aspnetcore.md#improved-distributed-tracing-for-signalr) with a new `ActivitySource`
+- [Enhancements to Microsoft.AspNetCore.OpenAPI](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/aspnetcore.md#enhancements-to-microsoftaspnetcoreopenapi) including [completion enhancements](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/aspnetcore.md#completion-enhancements-and-package-install-recommendations-for-openapi-package), support for [`[Required]` and `[DefaultValue]` attributes](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/aspnetcore.md#support-for-required-and-defaultvalue-attributes-on-parameters-or-properties), [schema transforms](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/aspnetcore.md#support-for-schema-transformers-on-openapi-document) on OpenAPI documents, 
+- [Analyzer to warn when `[Authorize]` is overridden by `[AllowAnonymous]`](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/aspnetcore.md#analyzer-to-warn-when-authorize-is-overridden-by-allowanonymous-from-farther-away), and new [analyzers](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/aspnetcore.md#analyzer-to-warn-when-authorize-is-overridden-by-allowanonymous-from-farther-away), 
 - [`ComponentPlatform` renamed to `RendererInfo`](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/aspnetcore.md#componentplatform-renamed-to-rendererinfo)
 - [Split large HTTP/2 headers across frames](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/aspnetcore.md#split-large-http2-headers-across-frames)
 - Full [release notes](https://github.com/dotnet/core/blob/main/release-notes/9.0/preview/preview6/aspnetcore.md)
