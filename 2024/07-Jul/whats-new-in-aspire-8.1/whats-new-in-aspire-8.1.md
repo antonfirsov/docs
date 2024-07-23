@@ -1,9 +1,9 @@
 ---
 post_title: What's new in .NET Aspire 8.1 for cloud native developers!
 author1: mitchdenny
-post_slug: whats-new-in-aspire-8.1
+post_slug: whats-new-in-aspire-8-1
 microsoft_alias: midenn
-featured_image: whats-new-in-aspire-8.1.jpg
+featured_image: whatsnewaspire81.jpg
 categories: .NET, .NET Aspire, Cloud, Cloud Native
 tags: .NET, .NET Aspire, Cloud Native
 ai_note: hide
@@ -13,7 +13,7 @@ post_date: 2024-07-23 9:50:00
 
 In May, we released the first official release of [.NET Aspire](https://learn.microsoft.com/dotnet/aspire/get-started/aspire-overview) to the world. We've been encouraged by the enthusiastic response from the .NET community, and we've been actively listening and interacting with developers as you all try it out for the first time.
 
-Today, we are pleased to announce the release of .NET Aspire 8.1. This release includes several new features and quality of life improvements based on feedback from developers using .NET Aspire in production applications. There are two specific features that I will go deeper on in this post which are [support for building container images with `AddDockerfile(...)`](#) and [orchestrating Python code with `AddPythonProject(...)`](#). 
+Today, we are pleased to announce the release of .NET Aspire 8.1. This release includes several new features and quality of life improvements based on feedback from developers using .NET Aspire in production applications. There are two specific features that I will go deeper on in this post which are [support for building container images](https://learn.microsoft.com/dotnet/aspire/app-host/withdockerfile) with `AddDockerfile(...)` and [orchestrating Python code](https://learn.microsoft.com/dotnet/aspire/get-started/build-aspire-apps-with-python) with `AddPythonProject(...)`. 
 
 In addition to these two large new features, there are enhancements to the .NET Aspire dashboard and telemetry including support for metrics exemplars, span links, and improved instance ID names. Finally, we have shipped new .NET Aspire components for Keykcloak, Elasticsearch, Valkey, Milvus, Garnet, and Kafka UI for you to integrate into your applications. Let's get into some details for these key features.
 
@@ -23,7 +23,7 @@ To get started using .NET Aspire 8.1 visit our [installation and setup](https://
 
 ## Support for building container images with `AddDockerfile(...)`
 
-A common request from developers who were already using Docker Compose to automate the building of their containers was for .NET Aspire to automatically build a Dockerfile when the App Host runs.  We have introduced two new extension methods (`AddDockerfile(...)` and `WithDockerfile(...)`) to help with this scenario. This means that you can quickly edit your Dockerfiles and rely on .NET Aspire to build them without having to manually build them yourself. Let's take a look to see how these new extension methods work.
+A common request from developers who were already using Docker Compose to automate the building of their containers was for .NET Aspire to [automatically build a Dockerfile](https://learn.microsoft.com/dotnet/aspire/app-host/withdockerfile) when the App Host runs.  We have introduced two new extension methods (`AddDockerfile(...)` and `WithDockerfile(...)`) to help with this scenario. This means that you can quickly edit your Dockerfiles and rely on .NET Aspire to build them without having to manually build them yourself. Let's take a look to see how these new extension methods work.
 
 The `AddDockerfile(...)` method is best used when you are creating a container resource which is not based on one of the pre-existing container resources built into .NET Aspire.
 
@@ -94,7 +94,7 @@ You should be careful that secret values and files are not inadvertently copied 
 
 ## Orchestrating Python code with `AddPythonProject(...)`
 
-We continue to increase our support for polyglot micro-service architectures with the addition of support for launching Python-based services. We already have support for Node.js apps and in .NET Aspire 8.1 we are adding the `AddPythonProject(...)` extension method was contributed by [Willem Meints](https://github.com/wmeints). To get started launching Python projects from .NET Aspire you need to make sure that you have the Python hosting package installed:
+We continue to increase our support for polyglot micro-service architectures with the addition of support for [launching Python-based services](https://learn.microsoft.com/dotnet/aspire/get-started/build-aspire-apps-with-python). We already have support for Node.js apps and in .NET Aspire 8.1 we are adding the `AddPythonProject(...)` extension method was contributed by [Willem Meints](https://github.com/wmeints). To get started launching Python projects from .NET Aspire you need to make sure that you have the Python hosting package installed:
 
 ```console
 $ dotnet add package Aspire.Hosting.Python
