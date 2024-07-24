@@ -32,7 +32,7 @@ var builder = DistributedApplication.CreateBuilder(args);
 builder.AddDockerfile("mycontainer", contextPath);
 ```
 
-If you wish to modify the container image that is used for an existing resource (such as PostgreSQL) you can use the `WithDockerfile(...)` extension method.
+If you wish to modify the container image that is used for an existing resource (such as SQL Server) you can use the `WithDockerfile(...)` extension method.
 
 ```csharp
 var builder = DistributedApplication.CreateBuilder(args);
@@ -70,7 +70,7 @@ COPY --from=builder /app/qots .
 CMD ["./qots"]
 ```
 
-Using build secrets is similar except by design we do not allow literal values to be used for secrets. This is to avoid accidental disclosure of secrets in the .NET Aspire application manifest when it is used for publishing. Here is an example passing parameter-based build secret.
+Using build secrets is similar except by design we do not allow literal values to be used for secrets. This is to avoid accidental disclosure of secrets in the .NET Aspire application manifest when it is used for publishing. Here is an example passing a parameter-based build secret.
 
 ```csharp
 var builder = DistributedApplication.CreateBuilder(...);
@@ -132,7 +132,7 @@ We've added or improved support for many of the containerized extensions to .NET
 
 ## Testing improvements
 
-There are several new features for you to take advantage of as it relates to testing applications that use .NET Aspire. First is the new `WaitForResourceAsync(...)` API,  which makes it easier to write test cases that need to wait for resources to initialize. Additionally, community member [@Evangelink](https://github.com/Evangelink) added support for MSTest and NUnit (in addition to Xunit) in our test project templates!
+There are several new features for you to take advantage of as it relates to testing applications that use .NET Aspire. First is the new `WaitForResourceAsync(...)` API,  which makes it easier to write test cases that need to wait for resources to initialize. Additionally, community member [@Evangelink](https://github.com/Evangelink) added support for MSTest and NUnit (in addition to xUnit) in our test project templates!
 
 The team has also invested in improvements across the board as it relates to telemetry and how it shows up in the .NET Aspire Dashboard. 
 
@@ -154,7 +154,7 @@ Spans links create relationships between spans. For example, an asynchronous sys
 
 ![Span links displayed with dashboard distributed tracing UI](./span-links.gif)
 
-.NET Aspire now allows you to view how spans are linked together. The span details UI includes a list of links and backlinks (backlines are the spans that link to the current span) that can be used to navigate between operations.
+.NET Aspire now allows you to view how spans are linked together. The span details UI includes a list of links and backlinks (backlinks are the spans that link to the current span) that can be used to navigate between operations.
 
 ## Improved instance ID names
 
