@@ -39,8 +39,7 @@ internal sealed class Validator
         Console.WriteLine($"Author 2   : {context.FrontMatter?.Author2}");
         Console.WriteLine($"Author 3   : {context.FrontMatter?.Author3}");
         Console.WriteLine($"Alias      : {context.FrontMatter?.MicrosoftAlias}");
-        Console.WriteLine($"Post Date  : {context.FrontMatter?.PostDate?.ToString("F", 
-            System.Globalization.DateTimeFormatInfo.InvariantInfo)}");
+        Console.WriteLine($"Post Date  : {context.FrontMatter?.PostDate:F}");
         Console.WriteLine($"#Links     : {links.Count:N0}");
 
         foreach (var rule in _rules)

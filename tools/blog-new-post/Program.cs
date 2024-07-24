@@ -57,8 +57,19 @@ internal static class Program
         var usesAI = AnsiConsole.Confirm("Did this blog post use AI to help in its creation?");
 
         var postTitle = AnsiConsole.Ask<string>("What's the post [cyan]title[/]?");
-        var postName = AnsiConsole.Ask("What's the post [cyan]name[/] (used for md file name)?", GetDefaultPostName(postTitle));
-        var postSlug = AnsiConsole.Ask("What's the post [cyan]slug[/] (used on blog in wordpress)?", GetDefaultPostName(postTitle));
+        var postName = AnsiConsole.Ask<string>("What's the post [cyan]name[/] (used for md file name)?", GetDefaultPostName(postTitle));
+        while (postName.Contains('.'))
+        {
+            AnsiConsole.MarkupLine("[red]The post name cannot contain a dot (.) character. Please enter a valid post name.[/]");
+            postName = AnsiConsole.Ask<string>("What's the post [cyan]name[/] (used for md file name)?", GetDefaultPostName(postTitle));
+        }
+
+        var postSlug = AnsiConsole.Ask<string>("What's the post [cyan]slug[/] (used on blog in wordpress)?", GetDefaultPostName(postTitle));
+        while (postSlug.Contains('.'))
+        {
+            AnsiConsole.MarkupLine("[red]The post slug cannot contain a dot (.) character. Please enter a valid post slug.[/]");
+            postSlug = AnsiConsole.Ask<string>("What's the post [cyan]slug[/] (used on blog in wordpress)?", GetDefaultPostName(postTitle));
+        }
         var postDate = AnsiConsole.Ask("What's the desired [cyan]publication date[/]? Please give several days for review and SEO optimization.", GetDefaultPublicationDate());
 
         var categories = AnsiConsole.Prompt(
@@ -130,6 +141,7 @@ Some summary or call to action.";
     {
         return string.Concat(postTitle.Replace("#", "sharp")
                                       .Replace(".NET", "dotnet", StringComparison.OrdinalIgnoreCase)
+                                      .Replace(".", "_")
                                       .Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c)))
                      .Kebaberize();
     }
