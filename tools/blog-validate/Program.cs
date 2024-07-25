@@ -137,6 +137,13 @@ internal static class Program
             }
         }
 
+        if (IsForkedRepository())
+        {
+            Console.Error.WriteLine("error: Pull requests from personal forks are not allowed, since they interfere with pull request validation from GitHub Actions. Please create a branch on the microft/dotnet-blog repo and create the pull request from that branch.");
+            return 1;
+        }
+
+
         try
         {
             return await RunAsync(directory, affectedFiles, categories) ? 0 : 1;
@@ -146,6 +153,19 @@ internal static class Program
             Console.Error.WriteLine(ex);
             return 1;
         }
+    }
+
+    private static bool IsForkedRepository()
+    {
+        // check github_actions variable
+        if (Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true")
+        {
+            var repo = Environment.GetEnvironmentVariable("GITHUB_REPOSITORY");
+            return repo != "microsoft/dotnet-blog";
+        }
+
+        // If running locally, skip this check
+        return false;
     }
 
     private static Commit? ParseRev(Repository repository, string text)
