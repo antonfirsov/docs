@@ -1,6 +1,7 @@
 .NET
 .NET Aspire
 .NET Core
+.NET for Android
 .NET for iOS
 .NET Fundamentals
 .NET Framework
