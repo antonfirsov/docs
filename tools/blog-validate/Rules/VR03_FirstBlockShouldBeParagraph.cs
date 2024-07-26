@@ -9,9 +9,9 @@ internal sealed class VR03_FirstBlockShouldBeParagraph : ValidationRule
         var firstBlock = context.Document.Skip(context.FrontMatter == null ? 0 : 1).FirstOrDefault();
         if (firstBlock != null)
         {
-            if (!(firstBlock is ParagraphBlock))
+            if (firstBlock is not ParagraphBlock && firstBlock is not QuoteBlock)
             {
-                context.Warning(this.GetType().Name, firstBlock, "First block should be a paragraph with the introduction");
+                context.Warning(this.GetType().Name, firstBlock, "First block should be a paragraph with the introduction or an introduction note for guest blog posts.");
             }
         }
     }
