@@ -1,12 +1,12 @@
 ---
-post_title: Easily Create Binding Libraries for .NET MAUI with Native Library Interop
+post_title: Creating Bindings for .NET MAUI with Native Library Interop
 author1: rachelkang
 post_slug: native-library-interop-dotnet-maui
 microsoft_alias: rachelkang
 featured_image: dotnetmauibindings.jpg
 categories: .NET, .NET MAUI, .NET for Android, .NET for iOS
 tags: maui, native library interop, .net maui, dotnet maui, bindings
-summary: Learn how to get started creating binding libraries with Native Library Interop by following this example binding native Chart libraries in a .NET MAUI application.
+summary: Learn how to get started creating bindings with Native Library Interop by following this example binding native Chart libraries in a .NET MAUI application.
 post_date: 2024-07-29 10:05:00
 ---
 
@@ -16,7 +16,7 @@ Native Library Interop for .NET MAUI, previously known as the Slim Binding appro
 
 You may be asking yourself, what is a **Binding**? When you want to use a third-party iOS or Android library not written in C#, you need a way to consume it in your .NET MAUI application. This is where **Binding Projects** come in enabling you to create a C# API definition to describe how the native API is exposed in .NET, and how it maps to the underlying library. After you establish this definition, you compile it to generate a "binding" assembly that can be utilized within your .NET MAUI application. This process mirrors the functionality of .NET for iOS and Android; when you use a native iOS or Android API in C#, it's accessible due to the bindings created for the core APIs.
 
-The [Maui.NativeLibraryInterop repository](https://github.com/CommunityToolkit/maui.nativelibraryinterop) serves as a valuable resource of community-curated samples, offering .NET developers an opportunity to delve into and benefit from shared knowledge, as well as contribute their own insights. With a ready-to-use template for creating new bindings, it serves as an excellent foundation for developers embarking on their journey from concept to execution.
+The [Maui.NativeLibraryInterop repository](https://github.com/CommunityToolkit/maui.nativelibraryinterop) serves as a valuable resource of community-curated samples, offering .NET developers an opportunity to delve into and benefit from shared knowledge, as well as contribute their own insights. With a ready-to-use template for creating new bindings, it serves as an excellent foundation for developers embarking on their journey from concept to execution. The great part about Native Library Interop is that it is a more general way of creating bindings, not limited to just binding libraries, and can technically be used to tap deeper into the native platform SDKs.
 
 In this post, I am excited to share my own journey with Native Library Interop for .NET MAUI, presenting a practical example to illustrate how this innovative approach can be leveraged in your .NET MAUI applications. Join me as I implement a binding, using the template and following the guidance in the [Getting Started documentation](https://learn.microsoft.com/dotnet/communitytoolkit/maui/native-library-interop/get-started).
 
