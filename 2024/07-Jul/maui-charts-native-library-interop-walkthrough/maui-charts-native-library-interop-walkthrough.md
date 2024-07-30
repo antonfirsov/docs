@@ -1,18 +1,20 @@
 ---
-post_title: Easily Create Bindings for .NET MAUI with Native Library Interop
+post_title: Easily Create Binding Libraries for .NET MAUI with Native Library Interop
 author1: rachelkang
 post_slug: native-library-interop-dotnet-maui
 microsoft_alias: rachelkang
 featured_image: dotnetmauibindings.jpg
 categories: .NET, .NET MAUI, .NET for Android, .NET for iOS
 tags: maui, native library interop, .net maui, dotnet maui, bindings
-summary: Learn how to get started creating bindings with Native Library Interop by following this example binding native Chart libraries in a .NET MAUI application.
+summary: Learn how to get started creating binding libraries with Native Library Interop by following this example binding native Chart libraries in a .NET MAUI application.
 post_date: 2024-07-29 10:05:00
 ---
 
 In today's app development landscape, the ability to extend .NET applications by leveraging native capabilities is invaluable. The .NET MAUI handler architecture empowers developers to directly manipulate native controls with .NET code, even allowing for the seamless creation of cross-platform custom controls. Yet, the potential extends beyond just native platform APIs. What if you could also tap into native library APIs, unlocking even more possibilities?
 
 Native Library Interop for .NET MAUI, previously known as the Slim Binding approach, is an alternative method for integrating native libraries into .NET MAUI applications, including .NET for Android, .NET for iOS, and .NET for Mac Catalyst. This approach enables direct access to native library APIs in a way that is both streamlined and maintenance-friendly, eliminating the need to bind entire libraries through traditional methods.
+
+You may be asking yourself, what is a **Binding**? When you want to use a third-party iOS or Android library not written in C#, you need a way to consume it in your .NET MAUI application. This is where **Binding Projects** come in enabling you to create a C# API definition to describe how the native API is exposed in .NET, and how it maps to the underlying library. After you establish this definition, you compile it to generate a "binding" assembly that can be utilized within your .NET MAUI application. This process mirrors the functionality of .NET for iOS and Android; when you use a native iOS or Android API in C#, it's accessible due to the bindings created for the core APIs.
 
 The [Maui.NativeLibraryInterop repository](https://github.com/CommunityToolkit/maui.nativelibraryinterop) serves as a valuable resource of community-curated samples, offering .NET developers an opportunity to delve into and benefit from shared knowledge, as well as contribute their own insights. With a ready-to-use template for creating new bindings, it serves as an excellent foundation for developers embarking on their journey from concept to execution.
 
@@ -76,7 +78,7 @@ Now, it's time to do the same thing in Android land! First, I open the native pr
 
 Now, to bring in the native Charts library, I make the following edits in [_build.gradle.kts_](https://github.com/rachelkang/MauiCharts/blob/0f88a1f6b76ee29e8f8bc05c040fbeca48270414/charts/android/native/charts/build.gradle.kts#L33-L40):
 
-```kt
+```json
 dependencies {
 
     // Add package dependency for binding library
@@ -89,7 +91,7 @@ dependencies {
 
 I also add the relevant maven repository in [_settings.gradle.kts_](https://github.com/rachelkang/MauiCharts/blob/0f88a1f6b76ee29e8f8bc05c040fbeca48270414/charts/android/native/settings.gradle.kts#L15-L17):
 
-```kt
+```json
 dependencyResolutionManagement {
     ...
     repositories {
@@ -169,6 +171,92 @@ It's time for the moment of truth! The Charts binding can now be used in any new
 ```
 
 In _MainPage.xaml.cs_, I import `ChartsMaciOS.DotnetCharts` and `ChartsAndroid.DotnetCharts` and use platform directives to directly leverage the APIs I created, just as I would with any other platform-specific implementation in .NET MAUI.
+
+```csharp
+public class MauiPieChart : View
+{
+	public List<PieChartSlice> Slices { get; set; } = new List<PieChartSlice>();
+}
+
+public class PieChartSlice
+{
+	public string Name { get; set; } = string.Empty;
+
+	public int Count { get; set; }
+	
+    public Color Color
+    {
+        get => _color ??= GenerateRandomColor();
+        set => _color = value;
+    }
+
+	private Color? _color = null;
+
+    private Color GenerateRandomColor()
+    {
+        Random random = new Random();
+        return new Color(random.Next(256), random.Next(256), random.Next(256));
+    }
+}
+
+public partial class MauiPieChartHandler
+{
+	public static IPropertyMapper<MauiPieChart, MauiPieChartHandler> PropertyMapper = new PropertyMapper<MauiPieChart, MauiPieChartHandler>(ViewHandler.ViewMapper)
+	{
+	};
+
+	public MauiPieChartHandler() : base(PropertyMapper)
+	{
+	}
+}
+
+#if IOS || MACCATALYST
+public partial class MauiPieChartHandler : ViewHandler<MauiPieChart, UIKit.UIView>
+{
+	protected override UIKit.UIView CreatePlatformView()
+	{	
+		var data = Foundation.NSDictionary<Foundation.NSString, Foundation.NSNumber>.FromObjectsAndKeys (
+			VirtualView.Slices.Select(s => new Foundation.NSNumber(s.Count)).ToArray(),
+			VirtualView.Slices.Select(s => s.Name).ToArray()
+		);
+		var colors = VirtualView.Slices.Select(s => s.Color.ToPlatform()).ToArray();
+
+		var pieChart = Charts.CreatePieChartWithData(data, colors);
+		return pieChart;
+	}
+}
+
+#elif ANDROID
+public partial class MauiPieChartHandler : ViewHandler<MauiPieChart, Android.Views.View>
+{
+	protected override Android.Views.View CreatePlatformView()
+	{
+		var data = new Java.Util.LinkedHashMap();
+		var colors = new List<Java.Lang.Integer>();
+		foreach (var slice in VirtualView.Slices) {
+			data.Put(slice.Name, slice.Count);
+			colors.Add(new Java.Lang.Integer(slice.Color.ToPlatform().ToArgb()));
+		}
+
+		var pieChart = Charts.CreatePieChart(Microsoft.Maui.ApplicationModel.Platform.CurrentActivity, data, colors);
+		return pieChart;
+	}
+}
+#endif
+```
+
+Now, I can access this new `MauiPieChart` from my user interface:
+
+```xml
+<local:MauiPieChart WidthRequest="300" HeightRequest="300">
+    <local:MauiPieChart.Slices>
+        <local:PieChartSlice Name="Dave's fans" Count="1" />
+        <local:PieChartSlice Name="Rachel's fans" Count="5" />
+        <local:PieChartSlice Name="Maddy's fans" Count="7" />
+        <local:PieChartSlice Name="Beth's fans" Count="10" />
+    </local:MauiPieChart.Slices>
+</local:MauiPieChart>
+```
 
 And voila! I present to you beautiful pie charts in .NET MAUI!
 
