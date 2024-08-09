@@ -81,10 +81,10 @@ All the above options just drop a new project that knows the best settings for m
 
 Add a reference to the ServiceDefaults project in the Api and *MyWeatherHub* projects:
 
-1. Right-click on the Api project and select **Add** > **Reference**.
+1. Right-click on the *Api* project and select **Add** > **Reference**.
 1. Check the *ServiceDefaults* project and click OK.
-1. Right-click on the Api project and select **Add** > **Reference**.
-1. Check the *MyWeatherHub* project and click OK.
+1. Right-click on the *MyWeatherHub* project and select **Add** > **Reference**.
+1. Check the *ServiceDefaults* project and click OK.
 
    [alert type="tip" heading="Visual Studio 2022 tip"]
    In Visual Studio 2022, you can drag and drop the project onto another project to add a reference.
@@ -223,7 +223,7 @@ First, let's take a look at the resources. This is a handy listing of all the re
 
 The ServiceDefaults project we added earlier automatically configures tracing for all of our projects. We can see that in the Traces tab. This is a great way to understanding timing and dependencies in our app.
 
-![.NET Aspire Dashboard showing trace view](dashboard-trace.png)]
+![.NET Aspire Dashboard showing trace view](dashboard-trace.png)
 
 The *Metrics* tab shows us a lot of information about our app, including CPU and memory usage, and the number of requests and errors. Again, this is all automatically set up for us by the ServiceDefaults project and exposed in the *AppHost* dashboard.
 
