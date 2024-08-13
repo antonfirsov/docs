@@ -2,6 +2,7 @@
 using Humanizer;
 using Spectre.Console;
 using LibGit2Sharp;
+using System.Globalization;
 
 namespace Microsoft.DotNetBlog;
 
@@ -83,7 +84,8 @@ internal static class Program
             )
         );
 
-        var path = $"{postDate.Year}/{postDate:MM-MMM}/{postName}/{postName}.md";
+        var postDateDirectory = postDate.ToString("MM-MMM", CultureInfo.InvariantCulture);
+        var path = $"{postDate.Year}/{postDateDirectory}/{postName}/{postName}.md";
 
         if (File.Exists(path))
         {
