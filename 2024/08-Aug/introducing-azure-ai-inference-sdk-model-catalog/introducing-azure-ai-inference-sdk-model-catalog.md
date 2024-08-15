@@ -82,12 +82,6 @@ while(true)
 
 For more details, see the [Azure AI Model Inference API documentation](https://aka.ms/azsdk/azure-ai-inference/csharp/reference).
 
-## Join the AI Community Standup
-
-Interested in learning more about the Azure AI Inference SDK for .NET?
-
-Don't miss the [AI Community Standup session on August 14th, at 10 AM PST](https://www.youtube.com/watch?v=M9acMMoJZP8) the team will dive into all the details.
-
 ## Conclusion
 
 We're excited to see what you build! Try out the Azure AI Inference SDK and give us feedback.  
