@@ -86,6 +86,9 @@ internal static class Program
                 categoriesPath = defaultCategoriesPath;
         }
 
+        Console.WriteLine($"Base Reference: {baseReferenceText}");
+        Console.WriteLine($"Reference: {referenceText}");
+
         if (!string.IsNullOrEmpty(categoriesPath))
         {
             categoriesPath = Path.GetFullPath(categoriesPath);
@@ -139,10 +142,9 @@ internal static class Program
 
         if (IsForkedRepository())
         {
-            Console.Error.WriteLine("error: Pull requests from personal forks are not allowed, since they interfere with pull request validation from GitHub Actions. Please create a branch on the microft/dotnet-blog repo and create the pull request from that branch.");
+            Console.Error.WriteLine("error: Pull requests from personal forks are not allowed, since they interfere with pull request validation from GitHub Actions. Please create a branch on the microsoft/dotnet-blog repo and create the pull request from that branch.");
             return 1;
         }
-
 
         try
         {
