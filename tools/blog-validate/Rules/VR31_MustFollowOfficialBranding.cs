@@ -8,35 +8,34 @@ internal sealed partial class VR31_MustFollowOfficialBranding : ValidationRule
 {
     public override void Validate(ValidationContext context)
     {
-        foreach (var text in context.Document.Descendants<LeafInline>())
-        {
-            var textContent = text?.ToString();
-            if (textContent == null) continue;
+        var markdownText = context.Markdown;
+        if (string.IsNullOrEmpty(markdownText)) return;
 
-            if (MauiPattern().IsMatch(textContent))
-            {
-                var correctedText = MauiPattern().Replace(textContent, ".NET MAUI");
-                context.Error(this.GetType().Name, text!, "The term 'MAUI' must be written in all caps and prefaced by '.NET'.", correctedText);
-            }
-            if (AspirePattern().IsMatch(textContent))
-            {
-                var correctedText = AspirePattern().Replace(textContent, ".NET Aspire");
-                context.Error(this.GetType().Name, text!, "The term 'Aspire' must be prefaced by '.NET'.", correctedText);
-            }
-            if (IncorrectDotNetPattern().IsMatch(textContent))
-            {
-                var correctedText = IncorrectDotNetPattern().Replace(textContent, ".NET");
-                context.Error(this.GetType().Name, text!, "The term '.NET' must be written in all caps.", correctedText);
-            }
+        foreach (var paragraph in context.Document.Descendants<ParagraphBlock>())
+        {
+            var paragraphText = markdownText.Substring(paragraph.Span.Start, paragraph.Span.Length);
+            ValidatePattern(context, paragraph, paragraphText, MauiPattern(), ".NET MAUI", "The term 'MAUI' must be written in all caps and prefaced by '.NET'.");
+            ValidatePattern(context, paragraph, paragraphText, AspirePattern(), ".NET Aspire", "The term 'Aspire' must be prefaced by '.NET'.");
+            ValidatePattern(context, paragraph, paragraphText, IncorrectDotNetPattern(), ".NET", "The term '.NET' must be written in all caps.");
         }
     }
 
-    [GeneratedRegex(@"(?<!\.NET\s)MAUI", RegexOptions.IgnoreCase)]
-    public static partial Regex MauiPattern();
+    private void ValidatePattern(ValidationContext context, MarkdownObject paragraph, string paragraphText, Regex pattern, string replacement, string message)
+    {
+        var matches = pattern.Matches(paragraphText);
+        if (matches.Count > 0)
+        {
+            var correctedText = pattern.Replace(paragraphText, replacement);
+            context.Error(this.GetType().Name, paragraph, message, correctedText);
+        }
+    }
 
-    [GeneratedRegex(@"(?<!\.NET\s)Aspire", RegexOptions.IgnoreCase)]
+    [GeneratedRegex(@"(?<!\.NET\s)(?<![a-zA-Z0-9/])Aspire", RegexOptions.IgnoreCase)]
     public static partial Regex AspirePattern();
 
-    [GeneratedRegex(@"(?<![a-zA-Z0-9])\.Net\b", RegexOptions.IgnoreCase)]
+    [GeneratedRegex(@"(?<![a-zA-Z0-9/])(?<!\.NET\s)MAUI", RegexOptions.IgnoreCase)]
+    public static partial Regex MauiPattern();
+
+    [GeneratedRegex(@"(?<![a-zA-Z0-9])\.Net\b")]
     public static partial Regex IncorrectDotNetPattern();
 }
