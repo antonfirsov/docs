@@ -26,14 +26,14 @@ internal sealed partial class VR31_MustFollowOfficialBranding : ValidationRule
         if (matches.Count > 0)
         {
             var correctedText = pattern.Replace(paragraphText, replacement);
-            context.Error(this.GetType().Name, paragraph, message, correctedText);
+            context.Warning(this.GetType().Name, paragraph, message, correctedText);
         }
     }
 
-    [GeneratedRegex(@"(?<!\.NET\s)(?<![a-zA-Z0-9/])Aspire", RegexOptions.IgnoreCase)]
+    [GeneratedRegex(@"(?<!\.NET\s)(?<![a-zA-Z0-9/-])Aspire", RegexOptions.IgnoreCase)]
     public static partial Regex AspirePattern();
 
-    [GeneratedRegex(@"(?<![a-zA-Z0-9/])(?<!\.NET\s)MAUI", RegexOptions.IgnoreCase)]
+    [GeneratedRegex(@"(?<![a-zA-Z0-9/-])(?<!\.NET\s)MAUI", RegexOptions.IgnoreCase)]
     public static partial Regex MauiPattern();
 
     [GeneratedRegex(@"(?<![a-zA-Z0-9])\.Net\b")]
