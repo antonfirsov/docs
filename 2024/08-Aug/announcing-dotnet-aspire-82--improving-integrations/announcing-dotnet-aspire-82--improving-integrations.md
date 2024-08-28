@@ -37,6 +37,22 @@ Since the launch of .NET Aspire in May, together with the community we have had 
 
 Join us live on September 18th for **[Azure Developers - .NET Aspire Day](https://aka.ms/azuredevelopers/dotnetaspireday)** where teams across Azure will be highlighting the latest for .NET Aspire developers for cloud development. [Register for free today!](https://aka.ms/azuredevelopers/dotnetaspireday)
 
+## Breaking changes
+
+One of the things we are working on for .NET Aspire 9.0 is to allow you to build .NET Aspire 9.0 projects without requiring the .NET Aspire Workload to be installed. We believe this will help in different scenarios, particularly for CI/CD scenarios where you may not want to install the workload on the build machine. 
+
+On the 8.2 release we made some progress towards that goal by moving some of the components that used to ship with the workload to separate packages that will get automatically referenced by your project. This change will be mostly transparent to you, but it does mean that in order to use .NET Aspire 8.2, you will need to make sure that you have the latest version of the workload installed as well as make sure that your AppHost project references the latest version of the `Aspire.Hosting.AppHost` package. Otherwise, you may see a build error similar to this:
+
+```shell
+xxx.AppHost is a .NET Aspire AppHost project that needs a package reference to Aspire.Hosting.AppHost version 8.2.0 or above to work correctly
+```
+
+To fix it, as the error message suggests, you can make sure that your AppHost project references the latest version of the `Aspire.Hosting.AppHost` package. You can do this by making sure your AppHost project file contains the following line:
+
+```xml
+<PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.0" />
+```
+
 ## Try it out and let us know your feedback 📣
 
 We're now turning our focus towards .NET Aspire 9.0, which ships at the same time as [.NET 9](https://dotnetconf.net), and would love to hear what YOU want to see in upcoming releases. Feel free to engage on our [GitHub](https://github.com/dotnet/aspire), fill out our [survey](https://www.surveymonkey.com/r/WL9VC22?sessionId=[sessionId_value]), and visit our [What's New](https://learn.microsoft.com/dotnet/aspire/whats-new/) page in our docs to learn more and download today!
