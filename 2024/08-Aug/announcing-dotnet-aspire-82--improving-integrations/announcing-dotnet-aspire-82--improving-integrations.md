@@ -11,7 +11,7 @@ summary: .NET Aspire 8.2 is here with some nice updates for components... we mea
 post_date: 2024-08-29 10:05:00
 ---
 
-.NET Aspire 8.2 is shipping today, and you can download or update to [today's release](https://learn.microsoft.com/dotnet/aspire/fundamentals/setup-tooling) now. While this doesn't release introduce big new features like in [.NET Aspire 8.1](https://devblogs.microsoft.com/dotnet/whats-new-in-aspire-8-1/), it does improve onboarding, testing, and have other quality of life improvements. 
+.NET Aspire 8.2 is shipping today, and you can download or update to [today's release](https://learn.microsoft.com/dotnet/aspire/fundamentals/setup-tooling) now. While this release doesn't introduce big new features like in [.NET Aspire 8.1](https://devblogs.microsoft.com/dotnet/whats-new-in-aspire-8-1/), it does improve onboarding, testing, and have other quality of life improvements. 
 
 ## Components have a new name!
 
@@ -26,10 +26,11 @@ We originally named these "components" because... well... they're components! Bu
 ## Testing, testing, and more testing
 
 Another core part of this release has been strengthening our own system to handle how often Integrations are updated. Of course, one of the best ways to do that is... tests! The .NET Aspire team, along with some amazing community contributors, have been bolstering our suite of tests throughout this release so that we can quickly bump a version and make sure it isn't going to break anything in your apps. A special thank you to our top contributors from the past month - [@alirexaa](https://github.com/Alirexaa), [@davidebbo](https://github.com/davidebbo), and [more](https://github.com/dotnet/aspire/graphs/contributors) - for all the great work you brought into 8.2 for us.
+
 ## Catch up & join .NET Aspire events
 Since the launch of .NET Aspire in May, together with the community we have had several event going deeper on development with .NET Aspire. 
 
- * [Let's Learn .NET Aspire](https://www.youtube.com/@dotnet/search?query=let%27s%20learn%20.net%20aspire): A full 2 hour workshop broadcast live in 7 different languages around the world.
+* [Let's Learn .NET Aspire](https://www.youtube.com/@dotnet/search?query=let%27s%20learn%20.net%20aspire): A full 2 hour workshop broadcast live in 7 different languages around the world.
 * [.NET Aspire Developers Day](https://www.youtube.com/playlist?list=PLdo4fOcmZ0oWMbEO7CiaDZh6cqSTU_lzJ): A full day of .NET Aspire with the product team and community covering all things .NET Aspire with 14 total sessions!
 
 <iframe width="800" height="450" src="https://www.youtube.com/embed/videoseries?si=YNLACUvXidek9f7F&amp;list=PLdo4fOcmZ0oWMbEO7CiaDZh6cqSTU_lzJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
