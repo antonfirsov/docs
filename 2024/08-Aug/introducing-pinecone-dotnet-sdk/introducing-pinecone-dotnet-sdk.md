@@ -56,7 +56,7 @@ An index serves queries over vectors it contains; and does other vector operatio
 ```csharp
 var createIndexResponse = await pinecone.CreateIndexAsync(new CreateIndexRequest
  {
- 	Name = “example_index”indexName,
+ 	Name = indexName,
  	Dimension = 3,
  	Metric = CreateIndexRequestMetric.Cosine,
  	Spec = new ServerlessIndexSpec
@@ -75,6 +75,8 @@ var createIndexResponse = await pinecone.CreateIndexAsync(new CreateIndexRequest
 To start adding records your data store:
 
 ```csharp
+var index = pinecone.Index(indexName);
+
 var upsertResponse = await index.UpsertAsync(new UpsertRequest {
  	Vectors = new[]
  	{
