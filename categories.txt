@@ -17,6 +17,7 @@ Async
 Azure
 Big Data
 Blazor
+Blazor Hybrid
 C#
 Cloud
 Cloud Native
