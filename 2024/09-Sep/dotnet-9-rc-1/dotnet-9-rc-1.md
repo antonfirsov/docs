@@ -15,7 +15,7 @@ post_date: 2024-09-11 13:00:00
 
 [cta-button align="center" text="Download .NET 9 Release Candidate 1" url="https://dotnet.microsoft.com/download/dotnet/9.0" color="#5C2D91"]
 
-[alert type="note" heading="Get ready for .NET Conf!"]The dates for [.NET Conf 2024](https://dotnetconf.net/) have been announced! Join us November 12-14, 2024 to celebrate the .NET 8 release![/alert]
+[alert type="note" heading="Get ready for .NET Conf!"]The dates for [.NET Conf 2024](https://dotnetconf.net/) have been announced! Join us November 12-14, 2024 to celebrate the .NET 9 release![/alert]
 
 This release contains the following improvements.
 
@@ -64,7 +64,7 @@ You can also use Visual Studio Code and the [C# Dev Kit](https://marketplace.vis
 The team has been making [monthly announcements](https://github.com/dotnet/core/discussions/9448) alongside full [release notes](https://github.com/dotnet/core/tree/main/release-notes/9.0) on the [dotnet/core GitHub Discussions](https://github.com/dotnet/core/discussions/categories/news) and has seen great engagement and feedback from the community. We will continue to post each new release on GitHub, but as we get closer to launch this November alongside [.NET Conf 2024 (save the date today!)](https://www.dotnetconf.net/), we wanted to cross-post our release details on the .NET blog. 
 
 * [.NET MAUI](https://github.com/dotnet/maui/discussions/24698)
-* ASP.NET Core(https://github.com/dotnet/aspnetcore/discussions/57787)
+* [ASP.NET Core](https://github.com/dotnet/aspnetcore/discussions/57787)
 * [Libraries & Runtime](https://github.com/dotnet/runtime/discussions/106350)
 
 ## 🔔 Stay up-to-date with .NET 9
