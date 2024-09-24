@@ -1,7 +1,7 @@
 ﻿using System.Text;
 
 using CsvHelper;
-
+using CsvHelper.Configuration;
 using static System.Console;
 
 namespace csvtocsv;
@@ -21,23 +21,23 @@ class Program
         if (!File.Exists(inputCSV))
         {
             WriteLine("File does not exist.");
+            return;
         }
 
         using (var stream = new StreamReader(inputCSV))
+        using (var csv = new CsvReader(stream, new CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture)))
         {
-            var reader = new CsvReader(stream);
-
-            while (reader.Read())
+            while (csv.Read())
             {
                 var index = 0;
                 var buffer = new StringBuilder();
-                while (reader.TryGetField<string>(index, out var field))
+                while (csv.TryGetField<string>(index, out var field))
                 {
                     if (index > 0)
                     {
                         buffer.Append(",");
                     }
-                    var newfield = field.Replace('\n', ' ');
+                    var newfield = field?.Replace('\n', ' ') ?? string.Empty;
                     buffer.Append(newfield);
                     index++;
                 }

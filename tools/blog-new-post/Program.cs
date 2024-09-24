@@ -20,7 +20,7 @@ internal static class Program
         var authorInformation = AuthorInformation.Load();
         if (authorInformation is null)
         {
-            AnsiConsole.Render(new Rule { Title = "[gray]User information[/]", Alignment = Justify.Left });
+            AnsiConsole.Write(new Rule { Title = "[gray]User information[/]", Justification = Justify.Left });
 
             var microsoftAlias = AnsiConsole.Ask("What's your Microsoft [cyan]alias[/]?", GetDefaultMicrosoftAlias());
 
@@ -53,7 +53,7 @@ internal static class Program
             authorInformation.Save();
         }
 
-        AnsiConsole.Render(new Rule { Title = "[gray]Create blog post[/]", Alignment = Justify.Left });
+        AnsiConsole.Write(new Rule { Title = "[gray]Create blog post[/]", Justification = Justify.Left });
 
         var usesAI = AnsiConsole.Confirm("Did this blog post use AI to help in its creation?");
 

@@ -3,6 +3,8 @@ name: Update Planner
 on:
   pull_request:
     types: [opened, synchronize, closed, reopened]
+    paths-ignore:
+      - 'tools/**'
 
 jobs:
   update-planner:
