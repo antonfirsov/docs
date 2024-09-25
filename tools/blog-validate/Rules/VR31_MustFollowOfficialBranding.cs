@@ -30,7 +30,7 @@ internal sealed partial class VR31_MustFollowOfficialBranding : ValidationRule
         }
     }
 
-    [GeneratedRegex(@"(?<!\.NET\s)(?<![a-zA-Z0-9/_-])Aspire(?![a-zA-Z])", RegexOptions.IgnoreCase)]
+    [GeneratedRegex(@"(?<!\.NET\s)(?<![a-zA-Z0-9/_-`])Aspire(?![a-zA-Z])", RegexOptions.IgnoreCase)]
     public static partial Regex AspirePattern();
 
     [GeneratedRegex(@"(?<![a-zA-Z0-9/_-])(?<!\.NET\s)MAUI", RegexOptions.IgnoreCase)]
