@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LibGit2Sharp" Version="0.30.0" />
-    <PackageReference Include="Markdig" Version="0.37.0" />
-    <PackageReference Include="YamlDotNet" Version="16.1.2" />
+    <PackageReference Include="LibGit2Sharp" />
+    <PackageReference Include="Markdig" />
+    <PackageReference Include="YamlDotNet" />
   </ItemGroup>
   
 </Project>

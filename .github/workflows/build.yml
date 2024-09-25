@@ -1,7 +1,4 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
-name: .NET
+name: Build Tools
 
 on:
   workflow_dispatch:
@@ -19,25 +16,17 @@ on:
 jobs:
   build:
 
-    name: Build Projects
+    name: Build Tools
     runs-on: ubuntu-latest
 
-    strategy:
-      fail-fast: false
-      matrix:
-        project:
-        - blog-get-post
-        - blog-new-post
-        - blog-shared
-        - blog-validate
-        - csvtocsv
-        - md2html
-
     steps:
-    - uses: actions/checkout@v4
+    - name: Get Code
+      uses: actions/checkout@v4
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-    - name: Build ${{ matrix.project }}
-      run: dotnet build "tools/${{ matrix.project }}/${{ matrix.project }}.csproj"
+
+    - name: dotnet build
+      run: dotnet build "tools/blog-tools.sln"
