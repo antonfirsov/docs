@@ -11,7 +11,7 @@ summary: Try out the latest features in .NET 9 Release Candidate 1 across the .N
 post_date: 2024-09-11 13:00:00
 ---
 
-.NET 9 Release Candidate 1 is now available. This is our first of two release candidates. This release includes enhanced WebSocket APIs, new compression options, advanced SignalR tracing, and updates to .NET MAUI for better text alignment, and more. Check out the full release notes linked below and get started today.
+.NET 9 Release Candidate 1 is now available. This is our first of two release candidates which come with a [go-live support license](https://dotnet.microsoft.com/platform/support/policy/dotnet-core#previews) so you can confidently use this release for your production applications. This release includes enhanced WebSocket APIs, new compression options, advanced SignalR tracing, and updates to .NET MAUI for better text alignment, and more. Check out the full release notes linked below and get started today.
 
 [cta-button align="center" text="Download .NET 9 Release Candidate 1" url="https://dotnet.microsoft.com/download/dotnet/9.0" color="#5C2D91"]
 
