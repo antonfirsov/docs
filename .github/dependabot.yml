@@ -6,12 +6,12 @@
 version: 2
 updates:
   - package-ecosystem: "nuget"
-    directories:
-      - "/tools/blog-get-post"
-      - "/tools/blog-new-post"
-      - "/tools/blog-shared"
-      - "/tools/blog-validate"
-      - "/tools/csvtocsv"
-      - "/tools/md2html"
+    directory: "/tools"
     schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      # Check for updates to GitHub Actions every week
       interval: "weekly"
