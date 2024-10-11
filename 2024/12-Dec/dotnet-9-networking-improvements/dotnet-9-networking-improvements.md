@@ -28,8 +28,10 @@ As in the previous years, we publish a blog post about new interesting changes i
 
 // Mana
 ## .NET Framework Compatibility
-- HttpWebRequest (https://github.com/dotnet/runtime/pull/95001)
+- HttpWebRequest (https://github.com/dotnet/runtime/pull/95001, https://github.com/dotnet/runtime/pull/94664, https://github.com/dotnet/runtime/pull/97537)
+- WebRequest impersonation (https://github.com/dotnet/runtime/pull/102038)
 - ServicePoint obsoletion (https://github.com/dotnet/runtime/pull/103456)
+- AuthenticationManager obsoletion (https://github.com/dotnet/runtime/pull/93171) community
 
 // Anton
 ## Metrics / Diagnostics / Redaction
@@ -41,10 +43,12 @@ As in the previous years, we publish a blog post about new interesting changes i
 
 // Mana
 ## QUIC
-- public API surface
-- APIs for multiple connections
-- new connection options
-- connection TLS details
+- public API surface (https://github.com/dotnet/runtime/pull/104227)
+- APIs for multiple connections (https://github.com/dotnet/runtime/pull/101531)
+- new connection options (https://github.com/dotnet/runtime/pull/94211)
+- connection TLS details (https://github.com/dotnet/runtime/pull/84976, https://github.com/dotnet/runtime/pull/106391)
+- perf callback in TP thread (https://github.com/dotnet/runtime/pull/98361)
+- perf configuration cache (https://github.com/dotnet/runtime/pull/99371)
 
 // Mana
 ## Security
@@ -81,7 +85,10 @@ export SSLKEYLOGFILE=~/keylogfile
 
 At this point, `~/keylogfile` will contain pre-master secrets that can be used by Wireshark to decrypt the traffic, see [TLS Using the (Pre)-Master-Secret](https://wiki.wireshark.org/TLS#using-the-pre-master-secret) docs about how to configure it.
 
+https://github.com/dotnet/runtime/pull/100665
+
 - TLS Resume on Linux (https://github.com/dotnet/runtime/pull/102656)
+- IntegrityCheck APIs (https://github.com/dotnet/runtime/pull/96712) - Filip community
 
 // Mana
 ## Networking Primitives
