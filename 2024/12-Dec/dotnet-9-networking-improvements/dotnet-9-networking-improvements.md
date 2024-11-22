@@ -100,14 +100,145 @@ The analyzer was implemented by [amiru3f](https://github.com/amiru3f).
 // Natalia
 ## HttpClientFactory
 
-// Mana
 ## QUIC
-- public API surface (https://github.com/dotnet/runtime/pull/104227)
-- APIs for multiple connections (https://github.com/dotnet/runtime/pull/101531)
-- new connection options (https://github.com/dotnet/runtime/pull/94211)
-- connection TLS details (https://github.com/dotnet/runtime/pull/84976, https://github.com/dotnet/runtime/pull/106391)
-- perf callback in TP thread (https://github.com/dotnet/runtime/pull/98361)
-- perf configuration cache (https://github.com/dotnet/runtime/pull/99371)
+
+### Public APIs
+
+From this release on, `System.Net.Quic` is not hidden behind [`PreviewFeature`](https://learn.microsoft.com/dotnet/fundamentals/apicompat/preview-apis#requirespreviewfeaturesattribute) anymore and all the APIs are generally available without any opt-int switches ([dotnet/runtime#104227](https://github.com/dotnet/runtime/pull/104227)).
+
+
+### QUIC Connection Options
+
+One of the new additions to `System.Net.Quic` are expanded configuration options for [`QuicConnection`](https://learn.microsoft.com/dotnet/api/system.net.quic.quicconnection) proposed in [dotnet/runtime#72984](https://github.com/dotnet/runtime/issues/72984). The change ([dotnet/runtime#94211](https://github.com/dotnet/runtime/pull/94211)) adds three new properties to [`QuicConnectionOptions`](https://learn.microsoft.com/dotnet/api/system.net.quic.quicconnectionoptions):
+- [`HandshakeTimeout`](https://learn.microsoft.com/dotnet/api/system.net.quic.quicconnectionoptions.handshaketimeout) - we were already imposing a limit on how long a connection establishment can take, this property just enables the user to adjust it.
+- [`KeepAliveInterval`](https://learn.microsoft.com/dotnet/api/system.net.quic.quicconnectionoptions.keepaliveinterval) - if this property is set up to a positive value, [PING frames](https://www.rfc-editor.org/rfc/rfc9000#name-ping-frames) will be sent out regularly in this interval (in case no other activity is happening on the connection) to prevent the connection from being closed on [idle timeout](https://www.rfc-editor.org/rfc/rfc9000#name-idle-timeout).
+- [`InitialReceiveWindowSizes`](https://learn.microsoft.com/dotnet/api/system.net.quic.quicconnectionoptions.initialreceivewindowsizes) - a set of parameters to adjust the initial receive limits for data flow control sent in [transport parameters](https://www.rfc-editor.org/rfc/rfc9000#transport-parameter-definitions). These apply only until the dynamic flow control algorithm starts adjusting the data limits based on the speed in which the data are read by the user code. And due to [MsQuic](https://github.com/microsoft/msquic/blob/main/docs/api/QUIC_SETTINGS.md) limitations, these can only be set to values that are power of 2.
+
+All of these parameters are optional. Their default values are derived from [MsQuic defaults](https://github.com/microsoft/msquic/blob/main/docs/Settings.md). The following code will report the defaults programmatically:
+```c#
+var options = new QuicClientConnectionOptions();
+Console.WriteLine($"KeepAliveInterval = {PrettyPrintTimeStamp(options.KeepAliveInterval)}");
+Console.WriteLine($"HandshakeTimeout = {PrettyPrintTimeStamp(options.HandshakeTimeout)}");
+Console.WriteLine(@$"InitialReceiveWindowSizes =
+{{
+    Connection = {PrettyPrintInt(options.InitialReceiveWindowSizes.Connection)},
+    LocallyInitiatedBidirectionalStream = {PrettyPrintInt(options.InitialReceiveWindowSizes.LocallyInitiatedBidirectionalStream)},
+    RemotelyInitiatedBidirectionalStream = {PrettyPrintInt(options.InitialReceiveWindowSizes.RemotelyInitiatedBidirectionalStream)},
+    UnidirectionalStream = {PrettyPrintInt(options.InitialReceiveWindowSizes.UnidirectionalStream)}
+}}");
+
+static string PrettyPrintTimeStamp(TimeSpan timeSpan)
+    => timeSpan == Timeout.InfiniteTimeSpan ? "infinite" : timeSpan.ToString();
+
+static string PrettyPrintInt(int sizeB)
+    => sizeB % 1024 == 0 ? $"{sizeB / 1024} * 1024" : sizeB.ToString();
+
+// Prints:
+KeepAliveInterval = infinite
+HandshakeTimeout = 00:00:10
+InitialReceiveWindowSizes =
+{
+    Connection = 16384 * 1024,
+    LocallyInitiatedBidirectionalStream = 64 * 1024,
+    RemotelyInitiatedBidirectionalStream = 64 * 1024,
+    UnidirectionalStream = 64 * 1024
+}
+```
+
+### Stream Capacity API
+
+Another new APIs were added to enable implementation of [multiple HTTP/3 connections](#connection-pooling) in [`SocketsHttpHandler`](https://learn.microsoft.com/dotnet/api/system.net.http.socketshttphandler.enablemultiplehttp3connections) ([dotnet/runtime#101534](https://github.com/dotnet/runtime/issues/101534)). These were designed with the specific, above mentioned usage in mind and we do not expect this to be used apart from very niche scenarios.
+
+QUIC has built in logic for managing [stream limits](https://www.rfc-editor.org/rfc/rfc9000#name-max_streams-frames) within the protocol. As a result, calling [`OpenOutboundStreamAsync`](https://learn.microsoft.com/dotnet/api/system.net.quic.quicconnection.openoutboundstreamasync) on a connection gets suspended if there isn't any available stream capacity. Moreover, there isn't an efficient way to learn whether the stream limit was reached or not. All these limitations together didn't allow the HTTP/3 layer to know when to open a new connection. So we introduced a new [`StreamCapacityCallback`](https://learn.microsoft.com/dotnet/api/system.net.quic.quicconnectionoptions.streamcapacitycallback) that gets called whenever stream capacity is increased. The callback itself is registered via [`QuicConnectionOptions`](https://learn.microsoft.com/dotnet/api/system.net.quic.quicconnectionoptions). It's first invocation reports the initial capacity announced by the peer and it's called even before the `QuicConnection` object gets handed out to the user. After that, the callback gets called every time the stream capacity was increased (and is above zero) and it will report the increment by which the capacity rose. The following simplified scenario captures the behavior of stream opening and the callback:
+1. client initiates connection to the server via:
+```c#
+var client = await QuicConnection.ConnectAsync(new QuicClientConnectionOptions
+{
+    ...
+    StreamCapacityCallback = (connection, args) =>
+        Console.WriteLine($"{connection} stream capacity increased by: unidi += {args.UnidirectionalIncrement}, bidi += {args.BidirectionalIncrement}")
+};
+```
+2. server sends initial settings to client with the stream limit `2` for unidirectional streams and `0` for bidirectional
+3. client's `StreamCapacityCallback` gets called and prints:
+```text
+[conn][0x58575BF805B0] stream capacity increased by: unidi += 2, bidi += 0
+```
+4. client call to `ConnectAsync` returns with `[conn][0x58575BF805B0]` connection
+5. client attempts to open few streams:
+```c#
+var stream1 = await connection.OpenOutboundStreamAsync(QuicStreamType.Unidirectional);
+var stream2 = await connection.OpenOutboundStreamAsync(QuicStreamType.Unidirectional);
+// This following  call will get suspended because the stream is limit has been reached.
+var taskStream3 = connection.OpenOutboundStreamAsync(QuicStreamType.Unidirectional);
+```
+6. client finishes and closes the first 2 streams:
+```c#
+await stream1.WriteAsync(data, completeWrites: true);
+await stream1.DisposeAsync();
+await stream2.WriteAsync(data, completeWrites: true);
+await stream2.DisposeAsync();
+Console.WriteLine($"Stream 3 {(taskStream3.IsCompleted ? "opened" : "pending")}");
+```
+7. client prints:
+```text
+Stream 3 pending
+```
+8. server will release additional capacity of `2` after processing the first two stream
+9. two things happen on the client:
+   - third stream gets opened:
+```c#
+var stream3 = await taskStream3;
+```
+   - client's `StreamCapacityCallback` gets called again and prints:
+```text
+[conn][0x58575BF805B0] stream capacity increased by: unidi += 2, bidi += 0
+```
+
+The sum of all the values reported by the callback will correspond to the total number of streams released by the peer. It's still up to the user to keep track of all opening and opened streams to know the actual capacity at any time. Also the callback might be called in parallel, so it's up to the user to properly handle synchronization around stream counting.
+
+### Performance Improvements
+
+The first performance related change was to run the peer certificate validation asynchronously in .NET thread pool ([dotnet/runtime#98361](https://github.com/dotnet/runtime/pull/98361)). The certificate validation can be time consuming on its own and it might even include an execution of a user callback. Moving this logic to .NET thread pool stops us blocking the MsQuic thread, of which MsQuic has a limited number, and thus enables MsQuic to process higher number of connection establishments at the same time.
+
+On top of that, we have introduced caching of MsQuic configuration ([dotnet/runtime#99371](https://github.com/dotnet/runtime/pull/99371)). MsQuic configuration is a set of native structures containing connection settings from [`QuicConnectionOptions`](https://learn.microsoft.com/dotnet/api/system.net.quic.quicconnectionoptions), potentially including certificate and its intermediaries. Constructing and initializing the native structure might be very expensive since it might require serializing and deserializing all the certificate data to and from [PKS #12](https://datatracker.ietf.org/doc/html/rfc7292) format. Moreover, the cache  allows re-using the same MsQuic configuration for different connections if their settings are identical. Specifically server scenarios with static configuration can notably profit from this, like the following code:
+```c#
+var alpn = "test";
+var serverCertificate = ...
+
+// Prepare the connection option upfront and reuse them.
+var serverConnectionOptions = new QuicServerConnectionOptions()
+{
+    DefaultStreamErrorCode = 123,
+    DefaultCloseErrorCode = 456,
+    ServerAuthenticationOptions = new SslServerAuthenticationOptions
+    {
+        ApplicationProtocols = new List<SslApplicationProtocol>() { alpn },
+        // Re-using the same certificate.
+        ServerCertificate = serverCertificate
+    }
+};
+
+// Configure the listener to return the pre-prepared options.
+await using var listener = await QuicListener.ListenAsync(new QuicListenerOptions()
+{
+    ListenEndPoint = new IPEndPoint(IPAddress.Loopback, 0),
+    ApplicationProtocols = new List<SslApplicationProtocol>() { alpn },
+    // Callback returns the same object.
+    // Internal cache will re-use the same native structure for every incoming connection.
+    ConnectionOptionsCallback = (_, _, _) => ValueTask.FromResult(serverConnectionOptions)
+});
+```
+We also built it an escape hatch for this feature, it can be turned off with either environment variable:
+```sh
+export DOTNET_SYSTEM_NET_QUIC_DISABLE_CONFIGURATION_CACHE=1
+# run the app
+```
+or with [AppContext](https://learn.microsoft.com/dotnet/api/system.appcontext) switch:
+```c#
+AppContext.SetSwitch("System.Net.Quic.DisableConfigurationCache", true);
+```
+
 
 ## Security
 
