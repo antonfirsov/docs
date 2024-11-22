@@ -109,45 +109,50 @@ The analyzer was implemented by [amiru3f](https://github.com/amiru3f).
 - perf callback in TP thread (https://github.com/dotnet/runtime/pull/98361)
 - perf configuration cache (https://github.com/dotnet/runtime/pull/99371)
 
-// Mana
 ## Security
 
 ### SSLKEYLOGFILE Support
-// Needs update: written last year, no need for Debug build, but we have AppContext switch instead, also works with QUIC.
 
 The most upvoted issue in the security space was to support logging of pre-master secret ([dotnet/runtime#37915](https://github.com/dotnet/runtime/issues/37915)). The logged secret can be used by packet capturing tool Wireshark to decrypt the traffic. It's useful diagnostics tool when investigation networking issues. Moreover, the same functionality is provided by browsers like Firefox (via [NSS](https://udn.realityripple.com/docs/Mozilla/Projects/NSS/Key_Log_Format)) and Chrome and command line HTTP tools like [cURL](https://everything.curl.dev/usingcurl/tls/sslkeylogfile).
 
-For now, we have implemented this feature for platforms on which we use OpenSSL as a security backend (in terms of officially released .NET runtime it means Linux). We track this feature for Windows in [dotnet/runtime#94843](https://github.com/dotnet/runtime/issues/94843) and we encourage upvoting the issue to let us know we should invest in doing the same for SChannel (Windows).
+We have implemented this feature for both [`SslStream`](https://learn.microsoft.com/dotnet/api/system.net.security.sslstream) and [`QuicConnection`](https://learn.microsoft.com/dotnet/api/system.net.quic.quicconnection0). For the former, the functionality is limited to the platforms on which we use OpenSSL as a security backend (in the terms of officially released .NET runtime it means on Linux). For the later, it is supported everywhere, regardless of the security backend. The difference is that QUIC is implemented in userspace, but TLS on Windows is implemented in a separate, privileged process. This means that SChannel needs to support exporting the encryption secrets to applications in order to make userspace QUIC implementations possible, but will not do the same for TLS due to security concerns ([dotnet/runtime#94843](https://github.com/dotnet/runtime/issues/94843)).
 
-As this is rather advanced scenario with security implications, we decided to support it only in DEBUG builds of `System.Net.Security`. We do not officially ship DEBUG builds of .NET libraries anywhere. If you want to take advantage of this feature, you have to build it yourself. The documentation how to do that is in our [repository](https://github.com/dotnet/runtime/blob/main/docs/workflow/README.md). Note that corresponding branch of source code needs to be used, meaning [release/8.0](https://github.com/dotnet/runtime/tree/release/8.0) for .NET 8.
-
-When you have the DEBUG build ready, you can publish your project as self contained:
-
-```sh
-dotnet publish --runtime linux-x64 --self-contained
+This feature exposes security secrets and relying solely on an environmental variable could unintentionally leak them. For that reason, we've decided to introduce an additional `AppContext` switch necessary to enable the feature ([dotnet/runtime#100665](https://github.com/dotnet/runtime/pull/100665)). It requires the user to prove the ownership of the application by either setting it programmatically in the code:
+```c#
+AppContext.SetSwitch("System.Net.EnableSslKeyLogging", true);
+```
+or by changing the `{appname}.runtimeconfig.json` next to the application:
+```c#
+{
+  "runtimeOptions": {
+    "configProperties": {
+      "System.Net.EnableSslKeyLogging": true
+    }
+  }
+}
 ```
 
-Then, replace `System.Net.Security.dll` in the publish directory with the one you've built:
-
-```sh
-cp <runtime-repo>/artifacts/bin/System.Net.Security/Debug/net8.0-linux/* <project-repo>/bin/Release/net8.0/linux-x64/publish/
-
-```
-
-The last thing is to set up an environmental variable `SSLKEYLOGFILE` and run your program:
+The last thing is to set up an environmental variable `SSLKEYLOGFILE` and run the application:
 
 ```sh
 export SSLKEYLOGFILE=~/keylogfile
 
-./<your-program>
+./<appname>
 ```
 
-At this point, `~/keylogfile` will contain pre-master secrets that can be used by Wireshark to decrypt the traffic, see [TLS Using the (Pre)-Master-Secret](https://wiki.wireshark.org/TLS#using-the-pre-master-secret) docs about how to configure it.
+At this point, `~/keylogfile` will contain pre-master secrets that can be used by Wireshark to decrypt the traffic, see [TLS Using the (Pre)-Master-Secret](https://wiki.wireshark.org/TLS#using-the-pre-master-secret) documentation.
 
-https://github.com/dotnet/runtime/pull/100665
 
-- TLS Resume on Linux (https://github.com/dotnet/runtime/pull/102656)
-- IntegrityCheck APIs (https://github.com/dotnet/runtime/pull/96712) - Filip community
+### TLS Resume with Client Certificate
+
+TLS resume enables reusing previously stored TLS data to re-establish connection to previously connected server. It can save round-trips during the handshake as well as CPU processing. This feature is a native part of Windows SChannel, therefore it's implicitly used  by .NET on Windows platforms. However, on Linux platforms where we use OpenSSL as a security backend, enabling caching and re-using TLS data is more involved. We firstly introduces the support in .NET 7, [TLS Resume](https://devblogs.microsoft.com/dotnet/dotnet-7-networking-improvements/#performance). It has it's own limitations that in general are not present on Windows. One such limitations was that it was not supported for sessions using mutual authentication by providing a client certificate ([dotnet/runtime#94561](https://github.com/dotnet/runtime/issues/94561)). This has been fixed in .NET 9 ([dotnet/runtime#102656](https://github.com/dotnet/runtime/pull/102656)) and works if one these conditions is:
+- [`ClientCertificateContext`](https://learn.microsoft.com/dotnet/api/system.net.security.sslclientauthenticationoptions.clientcertificatecontext)
+- [`LocalCertificateSelectionCallback`](https://learn.microsoft.com/dotnet/api/system.net.security.sslclientauthenticationoptions.localcertificateselectioncallback) returns non-null certificate on the first call
+- [`ClientCertificates`](https://learn.microsoft.com/dotnet/api/system.net.security.sslclientauthenticationoptions.clientcertificates0) collection has at least one certificate with private key
+
+### Negotiate API Integrity Checks
+
+In .NET 7, we added [`NegotiateAuthentication`](https://learn.microsoft.com/dotnet/api/system.net.security.negotiateauthentication) APIs, [Negotiate API](https://devblogs.microsoft.com/dotnet/dotnet-7-networking-improvements/#negotiate-api). The original implementation's goal was to remove access via reflection to the internals of `NTAuthentication`. However, that proposal was missing functions to generate and verify message integrity codes from [RFC 2743](https://datatracker.ietf.org/doc/html/rfc2743). They are usually implemented as cryptographic signing operation with a negotiated key. The API was proposed in [dotnet/runtime#86950](https://github.com/dotnet/runtime/issues/86950) and implemented in [dotnet/runtime#96712](https://github.com/dotnet/runtime/pull/96712) and ss with the original change, all the work from the API proposal to the implementation was done by a community contributor [filipnavara](https://github.com/filipnavara).
 
 // Mana
 ## Networking Primitives
