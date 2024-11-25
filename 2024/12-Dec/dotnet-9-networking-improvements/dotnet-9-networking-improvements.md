@@ -285,10 +285,84 @@ TLS resume enables reusing previously stored TLS data to re-establish connection
 
 In .NET 7, we added [`NegotiateAuthentication`](https://learn.microsoft.com/dotnet/api/system.net.security.negotiateauthentication) APIs, [Negotiate API](https://devblogs.microsoft.com/dotnet/dotnet-7-networking-improvements/#negotiate-api). The original implementation's goal was to remove access via reflection to the internals of `NTAuthentication`. However, that proposal was missing functions to generate and verify message integrity codes from [RFC 2743](https://datatracker.ietf.org/doc/html/rfc2743). They are usually implemented as cryptographic signing operation with a negotiated key. The API was proposed in [dotnet/runtime#86950](https://github.com/dotnet/runtime/issues/86950) and implemented in [dotnet/runtime#96712](https://github.com/dotnet/runtime/pull/96712) and ss with the original change, all the work from the API proposal to the implementation was done by a community contributor [filipnavara](https://github.com/filipnavara).
 
-// Mana
 ## Networking Primitives
-- IEquatable on Uri (https://github.com/dotnet/runtime/pull/103511)
-- More MediaTypeNames (https://github.com/dotnet/runtime/pull/103575)
-- SSE parser as OOB (https://github.com/dotnet/runtime/pull/102238)
-- Uri’s got span-based zero-alloc Escape/UnescapeDataString APIs (https://github.com/dotnet/runtime/pull/98074)
-- new media types (https://github.com/dotnet/runtime/pull/103575)
+
+### Server-Sent Events Parser
+
+Server-sent events is technology that allows servers to push data updates on clients via an HTTP connection. It is defined in [living HTML standard](https://html.spec.whatwg.org/multipage/server-sent-events.html). It uses `text/event-stream` MIME type and it's always decoded as `UTF-8`. Advantage of server-push approach over client-pull is that it can make better use of network resources and also make savings in battery life of mobile devices.
+
+In this release, we're introducing an OOB package `System.Net.ServerSentEvents`. It's available as .NET Standard 2.0 [NuGet package](https://www.nuget.org/packages/System.Net.ServerSentEvents). The package offers a parser for server-sent event stream, following the [specification](https://html.spec.whatwg.org/multipage/server-sent-events.html#parsing-an-event-stream). The protocol is stream based, with individual items separated by an empty line.
+
+Each item has two fields:
+- `type` - default type is `message`
+- `data` - data themselves
+
+On top of that, there are two other optional fields that progressively update properties of the stream:
+- `id` - determines the last event id that will be sent in [`Last-Event-Id` header](https://html.spec.whatwg.org/multipage/server-sent-events.html#the-last-event-id-header) in case the connection needs to be reconnected
+- `retry` - number of milliseconds to wait between re-connection attempts
+
+The library APIs were proposed in [dotnet/runtime#98105](https://github.com/dotnet/runtime/issues/98105) and contain type definitions for the parser and the items:
+- [`SseParser`](https://learn.microsoft.com/dotnet/api/system.net.serversentevents.sseparser) - static class to create the actual parser from the stream, allowing the user to optionally provide a parsing delegate for the item data
+- [`SseParser<T>`](https://learn.microsoft.com/dotnet/api/system.net.serversentevents.sseparser-1) - parser itself, offers methods to enumerate (synchronously or asynchronously) the stream and return the parsed items
+- [`SseItem<T>`](https://learn.microsoft.com/dotnet/api/system.net.serversentevents.sseitem-1) - struct holding parsed item data
+
+Then the parser can be used like this, for example:
+```c#
+using HttpClient client = new HttpClient();
+using Stream stream = await client.GetStreamAsync("https://server/sse");
+
+var parser = SseParser.Create(stream, (type, data) =>
+{
+    var str = Encoding.UTF8.GetString(data);
+    return Int32.Parse(str);
+});
+await foreach (var item in parser.EnumerateAsync())
+{
+    Console.WriteLine($"{item.EventType}: {item.Data} [{parser.LastEventId};{parser.ReconnectionInterval}]");
+}
+```
+And for the following input:
+```text
+: stream of integers
+
+data: 123
+id: 1
+retry: 1000
+
+data: 456
+id: 2
+
+data: 789
+id: 3
+
+```
+It will output:
+```text
+message: 123 [1;00:00:01]
+message: 456 [2;00:00:01]
+message: 789 [3;00:00:01]
+```
+
+### Primitives Additions
+
+Apart from server sent event, `System.Net` namespace got a few small other additions:
+- `IEquatable<Uri>` interface implementation for [`Uri`](https://learn.microsoft.com/dotnet/api/system.uri.equals#system-uri-equals(system-uri)) in [dotnet/runtime#97940](https://github.com/dotnet/runtime/issues/97940)
+
+Which allows using `Uri` in functions that require `IEquatable` like `Span.Contains`(https://learn.microsoft.com/dotnet/api/system.memoryextensions.contains#system-memoryextensions-contains-1(system-readonlyspan((-0))-0)) or [`SequenceEquals`](https://learn.microsoft.com/dotnet/api/system.memoryextensions.sequenceequal#system-memoryextensions-sequenceequal-1(system-readonlyspan((-0))-system-readonlyspan((-0))))
+
+- span-based [`(Try)EscapeDataString`](https://learn.microsoft.com/dotnet/api/system.uri.escapedatastring#system-uri-escapedatastring(system-readonlyspan((system-char)))) and [`(Try)UnescapeDataString`](https://learn.microsoft.com/dotnet/api/system.uri.unescapedatastring?system-uri-unescapedatastring(system-readonlyspan((system-char)))) for `Uri` in [dotnet/runtime#40603](https://github.com/dotnet/runtime/issues/40603)
+
+The goal is to support low-allocations scenarions and we now take advantage of these methods in [`FormUrlEncodedContent`](https://learn.microsoft.com/dotnet/api/system.net.http.formurlencodedcontent).
+
+- new MIME types for [`MediaTypeNames`](https://learn.microsoft.com/dotnet/api/system.net.mime.mediatypenames) in [dotnet/runtime#95446](https://github.com/dotnet/runtime/issues/95446)
+
+These were collected over the course of the release and implemented in [dotnet/runtime#103575](https://github.com/dotnet/runtime/pull/103575) by a community contributor [CollinAlpert](https://github.com/CollinAlpert).
+
+
+## Final Notes
+
+As each year, we try to write about the interesting and impactful changes in the networking space. This article cannot possibly cover all the changes that were made, but they can be found in our [dotnet/runtime](https://github.com/dotnet/runtime) repository where you can also reach out to us with question and bugs. On top of that, many of the performance changes that are not mentioned here are in Stephen's great article [Performance Improvements in .NET 9](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-9/#networking). We'd also like to hear from you, so if you encounter an issue or have any feedback, you can file it in [our GitHub](https://github.com/dotnet/runtime/issues).
+
+Lastly, I'd like to thank my co-authors:
+- [@antonfirsov](https://github.com/antonfirsov) who wrote [Metrics](#metrics).
+- [@CarnaViire](https://github.com/CarnaViire) who wrote [HttpClientFactory](#httpclientfactory) and [WebSockets](#websockets).
