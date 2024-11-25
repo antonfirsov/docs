@@ -92,10 +92,50 @@ The analyzer was implemented by [amiru3f](https://github.com/amiru3f).
 - ServicePoint obsoletion (https://github.com/dotnet/runtime/pull/103456)
 - AuthenticationManager obsoletion (https://github.com/dotnet/runtime/pull/93171) community
 
-// Anton
-## Metrics / Diagnostics / Redaction
-- https://github.com/dotnet/runtime/pull/103922
-- ...
+## Uri Query Redaction in `IHttpClientFactory` Logs
+
+For versions lower than 9.0, the default logging logic of `IHttpClientFactory` emits the full request URI in the `RequestStart` and `RequestPipelineStart` events. In cases where some components of the URI contain sensitive information, this can lead to privacy incidents by leaking such data into logs. 
+
+Version 8.0 introduced the ability to secure `HttpClientFactory` usage by [customizing logging](https://devblogs.microsoft.com/dotnet/dotnet-8-networking-improvements/#modify-httpclient-logging). However, this does not change the fact that the default behavior might be risky for unaware users.
+
+In most problematic cases, sensitive information resides in the query component. Therefore, a [breaking change](https://learn.microsoft.com/dotnet/core/compatibility/networking/9.0/query-redaction-logs) was introduced, removing the entire query string from `IHttpClientFactory` logs by default. A global [opt-out switch](https://learn.microsoft.com/en-us/dotnet/core/compatibility/networking/9.0/query-redaction-logs#recommended-action) is available for services/apps where it is safe to log the full URI.
+
+For consistency and maximum safety, a [similar change](https://learn.microsoft.com/dotnet/core/compatibility/networking/9.0/query-redaction-events) was implemented for EventSource events.
+
+We recognize that this solution might not suit all users. Ideally, there should be a fine-grained URI filtering mechanism, allowing users to retain non-sensitive query entries or filter other URI components (e.g., the path). [We plan to explore](https://github.com/dotnet/runtime/issues/110018) such a feature for future versions.
+
+## Distributed Tracing Improvements
+
+[Distributed tracing](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/distributed-tracing) is a diagnostic technique for tracking the path of a specific transaction across multiple processes and machines, helping identify bottlenecks and failures. This technique models the transaction as a hierarchical tree of [`Activities`](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/distributed-tracing-concepts#traces-and-activities), also referred to as [spans](https://opentelemetry.io/docs/concepts/signals/traces/#spans) in OpenTelemetry terminology.
+
+`HttpClientHandler` and `SocketsHttpHandler` are instrumented to start an `Activity` for each request and propagate the [trace context](https://www.w3.org/TR/trace-context/) via standard W3C headers when tracing is enabled.
+
+Before .NET 9, users needed the OpenTelemetry .NET SDK to produce useful OpenTelemetry-compliant traces. This SDK was required not just for collection and export but also to [extend the instrumentation](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/85afc5dd1bd7deef9b8949f36a14cd3fd1aacecb/src/OpenTelemetry.Instrumentation.Http/README.md), as the built-in logic did not populate the `Activity` with request data.
+
+Starting with .NET 9, the instrumentation dependency (`OpenTelemetry.Instrumentation.Http`) can be omitted unless advanced features like enrichment are required. [dotnet/runtime#104251](https://github.com/dotnet/runtime/pull/104251) extends the built-in tracing to ensure that the shape of the `Activity` is [OTel-compliant](https://opentelemetry.io/docs/specs/semconv/http/http-spans/#http-client), with the name, status, and most required tags populated according to the standard.
+
+### Experimental Connection Tracing
+
+When investigating bottlenecks, you might want to zoom into specific HTTP requests to identify where most of the time is spent. Is it during content download, DNS lookup, or the TLS handshake? A breakdown similar to what is seen in a browser's developer tools networking tab can be invaluable:
+
+![Breakdown of an HTTP request in Chromium](chromium-breakdown.png)
+
+Is it possible to create a similar experience for analyzing `HttpClient` request traces by emitting a trace hierarchy with connection setup activities? Due to `SocketsHttpHandler`'s connection pooling logic, the answer is more nuanced than many would expect. When there is no connection available in the pool for an incoming request, a connection attempt will be initiated, executing the usual DNS, TCP, and TLS setup steps. However, the request might not use the connection it initiated *if another connection becomes available sooner* (eg. because it finished serving an unrelated request).
+
+This behavior reduces latency but complicates telemetry. If we introduce a `connection_setup` activity (with `DNS lookup`, `socket connect`, and `TLS` sub-activities), it cannot be modeled as a child of the originating request activity since requests and connections are only associated when a connection is dispatched to serve a request.
+
+Fortunately, this relationship can still be represented using [Span Links](https://opentelemetry.io/docs/concepts/signals/traces/#span-links), also known as Activity Links. When .NET 9 connection tracing is enabled, a separate `connection_setup` root activity is created for each connection attempt. At the moment a pooled connection is picked up by a request, we create a link from the request activity to the connection setup activity:
+
+![A visualization of connection links](connection-link.png)
+
+Typically, this results in numerous links from request activities to the same connection setup activity. Unfortunately, monitoring tools like Azure Monitor Application Insights struggle to visualize such links effectively, as they aggregate all `connection_setup → request` backlinks into a single view. For this reason, the ActivitySources producing connection activities are marked experimental and the activity source names are prefixed with `Experimental.` eg. (`Experimental.System.Net.NameResolution` for DNS). We plan to collaborate with OTel to help improving the user experience in monitoring tools and may adjust the design based on feedback.
+
+The simplest way to set up and try connection trace collection is by using .NET Aspire. Using Aspire Dashboards it's possible to expand the `connection_setup` activity and see a breakdown of the connection initialization.
+
+![A breakdown of the connection_setup activity on Aspire Dashboards](connection-setup.png)
+
+If you think the .NET 9 tracing additions might bring you valuable diagnostic insights, and you want to get some hands-on experience, don't hesitate to read our full article about [Networking distributed traces in .NET](https://github.com/dotnet/docs/blob/108f1e75cb1e83654d5b52980a3181ce61ef8cc2/docs/fundamentals/networking/telemetry/tracing.md).
+
 
 // Natalia
 ## HttpClientFactory
