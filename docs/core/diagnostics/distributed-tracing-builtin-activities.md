@@ -12,7 +12,7 @@ This is a reference for distributed tracing Activities (<xref:System.Diagnostics
 
 ### HTTP client request
 
-<xref:System.Net.Http.SocketsHttpHandler> and <xref:System.Net.Http.HttpClientHandler> report the the HTTP client request span following the recommendations in OpenTelemetry [HTTP Client Semantic Conventions](https://opentelemetry.io/docs/specs/semconv/http/http-spans/#http-client).
+<xref:System.Net.Http.SocketsHttpHandler> and <xref:System.Net.Http.HttpClientHandler> report the the HTTP client request activity following the recommendations in OpenTelemetry [HTTP Client Semantic Conventions](https://opentelemetry.io/docs/specs/semconv/http/http-spans/#http-client). It describes the HTTP request sent by <xref:System.Net.Http.HttpClient>'s send overloads during the time interval the underlying handler completes the request. Completing the request includes the time up to reading response headers from the network stream. It doesn't include the time spent reading the response body.
 
 | Availability | <xref:System.Diagnostics.ActivitySource> name | <xref:System.Diagnostics.Activity.OperationName> | <xref:System.Diagnostics.Activity.DisplayName> |
 |---|---|---|---|
