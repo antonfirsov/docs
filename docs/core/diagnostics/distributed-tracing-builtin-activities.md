@@ -121,10 +121,10 @@ This activity describes the establishment of a <xref:System.Net.Sockets.Socket> 
 | Attribute  | Type | Description  | Examples  | Presence |
 |---|---|---|---|---|
 | `error.type` | string | The <xref:System.Net.Sockets.SocketError> in snake_case. | `address_already_in_use`; `connection_refused` | If the socket connection attempt fails. |
-| `network.peer.address` | string | Peer address of the network connection - IP address or Unix domain socket name. | `10.5.3.2`; `/tmp/my.sock` | For IP and UDS sockets. |
-| `network.peer.port` | int | Peer port number of the IP connection. | `65123` | For IP sockets. |
-| `network.transport` | string | [OSI transport layer](https://en.wikipedia.org/wiki/Transport_layer) or [inter-process communication method](https://wikipedia.org/wiki/Inter-process_communication). | `tcp`; `udp`; `unix` | For IP and UDS sockets. |
-| `network.type` | string | [OSI network layer](https://en.wikipedia.org/wiki/Network_layer) or non-OSI equivalent. | `ipv4`; `ipv6` | For IP sockets. |
+| `network.peer.address` | string | Peer address of the network connection - IP address or Unix domain socket name. | `10.5.3.2`; `/tmp/my.sock` | IP and UDS sockets. |
+| `network.peer.port` | int | Peer port number of the IP connection. | `65123` | IP sockets. |
+| `network.transport` | string | [OSI transport layer](https://en.wikipedia.org/wiki/Transport_layer) or [inter-process communication method](https://wikipedia.org/wiki/Inter-process_communication). | `tcp`; `udp`; `unix` | IP and UDS sockets. |
+| `network.type` | string | [OSI network layer](https://en.wikipedia.org/wiki/Network_layer) or non-OSI equivalent. | `ipv4`; `ipv6` | IP sockets. |
 
 ### TLS handshake
 
@@ -144,5 +144,5 @@ This activity describes the TLS client or server handshake performed via <xref:S
 | `error.type` | string | Describes a class of error the operation ended with. | `System.Net.Security.Authentication.AuthenticationException`; `System.OperationCanceledException` | If the handshake fails. |
 | `server.address` | string | he [server name indication (SNI)](https://en.wikipedia.org/wiki/Server_Name_Indication) used in the 'Client Hello' message during TLS handshake. | `example.com` | When authenticating as client. |
 | `tls.protocol.name` | string | Normalized lowercase protocol name parsed from original string of the negotiated [SSL/TLS protocol version](https://www.openssl.org/docs/man1.1.1/man3/SSL_get_version.html#RETURN-VALUES) | `ssl`; `tls` | When the protocol info is available. |
-| `tls.protocol.version` | string | Numeric part of the version parsed from the original string of the negotiated [SSL/TLS protocol version](https://www.openssl.org/docs/man1.1.1/man3/SSL_get_version.html#RETURN-VALUES) | `1.2`; `3` | When the protocol info is available. |
+| `tls.protocol.version` | string | Numeric part of the version parsed from the original string of the negotiated [SSL/TLS protocol version](https://www.openssl.org/docs/man1.1.1/man3/SSL_get_version.html#RETURN-VALUES) | `1.2`; `1.3` | When the protocol info is available. |
  
