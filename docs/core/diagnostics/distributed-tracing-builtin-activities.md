@@ -16,9 +16,12 @@ This is a reference for distributed tracing Activities (<xref:System.Diagnostics
 
 | Availability | <xref:System.Diagnostics.ActivitySource> name | <xref:System.Diagnostics.Activity.OperationName> | <xref:System.Diagnostics.Activity.DisplayName> |
 |---|---|---|---|
-| .NET 9+ | `Experimental.System.Net.Http` | `Experimental.System.Net.Http.HttpRequestOut` | `{http.request.method}`  |
+| .NET 9+ | `System.Net.Http` | `System.Net.Http.HttpRequestOut` | `{HTTP method}`  |
 
-#### Attributes
+> [!NOTE]
+> The `Experimental.System.Net.Http.HttpRequestOut` Activity is actually available on earlier versions of .NET, however its' status, `DisplayName` and attributes are only populated starting with .NET 9. On earlier versions the [OpenTelemetry.Instrumentation.Http](https://www.nuget.org/packages/OpenTelemetry.Instrumentation.Http/) package is recommended to fill this gap.
+
+#### Attributes (tags)
 
 | Attribute  | Type | Description  | Examples  | Presence |
 |---|---|---|---|---|
@@ -46,7 +49,7 @@ This activity is a child of an *HTTP client request* activity. It represents the
 > [!TIP]
 > The time it takes to get a connection from the pool is also reported by the [`http.client.request.time_in_queue`](built-in-metrics-system-net.md#metric-httpclientrequesttime_in_queue) metric.
 
-#### Attributes
+#### Attributes (tags)
 
 | Attribute  | Type | Description  | Examples  | Presence |
 |---|---|---|---|---|
@@ -68,7 +71,7 @@ There is no parent-child relationship between the *HTTP client request* and the 
 > [!NOTE]
 > This activity is experimental. It might be altered or removed in future versions!
 
-#### Attributes
+#### Attributes (tags)
 
 | Attribute  | Type | Description  | Examples  | Presence |
 |---|---|---|---|---|
@@ -92,7 +95,7 @@ This activity describes DNS lookups performed via <xref:System.Net.Dns> calls. I
 > [!NOTE]
 > This activity is experimental. It might be altered or removed in future versions!
 
-#### Attributes
+#### Attributes (tags)
 
 | Attribute  | Type | Description  | Examples  | Presence |
 |---|---|---|---|---|
@@ -113,7 +116,7 @@ This activity describes the establishment of a <xref:System.Net.Sockets.Socket> 
 > [!NOTE]
 > This activity is experimental. It might be altered or removed in future versions!
 
-#### Attributes
+#### Attributes (tags)
 
 | Attribute  | Type | Description  | Examples  | Presence |
 |---|---|---|---|---|
@@ -134,7 +137,7 @@ This activity describes the TLS client or server handshake performed via <xref:S
 > [!NOTE]
 > This activity is experimental. It might be altered or removed in future versions!
 
-#### Attributes
+#### Attributes (tags)
 
 | Attribute  | Type | Description  | Examples  | Presence |
 |---|---|---|---|---|
@@ -142,3 +145,4 @@ This activity describes the TLS client or server handshake performed via <xref:S
 | `server.address` | string | he [server name indication (SNI)](https://en.wikipedia.org/wiki/Server_Name_Indication) used in the 'Client Hello' message during TLS handshake. | `example.com` | When authenticating as client. |
 | `tls.protocol.name` | string | Normalized lowercase protocol name parsed from original string of the negotiated [SSL/TLS protocol version](https://www.openssl.org/docs/man1.1.1/man3/SSL_get_version.html#RETURN-VALUES) | `ssl`; `tls` | When the protocol info is available. |
 | `tls.protocol.version` | string | Numeric part of the version parsed from the original string of the negotiated [SSL/TLS protocol version](https://www.openssl.org/docs/man1.1.1/man3/SSL_get_version.html#RETURN-VALUES) | `1.2`; `3` | When the protocol info is available. |
+ 
