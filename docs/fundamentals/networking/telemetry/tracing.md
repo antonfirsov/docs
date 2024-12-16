@@ -12,12 +12,12 @@ ms.date: 10/4/2024
 
 The tracing system in .NET is designed to work with OpenTelemetry (OTel), and uses OTel to export the data to monitoring systems. Tracing in .NET is implemented using `System.Diagnostics.Activity` class along with `System.Diagnostics.ActivitySource` for collection, these correspond to `spans` in OTel. OpenTelemetry is defining an industry-wide standard for naming of tracing spans and their attributes, these are known as [semantic conventions](https://opentelemetry.io/docs/concepts/semantic-conventions). .NET telemetry is using the semantic conventions that have already been defined, and are working to add missing ones to the spec(s).
 
-While the `System.Net` apis create activities, they rely on [OpenTelemetry instrumentation libraries](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/glossary.md#instrumentation-library) to populate the `Activity` with the trace tags/attributes, primarily `[OpenTelemetry.Instrumentation.Http](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.Http)`.
+While the `System.Net` apis create activities, they rely on [OpenTelemetry instrumentation libraries](https://github.com/open-telemetry/opentelemetry-specification/blob/b9b6d8f698f82cd321fbe4fcc15b76d49902c14e/specification/glossary.md#instrumentation-library) to populate the `Activity` with the trace tags/attributes, primarily [`OpenTelemetry.Instrumentation.Http`](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/1ca05685cbad63d3fa813b9cab49be341048e69e/src/OpenTelemetry.Instrumentation.Http#httpclient-and-httpwebrequest-instrumentation-for-opentelemetry).
 
 In .NET 9, we have started to move the functionality to emit the tags/attributes to the networking libraries, starting with the Http libraries.  
 
 > [!TIP]
-> For a comprehensive list of all built-in tracing together with their tags/attributes, see [System.Net Tracing](../../../core/diagnostics/TBD).
+> For a comprehensive list of all built-in tracing together with their tags/attributes, see [Built-in activities in .NET](../../../core/diagnostics/distributed-tracing-builtin-activities.md).
 
 ## Collect System.Net traces
 
@@ -34,7 +34,7 @@ This section demonstrates various methods to collect and view System.Net traces.
 
 The simplest solution for collecting traces for ASP.NET applications is to use [.NET Aspire](/dotnet/aspire/get-started/aspire-overview) which is a set of extensions to .NET to make it easy to create and work with distributed applications. One of the benefits of using .NET Aspire is that telemetry is built in, using the OpenTelemetry libraries for .NET. The default project templates for .NET Aspire contain a `ServiceDefaults` project, part of which is to setup and configure OTel. The Service Defaults project is referenced and initialized by each service in a .NET Aspire solution.
 
-The Service Defaults project template includes the OTel SDK, ASP.NET, HttpClient and Runtime Instrumentation packages, and those are configured in the [`Extensions.cs`](https://github.com/dotnet/aspire/blob/main/src/Aspire.ProjectTemplates/templates/aspire-servicedefaults/Extensions.cs) file.  For exporting telemetry .NET Aspire includes the OTLP exporter by default so that it can provide telemetry visualization using the Aspire Dashboard.
+The Service Defaults project template includes the OTel SDK, ASP.NET, HttpClient and Runtime Instrumentation packages, and those are configured in the [`Extensions.cs`](https://github.com/dotnet/aspire/blob/39912824d33de54be24baf842bf9228a6a84ac33/src/Aspire.ProjectTemplates/templates/aspire-servicedefaults/9.0/Extensions.cs) file.  For exporting telemetry .NET Aspire includes the OTLP exporter by default so that it can provide telemetry visualization using the Aspire Dashboard.
 
 The Aspire Dashboard is designed to bring telemetry observation to the local debug cycle, which enables developers to not only ensure that the applications are producing telemetry, but also use that telemetry to diagnose those applications locally. Being able to observe the calls between services is proving to be just as useful at debug time as in production. The .NET Aspire dashboard is launched automatically when you F5 the `AppHost` Project from Visual Studio or `dotnet run` the `AppHost` project.
 
