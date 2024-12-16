@@ -1,6 +1,6 @@
 ---
 title: "MSTEST0030: Type containing `[TestMethod]` should be marked with `[TestClass]`"
-description: "Learn about code analysis rule MSTEST0030: Type contaning `[TestMethod]` should be marked with `[TestClass]`, otherwise the test method will be silently ignored."
+description: "Learn about code analysis rule MSTEST0030: Type containing `[TestMethod]` should be marked with `[TestClass]`, otherwise the test method will be silently ignored."
 ms.date: 07/02/2024
 f1_keywords:
 - MSTEST0030
@@ -22,7 +22,7 @@ ms.author: enjieid
 | **Enabled by default**              | Yes                                                                |
 | **Default severity**                | Info                                                               |
 | **Introduced in version**           | 3.5.0                                                              |
-| **There is a code fix**             | No                                                                 |
+| **Is there a code fix**             | No                                                                 |
 
 ## Cause
 

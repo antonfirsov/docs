@@ -12,12 +12,20 @@ items:
             items:
               - name: DefaultKeyResolution.ShouldGenerateNewKey has altered meaning
                 href: aspnet-core/9.0/key-resolution.md
+              - name: Dev cert export no longer creates folder
+                href: aspnet-core/9.0/certificate-export.md
               - name: HostBuilder enables ValidateOnBuild/ValidateScopes in development environment
                 href: aspnet-core/9.0/hostbuilder-validation.md
+              - name: Legacy Mono and Emscripten APIs not exported to global namespace
+                href: aspnet-core/9.0/legacy-apis.md
+              - name: Middleware types with multiple constructors
+                href: aspnet-core/9.0/middleware-constructors.md
           - name: Containers
             items:
-              - name: .NET 9 container images no longer install zlib
+              - name: Container images no longer install zlib
                 href: containers/9.0/no-zlib.md
+              - name: .NET Monitor images simplified to version-only tags
+                href: containers/9.0/monitor-images.md
           - name: Core .NET libraries
             items:
               - name: Adding a ZipArchiveEntry sets header general-purpose bit flags
@@ -30,6 +38,8 @@ items:
                 href: core-libraries/9.0/biginteger-limit.md
               - name: Creating type of array of System.Void not allowed
                 href: core-libraries/9.0/type-instance.md
+              - name: EnumConverter validates registered types to be enum
+                href: core-libraries/9.0/enumconverter.md
               - name: "`Equals`/`GetHashCode` throw for `InlineArrayAttribute` types"
                 href: core-libraries/9.0/inlinearrayattribute.md
               - name: FromKeyedServicesAttribute no longer injects non-keyed parameter
@@ -40,8 +50,14 @@ items:
                 href: core-libraries/9.0/inlinearray-size.md
               - name: InMemoryDirectoryInfo prepends rootDir to files
                 href: core-libraries/9.0/inmemorydirinfo-prepends-rootdir.md
+              - name: New TimeSpan.From*() overloads that take integers
+                href: core-libraries/9.0/timespan-from-overloads.md
+              - name: New version of some OOB packages
+                href: core-libraries/9.0/oob-packages.md
               - name: RuntimeHelpers.GetSubArray returns different type
                 href: core-libraries/9.0/getsubarray-return.md
+              - name: String.Trim(params ReadOnlySpan<char>) overload removed
+                href: core-libraries/9.0/string-trim.md
               - name: Support for empty environment variables
                 href: core-libraries/9.0/empty-env-variable.md
               - name: ZipArchiveEntry names and comments respect UTF8 flag
@@ -52,10 +68,16 @@ items:
                 href: cryptography/9.0/evp-pkey-handle.md
               - name: Some X509Certificate2 and X509Certificate constructors are obsolete
                 href: cryptography/9.0/x509-certificates.md
+              - name: Windows private key lifetime simplified
+                href: cryptography/9.0/private-key-lifetime.md
           - name: Deployment
             items:
               - name: Deprecated desktop Windows/macOS/Linux MonoVM runtime packages
                 href: deployment/9.0/monovm-packages.md
+          - name: Interop
+            items:
+              - name: CET supported by default
+                href: interop/9.0/cet-support.md
           - name: JIT compiler
             items:
               - name: Floating point to integer conversions are saturating
@@ -64,24 +86,42 @@ items:
                 href: jit/9.0/sve-apis.md
           - name: Networking
             items:
+              - name: HttpClient metrics report `server.port` unconditionally
+                href: networking/9.0/server-port-attribute.md
               - name: HttpClientFactory logging redacts header values by default
                 href: networking/9.0/redact-headers.md
+              - name: HttpClientFactory uses SocketsHttpHandler as primary handler
+                href: networking/9.0/default-handler.md
               - name: HttpListenerRequest.UserAgent is nullable
                 href: networking/9.0/useragent-nullable.md
+              - name: Uri query redaction in HttpClient EventSource events
+                href: networking/9.0/query-redaction-events.md
+              - name: Uri query redaction in IHttpClientFactory logs
+                href: networking/9.0/query-redaction-logs.md
           - name: SDK and MSBuild
             items:
-              - name: "'dotnet workload' commands output change"
+              - name: "`dotnet restore` audits transitive packages"
+                href: sdk/9.0/nugetaudit-transitive-packages.md
+              - name: "`dotnet watch` incompatible with Hot Reload for old frameworks"
+                href: sdk/9.0/dotnet-watch.md
+              - name: "`dotnet workload` commands output change"
                 href: sdk/9.0/dotnet-workload-output.md
-              - name: "'installer' repo version no longer documented"
+              - name: "`installer` repo version no longer documented"
                 href: sdk/9.0/productcommits-versions.md
               - name: Terminal logger is default
                 href: sdk/9.0/terminal-logger.md
+              - name: Version requirements
+                href: sdk/9.0/version-requirements.md
               - name: Warning emitted for .NET Standard 1.x targets
                 href: sdk/9.0/netstandard-warning.md
+              - name: Warning emitted for .NET 7 target
+                href: sdk/9.0/net70-warning.md
           - name: Serialization
             items:
               - name: BinaryFormatter always throws
                 href: serialization/9.0/binaryformatter-removal.md
+              - name: Nullable JsonDocument properties deserialize to JsonValueKind.Null
+                href: serialization/9.0/jsondocument-props.md
           - name: Windows Forms
             items:
               - name: BindingSource.SortDescriptions doesn't return null
@@ -94,6 +134,8 @@ items:
                 href: windows-forms/9.0/datagridviewrowaccessibleobject-name-row.md
               - name: IMsoComponent support is opt-in
                 href: windows-forms/9.0/imsocomponent-support.md
+              - name: New security analyzers
+                href: windows-forms/9.0/security-analyzers.md
               - name: No exception if DataGridView is null
                 href: windows-forms/9.0/datagridviewheadercell-nre.md
               - name: PictureBox raises HttpClient exceptions
@@ -150,6 +192,8 @@ items:
                 href: core-libraries/8.0/file-path-backslash.md
               - name: Base64.DecodeFromUtf8 methods ignore whitespace
                 href: core-libraries/8.0/decodefromutf8-whitespace.md
+              - name: BinaryReader.GetString() returns "/uFFFD" on malformed sequences
+                href: core-libraries/9.0/binaryreader.md
               - name: Boolean-backed enum type support removed
                 href: core-libraries/8.0/bool-backed-enum.md
               - name: Complex.ToString format changed to `<a; b>`
@@ -238,6 +282,8 @@ items:
             items:
               - name: SendFile throws NotSupportedException for connectionless sockets
                 href: networking/8.0/sendfile-connectionless.md
+              - name: User info in `mailto:` URIs is compared
+                href: networking/8.0/uri-comparison.md
           - name: Reflection
             items:
               - name: IntPtr no longer used for function pointer types
@@ -356,6 +402,8 @@ items:
                 href: core-libraries/7.0/obsolete-apis-with-default-diagnostic.md
               - name: API obsoletions with non-default diagnostic IDs
                 href: core-libraries/7.0/obsolete-apis-with-custom-diagnostics.md
+              - name: Asterisk no longer accepted for assembly name attributes
+                href: core-libraries/7.0/assembly-name-wildcard.md
               - name: BrotliStream no longer allows undefined CompressionLevel values
                 href: core-libraries/7.0/brotlistream-ctor.md
               - name: C++/CLI projects in Visual Studio
@@ -496,6 +544,10 @@ items:
                 href: windows-forms/7.0/apis-throw-argumentnullexception.md
               - name: Obsoletions and warnings
                 href: windows-forms/7.0/obsolete-apis.md
+          - name: WPF
+            items:
+              - name: Revert behavior with text drag-and-drop operations
+                href: wpf/7.0/drag-and-drop.md
       - name: .NET 6
         items:
           - name: Overview
@@ -998,8 +1050,14 @@ items:
             items:
               - name: DefaultKeyResolution.ShouldGenerateNewKey has altered meaning
                 href: aspnet-core/9.0/key-resolution.md
+              - name: Dev cert export no longer creates folder
+                href: aspnet-core/9.0/certificate-export.md
               - name: HostBuilder enables ValidateOnBuild/ValidateScopes in development environment
                 href: aspnet-core/9.0/hostbuilder-validation.md
+              - name: Legacy Mono and Emscripten APIs not exported to global namespace
+                href: aspnet-core/9.0/legacy-apis.md
+              - name: Middleware types with multiple constructors
+                href: aspnet-core/9.0/middleware-constructors.md
           - name: .NET 8
             items:
               - name: ConcurrencyLimiterMiddleware is obsolete
@@ -1206,8 +1264,10 @@ items:
         items:
           - name: .NET 9
             items:
-              - name: .NET 9 container images no longer install zlib
+              - name: Container images no longer install zlib
                 href: containers/9.0/no-zlib.md
+              - name: .NET Monitor images simplified to version-only tags
+                href: containers/9.0/monitor-images.md
           - name: .NET 8
             items:
               - name: "'ca-certificates' removed from Alpine images"
@@ -1242,8 +1302,12 @@ items:
                 href: core-libraries/9.0/obsolete-apis-with-custom-diagnostics.md
               - name: BigInteger maximum length
                 href: core-libraries/9.0/biginteger-limit.md
+              - name: BinaryReader.GetString() returns "/uFFFD" on malformed sequences
+                href: core-libraries/9.0/binaryreader.md
               - name: Creating type of array of System.Void not allowed
                 href: core-libraries/9.0/type-instance.md
+              - name: EnumConverter validates registered types to be enum
+                href: core-libraries/9.0/enumconverter.md
               - name: "`Equals`/`GetHashCode` throw for `InlineArrayAttribute` types"
                 href: core-libraries/9.0/inlinearrayattribute.md
               - name: FromKeyedServicesAttribute no longer injects non-keyed parameter
@@ -1254,8 +1318,14 @@ items:
                 href: core-libraries/9.0/inlinearray-size.md
               - name: InMemoryDirectoryInfo prepends rootDir to files
                 href: core-libraries/9.0/inmemorydirinfo-prepends-rootdir.md
+              - name: New TimeSpan.From*() overloads that take integers
+                href: core-libraries/9.0/timespan-from-overloads.md
+              - name: New version of some OOB packages
+                href: core-libraries/9.0/oob-packages.md
               - name: RuntimeHelpers.GetSubArray returns different type
                 href: core-libraries/9.0/getsubarray-return.md
+              - name: String.Trim(params ReadOnlySpan<char>) overload removed
+                href: core-libraries/9.0/string-trim.md
               - name: Support for empty environment variables
                 href: core-libraries/9.0/empty-env-variable.md
               - name: ZipArchiveEntry names and comments respect UTF8 flag
@@ -1308,6 +1378,8 @@ items:
                 href: core-libraries/7.0/obsolete-apis-with-default-diagnostic.md
               - name: API obsoletions with non-default diagnostic IDs
                 href: core-libraries/7.0/obsolete-apis-with-custom-diagnostics.md
+              - name: Asterisk no longer accepted for assembly name attributes
+                href: core-libraries/7.0/assembly-name-wildcard.md
               - name: BrotliStream no longer allows undefined CompressionLevel values
                 href: core-libraries/7.0/brotlistream-ctor.md
               - name: C++/CLI projects in Visual Studio
@@ -1458,6 +1530,8 @@ items:
                 href: cryptography/9.0/evp-pkey-handle.md
               - name: Some X509Certificate2 and X509Certificate constructors are obsolete
                 href: cryptography/9.0/x509-certificates.md
+              - name: Windows private key lifetime simplified
+                href: cryptography/9.0/private-key-lifetime.md
           - name: .NET 8
             items:
               - name: AesGcm authentication tag size on macOS
@@ -1604,6 +1678,10 @@ items:
             href: globalization.md
       - name: Interop
         items:
+          - name: .NET 9
+            items:
+              - name: CET supported by default
+                href: interop/9.0/cet-support.md
           - name: .NET 8
             items:
               - name: CreateObjectFlags.Unwrap only unwraps on target instance
@@ -1662,14 +1740,24 @@ items:
         items:
           - name: .NET 9
             items:
+              - name: HttpClient metrics report `server.port` unconditionally
+                href: networking/9.0/server-port-attribute.md
               - name: HttpClientFactory logging redacts header values by default
                 href: networking/9.0/redact-headers.md
+              - name: HttpClientFactory uses SocketsHttpHandler as primary handler
+                href: networking/9.0/default-handler.md
               - name: HttpListenerRequest.UserAgent is nullable
                 href: networking/9.0/useragent-nullable.md
+              - name: Uri query redaction in HttpClient EventSource events
+                href: networking/9.0/query-redaction-events.md
+              - name: Uri query redaction in IHttpClientFactory logs
+                href: networking/9.0/query-redaction-logs.md
           - name: .NET 8
             items:
               - name: SendFile throws NotSupportedException for connectionless sockets
                 href: networking/8.0/sendfile-connectionless.md
+              - name: User info in `mailto:` URIs is compared
+                href: networking/8.0/uri-comparison.md
           - name: .NET 7
             items:
               - name: AllowRenegotiation default is false
@@ -1708,14 +1796,22 @@ items:
         items:
           - name: .NET 9
             items:
-              - name: "'dotnet workload' commands output change"
+              - name: "`dotnet restore` audits transitive packages"
+                href: sdk/9.0/nugetaudit-transitive-packages.md
+              - name: "`dotnet watch` incompatible with Hot Reload for old frameworks"
+                href: sdk/9.0/dotnet-watch.md
+              - name: "`dotnet workload` commands output change"
                 href: sdk/9.0/dotnet-workload-output.md
-              - name: "'installer' repo version no longer documented"
+              - name: "`installer` repo version no longer documented"
                 href: sdk/9.0/productcommits-versions.md
               - name: Terminal logger is default
                 href: sdk/9.0/terminal-logger.md
+              - name: Version requirements for .NET 9 SDK
+                href: sdk/9.0/version-requirements.md
               - name: Warning emitted for .NET Standard 1.x targets
                 href: sdk/9.0/netstandard-warning.md
+              - name: Warning emitted for .NET 7 target
+                href: sdk/9.0/net70-warning.md
           - name: .NET 8
             items:
               - name: CLI console output uses UTF-8
@@ -1848,6 +1944,8 @@ items:
             items:
               - name: BinaryFormatter always throws
                 href: serialization/9.0/binaryformatter-removal.md
+              - name: Nullable JsonDocument properties deserialize to JsonValueKind.Null
+                href: serialization/9.0/jsondocument-props.md
           - name: .NET 8
             items:
               - name: BinaryFormatter disabled for most projects
@@ -1908,6 +2006,10 @@ items:
             href: visualbasic.md
       - name: WCF Client
         items:
+          - name: "8.0"
+            items:
+              - name: Removal of WCF APIs with a `configurationName` parameter
+                href: wcf-client/8.0/configurationname-apis.md
           - name: "6.0"
             items:
               - name: .NET Standard 2.0 no longer supported
@@ -1928,6 +2030,8 @@ items:
                 href: windows-forms/9.0/datagridviewrowaccessibleobject-name-row.md
               - name: IMsoComponent support is opt-in
                 href: windows-forms/9.0/imsocomponent-support.md
+              - name: New security analyzers
+                href: windows-forms/9.0/security-analyzers.md
               - name: No exception if DataGridView is null
                 href: windows-forms/9.0/datagridviewheadercell-nre.md
               - name: PictureBox raises HttpClient exceptions
@@ -2002,20 +2106,26 @@ items:
                 href: sdk/5.0/sdk-and-target-framework-change.md
               - name: Removed status bar controls
                 href: windows-forms/5.0/winforms-deprecated-controls.md
-              - name: .NET Core 3.0-3.1
-                href: winforms.md
+          - name: .NET Core 3.0-3.1
+            href: winforms.md
       - name: WPF
         items:
           - name: .NET 9
             items:
               - name: "'GetXmlNamespaceMaps' type change"
                 href: wpf/9.0/xml-namespace-maps.md
+          - name: .NET 7
+            items:
+              - name: "Revert behavior with text drag-and-drop operations"
+                href: wpf/7.0/drag-and-drop.md
           - name: .NET 5
             items:
               - name: OutputType set to WinExe
                 href: sdk/5.0/automatically-infer-winexe-output-type.md
               - name: WPF apps use Microsoft.NET.Sdk
                 href: sdk/5.0/sdk-and-target-framework-change.md
+          - name: .NET Core 3.0
+            href: wpf.md
       - name: XML and XSLT
         items:
           - name: .NET 7

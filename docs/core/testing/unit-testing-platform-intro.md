@@ -12,6 +12,30 @@ Microsoft.Testing.Platform is a lightweight and portable alternative to [VSTest]
 
 `Microsoft.Testing.Platform` is open source. You can find `Microsoft.Testing.Platform` code in [microsoft/testfx](https://github.com/microsoft/testfx/tree/main/src/Platform/Microsoft.Testing.Platform) GitHub repository.
 
+## Microsoft.Testing.Platform pillars
+
+This new testing platform is built on the .NET Developer Experience Testing team's experience and aims to address the challenges encountered since the release of .NET Core in 2016. While there's a high level of compatibility between the .NET Framework and the .NET Core/.NET, some key features like the plugin-system and the new possible form factors of .NET compilations have made it complex to evolve or fully support the new runtime feature with the current [VSTest platform](https://github.com/microsoft/vstest) architecture.
+
+The main driving factors for the evolution of the new testing platform are detailed in the following:
+
+* **Determinism**: Ensuring that running the same tests in different contexts (local, CI) will produce the same result. The new runtime does not rely on reflection or any other dynamic .NET runtime feature to coordinate a test run.
+
+* **Runtime transparency**: The test runtime does not interfere with the test framework code, it does not create isolated contexts like `AppDomain` or `AssemblyLoadContext`, and it does not use reflection or custom assembly resolvers.
+
+* **Compile-time registration of extensions**: Extensions, such as test frameworks and in/out-of-process extensions, are registered during compile-time to ensure determinism and to facilitate detection of inconsistencies.
+
+* **Zero dependencies**: The core of the platform is a single .NET assembly, `Microsoft.Testing.Platform.dll`, which has no dependencies other than the supported runtimes.
+
+* **Hostable**: The test runtime can be hosted in any .NET application. While a console application is commonly used to run tests, you can create a test application in any type of .NET application. This allows you to run tests within special contexts, such as devices or browsers, where there may be limitations.
+
+* **Support all .NET form factors**: Support current and future .NET form factors, including Native AOT.
+
+* **Performant**: Finding the right balance between features and extension points to avoid bloating the runtime with non-fundamental code. The new test platform is designed to "orchestrate" a test run, rather than providing implementation details on how to do it.
+
+* **Extensible enough**: The new platform is built on extensibility points to allow for maximum customization of runtime execution. It allows you to configure the test process host, observe the test process, and consume information from the test framework within the test host process.
+
+* **Single module deploy**: The hostability feature enables a single module deploy model, where a single compilation result can be used to support all extensibility points, both out-of-process and in-process, without the need to ship different executable modules.
+
 ## Supported test frameworks
 
 * MSTest. In MSTest, the support of `Microsoft.Testing.Platform` is done via [MSTest runner](unit-testing-mstest-runner-intro.md).
@@ -159,56 +183,102 @@ To run a test project in CI add one step for each test executable that you wish 
 
 The list below described only the platform options. To see the specific options brought by each extension, either refer to the extension documentation page or use the `--help` option.
 
+- **`@`**
+
+  Specifies the name of the response file. The response file name must immediately follow the @ character with no white space between the @ character and the response file name.
+
+  Options in a response file are interpreted as if they were present at that place in the command line. Each argument in a response file must begin and end on the same line. You cannot use the backslash character (\) to concatenate lines. Using a response file helps for very long commands that might exceed the terminal limits. You can combine a response file with inline command-line arguments. For example:
+
+  ```console
+  ./TestExecutable.exe @"filter.rsp" --timeout 10s
+  ```
+
+  where *filter.rsp* can have the following contents:
+
+  ```rsp
+  --filter "A very long filter"
+  ```
+
+  Or a single rsp file can be used to specify both timeout and filter as follows:
+
+  ```console
+  ./TestExecutable.exe @"arguments.rsp"
+  ```
+
+  ```rsp
+  --filter "A very long filter"
+  --timeout 10s
+  ```
+
+- **`--config-file`**
+
+  Specifies a [*testconfig.json*](unit-testing-platform-config.md) file.
+
 - **`--diagnostic`**
 
-Enables the diagnostic logging. The default log level is `Trace`. The file is written in the output directory with the following name format, `log_[MMddHHssfff].diag`.
+  Enables the diagnostic logging. The default log level is `Trace`. The file is written in the output directory with the following name format, `log_[MMddHHssfff].diag`.
 
 - **`--diagnostic-filelogger-synchronouswrite`**
 
-Forces the built-in file logger to synchronously write logs. Useful for scenarios where you don't want to lose any log entries (if the process crashes). This does slow down the test execution.
+  Forces the built-in file logger to synchronously write logs. Useful for scenarios where you don't want to lose any log entries (if the process crashes). This does slow down the test execution.
 
 - **`--diagnostic-output-directory`**
 
-The output directory of the diagnostic logging, if not specified the file is generated in the default _TestResults_ directory.
+  The output directory of the diagnostic logging, if not specified the file is generated in the default _TestResults_ directory.
 
 - **`--diagnostic-output-fileprefix`**
 
-The prefix for the log file name. Defaults to `"log_"`.
+  The prefix for the log file name. Defaults to `"log_"`.
 
 - **`--diagnostic-verbosity`**
 
-Defines the verbosity level when the `--diagnostic` switch is used. The available values are `Trace`, `Debug`, `Information`, `Warning`, `Error`, or `Critical`.
+  Defines the verbosity level when the `--diagnostic` switch is used. The available values are `Trace`, `Debug`, `Information`, `Warning`, `Error`, or `Critical`.
+
+- **`--exit-on-process-exit`**
+
+  Exit the test process if dependent process exits. PID must be provided.
 
 - **`--help`**
 
-Prints out a description of how to use the command.
+  Prints out a description of how to use the command.
 
 - **`-ignore-exit-code`**
 
-Allows some non-zero exit codes to be ignored, and instead returned as `0`. For more information, see [Ignore specific exit codes](./unit-testing-platform-exit-codes.md#ignore-specific-exit-codes).
+  Allows some non-zero exit codes to be ignored, and instead returned as `0`. For more information, see [Ignore specific exit codes](./unit-testing-platform-exit-codes.md#ignore-specific-exit-codes).
 
 - **`--info`**
 
-Displays advanced information about the .NET Test Application such as:
+  Displays advanced information about the .NET Test Application such as:
 
-- The platform.
-- The environment.
-- Each registered command line provider, such as its, `name`, `version`, `description` and `options`.
-- Each registered tool, such as its, `command`, `name`, `version`, `description`, and all command line providers.
+  - The platform.
+  - The environment.
+  - Each registered command line provider, such as its `name`, `version`, `description`, and `options`.
+  - Each registered tool, such as its `command`, `name`, `version`, `description`, and all command-line providers.
 
-This feature is used to understand extensions that would be registering the same command line option or the changes in available options between multiple versions of an extension (or the platform).
+  This feature is used to understand extensions that would be registering the same command line option or the changes in available options between multiple versions of an extension (or the platform).
 
 - **`--list-tests`**
 
-List available tests. Tests will not be executed.
+  List available tests. Tests will not be executed.
+
+- **`--maximum-failed-tests`**
+
+  Specifies the maximum number of tests failures that, when reached, will stop the test run. Support for this switch requires framework authors to implement the `IGracefulStopTestExecutionCapability` capability. The exit code when reaching that amount of test failures is 13. For more information, see [Microsoft.Testing.Platform exit codes](unit-testing-platform-exit-codes.md).
+
+  > [!NOTE]
+  > This feature is available in Microsoft.Testing.Platform starting with version 1.5.
 
 - **`--minimum-expected-tests`**
 
-Specifies the minimum number of tests that are expected to run. By default, at least one test is expected to run.
+  Specifies the minimum number of tests that are expected to run. By default, at least one test is expected to run.
 
 - **`--results-directory`**
 
-The directory where the test results are going to be placed. If the specified directory doesn't exist, it's created. The default is `TestResults` in the directory that contains the test application.
+  The directory where the test results are going to be placed. If the specified directory doesn't exist, it's created. The default is `TestResults` in the directory that contains the test application.
+
+- **`--timeout`**
+
+  A global test execution timeout. Takes one argument as string in the format `<value>[h|m|s]` where `<value>` is float.
 
 ## MSBuild integration
 

@@ -1,7 +1,7 @@
 ---
 title: "Strings"
 description: Learn about strings in C# programming. See information on declaring and initializing strings, the immutability of string objects, and string escape sequences.
-ms.date: 07/31/2024
+ms.date: 11/22/2024
 helpviewer_keywords:
   - "C# language, strings"
   - "strings [C#]"
@@ -9,7 +9,7 @@ ms.assetid: 21580405-cb25-4541-89d5-037846a38b07
 ---
 # Strings and string literals
 
-A string is an object of type <xref:System.String> whose value is text. Internally, the text is stored as a sequential read-only collection of <xref:System.Char> objects. There's no null-terminating character at the end of a C# string; therefore a C# string can contain any number of embedded null characters ('\0'). The <xref:System.String.Length%2A> property of a string represents the number of `Char` objects it contains, not the number of Unicode characters. To access the individual Unicode code points in a string, use the <xref:System.Globalization.StringInfo> object.
+A string is an object of type <xref:System.String> whose value is text. Internally, the text is stored as a sequential read-only collection of <xref:System.Char> objects. The <xref:System.String.Length%2A> property of a string represents the number of `Char` objects it contains, not the number of Unicode characters. To access the individual Unicode code points in a string, use the <xref:System.Globalization.StringInfo> object.
 
 ## string vs. System.String
 
@@ -112,7 +112,7 @@ Use string interpolation to improve the readability and maintainability of your 
 
 :::code language="csharp" source="./snippets/StringInterpolation.cs" id="StringInterpolation":::
 
-Beginning with C# 10, you can use string interpolation to initialize a constant string when all the expressions used for placeholders are also constant strings.
+You can use string interpolation to initialize a constant string when all the expressions used for placeholders are also constant strings.
 
 Beginning with C# 11, you can combine *raw string literals* with string interpolations. You start and end the format string with three or more successive double quotes. If your output string should contain the `{` or `}` character, you can use extra `$` characters to specify how many `{` and `}` characters start and end an interpolation. Any sequence of fewer `{` or `}` characters is included in the output. The following example shows how you can use that feature to display the distance of a point from the origin, and place the point inside braces:
 

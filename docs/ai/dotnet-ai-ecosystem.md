@@ -1,7 +1,7 @@
 ---
 title: Overview of the .NET + AI ecosystem
 description: This article provides an overview of the ecosystem of SDKs and tools available to .NET developers integrating AI into their applications.
-ms.date: 04/04/2024
+ms.date: 11/24/2024
 ms.topic: overview
 ms.custom: devx-track-dotnet, devx-track-dotnet-ai
 ---
@@ -12,6 +12,12 @@ The .NET ecosystem provides many powerful tools, libraries, and services to deve
 
 > [!IMPORTANT]
 > Not all of the SDKs and services presented in this doc are maintained by Microsoft. When considering an SDK, make sure to evaluate its quality, licensing, support, and compatibility to ensure they meet your requirements.
+
+## Microsoft.Extensions.AI library for .NET
+
+[`Microsoft.Extensions.AI`](ai-extensions.md) is a set of core .NET libraries created in collaboration with developers across the .NET ecosystem, including Semantic Kernel. These libraries provide a unified layer of C# abstractions for interacting with AI services, such as small and large language models (SLMs and LLMs), embeddings, and middleware.
+
+`Microsoft.Extensions.AI` provides abstractions that can be implemented by various services, all adhering to the same core concepts. This library is not intended to provide APIs tailored to any specific provider's services. The goal of `Microsoft.Extensions.AI` is to act as a unifying layer within the .NET ecosystem, enabling developers to choose their preferred frameworks and libraries while ensuring seamless integration and collaboration across the ecosystem.
 
 ## Semantic Kernel for .NET
 

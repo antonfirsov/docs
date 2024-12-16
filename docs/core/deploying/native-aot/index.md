@@ -20,15 +20,6 @@ The Native AOT deployment model uses an ahead-of-time compiler to compile IL to 
 
 [Visual Studio 2022](https://visualstudio.microsoft.com/vs/), including the **Desktop development with C++** workload with all default components.
 
-# [Ubuntu](#tab/linux-ubuntu)
-
-- The compiler toolchain and developer packages for libraries that the .NET runtime depends on.
-- Ubuntu (18.04+)
-
-  ```sh
-  sudo apt-get install clang zlib1g-dev
-  ```
-
 # [Alpine](#tab/linux-alpine)
 
 - The compiler toolchain and developer packages for libraries that the .NET runtime depends on.
@@ -36,6 +27,33 @@ The Native AOT deployment model uses an ahead-of-time compiler to compile IL to 
 
   ```sh
   sudo apk add clang build-base zlib-dev
+  ```
+
+# [Fedora](#tab/linux-fedora)
+
+- The compiler toolchain and developer packages for libraries that the .NET runtime depends on.
+- Fedora (39+)
+
+  ```sh
+  sudo dnf install clang zlib-devel
+  ```
+
+# [RHEL](#tab/linux-rhel)
+
+- The compiler toolchain and developer packages for libraries that the .NET runtime depends on.
+- RHEL (8+)
+
+  ```sh
+  sudo dnf install clang zlib-devel
+  ```
+
+# [Ubuntu](#tab/linux-ubuntu)
+
+- The compiler toolchain and developer packages for libraries that the .NET runtime depends on.
+- Ubuntu (18.04+)
+
+  ```sh
+  sudo apt-get install clang zlib1g-dev
   ```
 
 # [macOS](#tab/macOS)
@@ -134,11 +152,11 @@ The following table shows supported compilation targets.
 | Windows  | x64, Arm64             |                      |
 | Linux    | x64, Arm64             |                      |
 | macOS   | x64, Arm64 |                                        |
-| iOS     | Arm64 | Experimental support                   |
-| iOSSimulator     | x64, Arm64 | Experimental support                   |
-| tvOS     | Arm64 | Experimental support                   |
-| tvOSSimulator     | x64, Arm64 | Experimental support                   |
-| MacCatalyst     | x64, Arm64 | Experimental support                   |
+| [iOS](./ios-like-platforms/index.md)     | Arm64 | Experimental support                   |
+| [iOSSimulator](./ios-like-platforms/index.md)     | x64, Arm64 | Experimental support                   |
+| [tvOS](./ios-like-platforms/index.md)     | Arm64 | Experimental support                   |
+| [tvOSSimulator](./ios-like-platforms/index.md)     | x64, Arm64 | Experimental support                   |
+| [MacCatalyst](./ios-like-platforms/index.md)     | x64, Arm64 | Experimental support                   |
 | Android | x64, Arm64 | Experimental, no built-in Java interop |
 
 ### [.NET 9+](#tab/net9plus)
@@ -148,11 +166,13 @@ The following table shows supported compilation targets.
 | Windows  | x64, Arm64, x86        |                      |
 | Linux    | x64, Arm64, Arm        |                      |
 | macOS   | x64, Arm64 |                                        |
-| iOS     | Arm64 |                   |
-| iOSSimulator     | x64, Arm64 |                   |
-| tvOS     | Arm64 |                    |
-| tvOSSimulator     | x64, Arm64 |                    |
-| MacCatalyst     | x64, Arm64 |                   |
+| [iOS](./ios-like-platforms/index.md)     | Arm64 |                   |
+| [iOSSimulator](./ios-like-platforms/index.md)     | x64, Arm64 |                   |
+| [tvOS](./ios-like-platforms/index.md)     | Arm64 |                    |
+| [tvOSSimulator](./ios-like-platforms/index.md)     | x64, Arm64 |                    |
+| [MacCatalyst](./ios-like-platforms/index.md)     | x64, Arm64 |                   |
 | Android | x64, Arm64, Arm | Experimental, no built-in Java interop |
 
 ---
+
+For more information about how specific platform is supported with Native AOT, follow the link from the table.

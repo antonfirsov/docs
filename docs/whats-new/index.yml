@@ -5,7 +5,7 @@ summary: Welcome to what's new in .NET and .NET docs. Use this page to navigate 
 metadata:
   title: .NET what's new?
   description: Learn about new .NET features and new and updated content in .NET docs.
-  ms.date: 10/01/2024
+  ms.date: 12/12/2024
   ms.topic: landing-page
 landingContent:
 - title: .NET 9 release updates
@@ -40,20 +40,20 @@ landingContent:
   linkLists:
   - linkListType: whats-new
     links:
+    - text: November 2024
+      url: dotnet-docs-mod2.md
+    - text: October 2024
+      url: dotnet-docs-mod1.md
     - text: September 2024
       url: dotnet-docs-mod0.md
-    - text: August 2024
-      url: dotnet-docs-mod2.md
-    - text: July 2024
-      url: dotnet-docs-mod1.md
 - title: Language updates
   linkLists:
   - linkListType: whats-new
     links:
     - text: What's new in C# 12
       url: ../csharp/whats-new/csharp-12.md
-    - text: What's new in F# 8
-      url: ../fsharp/whats-new/fsharp-8.md
+    - text: What's new in F# 9
+      url: ../fsharp/whats-new/fsharp-9.md
     - text: What's new for Visual Basic
       url: ../visual-basic/whats-new/index.md
 - title: Contribute to docs
@@ -98,11 +98,9 @@ landingContent:
     links:
     - text: .NET
       url: https://github.com/dotnet/core/blob/main/release-notes/README.md
-    - text: ASP.NET Core 8.0
-      url: /aspnet/core/release-notes/aspnetcore-8.0
+    - text: ASP.NET Core 9.0
+      url: /aspnet/core/release-notes/aspnetcore-9.0
     - text: Visual Studio 2022
       url: /visualstudio/releases/2022/release-notes
-    - text: Visual Studio 2022 for Mac
-      url: /visualstudio/releases/2022/mac-release-notes
     - text: Visual Studio Code
       url: https://code.visualstudio.com/updates

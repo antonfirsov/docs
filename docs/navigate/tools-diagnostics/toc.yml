@@ -273,9 +273,6 @@ items:
       - name: Visual Studio
         displayName: ide,integrated development environment,vs
         href: /visualstudio/get-started/visual-studio-ide?toc=/dotnet/navigate/tools-diagnostics/toc.json&bc=/dotnet/breadcrumb/toc.json
-      - name: Visual Studio for Mac
-        displayName: ide,integrated development environment,vs for mac,macOS,Mac
-        href: /visualstudio/mac/ide-tour?toc=/dotnet/navigate/tools-diagnostics/toc.json&bc=/dotnet/breadcrumb/toc.json
       - name: Visual Studio Code
         displayName: ide,integrated development environment,code,vs code,oss ide,
         href: https://code.visualstudio.com/docs
@@ -424,6 +421,8 @@ items:
             href: ../../core/diagnostics/distributed-tracing-instrumentation-walkthroughs.md
           - name: Collection
             href: ../../core/diagnostics/distributed-tracing-collection-walkthroughs.md
+          - name: Built-in activities
+            href: ../../core/diagnostics/distributed-tracing-builtin-activities.md
       - name: Specialized diagnostics
         items:
           - name: Overview
@@ -474,6 +473,8 @@ items:
                 href: ../../core/diagnostics/dumps.md
               - name: Linux dumps
                 href: ../../core/diagnostics/debug-linux-dumps.md
+              - name: .NET debugger extensions
+                href: ../../core/diagnostics/debugger-extensions.md
               - name: SOS debugger extension
                 href: ../../core/diagnostics/sos-debugging-extension.md
               - name: Debug Windows dumps
@@ -527,6 +528,8 @@ items:
             href: ../../core/diagnostics/dotnet-stack.md
           - name: dotnet-symbol
             href: ../../core/diagnostics/dotnet-symbol.md
+          - name: dotnet-debugger-extensions
+            href: ../../core/diagnostics/dotnet-debugger-extensions.md
           - name: dotnet-sos
             href: ../../core/diagnostics/dotnet-sos.md
           - name: dotnet-dsrouter
@@ -1103,6 +1106,8 @@ items:
                     href: ../../core/deploying/single-file/warnings/il3002.md
                   - name: IL3003
                     href: ../../core/deploying/single-file/warnings/il3003.md
+                  - name: IL3005
+                    href: ../../core/deploying/single-file/warnings/il3005.md
               - name: Reliability rules
                 items:
                   - name: Overview
@@ -1140,6 +1145,8 @@ items:
                     href: ../../fundamentals/code-analysis/quality-rules/ca2020.md
                   - name: CA2021
                     href: ../../fundamentals/code-analysis/quality-rules/ca2021.md
+                  - name: CA2022
+                    href: ../../fundamentals/code-analysis/quality-rules/ca2022.md
               - name: Security rules
                 items:
                   - name: Overview
@@ -1434,6 +1441,8 @@ items:
                     href: ../../fundamentals/code-analysis/quality-rules/ca2263.md
                   - name: CA2264
                     href: ../../fundamentals/code-analysis/quality-rules/ca2264.md
+                  - name: CA2265
+                    href: ../../fundamentals/code-analysis/quality-rules/ca2265.md
           - name: Code style rules
             items:
               - name: Overview
@@ -1647,6 +1656,10 @@ items:
                     href: ../../fundamentals/code-analysis/style-rules/ide0304.md
                   - name: IDE0305
                     href: ../../fundamentals/code-analysis/style-rules/ide0305.md
+                  - name: IDE0320
+                    href: ../../fundamentals/code-analysis/style-rules/ide0320.md
+                  - name: IDE0330
+                    href: ../../fundamentals/code-analysis/style-rules/ide0330.md
                   - name: IDE1005
                     href: ../../fundamentals/code-analysis/style-rules/ide1005.md
               - name: Miscellaneous rules
@@ -1803,6 +1816,14 @@ items:
             href: ../../fundamentals/syslib-diagnostics/syslib0056.md
           - name: SYSLIB0057
             href: ../../fundamentals/syslib-diagnostics/syslib0057.md
+      - name: Experimental features
+        items:
+          - name: Overview
+            displayName: syslib, experimental
+            href: ../../fundamentals/syslib-diagnostics/experimental-overview.md
+          - name: SYSLIB5003
+            href: ../../fundamentals/syslib-diagnostics/syslib5003.md
+            displayProperty: syslib5003          
       - name: Source-generated code
         items:
           - name: Overview
@@ -1882,7 +1903,7 @@ items:
             href: ../../fundamentals/syslib-diagnostics/syslib1070-1089.md
             displayProperty: syslib1071, syslib1072, syslib1073, syslib1074, syslib1075, syslib1076, syslib1077, syslib1078, syslib1079, syslib1080, syslib1081, syslib1082, syslib1083, syslib1084, syslib1085, syslib1086, syslib1087, syslib1088, syslib1089
           - name: SYSLIB1090-SYSLIB1099
-            href: ../../fundamentals/syslib-diagnostics/syslib1090-1099.md
+            href: ../../fundamentals/syslib-diagnostics/syslib-cominterfacegenerator.md
             displayProperty: syslib1091, syslib1092, syslib1093, syslib1094, syslib1095, syslib1096, syslib1097, syslib1098, syslib1099
           - name: SYSLIB1100-SYSLIB1118
             href: ../../fundamentals/syslib-diagnostics/syslib1100-1118.md
@@ -1893,6 +1914,9 @@ items:
           - name: SYSLIB1220-SYSLIB1229
             href: ../../fundamentals/syslib-diagnostics/syslib1220-1229.md
             displayProperty: syslib1220, syslib1221, syslib1222, syslib1223, syslib1224, syslib1225, syslib1226, syslib1227, syslib1228, syslib1229
+          - name: SYSLIB1230
+            href: ../../fundamentals/syslib-diagnostics/syslib1230.md
+            displayProperty: syslib1230, syslib1231, syslib1232, syslib1233, syslib1234, syslib1235, syslib1236, syslib1237, syslib1238, syslib1239
   - name: API compatibility
     items:
       - name: Overview

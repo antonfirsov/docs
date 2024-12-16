@@ -60,12 +60,12 @@ If your application is using [Dependency Injection (DI)](dependency-injection.md
 
 This example gets an ILogger object in a hosted app using [ASP.NET Minimal APIs](/aspnet/core/fundamentals/minimal-apis/overview):
 
-:::code language="csharp" source="snippets/logging/minimal-web/Program.cs" highlight="8":::
+:::code language="csharp" source="snippets/logging/minimal-web/Program.cs" highlight="12":::
 
 The preceding example:
 
 - Created a singleton service called `ExampleHandler` and mapped incoming web requests to run the `ExampleHandler.HandleRequest` function.
-- Line 8 defines a [primary constructor](../../csharp/whats-new/tutorials/primary-constructors.md) for the ExampleHandler, a feature added in C# 12. Using the older style C# constructor would work equally well but is a little more verbose.
+- Line 12 defines a [primary constructor](../../csharp/whats-new/tutorials/primary-constructors.md) for the ExampleHandler, a feature added in C# 12. Using the older style C# constructor would work equally well but is a little more verbose.
 - The constructor defines a parameter of type `ILogger<ExampleHandler>`. <xref:Microsoft.Extensions.Logging.ILogger%601> derives from <xref:Microsoft.Extensions.Logging.ILogger> and indicates which category the `ILogger` object has. The DI container locates an `ILogger` with the correct category and supplies it as the constructor argument. If no `ILogger` with that category exists yet, the DI container automatically creates it from the `ILoggerFactory` in the service provider.
 - The `logger` parameter received in the constructor was used for logging in the `HandleRequest` function.
 
@@ -364,7 +364,7 @@ public async Task<T> GetAsync<T>(string id)
 }
 ```
 
-In the preceding code, the first `Log{LogLevel}` parameter,`AppLogEvents.Read`, is the [Log event ID](#log-event-id). The second parameter is a message template with placeholders for argument values provided by the remaining method parameters. The method parameters are explained in the [message template](#log-message-template) section later in this article.
+In the preceding code, the first `Log{LogLevel}` parameter, `AppLogEvents.Read`, is the [Log event ID](#log-event-id). The second parameter is a message template with placeholders for argument values provided by the remaining method parameters. The method parameters are explained in the [message template](#log-message-template) section later in this article.
 
 Configure the appropriate log level and call the correct `Log{LogLevel}` methods to control how much log output is written to a particular storage medium. For example:
 
@@ -563,6 +563,7 @@ The following providers support scopes:
 
 - `Console`
 - [AzureAppServicesFile and AzureAppServicesBlob](xref:Microsoft.Extensions.Logging.AzureAppServices.BatchingLoggerOptions.IncludeScopes)
+- [ApplicationInsightsLoggerProvider](/azure/azure-monitor/app/ilogger?tabs=dotnet6#logging-scopes)
 
 Use a scope by wrapping logger calls in a `using` block:
 
