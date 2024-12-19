@@ -10,27 +10,30 @@ ms.date: 10/4/2024
 
 [Distributed tracing](../../../core/diagnostics/distributed-tracing.md) is a diagnostic technique that helps engineers localize failures and performance issues within applications, especially those that may be distributed across multiple machines or processes. This technique tracks requests through an application correlating together work done by different application components and separating it from other work the application may be doing for concurrent requests. For example, a request to a typical web service might be first received by a load balancer, then forwarded to a web server process, which then makes several queries to a database. Using distributed tracing allows engineers to distinguish if any of those steps failed, how long each step took, and potentially logging messages produced by each step as it ran.
 
-The tracing system in .NET is designed to work with OpenTelemetry (OTel), and uses OTel to export the data to monitoring systems. Tracing in .NET is implemented using `System.Diagnostics.Activity` class along with `System.Diagnostics.ActivitySource` for collection, these correspond to `spans` in OTel. OpenTelemetry is defining an industry-wide standard for naming of tracing spans and their attributes, these are known as [semantic conventions](https://opentelemetry.io/docs/concepts/semantic-conventions). .NET telemetry is using the semantic conventions that have already been defined, and are working to add missing ones to the spec(s).
+The tracing system in .NET is designed to work with OpenTelemetry (OTel), and uses OTel to export the data to monitoring systems. Tracing in .NET is implemented using the <xref:System.Net.Diagnostics> APIs where a unit of work is represented by the <xref:System.Diagnostics.Activity?displayProperty=nameWithType> class which corresponds to an OTel [span](https://opentelemetry.io/docs/concepts/signals/traces/#spans). OpenTelemetry is defining an industry-wide standard for naming of tracing spans (a.k.a. activities) and their attributes (a.k.a. tags), these are known as [semantic conventions](https://opentelemetry.io/docs/concepts/semantic-conventions). .NET telemetry is using the semantic conventions that have already been defined, and the .NET team is actively collaborating with OTel to add the missing ones to the specifications.
 
-While the `System.Net` apis create activities, they rely on [OpenTelemetry instrumentation libraries](https://github.com/open-telemetry/opentelemetry-specification/blob/b9b6d8f698f82cd321fbe4fcc15b76d49902c14e/specification/glossary.md#instrumentation-library) to populate the `Activity` with the trace tags/attributes, primarily [`OpenTelemetry.Instrumentation.Http`](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/1ca05685cbad63d3fa813b9cab49be341048e69e/src/OpenTelemetry.Instrumentation.Http#httpclient-and-httpwebrequest-instrumentation-for-opentelemetry).
+## Instrumentation
 
-In .NET 9, we have started to move the functionality to emit the tags/attributes to the networking libraries, starting with the Http libraries.  
+In order to emit traces, the `System.Net` libraries are [instrumented](../../../core/diagnostics/distributed-tracing-instrumentation-walkthroughs.md#add-basic-instrumentation) with built-in <xref:System.Diagnostics.ActivitySource>-s which create <xref:System.Diagnostics.Activity> objects to track work performed. Activities are only created if there are listeners subscribed to the <xref:System.Diagnostics.ActivitySource>.
+
+The built-in instrumentation has evolved with .NET versions.
+- On .NET 8 or earlier, the instrumentation is limited to the creation of an empty [*HTTP client request activity*](../../../core/diagnostics/distributed-tracing-builtin-activities.md#http-client-request). This means that users have to rely on the [`OpenTelemetry.Instrumentation.Http`](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/1ca05685cbad63d3fa813b9cab49be341048e69e/src/OpenTelemetry.Instrumentation.Http#httpclient-and-httpwebrequest-instrumentation-for-opentelemetry) library to populate the activity with the information (e.g., tags) needed to emit useful traces.
+- .NET 9 has extended the *HTTP client request activity* instrumentation with the emission the name, status, exception info and the most important tags according to the [standard](https://opentelemetry.io/docs/specs/semconv/http/http-spans/#http-client). This means that the `OpenTelemetry.Instrumentation.Http` dependency can be omitted, unless more advanced features like enrichment are required.
+- .NET 9 has also introduced [experimental connection tracing](#experimental-connection-tracing), adding  new activites across the `System.Net` libraries to support diagnosing connection issues. 
 
 > [!TIP]
-> For a comprehensive list of all built-in tracing together with their tags/attributes, see [Built-in activities in .NET](../../../core/diagnostics/distributed-tracing-builtin-activities.md).
+> For a comprehensive list of all built-in activities together with their tags/attributes, see [Built-in activities in .NET](../../../core/diagnostics/distributed-tracing-builtin-activities.md).
 
-## Collect System.Net traces
+## Collecting System.Net traces
 
-There are several parts to using distributed tracing in a .NET app:
+At the [lowest level](../../../core/diagnostics/distributed-tracing-collection-walkthroughs#collect-traces-using-custom-logic), trace collection is supported via the <xref:System.Diagnostics.ActivitySource.AddActivityListener%2A> method that can be used register <xref:System.Diagnostics.ActivityListener> objects containing user-defined logic. 
 
-* **Instrumentation:** Code in .NET libraries create an `ActivitySource` with a name, and then creates `Activity` objects to track work performed. The Activity objects are only created if there are listeners to the ActivitySource.
-* **OpenTelemetry:** The OTel SDK listens to named ActivitySources and create spans to represent the work tracked by the Activity.
-* **Instrumentation Packages:** Work with the OTel SDK to add additional attributes to the Activity based on the work being performed, implementing the OTel semantic conventions  
-* **Exporters:** Integrate the OTel SDK with specific monitoring systems such as OTLP (an OTel standard wire format), Open Source monitoring solutions such as Jaeger or Zipkin, or commercial offerings such as Azure Monitor Application Insights.
+However, as an application developer, you would likely prefer to rely on the rich ecosystem built upon the features provided by the [OpenTelemetry .NET SDK](https://opentelemetry.io/docs/languages/net/) to collect, export and monitor traces.
+- To get a fundamental understanding on trace collection with OTel, see our guide on [Collecting traces using OpenTelemetry](../../../core/diagnostics/distributed-tracing-collection-walkthroughs#collect-traces-using-opentelemetry).
+- For **production-time** trace collection, export and monitoring, you can use OpenTelemetry with [Prometheus, Grafana, and Jaeger](../../../core/diagnostics/observability-prgrja-example.md) or [Azure Monitor and Application Insights](../../../core/diagnostics/observability-applicationinsights.md). However, these tools are quite complex, and may be inconvenient to use at development time.
+- For **development-time** trace collection we recommend to use [.NET Aspire](/dotnet/aspire/get-started/aspire-overview) which provides a simple, but extensible way to kickstart distributed tracing in your application and to diagnose issues locally.
 
-This section demonstrates various methods to collect and view System.Net traces.
-
-### .NET Aspire
+### Collecting traces with .NET Aspire
 
 The simplest solution for collecting traces for ASP.NET applications is to use [.NET Aspire](/dotnet/aspire/get-started/aspire-overview) which is a set of extensions to .NET to make it easy to create and work with distributed applications. One of the benefits of using .NET Aspire is that telemetry is built in, using the OpenTelemetry libraries for .NET. The default project templates for .NET Aspire contain a `ServiceDefaults` project, part of which is to setup and configure OTel. The Service Defaults project is referenced and initialized by each service in a .NET Aspire solution.
 
@@ -48,7 +51,7 @@ For more details on .NET Aspire see:
 
 ### Reusing Service Defaults project without .NET Aspire Orchestration
 
-Probably the easiest way to configure OTel for ASP.NET projects is to use the Aspire Service Defaults project, even if not using the rest of .NET Aspire such as the AppHost for orchestration. The Service Defaults project is available as a project template via Visual Studio or `dotnet new`. It configures OTel and sets up the OTLP exporter. You can then use the [OTel environment variables](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.OpenTelemetryProtocol#exporter-configuration) to configure the OTLP endpoint to send telemetry to, and provide the resource properties for the application.
+The Aspire Service Defaults project provides and easy way to to configure OTel for ASP.NET projects, *even if not using the rest of .NET Aspire* such as the AppHost for orchestration. It is available as a project template via Visual Studio or `dotnet new`. It configures OTel and sets up the OTLP exporter. You can then use the [OTel environment variables](https://github.com/open-telemetry/opentelemetry-dotnet/tree/c94c422e31b2a5181a97b2dcf4bdc984f37ac1ff/src/OpenTelemetry.Exporter.OpenTelemetryProtocol#exporter-configuration) to configure the OTLP endpoint to send telemetry to, and provide the resource properties for the application.
 
 The steps to use *ServiceDefaults* outside .NET Aspire are:
 
@@ -69,12 +72,9 @@ app.Run();
 
 For a full walkthrough, see [Example: Use OpenTelemetry with OTLP and the standalone Aspire Dashboard](../../../core/diagnostics/observability-otlp-example.md).
 
+## Experimental connection tracing
 
-### Collecting traces manually
-
-For a walkthrough of how to collect distributed traces, as well as metrics without using Aspire Service Defaults, see  [Example: Use OpenTelemetry with Prometheus, Grafana, and Jaeger](../../../core/diagnostics/observability-prgrja-example.md). 
-
-## Experimental connection spans in .NET 9
+>>> TODO: An intro describing why is connection tracing good. Explain the necessity of the separate connection spans. Potentially add a diagram.
 
 .NET 9 adds a handful of new spans for collecting detailed connection information:
 
@@ -151,6 +151,8 @@ When http requests are made with this instrumentation enabled, the HttpClient sp
 The http connection setup span is a separate span with its own TraceId as its lifetime is independent from each individual HttpClient request. Many HttpClient requests can be made over the same http connection, and if its already established and available (http 1.1 supports sequential requests over the same connection, http 2 & 3 enable parallel requests) then the request can reuse that connection. This span will have child spans for DNS lookup, TCP socket connecting and the TLS handshake as applicable.
 
 ## Extending Traces
+
+>>> TODO: Move this paragraph up. Reference it from other paragraphs.
 
 There are a couple of approaches that can be taken to augment the existing tracing functionality from System.Net.
 
