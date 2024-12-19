@@ -92,7 +92,7 @@ The ActivitySource Names start with `Experimental` as these spans are not yet in
 
 These spans are probably too verbose for use 24x7 in production scenarios with high workloads - they are somewhat noisy and this level of data is not normally needed. However if you are trying to diagnose connection issues or get a deeper understanding of how network and connection latency is affecting your services, then they provide insight that is hard to collect by other means. 
 
-When enabled, the http connection span is linked to from HttpClient request spans. As an http connection can be long lived, this could result in many links to the connection span from each of the request spans. Some APM monitoring tools aggresively walk links between spans to build up their views and so including this span may cause issues when the tools were not designed to account for large numbers of links.
+When the `Experimental.System.Net.Http.Connections` ActivitySource is enabled, *the `HTTP connection_setup` activity is linked from the `HTTP client request` activity*. As an http connection can be long lived, this could result in many links to the connection activity from each of the request activities. Some APM monitoring tools aggresively walk links between spans to build up their views and so including this span may cause issues when the tools were not designed to account for large numbers of links.
 
 ### Walkthrough: Using the experimental connection tracing in .NET 9
 
