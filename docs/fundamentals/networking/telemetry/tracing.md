@@ -117,11 +117,11 @@ Or in Visual Studio:
 
 ![Create a .NET Aspire 9 Starter App in Visual Studio](media/aspire-starter.png)
 
-2. Open `Extensions.cs` in the `ServiceDefaults` project, and edit the `ConfigureOpenTelemetry` method adding the ActivitySources for connection activities:
+2. Open `Extensions.cs` in the `ServiceDefaults` project, and edit the `ConfigureOpenTelemetry` method adding the ActivitySources for connection in the tracing configuration callback:
 
-:::code language="csharp" source="snippets/tracing/ConnectionTracingDemo.ServiceDefaults/Extensions.cs" id="snippet_ConnectionTracing" highlight="19-23":::
+:::code language="csharp" source="snippets/tracing/ConnectionTracingDemo.ServiceDefaults/Extensions.cs" id="snippet_ConnectionTracing":::
 
-3. Start the application. This should open the [.NET Aspire Dashboard](/dotnet/aspire/fundamentals/dashboard/overview).
+3. Start the solution. This should open the [.NET Aspire Dashboard](/dotnet/aspire/fundamentals/dashboard/overview).
 
 4. Navigate to the Weather page of the `webfrontend` app to generate an `HttpClient` request towards `apiservice`.
 

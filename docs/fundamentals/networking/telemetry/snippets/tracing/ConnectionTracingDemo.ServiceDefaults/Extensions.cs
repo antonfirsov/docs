@@ -41,7 +41,6 @@ public static class Extensions
         return builder;
     }
 
-    // <snippet_ConnectionTracing>
     public static TBuilder ConfigureOpenTelemetry<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
     {
         builder.Logging.AddOpenTelemetry(logging =>
@@ -51,12 +50,15 @@ public static class Extensions
         });
 
         builder.Services.AddOpenTelemetry()
+            // <snippet_Metrics>
             .WithMetrics(metrics =>
             {
                 metrics.AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
                     .AddRuntimeInstrumentation();
             })
+            // </snippet_Metrics>
+            // <snippet_ConnectionTracing>
             .WithTracing(tracing =>
             {
                 tracing.AddAspNetCoreInstrumentation()
@@ -66,12 +68,13 @@ public static class Extensions
                     // Add the experimental connection tracking ActivitySources using a wildcard.
                     .AddSource("Experimental.System.Net.*");
             });
+            // </snippet_ConnectionTracing>
 
         builder.AddOpenTelemetryExporters();
 
         return builder;
     }
-    // </snippet_ConnectionTracing>
+    
 
     private static TBuilder AddOpenTelemetryExporters<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
     {

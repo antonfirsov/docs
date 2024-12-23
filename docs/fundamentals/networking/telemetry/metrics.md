@@ -55,13 +55,49 @@ dotnet-counters monitor --counters System.Net.Http,System.Net.NameResolution -n 
 ```
 ### Collecting metrics with .NET Aspire
 
-The simplest solution for collecting metrics for ASP.NET applications is to use [.NET Aspire](/dotnet/aspire/get-started/aspire-overview) which is a set of extensions to .NET to make it easy to create and work with distributed applications. One of the benefits of using .NET Aspire is that telemetry is built in, using the OpenTelemetry libraries for .NET. The default project templates for .NET Aspire contain a `ServiceDefaults` project, part of which is to setup and configure OTel. The Service Defaults project is referenced and initialized by each service in a .NET Aspire solution.
+The simplest solution for collecting metrics for ASP.NET applications is to use [.NET Aspire](/dotnet/aspire/get-started/aspire-overview) which is a set of extensions to .NET to make it easy to create and work with distributed applications. One of the benefits of using .NET Aspire is that telemetry is built in, using the OpenTelemetry libraries for .NET.
+
+The default project templates for .NET Aspire contain a `ServiceDefaults` project, part of which is to setup and configure OTel. The Service Defaults project is referenced and initialized by each service in a .NET Aspire solution.
 
 The Service Defaults project template includes the OTel SDK, ASP.NET, HttpClient and Runtime Instrumentation packages, and those are configured in the [`Extensions.cs`](https://github.com/dotnet/aspire/blob/main/src/Aspire.ProjectTemplates/templates/aspire-servicedefaults/Extensions.cs) file.  For exporting telemetry .NET Aspire includes the OTLP exporter by default so that it can provide telemetry visualization using the Aspire Dashboard.
 
 The Aspire Dashboard is designed to bring telemetry observation to the local debug cycle, which enables developers to not only ensure that the applications are producing telemetry, but also use that telemetry to diagnose those applications locally. Being able to observe the calls between services is proving to be just as useful at debug time as in production. The .NET Aspire dashboard is launched automatically when you F5 the `AppHost` Project from Visual Studio or `dotnet run` the `AppHost` project.
 
-[![Aspire Dashboard](../../../core/diagnostics/media/aspire-dashboard-metrics-thumb.png)](../../../core/diagnostics/media/aspire-dashboard-metrics.png#lightbox)
+#### Quick walkthrough
+
+1. Create a **.NET Aspire 9 Starter App** by using `dotnet new`:
+
+```dotnetcli
+dotnet new aspire-starter-9 --output AspireDemo
+```
+
+Or in Visual Studio:
+
+![Create a .NET Aspire 9 Starter App in Visual Studio](media/aspire-starter.png)
+
+2. Open `Extensions.cs` in the `ServiceDefaults` project, and scroll to the `ConfigureOpenTelemetry` method. Notice the `AddHttpClientInstrumentation()` call subscribing to the networking meters.
+
+:::code language="csharp" source="snippets/tracing/ConnectionTracingDemo.ServiceDefaults/Extensions.cs" id="snippet_Metrics" highlight="3":::
+
+Note that on .NET 8+, `AddHttpClientInstrumentation()` can be replaced by manual meter subscription:
+
+```csharp
+.WithMetrics(metrics =>
+{
+    metrics.AddAspNetCoreInstrumentation()
+        .AddMeter("System.Net.Http")
+        .AddMeter("System.Net.NameResolution")
+        .AddRuntimeInstrumentation();
+})
+```
+
+3. Run the `AppHost` project. This should launch the Aspire Dashboard.
+
+4. Navigate to the Weather page of the `webfrontend` app to generate an `HttpClient` request towards `apiservice`. Refresh the page several times to send multiple requests.
+
+5. Return to the Dashboard, navigate to the **Metrics** page and select the `webfrontend` resource. Srolling down, you should be able to browse the built-in `System.Net` metrics.
+
+[![Networking metrics in Aspire Dashboard](media/aspire-metrics-thumb.png)](media/aspire-metrics.png#lightbox)
 
 For more details on .NET Aspire see:
 
